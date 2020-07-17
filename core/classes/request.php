@@ -61,7 +61,7 @@
 		}
 
 		public function setRequestedData($data){
-			$this->request = $data;
+			$this->request = fx_trim($data);
 			return $this;
 		}
 

@@ -1,5 +1,4 @@
 <?php
-
 	/*
 		use Core\Classes\Form\Interfaces\Checkers;
 		use Core\Classes\Form\Interfaces\Multiple;
@@ -14,6 +13,7 @@
 		;
 
 		$new_form->name('img_field')
+			->jevix()
 			->id('field_name_id')
 			->label('field_name_label')
 			->placeholder('field_name_placeholder')
@@ -33,6 +33,7 @@
 				$validator->min(2);
 			});
 		$new_form->name('imgages')
+			->jevix()
 			->id('field_name_id')
 			->label('field_name_label')
 			->placeholder('field_name_placeholder')
@@ -67,6 +68,7 @@
 				->setData(Request::getInstance()->getArray('test'));
 			$validator
 				->name('img_field')
+				->jevix()
 				->class('class')
 				->title('title')
 				->id('id')
@@ -99,6 +101,7 @@
 
 	namespace Core\Classes\Form;
 
+	use Core\Classes\Jevix;
 	use Core\Classes\Config;
 	use Core\Classes\Form\Interfaces\Checkers;
 	use Core\Classes\Form\Interfaces\Validator as ValidatorInterface;
@@ -593,7 +596,7 @@
 			return $this;
 		}
 		protected function preg_match($pattern,$subject,&$matches,$flags=0,$offset=0){
-			if(is_array($this->value)){
+			if(!is_string($this->value)){
 				return $this->setError(fx_lang('fields.error_field_not_string', array(
 						'FIELD'	=> $this->field,
 					)
@@ -603,7 +606,35 @@
 			return $matches;
 		}
 
+		public function dont_prepare(){
+			return $this;
+		}
 
+		public function prepare(callable $callback_function){
+			$this->value = call_user_func(array($callback_function,$this->value));
+			$this->setAttribute('value',$this->value);
+			return $this;
+		}
+
+		public function jevix(){
+			$jevix = new Jevix($this->value);
+			$this->value = $jevix->start()
+				->result();
+			$this->setAttribute('value',$this->value);
+			return $this;
+		}
+
+		public function htmlentities($quote_style=null,$charset=null,$double_encode=true){
+			$this->value = fx_htmlentities($this->value,$quote_style,$charset,$double_encode);
+			$this->setAttribute('value',$this->value);
+			return $this;
+		}
+
+		public function htmlspecialchars($flags=ENT_COMPAT,$encoding="UTF-8",$double_encode=true){
+			$this->value = fx_htmlspecialchars($this->value,$flags,$encoding,$double_encode);
+			$this->setAttribute('value',$this->value);
+			return $this;
+		}
 
 
 

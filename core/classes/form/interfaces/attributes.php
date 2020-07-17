@@ -57,18 +57,13 @@
 		 * @return Checkers
 		 */
 		public function check($callback_function=null);
+
 		/**
 		 * @param $attribute_key
 		 * @param $attribute_value
 		 * @return Attributes
 		 */
 		public function setAttribute($attribute_key,$attribute_value);
-
-		/**
-		 * @param $value
-		 * @return Attributes
-		 */
-		public function value($value);
 
 		/**
 		 * @param callable $callable_callback_function

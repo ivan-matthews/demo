@@ -124,3 +124,64 @@
 		}
 		return eval('return isset($haystack'.$search_keys_string.')?$haystack'.$search_keys_string.':array();');
 	}
+
+	function fx_htmlentities($string,$quote_style=null,$charset=null,$double_encode=true){
+		$returned_data = array();
+		if(is_array($string)){
+			foreach($string as $key=>$value){
+				if(is_array($value)){
+					$returned_data[$key] = fx_htmlentities($value,$quote_style,$charset,$double_encode);
+				}else{
+					$returned_data[$key] = htmlentities($value,$quote_style,$charset,$double_encode);
+				}
+			}
+		}else{
+			$returned_data = htmlentities($string,$quote_style,$charset,$double_encode);
+		}
+		return $returned_data;
+	}
+
+	function fx_htmlspecialchars($string,$flags=ENT_COMPAT,$encoding="UTF-8",$double_encode=true){
+		$returned_data = array();
+		if(is_array($string)){
+			foreach($string as $key=>$value){
+				if(is_array($value)){
+					$returned_data[$key] = fx_htmlspecialchars($value,$flags,$encoding,$double_encode);
+				}else{
+					$returned_data[$key] = htmlspecialchars($value,$flags,$encoding,$double_encode);
+				}
+			}
+		}else{
+			$returned_data = htmlspecialchars($string,$flags,$encoding,$double_encode);
+		}
+		return $returned_data;
+	}
+
+	function fx_trim($str,$charlist=" \t\n\r\0\x0B"){
+		$returned_data = array();
+		if(is_array($str)){
+			foreach($str as $key=>$value){
+				if(is_array($value)){
+					$returned_data[$key] = fx_trim($value,$charlist);
+				}else{
+					$returned_data[$key] = trim($value,$charlist);
+				}
+			}
+		}else{
+			$returned_data = trim($str,$charlist);
+		}
+		return $returned_data;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+

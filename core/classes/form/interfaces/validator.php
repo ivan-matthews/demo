@@ -59,7 +59,7 @@
 
 		/**
 		 * @param $field
-		 * @return Attributes
+		 * @return Preparing | Value
 		 */
 		public function name($field);
 
@@ -69,9 +69,4 @@
 		 * @return Validator
 		 */
 		public function getAttribute($field_name,$attribute_key='value');
-//
-//		/**
-//		 * @return Validator
-//		 */
-//		public function getPreparedFiles();
 	}

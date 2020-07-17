@@ -51,7 +51,9 @@
 	$view->start();
 
 
+
 	fx_die(array(
+		phpversion(),
 		'memor'=>fx_prepare_memory(memory_get_usage(),4,',',' '),
 		'times'=>number_format(microtime(true)-TIME,10),
 	));
