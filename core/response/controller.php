@@ -2,6 +2,8 @@
 
 	namespace Core\Response;
 
+	use Core\Classes\Response;
+
 	class Controller{
 
 		private $default_params = array(
@@ -11,7 +13,7 @@
 		private $controller;
 		private $response;
 
-		public function __construct($response,$controller){
+		public function __construct(Response $response,$controller){
 			$this->response = $response;
 			$this->controller = $controller;
 			$this->response->response_data['response_data']['controller'][$this->controller] = $this->default_params;

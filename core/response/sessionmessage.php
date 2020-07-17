@@ -2,6 +2,8 @@
 
 	namespace Core\Response;
 
+	use Core\Classes\Response;
+
 	class SessionMessage{
 
 		private $default_params = array(
@@ -17,7 +19,7 @@
 		private $response;
 		private $time;
 
-		public function __construct($response,$session_message){
+		public function __construct(Response $response,$session_message){
 			$this->response = $response;
 			$this->session_message = $session_message;
 			$this->time = time();

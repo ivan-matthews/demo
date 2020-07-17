@@ -11,7 +11,7 @@
 
 		private static $instance;
 
-		protected $files=array();
+		private $files=array();
 
 		private $cache;
 		private $cache_path;

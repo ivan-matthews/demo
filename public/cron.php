@@ -18,9 +18,8 @@
 	$request->setRequestedData(fx_get_request());
 	$request->setRequestMethod(fx_get_server('REQUEST_METHOD'));
 
-	$request = $request->getAll();
-
-	if(fx_equal($config->cron['validation_key'],$request['key'])
-		&& fx_equal($config->cron['validation_token_key'],$request['token'])){
-		Console::run('cron','run');
+	if(fx_equal($config->cron['validation_key'],$request->get('key'))
+		&& fx_equal($config->cron['validation_token_key'],$request->get('token'))){
+		return Console::run('cron','run');
 	}
+	print 'Some problem...';

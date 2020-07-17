@@ -2,6 +2,8 @@
 
 	namespace Core\Response;
 
+	use Core\Classes\Response;
+
 	class Meta{
 
 		private $default_params = array(
@@ -11,7 +13,7 @@
 		private $response;
 		private $meta;
 
-		public function __construct($response,$meta){
+		public function __construct(Response $response,$meta){
 			$this->response = $response;
 			$this->meta = $meta;
 			$this->response->response_data['response_data']['meta'][$this->meta] = $this->default_params;

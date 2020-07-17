@@ -13,7 +13,7 @@
 
 		private static $instance;
 
-		protected $session=array();
+		private $session=array();
 
 		protected $session_dir;
 		protected $session_id;
@@ -75,6 +75,10 @@
 				unset($_SESSION[$key]);
 			}
 			return true;
+		}
+
+		public function update($key,$value,$prefix=null){
+			return $this->set($key,$value,$prefix);
 		}
 
 		public function set($key,$value,$prefix=null){
@@ -142,7 +146,6 @@
 			}
 			return $this;
 		}
-
 
 
 

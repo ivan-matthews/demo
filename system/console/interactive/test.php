@@ -1,7 +1,7 @@
 <?php
 
 	#CMD: interactive test [someone_variable = test]
-	#DSC: real-time test console interactive mode
+	#DSC: cli.test_interactive_shell
 	#EXM: interactive test controller
 
 	namespace System\Console\Interactive;

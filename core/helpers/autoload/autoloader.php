@@ -1,9 +1,38 @@
 <?php
 
-	function fx_classes_loader($class){
-		$class_name = str_replace("\\",DIRECTORY_SEPARATOR,$class);
-		$class_name = strtolower($class_name);
-		return fx_load_helper($class_name);
+	class autoLoader{
+
+		/** @var array */
+		private static $aliases_list;
+
+		public static function getAliasesLis(){
+			if(self::$aliases_list === null){
+				self::$aliases_list = fx_load_helper('system/assets/classes_aliases');
+			}
+			return self::$aliases_list;
+		}
+
+		public static function autoload($class){
+			if(!self::searchClassInAliasesList($class)){
+				return self::parseClassName($class);
+			}
+			return false;
+		}
+
+		private static function parseClassName($class){
+			$class_name = str_replace("\\",DIRECTORY_SEPARATOR,$class);
+			$class_name = strtolower($class_name);
+			return fx_load_helper($class_name);
+		}
+
+		private static function searchClassInAliasesList($class){
+			$aliases_lib = self::getAliasesLis();
+			if(isset($aliases_lib[$class])){
+				 return fx_load_helper($aliases_lib[$class]);
+			}
+			return null;
+		}
+
 	}
 
 	function fx_load_helpers($helpers_dir="core/helpers", $import_type=3){

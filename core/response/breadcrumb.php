@@ -2,6 +2,8 @@
 
 	namespace Core\Response;
 
+	use Core\Classes\Response;
+
 	class BreadCrumb{
 
 		private $default_params = array(
@@ -13,7 +15,7 @@
 		private $response;
 		private $breadcrumb;
 
-		public function __construct($response,$breadcrumb){
+		public function __construct(Response $response,$breadcrumb){
 			$this->response = $response;
 			$this->breadcrumb = $breadcrumb;
 			$this->response->response_data['response_data']['breadcrumb'][$this->breadcrumb] = $this->default_params;

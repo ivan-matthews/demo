@@ -1,7 +1,7 @@
 <?php
 
 	#CMD: cron run [...IDs_list_from_db = false]
-	#DSC: single run cron tasks command
+	#DSC: cli.run_cron_tasks_with_ids
 	#EXM: cron run 1 2 5 6 99 101 33
 
 	namespace System\Console\Cron;

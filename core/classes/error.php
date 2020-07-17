@@ -29,7 +29,7 @@
 		private $error_msg;
 		private $error_code_string;
 
-		protected $error=array();
+		private $error=array();
 		private $config;
 		private $response;
 		private $debug_enabled;

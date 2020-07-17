@@ -20,7 +20,7 @@
 		public function allAsArray();
 
 		/**
-		 * @return object
+		 * @return array
 		 */
 		public function allAsObject();
 
@@ -30,7 +30,7 @@
 		public function itemAsArray();
 
 		/**
-		 * @return array
+		 * @return object
 		 */
 		public function itemAsObject();
 

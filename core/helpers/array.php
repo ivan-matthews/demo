@@ -73,34 +73,49 @@
 	}
 
 	/*
-		 $input_array = array(
-			'a'=>array(
-				'b'=>array(
-					'c'=>array(
-						'd'=>array(
-							'e'=>array(
-								'f'=>array(
-									'ok'
-								)
-							)
-						)
-					)
-				)
-			)
+		$input_data = array(
+			'some_one'=>'some_body',
+			'some_shit'=>'some_fuck'
 		);
-		fx_pre(
-			fx_search_keys_in_array($input_array,'a','b','c','d','e','f','0'),
-			fx_search_keys_in_array($input_array,'a','b','c','d','e','f'),
-			fx_search_keys_in_array($input_array,'a','b','c','d','e','f','i'),
-			fx_search_keys_in_array($input_array)
-		);
+
+		unset($_SESSION['var_0'], $_SESSION['var_1'], $_SESSION['var_2'], $_SESSION['var_3']);
+
+		$_SESSION['var_0'] = fx_set_multilevel_array($input_data,0,1,2,3,4,5,6,7,8,9);
+		$_SESSION['var_1'] = fx_set_multilevel_array($input_data,'d','e','f','g','h','j','k','l');
+		$_SESSION['var_1'] = fx_set_multilevel_array($input_data,'d','e','f','g','h','j','k','o');
+		$_SESSION['var_1'] = fx_set_multilevel_array($input_data,'d','e','f','g','h','j','k','p');
+
+		fx_die($_SESSION);
 	 */
-	function fx_search_keys_in_array($array,...$keys){
+	function fx_set_multilevel_array($data_to_set,...$keys){
+		$output_array = array();
 		$search_keys_string = '';
 		if($keys){
 			foreach($keys as $key){
 				$search_keys_string .= "['{$key}']";
 			}
 		}
-		return eval('return isset($array'.$search_keys_string.')?$array'.$search_keys_string.':array();');
+		eval('return $output_array'.$search_keys_string.' = $data_to_set;');
+		return $output_array;
+	}
+	/*
+		$input_data = array(
+			'some_one'=>'some_body',
+			'some_shit'=>'some_fuck'
+		);
+		$ara0 = fx_set_multilevel_array($input_data,'d','e','f','g','h','j','k','p');
+
+		fx_die(
+			fx_get_multilevel_array($ara0,'d','e','f','g','h','j','k'),
+			$ara0['d']['e']['f']['g']['h']['j']['k']
+		);
+	*/
+	function fx_get_multilevel_array(array $haystack,...$keys){
+		$search_keys_string = '';
+		if($keys){
+			foreach($keys as $key){
+				$search_keys_string .= "['{$key}']";
+			}
+		}
+		return eval('return isset($haystack'.$search_keys_string.')?$haystack'.$search_keys_string.':array();');
 	}

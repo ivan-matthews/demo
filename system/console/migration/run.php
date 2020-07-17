@@ -1,7 +1,7 @@
 <?php
 
 	#CMD: migration run
-	#DSC: migration all migrations files to db
+	#DSC: cli.run_migrations
 	#EXM: migration run
 
 	namespace System\Console\Migration;

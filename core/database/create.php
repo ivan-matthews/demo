@@ -21,11 +21,13 @@
 
 	use Core\Classes\Config;
 	use Core\Classes\Database;
+	use Core\Database\Connect\MySQLi;
 	use Core\Database\Interfaces\Create\Create as CreateInterface;
 
 	class Create implements CreateInterface{
 
 		private $database;
+		/** @var MySQLi */
 		private $database_object;
 		protected $config;
 		protected $db_driver;
@@ -44,9 +46,14 @@
 			$this->config = Config::getInstance();
 			$this->db_driver = $this->database->getDbDriver();
 			$this->engine['table_engine'] = $this->config->database[$this->db_driver]['engine'];
-			$this->database_object = $this->database->getDbObject();
 			$this->table = $table;
 		}
+
+		private function connect(){
+			$this->database_object = $this->database->getDbObject();
+			return $this;
+		}
+
 		protected function removeProps(){
 			$this->table=null;
 			$this->field=null;
@@ -56,6 +63,7 @@
 		}
 
 		public function exec(){
+			$this->connect();
 			$result = $this->database_object->makeTable(
 				$this->table,
 				$this->fields,
@@ -63,7 +71,7 @@
 				$this->defaults,
 				$this->engine
 			);
-			$this->removeProps();
+//			$this->removeProps();
 			return $result;
 		}
 		public function engine($engine){

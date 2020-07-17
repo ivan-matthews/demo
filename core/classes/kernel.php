@@ -19,7 +19,7 @@
 
 		private static $instance;
 
-		protected $kernel=array();
+		private $kernel=array();
 
 		private $user;
 
@@ -31,7 +31,7 @@
 
 		protected $controller;
 		protected $action;
-		protected $params;
+		protected $params = array();
 		protected $request_method;
 
 		protected $controller_namespace;

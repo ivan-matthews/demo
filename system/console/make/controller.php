@@ -1,7 +1,7 @@
 <?php
 
 	#CMD: make controller [controller_name], [...actions]
-	#DSC: create new controller files
+	#DSC: cli.new_controller_with_acts
 	#EXM: make controller users friends guests
 
 	namespace System\Console\Make;

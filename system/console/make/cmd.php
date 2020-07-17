@@ -1,7 +1,7 @@
 <?php
 
 	#CMD: make cmd [cmd_folder], [cmd_file], [...cmd_arguments]
-	#DSC: create console command file class
+	#DSC: cli.new_cli_command_class_file
 	#EXM: make cmd server run host port
 
 	namespace System\Console\Make;

@@ -41,11 +41,13 @@
 	namespace Core\Database;
 
 	use Core\Classes\Database;
+	use Core\Database\Connect\MySQLi;
 	use Core\Database\Interfaces\Insert\Insert as InsertInterface;
 
 	class Insert implements InsertInterface{
 
 		private $database;
+		/** @var MySQLi */
 		private $database_object;
 
 		protected $insert;
@@ -57,11 +59,16 @@
 		protected $update_nested_query;
 		protected $preparing_data;
 
+		/** @var  object */
 		protected $result;
 
 		public function __construct(Database $database){
 			$this->database = $database;
+		}
+
+		private function connect(){
 			$this->database_object = $this->database->getDbObject();
+			return $this;
 		}
 
 		public function setTable($table){
@@ -95,6 +102,7 @@
 		}
 
 		public function exec(){
+			$this->connect();
 			$this->result = $this->database_object
 				->insert(
 					$this->table,
@@ -104,7 +112,7 @@
 					$this->update_nested_query,
 					$this->preparing_data
 				);
-			$this->removeProps();
+//			$this->removeProps();
 			return $this->result;
 		}
 

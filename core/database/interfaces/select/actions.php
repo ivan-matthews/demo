@@ -32,10 +32,16 @@
 		public function data($key,$value);
 
 		/**
-		 * @param int $limit
-		 * @return Offset
+		 * @param int $offset
+		 * @return Actions
 		 */
-		public function limit($limit=1);
+		public function limit($offset=1);
+
+		/**
+		 * @param int $limit
+		 * @return Actions
+		 */
+		public function offset($limit=0);
 
 		/**
 		 * @param array ...$order
@@ -53,4 +59,9 @@
 		 * @return Result
 		 */
 		public function get();
+
+//		/**
+//		 * @return string
+//		 */
+//		public function sql();
 	}

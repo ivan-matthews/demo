@@ -1,7 +1,7 @@
 <?php
 
 	#CMD: make db_alter [table_name], [table_description]
-	#DSC: create new migrations alter table class
+	#DSC: cli.alter_migration_table
 	#EXM: make db_alter users add_field_id
 
 	namespace System\Console\Make;

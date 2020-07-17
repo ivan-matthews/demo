@@ -35,6 +35,12 @@
 		public function limit($limit=1);
 
 		/**
+		 * @param int $offset
+		 * @return Delete
+		 */
+		public function offset($offset=0);
+
+		/**
 		 * @param array ...$order
 		 * @return Delete
 		 */

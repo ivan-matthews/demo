@@ -2,6 +2,8 @@
 
 	namespace Core\Response;
 
+	use Core\Classes\Response;
+
 	class Debug{
 
 		private $default_params = array(
@@ -22,7 +24,7 @@
 
 		private $back_trace_key;
 
-		public function __construct($response,$debug_key,$back_trace_key){
+		public function __construct(Response $response,$debug_key,$back_trace_key){
 			$this->response = $response;
 			$this->debug_key = $debug_key;
 			$this->back_trace_key = $this->index($back_trace_key);
@@ -111,8 +113,10 @@
 				(isset($this->response->response_data['debug'][$this->debug_key])
 					? $this->response->response_data['debug'][$this->debug_key]
 					: array());
-			$end = array_keys($this->response->response_data['debug'][$this->debug_key]);
-			return !$end?0:max($end)+1;
+			$keys = array_keys($this->response->response_data['debug'][$this->debug_key]);
+			$last_key = end($keys);
+			$last_key++;
+			return $last_key;
 		}
 
 

@@ -2,11 +2,13 @@
 
 	namespace Core\Response;
 
+	use Core\Classes\Response;
+
 	class Title{
 
 		private $response;
 
-		public function __construct($response){
+		public function __construct(Response $response){
 			$this->response = $response;
 		}
 

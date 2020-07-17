@@ -1,7 +1,7 @@
 <?php
 
 	#CMD: make db_table [table_name]
-	#DSC: create new migrations table class
+	#DSC: cli.create_migration_table
 	#EXM: make db_table users
 
 	namespace System\Console\Make;

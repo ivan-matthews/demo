@@ -8,6 +8,8 @@
 
 		protected $response;
 		protected $request;
+		protected $user;
+
 		private $controller;
 
 		public static function getInstance(){
@@ -32,13 +34,17 @@
 		public function __construct(){
 			$this->response = Response::getInstance();
 			$this->request = Request::getInstance();
+			$this->user = User::getInstance();
 		}
 
 		public function __destruct(){
 
 		}
 
-		protected function redirect($link_to_redirect='/',$status_code=302){
+		protected function redirect($link_to_redirect=null,$status_code=302){
+			if(!$link_to_redirect){
+				$link_to_redirect = $this->user->getBackUrl();
+			}
 			$link_to_redirect = trim($link_to_redirect,' /');
 			$this->response->setResponseCode($status_code)
 				->setHeader('Location',"/{$link_to_redirect}");

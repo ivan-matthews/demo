@@ -1,7 +1,7 @@
 <?php
 
 	#CMD: make db_insert [some_name]
-	#DSC: create new insert item class
+	#DSC: cli.new_insert_item_class
 	#EXM: make db_insert add_user_item
 
 	namespace System\Console\Make;

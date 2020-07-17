@@ -6,10 +6,12 @@
 
 		private static $instance;
 
-		protected $user=array();
+		private $user=array();
 
 		private $groups;
 		private $default_unauthorized_key = array(0);
+
+		/** @var boolean */
 		private $unauthorized;
 
 		private $cookies;
@@ -42,7 +44,7 @@
 		}
 
 		public function __destruct(){
-
+			$this->setBackUrl();
 		}
 
 		public function getGroups(){
@@ -59,6 +61,7 @@
 		}
 
 		private function setLoggedGroups($user_groups){
+			$this->unauthorized = null;
 			$this->groups = array_combine(array_values($user_groups),array_values($user_groups));
 			return $this->groups;
 		}
@@ -98,6 +101,27 @@
 				$this->cookies->setCookie(Session::TOKEN_SESSION_KEY,$cookie,$this->config->session['session_time']);
 			}
 			return $this;
+		}
+
+		public function setBackUrl(){
+			$back_url = '/';
+			$response = Response::getInstance();
+			if(fx_equal($response->getResponseCode(),200)){
+				$kernel = Kernel::getInstance();
+				$back_url = fx_get_url(
+					$kernel->getCurrentController(),
+					$kernel->getCurrentAction(),
+					...$kernel->getCurrentParams());
+				$this->session->set('link_to_redirect',$back_url,Session::PREFIX_CONF);
+			}
+			return $back_url;
+		}
+
+		public function getBackUrl(){
+			if(($back_url = $this->session->get('link_to_redirect',Session::PREFIX_CONF))){
+				return $back_url;
+			}
+			return $this->setBackUrl();
 		}
 
 

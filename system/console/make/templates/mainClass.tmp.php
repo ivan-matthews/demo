@@ -6,7 +6,7 @@
 
 		private static $instance;
 
-		protected $__property__=array();
+		private $__property__=array();
 
 		public static function getInstance(){
 			if(self::$instance === null){

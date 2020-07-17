@@ -2,6 +2,8 @@
 
 	namespace Core\Response;
 
+	use Core\Classes\Response;
+
 	class Widget{
 
 		private $default_params = array(
@@ -11,7 +13,7 @@
 		private $widget;
 		private $response;
 
-		public function __construct($response,$widget){
+		public function __construct(Response $response,$widget){
 			$this->response = $response;
 			$this->widget = $widget;
 			$this->response->response_data['response_data']['widget'][$this->widget] = $this->default_params;

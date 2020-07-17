@@ -14,11 +14,13 @@
 	namespace Core\Database;
 
 	use Core\Classes\Database;
+	use Core\Database\Connect\MySQLi;
 	use Core\Database\Interfaces\Delete\Delete as DeleteInterface;
 
 	class Delete implements DeleteInterface{
 
 		private $database;
+		/** @var MySQLi */
 		private $database_object;
 
 		protected $delete;
@@ -34,11 +36,16 @@
 		protected $group_by;
 		protected $preparing_data=array();
 
+		/** @var  object */
 		private $result;
 
 		public function __construct(Database $database){
 			$this->database = $database;
+		}
+
+		private function connect(){
 			$this->database_object = $this->database->getDbObject();
+			return $this;
 		}
 
 		public function setTable($table){
@@ -87,6 +94,7 @@
 		}
 
 		public function exec(){
+			$this->connect();
 			$this->result = $this->database_object->delete(
 				$this->table,
 				$this->where,
@@ -99,7 +107,7 @@
 				$this->preparing_data
 			);
 
-			$this->removeProps();
+//			$this->removeProps();
 			return $this->result;
 		}
 

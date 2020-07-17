@@ -1,7 +1,7 @@
 <?php
 
 	return array(
-		0	=> array(
+		array(
 			'url'			=> '@[id]',
 			'controller'	=> 'home',
 			'action'		=> 'item',

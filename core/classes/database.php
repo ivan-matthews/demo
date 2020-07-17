@@ -28,6 +28,7 @@
 
 		private $config;
 		private $database_driver;
+		/** @var  \Core\Database\Connect\MySQLi */
 		private $database_object;
 
 		private $charset;
@@ -107,6 +108,7 @@
 		 * @return \Core\Database\Interfaces\Select\Select
 		 */
 		public static function select(...$fields){
+			if(!$fields){ $fields = '*'; }
 			$obj = new Select(self::getInstance());
 			$obj->setFields($fields);
 			return $obj;

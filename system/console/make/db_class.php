@@ -1,7 +1,7 @@
 <?php
 
 	#CMD: make db_class [database]
-	#DSC: create new connection database class (MySQL,PgSQL,JDB,PDO,Mongo, etc...)
+	#DSC: cli.new_db_connection_class
 	#EXM: make db_class PgSQL
 
 	namespace System\Console\Make;

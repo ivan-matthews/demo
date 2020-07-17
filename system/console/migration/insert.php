@@ -1,7 +1,7 @@
 <?php
 
 	#CMD: migration insert 
-	#DSC: insert data to database
+	#DSC: cli.insert_data_to_db
 	#EXM: migration insert 
 
 	namespace System\Console\Migration;

@@ -37,12 +37,11 @@
 	}
 
 	function fx_load_array($helpers_dir,$import_type=2){
-		$dir_path = fx_path($helpers_dir);
 		$final_result = array();
-		foreach(scandir($dir_path) as $file){
-			if($file == '.' || $file == '..' || is_dir("{$dir_path}/{$file}")){ continue; }
+		foreach(scandir($helpers_dir) as $file){
+			if($file == '.' || $file == '..' || is_dir("{$helpers_dir}/{$file}")){ continue; }
 			$array_key = pathinfo($file,PATHINFO_FILENAME);
-			$final_result[$array_key] = fx_import_file("{$dir_path}/{$file}",$import_type);
+			$final_result[$array_key] = fx_import_file("{$helpers_dir}/{$file}",$import_type);
 		}
 		return $final_result;
 	}

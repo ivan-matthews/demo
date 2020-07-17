@@ -40,6 +40,7 @@
 			parent::__construct();
 			$this->cache = $this->cache->key("home.index");
 //			$this->cache = $this->cache->index(2);
+			$this->cache = $this->cache->ttl(60);
 		}
 
 		public function __destruct(){
@@ -47,6 +48,14 @@
 		}
 
 		public function indexModel($data=array('asasa'=>'asa')){
+			$cache = $this->cache->get();
+			if(!$cache){
+				return $this->cache->set($data);
+			}
+			return $cache;
+		}
+
+		public function secondModel($data=array('asasa'=>'asa')){
 			$cache = $this->cache->get();
 			if(!$cache){
 				return $this->cache->set($data);

@@ -31,11 +31,13 @@
 
 	use Core\Classes\Config;
 	use Core\Classes\Database;
+	use Core\Database\Connect\MySQLi;
 	use Core\Database\Interfaces\Alter\Alter as AlterInterface;
 
 	class Alter implements AlterInterface{
 
 		private $database;
+		/** @var MySQLi */
 		private $database_object;
 		protected $config;
 		protected $engine;
@@ -52,8 +54,12 @@
 			$this->config = Config::getInstance();
 			$this->db_driver = $this->database->getDbDriver();
 			$this->engine = $this->config->database[$this->db_driver]['engine'];
-			$this->database_object = $this->database->getDbObject();
 			$this->table = $table;
+		}
+
+		private function connect(){
+			$this->database_object = $this->database->getDbObject();
+			return $this;
 		}
 
 		protected function removeProps(){
@@ -63,11 +69,12 @@
 		}
 
 		public function exec(){
+			$this->connect();
 			$result = $this->database_object->alterTable(
 				$this->table,
 				$this->fields
 			);
-			$this->removeProps();
+//			$this->removeProps();
 			return $result;
 		}
 		public function field($field){

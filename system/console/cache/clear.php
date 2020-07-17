@@ -1,7 +1,7 @@
 <?php
 
 	#CMD: cache clear 
-	#DSC: remove all cache files
+	#DSC: cli.remove_cache
 	#EXM: cache clear 
 
 	namespace System\Console\Cache;

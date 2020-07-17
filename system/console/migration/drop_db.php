@@ -1,7 +1,7 @@
 <?php
 
 	#CMD: migration drop_db [database_name]
-	#DSC: remove database from databases list
+	#DSC: cli.remove_database
 	#EXM: migration drop_db test_db
 
 	namespace System\Console\Migration;

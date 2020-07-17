@@ -1,7 +1,7 @@
 <?php
 
 	#CMD: make cron_task [controller, file]
-	#DSC: make cron task file class and DB item
+	#DSC: cli.new_cron_task
 	#EXM: make cron_task users check_some_params
 
 	namespace System\Console\Make;

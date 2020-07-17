@@ -6,6 +6,8 @@
 
 		private static $instance;
 
+		protected $findings_links;
+
 		protected $router;
 		protected $request;
 
@@ -18,7 +20,7 @@
 
 		protected $controller;
 		protected $action;
-		protected $params;
+		protected $params=array();
 
 		private $find_route;
 		private $config;
@@ -164,7 +166,38 @@
 			return $this->request;
 		}
 
+		public function searchURLInRoutesList($controller,$action,...$params){
+			if(($finding_link = $this->checkInFindingList($controller,$action,...$params))){
+				return $finding_link;
+			}
+			foreach($this->routes_list as $value){
+				if(!fx_status($value['status'],Kernel::STATUS_ACTIVE)){ continue; }
+				if(!fx_equal($value['controller'],$controller)){ continue; }
+				if(!fx_equal($value['action'],$action)){ continue; }
 
+				preg_match_all("#\[(.*?)\]#{$value['modifier']}",$value['url'],$result_matches);
+				if(isset($result_matches[0]) && fx_equal(count($params),count($result_matches[0]))){
+					$final_url = str_replace($result_matches[0],$params,$value['url']);
+					$this->setFindingLink($final_url,$controller,$action,...$params);
+					return $final_url;
+				}
+			}
+			return null;
+		}
+
+		private function setFindingLink($url,...$params){
+			$link_hash = implode('.',$params);
+			$this->findings_links[$link_hash] = $url;
+			return $this;
+		}
+
+		private function checkInFindingList(...$params){
+			$link_hash = implode('.',$params);
+			if(isset($this->findings_links[$link_hash])){
+				return $this->findings_links[$link_hash];
+			}
+			return false;
+		}
 
 
 

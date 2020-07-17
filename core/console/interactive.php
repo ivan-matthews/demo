@@ -14,7 +14,7 @@
 		private $error_prefix;
 		private $callback;
 
-		protected $interactive=array();
+		private $interactive=array();
 
 		public static function getInstance(){
 			if(self::$instance === null){

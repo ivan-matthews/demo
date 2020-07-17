@@ -8,13 +8,14 @@
 
 		private static $instance;
 
-		protected $cache=array();
+		private $cache=array();
 
 		private $config;
 		private $cache_enabled;
 		private $cache_driver;
 		private $cache_ttl;
 
+		/** @var Files */
 		private $driver_object;
 
 		public $cache_hash;
@@ -60,6 +61,11 @@
 
 		public function index(int $index=2){
 			$this->cache_hash_index = $index;
+			return $this;
+		}
+
+		public function ttl($added_time){
+			$this->driver_object->setCacheTTL($added_time);
 			return $this;
 		}
 

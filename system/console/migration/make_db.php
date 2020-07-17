@@ -1,7 +1,7 @@
 <?php
 
 	#CMD: migration make_db [database_name]
-	#DSC: create database in databases list
+	#DSC: cli.make_new_database
 	#EXM: migration make_db test_db
 
 	namespace System\Console\Migration;

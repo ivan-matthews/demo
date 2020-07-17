@@ -25,7 +25,6 @@
 		$access->disablePages($disabled);
 
 		fx_pre(array(
-			'my'	=> $user->getGroups(),
 			'ag'	=> $access->granted(),
 			'ad'	=> $access->denied()
 		));
@@ -48,6 +47,8 @@
 		private $action;
 		private $params;
 
+		private $user_groups;
+
 		private $user;
 		private $kernel;
 
@@ -55,6 +56,7 @@
 			$this->user = User::getInstance();
 			$this->kernel = Kernel::getInstance();
 
+			$this->user_groups = $this->user->getGroups();
 			$this->controller = $this->kernel->getCurrentController();
 			$this->action = $this->kernel->getCurrentAction();
 			$this->params = $this->kernel->getCurrentParams();
@@ -126,9 +128,8 @@
 
 		private function checkEnabledGroups(){
 			$this->access = false;
-			$user_groups = $this->user->getGroups();
 			foreach($this->enabled_groups as $group){
-				if(isset($user_groups[$group])){
+				if(isset($this->user_groups[$group])){
 					$this->access = true;
 					break;
 				}
@@ -137,9 +138,8 @@
 		}
 
 		private function checkDisabledGroups(){
-			$user_groups = $this->user->getGroups();
 			foreach($this->disabled_groups as $group){
-				if(isset($user_groups[$group])){
+				if(isset($this->user_groups[$group])){
 					$this->access = false;
 					break;
 				}

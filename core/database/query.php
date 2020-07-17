@@ -18,22 +18,29 @@
 	namespace Core\Database;
 
 	use Core\Classes\Database;
+	use Core\Database\Connect\MySQLi;
 	use Core\Database\Interfaces\Query\Query as QueryInterface;
 
 	class Query implements QueryInterface{
 
 		private $database;
+		/** @var MySQLi */
 		private $database_object;
 
 		protected $query;
 		protected $query_string;
 		protected $preparing_data;
 
+		/** @var  object */
 		protected $result;
 
 		public function __construct(Database $database){
 			$this->database = $database;
+		}
+
+		private function connect(){
 			$this->database_object = $this->database->getDbObject();
+			return $this;
 		}
 
 		public function setQuery($query){
@@ -47,13 +54,14 @@
 		}
 
 		public function exec(){
+			$this->connect();
 			$this->query_string = trim($this->query_string,"\n ;");
 			$this->query_string = "{$this->query_string};";
 			$this->result = $this->database_object->exec(
 				$this->query_string,
 				$this->preparing_data
 			);
-			$this->removeProps();
+//			$this->removeProps();
 			return $this->result;
 		}
 

@@ -43,7 +43,7 @@
 		}
 
 		public function setConfigsPath($files_path){
-			$this->files_path = $files_path;
+			$this->files_path = fx_path($files_path);
 			return $this;
 		}
 

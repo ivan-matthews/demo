@@ -1,7 +1,7 @@
 <?php
 
 	#CMD: help
-	#DSC: call help center
+	#DSC: cli.un_structure_info
 	#EXM: help
 
 	namespace System\Console\Help;
@@ -92,6 +92,7 @@
 		private function printHelpInfo($command,$description,$example){
 			$command = trim($command);
 			$description = trim($description);
+			$description = fx_lang($description);
 			$example = trim($example);
 			Paint::exec(function(Types $print)use($command,$description,$example){
 				$print->tab();

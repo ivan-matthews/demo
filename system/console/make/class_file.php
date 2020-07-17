@@ -1,7 +1,7 @@
 <?php
 
 	#CMD: make class_file [Path/To/File]
-	#DSC: create new standard php class file
+	#DSC: cli.standard_class_file
 	#EXM: make class_file Core/Classes/Database
 
 	namespace System\Console\Make;

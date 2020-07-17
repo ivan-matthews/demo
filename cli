@@ -33,14 +33,19 @@
 
 	use Core\Classes\Config;
 	use Core\Console\Console;
+	use Core\Classes\Language;
 //	use Core\Console\Paint;
 
 	require __DIR__ . "/loader.php";
 
 	$config = Config::getInstance();
 	$console = Console::getInstance();
+	$language = Language::getInstance();
 
 	$console->getArguments(...fx_get_server('argv'));
+
+	$language->setLangKeyFromConfig();
+	$language->setLanguage();
 
 	if(!$console->runConsoleInterface()){
 		$console->callHelpCenter();

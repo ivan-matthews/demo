@@ -25,11 +25,15 @@
 	$request->setRequestedData(fx_get_request());
 	$request->setRequestMethod($request->get('method')?:fx_get_server('REQUEST_METHOD'));
 
-	$session->setSessionDir();
+	$session->setSessionDir(null);
 	$session->setSessionID();
 	$session->setSessionFile();
 	$session->checkSessionFile();
 	$session->sessionStart();
+
+	$language->setServerLanguageHeader(fx_get_server('HTTP_ACCEPT_LANGUAGE'));
+	$language->setLanguageKey();
+	$language->setLanguage();
 
 	$user->validateAuthorize();
 	$user->refreshAuthCookieTime();
@@ -52,15 +56,14 @@
 
 
 
-
-
 //	fx_pre(trim(dirname($_SERVER['PHP_SELF']),DIRECTORY_SEPARATOR));
 
 	fx_pre(array(
 		'code'=>$response->getResponseCode(),
 		'stat'=>$response->getResponseStatus(),
 		'data'=>$response->getData(),
-		'grup'=>$user->getGroups()
+		'grup'=>$user->getGroups(),
+		'burl'=>$user->getBackUrl()
 	));
 
 
@@ -74,12 +77,6 @@
 //				'arr'=>fx_load_array('system/assets',Kernel::IMPORT_INCLUDE_ONCE),
 //				'cnf'=>$config->getAll()
 	));
-
-	function a($iterations){
-		$result = array();
-		for($i=0;$i<$iterations;$i++){ $result[$i] = 'string_random'; }
-		return $result;
-	}
 
 	fx_pre(array(
 		'cache'=>array(
@@ -95,6 +92,7 @@
 		'files'=>get_included_files(),
 		'memor'=>fx_prepare_memory(memory_get_usage(),4,',',' '),
 		'times'=>number_format(microtime(true)-TIME,10),
+
 	));
 
 	$dbg = $response->getDebug();

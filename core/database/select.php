@@ -1,31 +1,29 @@
 <?php
 
 	/*
-		Database::select('*')
-			->from('users')
-			->where("`users_id`=UID")
-			->order('users_id','DESC')
-			->data('UID',1)
-			->limit(1)
-			->offset(0)
-			->join('auth','auth_id=users_id','right')
-			->get()
-			->allAsArray()
+		$db = Database::select();
+		fx_pre(array(
+			$db->from('user_groups')->where("`id`=5")->get()->all(),
+			$db->from('cron_tasks')->where(null)->get()->all(),
+		));
 	*/
 
 	namespace Core\Database;
 
 	use Core\Classes\Database;
+	use Core\Database\Connect\MySQLi;
 	use Core\Database\Interfaces\Select\Select as SelectInterface;
 
 	class Select implements SelectInterface{
 
 		private $database;
+		/** @var MySQLi */
 		private $database_object;
 
 		protected $select;
 
-		protected $result=array();
+		/** @var  object */
+		protected $result;
 		protected $fields;
 		protected $table;
 		protected $where;
@@ -39,7 +37,11 @@
 
 		public function __construct(Database $database){
 			$this->database = $database;
+		}
+
+		private function connect(){
 			$this->database_object = $this->database->getDbObject();
+			return $this;
 		}
 
 		public function setFields($fields){
@@ -97,6 +99,7 @@
 		}
 
 		public function exec(){
+			$this->connect();
 			$this->result = $this->database_object->select(
 				$this->fields,
 				$this->table,
@@ -110,7 +113,7 @@
 				$this->preparing_data
 			);
 
-			$this->removeProps();
+//			$this->removeProps();
 			return $this->result;
 		}
 
@@ -162,6 +165,25 @@
 			$this->exec();
 			return $this;
 		}
+
+//		public function sql(){			// cache-key
+//			$hash_array = array(
+//				'fields' => $this->fields,
+//				'table' => $this->table,
+//				'where' => $this->where,
+//				'nested' => $this->nested_query,
+//				'join' => $this->join,
+//				'limit' => $this->limit,
+//				'offset' => $this->offset,
+//				'order' => $this->order_by,
+//				'group' => $this->group_by,
+//				'data' => $this->preparing_data
+//			);
+//			fx_array_callback_recursive($hash_array,function($key,$value)use(&$str){
+//				$str .= "{$key}:{$value}|";
+//			});
+//			return trim($str,'|');
+//		}
 
 
 

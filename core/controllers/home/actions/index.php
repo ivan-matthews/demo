@@ -57,6 +57,19 @@
 		}
 
 		public function methodGet(){
+			/*function a($iterations){
+				$result = array();
+				for($i=0;$i<$iterations;$i++){ $result[$i] = 'string_random'; }
+				return $result;
+			}
+			$this->model->indexModel(a(1));
+			$this->model->secondModel(a(1));
+			$this->model->indexModel(a(2));
+			$this->model->secondModel(a(2));
+			$this->model->indexModel(a(4));
+			$this->model->secondModel(a(4));
+			$this->model->indexModel(a(3));
+			$this->model->secondModel(a(3));*/
 			fx_pre(__METHOD__);
 			return true;
 		}
