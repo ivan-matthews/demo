@@ -115,6 +115,7 @@
 			$this->error = null;
 			$this->error_string = null;
 			$this->callback = null;
+			$this->error_prefix = null;
 
 			return $this;
 		}

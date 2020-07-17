@@ -41,7 +41,10 @@
 
 		public static function run($cmd_controller,$cmd_action=null,...$cmd_params){
 			$console_object = self::getInstance();
-			$console_object->getArguments('cli',$cmd_controller,$cmd_action,...$cmd_params);
+			$args = func_get_args();
+			array_unshift($args,'cli');
+			$console_object->getArguments(...$args);
+
 			if(!$console_object->runConsoleInterface()){
 				$console_object->callHelpCenter();
 			}
@@ -141,7 +144,7 @@
 			if(class_exists($this->cli_command_class)){
 				$class_object = new $this->cli_command_class();
 				if($this->countActionArguments($class_object,$this->cli_command_method,$this->arguments)){
-					$result =  call_user_func_array(array($class_object,$this->cli_command_method),$this->arguments);
+					$result = call_user_func_array(array($class_object,$this->cli_command_method),$this->arguments);
 					$this->removeProperties();
 					return $result;
 				}

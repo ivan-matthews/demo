@@ -30,12 +30,12 @@
 		return false;
 	}
 
-	function fx_echo($data){
-		return fx_print($data);
+	function fx_echo(...$data){
+		return fx_print(...$data);
 	}
 
-	function fx_print($data){
-		return print $data;
+	function fx_print(...$data){
+		return print implode(', ',$data);
 	}
 
 	function fx_status($variable,$status){

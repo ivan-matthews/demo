@@ -2,6 +2,8 @@
 
 	namespace Core\Console;
 
+	use Core\Classes\Response;
+
 	class Paint{
 
 		const COLOR = 'white';
@@ -17,8 +19,10 @@
 		protected $fon;
 
 		private $result_string;
+		private $debug_result_string;
 
 		protected $paint;
+		private $time;
 
 		protected $foreground_colors = array(
 			'black' 		=> '0;30',
@@ -70,15 +74,26 @@
 		}
 
 		public function __construct(){
-
+			$this->time = microtime(true);
 		}
 
 		public function __destruct(){
-
+			Response::debug('console')
+				->setQuery($this->debug_result_string)
+				->setTrace(debug_backtrace())
+				->setTime($this->time)
+			;
+			$this->debug_result_string = null;
 		}
 
 		public static function exec($callback){
 			return call_user_func($callback,new self());
+		}
+
+		public function arr(array $array,$glue=''){
+			$this->removeProps();
+			$this->string = implode($glue,$array);
+			return $this;
 		}
 
 		public function string($string){
@@ -149,12 +164,12 @@
 		}
 
 		protected function paintBrowser(){
-			print "<span style=";
-			print "\"color:{$this->color_key};";
-			print "background:{$this->fon_key};\"";
-			print ">";
-			print $this->string;
-			print "</span>";
+			$this->debug_result_string .= "<span style=";
+			$this->debug_result_string .= "\"color:{$this->color_key};";
+			$this->debug_result_string .= "background:{$this->fon_key};\"";
+			$this->debug_result_string .= ">";
+			$this->debug_result_string .= $this->string;
+			$this->debug_result_string .= "</span>";
 
 			return $this;
 		}
@@ -175,13 +190,13 @@
 			}else{
 				$string = str_repeat("<br>",$repeating);
 			}
-			print $string;
+			$this->string($string)->toPaint();
 			return $this;
 		}
 
 		public function tab($repeating=1){
 			$string = str_repeat("\t",$repeating);
-			print $string;
+			$this->string($string)->toPaint();
 			return $this;
 		}
 

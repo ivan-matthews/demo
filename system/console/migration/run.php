@@ -24,6 +24,8 @@
 		private $namespace_classes;
 		private $older_migrations=array();
 
+		protected $result = true;
+
 		public function __construct(){
 			$this->migrations_folder = fx_path("system/migrations");
 			$this->namespace_classes = "\\System\\Migrations";

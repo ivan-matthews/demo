@@ -23,7 +23,7 @@
 			if(isset($this->request[$key])){
 				return $this->request[$key];
 			}
-			return false;
+			return null;
 		}
 
 		public function __set($name, $value){
@@ -40,7 +40,7 @@
 		}
 
 		public function setRequestMethod($method){
-			$this->request_method = $method;
+			$this->request_method = strtoupper($method);
 		}
 
 		public function getRequestMethod(){

@@ -35,18 +35,18 @@
 				$print->string('CLI commands native:')->fon('blue')
 					->toPaint()->eol();
 				$print->string($this->separator_string)->toPaint()->eol();
-			});
-			foreach(scandir($this->files_dir) as $dir){
-				if($dir=='.' || $dir=='..'){ continue; }
-				$this->printDirectoryName($dir);
-				if(is_dir("{$this->files_dir}/{$dir}")){
-					foreach(scandir("{$this->files_dir}/{$dir}") as $file){
-						if($file=='.' || $file=='..' || is_dir("{$this->files_dir}/{$dir}/{$file}")){ continue; }
-						$this->searchHelpInfo(file_get_contents("{$this->files_dir}/{$dir}/{$file}"));
+				foreach(scandir($this->files_dir) as $dir){
+					if($dir=='.' || $dir=='..'){ continue; }
+					$this->printDirectoryName($dir);
+					if(is_dir("{$this->files_dir}/{$dir}")){
+						foreach(scandir("{$this->files_dir}/{$dir}") as $file){
+							if($file=='.' || $file=='..' || is_dir("{$this->files_dir}/{$dir}/{$file}")){ continue; }
+							$this->searchHelpInfo(file_get_contents("{$this->files_dir}/{$dir}/{$file}"));
+						}
 					}
 				}
-			}
-			print PHP_EOL;
+				$print->eol();
+			});
 			return $this;
 		}
 
@@ -72,21 +72,15 @@
 			return $this;
 		}
 
-		private function prepareCommandParams(Paint $print, $params_string, $finder_element=','){
-			$params_string = str_replace(array('[',']'),array('',''),$params_string);
-			if(strpos($params_string,$finder_element) !== false){
-				$params_array = explode($finder_element,$params_string);
-				$printing_string = '';
-				foreach($params_array as $item){
-					$printing_string .= $print->string('[')->get();
-					$printing_string .= $print->string($item)->color('yellow')->get();
-					$printing_string .= $print->string('], ')->get();
+		private function prepareCommandParams(Paint $print, $params_string){
+			preg_match_all("/\[(.*?)\]/",$params_string,$result_matches);
+			if(isset($result_matches[1])){
+				$result_array = array();
+				foreach($result_matches[1] as $item){
+					$result_array[] = $print->string($item)->color('yellow')->get();
 				}
-				print rtrim($printing_string,", \e[0m");
-			}else{
-				$print->string('[')->toPaint();
-				$print->string($params_string)->color('yellow')->toPaint();
-				$print->string(']')->toPaint();
+				$result_string = str_replace($result_matches[1],$result_array,$params_string);
+				$print->string($result_string)->toPaint();
 			}
 			return $this;
 		}

@@ -7,7 +7,7 @@
 	use Core\Classes\Database;
 	use Core\Classes\Response;
 	use Core\Classes\Session;
-//	use Core\Console\Console;		// Run console scripts from web-page (details: Console::run('help',1))
+	use Core\Console\Console;		// Run console scripts from web-page (details: Console::run('help',1))
 
 	require __DIR__ . "/../vendor/autoload.php";
 	require __DIR__ . "/../loader.php";
@@ -20,8 +20,16 @@
 	$response 	= Response::getInstance();
 	$session	= Session::getInstance();
 
-	$request->setRequestMethod(fx_get_server('REQUEST_METHOD'));
 	$request->setRequestedData(fx_get_request());
+	$request->setRequestMethod(fx_get_server('REQUEST_METHOD'));
+
+	$session->setSessionDir();
+	$session->setSessionID();
+	$session->setSessionFile();
+	$session->checkSessionFile();
+	$session->sessionStart();
+	$session->validateAuthorize();
+	$session->refreshAuthCookieTime();
 
 	$router->parseURL(fx_get_server('REQUEST_URI'));
 	$router->setRoute();
