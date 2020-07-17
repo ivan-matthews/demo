@@ -30,6 +30,7 @@
 
 		protected $error=array();
 		private $config;
+		private $response;
 		private $debug_enabled;
 		private $shutdown=false;
 
@@ -78,6 +79,7 @@
 
 		public function __construct($error_number, $error_message, $error_file, $error_line, $backtrace=array(), $error_msg=false,$shutdown=false){
 			$this->config = Config::getInstance();
+			$this->response = Response::getInstance();
 			$this->shutdown = $shutdown;
 			$this->debug_enabled = $this->config->core['debug_enabled'];
 
@@ -87,6 +89,9 @@
 			$this->setErrLine($error_line);
 			$this->setErrBacktrace();
 			$this->setErrMsg($error_msg);
+
+			$this->response->setResponseCode(500);
+			$this->response->sendHeaders();
 		}
 
 		public static function setError($shutdown=true){

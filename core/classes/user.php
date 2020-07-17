@@ -10,6 +10,7 @@
 
 		private $groups;
 		private $default_unauthorized_key = array(0);
+		private $unauthorized;
 
 		private $session;
 
@@ -59,8 +60,13 @@
 		}
 
 		private function setUnLoggedGroups(){
+			$this->unauthorized = true;
 			$this->groups = $this->default_unauthorized_key;
 			return $this->groups;
+		}
+
+		public function isUnLogged(){
+			return $this->unauthorized;
 		}
 
 

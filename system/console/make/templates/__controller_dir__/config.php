@@ -2,6 +2,8 @@
 
 	namespace Core\Controllers\__controller_namespace__;
 
+	use Core\Classes\Kernel;
+
 	class Config{
 
 		private static $instance;
@@ -28,11 +30,15 @@
 		}
 
 		public function __construct(){
-
+			$this->config = $this->getParams();
 		}
 
 		public function __destruct(){
 
+		}
+
+		public function getParams(){
+			return fx_load_helper('core/controllers/__controller_property__/config/params',Kernel::IMPORT_INCLUDE);
 		}
 
 

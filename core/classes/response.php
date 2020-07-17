@@ -21,8 +21,10 @@
 		
 		public $response_data = array(
 			'response_data'		=> array(
-				'response_code'		=> 200,
-				'response_status'	=> '200 OK',
+				'headers'			=> array(
+					'response_code'		=> 200,
+					'response_status'	=> '200 OK',
+				),
 
 				'controller'		=> array(),
 				'widget'			=> array(),
@@ -113,23 +115,23 @@
 		public function setResponseCode($code){
 			$this->getResponseCodesList();
 			if(isset($this->response_list[$code])){
-				$this->response_data['response_data']['response_code'] = $code;
+				$this->response_data['response_data']['headers']['response_code'] = $code;
 				$this->setResponseStatus($this->response_list[$code]);
 			}
 			return $this;
 		}
 
 		public function setResponseStatus($status){
-			$this->response_data['response_data']['response_status'] = $status;
+			$this->response_data['response_data']['headers']['response_status'] = $status;
 			return $this;
 		}
 
 		public function getResponseCode(){
-			return $this->response_data['response_data']['response_code'];
+			return $this->response_data['response_data']['headers']['response_code'];
 		}
 
 		public function getResponseStatus(){
-			return $this->response_data['response_data']['response_status'];
+			return $this->response_data['response_data']['headers']['response_status'];
 		}
 
 		private function getResponseCodesList(){
@@ -139,6 +141,14 @@
 			return $this;
 		}
 
+		public function sendHeaders(){
+			header("HTTP/1.0 {$this->response_data['response_data']['headers']['response_status']}");
+			header("HTTP/1.1 {$this->response_data['response_data']['headers']['response_status']}");
+			header("HTTP/2 {$this->response_data['response_data']['headers']['response_status']}");
+			header("Status: {$this->response_data['response_data']['headers']['response_status']}");
+			http_response_code($this->response_data['response_data']['headers']['response_code']);
+			return $this;
+		}
 
 
 

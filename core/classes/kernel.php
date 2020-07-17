@@ -21,6 +21,8 @@
 
 		protected $kernel=array();
 
+		private $user;
+
 		protected $config;
 		protected $request;
 		protected $router;
@@ -34,8 +36,17 @@
 
 		protected $controller_namespace;
 		protected $controller_class_name;
+		protected $controller_config;
 		protected $action_namespace;
 		protected $action_class_name;
+
+		private $controller_config_object;
+		private $controller_params;
+		/** @var  Access */
+		private $controller_access;
+		/** @var  Access */
+		private $action_access;
+		private $action_params;
 
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -61,6 +72,7 @@
 			$this->router = Router::getInstance();
 			$this->request = Request::getInstance();
 			$this->response = Response::getInstance();
+			$this->user = User::getInstance();
 		}
 
 		public function getCurrentController(){
@@ -87,6 +99,7 @@
 		public function setControllerParams(){
 			$this->controller_namespace = "\\Core\\Controllers\\{$this->controller}";
 			$this->controller_class_name = "{$this->controller_namespace}\\Controller";
+			$this->controller_config = "{$this->controller_namespace}\\Config";
 			return $this;
 		}
 
@@ -98,6 +111,10 @@
 
 		public function loadSystem(){
 			if($this->controllerExists()){
+				$this->checkControllerAccess();
+				if($this->controller_access->denied()){
+					return $this->setDeniedStatus();
+				}
 				if($this->actionExists()){
 					if($this->loadAction()){
 						return true;
@@ -129,12 +146,15 @@
 		}
 
 		protected function loadAction(){
-			$action = new $this->action_class_name();
+			$action = call_user_func(array($this->action_class_name,'getInstance'));
 			$method = "method{$this->request_method}";
 			if(method_exists($action,$method)){
+				$this->checkActionAccess();
+				if($this->action_access->denied()){
+					return $this->setDeniedStatus();
+				}
 				if($this->countActionArguments($action,$method,$this->params)){
 					if(call_user_func_array(array($action,$method),$this->params)){
-						$this->response->setResponseCode(200);
 						return true;
 					}
 					$this->response->setResponseCode(404);
@@ -157,7 +177,7 @@
 			return false;
 		}
 
-		public function countActionArguments($object,$method,$params){
+		private function countActionArguments($object,$method,$params){
 			$total_params = count($params);
 			$reflection = new Reflect($object,$method);
 			if($reflection->getNumberOfParameters() < $total_params){ return false; }
@@ -165,10 +185,39 @@
 			return true;
 		}
 
+		private function setControllerConfig(){
+			$this->controller_config_object = call_user_func(array($this->controller_config,'getInstance'));
+			return $this;
+		}
 
+		private function checkControllerAccess(){
+			$this->setControllerConfig();
+			$this->controller_params = $this->controller_config_object->controller;
+			$this->controller_access = new Access();
+			$this->controller_access->enableGroups($this->controller_params['groups_enabled']);
+			$this->controller_access->disableGroups($this->controller_params['groups_disabled']);
+			return $this;
+		}
 
+		private function checkActionAccess(){
+			$this->action_params = $this->controller_config_object->actions;
+			$this->action_access = new Access();
+			if(isset($this->action_params[$this->action])){
+				$this->action_params = $this->action_params[$this->action];
+				$this->action_access->enableGroups($this->action_params['groups_enabled']);
+				$this->action_access->disableGroups($this->action_params['groups_disabled']);
+			}
+			return $this;
+		}
 
-
+		private function setDeniedStatus(){
+			if($this->user->isUnLogged()){
+				$this->response->setResponseCode(401);
+				return true;
+			}
+			$this->response->setResponseCode(403);
+			return true;
+		}
 
 
 
