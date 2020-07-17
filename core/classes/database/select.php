@@ -10,7 +10,6 @@
 
 	namespace Core\Classes\Database;
 
-	use Core\Classes\Database\Database;
 	use Core\Classes\Database\Connect\MySQLi;
 	use Core\Classes\Database\Interfaces\Select\Select as SelectInterface;
 

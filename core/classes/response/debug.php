@@ -2,8 +2,6 @@
 
 	namespace Core\Classes\Response;
 
-	use Core\Classes\Response;
-
 	class Debug{
 
 		private $default_params = array(

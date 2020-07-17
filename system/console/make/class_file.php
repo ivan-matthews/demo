@@ -38,7 +38,7 @@
 		}
 
 		private function setClassName($class){
-			$this->class = $class;
+			$this->class = $this->prepareClassName($class,'/');
 			return $this;
 		}
 

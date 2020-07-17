@@ -14,6 +14,20 @@
 		return $data;
 	}
 
+	function fx_obj($data,$default_type='object'){
+		if(is_array($data)){
+			return $data;
+		}
+		if(is_object($data)){
+			return json_decode(json_encode($data));
+		}
+		if(fx_is_json($data)){
+			return json_decode($data);
+		}
+		settype($data,$default_type);
+		return $data;
+	}
+
 	function fx_is_json($str){
 		if(!is_string($str)){ return false; }
 		json_decode($str);

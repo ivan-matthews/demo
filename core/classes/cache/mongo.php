@@ -2,7 +2,7 @@
 
 	namespace Core\Classes\Cache;
 
-	use Core\Classes\Response;
+	use Core\Classes\Response\Response;
 
 	class Mongo{
 

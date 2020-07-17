@@ -2,10 +2,9 @@
 
 	namespace Core\Controllers\__controller_namespace__;
 
-	use Core\Classes\Hooks;
 	use Core\Classes\Controller as ParentController;
 	use Core\Classes\Request;
-	use Core\Classes\Response;
+	use Core\Classes\Response\Response;
 
 	class Controller extends ParentController{
 
@@ -13,25 +12,22 @@
 		private static $instance;
 
 		/** @var Config */
-		protected $config;
+		public $config;
 
 		/** @var \Core\Classes\Model|Model */
-		protected $model;
+		public $model;
 
 		/** @var \Core\Classes\Config */
-		protected $site_config;
+		public $site_config;
 
 		/** @var Response */
-		protected $response;
+		public $response;
 
 		/** @var Request */
-		protected $request;
+		public $request;
 
 		/** @var \Core\Classes\User */
-		protected $user;
-
-		/** @var Hooks */
-		protected $hook;
+		public $user;
 
 		/** @var array */
 		private $__controller_property__;
