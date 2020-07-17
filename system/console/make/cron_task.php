@@ -60,9 +60,8 @@
 			if(fx_make_dir($cron_task_folder)){
 				Paint::exec(function(Types $print)use($cron_task_folder){
 					$print->string(fx_lang('cli.folder_making',array(
-						'FOLDER'	=> $print->string($cron_task_folder)->fon('cyan')->get(),
-					)))->toPaint();
-					$print->eol();
+						'%FOLDER%'	=> $print->string($cron_task_folder)->fon('cyan')->get(),
+					)))->print()->eol();
 				});
 			}
 			return $this;
@@ -77,20 +76,18 @@
 			if(!file_exists($this->cron_task_file)){
 				Paint::exec(function(Types $print){
 					$print->string(fx_lang('cli.cron_task_making',array(
-						'CLASS_NAME' => $print->string($this->class_name)->fon('blue')->get(),
-						'CLASS_FILE' => $print->string($this->cron_task_file)->fon('green')->get(),
-					)))->toPaint();
-					$print->eol();
+						'%CLASS_NAME%' => $print->string($this->class_name)->fon('blue')->get(),
+						'%CLASS_FILE%' => $print->string($this->cron_task_file)->fon('green')->get(),
+					)))->print()->eol();
 				});
 				$this->saveTmpData();
 				$this->createDbInsertNewCronTask();
 			}else{
 				Paint::exec(function(Types $print){
 					$print->string(fx_lang('cli.cron_task_not_making',array(
-						'CLASS_NAME' => $print->string($this->class_name)->fon('blue')->get(),
-						'CLASS_FILE' => $print->string($this->cron_task_file)->fon('red')->get(),
-					)))->toPaint();
-					$print->eol();
+						'%CLASS_NAME%' => $print->string($this->class_name)->fon('blue')->get(),
+						'%CLASS_FILE%' => $print->string($this->cron_task_file)->fon('red')->get(),
+					)))->print()->eol();
 				});
 			}
 			return $this;

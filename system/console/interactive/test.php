@@ -56,7 +56,7 @@
 				return $print->string($item)->fon('blue')->get();
 			});
 			$desired_dialog = fx_lang('cli.enter_please_desired_value',array(
-				'DESIRED_VALUE'	=> $desired_value
+				'%DESIRED_VALUE%'	=> $desired_value
 			));
 			$interface->create($desired_dialog);
 			$interface->callback($this->getInteractiveCallBackFunction($item),$desired_dialog);
@@ -70,12 +70,12 @@
 				$keys = array_keys($this->result);
 				$values = array_values($this->result);
 
-				$print->string("SUCCESS:")->fon('green')->toPaint();
-				$print->string(' string "')->toPaint();
-				$print->arr($keys,', ')->color('light_red')->toPaint();
-				$print->string('" === "')->toPaint();
-				$print->arr($values,', ')->color('light_green')->toPaint();
-				$print->string('" is valid!')->toPaint();
+				$print->string("SUCCESS:")->fon('green')->print();
+				$print->string(' string "')->print();
+				$print->arr($keys,', ')->color('light_red')->print();
+				$print->string('" === "')->print();
+				$print->arr($values,', ')->color('light_green')->print();
+				$print->string('" is valid!')->print();
 				$print->eol(2);
 			});
 		}

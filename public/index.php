@@ -80,7 +80,6 @@
 
 
 
-
 	fx_pre(array(
 		'csrf'=>$user->getCSRFToken(),
 		'code'=>$response->getResponseCode(),

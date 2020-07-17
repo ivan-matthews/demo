@@ -6,6 +6,8 @@
 
 	class Memcached{
 
+		const CACHE_EXPIRED_KEY = 'cache_expired_time_key';
+
 		private $params;
 
 		private $key;
@@ -70,21 +72,33 @@
 			$this->hash = md5($this->mark);
 			return $this;
 		}
+
+		protected function check($cache_expired_timer){
+			if($cache_expired_timer + $this->ttl > time()){
+				return true;
+			}
+			return false;
+		}
+
 		public function get(){
 			$this->getCacheAttributes();
 			$debug_time = microtime(true);
 			$data_result = $this->memcached->get($this->cache_key);
 			if($data_result){
 				$data_result = unserialize($data_result);
-				$this->saveDebug($debug_time);
-				return $data_result;
+				if($this->check($data_result[self::CACHE_EXPIRED_KEY])){
+					$this->saveDebug($debug_time);
+					return $data_result;
+				}
 			}
 			return null;
 		}
 		public function set(array $data){
+			$timer = time();
 			$this->getCacheAttributes();
+			$data[self::CACHE_EXPIRED_KEY] = $timer;
 			$data = serialize($data);
-			$this->memcached->set($this->cache_key, $data, time() + $this->ttl);
+			$this->memcached->set($this->cache_key, $data, $timer + $this->ttl);
 			return null;
 		}
 		public function clear(){

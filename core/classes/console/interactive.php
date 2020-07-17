@@ -71,18 +71,14 @@
 		}
 
 		public function printWelcome(){
-			$repeating_string = str_repeat('-',100);
-			return Paint::exec(function(Types $print)use($repeating_string){
-				$print->string($repeating_string)->toPaint();
-				$print->eol();
-				$print->tab(2);
-				$print->string('Welcome to CLI-Interactive mode. ')->color('light_green')->toPaint();
-				$print->string('Please enter ')->toPaint();
-				$print->string('Ctrl+C')->fon('red')->toPaint();
-				$print->string(' to exit.')->toPaint();
-				$print->eol();
-				$print->string($repeating_string)->toPaint();
-				$print->eol(2);
+			return Paint::exec(function(Types $print){
+				$repeating_string = str_repeat('-',100);
+				$print->string($repeating_string)->print()->eol()->tab(2);
+				$print->string(fx_lang('cli.welcome_to_interactive_mode'))->color('light_green')->print();
+				$print->string(fx_lang('cli.enter_please_cmd_to_exit',array(
+					'%COMMAND%'	=> $print->string('Ctrl+C')->fon('red')->get(),
+				)))->print()->eol();
+				$print->string($repeating_string)->print()->eol(2);
 			});
 		}
 
@@ -100,15 +96,15 @@
 
 		private function printString($dialog_string){
 			Paint::exec(function(Types $print)use($dialog_string){
-				$print->string($this->error_prefix)->fon('red')->toPaint();
-				$print->string($dialog_string)->toPaint();
-				$print->string("> ")->toPaint();
+				$print->string($this->error_prefix)->fon('red')->print();
+				$print->string($dialog_string)->print();
+				$print->string("> ")->print();
 			});
 			return $this;
 		}
 
 		private function error($printing_string){
-			$this->error_prefix = 'ERROR:';
+			$this->error_prefix = fx_lang('cli.error_header');
 			$this->error_string = " {$printing_string}";
 			return $this;
 		}

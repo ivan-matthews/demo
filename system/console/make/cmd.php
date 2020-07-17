@@ -114,23 +114,21 @@
 
 		private function success($command_file,$console_command){
 			return Paint::exec(function(Types $print)use($command_file,$console_command){
-				$print->string(fx_lang('cli.success_header'))->color('green')->toPaint();
+				$print->string(fx_lang('cli.success_header'))->color('green')->print()->space();
 				$print->string(fx_lang('cli.command_success_save',array(
-					'CMD_NAME'	=> $print->string($console_command)->fon('green')->get(),
-					'CMD_FILE'	=> $print->string($command_file)->color('green')->get(),
-				)))->toPaint();
-				$print->eol();
+					'%CMD_NAME%'	=> $print->string($console_command)->fon('green')->get(),
+					'%CMD_FILE%'	=> $print->string($command_file)->color('green')->get(),
+				)))->print()->eol();
 			});
 		}
 
 		private function skipped($command_file,$console_command){
 			return Paint::exec(function(Types $print)use($command_file,$console_command){
-				$print->string(fx_lang('cli.error_header'))->color('red')->toPaint();
+				$print->string(fx_lang('cli.error_header'))->color('red')->print()->space();
 				$print->string(fx_lang('cli.command_not_save',array(
-					'CMD_NAME'	=> $print->string($console_command)->fon('red')->get(),
-					'CMD_FILE'	=> $print->string($command_file)->color('red')->get(),
-				)))->toPaint();
-				$print->eol();
+					'%CMD_NAME%'	=> $print->string($console_command)->fon('red')->get(),
+					'%CMD_FILE%'	=> $print->string($command_file)->color('red')->get(),
+				)))->print()->eol();
 			});
 		}
 

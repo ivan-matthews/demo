@@ -26,5 +26,11 @@
 		 * @param int $repeating
 		 * @return Types
 		 */
+		public function space($repeating=1);
+
+		/**
+		 * @param int $repeating
+		 * @return Types
+		 */
 		public function tab($repeating=1);
 	}

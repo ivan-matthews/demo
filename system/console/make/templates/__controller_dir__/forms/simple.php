@@ -50,7 +50,7 @@
 
 		public function generateFieldsList(){		// для метода GET - генерирует поля
 			$this->validator_interface
-				->name('field')->jevix(true)
+				->field('field')->jevix(true)
 				->class('class')
 				->id('id')
 				->title('title')

@@ -58,16 +58,19 @@
 		use Core\Classes\Form\Interfaces\Validator;
 		use Core\Classes\Form\Interfaces\Checkers;
 		use Core\Classes\Form\Form;
+		use Core\Classes\Form\Interfaces\Form as FormInterace;
 		use Core\Classes\Form\Interfaces\Multiple;
 
 		$form = Form::getStaticValidatorInterface(function(Validator $validator){
 			$validator
 				->csrf(1)
 				->validate(1)
-				->setFormName('test')
 				->setData(Request::getInstance()->getArray('test'));
-			$validator
-				->name('img_field')
+			$validator->form(function(FormInterace $form){
+				$form->setFormName('simple');
+				$form->setFormMethod('GET');
+				$form->setFormEnctype('text/plain');
+			})->field('img_field')
 				->jevix()
 				->class('class')
 				->title('title')
@@ -95,6 +98,7 @@
 		fx_die($form->can() ? $form->getFieldsList() : array(
 			$form->getFieldsList(),
 			$form->getErrors(),
+			$form->getFormAttributes(),
 			fx_encode($user->getCSRFToken())
 		));
 	*/
@@ -104,9 +108,14 @@
 	use Core\Classes\Jevix;
 	use Core\Classes\Config;
 	use Core\Classes\Form\Interfaces\Checkers;
+	use Core\Classes\Form\Interfaces\Form;
 	use Core\Classes\Form\Interfaces\Validator as ValidatorInterface;
 
-	class Validator implements ValidatorInterface, Checkers{
+	class Validator implements ValidatorInterface, Checkers,Form{
+
+		const CSRF_TOKEN_EQUAL = 'equal';
+		const CSRF_TOKEN_NOT_FOUND = 'not_found';
+		const CSRF_TOKEN_NOT_EQUAL = 'not_equal';
 
 		protected $field;
 		protected $value;
@@ -132,6 +141,40 @@
 			'min' => null,
 			'max' => null,
 			'id' => null,
+		);
+
+		protected $form_attributes = array(
+			'accept-charset'	=> 'UTF-8',
+			'action'			=> '',
+			'autocomplete'		=> 'on', // off
+			'enctype'			=> 'application/x-www-form-urlencoded', /*
+																			multipart/form-data
+																			text/plain
+																		*/
+			'method'			=> 'POST', // GET
+			'name'				=> '',
+			'novalidate'		=> '',	// novalidate
+			'rel'				=> '', /*
+											external
+											help
+											license
+											next
+											nofollow
+											noopener
+											noreferrer
+											opener
+											prev
+											search
+										*/
+			'target'			=> '', /*
+											_blank
+											_self
+											_parent
+											_top
+										*/
+			'class'				=> 'simple-form-class',
+			'id'				=> 'simple-form-id',
+			'title'				=> '',
 		);
 
 		protected $config;
@@ -163,9 +206,20 @@
 			$this->setCSRFAttributes();
 		}
 
-		public function file(callable $callable_callback_function){
+		public function file($callable_or_array){
+			$this->setFormEnctype('multipart/form-data');
+			$this->setFormMethod('POST');
 			$files = new File($this);
-			call_user_func($callable_callback_function,$files);
+			if(is_callable($callable_or_array)){
+				call_user_func($callable_or_array,$files);
+			}
+			if(is_array($callable_or_array)){
+				foreach($callable_or_array as $method=>$params){
+					if(method_exists($files,$method)){
+						call_user_func_array(array($files,$method),(is_array($params)?$params:array($params)));
+					}
+				}
+			}
 			$files->setFiles();
 			return $this;
 		}
@@ -179,11 +233,6 @@
 
 		public function setDefaultFieldsAttributes(array $attributes){
 			$this->default_attributes = $attributes;
-			return $this;
-		}
-
-		public function setFormName($form_name){
-			$this->form_name = $form_name;
 			return $this;
 		}
 
@@ -246,10 +295,10 @@
 			}
 			return null;
 		}
-		public function name($field){
+		public function field($field){
 			$this->field = $field;
 			$this->setDefaultAttributes();
-			$this->setAttribute(__FUNCTION__,$this->field);
+			$this->setAttribute('name',$this->field);
 			return $this->value($this->field);
 		}
 
@@ -570,7 +619,7 @@
 		}
 
 		protected function setCSRFAttributes(){
-			$this->name($this->config->session['csrf_key_name']);
+			$this->field($this->config->session['csrf_key_name']);
 			$this->setAttribute('type','hidden');
 			$this->setAttribute('field_type','hidden');
 			$this->setAttribute('value',fx_csrf());
@@ -581,10 +630,11 @@
 			if(!$this->validate_status){ return $this; }
 			if(!$this->check_csrf){ return $this; }
 			$this->field = $this->config->session['csrf_key_name'];
-			if(fx_csrf_equal($this->field)){
+			$csrf_result_checking = fx_csrf_equal($this->field);
+			if(fx_equal($csrf_result_checking,self::CSRF_TOKEN_EQUAL)){
 				return $this;
 			}
-			$this->setError(fx_lang('fields.csrf_token_not_equal'));
+			$this->setError(fx_lang("fields.csrf_token_error_{$csrf_result_checking}"));
 			return $this;
 		}
 		protected function setValidationStatus($status){
@@ -638,6 +688,78 @@
 			return $this;
 		}
 
+		public function form($callback_or_array){
+			if(is_callable($callback_or_array)){
+				call_user_func($callback_or_array,$this);
+			}
+			if(is_array($callback_or_array)){
+				foreach($callback_or_array as $method => $param){
+					$callable_method = "setForm{$method}";
+					if(method_exists($this,$callable_method)){
+						call_user_func(array($this,$callable_method),$param);
+					}else{
+						call_user_func(array($this,"setForm"),$param);
+					}
+				}
+			}
+			return $this;
+		}
+		public function getFormAttributes(){
+			return $this->form_attributes;
+		}
+		public function setFormCharset($value){
+			$this->form_attributes['accept-charset'] = $value;
+			return $this;
+		}
+		public function setFormAction($value){
+			$this->form_attributes['action'] = $value;
+			return $this;
+		}
+		public function setFormAutoComplete($value){
+			$this->form_attributes['autocomplete'] = $value;
+			return $this;
+		}
+		public function setFormEnctype($value){
+			$this->form_attributes['enctype'] = $value;
+			return $this;
+		}
+		public function setFormMethod($value){
+			$this->form_attributes['method'] = $value;
+			return $this;
+		}
+		public function setFormName($form_name){
+			$this->form_name = $form_name;
+			$this->form_attributes['name'] = $form_name;
+			return $this;
+		}
+		public function setFormValidation($value){
+			$this->form_attributes['novalidate'] = $value;
+			return $this;
+		}
+		public function setFormRel($value){
+			$this->form_attributes['rel'] = $value;
+			return $this;
+		}
+		public function setFormTarget($value){
+			$this->form_attributes['target'] = $value;
+			return $this;
+		}
+		public function setFormClass($value){
+			$this->form_attributes['class'] = $value;
+			return $this;
+		}
+		public function setFormId($value){
+			$this->form_attributes['id'] = $value;
+			return $this;
+		}
+		public function setFormTitle($value){
+			$this->form_attributes['title'] = $value;
+			return $this;
+		}
+		public function setForm($key,$value){
+			$this->form_attributes[$key] = $value;
+			return $this;
+		}
 
 
 

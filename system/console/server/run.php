@@ -31,32 +31,42 @@
 		private function start(){
 			$address = "{$this->host}:{$this->port}";
 			$this->success($address);
-			passthru("/usr/bin/env php -S {$address} " . "server.php");
+			passthru("/usr/bin/env php -S {$address} server.php");
 			return $this->error();
 		}
 
 		private function success($address){
 			return Paint::exec(function(Types $print)use($address){
-				$print->string(fx_lang('cli.develop_server_started',array(
-					'ADDRESS'	=> $print->string("http://{$address}")->fon('red')->color('white')->get(),
-					'COMMAND'	=> $print->string('CTRL+C')->fon('green')->color('white')->get(),
-					'DATE'		=> $print->string(date('d F Y'))->fon('magenta')->color('white')->get(),
-					'TIME'		=> $print->string(date('H:i:s'))->fon('magenta')->color('white')->get()
-				)))->color('light_green')->toPaint();
-				$print->eol(2);
+				$repeating_string = str_repeat('-',50);
+				$print->string($repeating_string)->print()->eol();
+				$print->string(fx_lang('cli.develop_server_date',array(
+					'%DATE%'	=> $print->string(date('d F Y'))->fon('magenta')->color('white')->get(),
+					'%TIME%'	=> $print->string(date('H:i:s'))->fon('magenta')->color('white')->get(),
+					'%TIMEZONE%'=> $print->string(date('e'))->fon('magenta')->color('white')->get(),
+				)))->print();
+				$print->string(fx_lang('cli.success_header'))->fon('green')->print()->space();
+				$print->string(fx_lang('cli.develop_server_started'))->color('white')->fon('green')->print()->eol();
+				$print->string(fx_lang('cli.develop_server_details',array(
+					'%ADDRESS%'	=> $print->string("http://{$address}")->fon('red')->color('white')->get(),
+				)))->color('light_green')->print()->eol();
+				$print->string(fx_lang('cli.enter_please_cmd_to_exit',array(
+					'%COMMAND%'	=> $print->string('CTRL+C')->fon('green')->color('white')->get(),
+				)))->print()->eol();
+				$print->string($repeating_string)->print()->eol(2);
 			});
 		}
 
 		private function error(){
 			return Paint::exec(function(Types $print){
-					$print->eol();
-					$print->string(fx_lang('cli.develop_server_down',array(
-						'DATE'		=> $print->string(date('d F Y'))->fon('magenta')->color('white')->get(),
-						'TIME'		=> $print->string(date('H:i:s'))->fon('magenta')->color('white')->get(),
-						'CONTENT'	=> $print->string(fx_lang('cli.develop_server_down_content'))->color('white')->fon('red')->get()
-					)))->toPaint();
-					$print->eol();
-				});
+				$print->eol();
+				$print->string(fx_lang('cli.develop_server_date',array(
+					'%DATE%'	=> $print->string(date('d F Y'))->fon('magenta')->color('white')->get(),
+					'%TIME%'	=> $print->string(date('H:i:s'))->fon('magenta')->color('white')->get(),
+					'%TIMEZONE%'=> $print->string(date('e'))->fon('magenta')->color('white')->get(),
+				)))->print();
+				$print->string(fx_lang('cli.error_header'))->fon('red')->print()->space();
+				$print->string(fx_lang('cli.develop_server_down'))->color('white')->fon('red')->print()->eol(2);
+			});
 		}
 
 

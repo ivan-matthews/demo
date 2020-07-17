@@ -66,8 +66,8 @@
 		public function setAttribute($attribute_key,$attribute_value);
 
 		/**
-		 * @param callable $callable_callback_function
+		 * @param callable $callable_or_array
 		 * @return Attributes
 		 */
-		public function file(callable $callable_callback_function);
+		public function file($callable_or_array);
 	}

@@ -35,12 +35,9 @@
 
 		private function getFiles(){
 			Paint::exec(function(Types $print){
-				$print->string($this->separator_string)->toPaint();
-				$print->eol();
-				$print->string(fx_lang('cli.native_cmds_header'))->fon('blue')->toPaint();
-				$print->eol();
-				$print->string($this->separator_string)->toPaint();
-				$print->eol();
+				$print->string($this->separator_string)->print()->eol();
+				$print->string(fx_lang('cli.native_cmds_header'))->fon('blue')->print()->eol();
+				$print->string($this->separator_string)->print()->eol();
 				foreach(scandir($this->files_dir) as $dir){
 					if($dir=='.' || $dir=='..'){ continue; }
 					$this->printDirectoryName($dir);
@@ -72,7 +69,7 @@
 
 		private function printDirectoryName($directory){
 			Paint::exec(function(Types $print)use($directory){
-				$print->string($directory)->color('white')->fon('red')->toPaint();
+				$print->string($directory)->color('white')->fon('red')->print();
 				$print->eol();
 			});
 			return $this;
@@ -85,7 +82,7 @@
 				$str .= $print->string(']')->get();
 				return $str;
 			},$params_string);
-			$print->string($result_string)->toPaint();
+			$print->string($result_string)->print();
 			return $this;
 		}
 
@@ -96,25 +93,24 @@
 			$example = trim($example);
 			Paint::exec(function(Types $print)use($command,$description,$example){
 				$print->tab();
-				$print->string("php ")->color('brown')->toPaint();
-				$print->string("{$this->script_name} ")->color('green')->toPaint();
+				$print->string("php ")->color('brown')->print();
+				$print->string("{$this->script_name} ")->color('green')->print();
 				$search_params = strpos($command,'[');
 				$params_string = null;
 				if($search_params){
 					$params_string = substr($command,$search_params);
 					$command = substr($command,0,$search_params);
 				}
-				$print->string($command)->color('light_green')->toPaint();
+				$print->string($command)->color('light_green')->print();
 				if($params_string){
 					$this->prepareCommandParams($print,$params_string);
 				}
-				$print->string(' - ')->toPaint();
-				$print->string("{$description} ")->color('light_cyan')->toPaint();
+				$print->string(' - ')->print();
+				$print->string("{$description} ")->color('light_cyan')->print();
 				if($this->structured){ $print->eol()->tab(); }
-				$print->string("php ")->color('brown')->toPaint();
-				$print->string("{$this->script_name} ")->color('green')->toPaint();
-				$print->string($example)->color('light_green')->toPaint();
-				$print->eol();
+				$print->string("php ")->color('brown')->print();
+				$print->string("{$this->script_name} ")->color('green')->print();
+				$print->string($example)->color('light_green')->print()->eol();
 				if($this->structured){ $print->eol(); }
 			});
 			return true;
@@ -122,12 +118,9 @@
 
 		private function getAliasesCommandsInfo(){
 			Paint::exec(function(Types $print){
-				$print->string($this->separator_string)->toPaint();
-				$print->eol();
-				$print->string(fx_lang('cli.alias_cmds_header'))->fon('green')->toPaint();
-				$print->eol();
-				$print->string($this->separator_string)->toPaint();
-				$print->eol();
+				$print->string($this->separator_string)->print()->eol();
+				$print->string(fx_lang('cli.alias_cmds_header'))->fon('green')->print()->eol();
+				$print->string($this->separator_string)->print()->eol();
 			});
 			$console = Console::getInstance();
 			foreach($console->aliases_file_data as $value){

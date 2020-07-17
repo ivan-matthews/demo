@@ -65,20 +65,18 @@
 			return $this;
 		}
 
-		public function get($key,$var_type='string'){
-			if(isset($this->request[$key])){
-				if(fx_equal(gettype($this->request[$key]),$var_type)){
-					return $this->request[$key];
-				}
+		public function get($key){
+			if(isset($this->request[$key]) && is_string($this->request[$key])){
+				return $this->request[$key];
 			}
 			return null;
 		}
 
 		public function getArray($key){
-			if(isset($this->request[$key])){
+			if(isset($this->request[$key]) && is_array($this->request[$key])){
 				return $this->request[$key];
 			}
-			return $this->request;
+			return $this->getAll();
 		}
 
 		public function getAll(){

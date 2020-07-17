@@ -42,8 +42,7 @@
 		private function deleteAllFindings(){
 			Cache::getInstance()->clear();
 			return Paint::exec(function(Types $print){
-				$print->string(fx_lang('cli.cache_cleared'))->fon('green')->toPaint();
-				$print->eol();
+				$print->string(fx_lang('cli.cache_cleared'))->fon('green')->print()->eol();
 			});
 		}
 

@@ -3,6 +3,13 @@
 	namespace Core\Classes\Console\Interfaces;
 
 	interface Printer{
+		/**
+		 * @return Close
+		 */
 		public function get();
-		public function toPaint();
+
+		/**
+		 * @return Close
+		 */
+		public function print();
 	}

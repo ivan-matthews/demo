@@ -174,33 +174,24 @@
 		private function renderCLIError(){
 			$this->getErrorCodeString();
 			Paint::exec(function(Types $print){
-				$print->string($this->cli_error_header)->fon('red')->toPaint();
-				$print->eol();
-				$print->tab()->string($this->error_code_string)->color('light_green')->toPaint();
-				$print->eol();
-				$print->tab()->string($this->error_message)->fon('red')->toPaint();
-				$print->eol();
-				$print->tab()->string("File: ")->toPaint();
-				$print->string($this->error_file)->color('brown')->toPaint();
-				$print->string(", ")->toPaint();
-				$print->string("Line: ")->toPaint();
-				$print->string($this->error_line)->color('light_red')->toPaint();
-				$print->eol();
-				$print->tab()->string($this->error_msg)->fon('yellow')->toPaint();
-				$print->eol();
-				$print->string(str_repeat('-',100))->toPaint();
-				$print->eol(2);
+				$print->string($this->cli_error_header)->fon('red')->print()->eol()->tab();
+				$print->string($this->error_code_string)->color('light_green')->print()->eol()->tab();
+				$print->string($this->error_message)->fon('red')->print()->eol()->tab();
+				$print->string("File: ")->print();
+				$print->string($this->error_file)->color('brown')->print();
+				$print->string(", ")->print();
+				$print->string("Line: ")->print();
+				$print->string($this->error_line)->color('light_red')->print()->eol()->tab();
+				$print->string($this->error_msg)->fon('yellow')->print()->eol();
+				$print->string(str_repeat('-',100))->print()->eol(2);
 
 				foreach($this->error_backtrace as $trace){
-					$print->string($trace['class'])->color('light_cyan')->toPaint();
-					$print->string($trace['type'])->color('light_red')->toPaint();
-					$print->string("{$trace['function']}()")->color('light_cyan')->toPaint();
-					$print->eol();
-					$print->string("{$trace['file']}, ")->color('brown')->toPaint();
-					$print->string($trace['line'])->color('light_red')->toPaint();
-					$print->eol();
-					$print->string(str_repeat('_',30))->toPaint();
-					$print->eol();
+					$print->string($trace['class'])->color('light_cyan')->print();
+					$print->string($trace['type'])->color('light_red')->print();
+					$print->string("{$trace['function']}()")->color('light_cyan')->print()->eol();
+					$print->string("{$trace['file']}, ")->color('brown')->print();
+					$print->string($trace['line'])->color('light_red')->print()->eol();
+					$print->string(str_repeat('_',30))->print()->eol();
 				}
 				$print->eol(2);
 			});

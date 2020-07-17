@@ -4,15 +4,20 @@
 
 	interface Validator{
 		/**
+		 * @param $callback
+		 * @return Validator
+		 */
+		public function form($callback);
+
+		/**
+		 * @return array
+		 */
+		public function getFormAttributes();
+		/**
 		 * @param array $attributes
 		 * @return Validator
 		 */
 		public function setDefaultFieldsAttributes(array $attributes);
-		/**
-		 * @param $form_name
-		 * @return Validator
-		 */
-		public function setFormName($form_name);
 		/**
 		 * @param bool $status
 		 * @return Validator
@@ -61,7 +66,7 @@
 		 * @param $field
 		 * @return Preparing | Value
 		 */
-		public function name($field);
+		public function field($field);
 
 		/**
 		 * @param $field_name

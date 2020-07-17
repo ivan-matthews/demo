@@ -55,18 +55,16 @@
 		private function success(){
 			return Paint::exec(function(Types $print){
 				$print->string(fx_lang('cli.database_dropped',array(
-					'DATABASE'	=> $print->string($this->database_name)->fon('green')->get()
-				)))->toPaint();
-				$print->eol();
+					'%DATABASE%'	=> $print->string($this->database_name)->fon('green')->get()
+				)))->print()->eol();
 			});
 		}
 
 		private function skipped(){
 			return Paint::exec(function(Types $print){
 				$print->string(fx_lang('cli.database_not_dropped',array(
-					'DATABASE'	=> $print->string($this->database_name)->fon('red')->get()
-				)))->toPaint();
-				$print->eol();
+					'%DATABASE%'	=> $print->string($this->database_name)->fon('red')->get()
+				)))->print()->eol();
 			});
 		}
 

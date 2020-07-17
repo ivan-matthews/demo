@@ -14,7 +14,7 @@
 		private $driver_key;
 		private $params;
 		private $config;
-		/** @var Files */
+		/** @var PHP */
 		private $driver_object;
 
 		public static function getInstance(){

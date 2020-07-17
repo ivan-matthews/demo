@@ -173,13 +173,12 @@
 		public function callHelpCenter(){
 			Paint::exec(function(Types $print){
 				$delimiter = str_repeat('-',100);
-				$print->string($delimiter)->toPaint();
-				$print->eol();
-				$print->string(fx_lang('cli.sometime_went_wrong'))->toPaint();
+				$print->string($delimiter)->print()->eol();
+				$print->string(fx_lang('cli.sometime_went_wrong'))->print();
 				$print->string(fx_lang('cli.command_not_found',array(
-					'CMD_ARR'	=> $print->string('php ' . implode(' ',$this->arguments_original_array))->fon('red')->get()
-				)))->toPaint();
-				$print->string(fx_lang('cli.help_center_has_called'))->toPaint();
+					'%CMD_ARR%'	=> $print->string('php ' . implode(' ',$this->arguments_original_array))->fon('red')->get()
+				)))->print();
+				$print->string(fx_lang('cli.help_center_has_called'))->print();
 				$print->eol(2);
 			});
 			$this->runStructuredHelpCenter();

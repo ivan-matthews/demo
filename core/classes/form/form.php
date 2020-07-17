@@ -5,7 +5,12 @@
 
 		$fields_array = array(
 			array(
-				'name'		=> 'img_field',
+				'form'		=> array(
+					'enctype'	=> '',
+					'id'		=> 'forma',
+					'action'	=> '/url/to/send/form'
+				),
+				'field'		=> 'img_field',
 				'type'		=> 'file',
 				'field_type'=> 'image',
 				'id'		=> 'image_field',
@@ -33,7 +38,7 @@
 				)
 			),
 			array(
-				'name'		=> 'field_name1',
+				'field'		=> 'field_name1',
 				'type'		=> 'numeric',
 				'field_type'=> 'text',
 				'id'		=> 'field_name1',
@@ -41,14 +46,14 @@
 				'numeric'	=> true
 			),
 			array(
-				'name'		=> 'field_name2',
+				'field'		=> 'field_name2',
 				'type'		=> 'ip',
 				'field_type'=> 'text',
 				'id'		=> 'field_name2',
 				'required'	=> true,
 			),
 			array(
-				'name'		=> 'field_name3',
+				'field'		=> 'field_name3',
 				'type'		=> 'mac',
 				'field_type'=> 'text',
 				'id'		=> 'field_name3',
@@ -65,6 +70,7 @@
 		fx_die($form->can() ? $form->getFieldsList() : array(
 			$form->getFieldsList(),
 			$form->getErrors(),
+			$form->getFormAttributes(),
 			fx_encode($user->getCSRFToken())
 		));
 	*/
@@ -97,10 +103,6 @@
 
 		public function checkArrayItemField($field_value){
 			foreach($field_value as $key=>$value){
-				if(fx_equal('file',$key)){
-					$this->checkFiles($value);
-					continue;
-				}
 				if(method_exists($this,$key)){
 					call_user_func_array(array($this,$key),array($value));
 				}else{
@@ -110,16 +112,6 @@
 			return $this;
 		}
 
-		public function checkFiles($files_data){
-			$files = new File($this);
-			foreach($files_data as $key=>$value){
-				if(method_exists($files,$key)){
-					call_user_func_array(array($files,$key),(is_array($value)?$value:array($value)));
-				}
-			}
-			$files->setFiles();
-			return $this;
-		}
 
 
 

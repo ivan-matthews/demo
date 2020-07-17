@@ -125,22 +125,20 @@
 		private function success($file_or_directory,$file_or_directory_name,$file_or_directory_path){
 			return Paint::exec(function(Types $print)use($file_or_directory,$file_or_directory_name,$file_or_directory_path){
 				$print->string(fx_lang('cli.controller_success_created',array(
-					'TYPE'	=> $file_or_directory,
-					'FILE'	=> $print->string($file_or_directory_name)->color('light_green')->get(),
-					'PATH'	=> $print->string($file_or_directory_path)->color('light_cyan')->get()
-				)))->toPaint();
-				$print->eol();
+					'%TYPE%'	=> $file_or_directory,
+					'%FILE%'	=> $print->string($file_or_directory_name)->color('light_green')->get(),
+					'%PATH%'	=> $print->string($file_or_directory_path)->color('light_cyan')->get()
+				)))->print()->eol();
 			});
 		}
 
 		private function skipped($file_or_directory,$file_or_directory_name,$file_or_directory_path){
 			return Paint::exec(function(Types $print)use($file_or_directory,$file_or_directory_name,$file_or_directory_path){
 				$print->string(fx_lang('cli.controller_not_created',array(
-					'TYPE'	=> $file_or_directory,
-					'FILE'	=> $print->string($file_or_directory_name)->color('light_red')->get(),
-					'PATH'	=> $print->string($file_or_directory_path)->color('light_cyan')->get()
-				)))->toPaint();
-				$print->eol();
+					'%TYPE%'	=> $file_or_directory,
+					'%FILE%'	=> $print->string($file_or_directory_name)->color('light_red')->get(),
+					'%PATH%'	=> $print->string($file_or_directory_path)->color('light_cyan')->get()
+				)))->print()->eol();
 			});
 		}
 

@@ -15,9 +15,10 @@
 		public function prepare(callable $callback_function);
 
 		/**
+		 * @param bool $prepare
 		 * @return Attributes
 		 */
-		public function jevix();
+		public function jevix($prepare = true);
 
 		/**
 		 * @param null $quote_style

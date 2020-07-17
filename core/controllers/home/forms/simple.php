@@ -25,8 +25,8 @@
 
 	namespace Core\Controllers\Home\Forms;
 
-	use Core\Classes\Form\Form;
 	use Core\Classes\Request;
+	use Core\Classes\Form\Form;
 	use Core\Classes\Form\Interfaces\Checkers;
 	use Core\Classes\Form\Interfaces\Validator;
 
@@ -50,7 +50,7 @@
 
 		public function generateFieldsList(){		// для метода GET - генерирует поля
 			$this->validator_interface
-				->name('field')->jevix(true)
+				->field('field')->jevix(true)
 				->class('class')
 				->id('id')
 				->title('title')
@@ -77,7 +77,7 @@
 		public function generateFieldsFromArray(){	// для метода GET - генерирует поля
 			return array(
 				array(
-					'name'		=> 'field_name',
+					'field'		=> 'field_name',
 					'type'		=> 'checkbox',
 					'field_type'=> 'checkbox',
 					'id'		=> 'field_name',

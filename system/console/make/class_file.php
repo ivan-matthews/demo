@@ -97,36 +97,33 @@
 
 		private function errorMaking(){
 			Paint::exec(function(Types $print){
-				$print->string(fx_lang('cli.error_header'))->color('red')->toPaint();
+				$print->string(fx_lang('cli.error_header'))->color('red')->print()->space();
 				$print->string(fx_lang('cli.class_not_created',array(
-					'CLASS_NAME' => $print->string("{$this->namespace}\\{$this->uc_first_class}")->color('cyan')->get(),
-					'CLASS_FILE' => $print->string("{$this->class_path}")->color('white')->fon('blue')->get()
-				)))->toPaint();
-				$print->eol();
+					'%CLASS_NAME%' => $print->string("{$this->namespace}\\{$this->uc_first_class}")->color('cyan')->get(),
+					'%CLASS_FILE%' => $print->string("{$this->class_path}")->color('white')->fon('blue')->get()
+				)))->print()->eol();
 			});
 			return $this;
 		}
 
 		private function alreadyMaking(){
 			Paint::exec(function(Types $print){
-				$print->string(fx_lang('cli.warning_header'))->color('yellow')->toPaint();
+				$print->string(fx_lang('cli.warning_header'))->color('yellow')->print()->space();
 				$print->string(fx_lang('cli.class_already_created',array(
-					'CLASS_NAME' => $print->string("{$this->namespace}\\{$this->uc_first_class}")->color('cyan')->get(),
-					'CLASS_FILE' => $print->string($this->class_path)->color('white')->fon('blue')->get()
-				)))->toPaint();
-				$print->eol();
+					'%CLASS_NAME%' => $print->string("{$this->namespace}\\{$this->uc_first_class}")->color('cyan')->get(),
+					'%CLASS_FILE%' => $print->string($this->class_path)->color('white')->fon('blue')->get()
+				)))->print()->eol();
 			});
 			return $this;
 		}
 
 		private function successfulMaking(){
 			Paint::exec(function(Types $print){
-				$print->string(fx_lang('cli.success_header'))->color('green')->toPaint();
+				$print->string(fx_lang('cli.success_header'))->color('green')->print()->space();
 				$print->string(fx_lang('cli.class_success_created',array(
-					'CLASS_NAME' => $print->string("{$this->namespace}\\{$this->uc_first_class}")->color('cyan')->get(),
-					'CLASS_FILE' => $print->string($this->class_path)->color('white')->fon('blue')->get()
-				)))->toPaint();
-				$print->eol();
+					'%CLASS_NAME%' => $print->string("{$this->namespace}\\{$this->uc_first_class}")->color('cyan')->get(),
+					'%CLASS_FILE%' => $print->string($this->class_path)->color('white')->fon('blue')->get()
+				)))->print()->eol();
 			});
 			return $this;
 		}

@@ -8,7 +8,7 @@
 						->string('test string')
 							->color('red')
 								->fon('yellow')
-									->toPaint();
+									->print();
 		});
 	*/
 
@@ -129,7 +129,7 @@
 			return $this;
 		}
 
-		public function toPaint(){
+		public function print(){
 			if(fx_is_cli()){
 				$this->paintConsole();
 			}else{
@@ -203,13 +203,19 @@
 			}else{
 				$string = str_repeat("<br>",$repeating);
 			}
-			$this->string($string)->toPaint();
+			$this->string($string)->print();
 			return $this;
 		}
 
 		public function tab($repeating=1){
 			$string = str_repeat("\t",$repeating);
-			$this->string($string)->toPaint();
+			$this->string($string)->print();
+			return $this;
+		}
+
+		public function space($repeating=1){
+			$string = str_repeat(" ",$repeating);
+			$this->string($string)->print();
 			return $this;
 		}
 

@@ -5,7 +5,7 @@
 	use Core\Classes\Kernel;
 	use Core\Classes\Response;
 
-	class Files{
+	class PHP{
 
 		const CACHE_EXPIRED_KEY = 'cache_expired_time_key';
 
@@ -44,7 +44,7 @@
 			return $this;
 		}
 
-		private function check(){
+		protected function check(){
 			if(filemtime($this->cache_filename) + $this->ttl > time()){
 				return true;
 			}
@@ -54,12 +54,10 @@
 		public function get(){
 			$debug_time = microtime(true);
 			$this->getCacheAttributes();
-			if(file_exists($this->cache_filename)){
+			if(file_exists($this->cache_filename) && $this->check()){
 				$cache_data = $this->tryInc();
-				if($this->check()){
-					$this->saveDebug($debug_time);
-					return $cache_data;
-				}
+				$this->saveDebug($debug_time);
+				return $cache_data;
 			}
 			return null;
 		}

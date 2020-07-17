@@ -53,8 +53,8 @@
 		private function success($file,$path){
 			return Paint::exec(function(Types $print)use($file,$path){
 				$this->result .= $print->string(fx_lang('cli.session_file_has_removed',array(
-					'CLASS_NAME' => $print->string($file)->fon('green')->get(),
-					'FILE_NAME' => $print->string($path)->fon('blue')->get(),
+					'%CLASS_NAME%' => $print->string($file)->fon('green')->get(),
+					'%FILE_NAME%' => $print->string($path)->fon('blue')->get(),
 				)) . PHP_EOL)->get();
 			});
 		}
@@ -62,8 +62,8 @@
 		private function error($file,$path){
 			return Paint::exec(function(Types $print)use($file,$path){
 				$this->result .= $print->string(fx_lang('cli.session_file_not_removed',array(
-					'CLASS_NAME' => $print->string($file)->fon('red')->get(),
-					'FILE_NAME' => $print->string($path)->fon('light_red')->get(),
+					'%CLASS_NAME%' => $print->string($file)->fon('red')->get(),
+					'%FILE_NAME%' => $print->string($path)->fon('light_red')->get(),
 				)) . PHP_EOL)->get();
 			});
 		}
@@ -71,8 +71,8 @@
 		private function skipped($file,$path){
 			return Paint::exec(function(Types $print)use($file,$path){
 				$this->result .= $print->string(fx_lang('cli.session_file_has_skipped',array(
-					'CLASS_NAME' => $print->string($file)->fon('yellow')->get(),
-					'FILE_NAME' => $print->string($path)->fon('magenta')->get(),
+					'%CLASS_NAME%' => $print->string($file)->fon('yellow')->get(),
+					'%FILE_NAME%' => $print->string($path)->fon('magenta')->get(),
 				)) . PHP_EOL)->get();
 			});
 		}
