@@ -11,11 +11,13 @@
 		<?php print $this->error_code_string ?>
 	</div>
 	<div class="err-message"><?php print $this->error_message ?></div>
-	<span class="err-msg"><?php print $this->error_msg ?></span>
 	<div class="err-file-line">
 		<span class="err-file"><?php print $this->error_file ?>, </span>
 		<span class="err-file"><?php print $this->error_line ?></span>
 	</div>
+	<?php if($this->error_msg){ ?>
+		<span class="err-msg"><?php print $this->error_msg ?></span>
+	<?php } ?>
 </div>
 <hr>
 <table width="100%">
@@ -39,7 +41,7 @@
 					<?php $active = fx_equal($file.$line,$this->error_file.$this->error_line) ? ' active' : '' ?>
 					<tr>
 						<td>
-							<div id="id_<?php print $key ?>" class="backtrace<?php print $active ?>" onclick="openOrClosePreviewCode('#id_<?php print $key ?>')">
+							<div class="backtrace<?php print $active ?>" onclick="openOrClosePreviewCode(this,'#id_<?php print $key ?>')">
 								<div class="class">
 									<span class="class-file"><?php print $class ?></span>
 									<span class="class-type"><?php print $type ?></span>
@@ -58,7 +60,7 @@
 			</table>
 		</td>
 		<td width="50%">
-			<div class="code-preview-parent view">
+			<div class="code-preview-parent view" id="undefined">
 				<div class="err-file-line">
 					<span class="err-file"><?php print $this->error_file ?></span>
 				</div>
@@ -91,11 +93,11 @@
 					<div class="code-preview">
 					<pre>
 						<?php
-							foreach($code_array as $key=>$str){
+							foreach($code_array as $str_key=>$str){
 								if(!$str){ continue; }
-								$error_line_class = fx_equal($key,$line) ? 'danger' : 'normal';
+								$error_line_class = fx_equal($str_key,$line) ? 'danger' : 'normal';
 								print "<span class='{$error_line_class}'>
-<span class='key'>{$key}</span>:<span class='code'>" . trim($str,"\r\n") . "</span></span>";
+<span class='key'>{$str_key}</span>:<span class='code'>" . trim($str,"\r\n") . "</span></span>";
 							}
 						?>
 					</pre>
@@ -144,7 +146,9 @@
 	}
 	.header .err-file-line{
 		margin-top:10px;
+		margin-bottom:10px;
 		font-size: 18px;
+		padding-left: 5%;
 	}
 	.header .err-file-line .err-file{
 
@@ -259,7 +263,7 @@
 	}
 </style>
 <script>
-	function openOrClosePreviewCode(selector){
+	function openOrClosePreviewCode(self,selector){
 		let selector_obj = document.querySelectorAll(".code-preview-parent" + selector);
 
 		if(selector_obj[0] !== undefined && selector_obj[0].classList !== undefined){
@@ -272,14 +276,13 @@
 				selector_obj[0].classList.add('view');
 				selector_obj[0].classList.remove('hide');
 
-				let self = document.querySelectorAll('.backtrace' + selector);
-				if(self[0] !== undefined && self[0].classList !== undefined){
+				if(self.classList !== undefined){
 					let self_parents = document.querySelectorAll('.backtrace');
 					if(self_parents[0] !== undefined && self_parents[0].classList !== undefined){
 						for(let u=0;u<self_parents.length;u++){
 							self_parents[u].classList.remove('active');
 						}
-						self[0].classList.add('active');
+						self.classList.add('active');
 					}
 				}
 			}

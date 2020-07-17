@@ -61,3 +61,15 @@
 		}
 		return $mkdir;
 	}
+
+	function fx_scandir_callback($directory_path,callable $callback){
+		if(is_dir($directory_path) && is_readable($directory_path)){
+			foreach(scandir($directory_path) as $file_or_folder){
+				if($file_or_folder == '.' || $file_or_folder == '..'){ continue; }
+				if(!fx_scandir_callback("{$directory_path}/{$file_or_folder}",$callback)){
+					call_user_func($callback,"{$directory_path}/{$file_or_folder}");
+				}
+			}
+		}
+		return false;
+	}

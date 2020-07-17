@@ -302,9 +302,19 @@
 			return "{$order} {$sort}";
 		}
 
+		public function getAll($result,$resulttype=MYSQLI_ASSOC){
+			if($result){
+				$data = $result->fetch_all($resulttype);
+				$this->freeResult($result);
+				return $data;
+			}
+			return array();
+		}
+
 		public function getItemAsArray($result){
 			if($result){
 				$data = $result->fetch_assoc();
+				$this->freeResult($result);
 				return $data;
 			}
 			return array();
@@ -316,6 +326,7 @@
 				while($item = $result->fetch_assoc()){
 					$data[] = $item;
 				}
+				$this->freeResult($result);
 				return $data;
 			}
 			return array();
@@ -324,6 +335,7 @@
 		public function getItemAsObject($result){
 			if($result){
 				$data = $result->fetch_object();
+				$this->freeResult($result);
 				return $data;
 			}
 			return false;
@@ -335,6 +347,7 @@
 				while($item = $result->fetch_object()){
 					$data[] = $item;
 				}
+				$this->freeResult($result);
 				return $data;
 			}
 			return false;

@@ -56,6 +56,18 @@
 //		'cnf'=>$config->getAll()
 			));
 
+			function a($iterations){
+				$result = array();
+				for($i=0;$i<$iterations;$i++){ $result[$i] = 'string_random'; }
+				return $result;
+			}
+
+			$this->model->indexModel(a(1));
+			$this->model->indexModel(a(2));
+			$this->model->indexModel(a(2));
+			$this->model->indexModel(a(4));
+
+
 			fx_pre(array(
 				'files'=>get_included_files(),
 				'memor'=>fx_prepare_memory(memory_get_usage(),4,',',' '),

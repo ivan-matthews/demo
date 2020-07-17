@@ -125,6 +125,13 @@
 			return $this;
 		}
 
+		public function getAll($resulttype=MYSQLI_ASSOC){
+			$result = $this->exec();
+			if($result){
+				return $this->database_object->getAll($result,$resulttype);
+			}
+			return false;
+		}
 		public function getArray(){
 			$result = $this->exec();
 			if($result){

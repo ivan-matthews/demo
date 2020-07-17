@@ -118,6 +118,10 @@
 
 		}
 
+		public function getAll($result,$resulttype=MYSQLI_ASSOC){
+
+		}
+
 		public function getItemAsArray($result){
 
 		}

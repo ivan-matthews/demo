@@ -18,8 +18,16 @@
 
 	*/
 
+	/*
+		\Core\Controllers\Home\Model::getInstance()->cache
+			->key('someone.cache.key')
+			->index(2) // default: 2
+			->get();
+	*/
+
 	namespace Core\Classes;
 
+	use Core\Cache\Cache;
 	use Core\Database\Query;
 	use Core\Database\Select;
 	use Core\Database\Insert;
@@ -34,6 +42,7 @@
 
 		protected $model;
 		protected $database;
+		public $cache;
 
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -56,6 +65,7 @@
 
 		public function __construct(){
 			$this->database = Database::getInstance();
+			$this->cache = Cache::getInstance();
 		}
 
 		public function __destruct(){

@@ -130,7 +130,7 @@
 			$auth_token = $this->get(self::TOKEN_SESSION_KEY,self::PREFIX_CONF);
 			if($auth_token){
 				if(!fx_equal(fx_encode($auth_token),$this->cookies->getCookie(self::TOKEN_SESSION_KEY))){
-					$this->cleanSession();
+					$this->cleanUserSession();
 				}
 			}
 			return $this;
@@ -147,7 +147,7 @@
 			return $this;
 		}
 
-		public function cleanSession(){
+		public function cleanUserSession(){
 			$this->cleanSessionData(self::PREFIX_AUTH);
 			$this->cleanSessionData(self::PREFIX_CONF);
 			$this->cleanSessionData(self::PREFIX_MSG);

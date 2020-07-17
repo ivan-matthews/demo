@@ -25,10 +25,15 @@
 		public function __construct($response,$debug_key,$back_trace_key){
 			$this->response = $response;
 			$this->debug_key = $debug_key;
-			$this->back_trace_key = $back_trace_key;
+			$this->back_trace_key = $this->index($back_trace_key);
 
 			$this->last_index = $this->getLastArrayKey();
 			$this->response->response_data['debug'][$this->debug_key][$this->last_index] = $this->default_params;
+		}
+
+		public function index($index){
+			$this->back_trace_key = $index;
+			return $this;
 		}
 
 		public function setTime($value){
@@ -79,7 +84,7 @@
 					$this->response->response_data['debug'][$this->debug_key][$this->last_index]['function'] =
 						isset($item['function']) ? $item['function'] : null;
 					$this->response->response_data['debug'][$this->debug_key][$this->last_index]['args'] =
-						isset($item['args']) ? array()/*$item['args']*/ : array();
+						isset($item['args']) ? fx_implode(',', $item['args'])/*$item['args']*/ : array();
 				}
 			}
 			$this->response->response_data['debug'][$this->debug_key][$this->last_index]['trace'] = $this->prepareTrace($value);

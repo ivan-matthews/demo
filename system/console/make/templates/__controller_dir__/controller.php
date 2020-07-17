@@ -3,8 +3,6 @@
 	namespace Core\Controllers\__controller_namespace__;
 
 	use Core\Classes\Controller as ParentController;
-//	use Core\Controllers\__controller_namespace__\Config as Config;
-//	use Core\Controllers\__controller_namespace__\Model as Model;
 
 	class Controller extends ParentController{
 
@@ -36,8 +34,8 @@
 
 		public function __construct(){
 			parent::__construct();
-			$this->config = Config::getInstance();
-			$this->model = Model::getInstance();
+			$this->config = Config::getInstance();	// use Core\Controllers\__controller_namespace__\Config as Config;
+			$this->model = Model::getInstance();	// use Core\Controllers\__controller_namespace__\Model as Model;
 		}
 
 		public function __destruct(){

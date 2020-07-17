@@ -9,6 +9,18 @@
 		private static $stop_engine = false;
 		private static $instance;
 
+		private $cli_error_header = "
+			***********  ***********    ***********       *******     ***********  
+			***********  ************   ************    ***********   ************ 
+			****         ****     ****  ****     ****  *****   *****  ****     ****
+			****         ****     ****  ****     ****  ****     ****  ****     ****
+			***********  ************   ************   ****     ****  ************ 
+			***********  ***********    ***********    ****     ****  ***********  
+			****         ****  ****     ****  ****     ****     ****  ****  ****   
+			****         ****   ****    ****   ****    *****   *****  ****   ****  
+			***********  ****    ****   ****    ****    ***********   ****    **** 
+			***********  ****     ****  ****     ****     *******     ****     ****
+";
 		private $error_number;
 		private $error_message;
 		private $error_file;
@@ -116,11 +128,15 @@
 		private function renderCLIError(){
 			$this->getErrorCodeString();
 			Paint::exec(function(Paint $print){
-				$print->string($this->error_code_string)->fon('red')->toPaint()->eol();
-				$print->string($this->error_message)->fon('red')->color('white')->toPaint()->eol();
-				$print->string("File: {$this->error_file}, ")->fon('cyan')->toPaint();
-				$print->string("Line: {$this->error_line}")->fon('blue')->toPaint()->eol();
-				$print->string($this->error_msg)->fon('yellow')->toPaint()->eol();
+				$print->string($this->cli_error_header)->fon('red')->toPaint()->eol();
+				$print->tab()->string($this->error_code_string)->color('light_green')->toPaint()->eol();
+				$print->tab()->string($this->error_message)->fon('red')->toPaint()->eol();
+				$print->tab()->string("File: ")->toPaint();
+				$print->string($this->error_file)->color('brown')->toPaint();
+				$print->string(", ")->toPaint();
+				$print->string("Line: ")->toPaint();
+				$print->string($this->error_line)->color('light_red')->toPaint()->eol();
+				$print->tab()->string($this->error_msg)->fon('yellow')->toPaint()->eol();
 				$print->string(str_repeat('-',100))->toPaint()->eol(2);
 
 				foreach($this->error_backtrace as $trace){
@@ -128,7 +144,7 @@
 					$print->string(isset($trace['type']) ? $trace['type'] : null)->color('light_red')->toPaint();
 					$print->string(isset($trace['function']) ? $trace['function'] . '()' : null)->color('light_cyan')->toPaint()->eol();
 					$print->string((isset($trace['file']) ? $trace['file'] : null) . ", ")->color('brown')->toPaint();
-					$print->string(isset($trace['line']) ? $trace['line'] : null)->color('brown')->toPaint()->eol();
+					$print->string(isset($trace['line']) ? $trace['line'] : null)->color('light_red')->toPaint()->eol();
 					$print->string(str_repeat('_',30))->toPaint()->eol();
 				}
 				$print->eol(2);
@@ -174,7 +190,7 @@
 			$new_data_array = array();
 			for($i=$error_line-10;$i<$error_line+10;$i++){
 				if(!isset($file_data[$i])){ continue; }
-				$new_data_array[$i+1] = $file_data[$i];
+				$new_data_array[$i+1] = htmlspecialchars($file_data[$i]);
 			}
 			return $new_data_array;
 		}

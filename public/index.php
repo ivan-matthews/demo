@@ -7,7 +7,7 @@
 	use Core\Classes\Database;
 	use Core\Classes\Response;
 	use Core\Classes\Session;
-	use Core\Console\Console;		// Run console scripts from web-page (details: Console::run('help',1))
+//	use Core\Console\Console;		// Run console scripts from web-page (details: Console::run('help',1))
 
 	require __DIR__ . "/../loader.php";
 
@@ -37,6 +37,26 @@
 	$kernel->setControllerParams();
 	$kernel->setActionParams();
 	$kernel->loadSystem();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

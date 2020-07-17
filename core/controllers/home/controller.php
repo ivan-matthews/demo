@@ -3,8 +3,6 @@
 	namespace Core\Controllers\Home;
 
 	use Core\Classes\Controller as ParentController;
-//	use Core\Controllers\Home\Config as Config;
-//	use Core\Controllers\Home\Model as Model;
 
 	class Controller extends ParentController{
 

@@ -31,10 +31,17 @@
 
 		public function __construct(){
 			parent::__construct();
+			$this->cache = $this->cache->key("home.index");
+//			$this->cache = $this->cache->index(2);
 		}
 
 		public function __destruct(){
 
+		}
+
+		public function indexModel($data=array('asasa'=>'asa')){
+			return $this->cache->set($data);
+//			return $this->cache->get();
 		}
 
 

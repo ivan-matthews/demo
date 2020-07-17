@@ -29,3 +29,18 @@
 		}
 		return $result;
 	}
+
+	function fx_implode(string $glue="",$pieces){
+		$result = '';
+		if(is_array($pieces)){
+			foreach($pieces as $value){
+				if(is_object($value)){ continue; }
+				if(is_array($value)){
+					$result .= fx_implode($glue,$value);
+				}else{
+					$result .= "{$value}{$glue}";
+				}
+			}
+		}
+		return trim($result,$glue);
+	}
