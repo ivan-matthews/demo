@@ -8,5 +8,5 @@
 		 * @param bool $name
 		 * @return Subject | From
 		 */
-		public function address($email,$name=false);
+		public function to($email,$name=false);
 	}

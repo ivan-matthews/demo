@@ -1,16 +1,15 @@
 <?php
 
 	/*
-		use Core\Form\Interfaces\Checkers;
-		use Core\Form\Form;
+		use Core\Classes\Form\Interfaces\Checkers;
+		use Core\Classes\Form\Form;
 
 		$new_form = Form::getStaticValidatorInterface();
 		$new_form
-			->setFormName('form')
-			->setData($request->get('form'))
-			->nonCheckCSRF()
-			->runFieldsValidation(1)
-	//			->checkCSRF()
+			->setFormName('')
+			->setData($request->getArray(''))
+			->csrf(1)
+			->validate(1)
 		;
 
 		$new_form->name('field_name')
@@ -21,12 +20,49 @@
 			->type('field_name_type')
 			->title('field_name_title')
 			->data('field_name_key','field_name_value')
+			->data('id',35)
 			->check(function(Checkers $validator){
 				$validator->required();
-				$validator->min(1);
+				$validator->min(2);
 			});
 
-		fx_die(($new_form->can() ? $new_form->getFieldsList() : $new_form->getFieldsList()),fx_encode($user->getCSRFToken()));
+	----------------------------------------------------------------------------------------------
+
+		use Core\Classes\Form\Interfaces\Validator;
+		use Core\Classes\Form\Interfaces\Checkers;
+		use Core\Classes\Form\Form;
+
+		$form = Form::getStaticValidatorInterface(function(Validator $validator){
+			$validator
+				->csrf(1)
+				->validate(1)
+				->setFormName('test')
+				->setData(Request::getInstance()->getArray('test'));
+			$validator
+				->name('field')
+				->class('class')
+				->title('title')
+				->id('id')
+				->type('checkbox')
+				->field_type('checkbox')
+				->placeholder('holder, place')
+				->label('label')
+				->data('key','value')
+				->data('key1','value1')
+				->data('key2','value2')
+				->setAttribute('attr','simple')
+				->check(function(Checkers $checkers){
+					$checkers->required()->int()->email()->numeric()->boolean();
+				});
+			return $validator;
+		});
+
+		fx_die($form->can() ? $form->getFieldsList() : array(
+			$form->getFieldsList(),
+			$form->getErrors(),
+			fx_encode($user->getCSRFToken())
+		));
+
 	*/
 
 	namespace Core\Classes\Form;
@@ -43,24 +79,57 @@
 		protected $value;
 		protected $check_csrf=true;
 
-		protected $validate_fields = false;
+		protected $validate_status = false;
 		protected $errors = array();
 		protected $data = array();
 		protected $fields_list = array();
 		protected $form_name;
+		protected $default_attributes = array(
+			'placeholder' => null,
+			'field_type' => 'text',
+			'required' => null,
+			'html_min' => null,
+			'html_max' => null,
+			'label' => null,
+			'title' => null,
+			'class' => null,
+			'name' => null,
+			'type' => 'text',
+			'value' =>null,
+			'min' => null,
+			'max' => null,
+			'id' => null,
+		);
 
-		/** @return ValidatorInterface */
-		public static function getStaticValidatorInterface(){
+		/**
+		 * @param null $callback_function
+		 * @return ValidatorInterface
+		 */
+		public static function getStaticValidatorInterface($callback_function=null){
+			if($callback_function){
+				return call_user_func($callback_function, new self());
+			}
 			return new self();
 		}
 
-		/** @return ValidatorInterface */
-		public function getDynamicValidatorInterface(){
-			return $this;
+		/**
+		 * @param null $callback_function
+		 * @return ValidatorInterface
+		 */
+		public function getDynamicValidatorInterface($callback_function=null){
+			if($callback_function){
+				return call_user_func($callback_function, new self());
+			}
+			return new self();
 		}
 
 		public function __construct(){
 			$this->config = Config::getInstance();
+			$this->setCSRFAttributes();
+		}
+		public function setDefaultFieldsAttributes(array $attributes){
+			$this->default_attributes = $attributes;
+			return $this;
 		}
 
 		public function setFormName($form_name){
@@ -68,13 +137,19 @@
 			return $this;
 		}
 
-		public function runFieldsValidation($status=true){
-			$this->validate_fields = $status;
+		public function validate($status=true){
+			$this->setValidationStatus($status);
+			$this->checkCSRF();
 			return $this;
 		}
-
+		public function getAttribute($field_name,$attribute_key='value'){
+			if(isset($this->fields_list[$field_name]['attributes'][$attribute_key])){
+				return $this->fields_list[$field_name]['attributes'][$attribute_key];
+			}
+			return null;
+		}
 		public function setAttribute($attribute_key,$attribute_value){
-			$this->fields_list[$this->field][$attribute_key] = $attribute_value;
+			$this->fields_list[$this->field]['attributes'][$attribute_key] = $attribute_value;
 			return $this;
 		}
 
@@ -106,17 +181,8 @@
 			$this->data = $data_array;
 			return $this;
 		}
-		public function checkCSRF(){
-			if(!$this->check_csrf){ return $this; }
-			$this->field = $this->config->session['csrf_key_name'];
-			if(fx_csrf_equal($this->field)){
-				return $this;
-			}
-			$this->setError(fx_lang('fields.csrf_token_not_equal'));
-			return $this;
-		}
-		public function nonCheckCSRF(){
-			$this->check_csrf = false;
+		public function csrf($check_status = true){
+			$this->check_csrf = $check_status;
 			return $this;
 		}
 		public function getValue($value_key){
@@ -152,21 +218,31 @@
 		public function field_type($default){
 			return $this->setAttribute(__FUNCTION__,$default);
 		}
+
 		public function data($data,$value=null){
 			if(is_array($data)){
-				return $this->setAttribute("data-{$data['key']}",$data['value']);
+				foreach($data as $item){
+					$this->setAttribute("data-{$item['key']}",$item['value']);
+				}
+				return $this;
 			}
 			return $this->setAttribute("data-{$data}",$value);
 		}
 		public function check($callback_function=null){
-			if($callback_function && $this->validate_fields){
+			if($callback_function){
 				call_user_func($callback_function,$this);
 			}
+			return $this->mergeAttributes();
+		}
+
+		public function mergeAttributes(){
+			$this->fields_list[$this->field]['attributes'] = array_merge($this->default_attributes,$this->fields_list[$this->field]['attributes']);
 			return $this;
 		}
 
 		public function required($default=true){
 			$this->setAttribute(__FUNCTION__,$default);
+			if(!$this->validate_status){ return $this; }
 			if(!$default){ return $this; }
 			if(!empty($this->value)){
 				return $this;
@@ -180,6 +256,7 @@
 
 		public function min($default=6){
 			$this->setAttribute(__FUNCTION__,$default);
+			if(!$this->validate_status){ return $this; }
 			if(mb_strlen($this->value)>=$default){
 				return $this;
 			}
@@ -193,6 +270,7 @@
 
 		public function max($default=16){
 			$this->setAttribute(__FUNCTION__,$default);
+			if(!$this->validate_status){ return $this; }
 			if(mb_strlen($this->value)<=$default){
 				return $this;
 			}
@@ -206,6 +284,7 @@
 
 		public function html_min($default=6){
 			$this->setAttribute(__FUNCTION__,$default);
+			if(!$this->validate_status){ return $this; }
 			if(mb_strlen(strip_tags($this->value))>=$default){
 				return $this;
 			}
@@ -219,6 +298,7 @@
 
 		public function html_max($default=16){
 			$this->setAttribute(__FUNCTION__,$default);
+			if(!$this->validate_status){ return $this; }
 			if(mb_strlen(strip_tags($this->value))<=$default){
 				return $this;
 			}
@@ -231,6 +311,7 @@
 		}
 
 		public function mask($default="a-zA-Z0-9"){
+			if(!$this->validate_status){ return $this; }
 			if(!$default){ return $this; }
 			preg_match( "([{$default}]+)",$this->value,$result);
 			if(isset($result[0]) && fx_equal($result[0],$this->value)){
@@ -245,6 +326,7 @@
 		}
 
 		public function email($default=true){
+			if(!$this->validate_status){ return $this; }
 			if(!$default){ return $this; }
 			preg_match("/^[A-Za-zА-Яа-яЁё0-9\.\-\_]+\@[A-Za-zА-Яа-яЁё0-9\.\-\_]+.[A-Za-zА-Яа-яЁё0-9]$/u",$this->value,$result);
 			if(isset($result[0]) && fx_equal($result[0],$this->value)){
@@ -258,6 +340,7 @@
 		}
 
 		public function boolean($default=true){
+			if(!$this->validate_status){ return $this; }
 			if(!$default){ return $this; }
 			if(filter_var($this->value,FILTER_VALIDATE_BOOLEAN)){
 				return $this;
@@ -269,6 +352,7 @@
 		}
 
 		public function domain($default=true){
+			if(!$this->validate_status){ return $this; }
 			if(!$default){ return $this; }
 			if(filter_var($this->value,FILTER_VALIDATE_DOMAIN)){
 				return $this;
@@ -280,6 +364,7 @@
 		}
 
 		public function float($default=true){
+			if(!$this->validate_status){ return $this; }
 			if(!$default){ return $this; }
 			if(filter_var($this->value,FILTER_VALIDATE_FLOAT)){
 				return $this;
@@ -291,6 +376,7 @@
 		}
 
 		public function int($default=true){
+			if(!$this->validate_status){ return $this; }
 			if(!$default){ return $this; }
 			if(filter_var($this->value,FILTER_VALIDATE_INT)){
 				return $this;
@@ -302,6 +388,7 @@
 		}
 
 		public function ip($default=true){
+			if(!$this->validate_status){ return $this; }
 			if(!$default){ return $this; }
 			if(filter_var($this->value,FILTER_VALIDATE_IP)){
 				return $this;
@@ -313,6 +400,7 @@
 		}
 
 		public function mac($default=true){
+			if(!$this->validate_status){ return $this; }
 			if(!$default){ return $this; }
 			if(filter_var($this->value,FILTER_VALIDATE_MAC)){
 				return $this;
@@ -324,6 +412,7 @@
 		}
 
 		public function regexp($default){
+			if(!$this->validate_status){ return $this; }
 			if(filter_var($this->value,FILTER_VALIDATE_REGEXP,
 				array("options"=>array("regexp"=>$default)))){
 				return $this;
@@ -335,6 +424,7 @@
 		}
 
 		public function url($default=true){
+			if(!$this->validate_status){ return $this; }
 			if(!$default){ return $this; }
 			if(filter_var($this->value,FILTER_VALIDATE_URL)){
 				return $this;
@@ -346,6 +436,7 @@
 		}
 
 		public function lower_letters($default=true){
+			if(!$this->validate_status){ return $this; }
 			if(!$default){ return $this; }
 			preg_match("#[a-z]#",$this->value,$search);
 			if(!empty($search[0])){
@@ -358,6 +449,7 @@
 		}
 
 		public function upper_letters($default=true){
+			if(!$this->validate_status){ return $this; }
 			if(!$default){ return $this; }
 			preg_match("#[A-Z]#",$this->value,$search);
 			if(!empty($search[0])){
@@ -370,6 +462,7 @@
 		}
 
 		public function numeric($default=true){
+			if(!$this->validate_status){ return $this; }
 			if(!$default){ return $this; }
 			preg_match("#[0-9]#",$this->value,$search);
 			if(!empty($search[0])){
@@ -382,6 +475,7 @@
 		}
 
 		public function symbols($default=true){
+			if(!$this->validate_status){ return $this; }
 			if(!$default){ return $this; }
 			preg_match("/[\!\@\#\$\%\^\&\*\(\)\_\+\=\-\\]\[\~\`\|\}\{\'\:\"\;\?\/\.\,\<\>]/",$this->value,$search);
 			if(!empty($search[0])){
@@ -394,6 +488,7 @@
 		}
 
 		public function lower_cyrillic($default=true){
+			if(!$this->validate_status){ return $this; }
 			if(!$default){ return $this; }
 			preg_match("#([а-яёъэ]+)#u",$this->value,$search);
 			if(!empty($search[0])){
@@ -406,6 +501,7 @@
 		}
 
 		public function upper_cyrillic($default=true){
+			if(!$this->validate_status){ return $this; }
 			if(!$default){ return $this; }
 			preg_match("#([А-ЯЁЪЭ]+)#u",$this->value,$search);
 			if(!empty($search[0])){
@@ -417,6 +513,29 @@
 			return $this;
 		}
 
+		protected function setCSRFAttributes(){
+			$this->name($this->config->session['csrf_key_name']);
+			$this->setAttribute('type','hidden');
+			$this->setAttribute('field_type','hidden');
+			$this->setAttribute('value',fx_csrf());
+			$this->setAttribute('required',true);
+			$this->mergeAttributes();
+			return $this;
+		}
+		protected function checkCSRF(){
+			if(!$this->validate_status){ return $this; }
+			if(!$this->check_csrf){ return $this; }
+			$this->field = $this->config->session['csrf_key_name'];
+			if(fx_csrf_equal($this->field)){
+				return $this;
+			}
+			$this->setError(fx_lang('fields.csrf_token_not_equal'));
+			return $this;
+		}
+		protected function setValidationStatus($status){
+			$this->validate_status = $status;
+			return $this;
+		}
 
 
 

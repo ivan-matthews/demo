@@ -50,8 +50,12 @@
 		private function error(){
 			return Paint::exec(function(Types $print){
 					$print->eol();
-					$print->string(fx_lang('cli.develop_server_dropped'))->color('white')->fon('red')->toPaint();
-					$print->eol(2);
+					$print->string(fx_lang('cli.develop_server_down',array(
+						'DATE'		=> $print->string(date('d F Y'))->fon('magenta')->color('white')->get(),
+						'TIME'		=> $print->string(date('H:i:s'))->fon('magenta')->color('white')->get(),
+						'CONTENT'	=> $print->string(fx_lang('cli.develop_server_down_content'))->color('white')->fon('red')->get()
+					)))->toPaint();
+					$print->eol();
 				});
 		}
 

@@ -1,12 +1,11 @@
 <?php
 
-	$_SERVER['PHP_SELF'] = '/view/server.php';
+	$_SERVER['PHP_SELF'] = '/public/server.php';
 
-	if($_SERVER['REQUEST_URI'] !== '/'){
-		if(($pos = mb_strpos($_SERVER['REQUEST_URI'],'?')) !== false){
-			$_SERVER['REQUEST_URI'] = mb_substr($_SERVER['REQUEST_URI'],0,$pos);
-		}
-		if(file_exists(__DIR__ . $_SERVER['REQUEST_URI']) && !is_dir(__DIR__ . $_SERVER['REQUEST_URI'])){
+	$current_path = parse_url($_SERVER['REQUEST_URI'],PHP_URL_PATH);
+
+	if($current_path !== '/'){
+		if(file_exists(__DIR__ . $current_path)){
 			return false;
 		}
 	}

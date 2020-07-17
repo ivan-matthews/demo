@@ -59,6 +59,10 @@
 
 
 
+
+
+
+
 	fx_pre(array(
 		'csrf'=>$user->getCSRFToken(),
 		'code'=>$response->getResponseCode(),
@@ -66,7 +70,6 @@
 		'data'=>$response->getData(),
 		'grup'=>$user->getGroups(),
 		'burl'=>$user->getBackUrl(),
-		'encc'=>fx_get_csrf_field(),
 	));
 
 

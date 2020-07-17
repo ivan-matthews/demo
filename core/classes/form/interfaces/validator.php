@@ -4,6 +4,11 @@
 
 	interface Validator{
 		/**
+		 * @param array $attributes
+		 * @return Validator
+		 */
+		public function setDefaultFieldsAttributes(array $attributes);
+		/**
 		 * @param $form_name
 		 * @return Validator
 		 */
@@ -12,7 +17,7 @@
 		 * @param bool $status
 		 * @return Validator
 		 */
-		public function runFieldsValidation($status=true);
+		public function validate($status=true);
 		/**
 		 * @param $error_data_value
 		 * @return Validator
@@ -41,14 +46,10 @@
 		public function setData($data_array);
 
 		/**
+		 * @param bool $check_status
 		 * @return Validator
 		 */
-		public function checkCSRF();
-
-		/**
-		 * @return Validator
-		 */
-		public function nonCheckCSRF();
+		public function csrf($check_status = true);
 
 		/**
 		 * @param $value
@@ -61,4 +62,11 @@
 		 * @return Attributes
 		 */
 		public function name($field);
+
+		/**
+		 * @param $field_name
+		 * @param string $attribute_key
+		 * @return Validator
+		 */
+		public function getAttribute($field_name,$attribute_key='value');
 	}

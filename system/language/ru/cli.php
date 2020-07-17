@@ -69,5 +69,6 @@
 		'session_file_not_removed'	=> "Сессионный файл \"CLASS_NAME\" не был удален"/* из FILE_NAME*/,
 		'session_file_has_skipped'	=> "Сессионный файл \"CLASS_NAME\" был пропущен"/* из FILE_NAME*/,
 		'develop_server_started'	=> "Сервер был запущен DATE в TIME.\nДетали смотрите по адресу ADDRESS.\nНажмите COMMAND для выхода...",
-		'develop_server_dropped'	=> "Случилась ошибка! Сервер упал!",
+		'develop_server_down'		=> "CONTENT DATE в TIME",
+		'develop_server_down_content'=> "Случилась ошибка! Сервер упал!",
 	);

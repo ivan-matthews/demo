@@ -72,7 +72,7 @@
 			$this->user_name = $email_user_name;
 			return $this;
 		}
-		public function address($email,$name=false){
+		public function to($email,$name=false){
 			$this->mail->addAddress($email, $name);
 			return $this;
 		}
