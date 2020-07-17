@@ -3,7 +3,7 @@
 	namespace Core\Controllers\Home;
 
 	use Core\Classes\Controller as ParentController;
-	use Core\Classes\Hook;
+	use Core\Classes\Hooks;
 	use Core\Classes\Request;
 	use Core\Classes\Response;
 
@@ -30,7 +30,7 @@
 		/** @var \Core\Classes\User */
 		protected $user;
 
-		/** @var Hook */
+		/** @var Hooks */
 		protected $hook;
 
 		/** @var array */

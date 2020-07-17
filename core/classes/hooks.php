@@ -4,14 +4,14 @@
 	use Core\Classes\Cache\Cache;
 
 	/**
-	 * Class Hook
+	 * Class Hooks
 	 * @package Core\Classes
 	 * @method static _run($callable_function,...$arguments_list)
 	 * @method static _instead($callable_function,...$arguments_list)
 	 * @method static _after($callable_function,...$arguments_list)
 	 * @method static _before($callable_function,...$arguments_list)
 	 */
-	class Hook{
+	class Hooks{
 
 		private static $instance;
 		private $cache;
@@ -41,7 +41,6 @@
 		}
 
 		private function getHooksList(){
-//			$this->cache->key()->clear();
 			$this->cache->key('hooks.all')->mark('get.all.hooks.list')->get();
 			if(($this->hooks_list = $this->cache->array())){
 				return $this;
@@ -52,10 +51,11 @@
 		}
 
 		private function scanHooksDir(){
-			foreach(scandir($this->hooks_dir) as $file){
-				if($file == '.' || $file == '..' || is_dir("{$this->hooks_dir}/{$file}")){ continue; }
-				foreach(fx_import_file("{$this->hooks_dir}/{$file}",Kernel::IMPORT_INCLUDE_ONCE) as $key=>$item){
-					if(!fx_equal($item['status'],Kernel::STATUS_ACTIVE)){ continue; }
+			$hooks_files_list = scandir($this->hooks_dir);
+			unset($hooks_files_list[0],$hooks_files_list[1]);
+			foreach($hooks_files_list as $file){
+				foreach(fx_import_file("{$this->hooks_dir}/{$file}",Kernel::IMPORT_INCLUDE) as $key=>$item){
+					if(!isset($item['status']) || !fx_equal($item['status'],Kernel::STATUS_ACTIVE)){ continue; }
 					$this->hooks_list[$key][] = $item;
 				}
 			}

@@ -44,7 +44,7 @@
 		}
 
 		public function __destruct(){
-			$this->setBackUrl();
+
 		}
 
 		public function getGroups(){

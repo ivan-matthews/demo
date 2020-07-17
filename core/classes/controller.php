@@ -38,7 +38,7 @@
 			$this->response = Response::getInstance();
 			$this->request = Request::getInstance();
 			$this->user = User::getInstance();
-			$this->hook = Hook::getInstance();
+			$this->hook = Hooks::getInstance();
 
 			$this->response->title($this->site_config->core['site_name']);
 			$this->response->breadcrumb('main_breadcrumb')

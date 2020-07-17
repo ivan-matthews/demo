@@ -29,7 +29,24 @@
 	</body>
 </html>
 
+<?php
+	fx_pre(array(
+		'files'=>get_included_files(),
+		'memor'=>fx_prepare_memory(memory_get_usage(),4,',',' '),
+		'times'=>number_format(microtime(true)-TIME,10),
+	));
 
+	$dbg = \Core\Classes\Response::getInstance()->getDebug();
+	if($dbg){
+		foreach($dbg as $key=>$item){
+			print "<i>{$key}</i><br>";
+			foreach($item as $value){
+				print $value['query'] .'<br>';
+			}
+			print '<hr>';
+		}
+	}
+?>
 
 
 

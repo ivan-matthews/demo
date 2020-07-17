@@ -2,7 +2,7 @@
 
 	namespace Core\Controllers\__controller_namespace__\Actions;
 
-	use Core\Classes\Hook;
+	use Core\Classes\Hooks;
 	use Core\Classes\Request;
 	use Core\Classes\Response;
 	use Core\Controllers\__controller_namespace__\Config;
@@ -32,7 +32,7 @@
 		/** @var \Core\Classes\User */
 		protected $user;
 
-		/** @var Hook */
+		/** @var Hooks */
 		protected $hook;
 
 		/** @var array */
