@@ -104,42 +104,42 @@
 			$file_name = ucfirst(basename($new_copied_path));
 			if(!file_exists($new_copied_path)){
 				if(file_put_contents($new_copied_path,$file_replaced_data)){
-					$this->success('File',$file_name,$new_copied_path);
+					$this->success(fx_lang('cli.file'),$file_name,$new_copied_path);
 					return $this;
 				}
 			}
-			$this->skipped('File',$file_name,$new_copied_path);
+			$this->skipped(fx_lang('cli.file'),$file_name,$new_copied_path);
 			return $this;
 		}
 
 		private function makeControllerDir($copied_path){
 			$dir_name = ucfirst(basename($copied_path));
 			if(fx_make_dir($copied_path)){
-				$this->success("Directory",$dir_name,$copied_path);
+				$this->success(fx_lang('cli.folder'),$dir_name,$copied_path);
 			}else{
-				$this->skipped("Directory",$dir_name,$copied_path);
+				$this->skipped(fx_lang('cli.folder'),$dir_name,$copied_path);
 			}
 			return $this;
 		}
 
 		private function success($file_or_directory,$file_or_directory_name,$file_or_directory_path){
 			return Paint::exec(function(Types $print)use($file_or_directory,$file_or_directory_name,$file_or_directory_path){
-				$print->string("{$file_or_directory} \"")->toPaint();
-				$print->string($file_or_directory_name)->color('light_green')->toPaint();
-				$print->string("\" ")->toPaint();
-				$print->string("successful created in ")->color('yellow')->toPaint();
-				$print->string($file_or_directory_path)->color('light_cyan')->toPaint();
+				$print->string(fx_lang('cli.controller_success_created',array(
+					'TYPE'	=> $file_or_directory,
+					'FILE'	=> $print->string($file_or_directory_name)->color('light_green')->get(),
+					'PATH'	=> $print->string($file_or_directory_path)->color('light_cyan')->get()
+				)))->toPaint();
 				$print->eol();
 			});
 		}
 
 		private function skipped($file_or_directory,$file_or_directory_name,$file_or_directory_path){
 			return Paint::exec(function(Types $print)use($file_or_directory,$file_or_directory_name,$file_or_directory_path){
-				$print->string("{$file_or_directory} \"")->toPaint();
-				$print->string($file_or_directory_name)->color('light_red')->toPaint();
-				$print->string("\" ")->toPaint();
-				$print->string("already exists in ")->color('light_purple')->toPaint();
-				$print->string($file_or_directory_path)->color('light_cyan')->toPaint();
+				$print->string(fx_lang('cli.controller_not_created',array(
+					'TYPE'	=> $file_or_directory,
+					'FILE'	=> $print->string($file_or_directory_name)->color('light_red')->get(),
+					'PATH'	=> $print->string($file_or_directory_path)->color('light_cyan')->get()
+				)))->toPaint();
 				$print->eol();
 			});
 		}

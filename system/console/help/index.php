@@ -37,7 +37,7 @@
 			Paint::exec(function(Types $print){
 				$print->string($this->separator_string)->toPaint();
 				$print->eol();
-				$print->string('CLI commands native:')->fon('blue')->toPaint();
+				$print->string(fx_lang('cli.native_cmds_header'))->fon('blue')->toPaint();
 				$print->eol();
 				$print->string($this->separator_string)->toPaint();
 				$print->eol();
@@ -124,7 +124,7 @@
 			Paint::exec(function(Types $print){
 				$print->string($this->separator_string)->toPaint();
 				$print->eol();
-				$print->string('CLI commands aliases:')->fon('green')->toPaint();
+				$print->string(fx_lang('cli.alias_cmds_header'))->fon('green')->toPaint();
 				$print->eol();
 				$print->string($this->separator_string)->toPaint();
 				$print->eol();

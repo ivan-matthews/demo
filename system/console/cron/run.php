@@ -188,7 +188,7 @@
 		private function cronTaskStarted($item){
 			return Paint::exec(function(PaintInterface $print)use($item){
 				$print->string( date('d-m-Y H:i:s') .': ')->color('cyan')->toPaint();
-				$print->string('Cron task ')->toPaint();
+				$print->string(fx_lang('cli.cron_task'))->toPaint();
 				$print->string($item['title'])->fon('blue')->toPaint();
 				$print->string(" (ID №{$item['id']})")->toPaint();
 				$print->string(' > ')->toPaint();
@@ -196,39 +196,39 @@
 		}
 		private function skippedByFile(){
 			return Paint::exec(function(PaintInterface $print){
-				$print->string('skipped')->fon('magenta')->toPaint();
+				$print->string(fx_lang('cli.skipped'))->fon('magenta')->toPaint();
 				$print->string(' ')->toPaint();
-				$print->string('by file!')->color('brown')->toPaint();
+				$print->string(fx_lang('cli.by_file'))->color('brown')->toPaint();
 				$print->eol();
 			});
 		}
 		private function skippedByID(){
 			return Paint::exec(function(PaintInterface $print){
-				$print->string('skipped')->fon('cyan')->toPaint();
+				$print->string(fx_lang('cli.skipped'))->fon('cyan')->toPaint();
 				$print->string(' ')->toPaint();
-				$print->string('by ID!')->color('cyan')->toPaint();
+				$print->string(fx_lang('cli.by_id'))->color('cyan')->toPaint();
 				$print->eol();
 			});
 		}
 		private function skippedByTime(){
 			return Paint::exec(function(PaintInterface $print){
-				$print->string('skipped')->fon('yellow')->toPaint();
+				$print->string(fx_lang('cli.skipped'))->fon('yellow')->toPaint();
 				$print->string(' ')->toPaint();
-				$print->string('by time!')->color('yellow')->toPaint();
+				$print->string(fx_lang('cli.by_time'))->color('yellow')->toPaint();
 				$print->eol();
 			});
 		}
 		private function executeError(){
 			return Paint::exec(function(PaintInterface $print){
-				$print->string('skipped')->fon('red')->toPaint();
+				$print->string(fx_lang('cli.skipped'))->fon('red')->toPaint();
 				$print->string(' ')->toPaint();
-				$print->string('by error!')->color('light_red')->toPaint();
+				$print->string(fx_lang('cli.by_error'))->color('light_red')->toPaint();
 				$print->eol();
 			});
 		}
 		private function nothingToExists(){
 			return Paint::exec(function(PaintInterface $print){
-				$print->string('No tasks to execute!')->fon('cyan')->toPaint();
+				$print->string(fx_lang('cli.no_tasks_to_exec'))->fon('cyan')->toPaint();
 				$print->eol();
 			});
 		}
@@ -236,25 +236,24 @@
 		private function executeSuccessfulWithMsg($msg){
 			$this->update_data['result'] = $msg;
 			return Paint::exec(function(PaintInterface $print)use($msg){
-				$print->string('successful')->fon('green')->toPaint();
-				$print->string(' with message: ')->toPaint();
-				$print->string($msg)->fon('red')->toPaint();
-				$print->string('!')->toPaint();
+				$print->string(fx_lang('cli.successful_ended'))->fon('green')->toPaint();
+				$print->string(fx_lang('cli.with_message'))->toPaint();
+				$print->string($msg)/*->fon('red')*/->toPaint();
 				$print->eol();
 			});
 		}
 		private function executeSuccessful(){
 			$this->update_data['result'] = true;
 			return Paint::exec(function(PaintInterface $print){
-				$print->string('successful!')->fon('green')->toPaint();
+				$print->string(fx_lang('cli.successful_ended'))->fon('green')->toPaint();
 				$print->eol();
 			});
 		}
 		private function executeSuccessfulEmpty(){
 			$this->update_data['result'] = false;
 			return Paint::exec(function(PaintInterface $print){
-				$print->string('successful')->fon('green')->toPaint();
-				$print->string(' with empty response!')->toPaint();
+				$print->string(fx_lang('cli.successful_ended'))->fon('green')->toPaint();
+				$print->string(fx_lang('cli.without_message'))->toPaint();
 				$print->string('')->fon('red')->toPaint();
 				$print->eol();
 			});

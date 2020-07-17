@@ -104,14 +104,13 @@
 			return $this;
 		}
 
-
 		private function errorMaking(){
 			Paint::exec(function(Types $print){
-				$print->string('ERROR')->color('red')->toPaint();
-				$print->string(': File ')->toPaint();
-				$print->string("{$this->class_name}")->color('cyan')->toPaint();
-				$print->string(' has been created in ')->toPaint();
-				$print->string("{$this->migration_file}")->color('white')->fon('blue')->toPaint();
+				$print->string(fx_lang('cli.error_header'))->color('red')->toPaint();
+				$print->string(fx_lang('cli.class_not_created',array(
+					'CLASS_NAME'	=> $print->string("{$this->class_name}")->color('cyan')->get(),
+					'CLASS_FILE'	=> $print->string("{$this->migration_file}")->color('white')->fon('blue')->get(),
+				)))->toPaint();
 				$print->eol();
 			});
 			return $this;
@@ -119,11 +118,11 @@
 
 		private function alreadyMaking(){
 			Paint::exec(function(Types $print){
-				$print->string('WARNING')->color('yellow')->toPaint();
-				$print->string(': File ')->toPaint();
-				$print->string("{$this->class_name}")->color('cyan')->toPaint();
-				$print->string(' has been created in ')->toPaint();
-				$print->string("{$this->migration_file}")->color('white')->fon('blue')->toPaint();
+				$print->string(fx_lang('cli.warning_header'))->color('yellow')->toPaint();
+				$print->string(fx_lang('cli.class_already_created',array(
+					'CLASS_NAME'	=> $print->string("{$this->class_name}")->color('cyan')->get(),
+					'CLASS_FILE'	=> $print->string("{$this->migration_file}")->color('white')->fon('blue')->get(),
+				)))->toPaint();
 				$print->eol();
 			});
 			return $this;
@@ -131,11 +130,11 @@
 
 		private function successfulMaking(){
 			Paint::exec(function(Types $print){
-				$print->string('SUCCESS')->color('green')->toPaint();
-				$print->string(': File ')->toPaint();
-				$print->string("{$this->class_name}")->color('cyan')->toPaint();
-				$print->string(' has been created in ')->toPaint();
-				$print->string("{$this->migration_file}")->color('white')->fon('blue')->toPaint();
+				$print->string(fx_lang('cli.success_header'))->color('green')->toPaint();
+				$print->string(fx_lang('cli.class_success_created',array(
+					'CLASS_NAME'	=> $print->string("{$this->class_name}")->color('cyan')->get(),
+					'CLASS_FILE'	=> $print->string("{$this->migration_file}")->color('white')->fon('blue')->get(),
+				)))->toPaint();
 				$print->eol();
 			});
 			return $this;

@@ -55,8 +55,11 @@
 			$desired_value = Paint::exec(function(Types $print)use($item){
 				return $print->string($item)->fon('blue')->get();
 			});
-			$interface->create("Enter please '{$desired_value}'");
-			$interface->callback($this->getInteractiveCallBackFunction($item),"Enter please '{$desired_value}'");
+			$desired_dialog = fx_lang('cli.enter_please_desired_value',array(
+				'DESIRED_VALUE'	=> $desired_value
+			));
+			$interface->create($desired_dialog);
+			$interface->callback($this->getInteractiveCallBackFunction($item),$desired_dialog);
 			$this->result[$item] = $interface->get();
 			return $this;
 		}

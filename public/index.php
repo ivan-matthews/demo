@@ -37,6 +37,7 @@
 
 	$user->validateAuthorize();
 	$user->refreshAuthCookieTime();
+	$user->resetCSRFToken();
 
 	$router->parseURL(fx_get_server('REQUEST_URI'));
 	$router->setRoute();
@@ -48,10 +49,9 @@
 
 	$response->sendHeaders();
 
-	$user->resetCSRFToken();
 
 
-	
+
 
 
 

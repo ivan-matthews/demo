@@ -111,17 +111,17 @@
 
 		private function success($file_name){
 			return Paint::exec(function(Types $print)use($file_name){
-				$print->string('Insert ')->toPaint();
+				$print->string(fx_lang('cli.insert'))->toPaint();
 				$print->string($file_name)->fon('green')->toPaint();
-				$print->string(' successful')->color('light_green')->toPaint();
+				$print->string(' ' . fx_lang('cli.successful'))->color('light_green')->toPaint();
 				$print->eol();
 			});
 		}
 		private function skipped($file_name){
 			return Paint::exec(function(Types $print)use($file_name){
-				$print->string('Insert ')->toPaint();
+				$print->string(fx_lang('cli.insert'))->toPaint();
 				$print->string($file_name)->fon('red')->toPaint();
-				$print->string(' skipped ')->color('light_red')->toPaint();
+				$print->string(' ' . fx_lang('cli.skipped'))->color('light_red')->toPaint();
 				$print->eol();
 			});
 		}

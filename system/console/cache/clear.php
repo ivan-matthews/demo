@@ -44,24 +44,24 @@
 				if(is_file($find)){
 					unlink($find);
 					Paint::exec(function(Types $print)use($find){
-						$print->string("File: ")->color('brown')->toPaint();
+						$print->string(fx_lang('cli.file'))->color('brown')->toPaint();
 						$print->string($find)->fon('green')->toPaint();
-						$print->string(' successful removed!')->toPaint();
+						$print->string(fx_lang('cli.successful_removed'))->toPaint();
 						$print->eol();
 					});
 					return true;
 				}
 				rmdir($find);
 				Paint::exec(function(Types $print)use($find){
-					$print->string("Folder: ")->color('brown')->toPaint();
+					$print->string(fx_lang('cli.folder'))->color('brown')->toPaint();
 					$print->string($find)->fon('green')->toPaint();
-					$print->string(' successful removed!')->toPaint();
+					$print->string(fx_lang('cli.successful_removed'))->toPaint();
 					$print->eol();
 				});
 				return true;
 			});
 			return Paint::exec(function(Types $print){
-				$print->string("cache cleared successful!")->fon('green')->toPaint();
+				$print->string(fx_lang('cli.cache_cleared'))->fon('green')->toPaint();
 				$print->eol();
 			});
 		}

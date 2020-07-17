@@ -1,7 +1,7 @@
 <?php
 
 	return array(
-		'csrf_token_not_equal'		=> 'CSRF-токены не совпадают!',
+		'csrf_token_not_equal'		=> 'CSRF-токены не совпадают! Возможно срок жизни сессии истек! Перезагрузите страницу и попытайтесь еще раз!',
 		'field_has_attr_required'	=> 'Поле FIELD_NAME обязательно для заполнения!',
 		'error_field_min_length'	=> 'Минимальная длина поля FIELD - COUNT симолов!',
 		'error_field_max_length'	=> 'Максимальная длина поля FIELD - COUNT симолов!',

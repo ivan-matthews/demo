@@ -69,20 +69,20 @@
 
 		private function success($command_file,$console_command){
 			return Paint::exec(function(Types $print)use($command_file,$console_command){
-				$print->string('New Database Class "')->toPaint();
-				$print->string($console_command)->fon('green')->toPaint();
-				$print->string('" successful save to ')->toPaint();
-				$print->string($command_file)->color('green')->toPaint();
+				$print->string(fx_lang('cli.new_db_class_created',array(
+					'CLASS_NAME' => $print->string($console_command)->fon('green')->get(),
+					'FILE_NAME' => $print->string($command_file)->color('green')->get(),
+				)))->toPaint();
 				$print->eol();
 			});
 		}
 
 		private function skipped($command_file,$console_command){
 			return Paint::exec(function(Types $print)use($command_file,$console_command){
-				$print->string('Database Class "')->toPaint();
-				$print->string($console_command)->fon('red')->toPaint();
-				$print->string('" already exists in ')->toPaint();
-				$print->string($command_file)->color('red')->toPaint();
+				$print->string(fx_lang('cli.new_db_class_not_created',array(
+					'CLASS_NAME' => $print->string($console_command)->fon('red')->get(),
+					'FILE_NAME' => $print->string($command_file)->color('red')->get(),
+				)))->toPaint();
 				$print->eol();
 			});
 		}

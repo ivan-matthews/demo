@@ -175,13 +175,12 @@
 				$delimiter = str_repeat('-',100);
 				$print->string($delimiter)->toPaint();
 				$print->eol();
-				$print->string('Something went wrong... ')->toPaint();
-				$print->string('The "')->toPaint();
-				$print->string('php ' . implode(' ',$this->arguments_original_array))->fon('red')->toPaint();
-				$print->string('" command was not found or returned an empty response. ')->toPaint();
-				$print->string('Help Center called:')->toPaint();
+				$print->string(fx_lang('cli.sometime_went_wrong'))->toPaint();
+				$print->string(fx_lang('cli.command_not_found',array(
+					'CMD_ARR'	=> $print->string('php ' . implode(' ',$this->arguments_original_array))->fon('red')->get()
+				)))->toPaint();
+				$print->string(fx_lang('cli.help_center_has_called'))->toPaint();
 				$print->eol(2);
-				;
 			});
 			$this->runStructuredHelpCenter();
 			return $this;

@@ -57,18 +57,18 @@
 
 		private function success(){
 			return Paint::exec(function(Types $print){
-				$print->string('Database "')->toPaint();
-				$print->string($this->database_name)->fon('green')->toPaint();
-				$print->string('" successful created!')->toPaint();
+				$print->string(fx_lang('cli.database_created',array(
+					'DATABASE'	=> $print->string($this->database_name)->fon('green')->get()
+				)))->toPaint();
 				$print->eol();
 			});
 		}
 
 		private function skipped(){
 			return Paint::exec(function(Types $print){
-				$print->string('Database "')->toPaint();
-				$print->string($this->database_name)->fon('red')->toPaint();
-				$print->string('" not created!')->toPaint();
+				$print->string(fx_lang('cli.database_not_created',array(
+					'DATABASE'	=> $print->string($this->database_name)->fon('red')->get()
+				)))->toPaint();
 				$print->eol();
 			});
 		}
