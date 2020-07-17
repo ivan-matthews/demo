@@ -2,6 +2,8 @@
 
 	namespace Core\Console;
 
+	use Core\Console\Interfaces\Types;
+
 	class Interactive{
 
 		private static $instance;
@@ -70,7 +72,7 @@
 
 		public function printWelcome(){
 			$repeating_string = str_repeat('-',100);
-			return Paint::exec(function(Paint $print)use($repeating_string){
+			return Paint::exec(function(Types $print)use($repeating_string){
 				$print->string($repeating_string)->toPaint();
 				$print->eol();
 				$print->tab(2);
@@ -97,7 +99,7 @@
 		}
 
 		private function printString($dialog_string){
-			Paint::exec(function(Paint $print)use($dialog_string){
+			Paint::exec(function(Types $print)use($dialog_string){
 				$print->string($this->error_prefix)->fon('red')->toPaint();
 				$print->string($dialog_string)->toPaint();
 				$print->string("> ")->toPaint();

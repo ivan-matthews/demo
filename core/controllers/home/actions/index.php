@@ -48,7 +48,8 @@
 		}
 
 		public function methodPut(){
-			return false;
+			fx_pre(__METHOD__);
+			return true;
 		}
 
 		public function methodHead(){

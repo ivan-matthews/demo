@@ -3,12 +3,28 @@
 	namespace Core\Console\Interfaces;
 
 	interface Types{
-		/** @return Paint|Printer*/
-		public function arr(array $array);
-		/** @return Paint|Printer*/
+		/**
+		 * @param array $array
+		 * @param string $glue
+		 * @return Paint|Printer
+		 */
+		public function arr(array $array,$glue='');
+
+		/**
+		 * @param $string
+		 * @return Paint|Printer
+		 */
 		public function string($string);
-		/** @return Types*/
+
+		/**
+		 * @param int $repeating
+		 * @return Types
+		 */
 		public function eol($repeating=1);
-		/** @return Types*/
+
+		/**
+		 * @param int $repeating
+		 * @return Types
+		 */
 		public function tab($repeating=1);
 	}

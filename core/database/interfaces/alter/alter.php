@@ -3,8 +3,14 @@
 	namespace Core\Database\Interfaces\Alter;
 
 	interface Alter{
-		/** @return Actions */
+		/**
+		 * @param $field
+		 * @return Actions
+		 */
 		public function field($field);
-		/** @return bool */
+
+		/**
+		 * @return resource
+		 */
 		public function exec();
 	}

@@ -43,7 +43,7 @@
 				if(fx_equal(basename($find),'.htaccess')){ return true; }
 				if(is_file($find)){
 					unlink($find);
-					Paint::exec(function(Paint $print)use($find){
+					Paint::exec(function(Types $print)use($find){
 						$print->string("File: ")->color('brown')->toPaint();
 						$print->string($find)->fon('green')->toPaint();
 						$print->string(' successful removed!')->toPaint();
@@ -52,7 +52,7 @@
 					return true;
 				}
 				rmdir($find);
-				Paint::exec(function(Paint $print)use($find){
+				Paint::exec(function(Types $print)use($find){
 					$print->string("Folder: ")->color('brown')->toPaint();
 					$print->string($find)->fon('green')->toPaint();
 					$print->string(' successful removed!')->toPaint();
@@ -60,7 +60,7 @@
 				});
 				return true;
 			});
-			return Paint::exec(function(Paint $print){
+			return Paint::exec(function(Types $print){
 				$print->string("cache cleared successful!")->fon('green')->toPaint();
 				$print->eol();
 			});

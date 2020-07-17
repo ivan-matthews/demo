@@ -8,6 +8,10 @@
 		 * @param $color
 		 */
 		public function color($color);
-		/** @return Printer|Paint*/
+
+		/**
+		 * @param $fon
+		 * @return Printer|Paint
+		 */
 		public function fon($fon);
 	}

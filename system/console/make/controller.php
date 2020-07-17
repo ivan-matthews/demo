@@ -7,6 +7,7 @@
 	namespace System\Console\Make;
 
 	use Core\Console\Console;
+	use Core\Console\Interfaces\Types;
 	use Core\Console\Paint;
 
 	class Controller extends Console{
@@ -122,7 +123,7 @@
 		}
 
 		private function success($file_or_directory,$file_or_directory_name,$file_or_directory_path){
-			return Paint::exec(function(Paint $print)use($file_or_directory,$file_or_directory_name,$file_or_directory_path){
+			return Paint::exec(function(Types $print)use($file_or_directory,$file_or_directory_name,$file_or_directory_path){
 				$print->string("{$file_or_directory} \"")->toPaint();
 				$print->string($file_or_directory_name)->color('light_green')->toPaint();
 				$print->string("\" ")->toPaint();
@@ -133,7 +134,7 @@
 		}
 
 		private function skipped($file_or_directory,$file_or_directory_name,$file_or_directory_path){
-			return Paint::exec(function(Paint $print)use($file_or_directory,$file_or_directory_name,$file_or_directory_path){
+			return Paint::exec(function(Types $print)use($file_or_directory,$file_or_directory_name,$file_or_directory_path){
 				$print->string("{$file_or_directory} \"")->toPaint();
 				$print->string($file_or_directory_name)->color('light_red')->toPaint();
 				$print->string("\" ")->toPaint();

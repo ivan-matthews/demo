@@ -9,6 +9,7 @@
 	use Core\Console\Console;
 	use Core\Console\Paint;
 	use Core\Console\Interactive;
+	use Core\Console\Interfaces\Types;
 
 	class Test extends Console{
 
@@ -51,7 +52,7 @@
 		}
 
 		private function runConsoleDialog(Interactive $interface,$item){
-			$desired_value = Paint::exec(function(Paint $print)use($item){
+			$desired_value = Paint::exec(function(Types $print)use($item){
 				return $print->string($item)->fon('blue')->get();
 			});
 			$interface->create("Enter please '{$desired_value}'");
@@ -61,7 +62,7 @@
 		}
 
 		private function getResult(){
-			return Paint::exec(function(Paint $print){
+			return Paint::exec(function(Types $print){
 
 				$keys = array_keys($this->result);
 				$values = array_values($this->result);

@@ -7,6 +7,7 @@
 	namespace System\Console\Help;
 
 	use Core\Console\Console;
+	use Core\Console\Interfaces\Types;
 	use Core\Console\Paint;
 
 	class Index extends Console{
@@ -33,11 +34,13 @@
 		}
 
 		private function getFiles(){
-			Paint::exec(function(Paint $print){
-				$print->string($this->separator_string)->toPaint()->eol();
-				$print->string('CLI commands native:')->fon('blue')
-					->toPaint()->eol();
-				$print->string($this->separator_string)->toPaint()->eol();
+			Paint::exec(function(Types $print){
+				$print->string($this->separator_string)->toPaint();
+				$print->eol();
+				$print->string('CLI commands native:')->fon('blue')->toPaint();
+				$print->eol();
+				$print->string($this->separator_string)->toPaint();
+				$print->eol();
 				foreach(scandir($this->files_dir) as $dir){
 					if($dir=='.' || $dir=='..'){ continue; }
 					$this->printDirectoryName($dir);
@@ -68,14 +71,14 @@
 		}
 
 		private function printDirectoryName($directory){
-			Paint::exec(function(Paint $print)use($directory){
+			Paint::exec(function(Types $print)use($directory){
 				$print->string($directory)->color('white')->fon('red')->toPaint();
 				$print->eol();
 			});
 			return $this;
 		}
 
-		private function prepareCommandParams(Paint $print, $params_string){
+		private function prepareCommandParams(Types $print, $params_string){
 			$result_string = preg_replace_callback("/\[(.*?)\]/",function($find)use($print){
 				$str = $print->string('[')->get();
 				$str .= $print->string($find[1])->color('yellow')->get();
@@ -90,7 +93,7 @@
 			$command = trim($command);
 			$description = trim($description);
 			$example = trim($example);
-			Paint::exec(function(Paint $print)use($command,$description,$example){
+			Paint::exec(function(Types $print)use($command,$description,$example){
 				$print->tab();
 				$print->string("php ")->color('brown')->toPaint();
 				$print->string("{$this->script_name} ")->color('green')->toPaint();
@@ -117,11 +120,13 @@
 		}
 
 		private function getAliasesCommandsInfo(){
-			Paint::exec(function(Paint $print){
-				$print->string($this->separator_string)->toPaint()->eol();
-				$print->string('CLI commands aliases:')->fon('green')
-					->toPaint()->eol();
-				$print->string($this->separator_string)->toPaint()->eol();
+			Paint::exec(function(Types $print){
+				$print->string($this->separator_string)->toPaint();
+				$print->eol();
+				$print->string('CLI commands aliases:')->fon('green')->toPaint();
+				$print->eol();
+				$print->string($this->separator_string)->toPaint();
+				$print->eol();
 			});
 			$console = Console::getInstance();
 			foreach($console->aliases_file_data as $value){

@@ -7,6 +7,7 @@
 	namespace System\Console\Make;
 
 	use Core\Console\Console;
+	use Core\Console\Interfaces\Types;
 	use Core\Console\Paint;
 
 	class Cmd extends Console{
@@ -112,7 +113,7 @@
 		}
 
 		private function success($command_file,$console_command){
-			return Paint::exec(function(Paint $print)use($command_file,$console_command){
+			return Paint::exec(function(Types $print)use($command_file,$console_command){
 				$print->string('Command "')->toPaint();
 				$print->string($console_command)->fon('green')->toPaint();
 				$print->string('" successful save to ')->toPaint();
@@ -122,7 +123,7 @@
 		}
 
 		private function skipped($command_file,$console_command){
-			return Paint::exec(function(Paint $print)use($command_file,$console_command){
+			return Paint::exec(function(Types $print)use($command_file,$console_command){
 				$print->string('Command "')->toPaint();
 				$print->string($console_command)->fon('red')->toPaint();
 				$print->string('" already exists in ')->toPaint();

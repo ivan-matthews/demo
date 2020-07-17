@@ -23,7 +23,7 @@
 	$user 		= User::getInstance();
 
 	$request->setRequestedData(fx_get_request());
-	$request->setRequestMethod(fx_get_server('REQUEST_METHOD'));
+	$request->setRequestMethod($request->get('method')?:fx_get_server('REQUEST_METHOD'));
 
 	$session->setSessionDir();
 	$session->setSessionID();
@@ -52,7 +52,7 @@
 
 
 
-
+//	fx_pre(trim(dirname($_SERVER['PHP_SELF']),DIRECTORY_SEPARATOR));
 
 	fx_pre(array(
 		'code'=>$response->getResponseCode(),
@@ -67,6 +67,7 @@
 		'prm'=>$router->getParams(),
 		'sts'=>$router->getRouterStatus(),
 		'all'=>$request->getAll(),
+		'mtd'=>$request->getRequestMethod(),
 //				'arr'=>fx_load_array('system/assets',Kernel::IMPORT_INCLUDE_ONCE),
 //				'cnf'=>$config->getAll()
 	));
@@ -92,7 +93,9 @@
 		'memor'=>fx_prepare_memory(memory_get_usage(),4,',',' '),
 		'times'=>number_format(microtime(true)-TIME,10),
 	));
-//			Database::select('*')->from('migrations')->exec();
+
+//	Database::select('*')->from('migrations')->exec();
+
 	$dbg = $response->getDebug();
 	if($dbg){
 		foreach($dbg as $key=>$item){

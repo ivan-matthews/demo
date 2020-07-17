@@ -7,7 +7,7 @@
 	class __class_name__{
 
 		public function firstStep(){
-
+			/*insert data to replace*/
 		}
 
 

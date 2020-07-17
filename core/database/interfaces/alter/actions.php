@@ -6,7 +6,11 @@
 		/** @return Types */
 		public function addColumn();
 		public function dropColumn();
-		/** @return Types */
+
+		/**
+		 * @param $new_name
+		 * @return Types
+		 */
 		public function changeColumn($new_name);
 		/** @return Types */
 		public function modifyColumn();

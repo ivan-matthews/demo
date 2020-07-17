@@ -32,7 +32,7 @@
 			$this->class_name = $this->prepareClassName($this->file);
 
 			$this->cron_tasks_path = fx_path($this->cron_tasks_path);
-			$this->tmp_file = fx_path("system/console/make/templates/cronTaksClass.tmp.php");
+			$this->tmp_file = fx_path("system/console/make/templates/cronTaskClass.tmp.php");
 
 			$this->cron_task_file = "{$this->cron_tasks_path}/{$this->controller}/{$this->file}.php";
 
@@ -76,7 +76,7 @@
 		private function save(){
 			if(!file_exists($this->cron_task_file)){
 				Paint::exec(function(Types $print){
-					$print->string('Cront task class ')->toPaint();
+					$print->string('Cron task class ')->toPaint();
 					$print->string($this->class_name)->fon('blue')->toPaint();
 					$print->string(' successful save to ')->toPaint();
 					$print->string($this->cron_task_file)->fon('green')->toPaint();
@@ -86,7 +86,7 @@
 				$this->createDbInsertNewCronTask();
 			}else{
 				Paint::exec(function(Types $print){
-					$print->string('Cront task class ')->toPaint();
+					$print->string('Cron task class ')->toPaint();
 					$print->string($this->class_name)->fon('blue')->toPaint();
 					$print->string(' already exists in ')->toPaint();
 					$print->string($this->cron_task_file)->fon('red')->toPaint();
@@ -98,6 +98,19 @@
 
 		private function createDbInsertNewCronTask(){
 			$insert = new DB_Insert();
+
+			$insert_data = "Database::insert('cron_tasks')\r\n";
+			$insert_data .= "\t\t\t\t->value('title','{$this->controller} {$this->file}')\r\n";
+			$insert_data .= "\t\t\t\t->value('description','cron task description')\r\n";
+			$insert_data .= "\t\t\t\t->value('class',\"System\\\\Cron_Tasks\\\\{$this->name_space}\\\\{$this->class_name}\")\r\n";
+			$insert_data .= "\t\t\t\t->value('method','execute')\r\n";
+			$insert_data .= "\t\t\t\t->value('params',array())\r\n";
+			$insert_data .= "\t\t\t\t->value('period',5)\t// seconds\r\n";
+			$insert_data .= "\t\t\t\t->value('options',array())\r\n";
+			$insert_data .= "\t\t\t\t->exec();\r\n";
+			$insert_data .= "\t\t\t".'return $this;';
+
+			$insert->setInsertDataToReplace($insert_data);
 			return $insert->execute("{$this->controller}_{$this->file}_cron_task");
 		}
 

@@ -11,9 +11,17 @@
 		public function nullable();
 		/** @return Options|Indexes */
 		public function autoIncrement();
-		/** @return Options|Indexes */
+
+		/**
+		 * @param $comment
+		 * @return Options|Indexes
+		 */
 		public function comment($comment);
-		/** @return Options|Indexes */
+
+		/**
+		 * @param $defaults
+		 * @return Options|Indexes
+		 */
 		public function defaults($defaults);
 		/** @return Options|Indexes */
 		public function unsigned();

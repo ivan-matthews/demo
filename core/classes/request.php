@@ -8,9 +8,9 @@
 
 		private static $instance;
 
-		protected $request;
-
 		protected $request_method;
+
+		protected $request;
 
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -62,9 +62,6 @@
 		public function getAll(){
 			return $this->request;
 		}
-
-
-
 
 
 

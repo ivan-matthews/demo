@@ -7,6 +7,7 @@
 	namespace System\Console\Migration;
 
 	use Core\Console\Console;
+	use Core\Console\Interfaces\Types;
 	use Core\Console\Paint;
 	use Core\Classes\Database;
 	use Core\Classes\Config;
@@ -108,7 +109,7 @@
 		}
 
 		private function success($file_name){
-			return Paint::exec(function(Paint $print)use($file_name){
+			return Paint::exec(function(Types $print)use($file_name){
 				$print->string('Insert ')->toPaint();
 				$print->string($file_name)->fon('green')->toPaint();
 				$print->string(' successful')->color('light_green')->toPaint();
@@ -116,7 +117,7 @@
 			});
 		}
 		private function skipped($file_name){
-			return Paint::exec(function(Paint $print)use($file_name){
+			return Paint::exec(function(Types $print)use($file_name){
 				$print->string('Insert ')->toPaint();
 				$print->string($file_name)->fon('red')->toPaint();
 				$print->string(' skipped ')->color('light_red')->toPaint();

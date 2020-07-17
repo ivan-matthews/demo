@@ -10,7 +10,7 @@
 		 */
 		public function execute($params){
 //			fx_pre($params);
-			sleep(2);
+//			sleep(2);
 
 			$response = array(
 				__METHOD__,		// successful with message '__METHOD__'

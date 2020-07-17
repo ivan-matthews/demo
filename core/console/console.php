@@ -2,6 +2,7 @@
 
 	namespace Core\Console;
 
+	use Core\Console\Interfaces\Types;
 	use ReflectionMethod as Reflect;
 	use Core\Classes\Kernel;
 
@@ -170,16 +171,16 @@
 		}
 
 		public function callHelpCenter(){
-			Paint::exec(function(Paint $print){
+			Paint::exec(function(Types $print){
 				$delimiter = str_repeat('-',100);
-				$print->string($delimiter)->toPaint()->eol()
-					->string('Something went wrong... ')->toPaint()
-					->string('The "')->toPaint()
-					->string('php ' . implode(' ',$this->arguments_original_array))
-						->fon('red')->toPaint()
-					->string('" command was not found or returned an empty response. ')->toPaint()
-					->string('Help Center called:')->toPaint()->eol()
-					->eol()
+				$print->string($delimiter)->toPaint();
+				$print->eol();
+				$print->string('Something went wrong... ')->toPaint();
+				$print->string('The "')->toPaint();
+				$print->string('php ' . implode(' ',$this->arguments_original_array))->fon('red')->toPaint();
+				$print->string('" command was not found or returned an empty response. ')->toPaint();
+				$print->string('Help Center called:')->toPaint();
+				$print->eol(2);
 				;
 			});
 			$this->runStructuredHelpCenter();

@@ -15,12 +15,9 @@
 	namespace Core\Console;
 
 	use Core\Classes\Response;
-
-	use Core\Console\Interfaces\Printer;
 	use Core\Console\Interfaces\Types;
-	use Core\Console\Interfaces\Paint as PaintInterface;
 
-	class Paint implements Printer, Types, PaintInterface{
+	class Paint implements Types{
 
 		const COLOR = 'white';
 		const FON = 'black';

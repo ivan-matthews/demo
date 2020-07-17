@@ -7,6 +7,7 @@
 	namespace System\Console\Make;
 
 	use Core\Console\Console;
+	use Core\Console\Interfaces\Types;
 	use Core\Console\Paint;
 
 	class DB_Table extends Console{
@@ -102,7 +103,7 @@
 
 
 		private function errorMaking(){
-			Paint::exec(function(Paint $print){
+			Paint::exec(function(Types $print){
 				$print->string('ERROR')->color('red')->toPaint();
 				$print->string(': File ')->toPaint();
 				$print->string("{$this->class_name}")->color('cyan')->toPaint();
@@ -114,7 +115,7 @@
 		}
 
 		private function alreadyMaking(){
-			Paint::exec(function(Paint $print){
+			Paint::exec(function(Types $print){
 				$print->string('WARNING')->color('yellow')->toPaint();
 				$print->string(': File ')->toPaint();
 				$print->string("{$this->class_name}")->color('cyan')->toPaint();
@@ -126,7 +127,7 @@
 		}
 
 		private function successfulMaking(){
-			Paint::exec(function(Paint $print){
+			Paint::exec(function(Types $print){
 				$print->string('SUCCESS')->color('green')->toPaint();
 				$print->string(': File ')->toPaint();
 				$print->string("{$this->class_name}")->color('cyan')->toPaint();

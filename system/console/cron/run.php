@@ -1,8 +1,8 @@
 <?php
 
-	#CMD: cron run 
+	#CMD: cron run [...cron_task_ids_from_db=false]
 	#DSC: single run cron tasks command
-	#EXM: cron run 
+	#EXM: cron run 1 2 5 6 99 101 33
 
 	namespace System\Console\Cron;
 
@@ -22,6 +22,8 @@
 		private $locked_file;
 		private $lock_to_write;
 		private $cron_tasks_locked_files;
+
+		private $task_ids=array();
 
 		private $update_data = array(
 			'options'	=> null,
@@ -48,9 +50,11 @@
 			set_error_handler("Core\\Classes\\Error::getInstance");
 		}
 
-		public function execute(){
+		public function execute(...$task_ids){
+			$this->task_ids = $task_ids;
+
 			$this->getCronTasksArray();
-			$this->startCronTasks();
+			$this->startCron();
 
 			return $this->result;
 		}
@@ -63,11 +67,15 @@
 			return $this;
 		}
 
-		private function startCronTasks(){
+		private function startCron(){
 			if($this->cron_tasks_array){
 				foreach($this->cron_tasks_array as $key=>$item){
 					$this->cronTaskStarted($item);
 
+					if(!$this->checkIDInIDsList($item)){
+						$this->skippedByID();
+						continue;
+					}
 					if(!$this->checkLastRun($item['date_updated']+$item['period'])){
 						$this->skippedByTime();
 						continue;
@@ -89,6 +97,15 @@
 				return $this;
 			}
 			return $this->nothingToExists();
+		}
+
+		private function checkIDInIDsList($item){
+			if($this->task_ids){
+				if(!in_array($item['id'],$this->task_ids)){
+					return false;
+				}
+			}
+			return true;
 		}
 
 		private function tryRunCronTask($cron_task){
@@ -180,6 +197,14 @@
 				$print->string('skipped')->fon('magenta')->toPaint();
 				$print->string(' ')->toPaint();
 				$print->string('by file!')->color('brown')->toPaint();
+				$print->eol();
+			});
+		}
+		private function skippedByID(){
+			return Paint::exec(function(PaintInterface $print){
+				$print->string('skipped')->fon('cyan')->toPaint();
+				$print->string(' ')->toPaint();
+				$print->string('by ID!')->color('cyan')->toPaint();
 				$print->eol();
 			});
 		}

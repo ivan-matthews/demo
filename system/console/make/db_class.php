@@ -8,6 +8,7 @@
 
 	use Core\Console\Console;
 	use Core\Console\Paint;
+	use Core\Console\Interfaces\Types;
 
 	class DB_Class extends Console{
 
@@ -67,7 +68,7 @@
 		}
 
 		private function success($command_file,$console_command){
-			return Paint::exec(function(Paint $print)use($command_file,$console_command){
+			return Paint::exec(function(Types $print)use($command_file,$console_command){
 				$print->string('New Database Class "')->toPaint();
 				$print->string($console_command)->fon('green')->toPaint();
 				$print->string('" successful save to ')->toPaint();
@@ -77,7 +78,7 @@
 		}
 
 		private function skipped($command_file,$console_command){
-			return Paint::exec(function(Paint $print)use($command_file,$console_command){
+			return Paint::exec(function(Types $print)use($command_file,$console_command){
 				$print->string('Database Class "')->toPaint();
 				$print->string($console_command)->fon('red')->toPaint();
 				$print->string('" already exists in ')->toPaint();

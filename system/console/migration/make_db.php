@@ -7,6 +7,7 @@
 	namespace System\Console\Migration;
 
 	use Core\Console\Console;
+	use Core\Console\Interfaces\Types;
 	use Core\Console\Paint;
 	use Core\Classes\Database;
 	use Core\Classes\Config;
@@ -55,7 +56,7 @@
 		}
 
 		private function success(){
-			return Paint::exec(function(Paint $print){
+			return Paint::exec(function(Types $print){
 				$print->string('Database "')->toPaint();
 				$print->string($this->database_name)->fon('green')->toPaint();
 				$print->string('" successful created!')->toPaint();
@@ -64,7 +65,7 @@
 		}
 
 		private function skipped(){
-			return Paint::exec(function(Paint $print){
+			return Paint::exec(function(Types $print){
 				$print->string('Database "')->toPaint();
 				$print->string($this->database_name)->fon('red')->toPaint();
 				$print->string('" not created!')->toPaint();

@@ -5,13 +5,13 @@
 	use Core\Classes\Database;
 	use Core\Classes\Kernel;
 
-	class AddHomeTestCronTask00000000{
+	class InsertHomeRemoveOldSessionsCronTask202005250117171590409037{
 
-		public function first(){
+		public function firstStep(){
 			Database::insert('cron_tasks')
-				->value('title','home test')
-				->value('description','runt first testing cron task')
-				->value('class',"System\\Cron_Tasks\\Home\\Test")
+				->value('title','home remove_old_sessions')
+				->value('description','remove old session files')
+				->value('class',"System\\Cron_Tasks\\Home\\Remove_Old_Sessions")
 				->value('method','execute')
 				->value('params',array())
 				->value('period',5)		// seconds
@@ -20,5 +20,15 @@
 				->exec();
 			return $this;
 		}
+
+
+
+
+
+
+
+
+
+
 
 	}

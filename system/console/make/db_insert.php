@@ -7,6 +7,7 @@
 	namespace System\Console\Make;
 
 	use Core\Console\Console;
+	use Core\Console\Interfaces\Types;
 	use Core\Console\Paint;
 
 	class DB_Insert extends Console{
@@ -23,6 +24,7 @@
 		private $date;
 
 		private $class_name;
+		private $insert_data_to_replace;
 		private $file_name;
 
 		private $file_data;
@@ -71,10 +73,15 @@
 
 		private function getReplacedData(){
 			$this->replaced_file_data = str_replace(array(
-				'__class_name__'
+				'__class_name__','/*insert data to replace*/'
 			),array(
-				$this->class_name
+				$this->class_name,$this->insert_data_to_replace
 			),$this->file_data);
+			return $this;
+		}
+
+		public function setInsertDataToReplace($insert_data_to_replace){
+			$this->insert_data_to_replace = $insert_data_to_replace;
 			return $this;
 		}
 
@@ -102,7 +109,7 @@
 
 
 		private function errorMaking(){
-			Paint::exec(function(Paint $print){
+			Paint::exec(function(Types $print){
 				$print->string('ERROR')->color('red')->toPaint();
 				$print->string(': File ')->toPaint();
 				$print->string("{$this->class_name}")->color('cyan')->toPaint();
@@ -114,7 +121,7 @@
 		}
 
 		private function alreadyMaking(){
-			Paint::exec(function(Paint $print){
+			Paint::exec(function(Types $print){
 				$print->string('WARNING')->color('yellow')->toPaint();
 				$print->string(': File ')->toPaint();
 				$print->string("{$this->class_name}")->color('cyan')->toPaint();
@@ -126,7 +133,7 @@
 		}
 
 		private function successfulMaking(){
-			Paint::exec(function(Paint $print){
+			Paint::exec(function(Types $print){
 				$print->string('SUCCESS')->color('green')->toPaint();
 				$print->string(': File ')->toPaint();
 				$print->string("{$this->class_name}")->color('cyan')->toPaint();

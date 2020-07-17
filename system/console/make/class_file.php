@@ -8,6 +8,7 @@
 
 	use Core\Console\Console;
 	use Core\Console\Paint;
+	use Core\Console\Interfaces\Types;
 
 	class Class_File extends Console{
 
@@ -95,7 +96,7 @@
 		}
 
 		private function errorMaking(){
-			Paint::exec(function(Paint $print){
+			Paint::exec(function(Types $print){
 				$print->string('ERROR')->color('red')->toPaint();
 				$print->string(': Class ')->toPaint();
 				$print->string("{$this->namespace}\\{$this->uc_first_class}")->color('cyan')->toPaint();
@@ -107,7 +108,7 @@
 		}
 
 		private function alreadyMaking(){
-			Paint::exec(function(Paint $print){
+			Paint::exec(function(Types $print){
 				$print->string('WARNING')->color('yellow')->toPaint();
 				$print->string(': Class ')->toPaint();
 				$print->string("{$this->namespace}\\{$this->uc_first_class}")->color('cyan')->toPaint();
@@ -119,7 +120,7 @@
 		}
 
 		private function successfulMaking(){
-			Paint::exec(function(Paint $print){
+			Paint::exec(function(Types $print){
 				$print->string('SUCCESS')->color('green')->toPaint();
 				$print->string(': Class ')->toPaint();
 				$print->string("{$this->namespace}\\{$this->uc_first_class}")->color('cyan')->toPaint();
