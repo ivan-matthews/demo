@@ -19,6 +19,9 @@
 		*	Количество аргументов публичного метода execute() и
 		количество аргументов вызываемой команды, должны совпадать
 
+		* Метод execute() должен что-то возвращать (TRUE, $this, FALSE, NULL)
+		в случае возврата FALSE или NULL, автоматически вызывается команда справки 'php cli help'
+
 		*	Test: php cli make test какой-то тест
 		будет вызван класс System\Console\Make\Test::execute([какой-то,тест]);
 
@@ -30,8 +33,9 @@
 
 	use Core\Classes\Config;
 	use Core\Classes\Console;
+	use Core\Classes\Paint;
 
-	require __DIR__ . "/autoloader.php";
+	require __DIR__ . "/loader.php";
 
 	fx_set_server('PHP_SELF','cli');
 
@@ -39,5 +43,14 @@
 	$console = Console::getInstance();
 
 	$console->getArguments(fx_get_server('argv'));
-	$console->runConsoleInterface();
 
+	if(!$console->runConsoleInterface()){
+		$console->callHelpCenter();
+	}
+
+
+//	if(!$console->runCommandFromAlias()){
+//		if(!$console->runNativeCommand()){
+//			$console->callHelpCenter();
+//		}
+//	}

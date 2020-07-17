@@ -16,5 +16,9 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ ./index.php [L]
 
+RewriteRule .future - [F]
 RewriteRule .htaccess - [F]
 RewriteRule loader.php - [F]
+
+#Options +ExecCGI
+#AddHandler cgi-script .py

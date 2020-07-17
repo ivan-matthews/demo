@@ -37,3 +37,19 @@
 	function fx_print($data){
 		return print $data;
 	}
+
+	function fx_status_variable_has($variable,$status){
+		$variable = (int)$variable;
+		if(fx_equal($status,\Core\Classes\Kernel::STATUS_VARIANTS[$variable])){
+			return true;
+		}
+		return false;
+	}
+
+	function fx_status($variable,$status){
+		$variable = (int)$variable;
+		if(fx_equal($variable,$status)){
+			return true;
+		}
+		return false;
+	}

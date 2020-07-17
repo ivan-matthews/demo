@@ -37,6 +37,11 @@
 			return false;
 		}
 
+		public function __set($name, $value){
+			$this->router[$name] = $value;
+			return $this->router[$name];
+		}
+
 		public function __construct(){
 			$this->config = Config::getInstance();
 		}
@@ -71,6 +76,8 @@
 
 		protected function searchRouteInRoutesArray(){
 			foreach($this->routes_list as $value){
+				if(!fx_status($value['status'],Kernel::STATUS_ACTIVE)){ continue; }
+
 				$pattern = $this->preparePattern($value['url'],fx_arr($value['pattern'],'string'));
 				preg_match("#{$pattern}#{$value['modifier']}",$this->url_array['path'],$result_matches);
 				if(isset($result_matches[0]) && fx_equal($result_matches[0],$this->url_array['path'])){

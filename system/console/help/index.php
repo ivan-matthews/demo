@@ -9,19 +9,26 @@
 	use Core\Classes\Console;
 	use Core\Classes\Paint;
 
-	class Index extends Console{
+	class Index{
 
 		protected $EOL = PHP_EOL;
 		protected $files_dir;
 		protected $help_info = array();
 
-		public function __construct(){
-			$this->files_dir = fx_path('system/console');
-		}
-
 		public function execute(){
+			$this->files_dir = fx_path('system/console');
 			$this->getFiles();
-			return $this;
+
+			Paint::exec(function(Paint $print){
+				$print->string(str_repeat('-',100))->toPaint()->eol();
+				$print->tab()->tab()->tab()->tab()->string('CLI commands aliases:')->fon('green')
+					->toPaint()->eol();
+				$print->string(str_repeat('-',100))->toPaint()->eol();
+			});
+
+			$this->getAliasesCommandsInfo();
+
+			return true;
 		}
 
 		protected function getFiles(){
@@ -35,6 +42,7 @@
 					}
 				}
 			}
+			print PHP_EOL;
 			return $this;
 		}
 
@@ -46,16 +54,15 @@
 			);
 			if(!empty($result[1]) && !empty($result[2]) && !empty($result[3])){
 				if(isset($result[1][0]) && isset($result[2][1]) && isset($result[3][2])){
-					$this->printHelpInfo($result[1][0],$result[2][1],$result[3][2]);
+					return $this->printHelpInfo($result[1][0],$result[2][1],$result[3][2]);
 				}
 			}
-			return $this;
+			return false;
 		}
 
 		protected function printDirectoryName($directory){
 			Paint::exec(function(Paint $paint)use($directory){
-				$paint->string($directory)->color('white')->fon('red')->toPaint();
-//				$paint->string(':')->toPaint();
+				$paint->tab()->string($directory)->color('white')->fon('red')->toPaint();
 				$paint->eol();
 			});
 			return $this;
@@ -67,7 +74,7 @@
 			$example = trim($example);
 
 			Paint::exec(function(Paint $paint)use($command,$description,$example){
-				$paint->tab();
+				$paint->tab()->tab();
 				$paint->string($command)->color('yellow')->toPaint();
 				$paint->string(' - ')->toPaint();
 				$paint->string(mb_strtoupper($description))->color('cyan')->toPaint();
@@ -76,6 +83,18 @@
 				$paint->string(')')->toPaint();
 				$paint->eol();
 			});
+			return true;
+		}
+
+		protected function getAliasesCommandsInfo(){
+			$console = Console::getInstance();
+			foreach($console->aliases_file_data as $value){
+				$this->printHelpInfo(
+					"php cli {$value['command']}",
+					$value['description'],
+					"php cli {$value['example']}"
+				);
+			}
 			return $this;
 		}
 

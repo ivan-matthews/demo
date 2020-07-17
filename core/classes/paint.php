@@ -86,12 +86,14 @@
 		}
 
 		public function color($color){
+			$color = isset($this->foreground_colors[$color]) ? $color : '';
 			$this->color_key = $color;
 			$this->color = "\033[" . $this->foreground_colors[$color] . "m";
 			return $this;
 		}
 
 		public function fon($fon){
+			$fon = isset($this->background_colors[$fon]) ? $fon : '';
 			$this->fon_key = $fon;
 			$this->fon = "\033[" . $this->background_colors[$fon] . "m";
 			return $this;
@@ -107,8 +109,6 @@
 		}
 
 		protected function paintConsole(){
-//			if(!$this->color){ $this->color(self::COLOR); }
-//			if(!$this->fon){ $this->fon(self::FON); }
 			print $this->color;
 			print $this->fon;
 			print $this->string;
@@ -128,11 +128,6 @@
 			return $this;
 		}
 
-//		public function get(){
-//			print $this->string;
-//			return $this;
-//		}
-
 		protected function removeProps(){
 			$this->color_key = null;
 			$this->fon_key = null;
@@ -143,12 +138,16 @@
 		}
 
 		public function eol(){
-			print PHP_EOL;
+			if(fx_is_cli()){
+				print PHP_EOL;
+			}else{
+				print '<br>';
+			}
 			return $this;
 		}
 
 		public function tab(){
-			print "	";
+			print "\t";
 			return $this;
 		}
 
