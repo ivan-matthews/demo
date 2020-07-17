@@ -15,9 +15,9 @@
 			$this->getCacheAttributes();
 			if(file_exists($this->cache_filename)){
 				$cache_data = $this->tryInc();
-				if($cache_data[self::CACHE_EXPIRED_TIME_KEY] + $this->ttl > time()){
+				if($cache_data[self::CACHE_EXPIRED_KEY] + $this->ttl > time()){
 					$this->saveDebug($debug_time);
-					unset($cache_data[self::CACHE_EXPIRED_TIME_KEY]);
+					unset($cache_data[self::CACHE_EXPIRED_KEY]);
 					return $cache_data;
 				}
 			}
@@ -26,7 +26,7 @@
 
 		public function set($data){
 			$this->getCacheAttributes();
-			$data[self::CACHE_EXPIRED_TIME_KEY] = time();
+			$data[self::CACHE_EXPIRED_KEY] = time();
 			file_put_contents($this->cache_filename, json_encode($data,JSON_PRETTY_PRINT));
 			return null;
 		}

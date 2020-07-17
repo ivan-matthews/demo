@@ -2,11 +2,12 @@
 
 	namespace Core\Classes\Cache;
 
+	use Core\Classes\Kernel;
 	use Core\Classes\Response;
 
 	class Files{
 
-		const CACHE_EXPIRED_TIME_KEY = 'cache_expired_time_key';
+		const CACHE_EXPIRED_KEY = 'cache_expired_time_key';
 
 		private $opcache_status;
 
@@ -117,7 +118,7 @@
 		protected function tryInc(){
 			$data = null;
 			try{
-				$data = fx_import_file($this->cache_filename);
+				$data = fx_import_file($this->cache_filename,Kernel::IMPORT_INCLUDE);
 			}catch(\Error $e){
 				unlink($this->cache_filename);
 				return false;

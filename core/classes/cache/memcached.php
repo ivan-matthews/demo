@@ -16,16 +16,17 @@
 		private $trace;
 
 		private $cache_prefix;
+		private $prefix_key;
 		private $cache_key;
 
 		/** @var \Memcached */
 		private $memcached;
 
 		public function __construct($params){
-			$this->cache_prefix = 'cache' . sprintf('%u', crc32('m.c'));
 			$this->params = $params;
 			$this->ttl = $this->params['cache_ttl'];
 			$this->index = 4;
+			$this->cache_prefix = 'namespace.' . sprintf('%u', crc32($this->params['site_host']));
 			$this->connect();
 		}
 
@@ -46,7 +47,7 @@
 		protected function saveDebug($debug_time){
 			Response::_debug('cache')
 				->index($this->index)
-				->set('result',$this->key)
+				->set('result',$this->cache_key)
 				->setTime($debug_time)
 				->setQuery($this->mark)
 				->setTrace($this->trace);
@@ -87,8 +88,25 @@
 			return null;
 		}
 		public function clear(){
+			$this->getCacheAttributes();
+			if($this->key){
+				$this->clearWithKey();
+				return null;
+			}
 			$this->memcached->flush();
 			return null;
+		}
+
+		private function clearWithKey(){
+			$cache_keys = $this->memcached->getAllKeys();
+			if($cache_keys){
+				foreach($cache_keys as $key=>$value){
+					if(strpos($value,$this->prefix_key) !== false){
+						$this->memcached->delete($value);
+					}
+				}
+			}
+			return $this;
 		}
 
 		private function parseIndex(){
@@ -102,7 +120,8 @@
 
 		private function getCacheAttributes(){
 			$this->parseIndex();
-			$this->cache_key = "{$this->cache_prefix}.{$this->key}.{$this->hash}";
+			$this->prefix_key = "{$this->cache_prefix}.{$this->key}";
+			$this->cache_key = "{$this->prefix_key}.{$this->hash}";
 			return $this;
 		}
 

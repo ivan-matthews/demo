@@ -23,28 +23,36 @@
 
 		public function __construct(){
 			parent::__construct();
-//			$this->cache->ttl(5);
+			$this->cache->ttl(5);
 		}
 
 		public function indexModel(){
-			$this->cache->key('home.index');
+			$this->cache->key('home.index.primary');
 			$result = $this->cache->object()->get();
 
 			if(!$result){
-				$result = $this->select()->from('user_groups')->get()->itemAsObject();
+				$result = $this->select()
+					->from('user_groups')
+					->get()
+					->itemAsObject();
 				$this->cache->set($result);
 			}
+//			$this->cache->clear();	// удалит все ключи из кэша, начинающиеся на 'home.index.primary'
 			return $result;
 		}
 
 		public function secondModel(){
-			$this->cache->key('home.index_2');
+			$this->cache->key();
 			$result = $this->cache->object()->get();
 
 			if(!$result){
-				$result = $this->select()->from('migrations')->get()->itemAsObject();
+				$result = $this->select()
+					->from('migrations')
+					->get()
+					->allAsArray();
 				$this->cache->set($result);
 			}
+//			$this->cache->clear();	// удалит все ключи из кэша, начинающиеся на 'home.index.secondary'
 			return $result;
 		}
 

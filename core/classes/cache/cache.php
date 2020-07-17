@@ -27,6 +27,7 @@
 		public function __construct(){
 			$this->config = Config::getInstance();
 			$this->params = $this->config->cache;
+			$this->params['site_host'] = $this->config->core['site_host'];
 			$this->driver_key = $this->params['cache_driver'];
 			$this->setCacheDriverObject();
 		}
@@ -48,7 +49,7 @@
 			return $this->driver_object->clear();
 		}
 
-		public function key($key){
+		public function key($key=null){
 			$this->driver_object->key($key);
 			return $this;
 		}

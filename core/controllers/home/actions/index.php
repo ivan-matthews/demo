@@ -70,8 +70,8 @@
 
 		public function methodGet(){
 
-			$this->model->indexModel();
-			$this->model->secondModel();
+//			$this->model->indexModel();
+//			$this->model->secondModel();
 
 			$this->response->controller('home')
 				->set('var','someone')

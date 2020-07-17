@@ -6,7 +6,9 @@
 
 	class Mongo{
 
-		const CACHE_EXPIRED_TIME_KEY = 'cache_expired_time_key';
+		const DEFAULT_KEY = 'mongo_key';
+		const DATABASE_NAME = 'mongo_database';
+		const CACHE_EXPIRED_KEY = 'cache_expired_time_key';
 
 		private $params;
 		/** @var \MongoDB\Client */
@@ -26,8 +28,8 @@
 			$this->params = $params;
 			$this->ttl = $this->params['cache_ttl'];
 			$this->index = 4;
-			$this->key = 'cache_data_base';
-			$this->db_name = 'mongo_cache';
+			$this->key = self::DEFAULT_KEY;
+			$this->db_name = self::DATABASE_NAME;
 			$this->connect();
 		}
 
@@ -60,7 +62,7 @@
 		}
 
 		public function key($key){
-			$this->key = $key;
+			$this->key = $key ? $key : self::DEFAULT_KEY;
 			return $this;
 		}
 		public function index($index){
@@ -80,9 +82,9 @@
 			$this->getCacheAttributes();
 			$result_data = $this->collection->findOne(array('data_id_hash' => $this->hash));
 			$data_array = fx_arr($result_data['data']);
-			if(isset($data_array[self::CACHE_EXPIRED_TIME_KEY]) && $data_array[self::CACHE_EXPIRED_TIME_KEY] + $this->ttl > time()){
+			if(isset($data_array[self::CACHE_EXPIRED_KEY]) && $data_array[self::CACHE_EXPIRED_KEY] + $this->ttl > time()){
 				$this->saveDebug($debug_time);
-				unset($data_array[self::CACHE_EXPIRED_TIME_KEY]);
+				unset($data_array[self::CACHE_EXPIRED_KEY]);
 				return $data_array;
 			}
 			$this->collection->deleteMany(array('data_id_hash' => $this->hash));
@@ -90,7 +92,7 @@
 		}
 		public function set(array $data){
 			$this->getCacheAttributes();
-			$data[self::CACHE_EXPIRED_TIME_KEY] = time();
+			$data[self::CACHE_EXPIRED_KEY] = time();
 			$this->collection->insertOne(array('data_id_hash' => $this->hash, 'data' => $data));
 			return null;
 		}
