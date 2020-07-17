@@ -1,15 +1,16 @@
 <?php
 
-	#CMD: php cli migration run
+	#CMD: migration run
 	#DSC: migration all migrations files to db
-	#EXM: php cli migration run
+	#EXM: migration run
 
 	namespace System\Console\Migration;
 
-	use Core\Classes\Console;
-	use Core\Classes\Paint;
+	use Core\Console\Console;
+	use Core\Console\Paint;
 	use Core\Classes\Database;
 	use Core\Classes\Config;
+	use Core\Classes\Kernel;
 
 	class Run extends Console{
 
@@ -18,12 +19,10 @@
 		private $db_driver;
 		private $db_params;
 
-		protected $migrations_folder;
-		protected $migrations_files;
-		protected $namespace_classes;
-		protected $older_migrations=array();
-
-		protected $result;
+		private $migrations_folder;
+		private $migrations_files;
+		private $namespace_classes;
+		private $older_migrations=array();
 
 		public function __construct(){
 			$this->migrations_folder = fx_path("system/migrations");
@@ -41,10 +40,10 @@
 			$this->getMigrationsFiles();
 			$this->migrateAllFiles();
 
-			return $this;
+			return $this->result;
 		}
 
-		protected function checkDb(){
+		private function checkDb(){
 			$this->database
 				->setCharset($this->db_params['sql_charset'])
 				->setCollate($this->db_params['collate'])
@@ -52,7 +51,7 @@
 			return $this;
 		}
 
-		protected function getOlderMigrations(){
+		private function getOlderMigrations(){
 			if($this->database->showTables()){
 				$this->older_migrations = Database::select('name')
 					->from('migrations')
@@ -64,7 +63,7 @@
 			return $this;
 		}
 
-		protected function getMigrationsFiles(){
+		private function getMigrationsFiles(){
 			foreach(scandir($this->migrations_folder) as $file){
 				if($file == '.' || $file == '..'){ continue; }
 				$file_name = pathinfo($file,PATHINFO_FILENAME);
@@ -79,13 +78,13 @@
 			return $this;
 		}
 
-		protected function migrateAllFiles(){
+		private function migrateAllFiles(){
 			foreach($this->migrations_files as $file){
 				if(in_array($file['name'],$this->older_migrations)){
 					$this->skipped($file['name']);
 					continue;
 				}
-				include_once $file['path'];
+				fx_import_file($file['path'],Kernel::IMPORT_INCLUDE_ONCE);
 				$this->callMigrationObjectMethods(new $file['class']());
 				$this->insertNewMigrationToDb($file['name']);
 				$this->success($file['name']);
@@ -93,32 +92,32 @@
 			return $this;
 		}
 
-		protected function callMigrationObjectMethods($migration_object){
+		private function callMigrationObjectMethods($migration_object){
 			foreach(get_class_methods($migration_object) as $method){
 				call_user_func(array($migration_object,$method));
 			}
 			return $this;
 		}
 
-		protected function insertNewMigrationToDb($file_name){
+		private function insertNewMigrationToDb($file_name){
 			return Database::insert('migrations')
 				->value('name',$file_name)
 				->getId();
 		}
 
-		protected function success($file_name){
+		private function success($file_name){
 			return Paint::exec(function(Paint $print)use($file_name){
 				$print->string('Migration ')->toPaint();
 				$print->string($file_name)->fon('green')->toPaint();
-				$print->string(' successful')->color('cyan')->toPaint();
+				$print->string(' successful')->color('light_green')->toPaint();
 				$print->eol();
 			});
 		}
-		protected function skipped($file_name){
+		private function skipped($file_name){
 			return Paint::exec(function(Paint $print)use($file_name){
 				$print->string('Migration ')->toPaint();
 				$print->string($file_name)->fon('red')->toPaint();
-				$print->string(' skipped ')->color('yellow')->toPaint();
+				$print->string(' skipped ')->color('light_red')->toPaint();
 				$print->eol();
 			});
 		}

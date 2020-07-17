@@ -1,26 +1,25 @@
 <?php
 
-	#CMD: php cli make class_file [Path/To/File]
+	#CMD: make class_file [Path/To/File]
 	#DSC: create new standard php class file
-	#EXM: php cli make class_file Core/Classes/Database
+	#EXM: make class_file Core/Classes/Database
 
 	namespace System\Console\Make;
 
-	use Core\Classes\Console;
-	use Core\Classes\Paint;
+	use Core\Console\Console;
+	use Core\Console\Paint;
 
 	class Class_File extends Console{
 
-		protected $class;
-		protected $directory;
-		protected $namespace;
-		protected $lower_class_name;
-		protected $class_name;
-		protected $uc_first_class;
-		protected $class_data;
-		protected $replace_data;
-		protected $class_path;
-		protected $result;
+		private $class;
+		private $directory;
+		private $namespace;
+		private $lower_class_name;
+		private $class_name;
+		private $uc_first_class;
+		private $class_data;
+		private $replace_data;
+		private $class_path;
 
 		public function execute($class){
 			if(!$class){ return false; }
@@ -37,38 +36,38 @@
 			return $this->result;
 		}
 
-		protected function setClassName($class){
+		private function setClassName($class){
 			$this->class = $class;
 			return $this;
 		}
 
-		protected function getNamespace(){
+		private function getNamespace(){
 			$this->directory = dirname($this->class);
 			$this->namespace = str_replace('/','\\',$this->directory);
 			return $this;
 		}
 
-		protected function getLowerClassName(){
+		private function getLowerClassName(){
 			$this->lower_class_name = strtolower($this->class);
 			return $this;
 		}
 
-		protected function getBaseName(){
+		private function getBaseName(){
 			$this->class_name = basename($this->lower_class_name);
 			return $this;
 		}
 
-		protected function getUcFirstClassName(){
+		private function getUcFirstClassName(){
 			$this->uc_first_class = ucfirst($this->class_name);
 			return $this;
 		}
 
-		protected function getClassData(){
+		private function getClassData(){
 			$this->class_data = file_get_contents(fx_php_path("system/console/make/templates/mainClass.tmp"));
 			return $this;
 		}
 
-		protected function getReplacedData(){
+		private function getReplacedData(){
 			$this->replace_data = str_replace(array(
 				'__namespace__','__property__','__class_name__'
 			),array(
@@ -77,7 +76,7 @@
 			return $this;
 		}
 
-		protected function saveNewClass(){
+		private function saveNewClass(){
 			fx_make_dir(fx_path(strtolower($this->directory)));
 			$this->class_path = fx_php_path($this->lower_class_name);
 
@@ -95,38 +94,38 @@
 			return $this;
 		}
 
-		protected function errorMaking(){
-			Paint::exec(function(Paint $paint){
-				$paint->string('ERROR')->color('red')->toPaint();
-				$paint->string(': Class ')->toPaint();
-				$paint->string("{$this->namespace}\\{$this->uc_first_class}")->color('cyan')->toPaint();
-				$paint->string(' not created in ')->toPaint();
-				$paint->string("{$this->class_path}")->color('white')->fon('blue')->toPaint();
-				$paint->eol();
+		private function errorMaking(){
+			Paint::exec(function(Paint $print){
+				$print->string('ERROR')->color('red')->toPaint();
+				$print->string(': Class ')->toPaint();
+				$print->string("{$this->namespace}\\{$this->uc_first_class}")->color('cyan')->toPaint();
+				$print->string(' not created in ')->toPaint();
+				$print->string("{$this->class_path}")->color('white')->fon('blue')->toPaint();
+				$print->eol();
 			});
 			return $this;
 		}
 
-		protected function alreadyMaking(){
-			Paint::exec(function(Paint $paint){
-				$paint->string('WARNING')->color('yellow')->toPaint();
-				$paint->string(': Class ')->toPaint();
-				$paint->string("{$this->namespace}\\{$this->uc_first_class}")->color('cyan')->toPaint();
-				$paint->string(' already exists in ')->toPaint();
-				$paint->string("{$this->class_path}")->color('white')->fon('blue')->toPaint();
-				$paint->eol();
+		private function alreadyMaking(){
+			Paint::exec(function(Paint $print){
+				$print->string('WARNING')->color('yellow')->toPaint();
+				$print->string(': Class ')->toPaint();
+				$print->string("{$this->namespace}\\{$this->uc_first_class}")->color('cyan')->toPaint();
+				$print->string(' already exists in ')->toPaint();
+				$print->string("{$this->class_path}")->color('white')->fon('blue')->toPaint();
+				$print->eol();
 			});
 			return $this;
 		}
 
-		protected function successfulMaking(){
-			Paint::exec(function(Paint $paint){
-				$paint->string('SUCCESS')->color('green')->toPaint();
-				$paint->string(': Class ')->toPaint();
-				$paint->string("{$this->namespace}\\{$this->uc_first_class}")->color('cyan')->toPaint();
-				$paint->string(' has been created in ')->toPaint();
-				$paint->string("{$this->class_path}")->color('white')->fon('blue')->toPaint();
-				$paint->eol();
+		private function successfulMaking(){
+			Paint::exec(function(Paint $print){
+				$print->string('SUCCESS')->color('green')->toPaint();
+				$print->string(': Class ')->toPaint();
+				$print->string("{$this->namespace}\\{$this->uc_first_class}")->color('cyan')->toPaint();
+				$print->string(' has been created in ')->toPaint();
+				$print->string("{$this->class_path}")->color('white')->fon('blue')->toPaint();
+				$print->eol();
 			});
 			return $this;
 		}

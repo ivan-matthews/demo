@@ -79,10 +79,10 @@
 					$this->response->response_data['debug'][$this->debug_key][$this->last_index]['function'] =
 						isset($item['function']) ? $item['function'] : null;
 					$this->response->response_data['debug'][$this->debug_key][$this->last_index]['args'] =
-						isset($item['args']) ? $item['args'] : null;
+						isset($item['args']) ? array()/*$item['args']*/ : array();
 				}
 			}
-			$this->response->response_data['debug'][$this->debug_key][$this->last_index]['trace'] = $value;
+			$this->response->response_data['debug'][$this->debug_key][$this->last_index]['trace'] = $this->prepareTrace($value);
 			return $this;
 		}
 		public function set($key,$value){
@@ -92,6 +92,13 @@
 		public function setArray($value){
 			$this->response->response_data['debug'][$this->debug_key][$this->last_index] = $value;
 			return $this;
+		}
+
+		private function prepareTrace(&$trace){
+			foreach($trace as $i=>$item){
+				$trace[$i]['args'] = array();
+			}
+			return $trace;
 		}
 
 		private function getLastArrayKey(){

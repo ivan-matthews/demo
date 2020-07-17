@@ -134,7 +134,7 @@
 
 		private function getResponseCodesList(){
 			if(!$this->response_list){
-				$this->response_list = fx_load_helper("system/additional/response_codes");
+				$this->response_list = fx_load_helper("system/assets/response_codes",Kernel::IMPORT_INCLUDE);
 			}
 			return $this;
 		}

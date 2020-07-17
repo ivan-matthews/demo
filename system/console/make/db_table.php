@@ -1,13 +1,13 @@
 <?php
 
-	#CMD: php cli make db_table [table_name]
+	#CMD: make db_table [table_name]
 	#DSC: create new migrations table class
-	#EXM: php cli make db_table users
+	#EXM: make db_table users
 
 	namespace System\Console\Make;
 
-	use Core\Classes\Console;
-	use Core\Classes\Paint;
+	use Core\Console\Console;
+	use Core\Console\Paint;
 
 	class DB_Table extends Console{
 
@@ -19,16 +19,14 @@
 
 		private $table_name;
 
-		protected $time;
-		protected $date;
+		private $time;
+		private $date;
 
-		protected $class_name;
-		protected $file_name;
+		private $class_name;
+		private $file_name;
 
-		protected $file_data;
-		protected $replaced_file_data;
-
-		protected $result;
+		private $file_data;
+		private $replaced_file_data;
 
 		public function execute($table_name){
 			$this->migrations_folder = fx_path("system/migrations");
@@ -51,7 +49,7 @@
 			return $this->result;
 		}
 
-		protected function getClassName(){
+		private function getClassName(){
 			$class_name = "{$this->class_prefix}_{$this->table_name}_{$this->date}_{$this->time}";
 			$class_name = fx_array_callback(explode("_",$class_name), function(&$key,&$value){
 				$value = ucfirst($value);
@@ -60,18 +58,18 @@
 			return $this;
 		}
 
-		protected function getFileName(){
+		private function getFileName(){
 			$table_name = mb_strtolower($this->table_name);
 			$this->file_name = "{$this->date}_{$this->file_prefix}_{$table_name}_{$this->time}";
 			return $this;
 		}
 
-		protected function getClassData(){
+		private function getClassData(){
 			$this->file_data = file_get_contents(fx_php_path("system/console/make/templates/tableClass.tmp"));
 			return $this;
 		}
 
-		protected function getReplacedData(){
+		private function getReplacedData(){
 			$this->replaced_file_data = str_replace(array(
 				'__table_name__','__class_name__'
 			),array(
@@ -80,12 +78,12 @@
 			return $this;
 		}
 
-		protected function getFilePath(){
+		private function getFilePath(){
 			$this->migration_file = "{$this->migrations_folder}/{$this->file_name}.php";
 			return $this;
 		}
 
-		protected function saveNewClass(){
+		private function saveNewClass(){
 			fx_make_dir($this->migrations_folder);
 
 			if(!file_exists($this->migration_file)){
@@ -103,38 +101,38 @@
 		}
 
 
-		protected function errorMaking(){
-			Paint::exec(function(Paint $paint){
-				$paint->string('ERROR')->color('red')->toPaint();
-				$paint->string(': File ')->toPaint();
-				$paint->string("{$this->class_name}")->color('cyan')->toPaint();
-				$paint->string(' has been created in ')->toPaint();
-				$paint->string("{$this->migration_file}")->color('white')->fon('blue')->toPaint();
-				$paint->eol();
+		private function errorMaking(){
+			Paint::exec(function(Paint $print){
+				$print->string('ERROR')->color('red')->toPaint();
+				$print->string(': File ')->toPaint();
+				$print->string("{$this->class_name}")->color('cyan')->toPaint();
+				$print->string(' has been created in ')->toPaint();
+				$print->string("{$this->migration_file}")->color('white')->fon('blue')->toPaint();
+				$print->eol();
 			});
 			return $this;
 		}
 
-		protected function alreadyMaking(){
-			Paint::exec(function(Paint $paint){
-				$paint->string('WARNING')->color('yellow')->toPaint();
-				$paint->string(': File ')->toPaint();
-				$paint->string("{$this->class_name}")->color('cyan')->toPaint();
-				$paint->string(' has been created in ')->toPaint();
-				$paint->string("{$this->migration_file}")->color('white')->fon('blue')->toPaint();
-				$paint->eol();
+		private function alreadyMaking(){
+			Paint::exec(function(Paint $print){
+				$print->string('WARNING')->color('yellow')->toPaint();
+				$print->string(': File ')->toPaint();
+				$print->string("{$this->class_name}")->color('cyan')->toPaint();
+				$print->string(' has been created in ')->toPaint();
+				$print->string("{$this->migration_file}")->color('white')->fon('blue')->toPaint();
+				$print->eol();
 			});
 			return $this;
 		}
 
-		protected function successfulMaking(){
-			Paint::exec(function(Paint $paint){
-				$paint->string('SUCCESS')->color('green')->toPaint();
-				$paint->string(': File ')->toPaint();
-				$paint->string("{$this->class_name}")->color('cyan')->toPaint();
-				$paint->string(' has been created in ')->toPaint();
-				$paint->string("{$this->migration_file}")->color('white')->fon('blue')->toPaint();
-				$paint->eol();
+		private function successfulMaking(){
+			Paint::exec(function(Paint $print){
+				$print->string('SUCCESS')->color('green')->toPaint();
+				$print->string(': File ')->toPaint();
+				$print->string("{$this->class_name}")->color('cyan')->toPaint();
+				$print->string(' has been created in ')->toPaint();
+				$print->string("{$this->migration_file}")->color('white')->fon('blue')->toPaint();
+				$print->eol();
 			});
 			return $this;
 		}

@@ -1,29 +1,27 @@
 <?php
 
-	#CMD: php cli make cmd [cmd_folder, cmd_file, ...cmd_arguments]
+	#CMD: make cmd [cmd_folder], [cmd_file], [...cmd_arguments]
 	#DSC: create console command file class
-	#EXM: php cli make cmd server run host port
+	#EXM: make cmd server run host port
 
 	namespace System\Console\Make;
 
-	use Core\Classes\Console;
-	use Core\Classes\Paint;
+	use Core\Console\Console;
+	use Core\Console\Paint;
 
 	class Cmd extends Console{
 
-		protected $console_folder;
-		protected $console_command;
+		private $console_folder;
+		private $console_command;
 
-		protected $command_directory;
-		protected $command_namespace;
-		protected $command_file;
-		protected $command_class;
-		protected $command_arguments;
-		protected $command_file_template;
-		protected $command_file_template_data;
-		protected $command_file_template_prepared_data;
-
-		protected $result;
+		private $command_directory;
+		private $command_namespace;
+		private $command_file;
+		private $command_class;
+		private $command_arguments;
+		private $command_file_template;
+		private $command_file_template_data;
+		private $command_file_template_prepared_data;
 
 		public function execute($command_directory,$command_file='index',...$command_arguments){
 			$this->console_folder = fx_path("system/console");
@@ -43,12 +41,12 @@
 			return $this->result;
 		}
 
-		protected function getTmpFileData(){
+		private function getTmpFileData(){
 			$this->command_file_template_data = file_get_contents($this->command_file_template);
 			return $this;
 		}
 
-		protected function saveDataToFile(){
+		private function saveDataToFile(){
 			$file_new_dir = "{$this->console_folder}/{$this->command_directory}";
 			$file_new_path = "{$file_new_dir}/{$this->command_file}.php";
 			fx_make_dir($file_new_dir);
@@ -62,7 +60,7 @@
 			return true;
 		}
 
-		protected function getConsoleCommandString(){
+		private function getConsoleCommandString(){
 			$this->console_command = $this->command_directory;
 			$this->console_command .= (fx_equal($this->command_file,'index')?null:" {$this->command_file} ");
 			$this->console_command .= implode(' ',$this->command_arguments);
@@ -70,14 +68,14 @@
 			return $this;
 		}
 
-		protected function prepareFileData(){
+		private function prepareFileData(){
 			$class_properties =
 			$class_input_params =
 			$declared_class_properties =
 				$this->command_arguments;
 
 			$class_properties = fx_array_callback($class_properties,function(&$key,&$value){
-				$value = "\t\t" . 'protected $' . $value . ';' . PHP_EOL;
+				$value = "\t\t" . 'private $' . $value . ';' . PHP_EOL;
 			});
 			$class_input_params = fx_array_callback($class_input_params,function(&$key,&$value){
 				$value = '$' . $value;
@@ -113,7 +111,7 @@
 			return $this;
 		}
 
-		protected function success($command_file,$console_command){
+		private function success($command_file,$console_command){
 			return Paint::exec(function(Paint $print)use($command_file,$console_command){
 				$print->string('Command "')->toPaint();
 				$print->string($console_command)->fon('green')->toPaint();
@@ -123,7 +121,7 @@
 			});
 		}
 
-		protected function skipped($command_file,$console_command){
+		private function skipped($command_file,$console_command){
 			return Paint::exec(function(Paint $print)use($command_file,$console_command){
 				$print->string('Command "')->toPaint();
 				$print->string($console_command)->fon('red')->toPaint();

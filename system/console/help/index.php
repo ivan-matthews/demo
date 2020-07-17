@@ -1,37 +1,41 @@
 <?php
 
-	#CMD: php cli help
+	#CMD: help
 	#DSC: call help center
-	#EXM: php cli help
+	#EXM: help
 
 	namespace System\Console\Help;
 
-	use Core\Classes\Console;
-	use Core\Classes\Paint;
+	use Core\Console\Console;
+	use Core\Console\Paint;
 
-	class Index{
+	class Index extends Console{
 
-		protected $EOL = PHP_EOL;
-		protected $files_dir;
-		protected $help_info = array();
+		private $structured;
 
-		public function execute(){
+		private $EOL = PHP_EOL;
+		private $files_dir;
+		private $separator_string;
+		private $aliases_section = null;
+
+		public function execute($structured=null){
+			$this->separator_string = str_repeat('-',100);
+			$this->structured = $structured;
 			$this->files_dir = fx_path('system/console');
-			$this->getFiles();
-
-			Paint::exec(function(Paint $print){
-				$print->string(str_repeat('-',100))->toPaint()->eol();
-				$print->tab()->tab()->tab()->tab()->string('CLI commands aliases:')->fon('green')
-					->toPaint()->eol();
-				$print->string(str_repeat('-',100))->toPaint()->eol();
-			});
 
 			$this->getAliasesCommandsInfo();
+			$this->getFiles();
 
-			return true;
+			return $this->result;
 		}
 
-		protected function getFiles(){
+		private function getFiles(){
+			Paint::exec(function(Paint $print){
+				$print->string($this->separator_string)->toPaint()->eol();
+				$print->string('CLI commands native:')->fon('blue')
+					->toPaint()->eol();
+				$print->string($this->separator_string)->toPaint()->eol();
+			});
 			foreach(scandir($this->files_dir) as $dir){
 				if($dir=='.' || $dir=='..'){ continue; }
 				$this->printDirectoryName($dir);
@@ -46,7 +50,7 @@
 			return $this;
 		}
 
-		protected function searchHelpInfo($file_data){
+		private function searchHelpInfo($file_data){
 			preg_match_all(
 				"#\#CMD:(.*?){$this->EOL}|\#DSC:(.*?){$this->EOL}|\#EXM:(.*?){$this->EOL}#",
 				$file_data,
@@ -60,40 +64,77 @@
 			return false;
 		}
 
-		protected function printDirectoryName($directory){
-			Paint::exec(function(Paint $paint)use($directory){
-				$paint->tab()->string($directory)->color('white')->fon('red')->toPaint();
-				$paint->eol();
+		private function printDirectoryName($directory){
+			Paint::exec(function(Paint $print)use($directory){
+				$print->string($directory)->color('white')->fon('red')->toPaint();
+				$print->eol();
 			});
 			return $this;
 		}
 
-		protected function printHelpInfo($command,$description,$example){
+		private function prepareCommandParams(Paint $print, $params_string, $finder_element=','){
+			$params_string = str_replace(array('[',']'),array('',''),$params_string);
+			if(strpos($params_string,$finder_element) !== false){
+				$params_array = explode($finder_element,$params_string);
+				$printing_string = '';
+				foreach($params_array as $item){
+					$printing_string .= $print->string('[')->get();
+					$printing_string .= $print->string($item)->color('yellow')->get();
+					$printing_string .= $print->string('], ')->get();
+				}
+				print rtrim($printing_string,", \e[0m");
+			}else{
+				$print->string('[')->toPaint();
+				$print->string($params_string)->color('yellow')->toPaint();
+				$print->string(']')->toPaint();
+			}
+			return $this;
+		}
+
+		private function printHelpInfo($command,$description,$example){
 			$command = trim($command);
 			$description = trim($description);
 			$example = trim($example);
-
-			Paint::exec(function(Paint $paint)use($command,$description,$example){
-				$paint->tab()->tab();
-				$paint->string($command)->color('yellow')->toPaint();
-				$paint->string(' - ')->toPaint();
-				$paint->string(mb_strtoupper($description))->color('cyan')->toPaint();
-				$paint->string(' (')->toPaint();
-				$paint->string($example)->color('red')->toPaint();
-				$paint->string(')')->toPaint();
-				$paint->eol();
+			Paint::exec(function(Paint $print)use($command,$description,$example){
+				$print->tab();
+				$print->string("php ")->color('brown')->toPaint();
+				$print->string("cli ")->color('green')->toPaint();
+				$search_params = strpos($command,'[');
+				$params_string = null;
+				if($search_params){
+					$params_string = substr($command,$search_params);
+					$command = substr($command,0,$search_params);
+				}
+				$print->string($command)->color('light_green')->toPaint();
+				if($params_string){
+					$this->prepareCommandParams($print,$params_string);
+				}
+				$print->string(' - ')->toPaint();
+				$print->string("{$description} ")->color('light_cyan')->toPaint();
+				if($this->structured){ $print->eol()->tab(); }
+				$print->string("php ")->color('brown')->toPaint();
+				$print->string("cli ")->color('green')->toPaint();
+				$print->string($example)->color('light_green')->toPaint();
+				$print->eol();
+				if($this->structured){ $print->eol(); }
 			});
 			return true;
 		}
 
-		protected function getAliasesCommandsInfo(){
+		private function getAliasesCommandsInfo(){
+			Paint::exec(function(Paint $print){
+				$print->string($this->separator_string)->toPaint()->eol();
+				$print->string('CLI commands aliases:')->fon('green')
+					->toPaint()->eol();
+				$print->string($this->separator_string)->toPaint()->eol();
+			});
 			$console = Console::getInstance();
 			foreach($console->aliases_file_data as $value){
-				$this->printHelpInfo(
-					"php cli {$value['command']}",
-					$value['description'],
-					"php cli {$value['example']}"
-				);
+				if(!fx_equal($value['section'],$this->aliases_section)){
+					$this->aliases_section = $value['section'];
+					$this->printDirectoryName($value['section']);
+				}
+				$this->printHelpInfo($value['command'],$value['description'],$value['example']);
 			}
 			return $this;
 		}

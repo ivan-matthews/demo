@@ -1,10 +1,10 @@
 <?php
 
-	namespace Core\Controllers\Home;
+	namespace Core\Controllers\__controller_namespace__;
 
 	use Core\Classes\Controller as ParentController;
-//	use Core\Controllers\Home\Config as Config;
-//	use Core\Controllers\Home\Model as Model;
+//	use Core\Controllers\__controller_namespace__\Config as Config;
+//	use Core\Controllers\__controller_namespace__\Model as Model;
 
 	class Controller extends ParentController{
 
@@ -13,7 +13,7 @@
 		protected $config;
 		protected $model;
 
-		protected $home;
+		protected $__controller_property__;
 
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -23,15 +23,15 @@
 		}
 
 		public function __get($key){
-			if(isset($this->home[$key])){
-				return $this->home[$key];
+			if(isset($this->__controller_property__[$key])){
+				return $this->__controller_property__[$key];
 			}
 			return false;
 		}
 
 		public function __set($name, $value){
-			$this->home[$name] = $value;
-			return $this->home[$name];
+			$this->__controller_property__[$name] = $value;
+			return $this->__controller_property__[$name];
 		}
 
 		public function __construct(){

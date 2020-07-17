@@ -6,29 +6,26 @@
 
 	class Kernel{
 
-		private static $instance;
-
-		const STATUS_VARIANTS = array(
-			0	=> 'inactive',
-			1	=> 'active',
-			2	=> 'locked',
-			3	=> 'blocked',
-			4	=> 'deleted',
-		);
+		const IMPORT_REQUIRE		= 0;
+		const IMPORT_REQUIRE_ONCE	= 1;
+		const IMPORT_INCLUDE		= 2;
+		const IMPORT_INCLUDE_ONCE	= 3;
 
 		const STATUS_INACTIVE 	= 0;
 		const STATUS_ACTIVE 	= 1;
-		const STATUS_LOCKED 	= 3;
-		const STATUS_BLOCKED 	= 4;
-		const STATUS_DELETED 	= 5;
+		const STATUS_LOCKED 	= 2;
+		const STATUS_BLOCKED 	= 3;
+		const STATUS_DELETED 	= 4;
 
-		protected $kernel;
+		private static $instance;
+
+		protected $kernel=array();
 
 		protected $config;
 		protected $request;
 		protected $router;
 		protected $response;
-		protected $router_finded_in_list;
+		protected $router_find_in_list;
 
 		protected $controller;
 		protected $action;
@@ -67,7 +64,7 @@
 		}
 
 		public function setProperty(){
-			$this->router_finded_in_list = $this->router->getRouterStatus();
+			$this->router_find_in_list = $this->router->getRouterStatus();
 			$this->request_method = $this->request->getRequestMethod();
 			$this->controller = $this->router->getController();
 			$this->action = $this->router->getAction();
@@ -95,7 +92,7 @@
 					}
 					return false;
 				}
-				if(!$this->router_finded_in_list){
+				if(!$this->router_find_in_list){
 					if($this->loadItemAction()){
 						return true;
 					}

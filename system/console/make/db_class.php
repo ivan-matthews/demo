@@ -1,27 +1,25 @@
 <?php
 
-	#CMD: php cli make db_class [database]
+	#CMD: make db_class [database]
 	#DSC: create new connection database class (MySQL,PgSQL,JDB,PDO,Mongo, etc...)
-	#EXM: php cli make db_class PgSQL
+	#EXM: make db_class PgSQL
 
 	namespace System\Console\Make;
 
-	use Core\Classes\Console;
-	use Core\Classes\Paint;
+	use Core\Console\Console;
+	use Core\Console\Paint;
 
 	class DB_Class extends Console{
 
-		protected $database;
-		protected $database_connect_path="core/database/connect";
+		private $database;
+		private $database_connect_path="core/database/connect";
 
-		protected $database_tmp_file;
-		protected $database_tmp_data;
-		protected $database_tmp_replaced_data;
-		protected $database_file_name;
-		protected $database_class_name;
-		protected $database_config_key;
-
-		protected $result = true;
+		private $database_tmp_file;
+		private $database_tmp_data;
+		private $database_tmp_replaced_data;
+		private $database_file_name;
+		private $database_class_name;
+		private $database_config_key;
 
 		public function execute($database){
 			$this->database	= $database;
@@ -37,7 +35,7 @@
 			return $this->result;
 		}
 
-		protected function saveTmpReplacedDataToNewFile(){
+		private function saveTmpReplacedDataToNewFile(){
 			$file_path = fx_path("{$this->database_connect_path}/{$this->database_file_name}.php");
 			if(!file_exists($file_path)){
 				file_put_contents($file_path,$this->database_tmp_replaced_data);
@@ -48,7 +46,7 @@
 			return $this;
 		}
 
-		protected function replaceTmpFileData(){
+		private function replaceTmpFileData(){
 			$this->database_tmp_replaced_data = str_replace(
 				array(
 					'__class_name__',
@@ -63,12 +61,12 @@
 			return $this;
 		}
 
-		protected function getTmpFileData(){
+		private function getTmpFileData(){
 			$this->database_tmp_data = file_get_contents($this->database_tmp_file);
 			return $this;
 		}
 
-		protected function success($command_file,$console_command){
+		private function success($command_file,$console_command){
 			return Paint::exec(function(Paint $print)use($command_file,$console_command){
 				$print->string('New Database Class "')->toPaint();
 				$print->string($console_command)->fon('green')->toPaint();
@@ -78,7 +76,7 @@
 			});
 		}
 
-		protected function skipped($command_file,$console_command){
+		private function skipped($command_file,$console_command){
 			return Paint::exec(function(Paint $print)use($command_file,$console_command){
 				$print->string('Database Class "')->toPaint();
 				$print->string($console_command)->fon('red')->toPaint();

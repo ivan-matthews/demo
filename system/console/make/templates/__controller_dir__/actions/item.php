@@ -1,12 +1,12 @@
 <?php
 
-	namespace Core\Controllers\Home\Actions;
+	namespace Core\Controllers\__controller_namespace__\Actions;
 
 	use Core\Classes\Response;
 	use Core\Classes\Router;
 	use Core\Classes\Request;
 
-	use Core\Controllers\Home\Controller;
+	use Core\Controllers\__controller_namespace__\Controller;
 
 	class Item extends Controller{
 

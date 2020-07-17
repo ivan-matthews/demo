@@ -1,28 +1,27 @@
 <?php
 
-	function fx_prepare_memory($memory,$format=2){
-		if($memory<1024){
-			$memory = number_format($memory,$format);
-			return "{$memory} b";
+	function fx_prepare_memory($memory,$decimals=2,$dec_point=',',$thousands_sep=''){
+		$memory = abs($memory);
+		switch($memory){
+			case ($memory<1024):
+				$memory = number_format($memory/1,$decimals,$dec_point,$thousands_sep);
+				return "{$memory} b";
+			case ($memory<1048576):
+				$memory = number_format($memory/1024,$decimals,$dec_point,$thousands_sep);
+				return "{$memory} kb";
+			case ($memory<1073741824):
+				$memory = number_format($memory/1048576,$decimals,$dec_point,$thousands_sep);
+				return "{$memory} mb";
+			case ($memory<1099511627776):
+				$memory = number_format($memory/1073741824,$decimals,$dec_point,$thousands_sep);
+				return "{$memory} gb";
+			case ($memory<1125899906842624):
+				$memory = number_format($memory/1099511627776,$decimals,$dec_point,$thousands_sep);
+				return "{$memory} tb";
+			default:
+				$memory = number_format($memory/1125899906842624,$decimals,$dec_point,$thousands_sep);
+				return "{$memory} pb";
 		}
-		if($memory<1048576){
-			$memory = number_format($memory/1024,$format);
-			return "{$memory} kb";
-		}
-		if($memory<1073741824){
-			$memory = number_format($memory/1048576,$format);
-			return "{$memory} mb";
-		}
-		if($memory<1099511627776){
-			$memory = number_format($memory/1073741824,$format);
-			return "{$memory} gb";
-		}
-		if($memory<1125899906842624){
-			$memory = number_format($memory/1099511627776,$format);
-			return "{$memory} tb";
-		}
-		$memory = number_format($memory/1125899906842624,$format);
-		return "{$memory} pb";
 	}
 
 	function fx_get_files_callback($dir,callable $callback){
@@ -37,13 +36,13 @@
 		return false;
 	}
 
-	function fx_load_array($helpers_dir){
+	function fx_load_array($helpers_dir,$import_type=2){
 		$dir_path = fx_path($helpers_dir);
 		$final_result = array();
 		foreach(scandir($dir_path) as $file){
 			if($file == '.' || $file == '..' || is_dir("{$dir_path}/{$file}")){ continue; }
 			$array_key = pathinfo($file,PATHINFO_FILENAME);
-			$final_result[$array_key] = include_once "{$dir_path}/{$file}";
+			$final_result[$array_key] = fx_import_file("{$dir_path}/{$file}",$import_type);
 		}
 		return $final_result;
 	}

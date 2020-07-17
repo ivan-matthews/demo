@@ -1,12 +1,12 @@
 <?php
 
-	namespace __namespace__;
+	namespace Core\Controllers\__controller_namespace__;
 
-	class __class_name__{
+	class Config{
 
 		private static $instance;
 
-		protected $__property__=array();
+		protected $config;
 
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -16,15 +16,15 @@
 		}
 
 		public function __get($key){
-			if(isset($this->__property__[$key])){
-				return $this->__property__[$key];
+			if(isset($this->config[$key])){
+				return $this->config[$key];
 			}
 			return false;
 		}
 
 		public function __set($name, $value){
-			$this->__property__[$name] = $value;
-			return $this->__property__[$name];
+			$this->config[$name] = $value;
+			return $this->config[$name];
 		}
 
 		public function __construct(){

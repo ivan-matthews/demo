@@ -1,6 +1,6 @@
 <?php
 
-	require __DIR__ . "/system/additional/loader_functions.php";
+	require __DIR__ . "/core/helpers/autoload/functions_loader.php";
 
 	define('TIME',microtime(true));
 	define('ROOT',dirname(__FILE__));

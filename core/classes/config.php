@@ -34,7 +34,7 @@
 		}
 
 		public function getConfigs(){
-			$this->config = fx_load_array($this->files_path);
+			$this->config = fx_load_array($this->files_path,Kernel::IMPORT_INCLUDE);
 			return $this;
 		}
 

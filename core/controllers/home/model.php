@@ -8,7 +8,7 @@
 
 		private static $instance;
 
-		protected $home_model;
+		protected $home;
 
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -18,15 +18,15 @@
 		}
 
 		public function __get($key){
-			if(isset($this->home_model[$key])){
-				return $this->home_model[$key];
+			if(isset($this->home[$key])){
+				return $this->home[$key];
 			}
 			return false;
 		}
 
 		public function __set($name, $value){
-			$this->home_model[$name] = $value;
-			return $this->home_model[$name];
+			$this->home[$name] = $value;
+			return $this->home[$name];
 		}
 
 		public function __construct(){

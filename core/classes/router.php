@@ -70,7 +70,7 @@
 		}
 
 		protected function getRoutesList(){
-			$this->routes_list = fx_load_helper("system/additional/routes");
+			$this->routes_list = fx_load_helper("system/assets/routes",Kernel::IMPORT_INCLUDE);
 			return $this;
 		}
 

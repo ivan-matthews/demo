@@ -134,6 +134,12 @@
 				->showDatabases();
 		}
 
+		public function useDb($database){
+			return $this
+				->getDbObject()
+				->selectDB($database);
+		}
+
 		public function dropDb($database_name){
 			return $this
 				->getDbObject()

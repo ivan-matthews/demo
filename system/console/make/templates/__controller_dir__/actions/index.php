@@ -1,12 +1,12 @@
 <?php
 
-	namespace Core\Controllers\Home\Actions;
+	namespace Core\Controllers\__controller_namespace__\Actions;
 
 	use Core\Classes\Response;
 	use Core\Classes\Router;
 	use Core\Classes\Request;
 
-	use Core\Controllers\Home\Controller;
+	use Core\Controllers\__controller_namespace__\Controller;
 
 	class Index extends Controller{
 
@@ -35,33 +35,6 @@
 
 		public function __construct(){
 			parent::__construct();
-
-			$response = Response::getInstance();
-			$router = Router::getInstance();
-			$request = Request::getInstance();
-
-			fx_pre(array(
-				'code'=>$response->getResponseCode(),
-				'stat'=>$response->getResponseStatus(),
-			));
-
-
-			fx_pre(array(
-				'cnt'=>$router->getController(),
-				'act'=>$router->getAction(),
-				'prm'=>$router->getParams(),
-				'sts'=>$router->getRouterStatus(),
-				'all'=>$request->getAll(),
-//		'arr'=>fx_load_array('system/assets',Kernel::IMPORT_INCLUDE_ONCE),
-//		'cnf'=>$config->getAll()
-			));
-
-			fx_pre(array(
-				'files'=>get_included_files(),
-				'memor'=>fx_prepare_memory(memory_get_usage(),4,',',' '),
-				'times'=>number_format(microtime(true)-TIME,10),
-				'debug'=>$response->getDebug()
-			));
 		}
 
 		public function __destruct(){

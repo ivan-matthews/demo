@@ -32,8 +32,8 @@
 	*/
 
 	use Core\Classes\Config;
-	use Core\Classes\Console;
-	use Core\Classes\Paint;
+	use Core\Console\Console;
+//	use Core\Console\Paint;
 
 	require __DIR__ . "/loader.php";
 
@@ -42,15 +42,8 @@
 	$config = Config::getInstance();
 	$console = Console::getInstance();
 
-	$console->getArguments(fx_get_server('argv'));
+	$console->getArguments(...fx_get_server('argv'));
 
 	if(!$console->runConsoleInterface()){
 		$console->callHelpCenter();
 	}
-
-
-//	if(!$console->runCommandFromAlias()){
-//		if(!$console->runNativeCommand()){
-//			$console->callHelpCenter();
-//		}
-//	}

@@ -6,7 +6,10 @@
 	use Core\Classes\Request;
 	use Core\Classes\Database;
 	use Core\Classes\Response;
+	use Core\Classes\Session;
+//	use Core\Console\Console;		// Run console scripts from web-page (details: Console::run('help',1))
 
+	require __DIR__ . "/../vendor/autoload.php";
 	require __DIR__ . "/../loader.php";
 
 	$config 	= Config::getInstance();
@@ -15,12 +18,13 @@
 	$kernel 	= Kernel::getInstance();
 	$database	= Database::getInstance();
 	$response 	= Response::getInstance();
-
-	$router->parseURL(fx_get_server('REQUEST_URI'));
-	$router->setRoute();
+	$session	= Session::getInstance();
 
 	$request->setRequestMethod(fx_get_server('REQUEST_METHOD'));
 	$request->setRequestedData(fx_get_request());
+
+	$router->parseURL(fx_get_server('REQUEST_URI'));
+	$router->setRoute();
 
 	$kernel->setProperty();
 	$kernel->setControllerParams();
@@ -28,28 +32,10 @@
 	$kernel->loadSystem();
 
 
-	fx_pre(
-		$response->getResponseCode(),
-		$response->getResponseStatus()
-	);
 
 
 
 
-	fx_pre(array(
-		$router->getController(),
-		$router->getAction(),
-		$router->getParams(),
-		$router->getRouterStatus(),
-		$request->getAll()
-	));
-
-	fx_pre(
-		get_included_files(),
-		fx_prepare_memory(memory_get_usage()),
-		number_format(microtime(true)-TIME,10),
-		$response->getDebug()
-	);
-
+	
 
 
