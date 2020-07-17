@@ -1,6 +1,7 @@
 <?php
 
 	return array(
+		'enabled'	=> true,
 		'controller'	=> array(
 			'groups_enabled'	=> array(),
 			'groups_disabled'	=> array(),

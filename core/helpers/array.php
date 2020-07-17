@@ -58,18 +58,23 @@
 	}
 
 	function fx_implode(string $glue="",$pieces){
+		return trim(fx_implode_recursive($glue,$pieces),$glue);
+	}
+
+	function fx_implode_recursive(string $glue="",$pieces){
 		$result = '';
 		if(is_array($pieces)){
 			foreach($pieces as $value){
 				if(is_object($value)){ continue; }
 				if(is_array($value)){
-					$result .= fx_implode($glue,$value);
+					$result .= fx_implode_recursive($glue,$value);
 				}else{
+					$value = $value ? $value : 'NULL';
 					$result .= "{$value}{$glue}";
 				}
 			}
 		}
-		return trim($result,$glue);
+		return $result;
 	}
 
 	/*

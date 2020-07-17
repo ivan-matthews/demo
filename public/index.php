@@ -24,9 +24,6 @@
 	$user 		= User::getInstance();
 	$view		= View::getInstance();
 
-	$request->setRequestedData(fx_get_request());
-	$request->setRequestMethod($request->get('method')?:fx_get_server('REQUEST_METHOD'));
-
 	$session->setSessionDir(null);
 	$session->setSessionID();
 	$session->setSessionFile();
@@ -54,7 +51,10 @@
 	$view->start();
 
 
-	fx_die();
+	fx_die(array(
+		'memor'=>fx_prepare_memory(memory_get_usage(),4,',',' '),
+		'times'=>number_format(microtime(true)-TIME,10),
+	));
 
 
 

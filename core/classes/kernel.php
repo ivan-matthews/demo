@@ -111,6 +111,10 @@
 
 		public function loadSystem(){
 			if($this->controllerExists()){
+				$this->setControllerConfig();
+				if(!$this->controller_config_object->enabled){
+					return $this->response->setResponseCode(404);
+				}
 				$this->checkControllerAccess();
 				if($this->controller_access->denied()){
 					return $this->setDeniedStatus();
@@ -191,7 +195,6 @@
 		}
 
 		private function checkControllerAccess(){
-			$this->setControllerConfig();
 			$this->controller_params = $this->controller_config_object->controller;
 			$this->controller_access = new Access();
 			$this->controller_access->enableGroups($this->controller_params['groups_enabled']);

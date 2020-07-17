@@ -46,6 +46,44 @@
 		return false;
 	}
 
+	function fx_array2xml(array $input_data, $pretty_output = true,$root_tag='root',$numeric_indexes="item",$empty_value="NULL",$space2tab=true){
+		$XMLObject = new SimpleXMLElement("<{$root_tag}/>");
+		/**
+		 * @param callable $self_function
+		 * @param array $input_data
+		 * @param \SimpleXMLElement $XMLObject
+		 * @param $numeric_indexes
+		 * @param $empty_value
+		 * @return mixed
+		 */
+		$create_xml = function(callable $self_function,array $input_data,$XMLObject,$numeric_indexes,$empty_value){
+			foreach($input_data as $key=>$value){
+				if(is_numeric($key)){ $key = "{$numeric_indexes}{$key}";}
+				$key = str_replace(array(
+					' ','+','/','.',',','\\','=','-',')','(','*','&','^','%','$','#','@','!','\'','"',':',';','?','>','<',
+				),'_',$key);
+				if(empty($value)){ $value = $empty_value; }
+				if(is_array($value)){
+					$self_function($self_function,$value,$XMLObject->addChild($key),$numeric_indexes,$empty_value);
+				}else{
+					$XMLObject->addChild($key,trim($value));
+				}
+			}
+			return $XMLObject;
+		};
+		$create_xml($create_xml,$input_data,$XMLObject,$numeric_indexes,$empty_value);
+		if($pretty_output){
+			$DOMDocumentObject = new \DOMDocument('1.0');
+			$DOMDocumentObject->preserveWhiteSpace = false;
+			$DOMDocumentObject->formatOutput = true;
+			$DOMDocumentObject->loadXML($XMLObject->asXML());
+			if($space2tab){
+				return str_replace( "  ","\t",$DOMDocumentObject->saveXML());
+			}
+			return $DOMDocumentObject->saveXML();
+		}
+		return $XMLObject->asXML();
+	}
 
 	function fx_xml_encode($data=false,$tab="\t",$old_tab="",$tag_prefix="item"){
 		$result = false;

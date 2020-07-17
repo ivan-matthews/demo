@@ -19,11 +19,17 @@
 		/** @var Model */
 		protected $model;
 
+		/** @var \Core\Classes\Config */
+		protected $site_config;
+
 		/** @var Response */
 		protected $response;
 
 		/** @var Request */
 		protected $request;
+
+		/** @var \Core\Classes\User */
+		protected $user;
 
 		/** @var array */
 		private $index;
@@ -50,6 +56,12 @@
 
 		public function __construct(){
 			parent::__construct();
+
+			$this->response->title(fx_lang('home.title_index_page'));
+			$this->response->breadcrumb('index')
+				->setValue(fx_lang('home.breadcrumb_index_page'))
+				->setLink(fx_get_url('home','index'))
+				->setIcon(null);
 		}
 
 		public function __destruct(){
@@ -58,29 +70,29 @@
 
 		public function methodGet(){
 			$this->response->controller('home')
-				->set('var','some')
-				->set('var1','some1')
-				->set('var2','some2')
-				->set('var3','some3')
-				->set('var4','some4');
+				->set('var','someone')
+				->set('var1','this')
+				->set('var2','is')
+				->set('var3','not')
+				->set('var4','somebody');
 			$this->response->controller('home','some')
-				->set('var','some')
-				->set('var1','some1')
-				->set('var2','some2')
-				->set('var3','some3')
-				->set('var4','some4');
+				->set('var','someone')
+				->set('var1','this')
+				->set('var2','is')
+				->set('var3','not')
+				->set('var4','somebody');
 			$this->response->controller('some','item')
-				->set('var','some')
-				->set('var1','some1')
-				->set('var2','some2')
-				->set('var3','some3')
-				->set('var4','some4');
+				->set('var','someone')
+				->set('var1','this')
+				->set('var2','is')
+				->set('var3','not')
+				->set('var4','somebody');
 			$this->response->controller('home','outhem')
-				->set('var','some')
-				->set('var1','some1')
-				->set('var2','some2')
-				->set('var3','some3')
-				->set('var4','some4');
+				->set('var','someone')
+				->set('var1','this')
+				->set('var2','is')
+				->set('var3','not')
+				->set('var4','somebody');
 			return true;
 		}
 

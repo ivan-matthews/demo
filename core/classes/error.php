@@ -7,10 +7,10 @@
 
 	class Error{
 
-		private static $error_keys=array();
-		private static $stop_engine = false;
+		public static $error_keys=array();
+		public static $stop_engine = false;
 
-		private $cli_error_header = "
+		public $cli_error_header = "
 			***********  ***********    ***********       *******     ***********  
 			***********  ************   ************    ***********   ************ 
 			****         ****     ****  ****     ****  *****   *****  ****     ****
@@ -21,21 +21,21 @@
 			****         ****   ****    ****   ****    *****   *****  ****   ****  
 			***********  ****    ****   ****    ****    ***********   ****    **** 
 			***********  ****     ****  ****     ****     *******     ****     ****";
-		private $error_number;
-		private $error_message;
-		private $error_file;
-		private $error_line;
-		private $error_backtrace;
-		private $error_msg;
-		private $error_code_string;
+		public $error_number;
+		public $error_message;
+		public $error_file;
+		public $error_line;
+		public $error_backtrace;
+		public $error_msg;
+		public $error_code_string;
 
-		private $error=array();
-		private $config;
-		private $response;
-		private $debug_enabled;
-		private $shutdown=false;
+		public $error=array();
+		public $config;
+		public $response;
+		public $debug_enabled;
+		public $shutdown=false;
 
-		private $error_codes = array(
+		public $error_codes = array(
 			1		=> 'Critical error!',
 			2		=> 'Warning!',
 			4		=> 'Parse error!',
@@ -230,9 +230,10 @@
 			foreach (array_reverse(debug_backtrace()) as $index => $item) {
 				$this->error_backtrace[$index]['class'] = isset($item['class']) ? $item['class'] : null;
 				$this->error_backtrace[$index]['type'] = isset($item['type']) ? $item['type'] : null;
-				$this->error_backtrace[$index]['function'] = isset($item['function']) ? $item['function'] : null;
-				$this->error_backtrace[$index]['file'] = isset($item['file']) ? $item['file'] : null;
-				$this->error_backtrace[$index]['line'] = isset($item['line']) ? $item['line'] : null;
+				$this->error_backtrace[$index]['function'] = isset($item['function']) ? $item['function'] : "Function: NULL";
+				$this->error_backtrace[$index]['file'] = isset($item['file']) ? $item['file'] : "File: NULL";
+				$this->error_backtrace[$index]['line'] = isset($item['line']) ? $item['line'] : "Line: NULL";
+				$this->error_backtrace[$index]['args'] = !isset($item['args']) ? "NULL" : ($item['args'] ? fx_implode(', ',$item['args']) : "NULL");
 			}
 			return $this;
 		}

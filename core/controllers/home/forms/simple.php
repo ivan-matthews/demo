@@ -74,7 +74,7 @@
 
 		/*---------------OR---------------*/
 
-		public function generateFieldsFromArray(){
+		public function generateFieldsFromArray(){	// для метода GET - генерирует поля
 			return array(
 				array(
 					'name'		=> 'field_name',
@@ -98,7 +98,7 @@
 			);
 		}
 
-		public function checkFieldsFromArray(){					// для метода POST - проверяет поля
+		public function checkFieldsFromArray(){		// для метода POST - проверяет поля
 			$this->validator_interface->csrf(1);
 			$this->validator_interface->validate(1);
 			$this->validator_interface->setData($this->request->getArray($this->form_name));

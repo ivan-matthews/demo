@@ -17,11 +17,17 @@
 		/** @var \Core\Classes\Model|Model */
 		protected $model;
 
+		/** @var \Core\Classes\Config */
+		protected $site_config;
+
 		/** @var Response */
 		protected $response;
 
 		/** @var Request */
 		protected $request;
+
+		/** @var \Core\Classes\User */
+		protected $user;
 
 		/** @var array */
 		private $__controller_property__;

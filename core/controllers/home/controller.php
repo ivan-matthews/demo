@@ -17,11 +17,17 @@
 		/** @var \Core\Classes\Model|Model */
 		protected $model;
 
+		/** @var \Core\Classes\Config */
+		protected $site_config;
+
 		/** @var Response */
 		protected $response;
 
 		/** @var Request */
 		protected $request;
+
+		/** @var \Core\Classes\User */
+		protected $user;
 
 		/** @var array */
 		private $home;
@@ -50,6 +56,12 @@
 			parent::__construct();
 			$this->config = Config::getInstance();
 			$this->model = Model::getInstance();
+
+			$this->response->title(fx_lang('home.title_home_page'));
+			$this->response->breadcrumb('home')
+				->setValue(fx_lang('home.breadcrumb_home_page'))
+				->setLink(fx_get_url('home'))
+				->setIcon(null);
 		}
 
 		public function __destruct(){

@@ -7,7 +7,7 @@
 	use Core\Classes\Response\Debug;
 	use Core\Classes\Response\Error;
 	use Core\Classes\Response\Meta;
-	use Core\Classes\Response\SessionMessage;
+	use Core\Classes\Response\Session_Message;
 	use Core\Classes\Response\Title;
 	use Core\Classes\Response\Widget;
 
@@ -19,7 +19,7 @@
 	 * @method static Widget _widget($widget_name)
 	 * @method static Title _title()
 	 * @method static Meta _meta($meta)
-	 * @method static SessionMessage _sessionMessage($message)
+	 * @method static Session_Message _sessionMessage($message)
 	 * @method static Error _error($backtrace_key=2)
 	 * @method static Debug _debug($debug_key,$backtrace_key=2)
 	 */
@@ -102,8 +102,12 @@
 			return new Widget(self::getInstance(),$widget_name);
 		}
 
-		public function title(){
-			return new Title(self::getInstance());
+		public function title($title_value=null){
+			$title = new Title(self::getInstance());
+			if($title_value){
+				$title->set($title_value);
+			}
+			return $title;
 		}
 
 		public function meta($meta){
@@ -111,7 +115,7 @@
 		}
 
 		public function sessionMessage($message){
-			return new SessionMessage(self::getInstance(),$message);
+			return new Session_Message(self::getInstance(),$message);
 		}
 
 		public function error($backtrace_key=2){

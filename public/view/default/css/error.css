@@ -1,0 +1,155 @@
+.view{
+	display: block;
+}
+.hide{
+	display: none;
+}
+.code-preview{
+	display: block;
+	background: #f3f3f3;
+	color: #6e7379;
+	font-weight: bold;
+	overflow-x: auto;
+}
+.code-preview pre{
+	max-width: 500px;
+}
+.code-preview .normal{}
+.code-preview .normal .key{
+	color: white;
+	background: green;
+}
+.code-preview .normal .code{}
+.code-preview .danger{}
+.code-preview .danger .key{}
+.code-preview .danger .code{
+	background: red;
+	color: white;
+}
+.err-file-line{
+	display: block;
+	font-size: 20px;
+	font-weight: bold;
+}
+.err-file-line .err-file{
+	color: slategrey;
+}
+.err-file-line .err-line{
+	color: darkgrey;
+}
+.backtrace{
+	cursor: pointer;
+}
+.backtrace:hover{
+	background: #eaeaea;
+}
+.backtrace:hover>.class{
+	color: #fff;
+	background: slategrey;
+}
+.backtrace:hover>.class .class-args{
+	color: white;
+	background: chocolate;
+}
+.backtrace:hover>.file .file-file{
+	background: #999;
+	color:white
+}
+.backtrace:hover>.file .file-line{
+	color: white;
+	background: red;
+}
+.backtrace.active{
+	background: #999999;
+}
+.backtrace.active>.class{
+	color: white;
+	background: slategrey;
+}
+.backtrace.active>.class .class-args{
+	color: white;
+	background: chocolate;
+}
+.backtrace.active>.file .file-file{
+	color: white;
+}
+.backtrace.active>.file .file-line{
+	color: white;
+	background: red;
+}
+.backtrace .class{
+	color: slategrey;
+	font-weight: bold;
+	padding: 10px 5px;
+}
+.backtrace .class .class-file{
+	font-weight: bold;
+}
+.backtrace .class .class-type{}
+.backtrace .class .class-fnct{}
+.backtrace .class .class-args{
+	color: chocolate;
+}
+.backtrace .file{
+	font-weight: normal;
+}
+.backtrace .file{
+	margin-bottom: 5px;
+	margin-top: 5px;
+	padding: 5px 5px;
+}
+.backtrace .file .file-file{
+	color: #888888;
+	font-weight: bold;
+	font-size: 14px;
+}
+.backtrace .file .file-line{
+	color: red;
+	font-weight: bold;
+}
+.backtrace .delimiter{
+	display: block;
+	position: relative;
+	border-bottom: solid 1px slategray;
+	width: 100%;
+	/*margin:10px 0;*/
+}
+body{
+	background: lightyellow;
+}
+.header{
+	display: block;
+	font-size: 20px;
+	max-width: 1024px;
+	width: 100%;
+	margin: 0 auto;
+	font-weight: bold;
+}
+.header .err-number{
+	font-size: 42px;
+	color: red;
+	padding-left: 5%;
+}
+.header .err-message{
+	color: darkolivegreen;
+	/*background: cadetblue;*/
+	padding: 10px 0;
+	padding-left: 5%;
+}
+.header .err-msg{
+	font-size: 20px;
+	color: white;
+	background: red;
+	display: block;
+	padding: 10px 0;
+	padding-left: 5%;
+}
+.header .err-file-line{
+	margin-top:10px;
+	margin-bottom:10px;
+	font-size: 18px;
+	padding-left: 5%;
+}
+.header .err-file-line .err-file{
+
+}

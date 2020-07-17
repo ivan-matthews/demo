@@ -4,7 +4,7 @@
 
 	use Core\Classes\Response;
 
-	class SessionMessage{
+	class Session_Message{
 
 		private $default_params = array(
 			'alert_status'	=> 'success',

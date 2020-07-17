@@ -1,12 +1,12 @@
 <?php
 
 	define('TIME',microtime(true));
-	define('ROOT',dirname(__FILE__));
+	define('ROOT',__DIR__);
 
 	require __DIR__ . "/vendor/autoload.php";
 	require __DIR__ . "/core/helpers/autoload/autoloader.php";
 
-	error_reporting(E_ALL);
+	error_reporting(0);
 	ini_set('display_errors','1');
 	ini_set('xdebug.max_nesting_level','1024');
 
