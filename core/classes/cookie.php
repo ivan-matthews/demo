@@ -7,6 +7,7 @@
 		private static $instance;
 
 		private $cookie=array();
+		private $current_time;
 
 		public function __get($key){
 			if(isset($this->cookie[$key])){
@@ -28,7 +29,7 @@
 		}
 
 		public function __construct(){
-
+			$this->current_time = time();
 		}
 
 		public function __destruct(){
@@ -50,13 +51,16 @@
 		}
 
 		public function setCookie($key, $value, $time=false, $path='/', $http_only=true, $domain = null){
-			$time = !$time ? 0 : time()+$time;
+			$time = !$time ? 0 : $this->current_time+$time;
 			setcookie($key, $value, $time, $path, $domain, false, $http_only);
 			return true;
 		}
 
 		public function unsetCookie($key, $time){
-			setcookie($key, '', time()-$time, '/');
+			if(isset($_COOKIE[$key])){
+				unset($_COOKIE[$key]);
+			}
+			setcookie($key, '', $this->current_time-$time, '/');
 			return true;
 		}
 
