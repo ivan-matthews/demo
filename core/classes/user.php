@@ -124,8 +124,24 @@
 			return $this->setBackUrl();
 		}
 
+		public function resetCSRFToken(){
+			$time = time();
+			$csrf_token_time = $this->session->get('csrf_token_time',Session::PREFIX_CONF);
+			if(!$this->getCSRFToken() || $csrf_token_time+$this->config->session['csrf_token_time'] < $time){
+				$this->setCSRFToken();
+			}
+			$this->session->set('csrf_token_time',$time,Session::PREFIX_CONF);
+			return $this;
+		}
 
+		public function setCSRFToken(){
+			$this->session->set($this->config->session['csrf_key_name'],fx_gen(),Session::PREFIX_CONF);
+			return $this;
+		}
 
+		public function getCSRFToken(){
+			return $this->session->get($this->config->session['csrf_key_name'],Session::PREFIX_CONF);
+		}
 
 
 

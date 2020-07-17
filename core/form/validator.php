@@ -4,10 +4,14 @@
 		use Core\Form\Interfaces\Checkers;
 		use Core\Form\Form;
 
-		$new_form = Form::getValidatorInterface();
-		$new_form->setData($request->get('form'))
-//			->nonCheckCSRF()
-			->checkCSRF();
+		$new_form = Form::getStaticValidatorInterface();
+		$new_form
+			->setFormName('form')
+			->setData($request->get('form'))
+			->nonCheckCSRF()
+			->runFieldsValidation(1)
+	//			->checkCSRF()
+		;
 
 		$new_form->name('field_name')
 			->id('field_name_id')
@@ -21,62 +25,52 @@
 				$validator->required();
 				$validator->min(1);
 			});
-		$new_form->name('field_name1')
-			->id('field_name1_id')
-			->label('field_name1_label')
-			->placeholder('field_name1_placeholder')
-			->class('field_name1_class')
-			->type('field_name1_type')
-			->title('field_name1_title')
-			->data('field_name1_key','field_name1_value')
-			->check(function(Checkers $validator){
-				$validator->required();
-			});
-		$new_form->name('field_name2')
-			->id('field_name2_id')
-			->label('field_name2_label')
-			->placeholder('field_name2_placeholder')
-			->class('field_name2_class')
-			->type('field_name2_type')
-			->title('field_name2_title')
-			->data('field_name2_key','field_name2_value')
-			->check(function(Checkers $validator){
-				$validator->int();
-			});
-		$new_form->name('field_name3')
-			->id('field_name3_id')
-			->label('field_name3_label')
-			->placeholder('field_name3_placeholder')
-			->class('field_name3_class')
-			->type('field_name3_type')
-			->title('field_name3_title')
-			->data('field_name3_key','field_name3_value')
-			->check(function(Checkers $validator){
-				$validator->max();
-			});
 
-		fx_die($new_form->can() ? $new_form->getFieldsList() : $new_form->getErrors());
+		fx_die(($new_form->can() ? $new_form->getFieldsList() : $new_form->getFieldsList()),fx_encode($user->getCSRFToken()));
 	*/
 
 	namespace Core\Form;
 
+	use Core\Classes\Config;
 	use Core\Form\Interfaces\Checkers;
 	use Core\Form\Interfaces\Validator as ValidatorInterface;
 
 	class Validator implements ValidatorInterface, Checkers{
 
-		private $field;
-		private $value;
-		private $check_csrf=true;
+		protected $config;
 
-		private $errors_status = false;
-		private $errors = array();
-		private $data = array();
-		private $fields_list = array();
+		protected $field;
+		protected $value;
+		protected $check_csrf=true;
+
+		protected $validate_fields = false;
+		protected $errors = array();
+		protected $data = array();
+		protected $fields_list = array();
+		protected $form_name;
 
 		/** @return ValidatorInterface */
-		public static function getValidatorInterface(){
+		public static function getStaticValidatorInterface(){
 			return new self();
+		}
+
+		/** @return ValidatorInterface */
+		public function getDynamicValidatorInterface(){
+			return $this;
+		}
+
+		public function __construct(){
+			$this->config = Config::getInstance();
+		}
+
+		public function setFormName($form_name){
+			$this->form_name = $form_name;
+			return $this;
+		}
+
+		public function runFieldsValidation($status=true){
+			$this->validate_fields = $status;
+			return $this;
 		}
 
 		public function setAttribute($attribute_key,$attribute_value){
@@ -85,17 +79,15 @@
 		}
 
 		public function value($value){
+			$this->value = null;
 			if(isset($this->data[$value])){
 				$this->value = $this->data[$value];
-				return $this->setAttribute(__FUNCTION__,$this->value);
 			}
-			$this->value = null;
 			return $this->setAttribute(__FUNCTION__,$this->value);
 		}
 
 		public function setError($error_data_value){
-			$this->fields_list[$this->field]['errors'][] = $this->errors[$this->field][] = $error_data_value;
-			$this->errors_status = true;
+			$this->errors[$this->field][] = $this->fields_list[$this->field]['errors'][] = $error_data_value;
 			return $this;
 		}
 		public function getErrors(){
@@ -105,7 +97,7 @@
 			return $this->fields_list;
 		}
 		public function can(){
-			if(!$this->errors_status){
+			if(!$this->errors){
 				return true;
 			}
 			return false;
@@ -116,8 +108,8 @@
 		}
 		public function checkCSRF(){
 			if(!$this->check_csrf){ return $this; }
-			$this->field = 'csrf';
-			if(fx_csrf_equal()){
+			$this->field = $this->config->session['csrf_key_name'];
+			if(fx_csrf_equal($this->field)){
 				return $this;
 			}
 			$this->setError(fx_lang('fields.csrf_token_not_equal'));
@@ -167,7 +159,7 @@
 			return $this->setAttribute("data-{$data}",$value);
 		}
 		public function check($callback_function=null){
-			if($callback_function){
+			if($callback_function && $this->validate_fields){
 				call_user_func($callback_function,$this);
 			}
 			return $this;

@@ -48,20 +48,26 @@
 
 	$response->sendHeaders();
 
+	$user->resetCSRFToken();
+
+
+	
 
 
 
 
 
-//	$session->set('csrf',123,Session::PREFIX_CONF);
+
 //	fx_pre(trim(dirname($_SERVER['PHP_SELF']),DIRECTORY_SEPARATOR));
 
 	fx_pre(array(
+		'csrf'=>$user->getCSRFToken(),
 		'code'=>$response->getResponseCode(),
 		'stat'=>$response->getResponseStatus(),
 		'data'=>$response->getData(),
 		'grup'=>$user->getGroups(),
-		'burl'=>$user->getBackUrl()
+		'burl'=>$user->getBackUrl(),
+		'encc'=>fx_get_csrf_field(),
 	));
 
 

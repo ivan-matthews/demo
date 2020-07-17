@@ -1,6 +1,6 @@
 <?php
 
-	function fx_gen($length){
+	function fx_gen($length=64){
 		$lower_letters = range('a','z');
 		$upper_letters = range('A','Z');
 		$number_letters = range('0','9');

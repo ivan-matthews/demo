@@ -1,15 +1,30 @@
 <?php
 
 	use Core\Classes\Request;
-	use Core\Classes\Session;
+	use Core\Classes\Config;
+	use Core\Classes\User;
 
-	function fx_csrf_equal(){
+	function fx_csrf_equal($csrf_field_name='csrf'){
 		$request = Request::getInstance();
-		$session = Session::getInstance();
-		$request_csrf = $request->get('csrf');
-		$session_csrf = $session->get('csrf',Session::PREFIX_CONF);
-		if(fx_equal(fx_encode($session_csrf),$request_csrf)){
+		$request_csrf = $request->get($csrf_field_name);
+		if(fx_equal(fx_csrf(),$request_csrf)){
 			return true;
 		}
 		return false;
+	}
+
+	function fx_csrf(){
+		$user = User::getInstance();
+		$csrf = $user->getCSRFToken();
+		return fx_encode($csrf);
+	}
+
+	function fx_get_csrf_field(){
+		$config = Config::getInstance();
+		$csrf_token = fx_csrf();
+		$field = "<input type=\"hidden\" ";
+		$field .= "name=\"{$config->session['csrf_key_name']}\" ";
+		$field .= "value=\"{$csrf_token}\"";
+		$field .= "/>";
+		return $field;
 	}

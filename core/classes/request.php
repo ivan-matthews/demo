@@ -59,6 +59,13 @@
 			return null;
 		}
 
+		public function getArray($key){
+			if(isset($this->request[$key])){
+				return $this->request[$key];
+			}
+			return $this->request;
+		}
+
 		public function getAll(){
 			return $this->request;
 		}

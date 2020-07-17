@@ -4,6 +4,16 @@
 
 	interface Validator{
 		/**
+		 * @param $form_name
+		 * @return Validator
+		 */
+		public function setFormName($form_name);
+		/**
+		 * @param bool $status
+		 * @return Validator
+		 */
+		public function runFieldsValidation($status=true);
+		/**
 		 * @param $error_data_value
 		 * @return Validator
 		 */

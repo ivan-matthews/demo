@@ -48,7 +48,11 @@
 
 	class Form extends Validator{
 
-		private $fields_array;
+		protected $fields_array;
+
+		public function __construct(){
+			parent::__construct();
+		}
 
 		public function setArrayFields($fields_array){
 			$this->fields_array = $fields_array;
