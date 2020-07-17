@@ -22,7 +22,7 @@
 
 	namespace Core\Classes\Mail;
 
-	use Core\Classes\Database;
+	use Core\Classes\Database\Database;
 	use Core\Classes\Mail\Interfaces\Notice as NoticeInterface;
 
 	class Notice implements NoticeInterface{
@@ -37,9 +37,9 @@
 		const SENDER_MAILING = -3;
 
 		private $time;
-		/** @var Database\Interfaces\Insert\Insert */
+		/** @var \Core\Classes\Database\Interfaces\Insert\Insert */
 		private $database;
-		/** @var Database\Interfaces\Insert\Actions */
+		/** @var \Core\Classes\Database\Interfaces\Insert\Actions */
 		private $send_interface;
 		private $status;
 

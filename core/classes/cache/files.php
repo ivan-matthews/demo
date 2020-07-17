@@ -2,139 +2,124 @@
 
 	namespace Core\Classes\Cache;
 
-	use Core\Classes\Kernel;
 	use Core\Classes\Response;
 
 	class Files{
 
-		const CACHE_TTL_KEY = 'cache_time_expired';
+		const CACHE_EXPIRED_TIME_KEY = 'cache_expired_time_key';
 
-		private static $instance;
+		protected $params;
+		protected $key;
+		protected $index;
+		protected $ttl;
+		protected $mark;
+		protected $hash;
 
-		private $files=array();
+		protected $root;
+		protected $cache_directory;
+		protected $cache_filename;
 
-		private $cache;
-		private $cache_path;
-		private $cache_key_path;
-		private $cache_dir;
-		private $cache_file;
-		private $cache_ttl;
-		private $current_time;
+		protected $trace;
 
-		public static function getInstance(Cache $called_object){
-			if(self::$instance === null){
-				self::$instance = new self($called_object);
-			}
-			return self::$instance;
+		public function __construct(array $params){
+			$this->params = $params;
+			$this->root = fx_path("{$this->params['cache_dir']}/dynamic");
+			$this->ttl = $this->params['cache_ttl'];
+			$this->index = 4;
 		}
 
-		public function __get($key){
-			if(isset($this->files[$key])){
-				return $this->files[$key];
-			}
-			return false;
+		protected function saveDebug($debug_time){
+			Response::_debug('cache')
+				->index($this->index)
+				->set('result',$this->cache_filename)
+				->setTime($debug_time)
+				->setQuery($this->mark)
+				->setTrace($this->trace);
+			return $this;
 		}
 
-		public function __set($name, $value){
-			$this->files[$name] = $value;
-			return $this->files[$name];
-		}
-
-		public function __construct(Cache $called_object){
-			$this->current_time = time();
-			$this->cache = $called_object;
-		}
-
-		public function __destruct(){
-
-		}
-
-		public function get($key,$hash){
-			$time = microtime(true);
-			$this->setCacheFile($key,$hash);
-			if(is_readable($this->cache_file)){
-				$cache_data = $this->tryImportCacheFile();
-				if($cache_data){
-					if($this->checkExpiredTime($cache_data[self::CACHE_TTL_KEY])){
-						unset($cache_data[self::CACHE_TTL_KEY]);
-						Response::_debug('cache')
-							->index(2)
-							->set('result',$this->cache_file)
-							->setTime($time)
-							->setQuery($this->cache->cache_hash)
-							->setTrace($this->cache->backtrace);
-						return $cache_data;
-					}
+		public function get(){
+			$debug_time = microtime(true);
+			$this->getCacheAttributes();
+			if(file_exists($this->cache_filename)){
+				$cache_data = $this->tryInc();
+				// filemtime($this->cache_filename), иначе отключать OPCache
+				if($cache_data[self::CACHE_EXPIRED_TIME_KEY] + $this->ttl > time()){
+					$this->saveDebug($debug_time);
+					unset($cache_data[self::CACHE_EXPIRED_TIME_KEY]);
+					return $cache_data;
 				}
-				$this->dropCacheFile();
 			}
-			return false;
+			return null;
+		}
+		public function set(array $data){
+			$this->getCacheAttributes();
+			$data[self::CACHE_EXPIRED_TIME_KEY] = time();
+			file_put_contents($this->cache_filename, fx_php_encode($data));
+			return null;
+		}
+		public function clear(){
+			$this->getCacheAttributes();
+			fx_scandir_callback($this->cache_directory,function($find){
+				if(is_file($find)){
+					unlink($find);
+					return true;
+				}
+				rmdir($find);
+				return true;
+			});
+			return true;
 		}
 
-		public function set($data,$key,$hash){
-			$this->setCacheFile($key,$hash);
-			$this->makeCacheDir();
-			if($data && is_array($data)){
-				$data[self::CACHE_TTL_KEY] = $this->current_time + $this->cache_ttl;
-				return file_put_contents($this->cache_file,fx_php_encode($data));
-			}
-			return false;
-		}
-
-		public function drop($key,$hash){
-			$this->setCacheFile($key,$hash);
-			return $this->dropCacheFile();
-		}
-
-		public function setCachePath($cache_dir){
-			$this->cache_dir = $cache_dir;
-			$this->setCacheDir();
+		protected function getCacheAttributes(){
+			$this->parseIndex();
+			$this->cache_directory = "{$this->root}/{$this->key}";
+			$this->cache_filename = "{$this->cache_directory}/{$this->hash}.php";
+			fx_make_dir($this->cache_directory,0777);
 			return $this;
 		}
-		public function setCacheTTL($cache_ttl){
-			$this->cache_ttl = $cache_ttl;
+
+		public function key($key){
+			$this->key = str_replace('.',DIRECTORY_SEPARATOR,$key);
 			return $this;
 		}
-		public function prepareKey($key){
-			return str_replace('.',DIRECTORY_SEPARATOR,$key);
+		public function index($index){
+			$this->index = $index;
+			return $this->parseIndex();
+		}
+		public function ttl($ttl){
+			$this->ttl = $ttl;
+			return $this;
+		}
+		public function hash(){
+			$this->hash = md5($this->mark);
+			return $this;
 		}
 
-		private function tryImportCacheFile(){
-			$cache_data = null;
+		protected function parseIndex(){
+			$this->trace = debug_backtrace();
+			$this->mark = isset($this->trace[$this->index]['class']) ? $this->trace[$this->index]['class'] : null;
+			$this->mark .= isset($this->trace[$this->index]['type']) ? $this->trace[$this->index]['type'] : null;
+			$this->mark .= isset($this->trace[$this->index]['function']) ? $this->trace[$this->index]['function'] : null;
+			$this->mark .= isset($this->trace[$this->index]['args']) ? '(' . fx_implode(',',$this->trace[$this->index]['args']) . ')' : "()";
+			return $this->hash();
+		}
+
+		protected function tryInc(){
+			$data = null;
 			try{
-				$cache_data = fx_import_file($this->cache_file,Kernel::IMPORT_INCLUDE);
+				$data = fx_import_file($this->cache_filename);
 			}catch(\Error $e){
+				unlink($this->cache_filename);
 				return false;
 			}
-			return $cache_data;
+			return $data;
 		}
 
-		private function checkExpiredTime($expired_time){
-			if($this->current_time < $expired_time){
-				return true;
-			}
-			return false;
-		}
 
-		private function dropCacheFile(){
-			return unlink($this->cache_file);
-		}
 
-		private function setCacheDir(){
-			$this->cache_path = fx_path($this->cache_dir);
-			return $this;
-		}
 
-		private function setCacheFile($cache_key_path,$cache_encoded_hash){
-			$this->cache_key_path = "{$this->cache_path}/{$cache_key_path}";
-			$this->cache_file = "{$this->cache_key_path}/{$cache_encoded_hash}.php";
-			return $this;
-		}
 
-		private function makeCacheDir(){
-			fx_make_dir($this->cache_key_path,0777);
-			return $this;
-		}
 
 
 

@@ -1,10 +1,10 @@
 <?php
 
+	use Core\Classes\Database\Database;
 	use Core\Classes\Kernel;
 	use Core\Classes\Config;
 	use Core\Classes\Router;
 	use Core\Classes\Request;
-	use Core\Classes\Database;
 	use Core\Classes\Response;
 	use Core\Classes\Session;
 	use Core\Classes\Language;
@@ -50,8 +50,16 @@
 	$view->ready();
 	$view->start();
 
-
-
+	$dbg = $response->getDebug();
+	if($dbg){
+		foreach($dbg as $key=>$item){
+			print "<i>{$key}</i><br>";
+			foreach($item as $value){
+				print $value['query'] .'<br>';
+			}
+			print '<hr>';
+		}
+	}
 	fx_die(array(
 		phpversion(),
 		'memor'=>fx_prepare_memory(memory_get_usage(),4,',',' '),

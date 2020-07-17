@@ -2,25 +2,37 @@
 
 	namespace Core\Classes;
 
-	class View{
+	use Core\Classes\Interfaces\View as ViewInterface;
+
+	/**
+	 * Class View
+	 * @package Core\Classes
+	 * @method static View _addJS($js_file_path,$version=null)
+	 * @method static View _appendJS($js_file_path,$version=null)
+	 * @method static View _prependJS($js_file_path,$version=null)
+	 * @method static View _addCSS($css_file_path,$version=null)
+	 * @method static View _appendCSS($css_file_path,$version=null)
+	 * @method static View _prependCSS($css_file_path,$version=null)
+	 */
+	class View implements ViewInterface{
 
 		private static $instance;
 
 		private static $js_files=array();
 		private static $css_files=array();
 
-		private $site_host_is;
-		private $error_status = false;
+		public $site_host_is;
+		public $error_status = false;
 
-		private $render_type = 'renderHtmlData';
-		private $desired_types = array();
-		private $web_dir;
-		private $site_theme;
-		private $site_dir;
-		private $data;
-		private $errors;
-		private $debug;
-		private $content;
+		public $render_type = 'renderHtmlData';
+		public $desired_types = array();
+		public $web_dir;
+		public $site_theme;
+		public $site_dir;
+		public $data;
+		public $errors;
+		public $debug;
+		public $content;
 
 		public $site_root;
 		public $theme_path;
@@ -28,11 +40,23 @@
 		private $response;
 		private $config;
 
+		/**
+		 * @return ViewInterface
+		 */
 		public static function getInstance(){
 			if(self::$instance === null){
 				self::$instance = new self();
 			}
 			return self::$instance;
+		}
+
+		public static function __callStatic($function_name, $arguments){
+			$function_name = trim($function_name,'_');
+			$self_object = self::getInstance();
+			if(method_exists($self_object,$function_name)){
+				call_user_func(array($self_object,$function_name),...$arguments);
+			}
+			return $self_object;
 		}
 
 		public function __construct(){
@@ -166,7 +190,7 @@
 			return die();
 		}
 
-		public static function addJS($js_file_path,$version=null){
+		public function addJS($js_file_path,$version=null){
 			$extension = $version ? "js?v={$version}" : "js";
 			$js_file_path = trim($js_file_path,'/');
 			$js_file_path = "{$js_file_path}.{$extension}";
@@ -174,7 +198,7 @@
 			return true;
 		}
 
-		public static function appendJS($js_file_path,$version=null){
+		public function appendJS($js_file_path,$version=null){
 			$extension = $version ? "js?v={$version}" : "js";
 			$js_file_path = trim($js_file_path,'/');
 			$js_file_path = "{$js_file_path}.{$extension}";
@@ -182,7 +206,7 @@
 			return true;
 		}
 
-		public static function prependJS($js_file_path,$version=null){
+		public function prependJS($js_file_path,$version=null){
 			$extension = $version ? "js?v={$version}" : "js";
 			$js_file_path = trim($js_file_path,'/');
 			$js_file_path = "{$js_file_path}.{$extension}";
@@ -190,7 +214,7 @@
 			return true;
 		}
 
-		public static function addCSS($css_file_path,$version=null){
+		public function addCSS($css_file_path,$version=null){
 			$extension = $version ? "css?v={$version}" : "css";
 			$css_file_path = trim($css_file_path,'/');
 			$css_file_path = "{$css_file_path}.{$extension}";
@@ -198,7 +222,7 @@
 			return true;
 		}
 
-		public static function appendCSS($css_file_path,$version=null){
+		public function appendCSS($css_file_path,$version=null){
 			$extension = $version ? "css?v={$version}" : "css";
 			$css_file_path = trim($css_file_path,'/');
 			$css_file_path = "{$css_file_path}.{$extension}";
@@ -206,7 +230,7 @@
 			return true;
 		}
 
-		public static function prependCSS($css_file_path,$version=null){
+		public function prependCSS($css_file_path,$version=null){
 			$extension = $version ? "css?v={$version}" : "css";
 			$css_file_path = trim($css_file_path,'/');
 			$css_file_path = "{$css_file_path}.{$extension}";

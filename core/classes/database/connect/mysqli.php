@@ -409,7 +409,7 @@
 				$this->freeResult($result);
 				return $data;
 			}
-			return false;
+			return array();
 		}
 
 		public function showDatabases(){
@@ -423,7 +423,7 @@
 				$this->freeResult($result);
 				return $data;
 			}
-			return false;
+			return array();
 		}
 
 		public function makeDb($database,$charset,$collate){
@@ -482,7 +482,7 @@
 				$this->freeResult($result);
 				return $data;
 			}
-			return false;
+			return array();
 		}
 
 		public function delete($from_table,$where,$nested_query,$using_tables,$limit,$offset,$order,$group,$preparing){

@@ -616,11 +616,13 @@
 			return $this;
 		}
 
-		public function jevix(){
-			$jevix = new Jevix($this->value);
-			$this->value = $jevix->start()
-				->result();
-			$this->setAttribute('value',$this->value);
+		public function jevix($prepare = true){
+			if($prepare){
+				$jevix = new Jevix($this->value);
+				$this->value = $jevix->start()
+					->result();
+				$this->setAttribute('value',$this->value);
+			}
 			return $this;
 		}
 

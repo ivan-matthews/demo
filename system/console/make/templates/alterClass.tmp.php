@@ -2,7 +2,7 @@
 
 	namespace System\Migrations;
 
-	use Core\Classes\Database;
+	use Core\Classes\Database\Database;
 //	use Core\Classes\Database\Alter;
 	use Core\Classes\Database\Interfaces\Alter\Alter;
 

@@ -10,15 +10,9 @@
 		fx_pre($database->getDbObject());
 	*/
 
-	namespace Core\Classes;
+	namespace Core\Classes\Database;
 
-	use Core\Classes\Database\Query;
-	use Core\Classes\Database\Select;
-	use Core\Classes\Database\Insert;
-	use Core\Classes\Database\Update;
-	use Core\Classes\Database\Alter;
-	use Core\Classes\Database\Create;
-	use Core\Classes\Database\Delete;
+	use Core\Classes\Config;
 
 	class Database{
 
@@ -28,7 +22,7 @@
 
 		private $config;
 		private $database_driver;
-		/** @var  \Core\Classes\Database\Connect\MySQLi */
+		/** @var \Core\Classes\Database\Connect\MySQLi */
 		private $database_object;
 
 		private $charset;

@@ -9,7 +9,7 @@
 	use Core\Classes\Console\Console;
 	use Core\Classes\Console\Interfaces\Types;
 	use Core\Classes\Console\Paint;
-	use Core\Classes\Database;
+	use Core\Classes\Database\Database;
 	use Core\Classes\Config;
 	use Core\Classes\Kernel;
 

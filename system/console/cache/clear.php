@@ -6,6 +6,7 @@
 
 	namespace System\Console\Cache;
 
+	use Core\Classes\Cache\Cache;
 	use Core\Classes\Config;
 	use Core\Classes\Console\Console;
 	use Core\Classes\Console\Interfaces\Types;
@@ -39,27 +40,7 @@
 		}
 
 		private function deleteAllFindings(){
-			fx_scandir_callback($this->cache_path,function($find){
-				if(fx_equal(basename($find),'.htaccess')){ return true; }
-				if(is_file($find)){
-					unlink($find);
-					Paint::exec(function(Types $print)use($find){
-						$print->string(fx_lang('cli.file'))->color('brown')->toPaint();
-						$print->string($find)->fon('green')->toPaint();
-						$print->string(fx_lang('cli.successful_removed'))->toPaint();
-						$print->eol();
-					});
-					return true;
-				}
-				rmdir($find);
-				Paint::exec(function(Types $print)use($find){
-					$print->string(fx_lang('cli.folder'))->color('brown')->toPaint();
-					$print->string($find)->fon('green')->toPaint();
-					$print->string(fx_lang('cli.successful_removed'))->toPaint();
-					$print->eol();
-				});
-				return true;
-			});
+			Cache::getInstance()->clear();
 			return Paint::exec(function(Types $print){
 				$print->string(fx_lang('cli.cache_cleared'))->fon('green')->toPaint();
 				$print->eol();

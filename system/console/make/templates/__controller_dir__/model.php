@@ -10,9 +10,6 @@
 		/** @var $this */
 		private static $instance;
 
-		/** @var array */
-		private $__controller_property__;
-
 		/** @var Cache */
 		protected $cache;
 
@@ -24,20 +21,10 @@
 			return self::$instance;
 		}
 
-		public function __get($key){
-			if(isset($this->__controller_property__[$key])){
-				return $this->__controller_property__[$key];
-			}
-			return false;
-		}
-
-		public function __set($name, $value){
-			$this->__controller_property__[$name] = $value;
-			return $this->__controller_property__[$name];
-		}
-
 		public function __construct(){
 			parent::__construct();
+			$this->cache->key('__controller_namespace__');
+//			$this->cache->ttl(5);
 		}
 
 		public function __destruct(){

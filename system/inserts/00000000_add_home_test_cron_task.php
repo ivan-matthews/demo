@@ -2,7 +2,7 @@
 
 	namespace System\Inserts;
 
-	use Core\Classes\Database;
+	use Core\Classes\Database\Database;
 	use Core\Classes\Kernel;
 
 	class AddHomeTestCronTask00000000{

@@ -4,6 +4,7 @@
 
 	use Core\Classes\Console\Interfaces\Types;
 	use Core\Classes\Console\Paint;
+	use Core\Classes\Database\Database;
 
 	class Error{
 

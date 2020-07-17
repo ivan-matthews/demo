@@ -2,7 +2,7 @@
 
 	namespace System\Inserts;
 
-	use Core\Classes\Database;
+	use Core\Classes\Database\Database;
 
 	class __class_name__{
 

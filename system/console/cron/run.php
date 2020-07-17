@@ -7,7 +7,7 @@
 	namespace System\Console\Cron;
 
 	use Core\Classes\Config;
-	use Core\Classes\Database;
+	use Core\Classes\Database\Database;
 	use Core\Classes\Kernel;
 	use Core\Classes\Console\Console;
 	use Core\Classes\Console\Paint;
@@ -41,7 +41,7 @@
 			set_time_limit($this->config->cron['time_limit']);
 			ignore_user_abort($this->config->cron['ignore_abort']);
 
-			$this->cron_tasks_locked_files = fx_path($this->config->cron['cron_locked_files']);
+			$this->cron_tasks_locked_files = fx_path("{$this->config->cache['cache_dir']}/static/cron_tasks");
 
 			fx_make_dir($this->cron_tasks_locked_files,777);
 		}

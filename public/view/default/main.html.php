@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<?php  /** @var View $this */
+<?php
+
+	/** @var View $this */
 
 	use Core\Classes\View;
 	use Core\Classes\Language;
+	use Core\Classes\Interfaces\View as ViewInterface;
 
-	View::prependCSS("{$this->theme_path}/css/index",null);
-	View::prependJS("{$this->theme_path}/js/index",null);
-	View::appendJS("{$this->theme_path}/js/main",null);
-	View::appendCSS("{$this->theme_path}/css/main",null);
+	View::_prependCSS("{$this->theme_path}/css/index",null);
+	View::_prependJS("{$this->theme_path}/js/index",null);
+	View::_appendJS("{$this->theme_path}/js/main",null);
+	View::_appendCSS("{$this->theme_path}/css/main",null);
 
 	$language = Language::getInstance();
 	$lang_key = $language->getLanguageKey();

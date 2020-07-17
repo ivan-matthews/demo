@@ -10,9 +10,6 @@
 		/** @var $this */
 		private static $instance;
 
-		/** @var array */
-		private $home;
-
 		/** @var Cache */
 		protected $cache;
 
@@ -24,46 +21,21 @@
 			return self::$instance;
 		}
 
-		public function __get($key){
-			if(isset($this->home[$key])){
-				return $this->home[$key];
-			}
-			return false;
-		}
-
-		public function __set($name, $value){
-			$this->home[$name] = $value;
-			return $this->home[$name];
-		}
-
 		public function __construct(){
 			parent::__construct();
-			$this->cache = $this->cache->key("home.index");
-//			$this->cache = $this->cache->index(2);
-			$this->cache = $this->cache->ttl(60);
+//			$this->cache->ttl(5);
 		}
 
-		public function __destruct(){
+		public function indexModel(){
+			$this->cache->key('home.index');
 
-		}
-
-		public function indexModel($data=array('asasa'=>'asa')){
-			$cache = $this->cache->get();
-			if(!$cache){
-				return $this->cache->set($data);
+			$result = $this->cache->get();
+			if(!$result){
+				$result = $this->select()->from('user_groups')->get()->itemAsArray();
+				$this->cache->set($result);
 			}
-			return $cache;
+			return $result;
 		}
-
-		public function secondModel($data=array('asasa'=>'asa')){
-			$cache = $this->cache->get();
-			if(!$cache){
-				return $this->cache->set($data);
-			}
-			return $cache;
-		}
-
-
 
 
 

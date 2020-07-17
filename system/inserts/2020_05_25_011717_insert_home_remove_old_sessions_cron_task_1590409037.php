@@ -2,7 +2,7 @@
 
 	namespace System\Inserts;
 
-	use Core\Classes\Database;
+	use Core\Classes\Database\Database;
 	use Core\Classes\Kernel;
 
 	class InsertHomeRemoveOldSessionsCronTask202005250117171590409037{
