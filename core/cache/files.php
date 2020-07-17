@@ -53,16 +53,18 @@
 			$time = microtime(true);
 			$this->setCacheFile($key,$hash);
 			if(is_readable($this->cache_file)){
-				$cache_data = fx_import_file($this->cache_file,Kernel::IMPORT_INCLUDE);
-				if($this->checkExpiredTime($cache_data[self::CACHE_TTL_KEY])){
-					unset($cache_data[self::CACHE_TTL_KEY]);
-					Response::debug('cache')
-						->index(2)
-						->set('result',$this->cache_file)
-						->setTime($time)
-						->setQuery($this->cache->cache_hash)
-						->setTrace($this->cache->backtrace);
-					return $cache_data;
+				$cache_data = $this->tryImportCacheFile();
+				if($cache_data){
+					if($this->checkExpiredTime($cache_data[self::CACHE_TTL_KEY])){
+						unset($cache_data[self::CACHE_TTL_KEY]);
+						Response::debug('cache')
+							->index(2)
+							->set('result',$this->cache_file)
+							->setTime($time)
+							->setQuery($this->cache->cache_hash)
+							->setTrace($this->cache->backtrace);
+						return $cache_data;
+					}
 				}
 				$this->dropCacheFile();
 			}
@@ -74,8 +76,7 @@
 			$this->makeCacheDir();
 			if($data && is_array($data)){
 				$data[self::CACHE_TTL_KEY] = $this->current_time + $this->cache_ttl;
-				$data = fx_php_encode($data);
-				return file_put_contents($this->cache_file,$data);
+				return file_put_contents($this->cache_file,fx_php_encode($data));
 			}
 			return false;
 		}
@@ -96,6 +97,16 @@
 		}
 		public function prepareKey($key){
 			return str_replace('.',DIRECTORY_SEPARATOR,$key);
+		}
+
+		private function tryImportCacheFile(){
+			$cache_data = null;
+			try{
+				$cache_data = fx_import_file($this->cache_file,Kernel::IMPORT_INCLUDE);
+			}catch(\Error $e){
+				return false;
+			}
+			return $cache_data;
 		}
 
 		private function checkExpiredTime($expired_time){

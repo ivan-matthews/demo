@@ -33,13 +33,7 @@
 		public function __construct(){
 			parent::__construct();
 			set_error_handler("Core\\Classes\\Error::nonSetError");
-		}
 
-		public function __destruct(){
-			set_error_handler("Core\\Classes\\Error::getInstance");
-		}
-
-		public function execute(){
 			$this->config = Config::getInstance();
 
 			set_time_limit($this->config->cron['time_limit']);
@@ -48,7 +42,13 @@
 			$this->cron_tasks_locked_files = fx_path($this->config->cron['cron_locked_files']);
 
 			fx_make_dir($this->cron_tasks_locked_files,777);
+		}
 
+		public function __destruct(){
+			set_error_handler("Core\\Classes\\Error::getInstance");
+		}
+
+		public function execute(){
 			$this->getCronTasksArray();
 			$this->startCronTasks();
 
@@ -83,8 +83,8 @@
 
 					$this->cron_tasks_array[$key]['date_updated'] = time();
 
-					$this->updateCronTaskLastRun();
-					$this->unlockFile($this->locked_file,$this->lock_to_write);
+					$this->updateCronTaskLastRun($item);
+					$this->unlockFile();
 				}
 				return $this;
 			}
@@ -92,16 +92,10 @@
 		}
 
 		private function tryRunCronTask($cron_task){
-			$this->update_data['result'] = $cron_task['result'];
-			$this->update_data['options'] = $cron_task['options'];
-			$this->update_data['errors'] = $cron_task['errors'];
-			$this->update_data['date_updated'] = time();
-
 			try{
-
 				$cron_task_object = new $cron_task['class']();
-				call_user_func_array(array($cron_task_object,$cron_task['method']),$cron_task);
-				$this->executeSuccessful();
+				$task_result = call_user_func_array(array($cron_task_object,$cron_task['method']),array($cron_task));
+				$this->prepareSuccessfulResult($task_result);
 			}catch(\Error $error){
 				$this->update_data['errors']['message'] = $error->getMessage();
 				$this->update_data['errors']['file'] = $error->getFile();
@@ -112,11 +106,24 @@
 			return $this;
 		}
 
-		private function updateCronTaskLastRun(){
+		private function prepareSuccessfulResult($task_result){
+			if($task_result){
+				if(is_string($task_result)){
+					return $this->executeSuccessfulWithMsg($task_result);
+				}
+				return $this->executeSuccessful();
+			}
+			return $this->executeSuccessfulEmpty();
+		}
+
+		private function updateCronTaskLastRun($item){
+			$this->update_data['date_updated'] = time();
 			$update = Database::update('cron_tasks');
 			foreach($this->update_data as $field => $value){
 				$update->field($field,$value);
 			}
+			$update->where("`id`=ITEM_ID");
+			$update->data('ITEM_ID',$item['id']);
 			return $update->exec();
 		}
 
@@ -144,60 +151,84 @@
 			return false;
 		}
 
-		public function unlockFile($locked_file,$lock_to_write){
-			if(is_file($locked_file)){
-				@flock($lock_to_write, LOCK_UN);
-				@unlink($locked_file);
+		public function unlockFile(){
+			if(is_file($this->locked_file)){
+				@flock($this->lock_to_write, LOCK_UN);
+				@unlink($this->locked_file);
 			}
 			return $this;
 		}
 
 		private function shutDownFunction(){
-			register_shutdown_function(array($this,'unlockFile'),$this->locked_file,$this->lock_to_write);
+			register_shutdown_function(array($this,'unlockFile'));
 			return $this;
 		}
 
+
+
 		private function cronTaskStarted($item){
 			return Paint::exec(function(PaintInterface $print)use($item){
+				$print->string( date('d-m-Y H:i:s') .': ')->color('cyan')->toPaint();
 				$print->string('Cron task ')->toPaint();
 				$print->string($item['title'])->fon('blue')->toPaint();
+				$print->string(" (ID №{$item['id']})")->toPaint();
 				$print->string(' > ')->toPaint();
 			});
 		}
 		private function skippedByFile(){
 			return Paint::exec(function(PaintInterface $print){
-				$print->string('(lock file blocked)')->color('brown')->toPaint();
+				$print->string('skipped')->fon('magenta')->toPaint();
 				$print->string(' ')->toPaint();
-				$print->string('skipped!')->fon('magenta')->toPaint();
+				$print->string('by file!')->color('brown')->toPaint();
 				$print->eol();
 			});
 		}
 		private function skippedByTime(){
 			return Paint::exec(function(PaintInterface $print){
-				$print->string('(last run>current time)')->color('yellow')->toPaint();
+				$print->string('skipped')->fon('yellow')->toPaint();
 				$print->string(' ')->toPaint();
-				$print->string('skipped!')->fon('yellow')->toPaint();
+				$print->string('by time!')->color('yellow')->toPaint();
 				$print->eol();
 			});
 		}
 		private function executeError(){
 			return Paint::exec(function(PaintInterface $print){
-				$print->string('(critical error)')->color('light_red')->toPaint();
+				$print->string('skipped')->fon('red')->toPaint();
 				$print->string(' ')->toPaint();
-				$print->string('error!')->fon('red')->toPaint();
+				$print->string('by error!')->color('light_red')->toPaint();
 				$print->eol();
 			});
 		}
-		private function executeSuccessful(){
+		private function nothingToExists(){
 			return Paint::exec(function(PaintInterface $print){
-				$print->string('successful exist!')->fon('green')->toPaint();
+				$print->string('No tasks to execute!')->fon('cyan')->toPaint();
 				$print->eol();
 			});
 		}
 
-		private function nothingToExists(){
+		private function executeSuccessfulWithMsg($msg){
+			$this->update_data['result'] = $msg;
+			return Paint::exec(function(PaintInterface $print)use($msg){
+				$print->string('successful')->fon('green')->toPaint();
+				$print->string(' with message: ')->toPaint();
+				$print->string($msg)->fon('red')->toPaint();
+				$print->string('!')->toPaint();
+				$print->eol();
+			});
+		}
+		private function executeSuccessful(){
+			$this->update_data['result'] = true;
 			return Paint::exec(function(PaintInterface $print){
-				$print->string('Nothing to exists!')->fon('green')->toPaint();
+				$print->string('successful!')->fon('green')->toPaint();
+				$print->eol();
+			});
+		}
+		private function executeSuccessfulEmpty(){
+			$this->update_data['result'] = false;
+			return Paint::exec(function(PaintInterface $print){
+				$print->string('successful')->fon('green')->toPaint();
+				$print->string(' with empty response!')->toPaint();
+				$print->string('')->fon('red')->toPaint();
 				$print->eol();
 			});
 		}

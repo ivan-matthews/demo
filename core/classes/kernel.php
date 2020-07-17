@@ -63,6 +63,18 @@
 			$this->response = Response::getInstance();
 		}
 
+		public function getCurrentController(){
+			return $this->controller;
+		}
+
+		public function getCurrentAction(){
+			return $this->action;
+		}
+
+		public function getCurrentParams(){
+			return $this->params;
+		}
+
 		public function setProperty(){
 			$this->router_find_in_list = $this->router->getRouterStatus();
 			$this->request_method = $this->request->getRequestMethod();
@@ -152,7 +164,6 @@
 			if($reflection->getNumberOfRequiredParameters() > $total_params){ return false; }
 			return true;
 		}
-
 
 
 

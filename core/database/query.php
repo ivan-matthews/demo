@@ -65,35 +65,35 @@
 			if($result){
 				return $this->database_object->getAll($result,$resulttype);
 			}
-			return false;
+			return array();
 		}
 		public function getArray(){
 			$result = $this->exec();
 			if($result){
 				return $this->database_object->getArray($result);
 			}
-			return false;
+			return array();
 		}
 		public function getObject(){
 			$result = $this->exec();
 			if($result){
 				return $this->database_object->getObject($result);
 			}
-			return false;
+			return array();
 		}
 		public function getItemAsArray(){
 			$result = $this->exec();
 			if($result){
 				return $this->database_object->getItemAsArray($result);
 			}
-			return false;
+			return array();
 		}
 		public function getItemAsObject(){
 			$result = $this->exec();
 			if($result){
 				return $this->database_object->getItemAsObject($result);
 			}
-			return false;
+			return array();
 		}
 
 		public function getRows(){

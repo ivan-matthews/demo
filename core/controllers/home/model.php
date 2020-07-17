@@ -40,8 +40,11 @@
 		}
 
 		public function indexModel($data=array('asasa'=>'asa')){
-//			return $this->cache->set($data);
-			return $this->cache->get();
+			$cache = $this->cache->get();
+			if(!$cache){
+				return $this->cache->set($data);
+			}
+			return $cache;
 		}
 
 

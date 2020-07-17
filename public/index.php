@@ -7,6 +7,8 @@
 	use Core\Classes\Database;
 	use Core\Classes\Response;
 	use Core\Classes\Session;
+	use Core\Classes\Language;
+	use Core\Classes\User;
 
 	require __DIR__ . "/../loader.php";
 
@@ -17,6 +19,8 @@
 	$database	= Database::getInstance();
 	$response 	= Response::getInstance();
 	$session	= Session::getInstance();
+	$language	= Language::getInstance();
+	$user 		= User::getInstance();
 
 	$request->setRequestedData(fx_get_request());
 	$request->setRequestMethod(fx_get_server('REQUEST_METHOD'));
@@ -36,15 +40,6 @@
 	$kernel->setControllerParams();
 	$kernel->setActionParams();
 	$kernel->loadSystem();
-
-
-
-
-
-
-
-
-
 
 
 

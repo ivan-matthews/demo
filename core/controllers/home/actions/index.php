@@ -2,6 +2,7 @@
 
 	namespace Core\Controllers\Home\Actions;
 
+	use Core\Classes\Database;
 	use Core\Classes\Response;
 	use Core\Classes\Router;
 	use Core\Classes\Request;
@@ -63,21 +64,31 @@
 			}
 
 			fx_pre(array(
-				/*'cache'=>array(
-					$this->model->indexModel(a(1)),
+				'cache'=>array(
+					/*$this->model->indexModel(a(1)),
 					$this->model->indexModel(a(1)),
 					$this->model->indexModel(a(2)),
 					$this->model->indexModel(a(2)),
 					$this->model->indexModel(a(4)),
 					$this->model->indexModel(a(4)),
 					$this->model->indexModel(a(3)),
-					$this->model->indexModel(a(3)),
-				),*/
+					$this->model->indexModel(a(3)),*/
+				),
 				'files'=>get_included_files(),
 				'memor'=>fx_prepare_memory(memory_get_usage(),4,',',' '),
 				'times'=>number_format(microtime(true)-TIME,10),
-				'debug'=>$response->getDebug()
 			));
+//			Database::select('*')->from('migrations')->exec();
+			$dbg = $response->getDebug();
+			if($dbg){
+				foreach($dbg as $key=>$item){
+					print "<i>{$key}</i><br>";
+					foreach($item as $value){
+						print $value['query'] .'<br>';
+					}
+					print '<hr>';
+				}
+			}
 		}
 
 		public function __destruct(){

@@ -108,7 +108,6 @@
 			return $this->debugDisabled();
 		}
 
-		/** @return mixed */
 		private function debugDisabled(){
 			if(fx_is_cli()){
 				return $this->renderCLIError();
@@ -120,19 +119,15 @@
 			return $this;
 		}
 
-		/** @return mixed */
 		private function debugEnabled(){
 			if(self::$stop_engine){ return die; }
 			self::$stop_engine = true;
 			restore_error_handler();
 
 			if(fx_is_cli()){
-				$this->renderCLIError();
-			}else{
-				$this->renderHTMLError();
+				return $this->renderCLIError();
 			}
-
-			return die;
+			return $this->renderHTMLError();
 		}
 
 		private function saveToDatabase(){
@@ -155,16 +150,19 @@
 				->exec();
 		}
 
+		/** @return mixed */
 		private function renderHTMLError(){
-			include ROOT . "/public/view/default/assets/errors/debug_error_page.tmp.php";
-			return $this;
+			include ROOT . "/public/view/default/assets/errors/debug_error_page.html.php";
+			return die;
 		}
 
+		/** @return mixed */
 		private function render500(){
-			include ROOT . "/public/view/default/assets/errors/error_500_page.tmp.php";
-			return $this;
+			include ROOT . "/public/view/default/assets/errors/error_500_page.html.php";
+			return die;
 		}
 
+		/** @return mixed */
 		private function renderCLIError(){
 			$this->getErrorCodeString();
 			Paint::exec(function(Paint $print){
@@ -189,7 +187,7 @@
 				}
 				$print->eol(2);
 			});
-			return $this;
+			return die;
 		}
 
 		private function setErrNumber($number){

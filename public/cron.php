@@ -1,5 +1,11 @@
 <?php
 
+	/** Cron task add to /etc/crontab | sudo service cron restart:
+	 *|
+	 *| * * * * * root php /var/www/m.c/cli cron run > /var/www/m.c/cron.log 2>&1
+	 *|
+	 */
+
 	use Core\Console\Console;
 	use Core\Classes\Config;
 	use Core\Classes\Request;

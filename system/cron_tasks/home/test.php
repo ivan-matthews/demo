@@ -2,49 +2,25 @@
 
 	namespace System\Cron_Tasks\Home;
 
-	use Core\Console\Interfaces\Types;
-	use Core\Console\Paint;
-
 	class Test{
 
-		private static $instance;
-
-		protected $test=array();
-
-		private $method;
-
-		public static function getInstance(){
-			if(self::$instance === null){
-				self::$instance = new self();
-			}
-			return self::$instance;
-		}
-
-		public function __get($key){
-			if(isset($this->test[$key])){
-				return $this->test[$key];
-			}
-			return false;
-		}
-
-		public function __set($name, $value){
-			$this->test[$name] = $value;
-			return $this->test[$name];
-		}
-
-		public function __construct(){
-
-		}
-
-		public function __destruct(){
-
-		}
-
-		public function execute(...$params){
+		/**
+		 * @param $params 'cron_task' item array from DB
+		 * @return string | boolean
+		 */
+		public function execute($params){
+//			fx_pre($params);
 			sleep(2);
-			return $this->method = __METHOD__;
-		}
 
+			$response = array(
+				__METHOD__,		// successful with message '__METHOD__'
+				true,			// successful
+				false,			// successful with empty response
+				null,			// successful with empty response
+			);
+
+			return $response[rand(0,3)];
+		}
 
 
 

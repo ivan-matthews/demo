@@ -24,7 +24,7 @@
 				$table->varchar('method')->notNull()->defaults('execute');
 				$table->varchar('params')->notNull()->defaults('{}');
 				$table->varchar('period')->notNull()->defaults('3600'); // seconds
-				$table->varchar('status')->notNull()->defaults(Kernel::STATUS_ACTIVE);
+				$table->tinyint('status',2)->notNull()->defaults(Kernel::STATUS_ACTIVE);
 				$table->longtext('options');
 				$table->longtext('errors');
 				$table->longtext('result');
