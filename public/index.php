@@ -58,8 +58,6 @@
 
 
 
-//	fx_pre(trim(dirname($_SERVER['PHP_SELF']),DIRECTORY_SEPARATOR));
-
 	fx_pre(array(
 		'csrf'=>$user->getCSRFToken(),
 		'code'=>$response->getResponseCode(),

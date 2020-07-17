@@ -6,9 +6,9 @@
 
 	namespace System\Console\__command_namespace__;
 
-	use Core\Console\Console;
-	use Core\Console\Paint;
-	use Core\Console\Interactive;
+	use Core\Classes\Console\Console;
+	use Core\Classes\Console\Paint;
+	use Core\Classes\Console\Interactive;
 
 	class __command_class__ extends Console{
 

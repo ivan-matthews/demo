@@ -12,13 +12,13 @@
 
 	namespace Core\Classes;
 
-	use Core\Database\Query;
-	use Core\Database\Select;
-	use Core\Database\Insert;
-	use Core\Database\Update;
-	use Core\Database\Alter;
-	use Core\Database\Create;
-	use Core\Database\Delete;
+	use Core\Classes\Database\Query;
+	use Core\Classes\Database\Select;
+	use Core\Classes\Database\Insert;
+	use Core\Classes\Database\Update;
+	use Core\Classes\Database\Alter;
+	use Core\Classes\Database\Create;
+	use Core\Classes\Database\Delete;
 
 	class Database{
 
@@ -28,7 +28,7 @@
 
 		private $config;
 		private $database_driver;
-		/** @var  \Core\Database\Connect\MySQLi */
+		/** @var  \Core\Classes\Database\Connect\MySQLi */
 		private $database_object;
 
 		private $charset;
@@ -65,7 +65,7 @@
 
 		/**
 		 * @param $query
-		 * @return \Core\Database\Interfaces\Query\Query
+		 * @return \Core\Classes\Database\Interfaces\Query\Query
 		 */
 		public static function query($query){
 			$obj = new Query(self::getInstance());
@@ -85,7 +85,7 @@
 
 		/**
 		 * @param array ...$from_tables
-		 * @return \Core\Database\Interfaces\Delete\Delete
+		 * @return \Core\Classes\Database\Interfaces\Delete\Delete
 		 */
 		public static function delete(...$from_tables){
 			$obj = new Delete(self::getInstance());
@@ -95,7 +95,7 @@
 
 		/**
 		 * @param $to_table
-		 * @return \Core\Database\Interfaces\Insert\Insert
+		 * @return \Core\Classes\Database\Interfaces\Insert\Insert
 		 */
 		public static function insert($to_table){
 			$obj = new Insert(self::getInstance());
@@ -105,7 +105,7 @@
 
 		/**
 		 * @param array ...$fields
-		 * @return \Core\Database\Interfaces\Select\Select
+		 * @return \Core\Classes\Database\Interfaces\Select\Select
 		 */
 		public static function select(...$fields){
 			if(!$fields){ $fields = '*'; }
@@ -116,7 +116,7 @@
 
 		/**
 		 * @param $in_table
-		 * @return \Core\Database\Interfaces\Update\Update
+		 * @return \Core\Classes\Database\Interfaces\Update\Update
 		 */
 		public static function update($in_table){
 			$obj = new Update(self::getInstance());
@@ -206,7 +206,7 @@
 		}
 
 		public function setDbObject(){
-			$class_name = "\\Core\\Database\\Connect\\{$this->database_driver}";
+			$class_name = "\\Core\\Classes\\Database\\Connect\\{$this->database_driver}";
 			$this->database_object = call_user_func(array($class_name,'getInstance'));
 			return $this->database_object;
 		}

@@ -9,10 +9,10 @@
 	use Core\Classes\Config;
 	use Core\Classes\Database;
 	use Core\Classes\Kernel;
-	use Core\Console\Console;
-	use Core\Console\Paint;
-	use Core\Console\Interactive;
-	use Core\Console\Interfaces\Types as PaintInterface;
+	use Core\Classes\Console\Console;
+	use Core\Classes\Console\Paint;
+	use Core\Classes\Console\Interactive;
+	use Core\Classes\Console\Interfaces\Types as PaintInterface;
 
 	class Run extends Console{
 

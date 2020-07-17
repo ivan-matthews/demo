@@ -99,6 +99,9 @@
 			return $this->checkDesiredLanguage();
 		}
 
+		public function getLanguageKey(){
+			return $this->lang_key;
+		}
 
 
 

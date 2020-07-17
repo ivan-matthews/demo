@@ -6,7 +6,7 @@
 	 *|
 	 */
 
-	use Core\Console\Console;
+	use Core\Classes\Console\Console;
 	use Core\Classes\Config;
 	use Core\Classes\Request;
 

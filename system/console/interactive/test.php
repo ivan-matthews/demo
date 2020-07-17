@@ -6,10 +6,10 @@
 
 	namespace System\Console\Interactive;
 
-	use Core\Console\Console;
-	use Core\Console\Paint;
-	use Core\Console\Interactive;
-	use Core\Console\Interfaces\Types;
+	use Core\Classes\Console\Console;
+	use Core\Classes\Console\Paint;
+	use Core\Classes\Console\Interactive;
+	use Core\Classes\Console\Interfaces\Types;
 
 	class Test extends Console{
 

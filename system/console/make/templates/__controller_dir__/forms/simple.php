@@ -17,10 +17,10 @@
 
 	namespace Core\Controllers\__controller_namespace__\Forms;
 
-	use Core\Form\Form;
+	use Core\Classes\Form\Form;
 	use Core\Classes\Request;
-	use Core\Form\Interfaces\Checkers;
-	use Core\Form\Interfaces\Validator;
+	use Core\Classes\Form\Interfaces\Checkers;
+	use Core\Classes\Form\Interfaces\Validator;
 
 	class Simple extends Form{
 

@@ -1,6 +1,6 @@
 <?php
 
-	namespace Core\Database\Connect;
+	namespace Core\Classes\Database\Connect;
 
 	use Core\Classes\Config;
 

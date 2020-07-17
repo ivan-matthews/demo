@@ -2,7 +2,7 @@
 
 	namespace Core\Controllers\__controller_namespace__;
 
-	use Core\Cache\Cache;
+	use Core\Classes\Cache\Cache;
 	use Core\Classes\Model as ParentModel;
 
 	class Model extends ParentModel{

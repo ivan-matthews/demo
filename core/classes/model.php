@@ -27,14 +27,14 @@
 
 	namespace Core\Classes;
 
-	use Core\Cache\Cache;
-	use Core\Database\Query;
-	use Core\Database\Select;
-	use Core\Database\Insert;
-	use Core\Database\Update;
-	use Core\Database\Alter;
-	use Core\Database\Create;
-	use Core\Database\Delete;
+	use Core\Classes\Cache\Cache;
+	use Core\Classes\Database\Query;
+	use Core\Classes\Database\Select;
+	use Core\Classes\Database\Insert;
+	use Core\Classes\Database\Update;
+	use Core\Classes\Database\Alter;
+	use Core\Classes\Database\Create;
+	use Core\Classes\Database\Delete;
 
 	class Model{
 
@@ -74,7 +74,7 @@
 
 		/**
 		 * @param $query
-		 * @return \Core\Database\Interfaces\Query\Query
+		 * @return \Core\Classes\Database\Interfaces\Query\Query
 		 */
 		public function query($query){
 			$obj = new Query($this->database);
@@ -94,7 +94,7 @@
 
 		/**
 		 * @param array ...$from_tables
-		 * @return \Core\Database\Interfaces\Delete\Delete
+		 * @return \Core\Classes\Database\Interfaces\Delete\Delete
 		 */
 		public function delete(...$from_tables){
 			$obj = new Delete($this->database);
@@ -104,7 +104,7 @@
 
 		/**
 		 * @param $to_table
-		 * @return \Core\Database\Interfaces\Insert\Insert
+		 * @return \Core\Classes\Database\Interfaces\Insert\Insert
 		 */
 		public function insert($to_table){
 			$obj = new Insert($this->database);
@@ -114,7 +114,7 @@
 
 		/**
 		 * @param array ...$fields
-		 * @return \Core\Database\Interfaces\Select\Select
+		 * @return \Core\Classes\Database\Interfaces\Select\Select
 		 */
 		public function select(...$fields){
 			$obj = new Select($this->database);
@@ -124,7 +124,7 @@
 
 		/**
 		 * @param $in_table
-		 * @return \Core\Database\Interfaces\Update\Update
+		 * @return \Core\Classes\Database\Interfaces\Update\Update
 		 */
 		public function update($in_table){
 			$obj = new Update($this->database);

@@ -6,9 +6,9 @@
 
 	namespace System\Console\Make;
 
-	use Core\Console\Console;
-	use Core\Console\Interfaces\Types;
-	use Core\Console\Paint;
+	use Core\Classes\Console\Console;
+	use Core\Classes\Console\Interfaces\Types;
+	use Core\Classes\Console\Paint;
 
 	class DB_Insert extends Console{
 

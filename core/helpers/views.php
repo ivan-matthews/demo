@@ -16,3 +16,7 @@
 		$url = fx_get_preparing_url(...$link_args);
 		return "/{$url}";
 	}
+
+	function fx_get_web_dir_name(){
+		return trim(dirname(fx_get_server('PHP_SELF')),DIRECTORY_SEPARATOR);
+	}

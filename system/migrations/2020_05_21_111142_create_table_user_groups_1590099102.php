@@ -4,7 +4,7 @@
 
 	use Core\Classes\Database;
 	use Core\Classes\Kernel;
-	use Core\Database\Interfaces\Create\Create;
+	use Core\Classes\Database\Interfaces\Create\Create;
 
 	class CreateTableUserGroups202005211111421590099102{
 

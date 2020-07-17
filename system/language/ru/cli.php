@@ -62,7 +62,7 @@
 		'cron_task_not_making'		=> 'КРОН-задача "CLASS_NAME" ранее создана создана в CLASS_FILE',
 		'new_db_class_created'		=> 'Класс Базы Данных "CLASS_NAME" успешно создан в FILE_NAME',
 		'new_db_class_not_created'	=> 'Класс Базы Данных "CLASS_NAME" не был создан в FILE_NAME',
-		'session_file_has_removed'	=> "Сессионный файл \"CLASS_NAME\"\n\t был удален из FILE_NAME",
-		'session_file_not_removed'	=> "Сессионный файл \"CLASS_NAME\"\n\t не был удален из FILE_NAME",
-		'session_file_has_skipped'	=> "Сессионный файл \"CLASS_NAME\"\n\t был пропущен FILE_NAME",
+		'session_file_has_removed'	=> "Сессионный файл \"CLASS_NAME\" был удален"/* из FILE_NAME*/,
+		'session_file_not_removed'	=> "Сессионный файл \"CLASS_NAME\" не был удален"/* из FILE_NAME*/,
+		'session_file_has_skipped'	=> "Сессионный файл \"CLASS_NAME\" был пропущен"/* из FILE_NAME*/,
 	);

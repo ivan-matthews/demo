@@ -32,9 +32,9 @@
 	*/
 
 	use Core\Classes\Config;
-	use Core\Console\Console;
 	use Core\Classes\Language;
-//	use Core\Console\Paint;
+	use Core\Classes\Console\Console;
+//	use Core\Classes\Console\Paint;
 
 	require __DIR__ . "/loader.php";
 

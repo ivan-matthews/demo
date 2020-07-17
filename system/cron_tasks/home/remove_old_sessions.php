@@ -3,8 +3,8 @@
 	namespace System\Cron_Tasks\Home;
 
 	use Core\Classes\Config;
-	use Core\Console\Interfaces\Types;
-	use Core\Console\Paint;
+	use Core\Classes\Console\Interfaces\Types;
+	use Core\Classes\Console\Paint;
 
 	class Remove_Old_Sessions{
 

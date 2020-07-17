@@ -2,14 +2,14 @@
 
 	namespace Core\Classes;
 
-	use Core\Response\BreadCrumb;
-	use Core\Response\Controller;
-	use Core\Response\Debug;
-	use Core\Response\Error;
-	use Core\Response\Meta;
-	use Core\Response\SessionMessage;
-	use Core\Response\Title;
-	use Core\Response\Widget;
+	use Core\Classes\Response\BreadCrumb;
+	use Core\Classes\Response\Controller;
+	use Core\Classes\Response\Debug;
+	use Core\Classes\Response\Error;
+	use Core\Classes\Response\Meta;
+	use Core\Classes\Response\SessionMessage;
+	use Core\Classes\Response\Title;
+	use Core\Classes\Response\Widget;
 
 	/**
 	 * Class Response
