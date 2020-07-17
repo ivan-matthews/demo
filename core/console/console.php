@@ -205,7 +205,11 @@
 			return true;
 		}
 
-
+		protected function prepareClassName($class_name,$delimiter='_'){
+			return implode($delimiter,fx_array_callback(explode($delimiter,$class_name),function(&$key,&$val){
+				$val = ucfirst($val);
+			}));
+		}
 
 
 

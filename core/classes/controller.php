@@ -6,7 +6,9 @@
 
 		private static $instance;
 
-		protected $controller;
+		protected $response;
+		protected $request;
+		private $controller;
 
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -28,13 +30,20 @@
 		}
 
 		public function __construct(){
-
+			$this->response = Response::getInstance();
+			$this->request = Request::getInstance();
 		}
 
 		public function __destruct(){
 
 		}
 
+		protected function redirect($link_to_redirect='/',$status_code=302){
+			$link_to_redirect = trim($link_to_redirect,' /');
+			$this->response->setResponseCode($status_code)
+				->setHeader('Location',"/{$link_to_redirect}");
+			return $this;
+		}
 
 
 

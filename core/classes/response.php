@@ -112,6 +112,11 @@
 			return $this->response_data['debug'];
 		}
 
+		public function setHeader($header_key,$header_value){
+			$this->response_data['response_data']['headers'][$header_key] = $header_value;
+			return $this;
+		}
+
 		public function setResponseCode($code){
 			$this->getResponseCodesList();
 			if(isset($this->response_list[$code])){
@@ -142,14 +147,18 @@
 		}
 
 		public function sendHeaders(){
-			header("HTTP/1.0 {$this->response_data['response_data']['headers']['response_status']}");
-			header("HTTP/1.1 {$this->response_data['response_data']['headers']['response_status']}");
-			header("HTTP/2 {$this->response_data['response_data']['headers']['response_status']}");
-			header("Status: {$this->response_data['response_data']['headers']['response_status']}");
-			http_response_code($this->response_data['response_data']['headers']['response_code']);
+			foreach($this->response_data['response_data']['headers'] as $key=>$value){
+				if(fx_equal($key,'response_status')){ continue; }
+				if(fx_equal($key,'response_code')){ continue; }
+				@header("{$key}: {$value}",true,$this->response_data['response_data']['headers']['response_code']);
+			}
+			@header("HTTP/1.0 {$this->response_data['response_data']['headers']['response_status']}");
+			@header("HTTP/1.1 {$this->response_data['response_data']['headers']['response_status']}");
+			@header("HTTP/2 {$this->response_data['response_data']['headers']['response_status']}");
+			@header("Status: {$this->response_data['response_data']['headers']['response_status']}");
+			@http_response_code($this->response_data['response_data']['headers']['response_code']);
 			return $this;
 		}
-
 
 
 

@@ -11,7 +11,7 @@
 		protected $config;
 		protected $model;
 
-		protected $home;
+		private $home;
 
 		public static function getInstance(){
 			if(self::$instance === null){

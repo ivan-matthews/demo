@@ -41,10 +41,23 @@
 	$kernel->setActionParams();
 	$kernel->loadSystem();
 
+	$response->sendHeaders();
+
+
+
+
+
+
+
+
+
+
+
 
 	fx_pre(array(
 		'code'=>$response->getResponseCode(),
 		'stat'=>$response->getResponseStatus(),
+		'grup'=>$user->getGroups()
 	));
 
 

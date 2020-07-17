@@ -8,7 +8,7 @@
 
 		private static $instance;
 
-		protected $__controller_property__;
+		private $__controller_property__;
 
 		public static function getInstance(){
 			if(self::$instance === null){

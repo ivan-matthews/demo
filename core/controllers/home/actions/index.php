@@ -2,18 +2,13 @@
 
 	namespace Core\Controllers\Home\Actions;
 
-	use Core\Classes\Database;
-	use Core\Classes\Response;
-	use Core\Classes\Router;
-	use Core\Classes\Request;
-
 	use Core\Controllers\Home\Controller;
 
 	class Index extends Controller{
 
 		private static $instance;
 
-		protected $index;
+		private $index;
 
 		public static function getInstance(){
 			if(self::$instance === null){

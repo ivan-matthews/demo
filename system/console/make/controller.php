@@ -27,7 +27,7 @@
 			$this->controller_tmp_dir = fx_path("system/console/make/templates/__controller_dir__");
 			$this->controller_dir = fx_path("core/controllers/{$this->controller_name}");
 
-			$this->__controller_namespace__ = ucfirst($this->controller_name);
+			$this->__controller_namespace__ = $this->prepareClassName($this->controller_name);
 			$this->__controller_property__ = $this->controller_name;
 			$this->__controller_dir__ = $this->controller_name;
 
@@ -47,7 +47,7 @@
 			$action_data = file_get_contents($this->actions_tmp_file);
 			foreach($this->actions as $action){
 				$action = strtolower($action);
-				$action_class_name = ucfirst($action);
+				$action_class_name = $this->prepareClassName($action);
 				$action_replaced_data = str_replace(array(
 					'__controller_namespace__',
 					'Index'

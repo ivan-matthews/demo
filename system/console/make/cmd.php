@@ -27,9 +27,9 @@
 			$this->console_folder = fx_path("system/console");
 
 			$this->command_directory = strtolower($command_directory);
-			$this->command_namespace = ucfirst($command_directory);
+			$this->command_namespace = $this->prepareClassName($command_directory);
 			$this->command_file = strtolower($command_file);
-			$this->command_class = ucfirst($command_file);
+			$this->command_class = $this->prepareClassName($command_file);
 			$this->command_arguments = $command_arguments;
 			$this->command_file_template = fx_php_path("system/console/make/templates/commandClass.tmp");
 

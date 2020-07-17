@@ -58,7 +58,7 @@
 		}
 
 		private function getUcFirstClassName(){
-			$this->uc_first_class = ucfirst($this->class_name);
+			$this->uc_first_class = $this->prepareClassName($this->class_name);
 			return $this;
 		}
 

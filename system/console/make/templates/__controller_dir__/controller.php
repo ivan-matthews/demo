@@ -11,7 +11,7 @@
 		protected $config;
 		protected $model;
 
-		protected $__controller_property__;
+		private $__controller_property__;
 
 		public static function getInstance(){
 			if(self::$instance === null){

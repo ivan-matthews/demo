@@ -8,7 +8,7 @@
 
 		private static $instance;
 
-		protected $config;
+		private $config;
 
 		public static function getInstance(){
 			if(self::$instance === null){

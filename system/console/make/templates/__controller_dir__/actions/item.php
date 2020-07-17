@@ -2,17 +2,13 @@
 
 	namespace Core\Controllers\__controller_namespace__\Actions;
 
-	use Core\Classes\Response;
-	use Core\Classes\Router;
-	use Core\Classes\Request;
-
 	use Core\Controllers\__controller_namespace__\Controller;
 
 	class Item extends Controller{
 
 		private static $instance;
 
-		protected $item;
+		private $item;
 
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -42,13 +38,11 @@
 		}
 
 		public function methodGet($id){
-			fx_pre(__METHOD__,$id);
-			return true;
+			return false;
 		}
 
 		public function methodPost($id){
-			fx_pre(__METHOD__,$id);
-			return true;
+			return false;
 		}
 
 		public function methodPut(){

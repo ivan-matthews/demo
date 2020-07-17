@@ -89,9 +89,6 @@
 			$this->setErrLine($error_line);
 			$this->setErrBacktrace();
 			$this->setErrMsg($error_msg);
-
-			$this->response->setResponseCode(500);
-			$this->response->sendHeaders();
 		}
 
 		public static function setError($shutdown=true){
@@ -157,12 +154,16 @@
 
 		/** @return mixed */
 		private function renderHTMLError(){
+			$this->response->setResponseCode(500);
+			$this->response->sendHeaders();
 			include ROOT . "/public/view/default/assets/errors/debug_error_page.html.php";
 			return die;
 		}
 
 		/** @return mixed */
 		private function render500(){
+			$this->response->setResponseCode(500);
+			$this->response->sendHeaders();
 			include ROOT . "/public/view/default/assets/errors/error_500_page.html.php";
 			return die;
 		}

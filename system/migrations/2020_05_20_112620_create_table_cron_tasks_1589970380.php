@@ -22,7 +22,7 @@
 				$table->longtext('description');
 				$table->varchar('class')->nullable()->index();
 				$table->varchar('method')->notNull()->defaults('execute');
-				$table->varchar('params')->notNull()->defaults('{}');
+				$table->varchar('params')->notNull()->defaults('[]');
 				$table->varchar('period')->notNull()->defaults('3600'); // seconds
 				$table->tinyint('status',2)->notNull()->defaults(Kernel::STATUS_ACTIVE);
 				$table->longtext('options');
