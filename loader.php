@@ -3,8 +3,8 @@
 	define('TIME',microtime(true));
 	define('ROOT',__DIR__);
 
-	require __DIR__ . "/vendor/autoload.php";
-	require __DIR__ . "/core/helpers/autoload/autoloader.php";
+	require ROOT . "/vendor/autoload.php";
+	require ROOT . "/core/helpers/autoload/autoloader.php";
 
 	error_reporting(0);
 	ini_set('display_errors','1');

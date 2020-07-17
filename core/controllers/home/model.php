@@ -28,10 +28,21 @@
 
 		public function indexModel(){
 			$this->cache->key('home.index');
+			$result = $this->cache->object()->get();
 
-			$result = $this->cache->get();
 			if(!$result){
-				$result = $this->select()->from('user_groups')->get()->itemAsArray();
+				$result = $this->select()->from('user_groups')->get()->itemAsObject();
+				$this->cache->set($result);
+			}
+			return $result;
+		}
+
+		public function secondModel(){
+			$this->cache->key('home.index_2');
+			$result = $this->cache->object()->get();
+
+			if(!$result){
+				$result = $this->select()->from('migrations')->get()->itemAsObject();
 				$this->cache->set($result);
 			}
 			return $result;

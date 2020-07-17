@@ -58,7 +58,11 @@
 	}
 
 	function fx_implode(string $glue="",$pieces){
-		return trim(fx_implode_recursive($glue,$pieces),$glue);
+		try{
+			return trim(fx_implode_recursive($glue,$pieces),$glue);
+		}catch(Error $e){
+			return false;
+		}
 	}
 
 	function fx_implode_recursive(string $glue="",$pieces){

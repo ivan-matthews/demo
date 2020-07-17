@@ -8,6 +8,9 @@
 
 		private static $instance;
 
+		private $data_result = array();
+		private $object;
+
 		private $driver_key;
 		private $params;
 		private $config;
@@ -30,9 +33,15 @@
 
 		public function get(){
 			if(!$this->params['cache_enabled']){ return false; }
-			return $this->driver_object->get();
+			$this->data_result = $this->driver_object->get();
+			if(!$this->object){
+				return $this->data_result;
+			}
+			return json_decode(json_encode($this->data_result));
 		}
-		public function set(array $data){
+		public function set($data){
+			$data = fx_arr($data);
+			if(!$this->params['cache_enabled']){ return false; }
 			return $this->driver_object->set($data);
 		}
 		public function clear(){
@@ -58,6 +67,10 @@
 			return $this;
 		}
 
+		public function object(){
+			$this->object = true;
+			return $this;
+		}
 
 
 

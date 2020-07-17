@@ -69,6 +69,10 @@
 		}
 
 		public function methodGet(){
+
+			$this->model->indexModel();
+			$this->model->secondModel();
+
 			$this->response->controller('home')
 				->set('var','someone')
 				->set('var1','this')

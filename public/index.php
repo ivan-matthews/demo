@@ -50,16 +50,20 @@
 	$view->ready();
 	$view->start();
 
+
 	$dbg = $response->getDebug();
 	if($dbg){
 		foreach($dbg as $key=>$item){
 			print "<i>{$key}</i><br>";
 			foreach($item as $value){
-				print $value['query'] .'<br>';
+				print $value['query'];
+//				print isset($value['result']) ? " ({$value['result']})" : '';
+				print '<br>';
 			}
 			print '<hr>';
 		}
 	}
+
 	fx_die(array(
 		phpversion(),
 		'memor'=>fx_prepare_memory(memory_get_usage(),4,',',' '),

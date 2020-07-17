@@ -8,6 +8,10 @@
 
 		const CACHE_EXPIRED_TIME_KEY = 'cache_expired_time_key';
 
+		private $opcache_status;
+
+		protected $file_extension = 'php';
+
 		protected $params;
 		protected $key;
 		protected $index;
@@ -22,6 +26,7 @@
 		protected $trace;
 
 		public function __construct(array $params){
+			$this->opcache_status = ini_get('opcache.revalidate_freq');
 			$this->params = $params;
 			$this->root = fx_path("{$this->params['cache_dir']}/dynamic");
 			$this->ttl = $this->params['cache_ttl'];
@@ -38,23 +43,27 @@
 			return $this;
 		}
 
+		private function check(){
+			if(filemtime($this->cache_filename) + $this->ttl > time()){
+				return true;
+			}
+			return false;
+		}
+
 		public function get(){
 			$debug_time = microtime(true);
 			$this->getCacheAttributes();
 			if(file_exists($this->cache_filename)){
 				$cache_data = $this->tryInc();
-				// filemtime($this->cache_filename), иначе отключать OPCache
-				if($cache_data[self::CACHE_EXPIRED_TIME_KEY] + $this->ttl > time()){
+				if($this->check()){
 					$this->saveDebug($debug_time);
-					unset($cache_data[self::CACHE_EXPIRED_TIME_KEY]);
 					return $cache_data;
 				}
 			}
 			return null;
 		}
-		public function set(array $data){
+		public function set($data){
 			$this->getCacheAttributes();
-			$data[self::CACHE_EXPIRED_TIME_KEY] = time();
 			file_put_contents($this->cache_filename, fx_php_encode($data));
 			return null;
 		}
@@ -74,7 +83,7 @@
 		protected function getCacheAttributes(){
 			$this->parseIndex();
 			$this->cache_directory = "{$this->root}/{$this->key}";
-			$this->cache_filename = "{$this->cache_directory}/{$this->hash}.php";
+			$this->cache_filename = "{$this->cache_directory}/{$this->hash}.{$this->file_extension}";
 			fx_make_dir($this->cache_directory,0777);
 			return $this;
 		}
