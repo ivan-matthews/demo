@@ -1,0 +1,43 @@
+#!/usr/bin/env php
+
+<?php
+
+	/*
+		*	Для каждой команды отдельная директория
+
+		*	Для каждой подкоманды отдельный класс
+
+		*	Если не планируется передавать больше одного аргумента,
+	 	класс должен быть System\Console\[COMMAND_DIR]\Index
+		(пример вызова: php cli help - подключает класс System\Console\Help\Index
+
+		*	Все классы храним и вызываем из директории system/console
+
+		*	В каждом классе !!! ОБЯЗАН !!! быть публичный метод execute()
+		с неограниченным количеством аргументов
+
+		*	Количество аргументов публичного метода execute() и
+		количество аргументов вызываемой команды, должны совпадать
+
+		*	Test: php cli make test какой-то тест
+		будет вызван класс System\Console\Make\Test::execute([какой-то,тест]);
+
+		*	Для добавления справочной информации в консоль, создайте в любом месте класса блок
+				#CMD: php cli [someone_command]
+				#DSC: [описание действий, выполняемых командой]
+				#EXM: пример запуска команды с тестовыми параметрами
+	*/
+
+	use Core\Classes\Config;
+	use Core\Classes\Console;
+
+	require __DIR__ . "/autoloader.php";
+
+	fx_set_server('PHP_SELF','cli');
+
+	$config = Config::getInstance();
+	$console = Console::getInstance();
+
+	$console->getArguments(fx_get_server('argv'));
+	$console->runConsoleInterface();
+
