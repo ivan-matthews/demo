@@ -2,6 +2,7 @@
 
 	namespace Core\Cache;
 
+	use Core\Classes\Kernel;
 	use Core\Classes\Response;
 
 	class Files{
@@ -12,7 +13,7 @@
 
 		protected $files=array();
 
-		private $parent_called_object;
+		private $cache;
 		private $cache_path;
 		private $cache_key_path;
 		private $cache_dir;
@@ -20,7 +21,7 @@
 		private $cache_ttl;
 		private $current_time;
 
-		public static function getInstance($called_object){
+		public static function getInstance(Cache $called_object){
 			if(self::$instance === null){
 				self::$instance = new self($called_object);
 			}
@@ -39,9 +40,9 @@
 			return $this->files[$name];
 		}
 
-		public function __construct($called_object){
+		public function __construct(Cache $called_object){
 			$this->current_time = time();
-			$this->parent_called_object = $called_object;
+			$this->cache = $called_object;
 		}
 
 		public function __destruct(){
@@ -52,15 +53,15 @@
 			$time = microtime(true);
 			$this->setCacheFile($key,$hash);
 			if(is_readable($this->cache_file)){
-				$cache_data = include $this->cache_file;
+				$cache_data = fx_import_file($this->cache_file,Kernel::IMPORT_INCLUDE);
 				if($this->checkExpiredTime($cache_data[self::CACHE_TTL_KEY])){
 					unset($cache_data[self::CACHE_TTL_KEY]);
 					Response::debug('cache')
 						->index(2)
 						->set('result',$this->cache_file)
 						->setTime($time)
-						->setQuery($this->parent_called_object->cache_hash)
-						->setTrace($this->parent_called_object->backtrace);
+						->setQuery($this->cache->cache_hash)
+						->setTrace($this->cache->backtrace);
 					return $cache_data;
 				}
 				$this->dropCacheFile();

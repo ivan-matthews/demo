@@ -14,8 +14,8 @@
 	fx_load_helpers();											// Подключаем хелперы
 	spl_autoload_register('fx_classes_loader'); 	// Загружаем классы
 
-	set_error_handler("Core\Classes\Error::getInstance");
-	register_shutdown_function('Core\Classes\Error::setError');
+	set_error_handler("Core\\Classes\\Error::getInstance");
+	register_shutdown_function('Core\\Classes\\Error::setError');
 
 
 

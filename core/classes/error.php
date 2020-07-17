@@ -6,8 +6,8 @@
 
 	class Error{
 
+		private static $error_keys=array();
 		private static $stop_engine = false;
-		private static $instance;
 
 		private $cli_error_header = "
 			***********  ***********    ***********       *******     ***********  
@@ -19,8 +19,7 @@
 			****         ****  ****     ****  ****     ****     ****  ****  ****   
 			****         ****   ****    ****   ****    *****   *****  ****   ****  
 			***********  ****    ****   ****    ****    ***********   ****    **** 
-			***********  ****     ****  ****     ****     *******     ****     ****
-";
+			***********  ****     ****  ****     ****     *******     ****     ****";
 		private $error_number;
 		private $error_message;
 		private $error_file;
@@ -32,6 +31,7 @@
 		protected $error=array();
 		private $config;
 		private $debug_enabled;
+		private $shutdown=false;
 
 		private $error_codes = array(
 			1		=> 'Critical error!',
@@ -52,8 +52,15 @@
 			32767	=> 'Error № CODE_NUMBER!',
 		);
 
-		public static function getInstance($error_number, $error_message, $error_file, $error_line, $backtrace=array(), $error_msg=false){
-			$object = new self($error_number, $error_message, $error_file, $error_line, $backtrace, $error_msg);
+		public static function nonSetError($error_number, $error_message, $error_file, $error_line, $backtrace=array(), $error_msg=false,$shutdown=false){
+			$object = new self($error_number, $error_message, $error_file, $error_line, $backtrace, $error_msg,$shutdown);
+			$object->saveToDatabase();
+			return $object;
+		}
+
+		public static function getInstance($error_number, $error_message, $error_file, $error_line, $backtrace=array(), $error_msg=false,$shutdown=false){
+			$object = new self($error_number, $error_message, $error_file, $error_line, $backtrace, $error_msg,$shutdown);
+			$object->renderError();
 			return $object;
 		}
 
@@ -69,59 +76,92 @@
 			return $this->error[$name];
 		}
 
-		public function __construct($error_number, $error_message, $error_file, $error_line, $backtrace=array(), $error_msg=false){
+		public function __construct($error_number, $error_message, $error_file, $error_line, $backtrace=array(), $error_msg=false,$shutdown=false){
 			$this->config = Config::getInstance();
+			$this->shutdown = $shutdown;
 			$this->debug_enabled = $this->config->core['debug_enabled'];
 
 			$this->setErrNumber($error_number);
 			$this->setErrMessage($error_message);
 			$this->setErrFile($error_file);
 			$this->setErrLine($error_line);
-			$this->setErrBacktrace($backtrace);
+			$this->setErrBacktrace();
 			$this->setErrMsg($error_msg);
-
-			$this->renderError();
 		}
 
-		public function __destruct(){
-
-		}
-
-		public static function setError(){
+		public static function setError($shutdown=true){
 			if(@is_array($e = @error_get_last())){
 				$code = isset($e['type']) ? $e['type'] : 0;
 				$msg = isset($e['message']) ? $e['message'] : '';
 				$file = isset($e['file']) ? $e['file'] : '';
 				$line = isset($e['line']) ? $e['line'] : '';
 				if($code>0){
-					self::getInstance($code,$msg,$file,$line);
+					self::getInstance($code,$msg,$file,$line,array(),false,$shutdown);
 				}
 			}
 		}
 
 		private function renderError(){
+			if($this->debug_enabled){
+				return $this->debugEnabled();
+			}
+			return $this->debugDisabled();
+		}
+
+		/** @return mixed */
+		private function debugDisabled(){
+			if(fx_is_cli()){
+				return $this->renderCLIError();
+			}
+			$this->saveToDatabase();
+			if($this->shutdown){
+				$this->render500();
+			}
+			return $this;
+		}
+
+		/** @return mixed */
+		private function debugEnabled(){
 			if(self::$stop_engine){ return die; }
 			self::$stop_engine = true;
 			restore_error_handler();
 
-			if(!$this->debug_enabled){
-				$this->saveToResponse();
+			if(fx_is_cli()){
+				$this->renderCLIError();
 			}else{
-				if(fx_is_cli()){
-					$this->renderCLIError();
-				}else{
-					$this->renderHTMLError();
-				}
+				$this->renderHTMLError();
 			}
+
 			return die;
 		}
 
-		private function saveToResponse(){
+		private function saveToDatabase(){
+			$error_hash = md5($this->error_number.$this->error_file.$this->error_line);
+			if(isset(self::$error_keys[$error_hash])){ return true; }
+			self::$error_keys[$error_hash] = true;
 
+			return Database::insert('errors')
+				->value('count',1)
+				->value('number',$this->error_number)
+				->value('file',$this->error_file)
+				->value('line',$this->error_line)
+				->value('message',$this->error_message)
+				->value('backtrace',$this->error_backtrace)
+				->value('msg',$this->error_msg)
+				->value('hash',$error_hash)
+				->value('date_created',time())
+				->update('date_created',time())
+				->updateQuery('count',"count+1")
+				->exec();
 		}
 
 		private function renderHTMLError(){
 			include ROOT . "/public/view/default/assets/errors/debug_error_page.tmp.php";
+			return $this;
+		}
+
+		private function render500(){
+			include ROOT . "/public/view/default/assets/errors/error_500_page.tmp.php";
 			return $this;
 		}
 
@@ -140,11 +180,11 @@
 				$print->string(str_repeat('-',100))->toPaint()->eol(2);
 
 				foreach($this->error_backtrace as $trace){
-					$print->string(isset($trace['class']) ? $trace['class'] : null)->color('light_cyan')->toPaint();
-					$print->string(isset($trace['type']) ? $trace['type'] : null)->color('light_red')->toPaint();
-					$print->string(isset($trace['function']) ? $trace['function'] . '()' : null)->color('light_cyan')->toPaint()->eol();
-					$print->string((isset($trace['file']) ? $trace['file'] : null) . ", ")->color('brown')->toPaint();
-					$print->string(isset($trace['line']) ? $trace['line'] : null)->color('light_red')->toPaint()->eol();
+					$print->string($trace['class'])->color('light_cyan')->toPaint();
+					$print->string($trace['type'])->color('light_red')->toPaint();
+					$print->string("{$trace['function']}()")->color('light_cyan')->toPaint()->eol();
+					$print->string("{$trace['file']}, ")->color('brown')->toPaint();
+					$print->string($trace['line'])->color('light_red')->toPaint()->eol();
 					$print->string(str_repeat('_',30))->toPaint()->eol();
 				}
 				$print->eol(2);
@@ -172,9 +212,14 @@
 			return $this;
 		}
 
-		private function setErrBacktrace($backtrace=false){
-			$backtrace = debug_backtrace();
-			$this->error_backtrace = array_reverse($backtrace);
+		private function setErrBacktrace(){
+			foreach (array_reverse(debug_backtrace()) as $index => $item) {
+				$this->error_backtrace[$index]['class'] = isset($item['class']) ? $item['class'] : null;
+				$this->error_backtrace[$index]['type'] = isset($item['type']) ? $item['type'] : null;
+				$this->error_backtrace[$index]['function'] = isset($item['function']) ? $item['function'] : null;
+				$this->error_backtrace[$index]['file'] = isset($item['file']) ? $item['file'] : null;
+				$this->error_backtrace[$index]['line'] = isset($item['line']) ? $item['line'] : null;
+			}
 			return $this;
 		}
 

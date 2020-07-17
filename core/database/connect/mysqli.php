@@ -649,7 +649,7 @@
 			if(isset($field['long'])){ $sql .= "({$field['long']}) "; }
 			if(isset($field['definition'])){
 				foreach($field['definition'] as $key=>$val){
-					if($val && is_int($val)){
+					if($val && is_bool($val)){
 						$sql .= "{$this->defaults[$key]} ";
 					}else{
 						$sql .= "{$this->defaults[$key]} '{$val}'";

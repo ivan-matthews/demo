@@ -6,7 +6,7 @@
 			$insert->value('controllers_id',rand(1,5));
 			$insert->value('controllers_name',rand(1,999999999).'er');
 			$insert->value('controllers_visible_name','test');
-			$insert->value('controllers_status','active');
+			$insert->value('controllers_status',Kernel::STATUS_ACTIVE);
 			$insert->value('controllers_enabled_groups',null);
 			$insert->value('controllers_disabled_groups',null);
 			$insert->value('controllers_options',null);
@@ -24,7 +24,7 @@
 				->value('controllers_id', rand(1, 5))
 				->value('controllers_name', rand(1, 999999999) . 'er')
 				->value('controllers_visible_name', 'test')
-				->value('controllers_status', 'active')
+				->value('controllers_status', Kernel::STATUS_ACTIVE)
 				->value('controllers_enabled_groups', null)
 				->value('controllers_disabled_groups', null)
 				->value('controllers_options', null)
@@ -91,7 +91,7 @@
 			return $this;
 		}
 
-		protected function exec(){
+		public function exec(){
 			$result = $this->database_object
 				->insert(
 					$this->table,

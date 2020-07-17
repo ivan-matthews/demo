@@ -8,6 +8,7 @@
 
 	use Core\Classes\Config;
 	use Core\Console\Console;
+	use Core\Console\Interfaces\Types;
 	use Core\Console\Paint;
 	use Core\Console\Interactive;
 

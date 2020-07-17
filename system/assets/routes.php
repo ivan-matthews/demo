@@ -10,6 +10,6 @@
 			'sorting'		=> 1,
 			'before'		=> null,
 			'after'			=> null,
-			'status'		=> 1,
+			'status'		=> \Core\Classes\Kernel::STATUS_ACTIVE,
 		),
 	);

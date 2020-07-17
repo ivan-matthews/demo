@@ -1,10 +1,26 @@
 <?php
 
+	/*
+		Paint::exec(function(Types $p){
+			$p
+				->eol()
+					->tab()
+						->string('test string')
+							->color('red')
+								->fon('yellow')
+									->toPaint();
+		});
+	*/
+
 	namespace Core\Console;
 
 	use Core\Classes\Response;
 
-	class Paint{
+	use Core\Console\Interfaces\Printer;
+	use Core\Console\Interfaces\Types;
+	use Core\Console\Interfaces\Paint as PaintInterface;
+
+	class Paint implements Printer, Types, PaintInterface{
 
 		const COLOR = 'white';
 		const FON = 'black';
@@ -103,16 +119,16 @@
 		}
 
 		public function color($color){
-			$color = isset($this->foreground_colors[$color]) ? $color : '';
 			$this->color_key = $color;
-			$this->color = "\033[" . $this->foreground_colors[$color] . "m";
+			$color = isset($this->foreground_colors[$color]) ? $this->foreground_colors[$color] : '';
+			$this->color = "\033[" . $color . "m";
 			return $this;
 		}
 
 		public function fon($fon){
-			$fon = isset($this->background_colors[$fon]) ? $fon : '';
 			$this->fon_key = $fon;
-			$this->fon = "\033[" . $this->background_colors[$fon] . "m";
+			$fon = isset($this->background_colors[$fon]) ? $this->background_colors[$fon] : '';
+			$this->fon = "\033[" . $fon . "m";
 			return $this;
 		}
 

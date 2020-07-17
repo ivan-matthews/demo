@@ -1,7 +1,7 @@
 <?php
 
 	/*
-		Database::alterTable('testovoe',function(Alter $alt){
+		Database::alterTable('testovoe',function(\Core\Database\Interfaces\Alter\Alter $alt){
 			$alt->field('a')->addColumn()->bigint()->unsigned()->notNull();
 			$alt->field('a')->modifyColumn()->varchar(121);
 			$alt->field('a')->changeColumn('new_a')->bigint()->unsigned()->notNull();
@@ -20,14 +20,24 @@
 
 			fx_pre($alt->exec());
 		});
+
+		Database::alterTable('tablitsa',function(\Core\Database\Interfaces\Alter\Alter $a){
+			$a->field('id')->changeColumn('dia')->bigint()->unsigned()->autoIncrement();
+			$a->exec();
+		});
 	*/
 
 	namespace Core\Database;
 
 	use Core\Classes\Config;
 	use Core\Classes\Database;
+	use Core\Database\Interfaces\Alter\Alter as AlterInterface;
+	use Core\Database\Interfaces\Alter\Actions;
+	use Core\Database\Interfaces\Alter\Indexes;
+	use Core\Database\Interfaces\Alter\Options;
+	use Core\Database\Interfaces\Alter\Types;
 
-	class Alter{
+	class Alter implements AlterInterface,Actions,Indexes,Options,Types{
 
 		private $database;
 		private $database_object;
@@ -64,7 +74,6 @@
 			$this->removeProps();
 			return $result;
 		}
-
 		public function field($field){
 			$this->field = $field;
 			return $this;
@@ -74,28 +83,23 @@
 			$this->fields[$this->field]['method'] = __FUNCTION__;
 			return $this;
 		}
-
 		public function dropColumn(){
 			$this->fields[$this->field]['method'] = __FUNCTION__;
 			return $this;
 		}
-
 		public function changeColumn($new_name){
 			$this->fields[$this->field]['method'] = __FUNCTION__;
 			$this->fields[$this->field]['new_name'] = $new_name;
 			return $this;
 		}
-
 		public function modifyColumn(){
 			$this->fields[$this->field]['method'] = __FUNCTION__;
 			return $this;
 		}
-
 		public function dropAutoIncrement(){
 			$this->fields[$this->field]['method'] = __FUNCTION__;
 			return $this;
 		}
-
 		public function addAutoIncrement(){
 			$this->fields[$this->field]['method'] = __FUNCTION__;
 			return $this;
@@ -121,7 +125,6 @@
 			$this->fields[$this->field]['index_method'] = __FUNCTION__;
 			return $this;
 		}
-
 		public function dropFulltext($index=false){
 			$this->fields[$this->field]['index_key'] = $index;
 			$this->fields[$this->field]['index_method'] = __FUNCTION__;
@@ -287,42 +290,34 @@
 			$this->fields[$this->field]['definition']['not_null'] = true;
 			return $this;
 		}
-
 		public function currentTimestamp(){
 			$this->fields[$this->field]['definition']['current_timestamp'] = true;
 			return $this;
 		}
-
 		public function nullable(){
 			$this->fields[$this->field]['definition']['nullable'] = true;
 			return $this;
 		}
-
 		public function autoIncrement(){
 			$this->fields[$this->field]['definition']['auto_increment'] = true;
 			return $this;
 		}
-
 		public function comment($comment){
 			$this->fields[$this->field]['definition']['comment'] = $comment;
 			return $this;
 		}
-
 		public function defaults($defaults){
 			$this->fields[$this->field]['definition']['default'] = $defaults;
 			return $this;
 		}
-
 		public function unsigned(){
 			$this->fields[$this->field]['definition']['unsigned'] = true;
 			return $this;
 		}
-
 		public function bin(){
 			$this->fields[$this->field]['definition']['binary'] = true;
 			return $this;
 		}
-
 		public function zerofill(){
 			$this->fields[$this->field]['definition']['zerofill'] = true;
 			return $this;

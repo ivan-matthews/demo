@@ -33,23 +33,18 @@
 			<table>
 				<tbody>
 				<?php foreach($this->error_backtrace as $key=>$trace){ ?>
-					<?php $class = isset($trace['class']) ? $trace['class'] : null ?>
-					<?php $type = isset($trace['type']) ? $trace['type'] : null ?>
-					<?php $fnct = isset($trace['function']) ? $trace['function'] : null ?>
-					<?php $file = isset($trace['file']) ? $trace['file'] : null ?>
-					<?php $line = isset($trace['line']) ? $trace['line'] : null ?>
-					<?php $active = fx_equal($file.$line,$this->error_file.$this->error_line) ? ' active' : '' ?>
+					<?php $active = fx_equal($trace['file'].$trace['line'],$this->error_file.$this->error_line) ? ' active' : '' ?>
 					<tr>
 						<td>
 							<div class="backtrace<?php print $active ?>" onclick="openOrClosePreviewCode(this,'#id_<?php print $key ?>')">
 								<div class="class">
-									<span class="class-file"><?php print $class ?></span>
-									<span class="class-type"><?php print $type ?></span>
-									<span class="class-fnct"><?php print $fnct ?></span>
+									<span class="class-file"><?php print $trace['class'] ?></span>
+									<span class="class-type"><?php print $trace['type'] ?></span>
+									<span class="class-fnct"><?php print $trace['function'] ?></span>
 								</div>
 								<div class="file">
-									<span class="file-file"><?php print $file ?>, </span>
-									<span class="file-line"><?php print $line ?></span>
+									<span class="file-file"><?php print $trace['file'] ?>, </span>
+									<span class="file-line"><?php print $trace['line'] ?></span>
 								</div>
 								<div class="delimiter"></div>
 							</div>
@@ -79,23 +74,18 @@
 			</div>
 
 			<?php foreach($this->error_backtrace as $key=>$trace){ ?>
-				<?php $class = isset($trace['class']) ? $trace['class'] : null ?>
-				<?php $type = isset($trace['type']) ? $trace['type'] : null ?>
-				<?php $fnct = isset($trace['function']) ? $trace['function'] : null ?>
-				<?php $file = isset($trace['file']) ? $trace['file'] : null ?>
-				<?php $line = isset($trace['line']) ? $trace['line'] : null ?>
-				<?php $code_array = $this->makeCodePreview($file,$line) ?>
+				<?php $code_array = $this->makeCodePreview($trace['file'],$trace['line']) ?>
 				<?php if(!$code_array){ continue; } ?>
 				<div class="code-preview-parent hide" id="id_<?php print $key ?>">
 					<div class="err-file-line">
-						<span class="err-file"><?php print $file ?></span>
+						<span class="err-file"><?php print $trace['file'] ?></span>
 					</div>
 					<div class="code-preview">
 					<pre>
 						<?php
 							foreach($code_array as $str_key=>$str){
 								if(!$str){ continue; }
-								$error_line_class = fx_equal($str_key,$line) ? 'danger' : 'normal';
+								$error_line_class = fx_equal($str_key,$trace['line']) ? 'danger' : 'normal';
 								print "<span class='{$error_line_class}'>
 <span class='key'>{$str_key}</span>:<span class='code'>" . trim($str,"\r\n") . "</span></span>";
 							}

@@ -3,7 +3,8 @@
 	namespace System\Migrations;
 
 	use Core\Classes\Database;
-	use Core\Database\Alter;
+//	use Core\Database\Alter;
+	use Core\Database\Interfaces\Alter\Alter;
 
 	class __class_name__{
 

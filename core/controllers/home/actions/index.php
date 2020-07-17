@@ -52,8 +52,8 @@
 				'prm'=>$router->getParams(),
 				'sts'=>$router->getRouterStatus(),
 				'all'=>$request->getAll(),
-//		'arr'=>fx_load_array('system/assets',Kernel::IMPORT_INCLUDE_ONCE),
-//		'cnf'=>$config->getAll()
+//				'arr'=>fx_load_array('system/assets',Kernel::IMPORT_INCLUDE_ONCE),
+//				'cnf'=>$config->getAll()
 			));
 
 			function a($iterations){
@@ -62,13 +62,17 @@
 				return $result;
 			}
 
-			$this->model->indexModel(a(1));
-			$this->model->indexModel(a(2));
-			$this->model->indexModel(a(2));
-			$this->model->indexModel(a(4));
-
-
 			fx_pre(array(
+				/*'cache'=>array(
+					$this->model->indexModel(a(1)),
+					$this->model->indexModel(a(1)),
+					$this->model->indexModel(a(2)),
+					$this->model->indexModel(a(2)),
+					$this->model->indexModel(a(4)),
+					$this->model->indexModel(a(4)),
+					$this->model->indexModel(a(3)),
+					$this->model->indexModel(a(3)),
+				),*/
 				'files'=>get_included_files(),
 				'memor'=>fx_prepare_memory(memory_get_usage(),4,',',' '),
 				'times'=>number_format(microtime(true)-TIME,10),

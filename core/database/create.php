@@ -2,7 +2,7 @@
 
 	/*
 		Database::makeTable('users', function(\Core\Database\Create $table){
-			$table->bigint('id')->unsigned()->primary()->autoIncrement();
+			$table->bigint('id')->unsigned()->autoIncrement()->primary();
 
 			$table->varchar('first_name')->index()->nullable();
 			$table->varchar('phone',20)->index()->nullable();
@@ -21,8 +21,12 @@
 
 	use Core\Classes\Config;
 	use Core\Classes\Database;
+	use Core\Database\Interfaces\Create\Create as CreateInterface;
+	use Core\Database\Interfaces\Create\Defaults;
+	use Core\Database\Interfaces\Create\Engine;
+	use Core\Database\Interfaces\Create\Indexes;
 
-	class Create{
+	class Create implements CreateInterface, Defaults, Engine, Indexes{
 
 		private $database;
 		private $database_object;
@@ -46,7 +50,6 @@
 			$this->database_object = $this->database->getDbObject();
 			$this->table = $table;
 		}
-
 		protected function removeProps(){
 			$this->table=null;
 			$this->field=null;
@@ -66,26 +69,23 @@
 			$this->removeProps();
 			return $result;
 		}
-
 		public function engine($engine){
 			$this->engine['table_engine'] = $engine;
 			return $this;
 		}
-
 		public function tableCharset($charset){
 			$this->engine['table_charset'] = $charset;
 			return $this;
 		}
-
 		public function tableCollate($collate){
 			$this->engine['table_collate'] = $collate;
 			return $this;
 		}
-
 		public function add_timestamps(){
 			$this->bigint('date_created')->nullable()->index();
 			$this->bigint('date_updated')->nullable()->index();
 			$this->bigint('date_deleted')->nullable()->index();
+			return true;
 		}
 
 		/*
@@ -235,19 +235,16 @@
 			$this->indexes[$this->field] = array('type'=>'primary_key','key'=>$key);
 			return $this;
 		}
-
 		public function unique($key=false){
 			if(!$key){ $key = $this->field; }
 			$this->indexes[$this->field] = array('type'=>'unique','key'=>$key);
 			return $this;
 		}
-
 		public function index($key=false){
 			if(!$key){ $key = $this->field; }
 			$this->indexes[$this->field] = array('type'=>'index','key'=>$key);
 			return $this;
 		}
-
 		public function fullText($key=false){
 			if(!$key){ $key = $this->field; }
 			$this->indexes[$this->field] = array('type'=>'fulltext','key'=>$key);
@@ -261,47 +258,38 @@
 			$this->defaults[$this->field][] = 'not_null';
 			return $this;
 		}
-
 		public function currentTimestamp(){
 			$this->defaults[$this->field][] = 'current_timestamp';
 			return $this;
 		}
-
 		public function nullable(){
 			$this->defaults[$this->field][] = 'nullable';
 			return $this;
 		}
-
 		public function autoIncrement(){
 			$this->defaults[$this->field][] = 'auto_increment';
 			return $this;
 		}
-
 		public function comment($comment){
 			$this->defaults[$this->field][] = array('value'=>$comment,'key'=>'comment');
 			return $this;
 		}
-
 		public function defaults($defaults){
 			$this->defaults[$this->field][] = array('value'=>$defaults,'key'=>'default');
 			return $this;
 		}
-
 		public function unsigned(){
 			$this->defaults[$this->field][] = 'unsigned';
 			return $this;
 		}
-
 		public function bin(){
 			$this->defaults[$this->field][] = 'binary';
 			return $this;
 		}
-
 		public function zerofill(){
 			$this->defaults[$this->field][] = 'zerofill';
 			return $this;
 		}
-
 		public function character($character="utf8mb4",$collate="utf8mb4_unicode_ci"){
 			$this->defaults[$this->field][] =
 				array(

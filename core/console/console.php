@@ -94,8 +94,11 @@
 
 		private function searchCommandInCommandsArray(){
 			$console_command = implode(' ', $this->arguments);
-			foreach($this->aliases_file_data as $value){
-				if(!fx_status($value['status'],Kernel::STATUS_ACTIVE)){ continue; }
+			foreach($this->aliases_file_data as $key=>$value){
+				if(!fx_status($value['status'],Kernel::STATUS_ACTIVE)){
+					unset($this->aliases_file_data[$key]);
+					continue;
+				}
 				$pattern = $this->preparePattern($value['command'],fx_arr($value['pattern'],'string'));
 				preg_match("#{$pattern}#{$value['modifier']}",$console_command,$result_matches);
 				if(isset($result_matches[0]) && fx_equal($result_matches[0],$console_command)){
