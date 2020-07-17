@@ -10,6 +10,7 @@
 		protected $response;
 		protected $request;
 		protected $user;
+		protected $hook;
 
 		private $controller;
 
@@ -37,6 +38,7 @@
 			$this->response = Response::getInstance();
 			$this->request = Request::getInstance();
 			$this->user = User::getInstance();
+			$this->hook = Hook::getInstance();
 
 			$this->response->title($this->site_config->core['site_name']);
 			$this->response->breadcrumb('main_breadcrumb')

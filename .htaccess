@@ -26,4 +26,4 @@ AddHandler cgi-script .api
 # для Cache -> Files (include): отброшено - используем filemtime()
 # php_value opcache.enable 0
 # php_value opcache.file_update_protection 0
-# php_value opcache.revalidate_freq 0
+#php_value opcache.revalidate_freq 86400

@@ -2,8 +2,8 @@
 
 	namespace Core\Controllers\__controller_namespace__;
 
-	use Core\Classes\Cache\Cache;
 	use Core\Classes\Model as ParentModel;
+	use Core\Classes\Cache\Interfaces\Cache;
 
 	class Model extends ParentModel{
 
@@ -24,7 +24,6 @@
 		public function __construct(){
 			parent::__construct();
 			$this->cache->key('__controller_namespace__');
-//			$this->cache->ttl(5);
 		}
 
 		public function __destruct(){

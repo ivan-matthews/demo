@@ -3,11 +3,6 @@
 	namespace Core\Classes\Form\Interfaces;
 
 	interface Validator{
-		/**
-		 * @param $callback
-		 * @return Validator
-		 */
-		public function form($callback);
 
 		/**
 		 * @return array
@@ -67,6 +62,12 @@
 		 * @return Preparing | Value
 		 */
 		public function field($field);
+
+		/**
+		 * @param $callback
+		 * @return Validator
+		 */
+		public function form($callback);
 
 		/**
 		 * @param $field_name

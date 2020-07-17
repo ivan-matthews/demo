@@ -51,10 +51,14 @@
 				$action_class_name = $this->prepareClassName($action);
 				$action_replaced_data = str_replace(array(
 					'__controller_namespace__',
-					'Index'
+					'Index',
+					'__action_property__',
+					'__controller_property__',
 				),array(
 					$this->__controller_namespace__,
-					$action_class_name
+					$action_class_name,
+					$action,
+					$this->controller_name,
 				),$action_data);
 				$this->saveData("{$this->actions_dir}/{$action}.php",$action_replaced_data);
 			}

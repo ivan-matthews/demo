@@ -17,6 +17,7 @@
 		/** @var \MongoDB\Collection */
 		private $collection;
 
+		private $mark_sending;
 		private $key;
 		private $index;
 		private $ttl;
@@ -24,10 +25,21 @@
 		private $hash;
 		private $trace;
 
+		public function drop(){
+			$this->key = self::DEFAULT_KEY;
+			$this->index = $this->params['index'];
+			$this->ttl = $this->params['cache_ttl'];
+			$this->mark = null;
+			$this->hash = null;
+			$this->trace = null;
+			$this->mark_sending = null;
+			return $this;
+		}
+
 		public function __construct($params){
 			$this->params = $params;
 			$this->ttl = $this->params['cache_ttl'];
-			$this->index = 4;
+			$this->index = $this->params['index'];
 			$this->key = self::DEFAULT_KEY;
 			$this->db_name = self::DATABASE_NAME;
 			$this->connect();
@@ -56,8 +68,8 @@
 				->index($this->index)
 				->set('result',$this->key)
 				->setTime($debug_time)
-				->setQuery($this->mark)
-				->setTrace($this->trace);
+				->setQuery("{$this->key}:{$this->mark}")
+				->setTrace($this->trace ? $this->trace : debug_backtrace());
 			return $this;
 		}
 
@@ -102,14 +114,22 @@
 			$this->collection->drop();
 			return null;
 		}
-
-		private function parseIndex(){
-			$this->trace = debug_backtrace();
-			$this->mark = isset($this->trace[$this->index]['class']) ? $this->trace[$this->index]['class'] : null;
-			$this->mark .= isset($this->trace[$this->index]['type']) ? $this->trace[$this->index]['type'] : null;
-			$this->mark .= isset($this->trace[$this->index]['function']) ? $this->trace[$this->index]['function'] : null;
-			$this->mark .= isset($this->trace[$this->index]['args']) ? '(' . fx_implode(',',$this->trace[$this->index]['args']) . ')' : "()";
+		public function mark($mark){
+			$this->mark_sending = true;
+			$this->mark = $mark;
 			return $this->hash();
+		}
+
+		protected function parseIndex(){
+			if(!$this->mark_sending){
+				$this->trace = debug_backtrace();
+				$this->mark = isset($this->trace[$this->index]['class']) ? $this->trace[$this->index]['class'] : null;
+				$this->mark .= isset($this->trace[$this->index]['type']) ? $this->trace[$this->index]['type'] : null;
+				$this->mark .= isset($this->trace[$this->index]['function']) ? $this->trace[$this->index]['function'] : null;
+				$this->mark .= isset($this->trace[$this->index]['args']) ? '(' . fx_implode(',',$this->trace[$this->index]['args']) . ')' : "()";
+				return $this->hash();
+			}
+			return $this;
 		}
 
 		private function getCacheAttributes(){

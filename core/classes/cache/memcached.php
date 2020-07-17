@@ -9,6 +9,9 @@
 		const CACHE_EXPIRED_KEY = 'cache_expired_time_key';
 
 		private $params;
+		private $cache_prefix;
+		/** @var \Memcached */
+		private $memcached;
 
 		private $key;
 		private $index;
@@ -16,18 +19,27 @@
 		private $mark;
 		private $hash;
 		private $trace;
-
-		private $cache_prefix;
 		private $prefix_key;
 		private $cache_key;
+		private $mark_sending;
 
-		/** @var \Memcached */
-		private $memcached;
+		public function drop(){
+			$this->key = null;
+			$this->index = $this->params['index'];
+			$this->ttl = $this->params['cache_ttl'];
+			$this->mark = null;
+			$this->hash = null;
+			$this->trace = null;
+			$this->prefix_key = null;
+			$this->cache_key = null;
+			$this->mark_sending = true;
+			return $this;
+		}
 
 		public function __construct($params){
 			$this->params = $params;
 			$this->ttl = $this->params['cache_ttl'];
-			$this->index = 4;
+			$this->index = $this->params['index'];
 			$this->cache_prefix = 'namespace.' . sprintf('%u', crc32($this->params['site_host']));
 			$this->connect();
 		}
@@ -51,8 +63,8 @@
 				->index($this->index)
 				->set('result',$this->cache_key)
 				->setTime($debug_time)
-				->setQuery($this->mark)
-				->setTrace($this->trace);
+				->setQuery("{$this->key}:{$this->mark}")
+				->setTrace($this->trace ? $this->trace : debug_backtrace());
 			return $this;
 		}
 
@@ -122,14 +134,22 @@
 			}
 			return $this;
 		}
-
-		private function parseIndex(){
-			$this->trace = debug_backtrace();
-			$this->mark = isset($this->trace[$this->index]['class']) ? $this->trace[$this->index]['class'] : null;
-			$this->mark .= isset($this->trace[$this->index]['type']) ? $this->trace[$this->index]['type'] : null;
-			$this->mark .= isset($this->trace[$this->index]['function']) ? $this->trace[$this->index]['function'] : null;
-			$this->mark .= isset($this->trace[$this->index]['args']) ? '(' . fx_implode(',',$this->trace[$this->index]['args']) . ')' : "()";
+		public function mark($mark){
+			$this->mark_sending = true;
+			$this->mark = $mark;
 			return $this->hash();
+		}
+
+		protected function parseIndex(){
+			if(!$this->mark_sending){
+				$this->trace = debug_backtrace();
+				$this->mark = isset($this->trace[$this->index]['class']) ? $this->trace[$this->index]['class'] : null;
+				$this->mark .= isset($this->trace[$this->index]['type']) ? $this->trace[$this->index]['type'] : null;
+				$this->mark .= isset($this->trace[$this->index]['function']) ? $this->trace[$this->index]['function'] : null;
+				$this->mark .= isset($this->trace[$this->index]['args']) ? '(' . fx_implode(',',$this->trace[$this->index]['args']) . ')' : "()";
+				return $this->hash();
+			}
+			return $this;
 		}
 
 		private function getCacheAttributes(){

@@ -82,6 +82,8 @@
 			return !$this->unauthorized;
 		}
 
+		// set_cookie(fx_encode(Session::TOKEN_SESSION_KEY))
+		// set_session(Session::TOKEN_SESSION_KEY,[ value ])
 		public function validateAuthorize(){
 			$auth_token = $this->session->get(Session::TOKEN_SESSION_KEY,Session::PREFIX_CONF);
 			if($auth_token){

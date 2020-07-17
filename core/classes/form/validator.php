@@ -3,16 +3,20 @@
 		use Core\Classes\Form\Interfaces\Checkers;
 		use Core\Classes\Form\Interfaces\Multiple;
 		use Core\Classes\Form\Form;
+		use Core\Classes\Form\Interfaces\Form as FormInterface;
 
 		$new_form = Form::getStaticValidatorInterface();
-		$new_form
-			->setFormName('')
-			->setData($request->getArray(''))
+		$new_form->setData($request->getArray(''))
 			->csrf(1)
-			->validate(1)
-		;
-
-		$new_form->name('img_field')
+			->validate(1);
+		$new_form->form(function(FormInterface $form){
+			$form->setFormEnctype('text/plain');
+			$form->setFormAction('/f/f/f/f/f/f/f');
+			$form->setFormAutoComplete('off');
+			$form->setFormCharset('cp1251');
+			$form->setFormName('asas');
+		});
+		$new_form->field('img_field')
 			->jevix()
 			->id('field_name_id')
 			->label('field_name_label')
@@ -27,12 +31,11 @@
 					->accept('image',array('jpg','gif','pngs'))
 					->max_size(1045)
 					->min_size(3333333333);
-			})
-			->check(function(Checkers $validator){
+			})->check(function(Checkers $validator){
 				$validator->required();
 				$validator->min(2);
 			});
-		$new_form->name('imgages')
+		$new_form->field('imgages')
 			->jevix()
 			->id('field_name_id')
 			->label('field_name_label')
@@ -41,8 +44,7 @@
 			->type('field_name_type')
 			->title('field_name_title')
 			->data('field_name_key','field_name_value')
-			->data('id',35)
-			->check(function(Checkers $validator){
+			->data('id',35)->check(function(Checkers $validator){
 				$validator->required();
 				$validator->min(2);
 			});
@@ -50,6 +52,7 @@
 		fx_die($new_form->can() ? $new_form->getFieldsList() : array(
 			$new_form->getFieldsList(),
 			$new_form->getErrors(),
+			$new_form->getFormAttributes(),
 			fx_encode($user->getCSRFToken()),
 		));
 
@@ -58,19 +61,19 @@
 		use Core\Classes\Form\Interfaces\Validator;
 		use Core\Classes\Form\Interfaces\Checkers;
 		use Core\Classes\Form\Form;
-		use Core\Classes\Form\Interfaces\Form as FormInterace;
+		use Core\Classes\Form\Interfaces\Form as FormInterface;
 		use Core\Classes\Form\Interfaces\Multiple;
 
 		$form = Form::getStaticValidatorInterface(function(Validator $validator){
-			$validator
-				->csrf(1)
+			$validator->csrf(1)
 				->validate(1)
 				->setData(Request::getInstance()->getArray('test'));
-			$validator->form(function(FormInterace $form){
+			$validator->form(function(FormInterface $form){
 				$form->setFormName('simple');
 				$form->setFormMethod('GET');
 				$form->setFormEnctype('text/plain');
-			})->field('img_field')
+			});
+			$validator->field('img_field')
 				->jevix()
 				->class('class')
 				->title('title')
@@ -84,7 +87,7 @@
 				->data('key2','value2')
 				->setAttribute('attr','simple')
 				->file(function(Multiple $file){
-					$file->single()
+					$file->multiple()
 						->accept('image',array('gif','guf','gaf'))
 						->min_size(2222222221)
 						->max_size(-299);
@@ -125,7 +128,6 @@
 		protected $errors = array();
 		protected $data = array();
 		protected $fields_list = array();
-		protected $form_name;
 		protected $default_attributes = array(
 			'placeholder' => null,
 			'field_type' => 'text',
@@ -141,6 +143,13 @@
 			'min' => null,
 			'max' => null,
 			'id' => null,
+		);
+
+		protected $default_files_attributes = array(
+			'min_size'	=> null,
+			'max_size'	=> null,
+			'accept'	=> null,
+			'multiple'	=> null,
 		);
 
 		protected $form_attributes = array(
@@ -209,6 +218,8 @@
 		public function file($callable_or_array){
 			$this->setFormEnctype('multipart/form-data');
 			$this->setFormMethod('POST');
+			$this->setAttribute('type','file');
+			$this->fields_list[$this->field]['attributes'] = array_merge($this->fields_list[$this->field]['attributes'],$this->default_files_attributes);
 			$files = new File($this);
 			if(is_callable($callable_or_array)){
 				call_user_func($callable_or_array,$files);
@@ -728,7 +739,6 @@
 			return $this;
 		}
 		public function setFormName($form_name){
-			$this->form_name = $form_name;
 			$this->form_attributes['name'] = $form_name;
 			return $this;
 		}

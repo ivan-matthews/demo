@@ -7,10 +7,10 @@
 	use Core\Classes\Language;
 	use Core\Classes\Interfaces\View as ViewInterface;
 
-	View::_prependCSS("{$this->theme_path}/css/index",null);
-	View::_prependJS("{$this->theme_path}/js/index",null);
-	View::_appendJS("{$this->theme_path}/js/main",null);
-	View::_appendCSS("{$this->theme_path}/css/main",null);
+	$this->prependCSS("{$this->theme_path}/css/index",null);
+	$this->prependJS("{$this->theme_path}/js/index",null);
+	$this->appendJS("{$this->theme_path}/js/main",null);
+	$this->appendCSS("{$this->theme_path}/css/main",null);
 
 	$language = Language::getInstance();
 	$lang_key = $language->getLanguageKey();

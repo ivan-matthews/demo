@@ -22,6 +22,7 @@
 		private $kernel=array();
 
 		private $user;
+		private $hooks;
 
 		protected $config;
 		protected $request;
@@ -73,6 +74,7 @@
 			$this->request = Request::getInstance();
 			$this->response = Response::getInstance();
 			$this->user = User::getInstance();
+			$this->hooks = Hook::getInstance();
 		}
 
 		public function getCurrentController(){

@@ -29,6 +29,7 @@
 	use Core\Classes\Request;
 	use Core\Classes\Form\Interfaces\Checkers;
 	use Core\Classes\Form\Interfaces\Validator;
+	use Core\Classes\Form\Interfaces\Form as FormInterface;
 
 	class Simple extends Form{
 
@@ -38,9 +39,11 @@
 		/** @var Request */
 		private $request;
 
+		private $form_name;
+
 		public function __construct($form_name=null){
 			parent::__construct();
-			$this->setFormName($form_name);
+			$this->form_name = $form_name;
 		}
 
 		public function setRequest(Request $request){
@@ -49,8 +52,12 @@
 		}
 
 		public function generateFieldsList(){		// для метода GET - генерирует поля
-			$this->validator_interface
-				->field('field')->jevix(true)
+			$this->validator_interface->form(function(FormInterface $form){
+				$form->setFormMethod('GET');
+				$form->setFormName($this->form_name);
+				$form->setFormAction(fx_get_url('__controller_namespace__','index'));
+			});
+			$this->validator_interface->field('field')->jevix(true)
 				->class('class')
 				->id('id')
 				->title('title')

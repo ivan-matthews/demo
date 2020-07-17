@@ -10,28 +10,39 @@
 		const CACHE_EXPIRED_KEY = 'cache_expired_time_key';
 
 		private $opcache_status;
-
+		protected $params;
+		protected $root;
 		protected $file_extension = 'php';
 
-		protected $params;
 		protected $key;
 		protected $index;
 		protected $ttl;
 		protected $mark;
 		protected $hash;
 
-		protected $root;
+		protected $mark_sending;
 		protected $cache_directory;
 		protected $cache_filename;
 
 		protected $trace;
+
+		public function drop(){
+			$this->key = null;
+			$this->index = $this->params['index'];
+			$this->ttl = $this->params['cache_ttl'];
+			$this->mark = null;
+			$this->hash = null;
+			$this->trace = null;
+			$this->mark_sending = null;
+			return $this;
+		}
 
 		public function __construct(array $params){
 			$this->opcache_status = ini_get('opcache.revalidate_freq');
 			$this->params = $params;
 			$this->root = fx_path("{$this->params['cache_dir']}/dynamic");
 			$this->ttl = $this->params['cache_ttl'];
-			$this->index = 4;
+			$this->index = $this->params['index'];
 		}
 
 		protected function saveDebug($debug_time){
@@ -39,8 +50,8 @@
 				->index($this->index)
 				->set('result',$this->cache_filename)
 				->setTime($debug_time)
-				->setQuery($this->mark)
-				->setTrace($this->trace);
+				->setQuery("{$this->key}:{$this->mark}")
+				->setTrace($this->trace ? $this->trace : debug_backtrace());
 			return $this;
 		}
 
@@ -103,14 +114,22 @@
 			$this->hash = md5($this->mark);
 			return $this;
 		}
+		public function mark($mark){
+			$this->mark_sending = true;
+			$this->mark = $mark;
+			return $this->hash();
+		}
 
 		protected function parseIndex(){
-			$this->trace = debug_backtrace();
-			$this->mark = isset($this->trace[$this->index]['class']) ? $this->trace[$this->index]['class'] : null;
-			$this->mark .= isset($this->trace[$this->index]['type']) ? $this->trace[$this->index]['type'] : null;
-			$this->mark .= isset($this->trace[$this->index]['function']) ? $this->trace[$this->index]['function'] : null;
-			$this->mark .= isset($this->trace[$this->index]['args']) ? '(' . fx_implode(',',$this->trace[$this->index]['args']) . ')' : "()";
-			return $this->hash();
+			if(!$this->mark_sending){
+				$this->trace = debug_backtrace();
+				$this->mark = isset($this->trace[$this->index]['class']) ? $this->trace[$this->index]['class'] : null;
+				$this->mark .= isset($this->trace[$this->index]['type']) ? $this->trace[$this->index]['type'] : null;
+				$this->mark .= isset($this->trace[$this->index]['function']) ? $this->trace[$this->index]['function'] : null;
+				$this->mark .= isset($this->trace[$this->index]['args']) ? '(' . fx_implode(',',$this->trace[$this->index]['args']) . ')' : "()";
+				return $this->hash();
+			}
+			return $this;
 		}
 
 		protected function tryInc(){

@@ -34,62 +34,6 @@
 			$this->getPreparedFiles();
 		}
 
-		public function multiple(){
-			$this->multiple = true;
-			$this->setAttribute(__FUNCTION__,true);
-			$this->validator->setAttribute('name',"{$this->current_field}[]");
-
-			if(!$this->checker_status){ return $this; }
-			if($this->errors){ return $this; }
-			if(isset($this->files[0])){ return $this; }
-
-			$this->setError($this->current_field,fx_lang('fields.field_type_is_multiple'));
-			return $this;
-		}
-
-		public function single(){
-			$this->multiple = false;
-
-			if(!$this->checker_status){ return $this; }
-			if($this->errors){ return $this; }
-
-			if(isset($this->files['name'])){ return $this; }
-
-			$this->setError($this->current_field,fx_lang('fields.field_type_is_not_multiple'));
-			return $this;
-		}
-
-		public function accept($file_type,$subtypes=array()){
-			if(!$subtypes){ $subtypes = $this->mime_types[$file_type]; }
-			$this->setAttribute(__FUNCTION__,$this->prepareExtensions($subtypes));
-
-			if(!$this->checker_status){ return $this; }
-			if($this->errors){ return $this; }
-			if($this->multiple){ return $this->acceptMultiple($file_type,$subtypes); }
-
-			return $this->acceptSingle($file_type,$subtypes);
-		}
-
-		public function min_size($default_size){
-			$this->setAttribute(__FUNCTION__,$default_size);
-
-			if(!$this->checker_status){ return $this; }
-			if($this->errors){ return $this; }
-			if($this->multiple){ return $this->minSizeMultiple($default_size); }
-
-			return $this->minSizeSingle($default_size);
-		}
-
-		public function max_size($default_size){
-			$this->setAttribute(__FUNCTION__,$default_size);
-
-			if(!$this->checker_status){ return $this; }
-			if($this->errors){ return $this; }
-			if($this->multiple){ return $this->maxSizeMultiple($default_size); }
-
-			return $this->maxSizeSingle($default_size);
-		}
-
 		protected function prepareExtensions(array $extensions){
 			$result = '';
 			foreach($extensions as $extension){
@@ -239,6 +183,78 @@
 			$this->validator->setAttribute('files',$this->files);
 			return $this;
 		}
+
+		public function multiple(){
+			$this->multiple = true;
+			$this->setAttribute(__FUNCTION__,true);
+			$this->validator->setAttribute('name',"{$this->current_field}[]");
+
+			if(!$this->checker_status){ return $this; }
+			if($this->errors){ return $this; }
+			if(isset($this->files[0])){ return $this; }
+
+			$this->setError($this->current_field,fx_lang('fields.field_type_is_multiple'));
+			return $this;
+		}
+
+		public function single(){
+			$this->multiple = false;
+
+			if(!$this->checker_status){ return $this; }
+			if($this->errors){ return $this; }
+
+			if(isset($this->files['name'])){ return $this; }
+
+			$this->setError($this->current_field,fx_lang('fields.field_type_is_not_multiple'));
+			return $this;
+		}
+
+		public function accept($file_type,$subtypes=array()){
+			if(!$subtypes){ $subtypes = $this->mime_types[$file_type]; }
+			$this->setAttribute(__FUNCTION__,$this->prepareExtensions($subtypes));
+
+			if(!$this->checker_status){ return $this; }
+			if($this->errors){ return $this; }
+			if($this->multiple){ return $this->acceptMultiple($file_type,$subtypes); }
+
+			return $this->acceptSingle($file_type,$subtypes);
+		}
+
+		public function min_size($default_size){
+			$this->setAttribute(__FUNCTION__,$default_size);
+
+			if(!$this->checker_status){ return $this; }
+			if($this->errors){ return $this; }
+			if($this->multiple){ return $this->minSizeMultiple($default_size); }
+
+			return $this->minSizeSingle($default_size);
+		}
+
+		public function max_size($default_size){
+			$this->setAttribute(__FUNCTION__,$default_size);
+
+			if(!$this->checker_status){ return $this; }
+			if($this->errors){ return $this; }
+			if($this->multiple){ return $this->maxSizeMultiple($default_size); }
+
+			return $this->maxSizeSingle($default_size);
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
