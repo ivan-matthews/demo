@@ -12,6 +12,7 @@
 	class Index extends Console{
 
 		private $structured;
+		private $script_name;
 
 		private $EOL = PHP_EOL;
 		private $files_dir;
@@ -19,6 +20,8 @@
 		private $aliases_section = null;
 
 		public function execute($structured=null){
+			$this->script_name = $this->getFileScriptName();
+
 			$this->separator_string = str_repeat('-',100);
 			$this->structured = $structured;
 			$this->files_dir = fx_path('system/console');
@@ -73,15 +76,13 @@
 		}
 
 		private function prepareCommandParams(Paint $print, $params_string){
-			preg_match_all("/\[(.*?)\]/",$params_string,$result_matches);
-			if(isset($result_matches[1])){
-				$result_array = array();
-				foreach($result_matches[1] as $item){
-					$result_array[] = $print->string($item)->color('yellow')->get();
-				}
-				$result_string = str_replace($result_matches[1],$result_array,$params_string);
-				$print->string($result_string)->toPaint();
-			}
+			$result_string = preg_replace_callback("/\[(.*?)\]/",function($find)use($print){
+				$str = $print->string('[')->get();
+				$str .= $print->string($find[1])->color('yellow')->get();
+				$str .= $print->string(']')->get();
+				return $str;
+			},$params_string);
+			$print->string($result_string)->toPaint();
 			return $this;
 		}
 
@@ -92,7 +93,7 @@
 			Paint::exec(function(Paint $print)use($command,$description,$example){
 				$print->tab();
 				$print->string("php ")->color('brown')->toPaint();
-				$print->string("cli ")->color('green')->toPaint();
+				$print->string("{$this->script_name} ")->color('green')->toPaint();
 				$search_params = strpos($command,'[');
 				$params_string = null;
 				if($search_params){
@@ -107,7 +108,7 @@
 				$print->string("{$description} ")->color('light_cyan')->toPaint();
 				if($this->structured){ $print->eol()->tab(); }
 				$print->string("php ")->color('brown')->toPaint();
-				$print->string("cli ")->color('green')->toPaint();
+				$print->string("{$this->script_name} ")->color('green')->toPaint();
 				$print->string($example)->color('light_green')->toPaint();
 				$print->eol();
 				if($this->structured){ $print->eol(); }

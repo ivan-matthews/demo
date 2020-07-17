@@ -9,7 +9,6 @@
 	use Core\Classes\Session;
 	use Core\Console\Console;		// Run console scripts from web-page (details: Console::run('help',1))
 
-	require __DIR__ . "/../vendor/autoload.php";
 	require __DIR__ . "/../loader.php";
 
 	$config 	= Config::getInstance();
@@ -39,11 +38,5 @@
 	$kernel->setActionParams();
 	$kernel->loadSystem();
 
-
-
-
-
-
-	
 
 

@@ -53,8 +53,15 @@
 	}
 
 	function fx_is_cli(){
-		if(fx_equal(fx_get_server('PHP_SELF'),'cli')){
+		if(fx_equal(PHP_SAPI,'cli')){
 			return true;
 		}
 		return false;
+	}
+
+	function fx_get_const($constant){
+		if(defined($constant)){
+			return $constant;
+		}
+		return null;
 	}

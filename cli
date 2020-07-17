@@ -37,8 +37,6 @@
 
 	require __DIR__ . "/loader.php";
 
-	fx_set_server('PHP_SELF','cli');
-
 	$config = Config::getInstance();
 	$console = Console::getInstance();
 

@@ -4,6 +4,7 @@
 
 	use Core\Classes\Config;
 	use Core\Classes\Response;
+	use Core\Classes\Error;
 
 	class MySQLi{
 
@@ -110,7 +111,13 @@
 				;
 
 			}catch(\Exception $e){
-				fx_die($e);
+				Error::getInstance(
+					$e->getCode(),
+					$e->getMessage(),
+					$e->getFile(),
+					$e->getLine(),
+					$backtrace
+				);
 			}
 
 			$this->selectDB($this->params['base']);
@@ -140,8 +147,17 @@
 			if(!$this->mysqli->errno){
 				return $result;
 			}
-/**/		fx_die($this->mysqli->error_list,$sql);
-			return false;
+			$error_file = isset($backtrace[1]['file']) ? $backtrace[1]['file'] : null;
+			$error_line = isset($backtrace[1]['line']) ? $backtrace[1]['line'] : null;
+			Error::getInstance(
+				$this->mysqli->error_list[0]['errno'],
+				$this->mysqli->error_list[0]['error'],
+				$error_file,
+				$error_line,
+				$backtrace,
+				$sql
+			);
+			return null;
 		}
 
 		public function __destruct(){

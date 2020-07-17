@@ -10,6 +10,7 @@
 		private static $instance;
 
 		protected $console;
+		protected $file_script_name;
 		protected $result = true;
 
 		protected $arguments_original_array;
@@ -42,7 +43,7 @@
 		public static function run($cmd_controller,$cmd_action=null,...$cmd_params){
 			$console_object = self::getInstance();
 			$args = func_get_args();
-			array_unshift($args,'cli');
+			array_unshift($args,$console_object->getFileScriptName());
 			$console_object->getArguments(...$args);
 
 			if(!$console_object->runConsoleInterface()){
@@ -67,6 +68,13 @@
 			$this->arguments_original_array = $arguments;
 			$this->arguments = array_slice($arguments,1);
 			return $this;
+		}
+
+		public function getFileScriptName(){
+			if(!$this->file_script_name){
+				$this->file_script_name = fx_get_server('PHP_SELF');
+			}
+			return $this->file_script_name;
 		}
 
 		public function runConsoleInterface(){
@@ -176,13 +184,13 @@
 		}
 
 		private function runStructuredHelpCenter(){
-			$this->getArguments('cli','help',1);
+			$this->getArguments($this->getFileScriptName(),'help',1);
 			$this->runCommandFromAlias();
 			return $this;
 		}
 
 		private function runCompactedHelpCenter(){
-			$this->getArguments('cli','help');
+			$this->getArguments($this->getFileScriptName(),'help');
 			$this->runNativeCommand();
 			return $this;
 		}
