@@ -2,14 +2,21 @@
 
 	namespace Core\Controllers\Home;
 
+	use Core\Cache\Cache;
 	use Core\Classes\Model as ParentModel;
 
 	class Model extends ParentModel{
 
+		/** @var $this */
 		private static $instance;
 
+		/** @var array */
 		private $home;
 
+		/** @var Cache */
+		protected $cache;
+
+		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){
 				self::$instance = new self();

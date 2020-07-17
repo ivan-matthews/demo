@@ -3,16 +3,30 @@
 	namespace Core\Controllers\__controller_namespace__;
 
 	use Core\Classes\Controller as ParentController;
+	use Core\Classes\Request;
+	use Core\Classes\Response;
 
 	class Controller extends ParentController{
 
+		/** @var $this */
 		private static $instance;
 
+		/** @var Config */
 		protected $config;
+
+		/** @var \Core\Classes\Model|Model */
 		protected $model;
 
+		/** @var Response */
+		protected $response;
+
+		/** @var Request */
+		protected $request;
+
+		/** @var array */
 		private $__controller_property__;
 
+		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){
 				self::$instance = new self();

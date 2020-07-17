@@ -104,7 +104,7 @@
 					(int)$this->params['port'],
 					$this->params['socket']
 				);
-				Response::debug('database')
+				Response::_debug('database')
 					->setQuery('DATABASE CONNECTION;')
 					->setTime($time)
 					->setTrace($backtrace)
@@ -138,7 +138,7 @@
 			$this->query[] = $sql;
 			$result = $this->mysqli->query($sql);
 
-			Response::debug('database')
+			Response::_debug('database')
 				->setQuery($sql)
 				->setTime($time)
 				->setTrace($backtrace)
@@ -302,6 +302,11 @@
 			return "{$order} {$sort}";
 		}
 
+		/**
+		 * @param object $result
+		 * @param int $resulttype
+		 * @return array
+		 */
 		public function getAll($result,$resulttype=MYSQLI_ASSOC){
 			if($result){
 				$data = $result->fetch_all($resulttype);
@@ -311,6 +316,10 @@
 			return array();
 		}
 
+		/**
+		 * @param object $result
+		 * @return array
+		 */
 		public function getItemAsArray($result){
 			if($result){
 				$data = $result->fetch_assoc();
@@ -320,6 +329,10 @@
 			return array();
 		}
 
+		/**
+		 * @param object $result
+		 * @return array
+		 */
 		public function getArray($result){
 			if($result){
 				$data=array();
@@ -332,6 +345,10 @@
 			return array();
 		}
 
+		/**
+		 * @param object $result
+		 * @return bool
+		 */
 		public function getItemAsObject($result){
 			if($result){
 				$data = $result->fetch_object();
@@ -341,6 +358,10 @@
 			return false;
 		}
 
+		/**
+		 * @param object $result
+		 * @return array|bool
+		 */
 		public function getObject($result){
 			if($result){
 				$data=array();
@@ -357,6 +378,10 @@
 			return $this->mysqli->insert_id;
 		}
 
+		/**
+		 * @param object $result
+		 * @return $this
+		 */
 		public function freeResult($result){
 			if($result){
 				$result->close();
@@ -635,8 +660,12 @@
 		public function alterTable($table,$fields){
 			$sql = "ALTER TABLE `{$table}`" . PHP_EOL;
 			foreach($fields as $key=>$field){
-				if(isset($field['method'])){ $sql .= $this->{$field['method']}($key,$field) . "," . PHP_EOL; }
-				if(isset($field['index_method'])){ $sql .= $this->{$field['index_method']}($key,$field) . "," . PHP_EOL; }
+				if(isset($field['method'])){
+					$sql .= $this->{$field['method']}($key,$field) . "," . PHP_EOL;
+				}
+				if(isset($field['index_method'])){
+					$sql .= $this->{$field['index_method']}($key,$field) . "," . PHP_EOL;
+				}
 			}
 			$sql = trim($sql,",\n") . ";";
 			return $this->exec($sql);

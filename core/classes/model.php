@@ -42,7 +42,7 @@
 
 		protected $model;
 		protected $database;
-		public $cache;
+		protected $cache;
 
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -72,6 +72,10 @@
 
 		}
 
+		/**
+		 * @param $query
+		 * @return \Core\Database\Interfaces\Query\Query
+		 */
 		public function query($query){
 			$obj = new Query($this->database);
 			$obj->setQuery($query);
@@ -88,24 +92,40 @@
 			return $obj;
 		}
 
+		/**
+		 * @param array ...$from_tables
+		 * @return \Core\Database\Interfaces\Delete\Delete
+		 */
 		public function delete(...$from_tables){
 			$obj = new Delete($this->database);
 			$obj->setTable($from_tables);
 			return $obj;
 		}
 
+		/**
+		 * @param $to_table
+		 * @return \Core\Database\Interfaces\Insert\Insert
+		 */
 		public function insert($to_table){
 			$obj = new Insert($this->database);
 			$obj->setTable($to_table);
 			return $obj;
 		}
 
+		/**
+		 * @param array ...$fields
+		 * @return \Core\Database\Interfaces\Select\Select
+		 */
 		public function select(...$fields){
 			$obj = new Select($this->database);
 			$obj->setFields($fields);
 			return $obj;
 		}
 
+		/**
+		 * @param $in_table
+		 * @return \Core\Database\Interfaces\Update\Update
+		 */
 		public function update($in_table){
 			$obj = new Update($this->database);
 			$obj->setTable($in_table);

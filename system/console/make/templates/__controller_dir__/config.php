@@ -6,10 +6,13 @@
 
 	class Config{
 
+		/** @var $this */
 		private static $instance;
 
+		/** @var array */
 		private $config;
 
+		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){
 				self::$instance = new self();

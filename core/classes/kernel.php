@@ -211,7 +211,7 @@
 		}
 
 		private function setDeniedStatus(){
-			if($this->user->isUnLogged()){
+			if($this->user->guest()){
 				$this->response->setResponseCode(401);
 				return true;
 			}

@@ -1,6 +1,6 @@
 <?php
 
-	#CMD: cron run [...cron_task_ids_from_db=false]
+	#CMD: cron run [...IDs_list_from_db = false]
 	#DSC: single run cron tasks command
 	#EXM: cron run 1 2 5 6 99 101 33
 
@@ -63,7 +63,9 @@
 			$this->cron_tasks_array = Database::select('*')
 				->from('cron_tasks')
 				->where("`status`='" . Kernel::STATUS_ACTIVE . "'")
-				->getArray();
+				->get()
+				->allAsArray()
+			;
 			return $this;
 		}
 
@@ -137,11 +139,11 @@
 			$this->update_data['date_updated'] = time();
 			$update = Database::update('cron_tasks');
 			foreach($this->update_data as $field => $value){
-				$update->field($field,$value);
+				$update = $update->field($field,$value);
 			}
 			$update->where("`id`=ITEM_ID");
 			$update->data('ITEM_ID',$item['id']);
-			return $update->exec();
+			return $update->get();
 		}
 
 		private function checkLastRun($last_run_time){

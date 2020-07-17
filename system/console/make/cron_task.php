@@ -107,7 +107,7 @@
 			$insert_data .= "\t\t\t\t->value('params',array())\r\n";
 			$insert_data .= "\t\t\t\t->value('period',5)\t// seconds\r\n";
 			$insert_data .= "\t\t\t\t->value('options',array())\r\n";
-			$insert_data .= "\t\t\t\t->exec();\r\n";
+			$insert_data .= "\t\t\t\t->get();\r\n";
 			$insert_data .= "\t\t\t".'return $this;';
 
 			$insert->setInsertDataToReplace($insert_data);

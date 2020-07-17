@@ -1,3 +1,8 @@
+<?php
+	/**
+	 * @var \Core\Classes\Error $this
+	 */
+?>
 <div class="container">
 	<div class="compcontainer">
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90.5 74.769">

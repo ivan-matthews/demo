@@ -12,7 +12,9 @@
 		private $default_unauthorized_key = array(0);
 		private $unauthorized;
 
+		private $cookies;
 		private $session;
+		private $config;
 
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -35,6 +37,8 @@
 
 		public function __construct(){
 			$this->session = Session::getInstance();
+			$this->cookies = Cookie::getInstance();
+			$this->config = Config::getInstance();
 		}
 
 		public function __destruct(){
@@ -65,8 +69,35 @@
 			return $this->groups;
 		}
 
-		public function isUnLogged(){
+		public function guest(){
+			$this->getGroups();
 			return $this->unauthorized;
+		}
+
+		public function logged(){
+			$this->getGroups();
+			return !$this->unauthorized;
+		}
+
+		public function validateAuthorize(){
+			$auth_token = $this->session->get(Session::TOKEN_SESSION_KEY,Session::PREFIX_CONF);
+			if($auth_token){
+				if(!fx_equal(fx_encode($auth_token),$this->cookies->getCookie(Session::TOKEN_SESSION_KEY))){
+					$this->session->cleanUserSession();
+				}
+			}
+			return $this;
+		}
+
+		public function refreshAuthCookieTime(){
+			if(!$this->session->get(Session::MEMBER_SESSION_KEY,Session::PREFIX_CONF)){
+				return $this;
+			}
+			$cookie = $this->cookies->getCookie(Session::TOKEN_SESSION_KEY);
+			if($cookie){
+				$this->cookies->setCookie(Session::TOKEN_SESSION_KEY,$cookie,$this->config->session['session_time']);
+			}
+			return $this;
 		}
 
 

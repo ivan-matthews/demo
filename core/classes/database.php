@@ -62,6 +62,10 @@
 
 		}
 
+		/**
+		 * @param $query
+		 * @return \Core\Database\Interfaces\Query\Query
+		 */
 		public static function query($query){
 			$obj = new Query(self::getInstance());
 			$obj->setQuery($query);
@@ -78,24 +82,40 @@
 			return call_user_func($callback_function,$obj);
 		}
 
+		/**
+		 * @param array ...$from_tables
+		 * @return \Core\Database\Interfaces\Delete\Delete
+		 */
 		public static function delete(...$from_tables){
 			$obj = new Delete(self::getInstance());
 			$obj->setTable($from_tables);
 			return $obj;
 		}
 
+		/**
+		 * @param $to_table
+		 * @return \Core\Database\Interfaces\Insert\Insert
+		 */
 		public static function insert($to_table){
 			$obj = new Insert(self::getInstance());
 			$obj->setTable($to_table);
 			return $obj;
 		}
 
+		/**
+		 * @param array ...$fields
+		 * @return \Core\Database\Interfaces\Select\Select
+		 */
 		public static function select(...$fields){
 			$obj = new Select(self::getInstance());
 			$obj->setFields($fields);
 			return $obj;
 		}
 
+		/**
+		 * @param $in_table
+		 * @return \Core\Database\Interfaces\Update\Update
+		 */
 		public static function update($in_table){
 			$obj = new Update(self::getInstance());
 			$obj->setTable($in_table);

@@ -2,6 +2,20 @@
 
 	namespace Core\Classes;
 
+	/**
+	 * Class Config
+	 * @package Core\Classes
+	 * @property array $cache
+	 * @property array $core
+	 * @property array $cron
+	 * @property array $database
+	 * @property array $router
+	 * @property array $secure
+	 * @property array $session
+	 * @property array $api
+	 * @property array $mail
+	 * @property array $view
+	 */
 	class Config{
 
 		private static $instance;

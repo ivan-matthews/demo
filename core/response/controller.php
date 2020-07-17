@@ -24,6 +24,7 @@
 
 		public function setArray(array $controller_data){
 			$this->response->response_data['response_data']['controller'][$this->controller] = $controller_data;
+			return $this;
 		}
 
 

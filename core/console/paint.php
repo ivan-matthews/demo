@@ -91,7 +91,7 @@
 		}
 
 		public function __destruct(){
-			Response::debug('console')
+			Response::_debug('console')
 				->setQuery($this->debug_result_string)
 				->setTrace(debug_backtrace())
 				->setTime($this->time)

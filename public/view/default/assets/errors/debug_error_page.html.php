@@ -1,3 +1,9 @@
+<?php
+	/**
+	 * @var \Core\Classes\Error $this
+	 */
+?>
+
 <html>
 <head>
 	<meta charset="UTF-8">

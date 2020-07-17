@@ -17,7 +17,7 @@
 				->value('period',5)		// seconds
 				->value('status',Kernel::STATUS_ACTIVE)
 				->value('options',array())
-				->exec();
+				->get();
 			return $this;
 		}
 

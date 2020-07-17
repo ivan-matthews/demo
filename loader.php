@@ -8,7 +8,7 @@
 
 	error_reporting(0);
 	ini_set('display_errors','0');
-//	ini_set('xdebug.max_nesting_level','1024');
+	ini_set('xdebug.max_nesting_level','1024');
 
 	date_default_timezone_set('Europe/London');	// Дефолтный пояс - Лондон, для БД
 	fx_load_helpers();											// Подключаем хелперы

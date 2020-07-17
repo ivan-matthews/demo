@@ -126,27 +126,6 @@
 			return $this;
 		}
 
-		public function validateAuthorize(){
-			$auth_token = $this->get(self::TOKEN_SESSION_KEY,self::PREFIX_CONF);
-			if($auth_token){
-				if(!fx_equal(fx_encode($auth_token),$this->cookies->getCookie(self::TOKEN_SESSION_KEY))){
-					$this->cleanUserSession();
-				}
-			}
-			return $this;
-		}
-
-		public function refreshAuthCookieTime(){
-			if(!$this->get(self::MEMBER_SESSION_KEY,self::PREFIX_CONF)){
-				return $this;
-			}
-			$cookie = $this->cookies->getCookie(self::TOKEN_SESSION_KEY);
-			if($cookie){
-				$this->cookies->setCookie(self::TOKEN_SESSION_KEY,$cookie,$this->config->session['session_time']);
-			}
-			return $this;
-		}
-
 		public function cleanUserSession(){
 			$this->cleanSessionData(self::PREFIX_AUTH);
 			$this->cleanSessionData(self::PREFIX_CONF);

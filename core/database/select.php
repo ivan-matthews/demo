@@ -9,20 +9,23 @@
 			->limit(1)
 			->offset(0)
 			->join('auth','auth_id=users_id','right')
-			->getItemAsArray()
+			->get()
+			->allAsArray()
 	*/
 
 	namespace Core\Database;
 
 	use Core\Classes\Database;
+	use Core\Database\Interfaces\Select\Select as SelectInterface;
 
-	class Select{
+	class Select implements SelectInterface{
 
 		private $database;
 		private $database_object;
 
 		protected $select;
 
+		protected $result=array();
 		protected $fields;
 		protected $table;
 		protected $where;
@@ -94,7 +97,7 @@
 		}
 
 		public function exec(){
-			$result = $this->database_object->select(
+			$this->result = $this->database_object->select(
 				$this->fields,
 				$this->table,
 				$this->where,
@@ -108,7 +111,7 @@
 			);
 
 			$this->removeProps();
-			return $result;
+			return $this->result;
 		}
 
 		protected function removeProps(){
@@ -125,42 +128,40 @@
 			return $this;
 		}
 
-		public function getAll($resulttype=MYSQLI_ASSOC){
-			$result = $this->exec();
-			if($result){
-				return $this->database_object->getAll($result,$resulttype);
+		public function all($resulttype=MYSQLI_ASSOC){
+			if($this->result){
+				return $this->database_object->getAll($this->result,$resulttype);
 			}
 			return array();
 		}
-		public function getArray(){
-			$result = $this->exec();
-			if($result){
-				return $this->database_object->getArray($result);
+		public function allAsArray(){
+			if($this->result){
+				return $this->database_object->getArray($this->result);
 			}
 			return array();
 		}
-		public function getObject(){
-			$result = $this->exec();
-			if($result){
-				return $this->database_object->getObject($result);
+		public function allAsObject(){
+			if($this->result){
+				return $this->database_object->getObject($this->result);
 			}
 			return array();
 		}
-		public function getItemAsArray(){
-			$result = $this->exec();
-			if($result){
-				return $this->database_object->getItemAsArray($result);
+		public function itemAsArray(){
+			if($this->result){
+				return $this->database_object->getItemAsArray($this->result);
 			}
 			return array();
 		}
-		public function getItemAsObject(){
-			$result = $this->exec();
-			if($result){
-				return $this->database_object->getItemAsObject($result);
+		public function itemAsObject(){
+			if($this->result){
+				return $this->database_object->getItemAsObject($this->result);
 			}
 			return array();
 		}
-
+		public function get(){
+			$this->exec();
+			return $this;
+		}
 
 
 

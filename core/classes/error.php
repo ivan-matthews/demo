@@ -150,7 +150,7 @@
 				->value('date_created',time())
 				->update('date_created',time())
 				->updateQuery('count',"count+1")
-				->exec();
+				->get();
 		}
 
 		/** @return mixed */

@@ -22,11 +22,8 @@
 	use Core\Classes\Config;
 	use Core\Classes\Database;
 	use Core\Database\Interfaces\Create\Create as CreateInterface;
-	use Core\Database\Interfaces\Create\Defaults;
-	use Core\Database\Interfaces\Create\Engine;
-	use Core\Database\Interfaces\Create\Indexes;
 
-	class Create implements CreateInterface, Defaults, Engine, Indexes{
+	class Create implements CreateInterface{
 
 		private $database;
 		private $database_object;

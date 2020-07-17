@@ -2,14 +2,33 @@
 
 	namespace Core\Controllers\__controller_namespace__\Actions;
 
+	use Core\Classes\Request;
+	use Core\Classes\Response;
+	use Core\Controllers\__controller_namespace__\Config;
 	use Core\Controllers\__controller_namespace__\Controller;
+	use Core\Controllers\__controller_namespace__\Model;
 
 	class Index extends Controller{
 
+		/** @var $this */
 		private static $instance;
 
+		/** @var Config */
+		protected $config;
+
+		/** @var Model */
+		protected $model;
+
+		/** @var Response */
+		protected $response;
+
+		/** @var Request */
+		protected $request;
+
+		/** @var array */
 		private $index;
 
+		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){
 				self::$instance = new self();

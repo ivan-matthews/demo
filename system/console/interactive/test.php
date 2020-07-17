@@ -1,6 +1,6 @@
 <?php
 
-	#CMD: interactive test [someone_variable=test]
+	#CMD: interactive test [someone_variable = test]
 	#DSC: real-time test console interactive mode
 	#EXM: interactive test controller
 

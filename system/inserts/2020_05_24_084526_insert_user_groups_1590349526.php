@@ -12,13 +12,15 @@
 		);
 
 		public function firstStep(){
+			$time = time();
 			$database = Database::insert('user_groups');
 			foreach($this->user_groups as $key=>$group){
-				$database->value('name',$group);
+				$database = $database->value('name',$group);
 				$database->value('status',1);
+				$database->value('date_created',$time);
 				$database->value('default',(fx_equal($key,0) ? Kernel::STATUS_ACTIVE : Kernel::STATUS_INACTIVE));
 			}
-			$database->exec();
+			$database->get();
 			return $this;
 		}
 

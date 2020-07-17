@@ -14,8 +14,9 @@
 	namespace Core\Database;
 
 	use Core\Classes\Database;
+	use Core\Database\Interfaces\Delete\Delete as DeleteInterface;
 
-	class Delete{
+	class Delete implements DeleteInterface{
 
 		private $database;
 		private $database_object;
@@ -32,6 +33,8 @@
 		protected $order_by=array();
 		protected $group_by;
 		protected $preparing_data=array();
+
+		private $result;
 
 		public function __construct(Database $database){
 			$this->database = $database;
@@ -84,7 +87,7 @@
 		}
 
 		public function exec(){
-			$result = $this->database_object->delete(
+			$this->result = $this->database_object->delete(
 				$this->table,
 				$this->where,
 				$this->nested_query,
@@ -97,7 +100,7 @@
 			);
 
 			$this->removeProps();
-			return $result;
+			return $this->result;
 		}
 
 		protected function removeProps(){
@@ -113,14 +116,17 @@
 			return $this;
 		}
 
-		public function getRows(){
-			$result = $this->exec();
-			if($result){
+		public function rows(){
+			if($this->result){
 				return $this->database_object->affectedRows();
 			}
 			return null;
 		}
 
+		public function get(){
+			$this->exec();
+			return $this;
+		}
 
 
 

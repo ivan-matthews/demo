@@ -57,7 +57,7 @@
 				if($cache_data){
 					if($this->checkExpiredTime($cache_data[self::CACHE_TTL_KEY])){
 						unset($cache_data[self::CACHE_TTL_KEY]);
-						Response::debug('cache')
+						Response::_debug('cache')
 							->index(2)
 							->set('result',$this->cache_file)
 							->setTime($time)

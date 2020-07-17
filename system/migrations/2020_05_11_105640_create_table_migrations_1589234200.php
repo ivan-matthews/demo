@@ -3,7 +3,7 @@
 	namespace System\Migrations;
 
 	use Core\Classes\Database;
-	use Core\Database\Create;
+	use Core\Database\Interfaces\Create\Create;
 
 	class CreateTableMigrations202005111056401589234200{
 

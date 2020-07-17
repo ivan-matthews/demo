@@ -32,12 +32,8 @@
 	use Core\Classes\Config;
 	use Core\Classes\Database;
 	use Core\Database\Interfaces\Alter\Alter as AlterInterface;
-	use Core\Database\Interfaces\Alter\Actions;
-	use Core\Database\Interfaces\Alter\Indexes;
-	use Core\Database\Interfaces\Alter\Options;
-	use Core\Database\Interfaces\Alter\Types;
 
-	class Alter implements AlterInterface,Actions,Indexes,Options,Types{
+	class Alter implements AlterInterface{
 
 		private $database;
 		private $database_object;

@@ -41,8 +41,9 @@
 	namespace Core\Database;
 
 	use Core\Classes\Database;
+	use Core\Database\Interfaces\Insert\Insert as InsertInterface;
 
-	class Insert{
+	class Insert implements InsertInterface{
 
 		private $database;
 		private $database_object;
@@ -55,6 +56,8 @@
 		protected $update;
 		protected $update_nested_query;
 		protected $preparing_data;
+
+		protected $result;
 
 		public function __construct(Database $database){
 			$this->database = $database;
@@ -92,7 +95,7 @@
 		}
 
 		public function exec(){
-			$result = $this->database_object
+			$this->result = $this->database_object
 				->insert(
 					$this->table,
 					$this->fields,
@@ -102,7 +105,7 @@
 					$this->preparing_data
 				);
 			$this->removeProps();
-			return $result;
+			return $this->result;
 		}
 
 		protected function removeProps(){
@@ -112,17 +115,21 @@
 			$this->update = null;
 			$this->update_nested_query = null;
 			$this->preparing_data = null;
+			$this->result = null;
 			return $this;
 		}
 
-		public function getId(){
-			$result = $this->exec();
-			if($result){
+		public function id(){
+			if($this->result){
 				return $this->database_object->lastId();
 			}
 			return null;
 		}
 
+		public function get(){
+			$this->exec();
+			return $this;
+		}
 
 
 

@@ -30,8 +30,9 @@
 	$session->setSessionFile();
 	$session->checkSessionFile();
 	$session->sessionStart();
-	$session->validateAuthorize();
-	$session->refreshAuthCookieTime();
+
+	$user->validateAuthorize();
+	$user->refreshAuthCookieTime();
 
 	$router->parseURL(fx_get_server('REQUEST_URI'));
 	$router->setRoute();
@@ -52,11 +53,13 @@
 
 
 
+
 //	fx_pre(trim(dirname($_SERVER['PHP_SELF']),DIRECTORY_SEPARATOR));
 
 	fx_pre(array(
 		'code'=>$response->getResponseCode(),
 		'stat'=>$response->getResponseStatus(),
+		'data'=>$response->getData(),
 		'grup'=>$user->getGroups()
 	));
 
@@ -93,8 +96,6 @@
 		'memor'=>fx_prepare_memory(memory_get_usage(),4,',',' '),
 		'times'=>number_format(microtime(true)-TIME,10),
 	));
-
-//	Database::select('*')->from('migrations')->exec();
 
 	$dbg = $response->getDebug();
 	if($dbg){

@@ -20,8 +20,9 @@
 	namespace Core\Database;
 
 	use Core\Classes\Database;
+	use Core\Database\Interfaces\Update\Update as UpdateInterface;
 
-	class Update{
+	class Update implements UpdateInterface{
 
 		private $database;
 		private $database_object;
@@ -36,6 +37,8 @@
 		protected $limit;
 		protected $offset;
 		protected $preparing_data=array();
+
+		protected $result;
 
 		public function __construct(Database $database){
 			$this->database = $database;
@@ -87,7 +90,7 @@
 		}
 
 		public function exec(){
-			$result = $this->database_object->update(
+			$this->result = $this->database_object->update(
 				$this->field,
 				$this->table,
 				$this->where,
@@ -99,7 +102,7 @@
 			);
 
 			$this->removeProps();
-			return $result;
+			return $this->result;
 		}
 
 		protected function removeProps(){
@@ -113,12 +116,16 @@
 			return $this;
 		}
 
-		public function getRows(){
-			$result = $this->exec();
-			if($result){
+		public function rows(){
+			if($this->result){
 				return $this->database_object->affectedRows();
 			}
 			return null;
+		}
+
+		public function get(){
+			$this->exec();
+			return $this;
 		}
 
 

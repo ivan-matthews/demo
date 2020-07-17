@@ -11,6 +11,18 @@
 	use Core\Response\Title;
 	use Core\Response\Widget;
 
+	/**
+	 * Class Response
+	 * @package Core\Classes
+	 * @method static Controller _controller($controller_name)
+	 * @method static BreadCrumb _breadcrumb($breadcrumb)
+	 * @method static Widget _widget($widget_name)
+	 * @method static Title _title()
+	 * @method static Meta _meta($meta)
+	 * @method static SessionMessage _sessionMessage($message)
+	 * @method static Error _error($backtrace_key=2)
+	 * @method static Debug _debug($debug_key,$backtrace_key=2)
+	 */
 	class Response{
 
 		private static $instance;
@@ -21,6 +33,7 @@
 		
 		public $response_data = array(
 			'response_data'		=> array(
+				'link_to_redirect'	=> '/',
 				'headers'			=> array(
 					'response_code'		=> 200,
 					'response_status'	=> '200 OK',
@@ -44,6 +57,19 @@
 			return self::$instance;
 		}
 
+		public static function __callStatic($name, $arguments){
+			$self = self::getInstance();
+			$name = trim($name,'_');
+			if(method_exists($self,$name)){
+				return call_user_func(array($self,$name),...$arguments);
+			}
+			return $self;
+		}
+
+		public function __call($name, $arguments){
+			return self::__callStatic($name,$arguments);
+		}
+
 		public function __get($key){
 			if(isset($this->response[$key])){
 				return $this->response[$key];
@@ -64,35 +90,35 @@
 
 		}
 
-		public static function controller($controller_name){
+		public function controller($controller_name){
 			return new Controller(self::getInstance(),$controller_name);
 		}
 
-		public static function breadcrumb($breadcrumb){
+		public function breadcrumb($breadcrumb){
 			return new BreadCrumb(self::getInstance(),$breadcrumb);
 		}
 
-		public static function widget($widget_name){
+		public function widget($widget_name){
 			return new Widget(self::getInstance(),$widget_name);
 		}
 
-		public static function title(){
+		public function title(){
 			return new Title(self::getInstance());
 		}
 
-		public static function metaTag($meta){
+		public function meta($meta){
 			return new Meta(self::getInstance(),$meta);
 		}
 
-		public static function sessionMessage($message){
+		public function sessionMessage($message){
 			return new SessionMessage(self::getInstance(),$message);
 		}
 
-		public static function error($backtrace_key=2){
+		public function error($backtrace_key=2){
 			return new Error(self::getInstance(),$backtrace_key);
 		}
 
-		public static function debug($debug_key,$backtrace_key=2){
+		public function debug($debug_key,$backtrace_key=2){
 			return new Debug(self::getInstance(),$debug_key,$backtrace_key);
 		}
 
