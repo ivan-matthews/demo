@@ -6,7 +6,7 @@
 		/**
 		 * @param $email
 		 * @param bool $name
-		 * @return Subject
+		 * @return Subject | From
 		 */
 		public function address($email,$name=false);
 	}

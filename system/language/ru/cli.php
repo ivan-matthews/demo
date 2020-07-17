@@ -1,6 +1,7 @@
 <?php
 
 	return array(
+		'default_description_string'=> 'описание команды отсутствует',
 		'remove_cache'				=> 'удалить все кеш-файлы',
 		'structure_info'			=> 'показать структурированную информацию',
 		'create_migration_table'	=> 'создать таблицу миграций',
@@ -20,6 +21,8 @@
 		'remove_database'			=> 'уничтожить базу данных',
 		'insert_data_to_db'			=> 'залить данные миграций в базу данных',
 		'make_new_database'			=> 'создать новую базу данных',
+		'run_develop_server'		=> 'запустить сервер разработки',
+
 		'sometime_went_wrong'		=> 'Что-то пошло не так... ',
 		'command_not_found'			=> 'Команда "CMD_ARR" не найдена или вернула пустой результат! ',
 		'help_center_has_called'	=> 'Была вызвана справка:',
@@ -65,4 +68,6 @@
 		'session_file_has_removed'	=> "Сессионный файл \"CLASS_NAME\" был удален"/* из FILE_NAME*/,
 		'session_file_not_removed'	=> "Сессионный файл \"CLASS_NAME\" не был удален"/* из FILE_NAME*/,
 		'session_file_has_skipped'	=> "Сессионный файл \"CLASS_NAME\" был пропущен"/* из FILE_NAME*/,
+		'develop_server_started'	=> "Сервер был запущен DATE в TIME.\nДетали смотрите по адресу ADDRESS.\nНажмите COMMAND для выхода...",
+		'develop_server_dropped'	=> "Случилась ошибка! Сервер упал!",
 	);

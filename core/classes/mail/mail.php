@@ -31,6 +31,8 @@
 		/** @var array */
 		private $errors;
 		private $web_dir;
+		private $user_name;
+		private $user_address;
 
 		/**
 		 * @param string $config_interface_key
@@ -57,14 +59,17 @@
 			$this->mail->Hostname = ltrim(strstr($this->mail_params['mail_from'], '@'), '@');
 
 			$this->mail->setLanguage($this->language->getLanguageKey());
-
-			$this->init()
-				->setFrom($this->mail_params['mail_from'],$this->mail_params['mail_from_name'])
-				->setBodyText($this->mail_params['mail_default_title']);
+			$this->user_address = $this->mail_params['mail_from'];
+			$this->user_name = $this->mail_params['mail_from_name'];
 		}
 
 		public function subject($message_theme){
 			$this->mail->Subject = $message_theme;
+			return $this;
+		}
+		public function from($email_address,$email_user_name){
+			$this->user_address = $email_address;
+			$this->user_name = $email_user_name;
 			return $this;
 		}
 		public function address($email,$name=false){
@@ -107,6 +112,9 @@
 			return $this;
 		}
 		public function send(){
+			$this->init();
+			$this->setFrom($this->user_address,$this->user_name);
+			$this->setBodyText($this->mail_params['mail_default_title']);
 			$result = $this->mail->send();
 			if(!$result){
 				trigger_error($this->mail->ErrorInfo,E_USER_WARNING);

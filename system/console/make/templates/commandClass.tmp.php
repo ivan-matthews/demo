@@ -1,7 +1,7 @@
 <?php
 
 	#CMD: __command_directory____command_file_description__ __command_arguments_with_comma_separated__
-	#DSC: command description
+	#DSC: cli.default_description_string
 	#EXM: __command_directory____command_file_description__ __command_arguments__
 
 	namespace System\Console\__command_namespace__;
