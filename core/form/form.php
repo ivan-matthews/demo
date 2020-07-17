@@ -4,32 +4,36 @@
 		$fields_array = array(
 			array(
 				'name'		=> 'field_name',
-				'required'	=> true,
 				'type'		=> 'checkbox',
+				'field_type'=> 'checkbox',
 				'id'		=> 'field_name',
+				'required'	=> true,
 				'float'		=> true
 			),
 			array(
 				'name'		=> 'field_name1',
-				'required'	=> true,
 				'type'		=> 'numeric',
+				'field_type'=> 'text',
 				'id'		=> 'field_name1',
+				'required'	=> true,
 				'numeric'	=> true
 			),
 			array(
 				'name'		=> 'field_name2',
-				'required'	=> true,
 				'type'		=> 'ip',
+				'field_type'=> 'text',
 				'id'		=> 'field_name2',
+				'required'	=> true,
 			),
 			array(
 				'name'		=> 'field_name3',
-				'required'	=> true,
 				'type'		=> 'mac',
+				'field_type'=> 'text',
 				'id'		=> 'field_name3',
+				'required'	=> true,
 			),
 		);
-		$form = new \Core\Form\Form('form');
+		$form = new \Core\Form\Form();
 		$form->nonCheckCSRF();
 		$form->setData($request->get('form'));
 		$form->checkCSRF();
@@ -37,6 +41,7 @@
 		$form->checkArrayFields();
 
 		fx_die($form->can() ? 'OK' : $form->getErrors());
+
 	*/
 
 	namespace Core\Form;
@@ -52,13 +57,12 @@
 
 		public function checkArrayFields(){
 			foreach($this->fields_array as $field){
-				$this->checkField($field);
+				$this->checkArrayItemField($field);
 			}
 			return $this;
 		}
 
-		public function checkField($field_value){
-			$this->field($field_value['name']);
+		public function checkArrayItemField($field_value){
 			foreach($field_value as $key=>$value){
 				if(method_exists($this,$key)){
 					call_user_func_array(array($this,$key),array($value));

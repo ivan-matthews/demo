@@ -53,9 +53,6 @@
 
 
 
-
-
-
 //	$session->set('csrf',123,Session::PREFIX_CONF);
 //	fx_pre(trim(dirname($_SERVER['PHP_SELF']),DIRECTORY_SEPARATOR));
 
