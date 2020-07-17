@@ -75,12 +75,14 @@
 
 		public static function alterTable($table, callable $callback_function){
 			$obj = new Alter($table,self::getInstance());
-			return call_user_func($callback_function,$obj);
+			call_user_func($callback_function,$obj);
+			return $obj->exec();
 		}
 
 		public static function makeTable($table, callable $callback_function){
 			$obj = new Create($table,self::getInstance());
-			return call_user_func($callback_function,$obj);
+			call_user_func($callback_function,$obj);
+			return $obj->exec();
 		}
 
 		/**

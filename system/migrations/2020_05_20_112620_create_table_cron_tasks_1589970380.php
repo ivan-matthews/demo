@@ -30,7 +30,6 @@
 				$table->longtext('result');
 
 				$table->add_timestamps();
-				$table->exec();
 			});
 			return $this;
 		}

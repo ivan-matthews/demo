@@ -65,6 +65,7 @@
 		}
 
 		public function setServerLanguageHeader($language_header){
+			if(!is_string($language_header)){ $language_header = ''; }
 			$this->server_language_header = $language_header;
 			return $this;
 		}
@@ -103,6 +104,14 @@
 			return $this->lang_key;
 		}
 
+		public function prepareLanguageData($language_value,array $data_to_replace){
+			if($data_to_replace){
+				$data_keys = array_keys($data_to_replace);
+				$data_values = array_values($data_to_replace);
+				return str_replace($data_keys,$data_values,$language_value);
+			}
+			return $language_value;
+		}
 
 
 

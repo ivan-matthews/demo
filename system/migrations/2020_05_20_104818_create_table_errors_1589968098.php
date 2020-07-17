@@ -28,7 +28,6 @@
 				$table->longtext('msg');
 
 				$table->add_timestamps();
-				$table->exec();
 			});
 			return $this;
 		}

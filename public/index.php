@@ -9,6 +9,7 @@
 	use Core\Classes\Session;
 	use Core\Classes\Language;
 	use Core\Classes\User;
+	use Core\Classes\View;
 
 	require __DIR__ . "/../loader.php";
 
@@ -21,6 +22,7 @@
 	$session	= Session::getInstance();
 	$language	= Language::getInstance();
 	$user 		= User::getInstance();
+	$view		= View::getInstance();
 
 	$request->setRequestedData(fx_get_request());
 	$request->setRequestMethod($request->get('method')?:fx_get_server('REQUEST_METHOD'));
@@ -31,7 +33,7 @@
 	$session->checkSessionFile();
 	$session->sessionStart();
 
-	$language->setServerLanguageHeader(fx_get_server('HTTP_ACCEPT_LANGUAGE'));
+	$language->setServerLanguageHeader($request->get('language')?:fx_get_server('HTTP_ACCEPT_LANGUAGE'));
 	$language->setLanguageKey();
 	$language->setLanguage();
 
@@ -39,7 +41,7 @@
 	$user->refreshAuthCookieTime();
 	$user->resetCSRFToken();
 
-	$router->parseURL(fx_get_server('REQUEST_URI'));
+	$router->parseURL($request->get('link')?:fx_get_server('REQUEST_URI'));
 	$router->setRoute();
 
 	$kernel->setProperty();
@@ -47,10 +49,12 @@
 	$kernel->setActionParams();
 	$kernel->loadSystem();
 
-	$response->sendHeaders();
+	$view->setRenderType($request->get('accept')?:fx_get_server('HTTP_ACCEPT'));
+	$view->ready();
+	$view->start();
 
 
-
+	fx_die();
 
 
 

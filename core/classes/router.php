@@ -53,6 +53,7 @@
 		}
 
 		public function parseURL($url){
+			if(!is_string($url)){ $url = ''; }
 			$url = $this->cleanURL(urldecode($url));
 			$this->absolute_url = trim($url,'/ ');
 			$this->url_array = parse_url($this->absolute_url);

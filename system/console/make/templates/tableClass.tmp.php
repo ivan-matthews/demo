@@ -18,7 +18,6 @@
 				$table->bigint('id')->unsigned()->autoIncrement()->primary();
 
 				$table->add_timestamps();
-				$table->exec();
 			});
 			return $this;
 		}

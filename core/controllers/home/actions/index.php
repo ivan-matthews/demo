@@ -57,20 +57,30 @@
 		}
 
 		public function methodGet(){
-			/*function a($iterations){
-				$result = array();
-				for($i=0;$i<$iterations;$i++){ $result[$i] = 'string_random'; }
-				return $result;
-			}
-			$this->model->indexModel(a(1));
-			$this->model->secondModel(a(1));
-			$this->model->indexModel(a(2));
-			$this->model->secondModel(a(2));
-			$this->model->indexModel(a(4));
-			$this->model->secondModel(a(4));
-			$this->model->indexModel(a(3));
-			$this->model->secondModel(a(3));*/
-			fx_pre(__METHOD__);
+			$this->response->controller('home')
+				->set('var','some')
+				->set('var1','some1')
+				->set('var2','some2')
+				->set('var3','some3')
+				->set('var4','some4');
+			$this->response->controller('home','some')
+				->set('var','some')
+				->set('var1','some1')
+				->set('var2','some2')
+				->set('var3','some3')
+				->set('var4','some4');
+			$this->response->controller('some','item')
+				->set('var','some')
+				->set('var1','some1')
+				->set('var2','some2')
+				->set('var3','some3')
+				->set('var4','some4');
+			$this->response->controller('home','outhem')
+				->set('var','some')
+				->set('var1','some1')
+				->set('var2','some2')
+				->set('var3','some3')
+				->set('var4','some4');
 			return true;
 		}
 

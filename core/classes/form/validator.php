@@ -2,6 +2,7 @@
 
 	/*
 		use Core\Classes\Form\Interfaces\Checkers;
+		use Core\Classes\Form\Interfaces\Multiple;
 		use Core\Classes\Form\Form;
 
 		$new_form = Form::getStaticValidatorInterface();
@@ -12,7 +13,26 @@
 			->validate(1)
 		;
 
-		$new_form->name('field_name')
+		$new_form->name('img_field')
+			->id('field_name_id')
+			->label('field_name_label')
+			->placeholder('field_name_placeholder')
+			->class('field_name_class')
+			->type('field_name_type')
+			->title('field_name_title')
+			->data('field_name_key','field_name_value')
+			->data('id',35)
+			->file(function(Multiple $files){
+				$files->multiple()
+					->accept('image',array('jpg','gif','pngs'))
+					->max_size(1045)
+					->min_size(3333333333);
+			})
+			->check(function(Checkers $validator){
+				$validator->required();
+				$validator->min(2);
+			});
+		$new_form->name('imgages')
 			->id('field_name_id')
 			->label('field_name_label')
 			->placeholder('field_name_placeholder')
@@ -26,11 +46,18 @@
 				$validator->min(2);
 			});
 
+		fx_die($new_form->can() ? $new_form->getFieldsList() : array(
+			$new_form->getFieldsList(),
+			$new_form->getErrors(),
+			fx_encode($user->getCSRFToken()),
+		));
+
 	----------------------------------------------------------------------------------------------
 
 		use Core\Classes\Form\Interfaces\Validator;
 		use Core\Classes\Form\Interfaces\Checkers;
 		use Core\Classes\Form\Form;
+		use Core\Classes\Form\Interfaces\Multiple;
 
 		$form = Form::getStaticValidatorInterface(function(Validator $validator){
 			$validator
@@ -39,7 +66,7 @@
 				->setFormName('test')
 				->setData(Request::getInstance()->getArray('test'));
 			$validator
-				->name('field')
+				->name('img_field')
 				->class('class')
 				->title('title')
 				->id('id')
@@ -51,6 +78,12 @@
 				->data('key1','value1')
 				->data('key2','value2')
 				->setAttribute('attr','simple')
+				->file(function(Multiple $file){
+					$file->single()
+						->accept('image',array('gif','guf','gaf'))
+						->min_size(2222222221)
+						->max_size(-299);
+				})
 				->check(function(Checkers $checkers){
 					$checkers->required()->int()->email()->numeric()->boolean();
 				});
@@ -62,7 +95,6 @@
 			$form->getErrors(),
 			fx_encode($user->getCSRFToken())
 		));
-
 	*/
 
 	namespace Core\Classes\Form;
@@ -72,8 +104,6 @@
 	use Core\Classes\Form\Interfaces\Validator as ValidatorInterface;
 
 	class Validator implements ValidatorInterface, Checkers{
-
-		protected $config;
 
 		protected $field;
 		protected $value;
@@ -101,6 +131,8 @@
 			'id' => null,
 		);
 
+		protected $config;
+
 		/**
 		 * @param null $callback_function
 		 * @return ValidatorInterface
@@ -127,6 +159,21 @@
 			$this->config = Config::getInstance();
 			$this->setCSRFAttributes();
 		}
+
+		public function file(callable $callable_callback_function){
+			$files = new File($this);
+			call_user_func($callable_callback_function,$files);
+			$files->setFiles();
+			return $this;
+		}
+
+		public function getCurrentField(){
+			return $this->field;
+		}
+		public function getValidatorStatus(){
+			return $this->validate_status;
+		}
+
 		public function setDefaultFieldsAttributes(array $attributes){
 			$this->default_attributes = $attributes;
 			return $this;
@@ -150,6 +197,11 @@
 		}
 		public function setAttribute($attribute_key,$attribute_value){
 			$this->fields_list[$this->field]['attributes'][$attribute_key] = $attribute_value;
+			return $this;
+		}
+
+		public function setDataToFieldList($data_key,$attribute_key,$attribute_value){
+			$this->fields_list[$this->field][$data_key][$attribute_key] = $attribute_value;
 			return $this;
 		}
 
@@ -193,6 +245,7 @@
 		}
 		public function name($field){
 			$this->field = $field;
+			$this->setDefaultAttributes();
 			$this->setAttribute(__FUNCTION__,$this->field);
 			return $this->value($this->field);
 		}
@@ -232,7 +285,7 @@
 			if($callback_function){
 				call_user_func($callback_function,$this);
 			}
-			return $this->mergeAttributes();
+			return $this;
 		}
 
 		public function mergeAttributes(){
@@ -313,7 +366,7 @@
 		public function mask($default="a-zA-Z0-9"){
 			if(!$this->validate_status){ return $this; }
 			if(!$default){ return $this; }
-			preg_match( "([{$default}]+)",$this->value,$result);
+			$this->preg_match( "([{$default}]+)",$this->value,$result);
 			if(isset($result[0]) && fx_equal($result[0],$this->value)){
 				return $this;
 			}
@@ -328,7 +381,7 @@
 		public function email($default=true){
 			if(!$this->validate_status){ return $this; }
 			if(!$default){ return $this; }
-			preg_match("/^[A-Za-zА-Яа-яЁё0-9\.\-\_]+\@[A-Za-zА-Яа-яЁё0-9\.\-\_]+.[A-Za-zА-Яа-яЁё0-9]$/u",$this->value,$result);
+			$this->preg_match("/^[A-Za-zА-Яа-яЁё0-9\.\-\_]+\@[A-Za-zА-Яа-яЁё0-9\.\-\_]+.[A-Za-zА-Яа-яЁё0-9]$/u",$this->value,$result);
 			if(isset($result[0]) && fx_equal($result[0],$this->value)){
 				return $this;
 			}
@@ -438,7 +491,7 @@
 		public function lower_letters($default=true){
 			if(!$this->validate_status){ return $this; }
 			if(!$default){ return $this; }
-			preg_match("#[a-z]#",$this->value,$search);
+			$this->preg_match("#[a-z]#",$this->value,$search);
 			if(!empty($search[0])){
 				return $this;
 			}
@@ -451,7 +504,7 @@
 		public function upper_letters($default=true){
 			if(!$this->validate_status){ return $this; }
 			if(!$default){ return $this; }
-			preg_match("#[A-Z]#",$this->value,$search);
+			$this->preg_match("#[A-Z]#",$this->value,$search);
 			if(!empty($search[0])){
 				return $this;
 			}
@@ -464,7 +517,7 @@
 		public function numeric($default=true){
 			if(!$this->validate_status){ return $this; }
 			if(!$default){ return $this; }
-			preg_match("#[0-9]#",$this->value,$search);
+			$this->preg_match("#[0-9]#",$this->value,$search);
 			if(!empty($search[0])){
 				return $this;
 			}
@@ -477,7 +530,7 @@
 		public function symbols($default=true){
 			if(!$this->validate_status){ return $this; }
 			if(!$default){ return $this; }
-			preg_match("/[\!\@\#\$\%\^\&\*\(\)\_\+\=\-\\]\[\~\`\|\}\{\'\:\"\;\?\/\.\,\<\>]/",$this->value,$search);
+			$this->preg_match("/[\!\@\#\$\%\^\&\*\(\)\_\+\=\-\\]\[\~\`\|\}\{\'\:\"\;\?\/\.\,\<\>]/",$this->value,$search);
 			if(!empty($search[0])){
 				return $this;
 			}
@@ -490,7 +543,7 @@
 		public function lower_cyrillic($default=true){
 			if(!$this->validate_status){ return $this; }
 			if(!$default){ return $this; }
-			preg_match("#([а-яёъэ]+)#u",$this->value,$search);
+			$this->preg_match("#([а-яёъэ]+)#u",$this->value,$search);
 			if(!empty($search[0])){
 				return $this;
 			}
@@ -503,7 +556,7 @@
 		public function upper_cyrillic($default=true){
 			if(!$this->validate_status){ return $this; }
 			if(!$default){ return $this; }
-			preg_match("#([А-ЯЁЪЭ]+)#u",$this->value,$search);
+			$this->preg_match("#([А-ЯЁЪЭ]+)#u",$this->value,$search);
 			if(!empty($search[0])){
 				return $this;
 			}
@@ -519,7 +572,6 @@
 			$this->setAttribute('field_type','hidden');
 			$this->setAttribute('value',fx_csrf());
 			$this->setAttribute('required',true);
-			$this->mergeAttributes();
 			return $this;
 		}
 		protected function checkCSRF(){
@@ -536,8 +588,20 @@
 			$this->validate_status = $status;
 			return $this;
 		}
-
-
+		protected function setDefaultAttributes(){
+			$this->fields_list[$this->field]['attributes'] = $this->default_attributes;
+			return $this;
+		}
+		protected function preg_match($pattern,$subject,&$matches,$flags=0,$offset=0){
+			if(is_array($this->value)){
+				return $this->setError(fx_lang('fields.error_field_not_string', array(
+						'FIELD'	=> $this->field,
+					)
+				));
+			}
+			preg_match($pattern,$subject,$matches,$flags,$offset);
+			return $matches;
+		}
 
 
 

@@ -155,7 +155,7 @@
 				}
 				if($this->countActionArguments($action,$method,$this->params)){
 					if(call_user_func_array(array($action,$method),$this->params)){
-						return true;
+						return $this->response->setResponseCode(200);					// наблюдать.
 					}
 					$this->response->setResponseCode(404);
 					return true;

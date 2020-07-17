@@ -17,11 +17,12 @@
 		public function secondStep(){
 			Database::makeTable('user_groups',function(Create $table){
 				$table->bigint('id')->unsigned()->autoIncrement()->primary();
+
 				$table->varchar('name')->nullable()->unique();
 				$table->tinyint('status')->notNull()->defaults(Kernel::STATUS_ACTIVE);
 				$table->tinyint('default')->notNull()->defaults(0);
+
 				$table->add_timestamps();
-				$table->exec();
 			});
 			return $this;
 		}

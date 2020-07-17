@@ -13,6 +13,7 @@
 	use Core\Classes\Config;
 	use Core\Classes\Language;
 	use Core\Classes\Mail\Interfaces\Mail as MailInterface;
+	use Core\Classes\View;
 	use PHPMailer\PHPMailer\PHPMailer;
 	use PHPMailer\PHPMailer\Exception;
 	use Core\Classes\Error;
@@ -30,7 +31,6 @@
 		private $language;
 		/** @var array */
 		private $errors;
-		private $web_dir;
 		private $user_name;
 		private $user_address;
 
@@ -44,7 +44,6 @@
 
 		public function __construct($config_interface_key='admin'){
 			$this->config_interface = $config_interface_key;
-			$this->web_dir = fx_get_web_dir_name();
 			$this->config = Config::getInstance();
 			$this->mail_params = $this->config->mail[$this->config_interface];
 			$this->language = Language::getInstance();
@@ -98,13 +97,12 @@
 			return $this;
 		}
 		public function html($file,array $data){
-			$file_path = fx_path("{$this->web_dir}/mail/{$file}.html.php");
+			$view = View::getInstance();
+			$web_dir = $view->getSiteDir();
+			$file_path = "{$web_dir}/assets/mail/{$file}.html.php";
 			$result = null;
 			if(is_readable($file_path)){
-				ob_start();
-				extract($data);
-				include($file_path);
-				$result = ob_get_clean();
+				$result = $view->render($file_path,$data);
 			}
 			$result = $this->parseSubject($result);
 			$result = $this->parseAttachments($result);

@@ -63,4 +63,16 @@
 		 * @return Attributes
 		 */
 		public function setAttribute($attribute_key,$attribute_value);
+
+		/**
+		 * @param $value
+		 * @return Attributes
+		 */
+		public function value($value);
+
+		/**
+		 * @param callable $callable_callback_function
+		 * @return Attributes
+		 */
+		public function file(callable $callable_callback_function);
 	}

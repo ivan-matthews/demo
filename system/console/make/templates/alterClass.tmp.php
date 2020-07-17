@@ -30,8 +30,6 @@
 					$table->field('w')->addColumn()->bigint()->unsigned()->notNull()->dropFulltext();
 					$table->field('e')->addColumn()->bigint()->unsigned()->notNull()->dropPrimary();
 					$table->field('r')->addColumn()->bigint()->unsigned()->notNull()->dropUnique();
-
-					$table->exec();
 				*/
 			});
 			return $this;

@@ -16,9 +16,9 @@
 		public function secondStep(){
 			Database::makeTable('migrations',function(Create $table){
 				$table->bigint('id')->unsigned()->autoIncrement()->primary();
+
 				$table->varchar('name')->bin()->unique();
 				$table->timestamp('date_created')->currentTimestamp();
-				$table->exec();
 			});
 			return $this;
 		}

@@ -69,4 +69,9 @@
 		 * @return Validator
 		 */
 		public function getAttribute($field_name,$attribute_key='value');
+//
+//		/**
+//		 * @return Validator
+//		 */
+//		public function getPreparedFiles();
 	}

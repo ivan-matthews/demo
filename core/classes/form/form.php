@@ -5,10 +5,10 @@
 
 		$fields_array = array(
 			array(
-				'name'		=> 'field_name',
-				'type'		=> 'checkbox',
-				'field_type'=> 'checkbox',
-				'id'		=> 'field_name',
+				'name'		=> 'img_field',
+				'type'		=> 'file',
+				'field_type'=> 'image',
+				'id'		=> 'image_field',
 				'required'	=> true,
 				'float'		=> true,
 				'data'		=> array(
@@ -21,7 +21,16 @@
 						'value'	=> 'fd'
 					)
 				),
-				'attr'		=> 'simple'
+				'attr'		=> 'simple',
+				'file'	=> array(
+					'single'	=> true,
+					'accept'	=> array(
+						'type'		=> 'image',
+						'sub_type'	=> array('jpg','gif','pngs')
+					),
+					'max_size' => 1045,
+					'min_size' => 3333333333
+				)
 			),
 			array(
 				'name'		=> 'field_name1',
@@ -88,6 +97,10 @@
 
 		public function checkArrayItemField($field_value){
 			foreach($field_value as $key=>$value){
+				if(fx_equal('file',$key)){
+					$this->checkFiles($value);
+					continue;
+				}
 				if(method_exists($this,$key)){
 					call_user_func_array(array($this,$key),array($value));
 				}else{
@@ -97,6 +110,16 @@
 			return $this;
 		}
 
+		public function checkFiles($files_data){
+			$files = new File($this);
+			foreach($files_data as $key=>$value){
+				if(method_exists($files,$key)){
+					call_user_func_array(array($files,$key),(is_array($value)?$value:array($value)));
+				}
+			}
+			$files->setFiles();
+			return $this;
+		}
 
 
 

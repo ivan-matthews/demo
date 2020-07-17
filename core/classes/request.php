@@ -40,6 +40,7 @@
 		}
 
 		public function setRequestMethod($method){
+			if(!is_string($method)){ $method = ''; }
 			$this->request_method = strtoupper($method);
 		}
 

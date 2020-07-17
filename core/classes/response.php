@@ -40,7 +40,7 @@
 				),
 
 				'controller'		=> array(),
-				'widget'			=> array(),
+				'widgets'			=> array(),
 				'title'				=> array(),
 				'meta'				=> array(),
 				'breadcrumb'		=> array(),
@@ -90,8 +90,8 @@
 
 		}
 
-		public function controller($controller_name){
-			return new Controller(self::getInstance(),$controller_name);
+		public function controller($controller_name,$action='index'){
+			return new Controller(self::getInstance(),$controller_name,$action);
 		}
 
 		public function breadcrumb($breadcrumb){

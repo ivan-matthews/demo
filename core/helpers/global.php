@@ -65,3 +65,15 @@
 		}
 		return null;
 	}
+
+	function fx_get_global($key){
+		if(isset($GLOBALS[$key])){
+			return $GLOBALS[$key];
+		}
+		return null;
+	}
+
+	function fx_set_global($key,$value){
+		$GLOBALS[$key] = $value;
+		return $GLOBALS[$key];
+	}
