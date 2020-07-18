@@ -200,6 +200,9 @@
 			return false;
 		}
 
+		public function getAbsoluteUrl(){
+			return $this->absolute_url;
+		}
 
 
 

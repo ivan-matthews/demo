@@ -69,5 +69,11 @@
 		 * @param callable $callable_or_array
 		 * @return Attributes
 		 */
-		public function file($callable_or_array);
+		public function files($callable_or_array);
+
+		/**
+		 * @param $callback_or_array
+		 * @return Attributes
+		 */
+		public function params($callback_or_array);
 	}

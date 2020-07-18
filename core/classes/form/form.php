@@ -27,7 +27,7 @@
 					)
 				),
 				'attr'		=> 'simple',
-				'file'	=> array(
+				'files'	=> array(
 					'single'	=> true,
 					'accept'	=> array(
 						'type'		=> 'image',

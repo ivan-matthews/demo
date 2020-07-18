@@ -26,7 +26,7 @@
 			->title('field_name_title')
 			->data('field_name_key','field_name_value')
 			->data('id',35)
-			->file(function(Multiple $files){
+			->files(function(Multiple $files){
 				$files->multiple()
 					->accept('image',array('jpg','gif','pngs'))
 					->max_size(1045)
@@ -63,6 +63,8 @@
 		use Core\Classes\Form\Form;
 		use Core\Classes\Form\Interfaces\Form as FormInterface;
 		use Core\Classes\Form\Interfaces\Multiple;
+		use Core\Classes\Request;
+		use Core\Classes\Form\Interfaces\Params;
 
 		$form = Form::getStaticValidatorInterface(function(Validator $validator){
 			$validator->csrf(1)
@@ -75,6 +77,16 @@
 			});
 			$validator->field('img_field')
 				->jevix()
+				->params(function(Params $params){
+					$params->field_sets('sd');
+					$params->show_in_item(false);
+					$params->show_in_form(false);
+					$params->show_in_filter(false);
+					$params->filter('equal');
+					$params->filter_position('main');
+					$params->item_position('main');
+					$params->form_position('main');
+				})
 				->class('class')
 				->title('title')
 				->id('id')
@@ -86,7 +98,7 @@
 				->data('key1','value1')
 				->data('key2','value2')
 				->setAttribute('attr','simple')
-				->file(function(Multiple $file){
+				->files(function(Multiple $file){
 					$file->multiple()
 						->accept('image',array('gif','guf','gaf'))
 						->min_size(2222222221)
@@ -102,19 +114,19 @@
 			$form->getFieldsList(),
 			$form->getErrors(),
 			$form->getFormAttributes(),
-			fx_encode($user->getCSRFToken())
 		));
 	*/
 
 	namespace Core\Classes\Form;
 
+	use Core\Classes\Form\Interfaces\Params;
 	use Core\Classes\Jevix;
 	use Core\Classes\Config;
 	use Core\Classes\Form\Interfaces\Checkers;
 	use Core\Classes\Form\Interfaces\Form;
 	use Core\Classes\Form\Interfaces\Validator as ValidatorInterface;
 
-	class Validator implements ValidatorInterface, Checkers,Form{
+	class Validator implements ValidatorInterface, Checkers, Form, Params{
 
 		const CSRF_TOKEN_EQUAL = 'equal';
 		const CSRF_TOKEN_NOT_FOUND = 'not_found';
@@ -128,6 +140,7 @@
 		protected $errors = array();
 		protected $data = array();
 		protected $fields_list = array();
+
 		protected $default_attributes = array(
 			'placeholder' => null,
 			'field_type' => 'text',
@@ -143,6 +156,21 @@
 			'min' => null,
 			'max' => null,
 			'id' => null,
+			'params'	=> array(
+				'show_in_form'		=> true,
+				'show_in_item'		=> true,
+				'show_in_filter'	=> true,
+				'show_label_in_form'=> true,
+				'show_title_in_form'=> true,
+				'show_validation'	=> true,
+				'field_sets'		=> null,
+				'form_position'		=> null,
+				'filter_position'	=> null,
+				'item_position'		=> null,
+				'filter'			=> null,	// string [ = | != | > | < | <= | >= ]
+				'filter_query'		=> null,
+				'render_type'		=> null,
+			)
 		);
 
 		protected $default_files_attributes = array(
@@ -215,7 +243,7 @@
 			$this->setCSRFAttributes();
 		}
 
-		public function file($callable_or_array){
+		public function files($callable_or_array){
 			$this->setFormEnctype('multipart/form-data');
 			$this->setFormMethod('POST');
 			$this->setAttribute('type','file');
@@ -771,9 +799,77 @@
 			return $this;
 		}
 
+		public function setParams($attribute_key,$attribute_value){
+			$this->fields_list[$this->field]['attributes']['params'][$attribute_key] = $attribute_value;
+			return $this;
+		}
 
+		public function params($callback_or_array){
+			if(is_callable($callback_or_array)){
+				call_user_func($callback_or_array,$this);
+			}
+			if(is_array($callback_or_array)){
+				foreach($callback_or_array as $callable_method => $param){
+					if(method_exists($this,$callable_method)){
+						call_user_func(array($this,$callable_method),$param);
+					}
+				}
+			}
+			return $this;
+		}
 
-
+		public function show_in_form($value){
+			$this->setParams(__FUNCTION__,$value);
+			return $this;
+		}
+		public function show_in_item($value){
+			$this->setParams(__FUNCTION__,$value);
+			return $this;
+		}
+		public function show_in_filter($value){
+			$this->setParams(__FUNCTION__,$value);
+			return $this;
+		}
+		public function field_sets($value){
+			$this->setParams(__FUNCTION__,$value);
+			return $this;
+		}
+		public function form_position($value){
+			$this->setParams(__FUNCTION__,$value);
+			return $this;
+		}
+		public function item_position($value){
+			$this->setParams(__FUNCTION__,$value);
+			return $this;
+		}
+		public function filter($value){
+			$this->setParams(__FUNCTION__,$value);
+			return $this;
+		}
+		public function filter_position($value){
+			$this->setParams(__FUNCTION__,$value);
+			return $this;
+		}
+		public function render_type($value){
+			$this->setParams(__FUNCTION__,$value);
+			return $this;
+		}
+		public function show_label_in_form($value){
+			$this->setParams(__FUNCTION__,$value);
+			return $this;
+		}
+		public function show_title_in_form($value){
+			$this->setParams(__FUNCTION__,$value);
+			return $this;
+		}
+		public function show_validation($value){
+			$this->setParams(__FUNCTION__,$value);
+			return $this;
+		}
+		public function filter_query($value){
+			$this->setParams(__FUNCTION__,$value);
+			return $this;
+		}
 
 
 

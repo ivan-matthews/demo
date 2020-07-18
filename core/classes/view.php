@@ -40,6 +40,7 @@
 
 		public $response;
 		public $config;
+		public $request;
 
 		/**
 		 * @return ViewInterface
@@ -64,6 +65,8 @@
 			$web_dir = fx_get_web_dir_name();
 			$this->config = Config::getInstance();
 			$this->response = Response::getInstance();
+			$this->request =  Request::getInstance();
+
 			$this->web_dir = fx_path($web_dir);
 			$this->site_theme = $this->config->view['site_theme'];
 			$this->theme_path = "/view/{$this->site_theme}";
@@ -108,7 +111,7 @@
 			$response_code = $this->response->getResponseCode();
 			if(file_exists("{$this->site_dir}/assets/errors/{$response_code}.html.php")){
 				$this->content = $this->render("{$this->site_dir}/assets/errors/{$response_code}.html.php",array());
-				$this->error_status = true;
+				$this->error_status = $response_code;
 			}
 			return $this;
 		}
@@ -136,6 +139,10 @@
 		public function includeHomePage(){
 			$home_page = "{$this->site_dir}/main.html.php";
 			return include $home_page;
+		}
+
+		public function path($path){
+			return "{$this->site_dir}/{$path}";
 		}
 
 		public function getSiteDir(){
@@ -282,7 +289,14 @@
 			return print $this->content;
 		}
 
+		public function renderEmptyPage(){
+			print $this->render($this->path('assets/empty_page.html.php'),array());
+		}
+
 		public function printTitle(){
+			if($this->error_status){
+				$this->data['title'] = array(fx_lang('home.error_head') . ' ' . $this->error_status);
+			}
 			$titles = $this->data['title'];
 			$titles = array_reverse($titles);
 			print "<title>";
@@ -316,6 +330,13 @@
 				$meta_tags .= ">" . PHP_EOL;
 			}
 			print $meta_tags;
+			return $this;
+		}
+
+		public function printFavicon(){
+			$this->data['favicon'] = $this->getUploadSiteRoot($this->data['favicon']);
+			print "<link rel=\"icon\" href=\"{$this->data['favicon']}\" type=\"image/x-icon\" />" . PHP_EOL;
+			print "<link rel=\"shortcut icon\" href=\"{$this->data['favicon']}\" type=\"image/x-icon\" />" . PHP_EOL;
 			return $this;
 		}
 

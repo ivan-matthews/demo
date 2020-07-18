@@ -5,7 +5,7 @@
 	use Core\Classes\Database\Database;
 	use Core\Classes\Kernel;
 
-	class InsertHomeRemoveOldSessionsCronTask202005250117171590409037{
+	class InsertCronTasks202006190637391592588259{
 
 		public function firstStep(){
 			Database::insert('cron_tasks')
@@ -18,7 +18,6 @@
 				->value('status',Kernel::STATUS_ACTIVE)
 				->value('options',array())
 				->get();
-			return $this;
 		}
 
 

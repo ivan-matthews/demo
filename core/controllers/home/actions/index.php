@@ -36,9 +36,6 @@
 		/** @var Hooks */
 		public $hook;
 
-		/** @var array */
-		private $index;
-
 		public $called_class_object;
 
 		/** @return $this */
@@ -49,18 +46,6 @@
 			return self::$instance;
 		}
 
-		public function __get($key){
-			if(isset($this->index[$key])){
-				return $this->index[$key];
-			}
-			return false;
-		}
-
-		public function __set($name, $value){
-			$this->index[$name] = $value;
-			return $this->index[$name];
-		}
-
 		public function __construct(){
 			parent::__construct();
 
@@ -69,10 +54,6 @@
 				->setValue(fx_lang('home.breadcrumb_index_page'))
 				->setLink(fx_get_url('home','index'))
 				->setIcon(null);
-		}
-
-		public function __destruct(){
-
 		}
 
 		public function methodGet(){
@@ -86,63 +67,7 @@
 				),array($this->config->another_controller['params']));
 			}
 
-			$this->response->controller('home')
-				->set('var','someone')
-				->set('var1','this')
-				->set('var2','is')
-				->set('var3','not')
-				->set('var4','somebody');
-			$this->response->controller('home','some')
-				->set('var','someone')
-				->set('var1','this')
-				->set('var2','is')
-				->set('var3','not')
-				->set('var4','somebody');
-			$this->response->controller('some','item')
-				->set('var','someone')
-				->set('var1','this')
-				->set('var2','is')
-				->set('var3','not')
-				->set('var4','somebody');
-			$this->response->controller('home','outhem')
-				->set('var','someone')
-				->set('var1','this')
-				->set('var2','is')
-				->set('var3','not')
-				->set('var4','somebody');
 			return true;
-		}
-
-		public function methodPost(){
-			return false;
-		}
-
-		public function methodPut(){
-			return false;
-		}
-
-		public function methodHead(){
-			return false;
-		}
-
-		public function methodTrace(){
-			return false;
-		}
-
-		public function methodPatch(){
-			return false;
-		}
-
-		public function methodOptions(){
-			return false;
-		}
-
-		public function methodConnect(){
-			return false;
-		}
-
-		public function methodDelete(){
-			return false;
 		}
 
 

@@ -6,11 +6,25 @@
 	use Core\Classes\View;
 	use Core\Classes\Language;
 
-	$this->prependCSS("{$this->theme_path}/css/index",TIME);
-	$this->prependJS("{$this->theme_path}/js/index",TIME);
-	$this->appendJS("{$this->theme_path}/js/main",TIME);
-	$this->appendCSS("{$this->theme_path}/css/main",TIME);
-	$this->addJS("{$this->theme_path}/js/libs/jquery");
+	define('THEME_POSITIONS',array(
+		'header'			=> true,
+		'sidebar'			=> true,
+		'body_header'		=> true,
+		'before_content'	=> true,
+		'after_content'		=> true,
+		'body_footer'		=> true,
+		'footer'			=> true,
+	));
+
+	$this->addCSS("{$this->theme_path}/css/libs/bootstrap",TIME);
+	$this->addCSS("{$this->theme_path}/css/libs/fontawesome",TIME);
+
+	$this->addJS("{$this->theme_path}/js/libs/jquery",TIME);
+
+	$this->addCSS("{$this->theme_path}/css/index",TIME);
+	$this->addCSS("{$this->theme_path}/css/main",TIME);
+	$this->addJS("{$this->theme_path}/js/index",TIME);
+	$this->addJS("{$this->theme_path}/js/main",TIME);
 
 	$language = Language::getInstance();
 	$lang_key = $language->getLanguageKey();
@@ -21,11 +35,10 @@
 
 	<head>
 
-		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
 		<?php $this->printTitle() ?>
 
 		<?php $this->printMeta() ?>
+		<?php $this->printFavicon() ?>
 
 		<?php $this->renderCssFiles() ?>
 		<?php $this->renderJsFiles() ?>
@@ -64,11 +77,15 @@
 
 					<div class="main-content">
 
+						<?php $this->widget('before_content') ?>
+
 						<?php if($this->isContent()){ ?>
 
 							<?php $this->printContent() ?>
 
 						<?php } ?>
+
+						<?php $this->widget('after_content') ?>
 
 					</div>
 
@@ -93,12 +110,17 @@
 			</div>
 
 		</footer>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd" crossorigin="anonymous"></script>
-		<script src="https://kit.fontawesome.com/840d7517f0.js" crossorigin="anonymous"></script>
+<!--		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>-->
+<!--		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd" crossorigin="anonymous"></script>-->
+<!--		<script src="https://kit.fontawesome.com/840d7517f0.js" crossorigin="anonymous"></script>-->
 
+		<?php
+			$this->addJS("{$this->theme_path}/js/libs/fontawesome",TIME);
+			$this->addJS("{$this->theme_path}/js/libs/bootstrap",TIME);
+		?>
 		<?php $this->renderCssFiles() ?>
 		<?php $this->renderJsFiles() ?>
+
 	</body>
 </html>
 

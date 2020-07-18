@@ -15,6 +15,7 @@
 	 * @method static Session_Message _sessionMessage($message)
 	 * @method static Error _error($backtrace_key=2)
 	 * @method static Debug _debug($debug_key,$backtrace_key=2)
+	 * @method static Response _favicon($icon)
 	 */
 	class Response{
 
@@ -38,6 +39,7 @@
 				'meta'				=> array(),
 				'breadcrumb'		=> array(),
 				'session_message'	=> array(),
+				'favicon'			=> '',
 			),
 			'errors'			=> array(),
 			'debug'				=> array(),
@@ -180,6 +182,11 @@
 			@header("HTTP/2 {$this->response_data['response_data']['headers']['response_status']}");
 			@header("Status: {$this->response_data['response_data']['headers']['response_status']}");
 			@http_response_code($this->response_data['response_data']['headers']['response_code']);
+			return $this;
+		}
+
+		public function favicon($icon){
+			$this->response_data['response_data']['favicon'] = $icon;
 			return $this;
 		}
 

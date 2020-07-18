@@ -13,7 +13,7 @@
 	class DB_Class extends Console{
 
 		private $database;
-		private $database_connect_path="core/database/connect";
+		private $database_connect_path="core/classes/database/connect";
 
 		private $database_tmp_file;
 		private $database_tmp_data;

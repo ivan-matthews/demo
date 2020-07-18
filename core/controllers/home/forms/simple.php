@@ -57,7 +57,8 @@
 				$form->setFormName($this->form_name);
 				$form->setFormAction(fx_get_url('home','index'));
 			});
-			$this->validator_interface->field('field')->jevix(true)
+			$this->validator_interface->field('field')
+				->jevix(true)
 				->class('class')
 				->id('id')
 				->title('title')

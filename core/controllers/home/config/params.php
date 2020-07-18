@@ -15,7 +15,7 @@
 				'groups_disabled'	=> array(),
 			),
 		),
-		'just_widgets'	=> false,
+		'just_widgets'	=> Kernel::STATUS_INACTIVE,
 		'another_controller'	=> array(
 			'class'		=> '',
 			'method'	=> 'methodGet',

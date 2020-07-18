@@ -4,6 +4,16 @@
 
 	use Core\Classes\Kernel;
 
+	/**
+	 * Class Config
+	 * @package Core\Controllers\Home
+	 * @property array $just_widgets
+	 * @property boolean $status
+	 * @property string $controller_name
+	 * @property array $controller
+	 * @property array $actions
+	 * @property array $another_controller
+	 */
 	class Config{
 
 		/** @var $this */

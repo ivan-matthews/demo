@@ -4,6 +4,14 @@
 
 	use Core\Classes\Kernel;
 
+	/**
+	 * Class Config
+	 * @package Core\Controllers\__controller_namespace__
+	 * @property boolean $status
+	 * @property string $controller_name
+	 * @property array $controller
+	 * @property array $actions
+	 */
 	class Config{
 
 		/** @var $this */

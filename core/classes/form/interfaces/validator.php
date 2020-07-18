@@ -75,4 +75,12 @@
 		 * @return Validator
 		 */
 		public function getAttribute($field_name,$attribute_key='value');
+
+		/**
+		 * @param $attribute_key
+		 * @param $attribute_value
+		 * @return Validator
+		 */
+		public function setParams($attribute_key,$attribute_value);
+
 	}
