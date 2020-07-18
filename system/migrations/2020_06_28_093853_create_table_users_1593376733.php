@@ -52,10 +52,10 @@
 				$table->longtext('citates')->nullable();
 				$table->longtext('about')->nullable();
 
-				$table->bigint('date_log')->nullable();
-				$table->varchar('log_type')->defaults('w');
-
 				$table->smallint('status',1)->notNull()->defaults(Kernel::STATUS_LOCKED);
+
+				$table->varchar('log_type')->defaults('w');
+				$table->bigint('date_log')->nullable();
 
 				$table->add_timestamps();
 			});

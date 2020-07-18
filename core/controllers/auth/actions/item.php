@@ -40,6 +40,8 @@
 
 		public $user_data;
 
+		private $breadcrumb;
+
 		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -51,16 +53,19 @@
 		public function __construct(){
 			parent::__construct();
 			$this->response->title('auth.title_auth_bookmark');
-			$this->dontSetBackLink();
+			$this->breadcrumb = $this->response->breadcrumb('bookmark')
+				->setValue('auth.title_auth_bookmark')
+				->setIcon(null);
 		}
 
 		public function methodGet($bookmark){
+
 			$this->bookmark = $bookmark;
-			$this->response->breadcrumb('bookmark')
-				->setValue('auth.title_auth_bookmark')
-				->setLink('auth','item',$this->bookmark)
-				->setIcon(null);
+
+			$this->breadcrumb->setLink('auth','item',$this->bookmark);
+
 			$this->user_data = $this->model->getUserByBookmark($bookmark);
+
 			if($this->user_data){
 				$this->user_data['groups'] = fx_arr($this->user_data['groups']);
 				$this->user->escape();

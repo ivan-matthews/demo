@@ -34,6 +34,7 @@
 		public $errors;
 		public $debug;
 		public $content;
+		public $mail;
 
 		public $site_root;
 		public $theme_path;
@@ -135,6 +136,13 @@
 			ob_start();
 			extract($data);
 			include $file_path;
+			return ob_get_clean();
+		}
+
+		public function renderMail($file_path,array $data){
+			$this->mail = $this->render($file_path,$data);
+			ob_start();
+			include $this->path('assets/mail/email_main_template.html.php');
 			return ob_get_clean();
 		}
 

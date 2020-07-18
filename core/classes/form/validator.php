@@ -418,7 +418,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.field_has_attr_required', array(
-					'FIELD_NAME'	=> $this->label
+					'%field%'	=> $this->label
 				)
 			));
 			return $this;
@@ -436,8 +436,8 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_min_length', array(
-					'FIELD'	=> $this->label,
-					'COUNT'	=> $default,
+					'%field%'	=> $this->label,
+					'%count%'	=> $default,
 				)
 			));
 			return $this;
@@ -450,8 +450,8 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_max_length', array(
-					'FIELD'	=> $this->label,
-					'COUNT'	=> $default,
+					'%field%'	=> $this->label,
+					'%count%'	=> $default,
 				)
 			));
 			return $this;
@@ -464,8 +464,8 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_min_length', array(
-					'FIELD'	=> $this->label,
-					'COUNT'	=> $default,
+					'%field%'	=> $this->label,
+					'%count%'	=> $default,
 				)
 			));
 			return $this;
@@ -478,8 +478,8 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_max_length', array(
-					'FIELD'	=> $this->label,
-					'COUNT'	=> $default,
+					'%field%'	=> $this->label,
+					'%count%'	=> $default,
 				)
 			));
 			return $this;
@@ -493,8 +493,8 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_mask', array(
-					'FIELD'	=> $this->label,
-					'MASK'	=> $default,
+					'%field%'	=> $this->label,
+					'%mask%'	=> $default,
 				)
 			));
 			return $this;
@@ -508,7 +508,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_email', array(
-					'FIELD'	=> $this->label,
+					'%field%'	=> $this->label,
 				)
 			));
 			return $this;
@@ -521,7 +521,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_boolean',array(
-				'FIELD'	=> $this->label,
+				'%field%'	=> $this->label,
 			)));
 			return $this;
 		}
@@ -533,7 +533,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_domain',array(
-				'FIELD'	=> $this->label,
+				'%field%'	=> $this->label,
 			)));
 			return $this;
 		}
@@ -545,7 +545,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_float',array(
-				'FIELD'	=> $this->label,
+				'%field%'	=> $this->label,
 			)));
 			return $this;
 		}
@@ -557,7 +557,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_int',array(
-				'FIELD'	=> $this->label,
+				'%field%'	=> $this->label,
 			)));
 			return $this;
 		}
@@ -569,7 +569,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_ip',array(
-				'FIELD'	=> $this->label,
+				'%field%'	=> $this->label,
 			)));
 			return $this;
 		}
@@ -581,7 +581,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_mac',array(
-				'FIELD'	=> $this->label,
+				'%field%'	=> $this->label,
 			)));
 			return $this;
 		}
@@ -593,7 +593,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_regexp',array(
-				'FIELD'	=> $this->label,
+				'%field%'	=> $this->label,
 			)));
 			return $this;
 		}
@@ -605,7 +605,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_url',array(
-				'FIELD'	=> $this->label,
+				'%field%'	=> $this->label,
 			)));
 			return $this;
 		}
@@ -618,7 +618,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_lower_letters',array(
-				'FIELD'	=> $this->label,
+				'%field%'	=> $this->label,
 			)));
 			return $this;
 		}
@@ -631,7 +631,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_upper_letters',array(
-				'FIELD'	=> $this->label,
+				'%field%'	=> $this->label,
 			)));
 			return $this;
 		}
@@ -644,7 +644,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_numeric',array(
-				'FIELD'	=> $this->label,
+				'%field%'	=> $this->label,
 			)));
 			return $this;
 		}
@@ -657,8 +657,8 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_symbols',array(
-				'FIELD'		=> $this->label,
-				'PATTERN'	=> stripslashes($default),
+				'%field%'	=> $this->label,
+				'%pattern%'	=> stripslashes($default),
 			)));
 			return $this;
 		}
@@ -671,7 +671,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_lower_cyrillic',array(
-				'FIELD'	=> $this->label,
+				'%field%'	=> $this->label,
 			)));
 			return $this;
 		}
@@ -684,7 +684,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_upper_cyrillic',array(
-				'FIELD'	=> $this->label,
+				'%field%'	=> $this->label,
 			)));
 			return $this;
 		}
@@ -722,7 +722,7 @@
 		protected function preg_match($pattern,$subject,&$matches,$flags=0,$offset=0){
 			if(!is_string($this->value)){
 				return $this->setError(fx_lang('fields.error_field_not_string', array(
-						'FIELD'	=> $this->label,
+						'%field%'	=> $this->label,
 					)
 				),$this->field);
 			}

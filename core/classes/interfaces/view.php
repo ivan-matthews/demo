@@ -32,6 +32,12 @@
 		public function render($file_path,array $data);
 
 		/**
+		 * @param $file_path
+		 * @param array $data
+		 * @return View
+		 */
+		public function renderMail($file_path,array $data);
+		/**
 		 * @return View
 		 */
 		public function includeHomePage();

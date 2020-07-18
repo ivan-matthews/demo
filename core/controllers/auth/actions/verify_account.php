@@ -51,7 +51,6 @@
 
 		public function __construct(){
 			parent::__construct();
-			$this->dontSetBackLink();
 		}
 
 		public function methodGet($verify_token){

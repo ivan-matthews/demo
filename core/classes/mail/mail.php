@@ -101,7 +101,7 @@
 			$file_path = $view->path("assets/mail/{$file}.html.php");
 			$result = null;
 			if(is_readable($file_path)){
-				$result = $view->render($file_path,$data);
+				$result = $view->renderMail($file_path,$data);
 			}
 			$result = $this->parseSubject($result);
 			$result = $this->parseAttachments($result);

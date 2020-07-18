@@ -9,7 +9,7 @@
 			if(!$default){ return $this; }
 			if(empty($this->value)){
 				$this->setError(fx_lang('fields.field_has_attr_required', array(
-						'FIELD_NAME'	=> $this->field_name
+						'%field%'	=> $this->field_name
 					)
 				));
 			}
@@ -22,8 +22,8 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_min_length', array(
-					'FIELD'	=> $this->field_name,
-					'COUNT'	=> $default,
+					'%field%'	=> $this->field_name,
+					'%count%'	=> $default,
 				)
 			));
 			return $this;
@@ -35,8 +35,8 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_max_length', array(
-					'FIELD'	=> $this->field_name,
-					'COUNT'	=> $default,
+					'%field%'	=> $this->field_name,
+					'%count%'	=> $default,
 				)
 			));
 			return $this;
@@ -49,7 +49,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_email', array(
-					'FIELD'	=> $this->field_name,
+					'%field%'	=> $this->field_name,
 				)
 			));
 			return $this;
@@ -71,7 +71,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_numeric',array(
-				'FIELD'	=> $this->field_name,
+				'%field%'	=> $this->field_name,
 			)));
 			return $this;
 		}
@@ -82,7 +82,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_int',array(
-				'FIELD'	=> $this->field_name,
+				'%field%'	=> $this->field_name,
 			)));
 			return $this;
 		}
@@ -93,7 +93,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_ip',array(
-				'FIELD'	=> $this->field_name,
+				'%field%'	=> $this->field_name,
 			)));
 			return $this;
 		}
@@ -104,7 +104,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_mac',array(
-				'FIELD'	=> $this->field_name,
+				'%field%'	=> $this->field_name,
 			)));
 			return $this;
 		}
@@ -115,7 +115,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_boolean',array(
-				'FIELD'	=> $this->field_name,
+				'%field%'	=> $this->field_name,
 			)));
 			return $this;
 		}
@@ -126,7 +126,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_domain',array(
-				'FIELD'	=> $this->field_name,
+				'%field%'	=> $this->field_name,
 			)));
 			return $this;
 		}
@@ -137,7 +137,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_float',array(
-				'FIELD'	=> $this->field_name,
+				'%field%'	=> $this->field_name,
 			)));
 			return $this;
 		}
@@ -149,7 +149,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_regexp',array(
-				'FIELD'	=> $this->field_name,
+				'%field%'	=> $this->field_name,
 			)));
 			return $this;
 		}
@@ -160,7 +160,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_url',array(
-				'FIELD'	=> $this->field_name,
+				'%field%'	=> $this->field_name,
 			)));
 			return $this;
 		}
@@ -172,7 +172,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_lower_letters',array(
-				'FIELD'	=> $this->field_name,
+				'%field%'	=> $this->field_name,
 			)));
 			return $this;
 		}
@@ -184,7 +184,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_upper_letters',array(
-				'FIELD'	=> $this->field_name,
+				'%field%'	=> $this->field_name,
 			)));
 			return $this;
 		}
@@ -196,8 +196,8 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_symbols',array(
-				'FIELD'		=> $this->field_name,
-				'PATTERN'	=> stripslashes($default),
+				'%field%'		=> $this->field_name,
+				'%pattern%'	=> stripslashes($default),
 			)));
 			return $this;
 		}
@@ -209,7 +209,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_lower_cyrillic',array(
-				'FIELD'	=> $this->field_name,
+				'%field%'	=> $this->field_name,
 			)));
 			return $this;
 		}
@@ -221,7 +221,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_upper_cyrillic',array(
-				'FIELD'	=> $this->field_name,
+				'%field%'	=> $this->field_name,
 			)));
 			return $this;
 		}

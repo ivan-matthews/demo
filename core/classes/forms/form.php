@@ -274,7 +274,7 @@
 		protected function preg_match($pattern,$subject,&$matches,$flags=0,$offset=0){
 			if(!is_string($this->value)){
 				return $this->setError(fx_lang('fields.error_field_not_string', array(
-						'FIELD'	=> $this->field_name,
+						'%field%'	=> $this->field_name,
 					)
 				));
 			}

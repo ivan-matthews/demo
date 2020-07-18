@@ -6,7 +6,6 @@
 	 * @var string $login
 	 * @var string $password
 	 * @var string $bookmark
-	 * @var string $token
 	 * @var string $id
 	 */
 
@@ -25,23 +24,12 @@
 					<td>
 						<h4 style="text-align: center;">
 							<?php print fx_lang('auth.thanks_for_registration',array(
-								'%site_link%'	=> $link_prefix . fx_get_url('auth','verify_account',$token),
+								'%site_link%'	=> $link_prefix . fx_get_url('users','item',$id),
 								'%site_name%'	=> $this->config->core['site_name']
 							)) ?>
 						</h4>
 					</td>
 				</tr>
-				<tr>
-					<td><?php print fx_lang('auth.for_confirm_mail_box') ?>,</td>
-				</tr>
-				<tr>
-					<td>
-						<?php print fx_lang('auth.follow_by_link',array(
-							'%link%'	=> $link_prefix . fx_get_url('auth','verify_account',$token)
-						)) ?>
-					</td>
-				</tr>
-
 				<tr>
 					<td>
 						<hr>

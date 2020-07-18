@@ -32,7 +32,7 @@
 		'enter_captcha_value_placeholder'	=> 'Введите проверочное слово с картинки',
 
 		'user_blocked'			=> 'Пользователь "%user_full_name%" заблокирован!',
-		'user_not_found'		=> 'Пользователь с логином "%user_login%" не найден!',
+		'user_not_found'		=> 'Пользователь с логином "<strong>%user_login%</strong>" не найден!',
 		'passwords_not_equal'	=> 'Пароль "%input_password%" не совпадает с паролем учетной записи!',
 
 		'title_resend_email'	=> 'Повторная отправка e-mail',
@@ -58,13 +58,27 @@
 		'bookmark'					=> 'Закладка',
 		'successful_registration_title'	=> 'Отлично! Регистрация закончилась благополучно!',
 		'successful_registration_value'	=> 'На Ваш e-mail "<strong>%user_email%</strong>", было отправлено письмо. 
-Ознакомьтесь с содержимым и следуйте инструкциям. 
-Если сообщение так и не пришло, попробуйте <a class="sess-message-link" href="%resend_link%">отправить повторно</a>. 
-<br><br>PS: Проверьте папку <strong>СПАМ</strong>, возможно оно по-ошибке попало туда ;)',
+			Ознакомьтесь с содержимым и следуйте инструкциям. 
+			Если сообщение так и не пришло, попробуйте <a class="sess-message-link" href="%resend_link%">отправить повторно</a>. 
+			<br><br>PS: Проверьте папку <strong>СПАМ</strong>, возможно оно по-ошибке попало туда ;)',
+
+		'successful_restore_password_title'	=> 'Отлично! Восстановление пароля и активация аккаунта закончились благополучно!',
+		'successful_restore_password_value'	=> 'На Ваш e-mail "<strong>%user_email%</strong>", было отправлено письмо. 
+			Ознакомьтесь с содержимым и следуйте инструкциям. 
+			Если сообщение так и не пришло, проверьте папку <strong>СПАМ</strong>, возможно оно по-ошибке попало туда ;)',
+
 		'email_resending_successful'	=> 'Сообщение успешно отправлено на почтовый ящик "<strong>%email%</strong>"!<br> 
-Если сообщение не пришло, проверьте папку "<strong>СПАМ</strong>", вожможно оно ошибочно попало туда.',
+			Если сообщение не пришло, проверьте папку "<strong>СПАМ</strong>", вожможно оно ошибочно попало туда.',
 		'title_auth_bookmark'	=> 'Закладки',
 		'title_auth_verify_account'	=> 'Подтверждение E-MAIL',
 		'email_verification_successful_title'	=> 'Привет %user_full_name%!',
 		'email_verification_successful_body'	=> 'Ваш почтовый ящик <strong>%mail_box%</strong> успешно подтвержден!',
+		'title_restore_password'	=> 'Восстановление пароля',
+		'restore_password_value'	=> 'Вами, или кем-то другим, была запрошена страница по восстановлению пароля на сайте <a href="%site_link%">%site_name%</a>!',
+		'restore_password_link_head'	=> 'Ссылка на восстановление',
+		'restore_password_warning'	=> 'Внимание!',
+		'restore_password_warning_description'	=> 'Если Вы не запрашивали восстановление пароля, проигнорируйте или удалите это письмо!',
+		'restore_password_mail_send_successful'	=> 'Сообщение с информацией по восстановлению пароля было успешно отправлено на почтовый ящик <strong>%email%</strong>!<br>
+			Ознакомьтесь с содержимим внутри письма и следуйте инструкциям, указаным в нем!',
+		'title_restore_password_confirm'	=> 'Восстановление пароля',
 	);

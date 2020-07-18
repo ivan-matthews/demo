@@ -61,7 +61,6 @@
 				->setValue('auth.title_index_action')
 				->setLink('auth')
 				->setIcon(null);
-			$this->dontSetBackLink();
 		}
 
 		public function methodGet(){

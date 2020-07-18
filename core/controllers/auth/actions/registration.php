@@ -62,7 +62,6 @@
 				->setValue('auth.title_registration_action')
 				->setLink('auth','registration')
 				->setIcon(null);
-			$this->dontSetBackLink();
 		}
 
 		public function methodGet(){
@@ -106,7 +105,10 @@
 				if($this->user_id){
 					$this->user_data = $this->model->getAuthDataByUserId($this->user_id);
 					$this->user_data['groups']	= fx_arr($this->user_data['groups']);
+
+					$this->user->escape();
 					$this->user->auth($this->user_data,true);
+
 					return $this->redirect();
 				}
 			}

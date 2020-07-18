@@ -25,12 +25,14 @@
 
 				$table->varchar('bookmark')->bin()->unique();
 				$table->varchar('verify_token')->bin()->unique();
-				$table->varchar('restore_token')->bin()->unique();
-
-				$table->bigint('date_restore')->nullable();
-				$table->bigint('date_activate')->nullable();
+				$table->varchar('restore_login_token')->bin()->unique();
+				$table->varchar('restore_password_token')->bin()->unique();
 
 				$table->smallint('status',1)->notNull()->defaults(Kernel::STATUS_LOCKED);
+
+				$table->bigint('date_login_restore')->nullable();
+				$table->bigint('date_password_restore')->nullable();
+				$table->bigint('date_activate')->nullable();
 
 				$table->add_timestamps();
 			});

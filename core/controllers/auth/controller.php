@@ -66,6 +66,7 @@
 				->setValue('auth.title_auth_controller')
 				->setLink('auth')
 				->setIcon(null);
+			$this->dontSetBackLink();
 		}
 
 		public function sendRegisterEmail(array $input_data){

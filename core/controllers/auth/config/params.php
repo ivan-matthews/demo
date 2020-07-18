@@ -13,7 +13,7 @@
 		),
 		'actions'		=> array(
 			'index'				=> array(
-				'enable_captcha'	=> false,
+				'enable_captcha'	=> true,
 				'groups_enabled'	=> array(0),
 				'groups_disabled'	=> array(),
 			),
@@ -26,7 +26,7 @@
 				'groups_disabled'	=> array(0),
 			),
 			'registration'		=> array(
-				'enable_captcha'	=> false,
+				'enable_captcha'	=> true,
 				'groups_enabled'	=> array(0),
 				'groups_disabled'	=> array(),
 			),
@@ -36,10 +36,12 @@
 				'groups_disabled'	=> array(0),
 			),
 			'restore_password'	=> array(
+				'enable_captcha'	=> true,
 				'groups_enabled'	=> array(0),
 				'groups_disabled'	=> array(),
 			),
 			'restore_password_confirm'	=> array(
+				'enable_captcha'	=> true,
 				'groups_enabled'	=> array(0),
 				'groups_disabled'	=> array(),
 			),

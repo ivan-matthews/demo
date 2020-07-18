@@ -50,8 +50,8 @@
 				}
 			}
 			$this->setError($this->current_field,fx_lang('fields.file_mime_type_not_allowed',array(
-				'USING_TYPES'	=> strtoupper(implode(',',$subtypes)),
-				'FILE_TYPE'		=> strtoupper($file_mime_type_array[1])
+				'%types%'	=> strtoupper(implode(',',$subtypes)),
+				'%type%'	=> strtoupper($file_mime_type_array[1])
 			)));
 			return $this;
 		}
@@ -61,7 +61,7 @@
 				return $this;
 			}
 			return $this->setError($this->current_field,fx_lang('fields.file_min_size_shortage',array(
-				'MIN_SIZE'	=> fx_prepare_memory($default_size),
+				'%size%'	=> fx_prepare_memory($default_size),
 			)));
 		}
 
@@ -70,7 +70,7 @@
 				return $this;
 			}
 			$this->setError($this->current_field,fx_lang('fields.file_max_size_exceeded',array(
-				'MAX_SIZE'	=> fx_prepare_memory($default_size),
+				'%size%'	=> fx_prepare_memory($default_size),
 			)));
 			return $this;
 		}
@@ -88,8 +88,8 @@
 			}
 			if($error){
 				$this->setError($this->current_field,fx_lang('fields.file_mime_type_not_allowed',array(
-					'USING_TYPES'	=> strtoupper(implode(',',$subtypes)),
-					'FILE_TYPE'		=> strtoupper($file_mime_type_array[1])
+					'%types%'	=> strtoupper(implode(',',$subtypes)),
+					'%type%'	=> strtoupper($file_mime_type_array[1])
 				)));
 			}
 			return $this;
@@ -104,7 +104,7 @@
 			}
 			if($error){
 				$this->setError($this->current_field,fx_lang('fields.file_min_size_shortage',array(
-					'MIN_SIZE'	=> fx_prepare_memory($default_size),
+					'%size%'	=> fx_prepare_memory($default_size),
 				)));
 			}
 			return $this;
@@ -119,7 +119,7 @@
 			}
 			if($error){
 				$this->setError($this->current_field,fx_lang('fields.file_max_size_exceeded',array(
-					'MAX_SIZE'	=> fx_prepare_memory($default_size),
+					'%size%'	=> fx_prepare_memory($default_size),
 				)));
 			}
 			return $this;
@@ -173,7 +173,7 @@
 		private function setFilesErrors(){
 			if($this->errors){
 				$this->validator->setError(fx_lang('fields.file_someone_error_detected',array(
-					'ERROR_MESSAGE' => implode(', ',$this->errors)
+					'%error%' => implode(', ',$this->errors)
 				)));
 			}
 			return $this;
