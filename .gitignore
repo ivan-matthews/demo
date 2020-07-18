@@ -4,6 +4,5 @@ composer.lock
 /system/cache/logs
 /system/cache/static
 /system/cache/trash
-/system/config
 /vendor
 .idea
