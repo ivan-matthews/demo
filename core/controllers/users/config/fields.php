@@ -31,6 +31,7 @@
 			'field'	=> 'u_full_name',
 			'placeholder'	=> fx_lang('users.full_name_placeholder'),
 			'params'	=> array(
+				'filter_validation'	=> 'LIKE',
 				'filter_position'=> 'visible',
 				'field_sets'	=> 'field_set_name',
 				'item_position'	=> 'visible',

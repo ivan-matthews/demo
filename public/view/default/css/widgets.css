@@ -40,3 +40,43 @@
   position: absolute;
   font-weight: 600;
 }
+.user-info-widget .body a.user-info-link {
+  position: relative;
+  padding: 7px 20px;
+}
+.user-info-widget .body a.user-info-link i,
+.user-info-widget .body a.user-info-link svg {
+  font-size: 25px;
+  color: #FFFFFF;
+}
+.user-info-widget .body a.user-info-link:hover {
+  background: none;
+  opacity: 0.8;
+}
+.user-info-widget .body a.user-info-link img {
+  max-width: 24px;
+}
+.user-info-widget .body .count {
+  position: absolute;
+  top: 0;
+  color: #FFFFFF;
+  background-color: #dc3545;
+  padding: 0 6px;
+  font-weight: bold;
+}
+.user-info-widget .body .dropdown-menu .dropdown-item {
+  padding: 8px 25px;
+}
+.user-info-widget .body .dropdown-menu .dropdown-item img {
+  padding-right: 10px;
+}
+.user-info-widget .body .dropdown-menu .dropdown-item .icon {
+  padding-right: 10px;
+}
+.user-info-widget .body .dropdown-menu a.dropdown-divider {
+  height: 0;
+  margin: 0.5rem 0;
+  overflow: hidden;
+  border-top: 1px solid #e9ecef;
+  padding: 0;
+}

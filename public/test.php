@@ -43,6 +43,9 @@
 			->value('a_bookmark',fx_encode($login.'Qwerty12345^'))
 			->value('a_date_activate',time())
 			->value('a_status',Kernel::STATUS_ACTIVE)
+			->value('a_verify_token',trim(base64_encode(fx_encode($login.$login.'Qwerty12345^')),'='))
+			->value('a_date_created',time())
+			->update('a_date_updated',time())
 			->get()
 			->id();
 		$online_time = 900+time();
@@ -60,7 +63,7 @@
 			->value('u_birth_month',rand(1,12))
 			->value('u_birth_year',rand(1900,2010))
 			->value('u_phone','+2123433245324')
-			->value('u_famiy',rand(1,5))
+			->value('u_family',rand(1,5))
 			->value('u_cophone','+24234325223324')
 			->value('u_email',$login)
 			->value('u_icq','321443575')

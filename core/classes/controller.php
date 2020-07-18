@@ -4,40 +4,73 @@
 
 	use Core\Classes\Form\Form;
 	use Core\Classes\Response\Response;
+	use Core\Classes\Form\Interfaces\Form as FormInterface;
 	use Core\Widgets\Filter;
 	use Core\Widgets\Paginate;
 	use Core\Widgets\Sorting_Panel;
-	use Core\Classes\Form\Interfaces\Form as FormInterface;
 
 	class Controller{
 
 		private static $instance;
 
+		/** @var Config  */
 		public $config;
+
+		/** @var Response  */
 		public $response;
+
+		/** @var Session  */
 		public $session;
+
+		/** @var Interfaces\Request */
 		public $request;
+
+		/** @var User  */
 		public $user;
+
+		/** @var Interfaces\Hooks  */
 		public $hook;
 
+		/** @var string */
 		public $query;
+
+		/** @var array */
 		public $replaced_data = array();
+
+		/** @var int */
 		public $limit	= 15;
+
+		/** @var int */
 		public $offset	= 0;
+
+		/** @var int */
 		public $total	= 0;
+
+		/** @var string */
 		public $order	= 'id';
 
+		/** @var string  */
 		public $sort	= 'ASC';
+
+		/** @var string */
 		public $sort_key='dn';
+
+		/** @var string */
 		protected $sorting_action='all';
+
+		/** @var array */
 		public $sorting = array(
 			'up'	=> 'DESC',
 			'dn'	=> 'ASC',
 		);
 
+		/** @var array */
 		public $fields_list;
+
+		/** @var object */
 		public $form;
 
+		/** @var array */
 		private $controller;
 
 		public static function getInstance(){
@@ -72,6 +105,11 @@
 
 		}
 
+		/**
+		 * Установка дефолтных параметров для HTML-шаблона
+		 *
+		 * @return $this
+		 */
 		protected function setDefaultData(){
 			$this->response->title($this->config->core['site_name']);
 			$this->response->breadcrumb('main_breadcrumb')
@@ -87,13 +125,30 @@
 			return $this;
 		}
 
-		protected function getSort($sorting_action,$sort){
+		/**
+		 * Установка свойств для сортировки
+		 * $sorting_action - подставляется из файла параметров контроллера;
+		 * $sort [dn,up] - dn - DESC; up - ASC;
+		 *
+		 * @param $sorting_action
+		 * @param $sort
+		 * @return $this
+		 */
+		protected function setSortingProps($sorting_action,$sort){
 			$this->sorting_action = $sorting_action;
 			$this->sort_key = $sort ?: $this->sort_key;
 			$this->sort = isset($this->sorting[$sort]) ? $this->sorting[$sort] : 'ASC';
 			return $this;
 		}
 
+		/**
+		 * установить ссылку для редиректа;
+		 * если ссылки не будет - берем из сессии историю посещений
+		 *
+		 * @param null $link_to_redirect
+		 * @param int $status_code
+		 * @return $this
+		 */
 		public function redirect($link_to_redirect=null,$status_code=302){
 			if(!$link_to_redirect){
 				$link_to_redirect = $this->user->getBackUrl();
@@ -104,6 +159,11 @@
 			return $this;
 		}
 
+		/**
+		 * Установить параметры тега <meta> для HTML-шаблона
+		 *
+		 * @return $this
+		 */
 		protected function setMeta(){
 			$this->response->meta('csrf')
 				->set('name','csrf')
@@ -126,16 +186,35 @@
 			return $this;
 		}
 
-		protected function doNotSetBackLink(){
-			$this->user->no_set_back_url = true;
+		/**
+		 * Устанавливать [false|null] или не устанавливать [true]
+		 * ссылку для возврата в историю сессии
+		 *
+		 * @param bool $back_link_not_set
+		 * @return bool
+		 */
+		protected function backLink($back_link_not_set=true){
+			$this->user->no_set_back_url = $back_link_not_set;
 			return false;
 		}
 
+		/**
+		 * Рендерить пустую страницу, если данных нету?
+		 *
+		 * @return $this
+		 */
 		protected function renderEmptyPage(){
 			$this->response->controller('../assets','../empty_page');
 			return $this;
 		}
 
+		/**
+		 * Установить пагинацию?
+		 * должны быть предустановлены свойста $this->total, $this->limit, $this->offset
+		 *
+		 * @param $link
+		 * @return $this
+		 */
 		protected function paginate($link){
 			Paginate::add()
 				->total($this->total)
@@ -146,6 +225,15 @@
 			return $this;
 		}
 
+		/**
+		 * Установить панель сортировки?
+		 * $actions - массив, берется из параметров контроллера
+		 * $current - текущая сортировка (можно установить с помощью метода Controller::setSortingProps(all,up))
+		 *
+		 * @param array $actions
+		 * @param $current
+		 * @return $this
+		 */
 		protected function sorting(array $actions,$current){
 			$current_data['action'] = $current;
 			$current_data['sort'] = $this->sort_key;
@@ -155,6 +243,14 @@
 			return $this;
 		}
 
+		/**
+		 * Получить запрос для фильтраии из панели сортировки;
+		 * дополняет свойсто $this->query
+		 *
+		 * @param array $sorting_panel
+		 * @param $sorting_action
+		 * @return $this
+		 */
 		protected function getQueryFromSortingPanelArray(array $sorting_panel,$sorting_action){
 			if(isset($sorting_panel[$sorting_action]) &&
 				fx_equal($sorting_panel[$sorting_action]['status'],Kernel::STATUS_ACTIVE) &&
@@ -164,7 +260,19 @@
 			return $this;
 		}
 
-		protected function getFilterFromArrayFields($form_key,$fields){
+		/**
+		 * установить панель фильтра
+		 * $form_key - имя формы, по нему берутся данные из реквеста
+		 * $fields - массив полей (пример: core/controllers/users/config/fields.php)
+		 *
+		 * заполняет свойства $this->query, array $this->replaced_data, которые отправляем в модель контроллера
+		 * для фильтрации запроса
+		 *
+		 * @param $form_key
+		 * @param $fields
+		 * @return $this
+		 */
+		protected function setFilterFromArrayFields($form_key,$fields){
 			$data = $this->request->getArray($form_key);
 			$this->form = new Form();
 			$this->form->setData($data);

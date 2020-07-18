@@ -36,7 +36,7 @@
 				'link'	=> array('users','index','offline')
 			),
 			'registration'	=> array(
-				'status'=> Kernel::STATUS_ACTIVE,
+				'status'=> Kernel::STATUS_INACTIVE,
 				'title'	=> 'users.users_index_registration_title',
 				'link'	=> array('users','index','registration')
 			),

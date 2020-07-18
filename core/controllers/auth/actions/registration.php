@@ -97,7 +97,7 @@
 					'enc_password'	=> fx_encryption($this->fields_list['password']['attributes']['value']),
 					'groups'		=> $this->params->groups_after_registration,
 					'bookmark'		=> fx_encode($this->fields_list['login']['attributes']['value'].$this->fields_list['password']['attributes']['value']),
-					'verify_token'	=> $this->model->generateVerifyTokenKey(),
+					'verify_token'	=> $this->generateVerifyTokenKey(),
 					'status'		=> Kernel::STATUS_LOCKED,
 					'date_created'	=> time(),
 				);
@@ -119,6 +119,12 @@
 				->set('errors',$this->registration->getErrors());
 		}
 
+		public function generateVerifyTokenKey(){
+			$login = $this->fields_list['login']['attributes']['value'];
+			$password = $this->fields_list['password']['attributes']['value'];
+
+			return trim(base64_encode(fx_encode($login . $login . $password . $password)),'=');
+		}
 
 
 

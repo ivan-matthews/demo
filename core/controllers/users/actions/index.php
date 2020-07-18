@@ -68,14 +68,22 @@
 		}
 
 		public function methodGet($sorting_action='all',$sort='dn'){
-			$this->getSort($sorting_action,$sort);
 
-			// фидьтр начало
+	//-------------------------------------------------------------------------------------//
+
+			//установить сортировку
+			$this->setSortingProps($sorting_action,$sort);
+
+			// получить массив полей для фильтрации
 			$this->fields = $this->params->getParams('fields');
-			$this->getFilterFromArrayFields('filter',$this->fields);
-			// фидьтр конец
 
+			// установить фильтр-панель; установить заапрос в БД для фильтрации
+			$this->setFilterFromArrayFields('filter',$this->fields);
+
+			// получить запрос для фильтрации; переменные для препарации
 			$this->getQueryFromSortingPanelArray($this->params->sorting_panel,$this->sorting_action);
+
+	//-------------------------------------------------------------------------------------//
 
 			$this->total = $this->model->countAllUsers($this->query,$this->replaced_data);
 			$this->users = $this->model->getAllUsers(

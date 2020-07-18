@@ -6,6 +6,7 @@
 
 	class Filter{
 
+		protected $params;
 		protected $form;
 		protected $fields;
 		protected $errors;
@@ -49,6 +50,7 @@
 		}
 
 		public function __construct(){
+			$this->params = $this->default_props;
 			$this->response = Response::getInstance();
 		}
 

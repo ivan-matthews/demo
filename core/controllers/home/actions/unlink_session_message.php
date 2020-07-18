@@ -53,16 +53,16 @@
 
 		public function __construct(){
 			parent::__construct();
-			$this->doNotSetBackLink();
+			$this->backLink();
 		}
 
 		public function methodGet($session_messages_key){
-			if(fx_equal(fx_csrf_equal($this->config->session['csrf_key_name']),Validator::CSRF_TOKEN_EQUAL)){
-				$this->session->unsetSessionMessages($session_messages_key);
-				$this->redirect();
-				return true;
-			}
-			return false;
+//			if(fx_equal(fx_csrf_equal($this->config->session['csrf_key_name']),Validator::CSRF_TOKEN_EQUAL)){
+			$this->session->unsetSessionMessages($session_messages_key);
+			$this->redirect();
+			return true;
+//			}
+//			return false;
 		}
 
 

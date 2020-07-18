@@ -103,6 +103,22 @@
 			return $result;
 		}
 
+		public function countUserNoticesById($receiver_id){
+			$this->cache->key('notices.all');
+
+			if(($result = $this->cache->get()->array())){
+				return $result['total'];
+			}
+
+			$result = $this->select('COUNT(n_id) as total')
+				->from('notice')
+				->where("`n_receiver_id`='{$receiver_id}'")
+				->get()
+				->itemAsArray();
+
+			$this->cache->set($result);
+			return $result['total'];
+		}
 
 
 

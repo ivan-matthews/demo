@@ -53,7 +53,7 @@
 
 			<div class="container">
 
-				<div class="row">
+				<div class="row container col-12">
 
 					<?php $this->widget('header') ?>
 
@@ -116,15 +116,11 @@
 			</div>
 
 		</footer>
-<!--		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>-->
-<!--		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd" crossorigin="anonymous"></script>-->
-<!--		<script src="https://kit.fontawesome.com/840d7517f0.js" crossorigin="anonymous"></script>-->
 
 		<?php
 			$this->addJS("{$this->theme_path}/js/libs/fontawesome",TIME);
 			$this->addJS("{$this->theme_path}/js/libs/popper",TIME);
 			$this->addJS("{$this->theme_path}/js/libs/bootstrap",TIME);
-
 		?>
 		<?php $this->renderCssFiles() ?>
 		<?php $this->renderJsFiles() ?>

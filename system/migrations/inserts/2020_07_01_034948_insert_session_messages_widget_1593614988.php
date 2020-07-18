@@ -21,7 +21,7 @@
 			return $this;
 		}
 
-		public function addAciveWidget(){
+		public function addActiveWidget(){
 			Database::insert('widgets_active')
 				->value('wa_widget_id',$this->widget_id)
 				->value('wa_name','session_messages')

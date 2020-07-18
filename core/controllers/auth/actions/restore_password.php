@@ -88,7 +88,7 @@
 
 			if($this->restore_password_form->can()){
 
-				$this->restore_password = $this->model->generateRestorePasswordToken();
+				$this->restore_password = $this->generateRestorePasswordToken();
 
 				$this->model->updateUserRestorePasswordToken(array(
 					'restore_password_token'	=> $this->restore_password,
@@ -120,7 +120,11 @@
 				->set('errors',$this->restore_password_form->getErrors());
 		}
 
+		public function generateRestorePasswordToken(){
+			$login = $this->fields_list['login']['attributes']['value'];
 
+			return trim(base64_encode(fx_encode($login . $login)),'=');
+		}
 
 
 

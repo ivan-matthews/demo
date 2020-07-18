@@ -6,6 +6,7 @@
 
 	class Sorting_Panel{
 
+		protected $params;
 		protected $actions = array();
 		protected $current = array();
 
@@ -47,6 +48,7 @@
 		}
 
 		public function __construct(){
+			$this->params = $this->default_props;
 			$this->response = Response::getInstance();
 		}
 

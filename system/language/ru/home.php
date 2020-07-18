@@ -100,4 +100,9 @@
 		'month_short_10'	=> 'Окт',
 		'month_short_11'	=> 'Ноя',
 		'month_short_12'	=> 'Дек',
+
+		'filter_button_search_value'	=> 'найти',
+		'filter_button_drop_value'		=> 'сброс',
+		'filter_button_params_value'	=> 'опции',
+		'user_info_title'	=> 'Панель пользователя',
 	);

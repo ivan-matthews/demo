@@ -23,6 +23,8 @@ RewriteRule loader.php - [F]
 Options +ExecCGI
 AddHandler cgi-script .api
 
+php_value mail.log ../system/cache/logs/mail.log
+
 # для Cache -> Files (include): отброшено - используем filemtime()
 # php_value opcache.enable 0
 # php_value opcache.file_update_protection 0

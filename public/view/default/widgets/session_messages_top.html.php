@@ -27,7 +27,7 @@
 								<div class="col-10 p-0"><?php print $message['head'] ?></div>
 								<?php if($message['removable']){ ?>
 									<div class="close-icon col-2">
-										<?php $message['unlink_link'] .= "?{$this->config->session['csrf_key_name']}=" . fx_csrf(); ?>
+<!--										--><?php //$message['unlink_link'] .= "?{$this->config->session['csrf_key_name']}=" . fx_csrf(); ?>
 										<a href="<?php print $message['unlink_link'] ?>" title="<?php print fx_lang('home.close_button_title') ?>" class="text-danger">
 											<i class="fa fa-times" aria-hidden="true"></i>
 										</a>

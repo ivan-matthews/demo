@@ -32,8 +32,8 @@
 			),
 			'resend_email'		=> array(
 				'enable_captcha'	=> true,
-				'groups_enabled'	=> array(),
-				'groups_disabled'	=> array(0),
+				'groups_enabled'	=> array(1),
+				'groups_disabled'	=> array(),
 			),
 			'restore_password'	=> array(
 				'enable_captcha'	=> true,

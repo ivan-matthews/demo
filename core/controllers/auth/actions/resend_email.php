@@ -69,9 +69,6 @@
 		}
 
 		public function methodGet(){
-			if(!fx_equal((int)$this->session->get('a_status',Session::PREFIX_AUTH),Kernel::STATUS_INACTIVE)){
-				return $this->response->setResponseCode(403);
-			}
 			$this->resend_email->generateFieldsList();
 
 			if($this->params->actions['resend_email']['enable_captcha']){
@@ -87,9 +84,6 @@
 		}
 
 		public function methodPost(){
-			if(!fx_equal((int)$this->session->get('a_status',Session::PREFIX_AUTH),Kernel::STATUS_INACTIVE)){
-				return $this->response->setResponseCode(403);
-			}
 			$this->resend_email->checkFieldsList();
 			$this->resend_email->checkLogin($this->model);
 

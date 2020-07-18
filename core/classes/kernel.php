@@ -239,7 +239,11 @@
 			return true;
 		}
 
-
+		public static function classExistsFromFile($file_path){
+			$path_info_array = pathinfo($file_path);
+			$file_class = str_replace(array(ROOT,'/'),array('',"\\"),"{$path_info_array['dirname']}/{$path_info_array['filename']}");
+			return class_exists($file_class);
+		}
 
 
 

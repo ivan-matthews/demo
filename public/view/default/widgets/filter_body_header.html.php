@@ -19,6 +19,14 @@
 
 		<form <?php print $form_attributes_string?>>
 			<div class="input-group mt-3">
+				<div class="input-group-prepend">
+
+					<div class="input-group-text radius-0">
+
+						<i class="fa fa-filter" aria-hidden="true"></i>
+
+					</div>
+				</div>
 				<?php foreach($content['fields'] as $field_set_key=>$field_set_value){ ?>
 
 					<?php foreach($field_set_value as $field){ ?>
@@ -41,11 +49,16 @@
 				<div class="input-group-append">
 
 					<button type="button" class="btn btn-light more" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<i class="fa fa-search" aria-hidden="true"></i>
+						<i class="fa fa-arrow-down" aria-hidden="true"></i>
 					</button>
 					<button class="btn btn-primary" type="submit">
-						Искать
+						<i class="fa fa-search" aria-hidden="true"></i>
 					</button>
+					<?php if($content['data']){ ?>
+						<a href="<?php print $content['form']['action'] ?>" class="btn btn-danger radius-0" type="submit">
+							<i class="fa fa-times" aria-hidden="true"></i>
+						</a>
+					<?php } ?>
 
 					<div class="dropdown-menu dropdown-menu-right pb-0 pt-0 pr-3 pl-3 radius-0 do-not-close">
 
@@ -67,14 +80,17 @@
 							<?php } ?>
 						<?php } ?>
 
-						<div class="field mb-2 mt-2">
-
-							<button class="btn btn-success" type="submit">
-								Искать
+						<div class="field mb-2 mt-2 btn-group btn-group-toggle row col-12" data-toggle="buttons">
+							<button class="btn btn-success radius-0" type="submit">
+								<i class="fa fa-search" aria-hidden="true"></i>
+								<?php print fx_lang('home.filter_button_search_value') ?>
 							</button>
-							<a href="<?php print $content['form']['action'] ?>" class="btn btn-danger" type="submit">
-								сбросить фильтр
-							</a>
+							<?php if($content['data']){ ?>
+								<a href="<?php print $content['form']['action'] ?>" class="btn btn-danger radius-0" type="submit">
+									<i class="fa fa-times" aria-hidden="true"></i>
+									<?php print fx_lang('home.filter_button_drop_value') ?>
+								</a>
+							<?php } ?>
 						</div>
 					</div>
 				</div>

@@ -70,7 +70,7 @@
 		$widgets->execute();
 	}
 	$hooks->after('widgets_run');
-
+	
 	$hooks->before('render_data');
 	$view->setRenderType($request->get('accept')?:fx_get_server('HTTP_ACCEPT'));
 	$view->ready();

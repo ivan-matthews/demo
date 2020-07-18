@@ -89,7 +89,28 @@ i,svg{
 		background: 1px #FFFFFF;
 		border-radius: 50%;
 	}
+	&.fa-grin-alt{
+		color: @success;
+	}
+	&.fa-dizzy{
+		color: @text_footer_color;
+	}
+	&.fa-angry{
+		color: @danger;
+	}
 }
-
-
-
+option.empty-value,select[value="0"]{
+	font-style: italic;
+	color: #c8cbcf;
+}
+.btn-primary,.btn-danger,.btn-success,.btn-warning{
+	font-weight: bold;
+	i,svg{
+		color: #FFFFFF;
+	}
+}
+.btn-group{
+	&.field{
+		min-width: 296px;
+	}
+}

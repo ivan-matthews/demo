@@ -6,6 +6,7 @@
 
 	class Paginate{
 
+		protected $params;
 		protected $total;
 		protected $limit;
 		protected $offset;
@@ -49,6 +50,7 @@
 		}
 
 		public function __construct(){
+			$this->params = $this->default_props;
 			$this->response = Response::getInstance();
 		}
 

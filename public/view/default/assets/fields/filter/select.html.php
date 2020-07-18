@@ -20,8 +20,8 @@
 
 <?php } ?>
 
-<select <?php print $field_string ?>>
-	<option class="empty-value"><?php print fx_lang('fields.selected_not_select') ?></option>
+<select <?php print $field_string ?> value="0">
+	<option value="0" class="empty-value"><?php print fx_lang('fields.selected_not_select') ?></option>
 	<?php foreach($attributes['params']['variants'] as $key=>$variant){ ?>
 		<option value="<?php print $key ?>"<?php print(fx_equal((int)$attributes['value'],$key) ? ' selected':'') ?>><?php print $variant ?></option>
 	<?php } ?>
