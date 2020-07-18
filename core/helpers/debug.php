@@ -26,6 +26,18 @@
 		return die();
 	}
 
+	function fx_dump(...$data){
+		print '<pre>';
+		foreach($data as $item){
+			var_dump($item);
+			print "<br>" . PHP_EOL;
+			print str_repeat('-',50);
+			print "<br>" . PHP_EOL;
+		}
+		print '</pre>';
+		return die();
+	}
+
 	function fx_get_cpu_usage(){
 		try{
 			return trim(exec("ps -p " . getmypid() . " -o %cpu"));

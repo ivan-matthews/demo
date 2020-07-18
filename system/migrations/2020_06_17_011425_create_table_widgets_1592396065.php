@@ -17,7 +17,6 @@
 		public function secondStep(){
 			Database::makeTable('widgets',function(Create $table){
 				$table->bigint('id')->unsigned()->autoIncrement()->primary();
-				$table->varchar('hash')->nullable()->unique();
 				$table->varchar('class')->nullable();
 				$table->varchar('method')->nullable();
 				$table->varchar('status')->nullable()->defaults(Kernel::STATUS_ACTIVE);

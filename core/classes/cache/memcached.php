@@ -100,6 +100,7 @@
 				$data_result = unserialize($data_result);
 				if($this->check($data_result[self::CACHE_EXPIRED_KEY])){
 					$this->saveDebug($debug_time);
+					unset($data_result[self::CACHE_EXPIRED_KEY]);
 					return $data_result;
 				}
 			}

@@ -19,4 +19,4 @@
 		&& fx_equal($config->cron['validation_token_key'],$request->get('token'))){
 		return Console::run('cron','run');
 	}
-	print 'Some problem...';
+	print "Some problem..." . PHP_EOL;

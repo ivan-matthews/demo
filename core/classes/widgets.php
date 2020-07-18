@@ -3,7 +3,7 @@
 	namespace Core\Classes;
 	
 	use Core\Classes\Cache\Cache;
-	use Core\Classes\Database\Database;
+	use Core\Controllers\Home\Model;
 	use Core\Classes\Response\Response;
 	
 	class Widgets{
@@ -15,6 +15,7 @@
 
 		private $response;
 		private $cache;
+		private $model;
 
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -26,27 +27,13 @@
 		public function __construct(){
 			$this->cache = Cache::getInstance();
 			$this->response = Response::getInstance();
+			$this->model = Model::getInstance();
 			$this->widgets_dir = fx_path('system/widgets_list');
-			$this->getWidgetsList();
-		}
-
-		private function getWidgetsList(){
-			$this->cache->key('files.included')->get();
-			if(($this->widgets_list = $this->cache->array())){
-				return $this;
-			}
 			$this->getWidgetsFromDB();
-			$this->cache->set($this->widgets_list);
-			return $this;
 		}
 
 		private function getWidgetsFromDB(){
-			$this->widgets_list = Database::select()
-				->from('widgets')
-				->where("`status` = " . Kernel::STATUS_ACTIVE)
-				->order('ordering','asc')
-				->get()
-				->allAsArray();
+			$this->widgets_list = $this->model->getActiveWidgetsList();
 			return $this;
 		}
 
@@ -79,7 +66,6 @@
 					->set('params',array(
 						'position'		=> $widget['position'],
 						'template'		=> $widget['template'],
-//						'ordering'		=> $widget['ordering'],
 					));
 			}
 			return $this;

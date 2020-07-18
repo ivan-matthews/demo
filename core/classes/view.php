@@ -240,18 +240,24 @@
 		}
 
 		public function renderJsFiles(){
-			foreach(self::$js_files as $file){
+			$js_files = '';
+			foreach(self::$js_files as $key=>$file){
 				$file_path = $this->site_host_is ? "{$this->site_root}/{$file}" : "/{$this->site_root}/{$file}";
-				print "\t\t<script src=\"{$file_path}\"></script>" . PHP_EOL;
+				$js_files .= "\t\t<script src=\"{$file_path}\"></script>" . PHP_EOL;
+				unset(self::$js_files[$key]);
 			}
+			print trim($js_files,"\t");
 			return $this;
 		}
 
 		public function renderCssFiles(){
-			foreach(self::$css_files as $file){
+			$css_files = '';
+			foreach(self::$css_files as $key=>$file){
 				$file_path = $this->site_host_is ? "{$this->site_root}/{$file}" : "/{$this->site_root}/{$file}";
-				print "\t\t<link rel=\"stylesheet\" type=\"text/css\" href=\"{$file_path}\">" . PHP_EOL;
+				$css_files .= "\t\t<link rel=\"stylesheet\" type=\"text/css\" href=\"{$file_path}\">" . PHP_EOL;
+				unset(self::$css_files[$key]);
 			}
+			print trim($css_files,"\t");
 			return $this;
 		}
 
@@ -279,13 +285,34 @@
 			$titles = array_reverse($titles);
 			print "<title>";
 			print implode($this->config->view['title_delimiter'],$titles);
-			print "</title>";
+			print "</title>" . PHP_EOL;
 			return $this;
 		}
 
+		public function widget($widget_position){
+			if(isset($this->data['widgets'][$widget_position])){
+				foreach($this->data['widgets'][$widget_position] as $widget){
+					$widget_tmp_file = "{$this->site_dir}/{$widget['params']['template']}_{$widget['params']['position']}.html.php";
+					if(file_exists($widget_tmp_file)){
+						print $this->render($widget_tmp_file,$widget['data']);
+					}
+				}
+			}
+			return $this;
+		}
 
-
-
+		public function printMeta(){
+			$meta_tags = '';
+			foreach($this->data['meta'] as $meta_key=>$meta_tag){
+				$meta_tags .= "\t\t<meta";
+				foreach($meta_tag as $key=>$tag){
+					$meta_tags .= " {$key}=\"{$tag}\"";
+				}
+				$meta_tags .= ">" . PHP_EOL;
+			}
+			print trim($meta_tags,"\t");
+			return $this;
+		}
 
 
 

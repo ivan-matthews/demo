@@ -1,17 +1,17 @@
 <?php
 
 	use Core\Classes\Database\Database;
+	use Core\Classes\Response\Response;
+	use Core\Classes\Language;
+	use Core\Classes\Session;
+	use Core\Classes\Widgets;
+	use Core\Classes\Request;
 	use Core\Classes\Kernel;
 	use Core\Classes\Config;
 	use Core\Classes\Router;
-	use Core\Classes\Request;
-	use Core\Classes\Response\Response;
-	use Core\Classes\Session;
-	use Core\Classes\Language;
+	use Core\Classes\Hooks;
 	use Core\Classes\User;
 	use Core\Classes\View;
-	use Core\Classes\Hooks;
-	use Core\Classes\Widgets;
 
 	require __DIR__ . "/../loader.php";
 
@@ -84,8 +84,6 @@
 	$hooks->after('render_data');
 
 	$hooks->after('load_system');
-
-
 
 
 
