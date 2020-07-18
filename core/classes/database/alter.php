@@ -30,6 +30,7 @@
 	namespace Core\Classes\Database;
 
 	use Core\Classes\Config;
+	use Core\Classes\Database\Database;
 	use Core\Classes\Database\Connect\MySQLi;
 	use Core\Classes\Database\Interfaces\Alter\Alter as AlterInterface;
 

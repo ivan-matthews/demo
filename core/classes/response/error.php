@@ -2,6 +2,8 @@
 
 	namespace Core\Classes\Response;
 
+	use Core\Classes\Response;
+
 	class Error{
 
 		private $default_params = array(

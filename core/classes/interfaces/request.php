@@ -36,17 +36,4 @@
 		 * @return array
 		 */
 		public function getAll();
-
-		/**
-		 * @param $key
-		 * @return Request
-		 */
-		public function unset($key);
-
-		/**
-		 * @param $key
-		 * @param $value
-		 * @return Request
-		 */
-		public function set($key,$value);
 	}

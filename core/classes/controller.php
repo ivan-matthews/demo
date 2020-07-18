@@ -2,16 +2,15 @@
 
 	namespace Core\Classes;
 
-	use Core\Classes\Response\Response;
-
 	class Controller{
 
 		private static $instance;
 
-		public $site_config;
-		public $response;
-		public $request;
-		public $user;
+		protected $site_config;
+		protected $response;
+		protected $request;
+		protected $user;
+		protected $hook;
 
 		private $controller;
 
@@ -39,6 +38,7 @@
 			$this->response = Response::getInstance();
 			$this->request = Request::getInstance();
 			$this->user = User::getInstance();
+			$this->hook = Hooks::getInstance();
 
 			$this->response->title($this->site_config->core['site_name']);
 			$this->response->breadcrumb('main_breadcrumb')
@@ -52,7 +52,7 @@
 
 		}
 
-		public function redirect($link_to_redirect=null,$status_code=302){
+		protected function redirect($link_to_redirect=null,$status_code=302){
 			if(!$link_to_redirect){
 				$link_to_redirect = $this->user->getBackUrl();
 			}

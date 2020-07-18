@@ -1,10 +1,7 @@
 <?php
 
-	use Core\Classes\Kernel;
-
 	return array(
-		'status'	=> Kernel::STATUS_ACTIVE,
-		'controller_name'	=> fx_lang('__controller_property__.controller_name'),
+		'enabled'	=> true,
 		'controller'	=> array(
 			'groups_enabled'	=> array(),
 			'groups_disabled'	=> array(),

@@ -2,42 +2,30 @@
 
 	namespace Core\Classes\Response;
 
+	use Core\Classes\Response;
+
 	class Widget{
 
 		private $default_params = array(
-			'data'		=> array(),
-			'params'	=> array(),
+
 		);
 
-		private $last_index;
-		private $widget_position;
+		private $widget;
 		private $response;
 
-		public function __construct(Response $response,$widget_position){
+		public function __construct(Response $response,$widget){
 			$this->response = $response;
-			$this->widget_position = $widget_position;
-			$this->last_index = $this->getLastArrayKey();
-			$this->response->response_data['response_data']['widgets'][$this->widget_position][$this->last_index] = $this->default_params;
+			$this->widget = $widget;
+			$this->response->response_data['response_data']['widgets'][$this->widget] = $this->default_params;
 		}
 
 		public function set($key,$value){
-			$this->response->response_data['response_data']['widgets'][$this->widget_position][$this->last_index][$key] = $value;
+			$this->response->response_data['response_data']['widgets'][$this->widget][$key] = $value;
 			return $this;
 		}
 
 		public function setArray(array $widget_data){
-			$this->response->response_data['response_data']['widgets'][$this->widget_position][$this->last_index] = $widget_data;
-		}
-
-		private function getLastArrayKey(){
-			$this->response->response_data['response_data']['widgets'][$this->widget_position] =
-				(isset($this->response->response_data['response_data']['widgets'][$this->widget_position])
-					? $this->response->response_data['response_data']['widgets'][$this->widget_position]
-					: array());
-			$keys = array_keys($this->response->response_data['response_data']['widgets'][$this->widget_position]);
-			$last_key = end($keys);
-			$last_key++;
-			return $last_key;
+			$this->response->response_data['response_data']['widgets'][$this->widget] = $widget_data;
 		}
 
 

@@ -2,8 +2,9 @@
 
 	namespace Core\Controllers\__controller_namespace__\Actions;
 
+	use Core\Classes\Hooks;
 	use Core\Classes\Request;
-	use Core\Classes\Response\Response;
+	use Core\Classes\Response;
 	use Core\Controllers\__controller_namespace__\Config;
 	use Core\Controllers\__controller_namespace__\Controller;
 	use Core\Controllers\__controller_namespace__\Model;
@@ -14,22 +15,25 @@
 		private static $instance;
 
 		/** @var Config */
-		public $config;
+		protected $config;
 
 		/** @var Model */
-		public $model;
+		protected $model;
 
 		/** @var \Core\Classes\Config */
-		public $site_config;
+		protected $site_config;
 
 		/** @var Response */
-		public $response;
+		protected $response;
 
 		/** @var Request */
-		public $request;
+		protected $request;
 
 		/** @var \Core\Classes\User */
-		public $user;
+		protected $user;
+
+		/** @var Hooks */
+		protected $hook;
 
 		/** @var array */
 		private $__action_property__;

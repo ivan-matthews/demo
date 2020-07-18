@@ -3,7 +3,6 @@
 	namespace Core\Classes;
 
 	use ReflectionMethod as Reflect;
-	use Core\Classes\Response\Response;
 
 	class Kernel{
 
@@ -23,6 +22,7 @@
 		private $kernel=array();
 
 		private $user;
+		private $hooks;
 
 		protected $config;
 		protected $request;
@@ -74,6 +74,7 @@
 			$this->request = Request::getInstance();
 			$this->response = Response::getInstance();
 			$this->user = User::getInstance();
+			$this->hooks = Hooks::getInstance();
 		}
 
 		public function getCurrentController(){
@@ -113,7 +114,7 @@
 		public function loadSystem(){
 			if($this->controllerExists()){
 				$this->setControllerConfig();
-				if(!fx_equal($this->controller_config_object->status,self::STATUS_ACTIVE)){
+				if(!$this->controller_config_object->enabled){
 					return $this->response->setResponseCode(404);
 				}
 				$this->checkControllerAccess();
@@ -151,15 +152,22 @@
 		}
 
 		protected function loadAction(){
+			$action = call_user_func(array($this->action_class_name,'getInstance'));
 			$method = "method{$this->request_method}";
-			if(method_exists($this->action_class_name,$method)){
-				$action = call_user_func(array($this->action_class_name,'getInstance'));
+			if(method_exists($action,$method)){
 				$this->checkActionAccess();
 				if($this->action_access->denied()){
 					return $this->setDeniedStatus();
 				}
 				if($this->countActionArguments($action,$method,$this->params)){
+					$hook_key = strtolower("{$this->controller}_{$this->action}");
+					$this->hooks->before($hook_key,...$this->params);
+					if($this->hooks->instead($hook_key,...$this->params)){
+						$this->hooks->after($hook_key,...$this->params);
+						return $this->response->setResponseCode(200);
+					}
 					if(call_user_func_array(array($action,$method),$this->params)){
+						$this->hooks->after($hook_key,...$this->params);
 						return $this->response->setResponseCode(200);
 					}
 					$this->response->setResponseCode(404);

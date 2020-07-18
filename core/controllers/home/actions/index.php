@@ -2,8 +2,9 @@
 
 	namespace Core\Controllers\Home\Actions;
 
+	use Core\Classes\Hooks;
 	use Core\Classes\Request;
-	use Core\Classes\Response\Response;
+	use Core\Classes\Response;
 	use Core\Controllers\Home\Config;
 	use Core\Controllers\Home\Controller;
 	use Core\Controllers\Home\Model;
@@ -14,27 +15,27 @@
 		private static $instance;
 
 		/** @var Config */
-		public $config;
+		protected $config;
 
 		/** @var Model */
-		public $model;
+		protected $model;
 
 		/** @var \Core\Classes\Config */
-		public $site_config;
+		protected $site_config;
 
 		/** @var Response */
-		public $response;
+		protected $response;
 
 		/** @var Request */
-		public $request;
+		protected $request;
 
 		/** @var \Core\Classes\User */
-		public $user;
+		protected $user;
+		/** @var Hooks */
+		protected $hook;
 
 		/** @var array */
 		private $index;
-
-		public $called_class_object;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -72,14 +73,8 @@
 
 		public function methodGet(){
 
-			if($this->config->just_widgets){ return true; }
-
-			if(class_exists($this->config->another_controller['class'])){
-				$this->called_class_object = call_user_func(array($this->config->another_controller['class'],'getInstance'));
-				return call_user_func_array(array(
-					$this->called_class_object, $this->config->another_controller['method']
-				),array($this->config->another_controller['params']));
-			}
+//			$this->model->indexModel();
+//			$this->model->secondModel();
 
 			$this->response->controller('home')
 				->set('var','someone')
@@ -109,11 +104,13 @@
 		}
 
 		public function methodPost(){
-			return false;
+			fx_pre(__METHOD__);
+			return true;
 		}
 
 		public function methodPut(){
-			return false;
+			fx_pre(__METHOD__);
+			return true;
 		}
 
 		public function methodHead(){

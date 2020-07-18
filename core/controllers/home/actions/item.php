@@ -1,13 +1,15 @@
 <?php
 
-	namespace Core\Controllers\__controller_namespace__;
+	namespace Core\Controllers\Home\Actions;
 
 	use Core\Classes\Hooks;
-	use Core\Classes\Controller as ParentController;
 	use Core\Classes\Request;
 	use Core\Classes\Response;
+	use Core\Controllers\Home\Config;
+	use Core\Controllers\Home\Controller;
+	use Core\Controllers\Home\Model;
 
-	class Controller extends ParentController{
+	class Item extends Controller{
 
 		/** @var $this */
 		private static $instance;
@@ -15,7 +17,7 @@
 		/** @var Config */
 		protected $config;
 
-		/** @var \Core\Classes\Model|Model */
+		/** @var Model */
 		protected $model;
 
 		/** @var \Core\Classes\Config */
@@ -34,7 +36,7 @@
 		protected $hook;
 
 		/** @var array */
-		private $__controller_property__;
+		private $item;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -45,26 +47,65 @@
 		}
 
 		public function __get($key){
-			if(isset($this->__controller_property__[$key])){
-				return $this->__controller_property__[$key];
+			if(isset($this->item[$key])){
+				return $this->item[$key];
 			}
 			return false;
 		}
 
 		public function __set($name, $value){
-			$this->__controller_property__[$name] = $value;
-			return $this->__controller_property__[$name];
+			$this->item[$name] = $value;
+			return $this->item[$name];
 		}
 
 		public function __construct(){
 			parent::__construct();
-			$this->config = Config::getInstance();	// use Core\Controllers\__controller_namespace__\Config as Config;
-			$this->model = Model::getInstance();	// use Core\Controllers\__controller_namespace__\Model as Model;
+
+			$this->redirect();
 		}
 
 		public function __destruct(){
 
 		}
+
+		public function methodGet($id){
+			return false;
+		}
+
+		public function methodPost($id){
+			return false;
+		}
+
+		public function methodPut(){
+			return false;
+		}
+
+		public function methodHead(){
+			return false;
+		}
+
+		public function methodTrace(){
+			return false;
+		}
+
+		public function methodPatch(){
+			return false;
+		}
+
+		public function methodOptions(){
+			return false;
+		}
+
+		public function methodConnect(){
+			return false;
+		}
+
+		public function methodDelete(){
+			return false;
+		}
+
+
+
 
 
 

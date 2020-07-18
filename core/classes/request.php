@@ -65,18 +65,6 @@
 			return $this;
 		}
 
-		public function unset($key){
-			if(isset($this->request[$key])){
-				unset($this->request[$key]);
-			}
-			return $this;
-		}
-
-		public function set($key,$value){
-			$this->request[$key] = $value;
-			return $this;
-		}
-
 		public function get($key){
 			if(isset($this->request[$key]) && is_string($this->request[$key])){
 				return $this->request[$key];

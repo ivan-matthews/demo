@@ -148,16 +148,8 @@
 		}
 
 		private function checkEnabledPages(){
-			if(!$this->access){ return $this; }
 			foreach($this->enabled_pages as $controller=>$actions_array){
-				if(!fx_equal($controller,$this->controller)){
-					$this->access = false;
-					continue;
-				}
-				if(!$actions_array){
-					$this->access = true;
-					break;
-				}
+				if(!fx_equal($controller,$this->controller)){ continue; }
 				$this->access = false;
 				if(in_array($this->action,$actions_array)){
 					$this->access = true;
@@ -170,10 +162,6 @@
 		private function checkDisabledPages(){
 			foreach($this->disabled_pages as $controller=>$actions_array){
 				if(!fx_equal($controller,$this->controller)){ continue; }
-				if(!$actions_array){
-					$this->access = false;
-					break;
-				}
 				if(in_array($this->action,$actions_array)){
 					$this->access = false;
 					break;
@@ -181,12 +169,6 @@
 			}
 			return $this;
 		}
-
-		public function drop(){
-			$this->access = true;
-			return $this;
-		}
-
 
 
 

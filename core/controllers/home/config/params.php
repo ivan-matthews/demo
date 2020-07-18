@@ -1,10 +1,7 @@
 <?php
 
-	use Core\Classes\Kernel;
-
 	return array(
-		'status'	=> Kernel::STATUS_ACTIVE,
-		'controller_name'	=> fx_lang('home.controller_name'),
+		'enabled'	=> true,
 		'controller'	=> array(
 			'groups_enabled'	=> array(),
 			'groups_disabled'	=> array(),
@@ -14,11 +11,9 @@
 				'groups_enabled'	=> array(),
 				'groups_disabled'	=> array(),
 			),
-		),
-		'just_widgets'	=> false,
-		'another_controller'	=> array(
-			'class'		=> '',
-			'method'	=> 'methodGet',
-			'params'	=> 1
+			'item'	=> array(
+				'groups_enabled'	=> array(),
+				'groups_disabled'	=> array(),
+			),
 		)
 	);
