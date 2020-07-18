@@ -75,17 +75,17 @@
 					$this->cronTaskStarted($item);
 
 					if(!$this->checkIDInIDsList($item)){
-						$this->skippedByID();
+						$this->skipByID();
 						continue;
 					}
 					if(!$this->checkLastRun($item['ct_date_updated']+$item['ct_period'])){
-						$this->skippedByTime();
+						$this->skipByTime();
 						continue;
 					}
 					$this->lockFile($item['ct_id']);
 					$this->makeLockToWrite();
 					if(!$this->checkLocked()){
-						$this->skippedByFile();
+						$this->skipByFile();
 						continue;
 					}
 					$this->shutDownFunction();
@@ -194,21 +194,21 @@
 				$print->string(' > ')->print();
 			});
 		}
-		private function skippedByFile(){
+		private function skipByFile(){
 			return Paint::exec(function(PaintInterface $print){
 				$print->string(fx_lang('cli.skipped'))->fon('magenta')->print();
 				$print->string(' ')->print();
 				$print->string(fx_lang('cli.by_file'))->color('brown')->print()->eol();
 			});
 		}
-		private function skippedByID(){
+		private function skipByID(){
 			return Paint::exec(function(PaintInterface $print){
 				$print->string(fx_lang('cli.skipped'))->fon('cyan')->print();
 				$print->string(' ')->print();
 				$print->string(fx_lang('cli.by_id'))->color('cyan')->print()->eol();
 			});
 		}
-		private function skippedByTime(){
+		private function skipByTime(){
 			return Paint::exec(function(PaintInterface $print){
 				$print->string(fx_lang('cli.skipped'))->fon('yellow')->print();
 				$print->string(' ')->print();

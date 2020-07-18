@@ -6,6 +6,7 @@
 	 * @var View $this
 	 * @var array $users
 	 */
+	$lang = $this->language->getLanguageKey();
 ?>
 
 <div class="row justify-content-center users-list">
@@ -44,7 +45,9 @@
 							</div>
 
 							<div class="list-group-item-text users-item-descriptions">
-								<?php print 'г. Крыжопиль' ?>
+								<?php print $user["g_title_{$lang}"] ?>,
+								<?php print($user["gc_area"] ? $user['gc_area'] . ", " : null) ?>
+								<?php print $user["gc_title_{$lang}"] ?>
 							</div>
 
 						</div>

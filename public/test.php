@@ -28,7 +28,18 @@
 	$widgets	= Widgets::getInstance();
 	$hooks		= Hooks::getInstance();
 
+	$count_cities = Database::select('count(gc_id) as total')
+		->from('geo_cities')->get()->itemAsArray();
+	$count_cities = $count_cities['total'];
+
+
 	for($i=0;$i<1000;$i++){
+		$random = rand(1,$count_cities);
+		$city = Database::select()
+			->from('geo_cities')
+			->where("gc_id={$random}")
+			->get()->itemAsArray();
+
 		$login = fx_gen_lat(rand(15,30)) . '@' . fx_gen_lat(rand(15,30)) . '.'. fx_gen_lat(rand(2,5));
 
 		$fname = fx_mb_ucfirst(fx_gen_cyr_name(rand(4,10)));
@@ -57,30 +68,30 @@
 			->value('u_gender',rand(User::GENDER_MALE,User::GENDER_NONE))
 			->value('u_avatar_id',$auth_id)
 			->value('u_status_id',$auth_id)
-			->value('u_country_id',$auth_id)
-			->value('u_city_id',$auth_id)
+			->value('u_country_id',$city['gc_country_id'])
+			->value('u_city_id',$city['gc_city_id'])
 			->value('u_birth_day',rand(1,31))
 			->value('u_birth_month',rand(1,12))
 			->value('u_birth_year',rand(1900,2010))
-			->value('u_phone','+2123433245324')
+			->value('u_phone','+' . rand(111111111111,999999999999))
 			->value('u_family',rand(1,5))
-			->value('u_cophone','+24234325223324')
-			->value('u_email',$login)
-			->value('u_icq','321443575')
-			->value('u_skype',$login)
-			->value('u_viber',$login)
-			->value('u_whatsapp',$login)
-			->value('u_telegram',$login)
-			->value('u_website','http://m.c')
-			->value('u_activities','NaN')
-			->value('u_interests','NaN')
-			->value('u_music','NaN')
-			->value('u_films','NaN')
-			->value('u_shows','NaN')
-			->value('u_books','NaN')
-			->value('u_games','NaN')
-			->value('u_citates','NaN')
-			->value('u_about','NaN')
+			->value('u_cophone','+' . rand(111111111111,999999999999))
+//			->value('u_email',$login)
+			->value('u_icq',rand(111111111,999999999))
+//			->value('u_skype',$login)
+//			->value('u_viber',$login)
+//			->value('u_whatsapp',$login)
+//			->value('u_telegram',$login)
+//			->value('u_website','http://m.c')
+//			->value('u_activities','NaN')
+//			->value('u_interests','NaN')
+//			->value('u_music','NaN')
+//			->value('u_films','NaN')
+//			->value('u_shows','NaN')
+//			->value('u_books','NaN')
+//			->value('u_games','NaN')
+//			->value('u_citates','NaN')
+//			->value('u_about','NaN')
 			->value('u_date_log',$online_time)
 			->value('u_log_type',rand(User::LOGGED_DESKTOP,User::LOGGED_DEFAULT))
 			->value('u_date_created',time())
@@ -88,6 +99,7 @@
 			->value('u_user_type',2)
 			->get()
 			->id();
+		unset($login,$fname,$lname,$fullname,$auth_id,$online_time,$random,$city);
 	}
 
 

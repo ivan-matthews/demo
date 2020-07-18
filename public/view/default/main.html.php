@@ -28,8 +28,7 @@
 	$this->addJS("{$this->theme_path}/js/index",TIME);
 	$this->addJS("{$this->theme_path}/js/main",TIME);
 
-	$language = Language::getInstance();
-	$lang_key = $language->getLanguageKey();
+	$lang_key = $this->language->getLanguageKey();
 	$translation_lang_key = $lang_key . "-" . strtoupper($lang_key);
 
 ?>

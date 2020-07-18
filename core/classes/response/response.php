@@ -23,8 +23,10 @@
 		protected $response;
 		
 		protected $response_list;
-		
-		public $response_data = array(
+
+		public $response_data;
+
+		public $default_array = array(
 			'response_data'		=> array(
 				'link_to_redirect'	=> '/',
 				'headers'			=> array(
@@ -77,11 +79,28 @@
 		}
 
 		public function __construct(){
-			
+			$this->setResponseDataDefaultArray();
 		}
 
 		public function __destruct(){
 
+		}
+
+		public function setResponseDataDefaultArray(){
+			$this->response_data = $this->default_array;
+			return $this;
+		}
+
+		public function resetDebug(){
+			unset($this->response_data['debug']);
+			$this->response_data['debug'] = array();
+			return $this;
+		}
+
+		public function resetErrors(){
+			unset($this->response_data['errors']);
+			$this->response_data['errors'] = array();
+			return $this;
 		}
 
 		public function controller($controller_name,$action='index'){

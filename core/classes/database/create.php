@@ -156,7 +156,7 @@
 			$this->fields[$this->field] = array('name'=>$this->field,'type'=>__FUNCTION__,'long'=>$long);
 			return $this;
 		}
-		public function bigint($field,$long=11){
+		public function bigint($field,$long=255){
 			$this->field = $field;
 			$this->fields[$this->field] = array('name'=>$this->field,'type'=>__FUNCTION__,'long'=>$long);
 			return $this;

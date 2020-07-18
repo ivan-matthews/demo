@@ -84,15 +84,69 @@
 
 
 
+/*
 
+	class a{
+		public static $count = 0;
+		private static $i;
+		public $prop = array();
+		private $memory_limit;
 
+		public static function i($limit){
+			if(self::$i === null){ self::$i = new self($limit); }
+			return self::$i;
+		}
+		public function __construct($limit){
+			$this->memory_limit = $limit;
+		}
+		public function setPropProp(){
+			$this->prop[] = debug_backtrace();
+			return $this->resetSelfObj();
+		}
+		private function resetSelfObj(){
+			if(memory_get_usage() > $this->memory_limit){
+				self::$count++;
+				self::$i = new self($this->memory_limit);
+			}
+			return $this;
+		}
+		public static function prepare_memory_suffix($memory){
+			$letter = strtolower(substr($memory,-1));
+			$mem_size = substr($memory,0,-1);
+			switch($letter){
+				case fx_equal($letter,'b'):
+					return $mem_size;
+					break;
+				case fx_equal($letter,'k'):
+					return $mem_size * 1024;
+					break;
+				case fx_equal($letter,'m'):
+					return $mem_size * 1024 * 1024;
+					break;
+				case fx_equal($letter,'g'):
+					return $mem_size * 1024 * 1024 * 1024;
+					break;
+				case fx_equal($letter,'t'):
+					return $mem_size * 1024 * 1024 * 1024 * 1024;
+					break;
+				case fx_equal($letter,'p'):
+					return $mem_size * 1024 * 1024 * 1024 * 1024 * 1024;
+					break;
+				default:
+					return $mem_size;
+			}
+		}
+	}
 
+	$limit = a::prepare_memory_suffix(ini_get('memory_limit'))-10240000;
+	while(true){
+		a::i($limit)->setPropProp();
+		if(a::$count > 10){
+			break;
+		}
+	}
 
-
-
-
-
-
+*/
 /*
 	$db = Database::getInstance();
 	$db->useDb('mc');
@@ -165,7 +219,6 @@
 		return update_geo_cities($update_field,$lang);
 	}
 */
-
 /*
 	fx_make_dir('/var/www/m.c/system/migrations/inserts/geo/cities');
 	fx_make_dir('/var/www/m.c/system/migrations/inserts/geo/countries');

@@ -20,7 +20,7 @@
 		'error403_description'	=> 'У вас нет доступа к этой странице!',
 		'error404_description'	=> '<div class="err-t">Страница</div> <a href="/%REQUEST_PAGE%">%SITE_PROTO%://%SITE_HOST%/%REQUEST_PAGE%</a><div class="err-b">не найдена!</div><div class="descr">Возможно она была перенесена или удалена</div>',
 		'error405_description'	=> 'Метод запроса "<span class="request-method">%METHOD%</span>" не доступен!',
-		'empty_page'			=> 'Пустая страница...',
+		'empty_page'			=> 'Пустая страница',
 		'empty_page_description'=> 'Информация отсутствует...',
 		'bread_crumbs_widget_title'=> 'Хлебные крохи',
 

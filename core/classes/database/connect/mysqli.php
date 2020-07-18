@@ -207,10 +207,10 @@
 
 		public function prepareValue($value){
 			if(is_array($value)){ return "'" . $this->escape(json_encode($value)) . "'"; }
-			if(empty($value) && !is_string($value)){ return "0"; }
 			if(is_null($value)){ return "NULL"; }
 			if(is_bool($value)){ return (bool)$value; }
 			if(fx_equal($value,'')){ return "0"; }
+			if(empty($value) && !is_string($value)){ return "0"; }
 			$value = $this->escape(trim($value));
 			return "'{$value}'";
 		}

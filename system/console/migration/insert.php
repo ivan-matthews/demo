@@ -69,7 +69,7 @@
 
 		private function getMigrationsFiles(){
 			foreach(scandir($this->migrations_folder) as $file){
-				if($file == '.' || $file == '..'){ continue; }
+				if($file == '.' || $file == '..' || is_dir("{$this->migrations_folder}/{$file}")){ continue; }
 				$file_name = pathinfo($file,PATHINFO_FILENAME);
 				preg_match_all("@([a-z])|([0-9])@si",$file_name,$matches);
 				$class = implode('',$matches[1]) . implode('',$matches[2]);

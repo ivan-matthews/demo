@@ -60,6 +60,34 @@
 			),
 		),
 		array(
+			'field'	=> 'u_country_id',
+			'params'	=> array(
+				'field_type' 	=> 'select',
+				'show_validation'	=> false,
+				'item_position'	=> 'visible',
+				'field_sets'	=> 'field_set_gender',
+				'render_type'	=> 'gender',
+				'label'			=> fx_lang('users.country'),
+				'variants'		=> array(
+
+				)
+			),
+		),
+		array(
+			'field'	=> 'u_city_id',
+			'params'	=> array(
+				'field_type' 	=> 'select',
+				'show_validation'	=> false,
+				'item_position'	=> 'visible',
+				'field_sets'	=> 'field_set_gender',
+				'render_type'	=> 'gender',
+				'label'			=> fx_lang('users.city'),
+				'variants'		=> array(
+
+				)
+			),
+		),
+		array(
 			'field'	=> 'u_birth_day',
 			'params'	=> array(
 				'field_type' 	=> 'select',

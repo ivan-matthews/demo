@@ -107,7 +107,7 @@
 		 * @param int $long
 		 * @return Defaults
 		 */
-		public function bigint($field,$long=11);
+		public function bigint($field,$long=255);
 
 		/**
 		 * @param $field

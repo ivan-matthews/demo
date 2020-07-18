@@ -76,4 +76,6 @@
 		'full_name_placeholder'	=> 'Введите имя или фамилию',
 		'user_edit_page_value'	=> 'Редактировать',
 		'user_page_link_value'	=> 'Моя страница',
+		'country'	=> 'Страна',
+		'city'		=> 'Город',
 	);

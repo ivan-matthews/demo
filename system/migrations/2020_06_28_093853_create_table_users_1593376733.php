@@ -26,8 +26,8 @@
 				$table->smallint('u_gender')->notNull()->defaults(User::GENDER_NONE);
 				$table->varchar('u_avatar_id')->nullable();
 				$table->varchar('u_status_id')->nullable();
-				$table->varchar('u_country_id')->nullable();
-				$table->varchar('u_city_id')->nullable();
+				$table->bigint('u_country_id')->unsigned()->nullable();
+				$table->bigint('u_city_id')->unsigned()->nullable();
 				$table->int('u_birth_day',2)->nullable();
 				$table->int('u_birth_month',2)->nullable();
 				$table->int('u_birth_year',4)->nullable();

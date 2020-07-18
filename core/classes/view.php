@@ -44,6 +44,8 @@
 		public $request;
 
 		public $submit_button;
+		public $user;
+		public $language;
 
 		/**
 		 * @return ViewInterface
@@ -69,6 +71,8 @@
 			$this->config = Config::getInstance();
 			$this->response = Response::getInstance();
 			$this->request =  Request::getInstance();
+			$this->user = User::getInstance();
+			$this->language = Language::getInstance();
 
 			$this->web_dir = fx_path($web_dir);
 			$this->site_theme = $this->config->view['site_theme'];
