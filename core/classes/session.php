@@ -4,6 +4,7 @@
 
 	class Session{
 
+		const PREFIX_SESS = '__sess__';
 		const PREFIX_AUTH = '__auth__';
 		const PREFIX_CONF = '__conf__';
 		const PREFIX_MSG = '__msg__';
@@ -138,9 +139,8 @@
 		}
 
 		private function cleanSessionData($session_key){
-			$auth_prefix_length = strlen($session_key);
 			foreach($_SESSION as $key=>$value){
-				if(fx_equal(substr($key,0,$auth_prefix_length),$session_key)){
+				if(strpos($key,$session_key) !== false){
 					$this->drop($key);
 				}
 			}

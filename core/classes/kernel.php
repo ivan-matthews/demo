@@ -50,6 +50,8 @@
 		private $action_access;
 		private $action_params;
 
+		public $link_replacer_list = array();
+
 		public static function getInstance(){
 			if(self::$instance === null){
 				self::$instance = new self();
@@ -76,6 +78,11 @@
 			$this->response = Response::getInstance();
 			$this->user = User::getInstance();
 			$this->hooks = Hooks::getInstance();
+		}
+
+		public function loadLinkReplaceList(){
+			$this->link_replacer_list = fx_import_file(fx_path('system/assets/links_replace.php'));
+			return $this;
 		}
 
 		public function getCurrentController(){
@@ -165,11 +172,13 @@
 					$this->hooks->before($hook_key,...$this->params);
 					if($this->hooks->instead($hook_key,...$this->params)){
 						$this->hooks->after($hook_key,...$this->params);
-						return $this->response->setResponseCode(200);
+//						return $this->response->setResponseCode(200);
+						return true;
 					}
 					if(call_user_func_array(array($action,$method),$this->params)){
 						$this->hooks->after($hook_key,...$this->params);
-						return $this->response->setResponseCode(200);
+//						return $this->response->setResponseCode(200);
+						return true;
 					}
 					$this->response->setResponseCode(404);
 					return true;

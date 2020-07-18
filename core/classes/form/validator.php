@@ -145,6 +145,7 @@
 		protected $fields_list = array();
 
 		protected $default_attributes = array(
+			'autocomplete' => 'on',
 			'placeholder' => null,
 			'required' => null,
 			'readonly' => null,
@@ -360,6 +361,9 @@
 			return $this->value();
 		}
 
+		public function autocomplete($default){
+			return $this->setAttribute('autocomplete',$default);
+		}
 		public function class($default){
 			return $this->setAttribute(__FUNCTION__,$default);
 		}
@@ -926,6 +930,7 @@
 		public function setCaptcha(){
 			$this->field('captcha');
 			$this->setAttribute('required',true);
+			$this->setAttribute('autocomplete','off');
 			$this->setParams('field_type','captcha');
 			$this->setParams('field_sets_field_class','col-md-12 col-sm-12 col-12 col-lg-12 col-xl-12');
 			return $this->captcha();

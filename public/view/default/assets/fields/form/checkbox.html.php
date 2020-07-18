@@ -19,6 +19,8 @@
 		$attributes['class'] .= "valid";
 	}
 
+	$attributes['class'] .= ' custom-control-checkbox';
+
 	if(!$attributes['params']['show_title_in_form']){ unset($attributes['title']); }
 
 	$field_string = $this->getAttributesStringFromArray($attributes);

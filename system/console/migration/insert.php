@@ -28,8 +28,8 @@
 		protected $result = true;
 
 		public function __construct(){
-			$this->migrations_folder = fx_path("system/inserts");
-			$this->namespace_classes = "\\System\\Inserts";
+			$this->migrations_folder = fx_path("system/migrations/inserts");
+			$this->namespace_classes = "\\System\\Migrations\\Inserts";
 
 			$this->config = Config::getInstance();
 			$this->database = Database::getInstance();

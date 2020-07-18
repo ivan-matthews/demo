@@ -61,6 +61,16 @@ body main.container .content .error .error-body {
   font-size: 40px;
   font-weight: 600;
 }
+body main.container .content .error .error-body div.err-t {
+  display: block;
+}
+body main.container .content .error .error-body div.err-b {
+  display: block;
+}
+body main.container .content .error .error-body a {
+  word-break: break-all;
+  font-size: 20px;
+}
 body main.container .content .error .error-title {
   font-size: 80px;
   font-weight: 600;

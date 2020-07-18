@@ -73,7 +73,7 @@
 					$checkers->symbols('\!\@\#\$\%\^\&\*\(\)\_\+\=\-');
 				});
 
-			$this->validator_interface->field("remember_me")
+			$this->validator_interface->field("member_me")
 				->value(true)
 				->dont_prepare()
 				->params(function(Params $params){
@@ -84,13 +84,11 @@
 				})
 				->title(fx_lang('auth.remember_me_title'))
 				->label(fx_lang('auth.remember_me_label'))
-				->class('custom-control-input')
 				->type('checkbox')
+				->class('simple')
 				->id('remember_me');
 
-			$this->validator_interface->setCaptcha();
-
-			return $this->getFieldsList();
+			return $this;
 		}
 
 		public function checkFieldsList(){

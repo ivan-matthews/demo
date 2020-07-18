@@ -1,6 +1,6 @@
 <?php
 
-	namespace System\Inserts;
+	namespace System\Migrations\Inserts;
 
 	use Core\Classes\Database\Database;
 	use Core\Classes\Kernel;

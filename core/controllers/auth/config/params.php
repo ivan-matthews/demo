@@ -11,6 +11,7 @@
 		),
 		'actions'	=> array(
 			'index'	=> array(
+				'enable_captcha'	=> false,
 				'groups_enabled'	=> array(),
 				'groups_disabled'	=> array(),
 			),

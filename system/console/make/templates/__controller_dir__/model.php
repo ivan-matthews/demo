@@ -23,7 +23,7 @@
 
 		public function __construct(){
 			parent::__construct();
-			$this->cache->key('__controller_namespace__');
+			$this->cache->key('__controller_property__');
 		}
 
 		public function __destruct(){

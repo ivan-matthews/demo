@@ -17,6 +17,7 @@
 
 		public function run(){
 			$this->getMenuLinks();
+			$this->prepapeLinks();
 			return $this->links;
 		}
 
@@ -24,5 +25,13 @@
 			$this->links = $this->model->getMenuLinksByWidgetId($this->params['id']);
 			return $this;
 		}
+
+		private function prepapeLinks(){
+			foreach($this->links as $key=>$value){
+				$this->links[$key]['link_array'] = fx_url(fx_arr($value['link_array']));
+			}
+			return $this;
+		}
+
 
 	}

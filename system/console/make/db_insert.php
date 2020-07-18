@@ -31,7 +31,7 @@
 		private $replaced_file_data;
 
 		public function execute($insert_name){
-			$this->inserts_folder = fx_path("system/inserts");
+			$this->inserts_folder = fx_path("system/migrations/inserts");
 
 			$this->class_prefix = "Insert";
 			$this->file_prefix = "insert";

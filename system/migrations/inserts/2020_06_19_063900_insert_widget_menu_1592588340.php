@@ -1,6 +1,6 @@
 <?php
 
-	namespace System\Inserts;
+	namespace System\Migrations\Inserts;
 
 	use Core\Classes\Database\Database;
 	use Core\Classes\Kernel;
@@ -163,7 +163,14 @@
 			$links_array = array(
 				array(
 					'menu_id'		=> $this->main_menu,
-					'link_array'	=> null,
+					'link_array'	=> array(
+						'link'=>array(
+
+						),
+						'query'=>array(
+
+						)
+					),
 					'name'			=> 'home_page',
 					'title'			=> 'home.home_link_title',
 					'value'			=> 'home.home_link',
@@ -171,7 +178,12 @@
 				array(
 					'menu_id'		=> $this->guest_menu,
 					'link_array'	=> array(
-						'auth','index'
+						'link'=>array(
+							'auth','index'
+						),
+						'query'=>array(
+
+						)
 					),
 					'name'			=> 'auth_page',
 					'title'			=> 'auth.auth_link_title',
@@ -180,7 +192,12 @@
 				array(
 					'menu_id'		=> $this->guest_menu,
 					'link_array'	=> array(
-						'auth','registration'
+						'link'=>array(
+							'auth','registration'
+						),
+						'query'=>array(
+
+						)
 					),
 					'name'			=> 'auth_sign_up',
 					'title'			=> 'auth.registration_link_title',
@@ -189,7 +206,12 @@
 				array(
 					'menu_id'		=> $this->user_menu,
 					'link_array'	=> array(
-						'auth','logout'
+						'link'=>array(
+							'auth','logout'
+						),
+						'query'=>array(
+							'%csrf_name%'=>'%csrf_token%'
+						)
 					),
 					'name'			=> 'auth_log_out',
 					'title'			=> 'auth.logout_link_title',
@@ -210,9 +232,7 @@
 		public function addLinksToInfoMenu(){
 			$links_array = array(
 				array(
-					'link_array'	=> array(
-						'rules'
-					),
+					'link_array'	=> array('link'=>array('rules'),'query'=>array()),
 					'name'			=> 'rules_page',
 					'title'			=> 'home.rules_link_title',
 					'value'			=> 'home.rules_link_value',
@@ -220,9 +240,7 @@
 					'css_class_icon'=> 'chocolate-icon',
 				),
 				array(
-					'link_array'	=> array(
-						'faq'
-					),
+					'link_array'	=> array('link'=>array('faq'),'query'=>array()),
 					'name'			=> 'faq_page',
 					'title'			=> 'home.faq_link_title',
 					'value'			=> 'home.faq_link_value',
@@ -240,9 +258,7 @@
 					'css_class_icon'=> 'chocolate-icon',
 				),
 				array(
-					'link_array'	=> array(
-						'support'
-					),
+					'link_array'	=> array('link'=>array('help'),'query'=>array()),
 					'name'			=> 'support_page',
 					'title'			=> 'home.support_link_title',
 					'value'			=> 'home.support_link_value',
@@ -250,9 +266,7 @@
 					'css_class_icon'=> 'chocolate-icon',
 				),
 				array(
-					'link_array'	=> array(
-						'feedback'
-					),
+					'link_array'	=> array('link'=>array('feedback'),'query'=>array()),
 					'name'			=> 'feedback_page',
 					'title'			=> 'home.feedback_link_title',
 					'value'			=> 'home.feedback_link_title',
@@ -260,9 +274,7 @@
 					'css_class_icon'=> 'chocolate-icon',
 				),
 				array(
-					'link_array'	=> array(
-						'blog'
-					),
+					'link_array'	=> array('link'=>array('blog'),'query'=>array()),
 					'name'			=> 'blog_page',
 					'title'			=> 'home.blog_link_title',
 					'value'			=> 'home.blog_link_title',
@@ -270,9 +282,7 @@
 					'css_class_icon'=> 'chocolate-icon',
 				),
 				array(
-					'link_array'	=> array(
-						'sitemap'
-					),
+					'link_array'	=> array('link'=>array('sitemap'),'query'=>array()),
 					'name'			=> 'sitemap_page',
 					'title'			=> 'home.sitemap_link_title',
 					'value'			=> 'home.sitemap_link_title',

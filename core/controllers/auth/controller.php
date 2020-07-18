@@ -66,6 +66,8 @@
 				->setValue('auth.title_auth_controller')
 				->setLink('auth')
 				->setIcon(null);
+
+			$this->dontSetBackLink();
 		}
 
 		public function __destruct(){

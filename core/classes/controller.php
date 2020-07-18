@@ -87,6 +87,11 @@
 			return $this;
 		}
 
+		public function dontSetBackLink(){
+			$this->user->no_set_back_url = true;
+			return false;
+		}
+
 
 
 

@@ -15,6 +15,7 @@
 
 		/** @var boolean */
 		private $unauthorized;
+		public $no_set_back_url=null;
 
 		private $cookies;
 		private $session;
@@ -97,6 +98,29 @@
 			return $this;
 		}
 
+		public function auth($auth_data,$member_me){
+			$time = 0;
+			if($member_me){
+				$this->session->set(Session::MEMBER_SESSION_KEY,true,Session::PREFIX_CONF);
+				$time = $this->config->session['session_time'];
+			}
+			$auth_cookie_key = fx_gen(128);
+			$auth_cookie_hash = fx_encode($auth_cookie_key);
+
+			foreach($auth_data as $key=>$value){
+				$this->session->set($key,$value,Session::PREFIX_AUTH);
+			}
+
+			$this->cookies->setCookie(Session::TOKEN_SESSION_KEY,$auth_cookie_hash,$time);
+			$this->session->set(Session::TOKEN_SESSION_KEY,$auth_cookie_key,Session::PREFIX_CONF);
+			return $this;
+		}
+
+		public function escape(){
+			$this->session->cleanUserSession();
+			return $this;
+		}
+
 		public function refreshAuthCookieTime(){
 			if(!$this->session->get(Session::MEMBER_SESSION_KEY,Session::PREFIX_CONF)){
 				return $this;
@@ -109,21 +133,20 @@
 		}
 
 		public function setBackUrl(){
+			if($this->no_set_back_url){ return $this; }
 			$back_url = '/';
 			$response = Response::getInstance();
 			if(fx_equal($response->getResponseCode(),200)){
 				$kernel = Kernel::getInstance();
-				$back_url = fx_get_url(
-					$kernel->getCurrentController(),
-					$kernel->getCurrentAction(),
-					...$kernel->getCurrentParams());
-				$this->session->set('link_to_redirect',$back_url,Session::PREFIX_CONF);
+				$back_url = fx_get_url($kernel->getCurrentController(),
+					$kernel->getCurrentAction(), ...$kernel->getCurrentParams());
+				$this->session->set('link_to_redirect',$back_url,Session::PREFIX_SESS);
 			}
 			return $back_url;
 		}
 
 		public function getBackUrl(){
-			if(($back_url = $this->session->get('link_to_redirect',Session::PREFIX_CONF))){
+			if(($back_url = $this->session->get('link_to_redirect',Session::PREFIX_SESS))){
 				return $back_url;
 			}
 			return $this->setBackUrl();

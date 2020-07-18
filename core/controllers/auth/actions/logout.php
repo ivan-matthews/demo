@@ -2,6 +2,7 @@
 
 	namespace Core\Controllers\Auth\Actions;
 
+	use Core\Classes\Form\Validator;
 	use Core\Classes\Hooks;
 	use Core\Classes\Request;
 	use Core\Classes\Response\Response;
@@ -67,6 +68,11 @@
 		}
 
 		public function methodGet(){
+			if(fx_equal(fx_csrf_equal($this->site_config->session['csrf_key_name']),Validator::CSRF_TOKEN_EQUAL)){
+				$this->user->escape();
+				$this->redirect();
+				return true;
+			}
 			return false;
 		}
 

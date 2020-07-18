@@ -27,4 +27,8 @@
 		'password_field_placeholder'	=> 'Введите пароль',
 		'enter_captcha_value_title'	=> 'Введите проверочное слово с картинки',
 		'enter_captcha_value_placeholder'	=> 'Введите проверочное слово с картинки',
+
+		'user_blocked'			=> 'Пользователь "%user_full_name%" заблокирован!',
+		'user_not_found'		=> 'Пользователь с логином "%user_login%" не найден!',
+		'passwords_not_equal'	=> 'Пароль "%input_password%" не совпадает с паролем учетной записи!',
 	);

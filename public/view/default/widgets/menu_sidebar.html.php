@@ -9,7 +9,7 @@
 <?php foreach($data['content'] as $item){?>
 	<?php $value = fx_lang($item['value']) ?>
 		<li class="list-group-item">
-			<a class="menu <?php print $item['css_class'] ?>" href="<?php print fx_get_url(...fx_arr($item['link_array'])) ?>">
+			<a class="menu <?php print $item['css_class'] ?>" href="<?php print $item['link_array'] ?>">
 				<div class="sidebar-body<?php print ' ' . $data['options']['css_class_body'] ?>">
 					<?php if($item['icon']){ ?><i class="icon <?php print $item['css_class_icon'] ?> <?php print $item['icon'] ?>"></i><?php } ?>
 					<?php if($item['image']){ ?>

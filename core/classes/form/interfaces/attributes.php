@@ -7,6 +7,11 @@
 		 * @param $default
 		 * @return Attributes
 		 */
+		public function autocomplete($default);
+		/**
+		 * @param $default
+		 * @return Attributes
+		 */
 		public function class($default);
 
 		/**
