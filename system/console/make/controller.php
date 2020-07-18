@@ -85,22 +85,27 @@
 					$this->getControllerTmpFiles($new_path,$new_copied_path);
 				}else{
 					$file_data = file_get_contents($new_path);
-					$file_replaced_data = $this->replaceData($file_data);
+					$file_replaced_data = $this->replaceData($file,$file_data);
 					$this->saveData($new_copied_path,$file_replaced_data);
 				}
 			}
 			return $this;
 		}
 
-		private function replaceData($file_data){
+		private function replaceData($file_name,$file_data){
+			$file_name = pathinfo($file_name,PATHINFO_FILENAME);
 			return str_replace(array(
 				'__controller_namespace__',
 				'__controller_property__',
 				'__controller_dir__',
+				'Index',
+				'__action_property__',
 			),array(
 				$this->__controller_namespace__,
 				$this->__controller_property__,
 				$this->__controller_dir__,
+				$this->prepareClassName($file_name),
+				strtolower($file_name),
 			),$file_data);
 		}
 

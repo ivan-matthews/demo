@@ -49,10 +49,10 @@
 		public function __construct(){
 			parent::__construct();
 
-			$this->response->title(fx_lang('home.title_index_page'));
+			$this->response->title('home.title_index_page');
 			$this->response->breadcrumb('index')
-				->setValue(fx_lang('home.breadcrumb_index_page'))
-				->setLink(fx_get_url('home','index'))
+				->setValue('home.breadcrumb_index_page')
+				->setLink('home','index')
 				->setIcon(null);
 		}
 

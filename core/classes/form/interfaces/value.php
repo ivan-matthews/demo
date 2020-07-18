@@ -4,8 +4,8 @@
 
 	interface Value{
 		/**
-		 * @param $value
+		 * @param null $value
 		 * @return Preparing
 		 */
-		public function value($value);
+		public function value($value=null);
 	}

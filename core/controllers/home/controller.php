@@ -61,10 +61,10 @@
 			$this->config = Config::getInstance();
 			$this->model = Model::getInstance();
 
-			$this->response->title(fx_lang('home.title_home_page'));
+			$this->response->title('home.title_home_page');
 			$this->response->breadcrumb('home')
-				->setValue(fx_lang('home.breadcrumb_home_page'))
-				->setLink(fx_get_url('home'))
+				->setValue('home.breadcrumb_home_page')
+				->setLink('home')
 				->setIcon(null);
 		}
 

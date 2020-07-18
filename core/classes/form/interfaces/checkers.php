@@ -8,6 +8,12 @@
 		 * @return Checkers
 		 */
 		public function required($default=true);
+		
+		/**
+		 * @param bool $default
+		 * @return Checkers
+		 */
+		public function readonly($default=true);
 
 		/**
 		 * @param int $default
@@ -44,6 +50,11 @@
 		 * @return Checkers
 		 */
 		public function email($default=true);
+
+		/**
+		 * @return Validator
+		 */
+		public function captcha();
 
 		/**
 		 * @param bool $default
@@ -112,10 +123,10 @@
 		public function numeric($default=true);
 
 		/**
-		 * @param bool $default
+		 * @param string $default
 		 * @return Checkers
 		 */
-		public function symbols($default=true);
+		public function symbols($default="!\@\#$\%\^\&\*\(\)\_\+\=\-\\]\[\~\`\|\}\{\'\:\"\;\?\/\.\,\<\>");
 
 		/**
 		 * @param bool $default

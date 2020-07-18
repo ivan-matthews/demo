@@ -43,13 +43,19 @@
 		 * @param $value
 		 * @return Params
 		 */
-		public function filter($value);
+		public function filter_validation($value);
 
 		/**
 		 * @param $value
 		 * @return Params
 		 */
 		public function filter_position($value);
+
+		/**
+		 * @param string $value
+		 * @return Params
+		 */
+		public function field_sets_field_class($value);
 
 //		/**
 //		 * @param $value
@@ -79,4 +85,10 @@
 		 * @return Params
 		 */
 		public function show_validation($value);
+
+		/**
+		 * @param $default
+		 * @return Attributes
+		 */
+		public function field_type($default);
 	}

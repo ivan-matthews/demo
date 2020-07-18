@@ -33,6 +33,9 @@
 
 	class Simple extends Form{
 
+		/** @var $this */
+		private static $instance;
+
 		/** @var Validator */
 		protected $validator_interface;
 
@@ -40,6 +43,14 @@
 		private $request;
 
 		private $form_name;
+
+		/** @return $this */
+		public static function getInstance(){
+			if(self::$instance === null){
+				self::$instance = new self();
+			}
+			return self::$instance;
+		}
 
 		public function __construct($form_name=null){
 			parent::__construct();
@@ -55,7 +66,7 @@
 			$this->validator_interface->form(function(FormInterface $form){
 				$form->setFormMethod('GET');
 				$form->setFormName($this->form_name);
-				$form->setFormAction(fx_get_url('__controller_namespace__','index'));
+				$form->setFormAction(fx_get_url('__controller_property__','index'));
 			});
 			$this->validator_interface->field('field')
 				->jevix(true)

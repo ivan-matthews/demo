@@ -37,9 +37,10 @@
 		public function includeHomePage();
 
 		/**
+		 * @param $path
 		 * @return View
 		 */
-		public function getSiteDir();
+		public function path($path);
 
 		/**
 		 * @return View

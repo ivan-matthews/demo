@@ -89,7 +89,7 @@
 			return new Controller(self::getInstance(),$controller_name,$action);
 		}
 
-		public function breadcrumb($breadcrumb){
+		public function breadcrumb($breadcrumb=null){
 			return new BreadCrumb(self::getInstance(),$breadcrumb);
 		}
 
@@ -100,7 +100,7 @@
 		public function title($title_value=null){
 			$title = new Title(self::getInstance());
 			if($title_value){
-				$title->set($title_value);
+				$title->set(fx_lang($title_value));
 			}
 			return $title;
 		}

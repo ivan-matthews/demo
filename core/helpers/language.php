@@ -1,6 +1,7 @@
 <?php
 
 	function fx_lang($lang_key,$replace_data=array()){
+		if(!$lang_key){ return null; }
 		$language = \Core\Classes\Language::getInstance();
 		if(strpos($lang_key,'.') !== false){
 			$language_array = $language->getLanguage();

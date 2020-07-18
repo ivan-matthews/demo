@@ -4,6 +4,8 @@
 @darked-blue: #47469c;
 @light-blue: #009fff;
 @main-background-color: #edeef0;
+@success:#28a745;
+@danger:#dc3545;
 
 body{
 	color: #656565;
@@ -11,6 +13,8 @@ body{
 	background: @main-background-color ;
 	a {
 		color: @dark-blue;
+		-moz-user-select: none;
+		user-select: none;
 	}
 	a:active {
 		color: @darked-blue;
@@ -256,13 +260,21 @@ body{
 								padding:10px 5px;
 							}
 							.modal{
+								ol{
+									margin-bottom: 0;
+								}
+								.card{
+									a{
+										padding: .75rem 1.25rem;
+									}
+								}
 								table{
 									th{
 										cursor: pointer;
 									}
 								}
 								.files{
-									padding: .75rem 1.25rem;
+									padding: 1.25rem 1.25rem;
 									margin-bottom: 0;
 									background-color: rgba(0,0,0,.03);
 									border-bottom: 1px solid rgba(0,0,0,.125);
@@ -348,3 +360,64 @@ body{
 	color: chocolate;
 }
 
+form{
+	label{
+		font-weight: bold;
+	}
+	input{
+		&::placeholder{
+			font-style: italic;
+			font-size: 13px;
+			color: #95a7ae;
+			-moz-user-select: none;
+			user-select: none;
+		}
+	}
+	.invalid-feedback{
+		display: block;
+		font-size: 100%;
+	}
+	label{
+		-moz-user-select: none;
+		user-select: none;
+	}
+	.csrf{
+
+	}
+}
+
+.form-auth{
+	div.form{
+		font-size: 24px;
+		font-weight: bold;
+	}
+	.another-data{
+		//max-width: 300px;
+		float: right;
+		margin-top: -6em;
+		-moz-user-select: none;
+		user-select: none;
+		&:hover{
+			cursor: pointer;
+		}
+		.form-links{
+			a{
+				//padding-left:10px;
+			}
+			&::after{
+				content: "|";
+				//padding-left:10px;
+			}
+			&:last-child{
+				&::after{
+					content: '';
+					padding-right:0;
+				}
+			}
+		}
+	}
+}
+
+.csrf{
+	margin-bottom: 0;
+}

@@ -125,12 +125,15 @@
 	use Core\Classes\Form\Interfaces\Checkers;
 	use Core\Classes\Form\Interfaces\Form;
 	use Core\Classes\Form\Interfaces\Validator as ValidatorInterface;
+	use Core\Classes\Session;
 
 	class Validator implements ValidatorInterface, Checkers, Form, Params{
 
 		const CSRF_TOKEN_EQUAL = 'equal';
 		const CSRF_TOKEN_NOT_FOUND = 'not_found';
 		const CSRF_TOKEN_NOT_EQUAL = 'not_equal';
+
+		protected $label;
 
 		protected $field;
 		protected $value;
@@ -143,15 +146,14 @@
 
 		protected $default_attributes = array(
 			'placeholder' => null,
-			'field_type' => 'text',
 			'required' => null,
+			'readonly' => null,
 			'html_min' => null,
 			'html_max' => null,
-			'label' => null,
 			'title' => null,
-			'class' => null,
+			'class' => 'form-control',
 			'name' => null,
-			'type' => 'text',
+			'type' => 'text',			// аттрибут поля 'type'
 			'value' =>null,
 			'min' => null,
 			'max' => null,
@@ -163,14 +165,17 @@
 				'show_label_in_form'=> true,
 				'show_title_in_form'=> true,
 				'show_validation'	=> true,
-				'field_sets'		=> null,
+				'field_sets'		=> 'main_field_set',
+				'field_sets_field_class'=> 'col-md-12 col-sm-12 col-12 col-lg-12 col-xl-12',
 				'form_position'		=> null,
 				'filter_position'	=> null,
 				'item_position'		=> null,
-				'filter'			=> null,	// string [ = | != | > | < | <= | >= ]
-				'filter_query'		=> null,
-				'render_type'		=> null,
-			)
+				'filter_validation'	=> null,	// string [ = | != | > | < | <= | >= ]
+				'filter_query'		=> null,	// return "where [field] [filter_validation] [value]";
+				'render_type'		=> 'text',	// вывод рендинга в item
+				'field_type' 		=> 'simple',// вывод рендинга в form
+				'label' 			=> null,
+			),
 		);
 
 		protected $default_files_attributes = array(
@@ -212,9 +217,11 @@
 			'class'				=> 'simple-form-class',
 			'id'				=> 'simple-form-id',
 			'title'				=> '',
+			'submit'			=> null,
 		);
 
 		protected $config;
+		protected $session;
 
 		/**
 		 * @param null $callback_function
@@ -240,6 +247,7 @@
 
 		public function __construct(){
 			$this->config = Config::getInstance();
+			$this->session = Session::getInstance();
 			$this->setCSRFAttributes();
 		}
 
@@ -296,16 +304,24 @@
 			return $this;
 		}
 
-		public function value($value){
-			$this->value = null;
-			if(isset($this->data[$value])){
-				$this->value = $this->data[$value];
+		public function value($value=null){
+			$this->value = $value;
+			if($this->validate_status){
+				if(isset($this->data[$this->field])){
+					$this->value = $this->data[$this->field];
+				}else{
+					$this->value = null;
+				}
 			}
 			return $this->setAttribute(__FUNCTION__,$this->value);
 		}
 
-		public function setError($error_data_value){
-			$this->errors[$this->field][] = $this->fields_list[$this->field]['errors'][] = $error_data_value;
+		public function setError($error_data_value,$key=null){
+			if(!$key){
+				$this->errors[$this->field][] = $this->fields_list[$this->field]['errors'][] = $error_data_value;
+				return $this;
+			}
+			$this->errors[$this->field][$key] = $this->fields_list[$this->field]['errors'][$key] = $error_data_value;
 			return $this;
 		}
 		public function getErrors(){
@@ -336,9 +352,12 @@
 		}
 		public function field($field){
 			$this->field = $field;
+			$this->label = null;
 			$this->setDefaultAttributes();
 			$this->setAttribute('name',$this->field);
-			return $this->value($this->field);
+			$this->setParams('validate_status',$this->validate_status);
+			$this->setParams('original_name',$this->field);
+			return $this->value();
 		}
 
 		public function class($default){
@@ -348,7 +367,8 @@
 			return $this->setAttribute(__FUNCTION__,$default);
 		}
 		public function label($default){
-			return $this->setAttribute(__FUNCTION__,$default);
+			$this->label = $default;
+			return $this->setParams(__FUNCTION__,$default);
 		}
 		public function title($default){
 			return $this->setAttribute(__FUNCTION__,$default);
@@ -357,9 +377,7 @@
 			return $this->setAttribute(__FUNCTION__,$default);
 		}
 		public function type($default){
-			return $this->setAttribute(__FUNCTION__,$default);
-		}
-		public function field_type($default){
+			if(fx_equal($default,'submit')){ $this->form_attributes['submit'] = true; }
 			return $this->setAttribute(__FUNCTION__,$default);
 		}
 
@@ -392,9 +410,14 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.field_has_attr_required', array(
-					'FIELD_NAME'	=> $this->field
+					'FIELD_NAME'	=> $this->label
 				)
 			));
+			return $this;
+		}
+
+		public function readonly($default=true){
+			$this->setAttribute(__FUNCTION__,$default);
 			return $this;
 		}
 
@@ -405,7 +428,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_min_length', array(
-					'FIELD'	=> $this->field,
+					'FIELD'	=> $this->label,
 					'COUNT'	=> $default,
 				)
 			));
@@ -419,7 +442,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_max_length', array(
-					'FIELD'	=> $this->field,
+					'FIELD'	=> $this->label,
 					'COUNT'	=> $default,
 				)
 			));
@@ -433,7 +456,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_min_length', array(
-					'FIELD'	=> $this->field,
+					'FIELD'	=> $this->label,
 					'COUNT'	=> $default,
 				)
 			));
@@ -447,7 +470,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_max_length', array(
-					'FIELD'	=> $this->field,
+					'FIELD'	=> $this->label,
 					'COUNT'	=> $default,
 				)
 			));
@@ -462,7 +485,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_mask', array(
-					'FIELD'	=> $this->field,
+					'FIELD'	=> $this->label,
 					'MASK'	=> $default,
 				)
 			));
@@ -477,7 +500,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_email', array(
-					'FIELD'	=> $this->field,
+					'FIELD'	=> $this->label,
 				)
 			));
 			return $this;
@@ -490,7 +513,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_boolean',array(
-				'FIELD'	=> $this->field,
+				'FIELD'	=> $this->label,
 			)));
 			return $this;
 		}
@@ -502,7 +525,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_domain',array(
-				'FIELD'	=> $this->field,
+				'FIELD'	=> $this->label,
 			)));
 			return $this;
 		}
@@ -514,7 +537,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_float',array(
-				'FIELD'	=> $this->field,
+				'FIELD'	=> $this->label,
 			)));
 			return $this;
 		}
@@ -526,7 +549,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_int',array(
-				'FIELD'	=> $this->field,
+				'FIELD'	=> $this->label,
 			)));
 			return $this;
 		}
@@ -538,7 +561,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_ip',array(
-				'FIELD'	=> $this->field,
+				'FIELD'	=> $this->label,
 			)));
 			return $this;
 		}
@@ -550,7 +573,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_mac',array(
-				'FIELD'	=> $this->field,
+				'FIELD'	=> $this->label,
 			)));
 			return $this;
 		}
@@ -562,7 +585,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_regexp',array(
-				'FIELD'	=> $this->field,
+				'FIELD'	=> $this->label,
 			)));
 			return $this;
 		}
@@ -574,7 +597,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_url',array(
-				'FIELD'	=> $this->field,
+				'FIELD'	=> $this->label,
 			)));
 			return $this;
 		}
@@ -587,7 +610,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_lower_letters',array(
-				'FIELD'	=> $this->field,
+				'FIELD'	=> $this->label,
 			)));
 			return $this;
 		}
@@ -600,7 +623,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_upper_letters',array(
-				'FIELD'	=> $this->field,
+				'FIELD'	=> $this->label,
 			)));
 			return $this;
 		}
@@ -613,20 +636,21 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_numeric',array(
-				'FIELD'	=> $this->field,
+				'FIELD'	=> $this->label,
 			)));
 			return $this;
 		}
 
-		public function symbols($default=true){
+		public function symbols($default="\!\@\#\$%\^&*()_+=-][~`|}{':\";?/.,<>"){
 			if(!$this->validate_status){ return $this; }
 			if(!$default){ return $this; }
-			$this->preg_match("/[\!\@\#\$\%\^\&\*\(\)\_\+\=\-\\]\[\~\`\|\}\{\'\:\"\;\?\/\.\,\<\>]/",$this->value,$search);
+			$this->preg_match("#[{$default}]#",$this->value,$search);
 			if(!empty($search[0])){
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_symbols',array(
-				'FIELD'	=> $this->field,
+				'FIELD'		=> $this->label,
+				'PATTERN'	=> stripslashes($default),
 			)));
 			return $this;
 		}
@@ -639,7 +663,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_lower_cyrillic',array(
-				'FIELD'	=> $this->field,
+				'FIELD'	=> $this->label,
 			)));
 			return $this;
 		}
@@ -652,7 +676,7 @@
 				return $this;
 			}
 			$this->setError(fx_lang('fields.error_field_not_upper_cyrillic',array(
-				'FIELD'	=> $this->field,
+				'FIELD'	=> $this->label,
 			)));
 			return $this;
 		}
@@ -660,9 +684,12 @@
 		protected function setCSRFAttributes(){
 			$this->field($this->config->session['csrf_key_name']);
 			$this->setAttribute('type','hidden');
-			$this->setAttribute('field_type','hidden');
+			$this->setAttribute('class',$this->config->session['csrf_key_name']);
 			$this->setAttribute('value',fx_csrf());
 			$this->setAttribute('required',true);
+			$this->setParams('field_sets','csrf');
+			$this->setParams('field_type','hidden');
+			$this->setParams('field_sets_field_class','m-0 csrf');
 			return $this;
 		}
 		protected function checkCSRF(){
@@ -687,9 +714,9 @@
 		protected function preg_match($pattern,$subject,&$matches,$flags=0,$offset=0){
 			if(!is_string($this->value)){
 				return $this->setError(fx_lang('fields.error_field_not_string', array(
-						'FIELD'	=> $this->field,
+						'FIELD'	=> $this->label,
 					)
-				));
+				),$this->field);
 			}
 			preg_match($pattern,$subject,$matches,$flags,$offset);
 			return $matches;
@@ -842,11 +869,15 @@
 			$this->setParams(__FUNCTION__,$value);
 			return $this;
 		}
-		public function filter($value){
+		public function filter_validation($value){
 			$this->setParams(__FUNCTION__,$value);
 			return $this;
 		}
 		public function filter_position($value){
+			$this->setParams(__FUNCTION__,$value);
+			return $this;
+		}
+		public function field_sets_field_class($value){
 			$this->setParams(__FUNCTION__,$value);
 			return $this;
 		}
@@ -862,6 +893,9 @@
 			$this->setParams(__FUNCTION__,$value);
 			return $this;
 		}
+		public function field_type($default){
+			return $this->setParams(__FUNCTION__,$default);
+		}
 		public function show_validation($value){
 			$this->setParams(__FUNCTION__,$value);
 			return $this;
@@ -869,6 +903,48 @@
 		public function filter_query($value){
 			$this->setParams(__FUNCTION__,$value);
 			return $this;
+		}
+
+		public function captcha(){
+			if($this->validate_status){
+				$captcha_data = $this->session->get('captcha',Session::PREFIX_CONF);
+				if($captcha_data){
+					if(fx_equal($captcha_data['word'],mb_strtoupper($this->value))){
+						$this->makeCaptcha();
+						return $this;
+					}
+					$this->setError(fx_lang('fields.captcha_not_equal'),$this->field);
+					$this->makeCaptcha();
+					return $this;
+				}
+				$this->setError(fx_lang('fields.captcha_not_found'),$this->field);
+			}
+			$this->makeCaptcha();
+			return $this;
+		}
+
+		public function setCaptcha(){
+			$this->field('captcha');
+			$this->setAttribute('required',true);
+			$this->setParams('field_type','captcha');
+			$this->setParams('field_sets_field_class','col-md-12 col-sm-12 col-12 col-lg-12 col-xl-12');
+			return $this->captcha();
+		}
+
+		public function makeCaptcha(){
+			$captcha_type = 'png';
+			$captcha_length = rand(5,8);
+			$captcha_word = mb_strtoupper(fx_gen($captcha_length));
+			$captcha_size = rand(12,36);
+			$captcha_image = fx_make_captcha($captcha_word,$captcha_size,$captcha_type);
+			$this->session->set('captcha',array(
+				'word'	=> $captcha_word,
+				'length'=> $captcha_length,
+				'type'	=> $captcha_type,
+				'size'	=> $captcha_size,
+			),Session::PREFIX_CONF);
+			$this->setParams('captcha_image',$captcha_image);
+			return $captcha_image;
 		}
 
 

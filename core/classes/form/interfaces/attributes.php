@@ -40,12 +40,6 @@
 		public function type($default);
 
 		/**
-		 * @param $default
-		 * @return Attributes
-		 */
-		public function field_type($default);
-
-		/**
 		 * @param string|array $data
 		 * @param null $value
 		 * @return Attributes

@@ -19,8 +19,8 @@
 			$this->response->response_data['response_data']['breadcrumb'][$this->breadcrumb] = $this->default_params;
 		}
 
-		public function setLink($link){
-			$this->response->response_data['response_data']['breadcrumb'][$this->breadcrumb]['link'] = $link;
+		public function setLink(...$link){
+			$this->response->response_data['response_data']['breadcrumb'][$this->breadcrumb]['link'] = fx_get_url(...$link);
 			return $this;
 		}
 
@@ -30,7 +30,7 @@
 		}
 
 		public function setValue($value){
-			$this->response->response_data['response_data']['breadcrumb'][$this->breadcrumb]['value'] = $value;
+			$this->response->response_data['response_data']['breadcrumb'][$this->breadcrumb]['value'] = fx_lang($value);
 			return $this;
 		}
 

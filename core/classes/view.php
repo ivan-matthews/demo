@@ -42,6 +42,8 @@
 		public $config;
 		public $request;
 
+		public $submit_button;
+
 		/**
 		 * @return ViewInterface
 		 */
@@ -143,10 +145,6 @@
 
 		public function path($path){
 			return "{$this->site_dir}/{$path}";
-		}
-
-		public function getSiteDir(){
-			return $this->site_dir;
 		}
 
 		public function start(){
@@ -298,7 +296,7 @@
 				$this->data['title'] = array(fx_lang('home.error_head') . ' ' . $this->error_status);
 			}
 			$titles = $this->data['title'];
-			$titles = array_reverse($titles);
+			$titles = array_diff(array_reverse($titles),array(''));
 			print "<title>";
 			print implode($this->config->view['title_delimiter'],$titles);
 			print "</title>" . PHP_EOL;
@@ -356,6 +354,32 @@
 			return print $this->getUploadSiteRoot($upload_pth_to_file);
 		}
 
+		public function renderForm($form_data,$form_file='assets/form'){
+			$form_path = $this->path("{$form_file}.html.php");
+			return $this->render($form_path,$form_data);
+		}
+
+		public function renderField($fields_data,$field_file='assets/fields/form/simple'){
+			$field_path = $this->path("{$field_file}.html.php");
+			return $this->render($field_path,$fields_data);
+		}
+
+		public function getAttributesStringFromArray(array $attributes_array){
+			$attributes_string = '';
+			foreach($attributes_array as $attribute_key=>$attribute_value){
+				if(!$attribute_value || is_array($attribute_value)){ continue; }
+				$attributes_string .= "{$attribute_key}=\"{$attribute_value}\" ";
+			}
+			return trim($attributes_string);
+		}
+
+		public function prepareFormFieldsToFieldSets(array $fields_array){
+			$new_fields_array = array();
+			foreach($fields_array as $key=>$value){
+				$new_fields_array[$value['attributes']['params']['field_sets']][$key] = $value;
+			}
+			return $new_fields_array;
+		}
 
 
 

@@ -45,7 +45,7 @@
 			$this->response->title($this->site_config->core['site_name']);
 			$this->response->breadcrumb('main_breadcrumb')
 				->setValue($this->site_config->core['site_name'])
-				->setLink(fx_get_url())
+				->setLink()
 				->setIcon('fa fa-home');
 			$this->response->favicon($this->site_config->view['default_favicon']);
 			$this->setMeta();

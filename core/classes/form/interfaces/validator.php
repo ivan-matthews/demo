@@ -83,4 +83,8 @@
 		 */
 		public function setParams($attribute_key,$attribute_value);
 
+		/**
+		 * @return Validator
+		 */
+		public function setCaptcha();
 	}

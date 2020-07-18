@@ -98,8 +98,7 @@
 		}
 		public function html($file,array $data){
 			$view = View::getInstance();
-			$web_dir = $view->getSiteDir();
-			$file_path = "{$web_dir}/assets/mail/{$file}.html.php";
+			$file_path = $view->path("assets/mail/{$file}.html.php");
 			$result = null;
 			if(is_readable($file_path)){
 				$result = $view->render($file_path,$data);

@@ -5,6 +5,8 @@ body {
 }
 body a {
   color: #2a5885;
+  -moz-user-select: none;
+  user-select: none;
 }
 body a:active {
   color: #47469c;
@@ -234,11 +236,17 @@ body footer .footer-block .footer-parent .footer .footer-body.debug-menu .value.
 body footer .footer-block .footer-parent .footer .footer-body.debug-menu a {
   padding: 10px 5px;
 }
+body footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal ol {
+  margin-bottom: 0;
+}
+body footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal .card a {
+  padding: 0.75rem 1.25rem;
+}
 body footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal table th {
   cursor: pointer;
 }
 body footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal .files {
-  padding: 0.75rem 1.25rem;
+  padding: 1.25rem 1.25rem;
   margin-bottom: 0;
   background-color: rgba(0, 0, 0, 0.03);
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
@@ -302,4 +310,45 @@ body footer .footer-block .footer-parent .footer-menu-info .footer-body .site-ye
 }
 .chocolate-icon {
   color: chocolate;
+}
+form label {
+  font-weight: bold;
+}
+form input::placeholder {
+  font-style: italic;
+  font-size: 13px;
+  color: #95a7ae;
+  -moz-user-select: none;
+  user-select: none;
+}
+form .invalid-feedback {
+  display: block;
+  font-size: 100%;
+}
+form label {
+  -moz-user-select: none;
+  user-select: none;
+}
+.form-auth div.form {
+  font-size: 24px;
+  font-weight: bold;
+}
+.form-auth .another-data {
+  float: right;
+  margin-top: -6em;
+  -moz-user-select: none;
+  user-select: none;
+}
+.form-auth .another-data:hover {
+  cursor: pointer;
+}
+.form-auth .another-data .form-links::after {
+  content: "|";
+}
+.form-auth .another-data .form-links:last-child::after {
+  content: '';
+  padding-right: 0;
+}
+.csrf {
+  margin-bottom: 0;
 }

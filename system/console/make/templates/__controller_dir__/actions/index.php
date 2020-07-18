@@ -36,7 +36,7 @@
 		public $hook;
 
 		/** @var array */
-		private $__action_property__;
+		public $__action_property__;
 
 		/** @return $this */
 		public static function getInstance(){

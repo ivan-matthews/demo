@@ -36,7 +36,7 @@
 		public $hook;
 
 		/** @var array */
-		private $item;
+		public $item;
 
 		/** @return $this */
 		public static function getInstance(){
