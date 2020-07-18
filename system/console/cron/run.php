@@ -130,9 +130,9 @@
 				if(is_string($task_result)){
 					return $this->executeSuccessfulWithMsg($task_result);
 				}
-				return $this->executeSuccessful();
+				return $this->executeSuccessful($task_result);
 			}
-			return $this->executeSuccessfulEmpty();
+			return $this->executeSuccessfulEmpty($task_result);
 		}
 
 		private function updateCronTaskLastRun($item){
@@ -236,14 +236,14 @@
 				$print->string($msg)/*->fon('red')*/->print()->eol();
 			});
 		}
-		private function executeSuccessful(){
-			$this->update_data['ct_result'] = true;
+		private function executeSuccessful($msg){
+			$this->update_data['ct_result'] = $msg;
 			return Paint::exec(function(PaintInterface $print){
 				$print->string(fx_lang('cli.successful_ended'))->fon('green')->print()->eol();
 			});
 		}
-		private function executeSuccessfulEmpty(){
-			$this->update_data['ct_result'] = false;
+		private function executeSuccessfulEmpty($msg){
+			$this->update_data['ct_result'] = $msg;
 			return Paint::exec(function(PaintInterface $print){
 				$print->string(fx_lang('cli.successful_ended'))->fon('green')->print();
 				$print->string(fx_lang('cli.without_message'))->print();

@@ -112,5 +112,6 @@
 </table>
 </body>
 </html>
+<?php print number_format(microtime(true)-TIME,10) ?>
 
 

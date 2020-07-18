@@ -47,10 +47,9 @@
 	}
 
 	function fx_save($file,$data){
-		$file_path = fx_path($file);
-		$directory = dirname($file);
-		fx_make_dir($directory);
-		return file_put_contents($file_path,$data);
+		$file = fx_path($file);
+		fx_make_dir(dirname($file),777);
+		return file_put_contents($file,$data);
 	}
 
 	function fx_make_dir($dir,$chmod=0775,$recursive=true){
