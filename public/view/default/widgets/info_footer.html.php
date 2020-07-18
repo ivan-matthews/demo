@@ -11,7 +11,7 @@
 			</div>
 		</div>
 	<?php } ?>
-	<div class="footer-body">
+	<div class="footer-body row user-info-widget row justify-content-center">
 		<div class="body mx-auto">
 			<span class="site-year">
 				<i class="copyright">©</i>

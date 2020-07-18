@@ -1,3 +1,90 @@
+.text-default,
+.color-default {
+  color: #4a76a8;
+}
+.btn-default,
+.bg-default,
+a:not([href]) {
+  color: #fff;
+  background-color: #4a76a8;
+  border-color: #4a76a8;
+}
+.btn-default:hover,
+.bg-default:hover,
+a:not([href]):hover {
+  background: #245f9e;
+  color: #fff;
+}
+.chocolate-icon {
+  color: chocolate;
+}
+.radius-0 {
+  border-radius: 0 !important;
+}
+i,
+svg {
+  color: chocolate;
+}
+i.desktop,
+svg.desktop {
+  background: 1px #FFFFFF;
+}
+i.tablet,
+svg.tablet {
+  background: 1px #FFFFFF;
+}
+i.mobile,
+svg.mobile {
+  background: 1px #FFFFFF;
+}
+i.circle,
+svg.circle {
+  background: 1px #FFFFFF;
+  border-radius: 50%;
+}
+i.fa-grin-alt,
+svg.fa-grin-alt {
+  color: #28a745;
+}
+i.fa-dizzy,
+svg.fa-dizzy {
+  color: #6f7985;
+}
+i.fa-angry,
+svg.fa-angry {
+  color: #dc3545;
+}
+i .fa-frown-open,
+svg .fa-frown-open {
+  color: #ffc107;
+}
+option.empty-value,
+select[value="0"] {
+  font-style: italic;
+  color: #c8cbcf;
+}
+.btn-primary,
+.btn-danger,
+.btn-success,
+.btn-warning,
+.btn-default {
+  font-weight: bold;
+}
+.btn-primary i,
+.btn-danger i,
+.btn-success i,
+.btn-warning i,
+.btn-default i,
+.btn-primary svg,
+.btn-danger svg,
+.btn-success svg,
+.btn-warning svg,
+.btn-default svg {
+  color: #FFFFFF;
+}
+.btn-group.field {
+  min-width: 296px;
+}
 footer {
   padding: 0!important;
   margin: 0 auto;
@@ -42,6 +129,24 @@ footer .footer-block .footer-parent .footer .footer-body.debug-menu .value.value
 footer .footer-block .footer-parent .footer .footer-body.debug-menu a {
   padding: 10px 5px;
 }
+footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal .debug-ol-li {
+  position: relative;
+}
+footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal .debug-ol-li .clipper {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+  /* padding: 8px 0; */
+  display: flex;
+}
+footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal .debug-ol-li .clipper .success {
+  margin: auto;
+}
+footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal .debug-ol-li .clipper i,
+footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal .debug-ol-li .clipper svg {
+  font-size: 20px;
+}
 footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal ol {
   margin-bottom: 0;
 }
@@ -69,7 +174,8 @@ footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal .acco
 footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal .accordion .card a .query {
   color: olivedrab;
 }
-footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal .accordion .card a .link {
+footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal .accordion .card a .link,
+footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal .accordion .card a .code {
   color: darkred;
 }
 footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal .accordion .card a .time.green {

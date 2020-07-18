@@ -1,5 +1,15 @@
-<div class="logo row col-3">
-	<a href="/">
-		<img class="logo" src="<?php $this->printUploadSiteRoot($this->config->view['site_logo']) ?>">
-	</a>
+<div class="div-logo row col-3">
+	<div class="visible-logo-image">
+		<a href="/">
+			<img class="logo" src="<?php $this->printUploadSiteRoot($this->config->view['site_logo']) ?>">
+		</a>
+	</div>
+	<div class="hidden-logo-button pl-3 pr-3 pt-2 pb-2">
+		<a href="javascript:void(0)" onclick="sidebarActions()">
+			<i class="fa fa-bars" aria-hidden="true"></i>
+		</a>
+	</div>
 </div>
+<script>
+
+</script>

@@ -9,7 +9,7 @@
 ?>
 
 
-<div class="row user-info-widget row justify-content-center p-0 col-8 col-sm-8 col-md-9 col-lg-6 col-xl-5">
+<div class="row user-info-widget row justify-content-center p-0 col-10 col-sm-10 col-md-9 col-lg-6 col-xl-5">
 	<div class="body mx-auto search">
 		<div class="btn-group">
 			<a class="user-info-link" href="javascript:void(0)">

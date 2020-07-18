@@ -2,6 +2,7 @@
 	/**
 	 * @var array $content
 	 */
+	$content['offset'] = (int)$content['offset'];
 ?>
 <?php $current = (int)floor($content['offset']/$content['limit']) ?>
 <?php if($content['total']-$content['limit'] > $content['limit']){
@@ -12,7 +13,7 @@
 <nav aria-label="Page navigation example" class="paginate">
 	<ul class="pagination justify-content-center">
 		<li class="page-item">
-			<a class="page-link<?php print (!$content['offset']?' active':'') ?>" href="<?php print fx_make_url($content['link'],array(),false) ?>" aria-label="Previous">
+			<a class="page-link<?php print (!$content['offset']?' bg-default':'') ?>" href="<?php print fx_make_url($content['link'],array(),false) ?>" aria-label="Previous">
 				<span aria-hidden="true"><?php print fx_lang('home.paginate_first_page') ?></span>
 			</a>
 		</li>
@@ -26,7 +27,7 @@
 							<?php print $current+$i+1 ?>
 						</a>
 					<?php }else{ ?>
-						<a class="page-link active">
+						<a class="page-link bg-default">
 							<?php print $current+$i+1 ?>
 						</a>
 					<?php } ?>
@@ -41,7 +42,7 @@
 							<?php print $current+($i) ?>
 						</a>
 					<?php }else{ ?>
-						<a class="page-link active">
+						<a class="page-link bg-default">
 							<?php print $current+($i) ?>
 						</a>
 					<?php } ?>
@@ -56,7 +57,7 @@
 							<?php print $current+($i-1) ?>
 						</a>
 					<?php }else{ ?>
-						<a class="page-link active">
+						<a class="page-link bg-default">
 							<?php print $current+($i-1) ?>
 						</a>
 					<?php } ?>
@@ -71,7 +72,7 @@
 							<?php print $current+($i-2) ?>
 						</a>
 					<?php }else{ ?>
-						<a class="page-link active">
+						<a class="page-link bg-default">
 							<?php print $current+($i-2) ?>
 						</a>
 					<?php } ?>

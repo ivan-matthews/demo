@@ -10,4 +10,11 @@
 			'controller'	=> 'users',
 			'action'		=> 'index',
 		),
+		'users_item_after_hook'	=> array(
+			'class'			=> \Core\Controllers\Users\Hooks\Users_Item_After_Hook::class,
+			'method'		=> 'run',
+			'status'		=> Kernel::STATUS_ACTIVE,
+			'controller'	=> 'users',
+			'action'		=> 'index',
+		),
 	);

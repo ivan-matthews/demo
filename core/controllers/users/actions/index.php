@@ -123,12 +123,12 @@
 			$this->order = '`u_date_created`';
 			return null;
 		}
-		protected function offline(){
-			$this->response->title('users.users_index_offline_title');
+		protected function last_visit(){
+			$this->response->title('users.users_index_last_visit_title');
 			$this->response->breadcrumb('filter')
 				->setIcon(null)
-				->setLink('users','index','offline')
-				->setValue('users.users_index_offline_title');
+				->setLink('users','index','last_visit')
+				->setValue('users.users_index_last_visit_title');
 			$this->order = '`u_date_log`';
 			return " AND `u_date_log`<" . time();
 		}

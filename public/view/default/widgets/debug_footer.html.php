@@ -12,7 +12,7 @@
 			</div>
 		</div>
 	<?php } ?>
-	<div class="footer-body debug-menu">
+	<div class="footer-body debug-menu row user-info-widget row justify-content-center">
 
 <!--		TIME BEGIN-->
 		<div class="body mx-auto">
@@ -129,7 +129,12 @@
 						<div class="accordion" id="<?php print $key ?>">
 							<ol>
 								<?php foreach($value as $index=>$item){ ?>
-									<li>
+									<li class="debug-ol-li">
+										<div class="clipper">
+											<a href="javascript:void(0)" onclick="indexObj.debugQueryToClipper(this)">
+												<i class="far fa-copy text-danger"></i>
+											</a>
+										</div>
 										<div class="card">
 											<a href="javascript:void(0)" class="card-header" id="heading<?php print $key ?><?php print $index ?>" data-toggle="collapse" data-target="#collapse<?php print $key ?><?php print $index ?>" aria-expanded="true" aria-controls="collapse<?php print $key ?><?php print $index ?>">
 
@@ -143,14 +148,14 @@
 													<?php print $item['function'] ?>(<?php print fx_implode(', ',$item['args']) ?>)
 												</div>
 												<div class="debug link" >
-													<?php print $item['query'] ?>
+													<pre><code class="code"><?php print $item['query'] ?></code></pre>
 												</div>
 												<div class="debug time <?php print ($item['time']<0.1 ? 'green' : 'red') ?>" >
 													<?php print $item['time'] ?>
 												</div>
 											</a>
 
-											<div id="collapse<?php print $key ?><?php print $index ?>" class="collapse collapsed-debug-menu <?php print (!$index ? 'show' : '') ?>" aria-labelledby="heading<?php print $key ?><?php print $index ?>" data-parent="#<?php print $key ?>">
+											<div id="collapse<?php print $key ?><?php print $index ?>" class="collapse collapsed-debug-menu <?php /*print (!$index ? 'show' : '')*/ ?>" aria-labelledby="heading<?php print $key ?><?php print $index ?>" data-parent="#<?php print $key ?>">
 												<div class="card-body back-trace">
 													<ol>
 														<?php foreach($item['trace'] as $i=>$trace){ ?>
@@ -187,3 +192,7 @@
 
 	</div>
 </div>
+
+<script>
+
+</script>

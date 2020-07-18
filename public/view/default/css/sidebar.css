@@ -1,3 +1,100 @@
+.text-default,
+.color-default {
+  color: #4a76a8;
+}
+.btn-default,
+.bg-default,
+a:not([href]) {
+  color: #fff;
+  background-color: #4a76a8;
+  border-color: #4a76a8;
+}
+.btn-default:hover,
+.bg-default:hover,
+a:not([href]):hover {
+  background: #245f9e;
+  color: #fff;
+}
+.chocolate-icon {
+  color: chocolate;
+}
+.radius-0 {
+  border-radius: 0 !important;
+}
+i,
+svg {
+  color: chocolate;
+}
+i.desktop,
+svg.desktop {
+  background: 1px #FFFFFF;
+}
+i.tablet,
+svg.tablet {
+  background: 1px #FFFFFF;
+}
+i.mobile,
+svg.mobile {
+  background: 1px #FFFFFF;
+}
+i.circle,
+svg.circle {
+  background: 1px #FFFFFF;
+  border-radius: 50%;
+}
+i.fa-grin-alt,
+svg.fa-grin-alt {
+  color: #28a745;
+}
+i.fa-dizzy,
+svg.fa-dizzy {
+  color: #6f7985;
+}
+i.fa-angry,
+svg.fa-angry {
+  color: #dc3545;
+}
+i .fa-frown-open,
+svg .fa-frown-open {
+  color: #ffc107;
+}
+option.empty-value,
+select[value="0"] {
+  font-style: italic;
+  color: #c8cbcf;
+}
+.btn-primary,
+.btn-danger,
+.btn-success,
+.btn-warning,
+.btn-default {
+  font-weight: bold;
+}
+.btn-primary i,
+.btn-danger i,
+.btn-success i,
+.btn-warning i,
+.btn-default i,
+.btn-primary svg,
+.btn-danger svg,
+.btn-success svg,
+.btn-warning svg,
+.btn-default svg {
+  color: #FFFFFF;
+}
+.btn-group.field {
+  min-width: 296px;
+}
+.black-fon-bg {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: #000;
+  opacity: 0.5;
+  z-index: 99999998;
+}
 .sidebar-parent {
   font-weight: bold;
   padding-left: 0;
@@ -6,6 +103,20 @@
   .sidebar-parent {
     display: none;
   }
+}
+.sidebar-parent.sidebar-display-block {
+  display: block;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 99999999;
+}
+.sidebar-parent.sidebar-display-block .sidebar-main {
+  position: relative;
+  width: 275px;
+  overflow-y: auto;
+  height: calc(100vh - 0px);
+  background: #FFFFFF;
 }
 .sidebar-parent .sidebar-title {
   color: #FFFFFF;

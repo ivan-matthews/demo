@@ -51,7 +51,7 @@
 					<button type="button" class="btn btn-light more" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						<i class="fa fa-arrow-down" aria-hidden="true"></i>
 					</button>
-					<button class="btn btn-primary" type="submit">
+					<button class="btn btn-default" type="submit">
 						<i class="fa fa-search" aria-hidden="true"></i>
 					</button>
 					<?php if($content['data']){ ?>
@@ -80,7 +80,7 @@
 							<?php } ?>
 						<?php } ?>
 
-						<div class="field mb-2 mt-2 btn-group btn-group-toggle row col-12" data-toggle="buttons">
+						<div class="field mb-2 mt-2 btn-group btn-group-toggle row col-12">
 							<button class="btn btn-success radius-0" type="submit">
 								<i class="fa fa-search" aria-hidden="true"></i>
 								<?php print fx_lang('home.filter_button_search_value') ?>

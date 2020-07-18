@@ -23,7 +23,7 @@
 
 					<a href="<?php print fx_get_url('users','item',$user['u_id']) ?>" class="col-11 row ml-0">
 
-						<div class="users-item-avatar col-md-3 col-sm-3 col-5 col-lg-2 col-xl-2">
+						<div class="users-item-avatar col-md-3 col-sm-3 col-3 col-lg-2 col-xl-2">
 
 							<div class="avatar">
 
@@ -36,9 +36,9 @@
 							</div>
 						</div>
 
-						<div class="col-md-7 col-sm-8 col-7 col-lg-10 col-xl-10 users-item-info">
+						<div class="col-md-7 col-sm-8 col-9 col-lg-10 col-xl-10 users-item-info">
 
-							<div class="list-group-item-heading info full-name mt-1 mb-3">
+							<div class="list-group-item-heading info full-name mt-1 mb-1">
 
 								<?php print fx_get_full_name($user['u_full_name'],$user['u_gender']) ?>
 

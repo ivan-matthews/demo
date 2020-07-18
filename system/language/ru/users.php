@@ -14,6 +14,7 @@
 
 		'users_index_all_title'		=> 'Все',
 		'users_index_online_title'	=> 'В сети',
+		'users_index_last_visit_title'	=> 'Последний визит',
 		'users_index_offline_title'	=> 'Не в сети',
 		'users_index_active_title'	=> 'Подтвержденные',
 		'users_index_inactive_title'=> 'Не подтвержденные',
@@ -82,4 +83,6 @@
 		'country_placeholder'		=> 'Введите страну',
 		'region_placeholder'		=> 'Введите регион',
 		'city_placeholder'			=> 'Введите город',
+
+		'edit_profile_link_value'	=> 'Редактировать',
 	);

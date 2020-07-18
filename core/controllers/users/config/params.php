@@ -30,10 +30,10 @@
 				'title'	=> 'users.users_index_online_title',
 				'link'	=> array('users','index','online')
 			),
-			'offline'	=> array(
+			'last_visit'	=> array(
 				'status'=> Kernel::STATUS_ACTIVE,
-				'title'	=> 'users.users_index_offline_title',
-				'link'	=> array('users','index','offline')
+				'title'	=> 'users.users_index_last_visit_title',
+				'link'	=> array('users','index','last_visit')
 			),
 			'registration'	=> array(
 				'status'=> Kernel::STATUS_INACTIVE,

@@ -44,6 +44,24 @@ footer{
 							padding:10px 5px;
 						}
 						.modal{
+							.debug-ol-li{
+								position: relative;
+								.clipper{
+									position: absolute;
+									right: 0;
+									top: 0;
+									z-index: 1;
+									//border: solid 1px #cccc;
+									/* padding: 8px 0; */
+									display: flex;
+									.success{
+										margin: auto;
+									}
+									i,svg{
+										font-size: 20px;
+									}
+								}
+							}
 							ol{
 								margin-bottom: 0;
 							}
@@ -76,7 +94,7 @@ footer{
 										.query{
 											color: olivedrab;
 										}
-										.link{
+										.link, .code{
 											color: darkred;
 										}
 										.time{

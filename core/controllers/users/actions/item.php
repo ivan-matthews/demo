@@ -47,6 +47,7 @@
 		public $form;
 		public $fields;
 		public $fields_list;
+		public $user_menu = array();
 
 		private $breadcrumbs;
 
@@ -60,15 +61,18 @@
 
 		public function __construct(){
 			parent::__construct();
-			$this->breadcrumbs = $this->response->breadcrumb('item')
+			$this->breadcrumbs = $this->response->breadcrumb('users_item')
 				->setIcon(null);
+
 			$this->form = new Form();
 		}
 
 		public function methodGet($user_id){
 			$this->user_id = $user_id;
+
 			$this->user_data = $this->model->getUserByID($user_id);
 			if($this->user_data){
+
 				$this->response->title($this->user_data['u_full_name']);
 				$this->breadcrumbs->setLink('users','item',$this->user_data['u_id'])
 					->setValue($this->user_data['u_full_name']);
@@ -81,13 +85,13 @@
 				$this->response->controller('users','item')
 					->setArray(array(
 						'user'	=> $this->user_data,
-						'fields'=> $this->fields_list
+						'fields'=> $this->fields_list,
+						'menu'	=> $this->user_menu,
 					));
 				return $this;
 			}
 			return $this->renderEmptyPage();
 		}
-
 
 
 

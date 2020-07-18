@@ -45,22 +45,26 @@
 			}
 			.user-date-log{
 				&.online{
-					color: @success;
-					i,svg{
-						color: unset;
-						&.circle{
-							background:@success;
-							border: solid 2px #FFFFFF;
+					a{
+						color: @success;
+						i,svg{
+							color: unset;
+							&.circle{
+								background:@success;
+								border: solid 2px #FFFFFF;
+							}
 						}
 					}
 				}
 				&.offline{
-					color: @danger;
-					i,svg{
-						color: unset;
-						&.circle{
-							background:@danger;
-							border: solid 2px #FFFFFF;
+					a{
+						color: @danger;
+						i,svg{
+							color: unset;
+							&.circle{
+								background:@danger;
+								border: solid 2px #FFFFFF;
+							}
 						}
 					}
 				}
@@ -162,4 +166,57 @@
 			}
 		}
 	}
+}
+
+.user-info-widget{
+	.body{
+		a{
+			&.user-info-link{
+				position: relative;
+				padding:7px 20px;
+				//border: solid 1px #FFFFFF;
+				i,svg{
+					font-size: 25px;
+					color: #FFFFFF;
+				}
+				&:hover{
+					background: none;
+					opacity: 0.8;
+				}
+				img{
+					max-width: 24px;
+				}
+			}
+		}
+
+		.count{
+			position: absolute;
+			top: 0;
+			color: #FFFFFF;
+			background-color: @danger;
+			padding: 0 6px;
+			font-weight: bold;
+			//border-radius: 50%;
+		}
+		.dropdown-menu{
+			.dropdown-item{
+				img{
+					padding-right: 10px;
+				}
+				.icon{
+					padding-right: 10px;
+				}
+				padding: 8px 25px;
+			}
+			a.dropdown-divider{
+				height: 0;
+				margin: 0.5rem 0;
+				overflow: hidden;
+				border-top: 1px solid #e9ecef;
+				padding: 0;
+			}
+		}
+	}
+	.user-journal{}
+	.user-mail{}
 }

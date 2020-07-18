@@ -1,4 +1,5 @@
 @general-color: #4a76a8;
+@general-hover: #245f9e;
 @light-general-color:#d9e2ec;
 @dark-blue: #2a5885;
 @darked-blue: #47469c;
@@ -15,3 +16,71 @@
 @text_footer_color: #6f7985;
 @text_main_background: #ffffff;
 @fat: 600;
+
+.text-default,.color-default{
+	color: @general-color;
+}
+.btn-default,.bg-default,a:not([href]){
+	color: #fff;
+	background-color: @general-color;
+	border-color: @general-color;
+	&:hover{
+		background: @general-hover;
+		color: #fff;
+	}
+}
+.chocolate-icon{
+	color: chocolate;
+}
+.radius-0{
+	border-radius: 0 !important;
+}
+i,svg{
+	color: chocolate;
+	&.desktop{
+		background: 1px #FFFFFF;
+	}
+	&.apple{
+
+	}
+	&.android{
+
+	}
+	&.tablet{
+		background: 1px #FFFFFF;
+	}
+	&.mobile{
+		background: 1px #FFFFFF;
+	}
+	&.circle{
+		background: 1px #FFFFFF;
+		border-radius: 50%;
+	}
+	&.fa-grin-alt{
+		color: @success;
+	}
+	&.fa-dizzy{
+		color: @text_footer_color;
+	}
+	&.fa-angry{
+		color: @danger;
+	}
+	.fa-frown-open{
+		color: @warning;
+	}
+}
+option.empty-value,select[value="0"]{
+	font-style: italic;
+	color: #c8cbcf;
+}
+.btn-primary,.btn-danger,.btn-success,.btn-warning,.btn-default{
+	font-weight: bold;
+	i,svg{
+		color: #FFFFFF;
+	}
+}
+.btn-group{
+	&.field{
+		min-width: 296px;
+	}
+}

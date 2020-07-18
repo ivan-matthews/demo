@@ -78,8 +78,8 @@
 			$result = array();
 			if(isset($this->hooks_list[$hook_name])){
 				foreach($this->hooks_list[$hook_name] as $list){
-					$hook_obj = new $list['class'];
-					$result = call_user_func(array($hook_obj,$list['method']),...$arguments_list);
+					$hook_obj = new $list['class'](...$arguments_list);
+					$result[] = call_user_func(array($hook_obj,$list['method']),...$arguments_list);
 
 					if($this->config->core['debug_enabled']){
 						$debug_back_trace = debug_backtrace();

@@ -24,9 +24,9 @@
 	$this->addJS("{$this->theme_path}/js/libs/jquery",TIME);
 
 	$this->addCSS("{$this->theme_path}/css/index",TIME);
-	$this->addCSS("{$this->theme_path}/css/main",TIME);
+	$this->addCSS("{$this->theme_path}/css/home",TIME);
 	$this->addJS("{$this->theme_path}/js/index",TIME);
-	$this->addJS("{$this->theme_path}/js/main",TIME);
+	$this->addJS("{$this->theme_path}/js/home",TIME);
 
 	$lang_key = $this->language->getLanguageKey();
 	$translation_lang_key = $lang_key . "-" . strtoupper($lang_key);
@@ -50,15 +50,7 @@
 
 		<nav class="navbar header-bar">
 
-			<div class="container">
-
-				<div class="row container col-12">
-
-					<?php $this->widget('header') ?>
-
-				</div>
-
-			</div>
+			<?php print $this->widget('header') ?>
 
 		</nav>
 
@@ -66,21 +58,25 @@
 
 			<div class="row justify-content-center">
 
-				<?php $this->widget('top') ?>
+				<?php print $this->widget('top') ?>
 
-				<div class="sidebar-parent col-md-3 col-sm-3 col-3 col-lg-3 col-xl-3">
+				<div class="sidebar-parent col-md-4 col-sm-3 col-3 col-lg-3 col-xl-3">
 
-					<?php $this->widget('sidebar') ?>
+					<div class="sidebar-main">
+
+						<?php print $this->widget('sidebar') ?>
+
+					</div>
 
 				</div>
 
 				<div class="col-md-8 col-sm-12 col-12 col-lg-9 col-xl-9 content">
 
-					<?php $this->widget('body_header') ?>
+					<?php print $this->widget('body_header') ?>
 
 					<div class="main-content">
 
-						<?php $this->widget('before_content') ?>
+						<?php print $this->widget('before_content') ?>
 
 						<?php if($this->isContent()){ ?>
 
@@ -88,15 +84,15 @@
 
 						<?php } ?>
 
-						<?php $this->widget('after_content') ?>
+						<?php print $this->widget('after_content') ?>
 
 					</div>
 
-					<?php $this->widget('body_footer') ?>
+					<?php print $this->widget('body_footer') ?>
 
 				</div>
 
-				<?php $this->widget('bottom') ?>
+				<?php print $this->widget('bottom') ?>
 
 			</div>
 
@@ -108,7 +104,7 @@
 
 				<div class="footer-parent col-md-12 col-sm-12 col-12 col-lg-12 col-xl-12">
 
-					<?php $this->widget('footer') ?>
+					<?php print $this->widget('footer') ?>
 
 				</div>
 

@@ -22,7 +22,7 @@
 					</a>
 				</span>
 				<span class="delete-status">
-					<a href="/status/1/deete">
+					<a href="/status/1/delete">
 						<i class="fas fa-times"></i>
 						удалить статус
 					</a>
@@ -34,7 +34,7 @@
 	<?php if(fx_me($user['u_id'])){ ?>
 		<div class="status-menu">
 			<span class="edit-status">
-				<a href="/status/1/edit">
+				<a href="/status/1/add">
 					<i class="fas fa-pen"></i>
 					изменить статус
 				</a>

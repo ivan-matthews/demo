@@ -32,13 +32,41 @@ body{
 		background: @general-color;
 		max-width: 1140px;
 		margin: 0 auto;
-		.logo{
-			a{
-				img.logo {
-					max-height: 40px;
+		height: 55px;
+		.div-logo{
+			.visible-logo-image{
+				@media (max-width: 767px) {
+					display: none;
 				}
-				&:hover{
-					background: none;
+				a{
+					img.logo {
+						max-height: 40px;
+					}
+					&:hover{
+						background: none;
+						opacity: 0.8;
+					}
+				}
+			}
+			.hidden-logo-button{
+				a{
+					padding: 1.25em 2em;
+					//border: solid 1px #FFF;
+					top: -1.65em;
+					bottom: -1.65em;
+					position: absolute;
+					left: -2px;
+					i,svg{
+						color: #FFFFFF;
+						font-size: 25px;
+					}
+					&:hover{
+						background: none;
+						opacity: 0.8;
+					}
+				}
+				@media (min-width: 768px) {
+					display: none;
 				}
 			}
 		}
@@ -61,59 +89,4 @@ body{
 	}
 
 
-}
-.chocolate-icon{
-	color: chocolate;
-}
-.radius-0{
-	border-radius: 0 !important;
-}
-i,svg{
-	color: chocolate;
-	&.desktop{
-		background: 1px #FFFFFF;
-	}
-	&.apple{
-
-	}
-	&.android{
-
-	}
-	&.tablet{
-		background: 1px #FFFFFF;
-	}
-	&.mobile{
-		background: 1px #FFFFFF;
-	}
-	&.circle{
-		background: 1px #FFFFFF;
-		border-radius: 50%;
-	}
-	&.fa-grin-alt{
-		color: @success;
-	}
-	&.fa-dizzy{
-		color: @text_footer_color;
-	}
-	&.fa-angry{
-		color: @danger;
-	}
-	.fa-frown-open{
-		color: @warning;
-	}
-}
-option.empty-value,select[value="0"]{
-	font-style: italic;
-	color: #c8cbcf;
-}
-.btn-primary,.btn-danger,.btn-success,.btn-warning{
-	font-weight: bold;
-	i,svg{
-		color: #FFFFFF;
-	}
-}
-.btn-group{
-	&.field{
-		min-width: 296px;
-	}
 }

@@ -324,19 +324,20 @@
 		}
 
 		public function widget($widget_position){
+			$widget_html_content = '';
 			if(isset($this->data['widgets'][$widget_position])){
 				ksort($this->data['widgets'][$widget_position]);
 				foreach($this->data['widgets'][$widget_position] as $widget){
 					$widget_tmp_file = $this->path("{$widget['params']['wa_template']}_{$widget['params']['wa_position']}.html.php");
 					if(file_exists($widget_tmp_file)){
-						print $this->render($widget_tmp_file,array(
+						$widget_html_content .= $this->render($widget_tmp_file,array(
 							'content'	=> $widget['data'],
 							'options'	=> $widget['params']
 						));
 					}
 				}
 			}
-			return $this;
+			return $widget_html_content;
 		}
 
 		public function printMeta(){

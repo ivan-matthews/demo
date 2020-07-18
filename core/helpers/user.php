@@ -37,9 +37,9 @@
 
 	function fx_me($my_id,$session_key_id='u_id'){
 		$session = Session::getInstance();
-		$sess_id = (int)$session->get($session_key_id,Session::PREFIX_AUTH);
+		$session_id = (int)$session->get($session_key_id,Session::PREFIX_AUTH);
 		$my_id = (int)$my_id;
-		if(fx_equal($sess_id,$my_id) || fx_equal($sess_id,1)){
+		if(($session_id && fx_equal($session_id,$my_id)) || fx_equal($session_id,1) /* admin account (debug)*/){
 			return true;
 		}
 		return false;
