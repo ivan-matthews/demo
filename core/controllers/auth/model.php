@@ -30,21 +30,21 @@
 
 		public function addNewUser($auth_data){
 			$this->auth_id = $this->insert('auth')
-				->value('login',$auth_data['login'])
-				->value('password',$auth_data['password'])
-				->value('enc_password',$auth_data['enc_password'])
-				->value('groups',$auth_data['groups'])
-				->value('bookmark',$auth_data['bookmark'])
-				->value('verify_token',$auth_data['verify_token'])
-				->value('status',$auth_data['status'])
-				->value('date_created',$auth_data['date_created'])
+				->value('a_login',$auth_data['login'])
+				->value('a_password',$auth_data['password'])
+				->value('a_enc_password',$auth_data['enc_password'])
+				->value('a_groups',$auth_data['groups'])
+				->value('a_bookmark',$auth_data['bookmark'])
+				->value('a_verify_token',$auth_data['verify_token'])
+				->value('a_status',$auth_data['status'])
+				->value('a_date_created',$auth_data['date_created'])
 				->get()
 				->id();
 
 			$this->user_id = $this->insert('users')
-				->value('auth_id',$this->auth_id)
-				->value('status',$auth_data['status'])
-				->value('date_created',$auth_data['date_created'])
+				->value('u_auth_id',$this->auth_id)
+				->value('u_status',$auth_data['status'])
+				->value('u_date_created',$auth_data['date_created'])
 				->get()
 				->id();
 
@@ -56,22 +56,22 @@
 
 		public function updateUserAuthDataByRestorePasswordToken(array $update_data){
 			$this->update('auth')
-				->field('groups',$update_data['groups'])
-				->field('verify_token',$update_data['verify_token'])
-				->field('date_activate',$update_data['date_activate'])
-				->field('status',$update_data['status'])
-				->field('password',$update_data['password'])
-				->field('enc_password',$update_data['enc_password'])
-				->field('bookmark',$update_data['bookmark'])
-				->field('restore_password_token',$update_data['restore_password_token'])
-				->where("`id`=%auth_id%")
+				->field('a_groups',$update_data['groups'])
+				->field('a_verify_token',$update_data['verify_token'])
+				->field('a_date_activate',$update_data['date_activate'])
+				->field('a_status',$update_data['status'])
+				->field('a_password',$update_data['password'])
+				->field('a_enc_password',$update_data['enc_password'])
+				->field('a_bookmark',$update_data['bookmark'])
+				->field('a_restore_password_token',$update_data['restore_password_token'])
+				->where("`a_id`=%auth_id%")
 				->data('%auth_id%',$update_data['auth_id'])
 				->get()
 				->rows();
 
 			$this->update('users')
-				->field('status',$update_data['status'])
-				->where("`id`=%user_id% AND `auth_id`=%auth_id%")
+				->field('u_status',$update_data['status'])
+				->where("`u_id`=%user_id% AND `u_auth_id`=%auth_id%")
 				->data('%user_id%',$update_data['id'])
 				->data('%auth_id%',$update_data['auth_id'])
 				->get()
@@ -85,18 +85,18 @@
 
 		public function updateUserAuthDataByVerifyToken(array $update_data){
 			$this->update('auth')
-				->field('groups',$update_data['groups'])
-				->field('verify_token',$update_data['verify_token'])
-				->field('date_activate',$update_data['date_activate'])
-				->field('status',$update_data['status'])
-				->where("`id`=%auth_id%")
+				->field('a_groups',$update_data['groups'])
+				->field('a_verify_token',$update_data['verify_token'])
+				->field('a_date_activate',$update_data['date_activate'])
+				->field('a_status',$update_data['status'])
+				->where("`a_id`=%auth_id%")
 				->data('%auth_id%',$update_data['auth_id'])
 				->get()
 				->rows();
 
 			$this->update('users')
-				->field('status',$update_data['status'])
-				->where("`id`=%user_id% AND `auth_id`=%auth_id%")
+				->field('u_status',$update_data['status'])
+				->where("`u_id`=%user_id% AND `u_auth_id`=%auth_id%")
 				->data('%user_id%',$update_data['id'])
 				->data('%auth_id%',$update_data['auth_id'])
 				->get()
@@ -110,8 +110,8 @@
 
 		public function updateUserEmail($user_email,$old_email){
 			$rows = $this->update('auth')
-				->field('login',$user_email)
-				->where("`login`=%login%")
+				->field('a_login',$user_email)
+				->where("`a_login`=%login%")
 				->data('%login%',$old_email)
 				->get()
 				->rows();
@@ -124,9 +124,9 @@
 
 		public function updateUserRestorePasswordToken(array $restore_data, $user_email){
 			$rows = $this->update('auth')
-				->field('restore_password_token',$restore_data['restore_password_token'])
-				->field('date_password_restore',$restore_data['date_password_restore'])
-				->where("`login`=%login%")
+				->field('a_restore_password_token',$restore_data['restore_password_token'])
+				->field('a_date_password_restore',$restore_data['date_password_restore'])
+				->where("`a_login`=%login%")
 				->data('%login%',$user_email)
 				->get()
 				->rows();
@@ -146,8 +146,8 @@
 
 			$user_account = $this->select()
 				->from('auth')
-				->join('users',"auth.id=users.auth_id")
-				->where("`verify_token`=%verify_token%")
+				->join('users',"a_id=u_auth_id")
+				->where("`a_verify_token`=%verify_token%")
 				->data('%verify_token%',$verify_token)
 				->limit(1)
 				->get()
@@ -158,7 +158,7 @@
 		}
 
 		public function getUserByRestorePasswordToken($restore_password_token){
-			$this->cache->key('users.accounts.restore_password_tokens');
+			$this->cache->key('users.accounts.pw_tokens');
 
 			if(($user_account = $this->cache->get()->array())){
 				return $user_account;
@@ -166,8 +166,8 @@
 
 			$user_account = $this->select()
 				->from('auth')
-				->join('users',"auth.id=users.auth_id")
-				->where("`restore_password_token`=%restore_password_token%")
+				->join('users',"a_id=u_auth_id")
+				->where("`a_restore_password_token`=%restore_password_token%")
 				->data('%restore_password_token%',$restore_password_token)
 				->limit(1)
 				->get()
@@ -186,8 +186,8 @@
 
 			$user_account = $this->select()
 				->from('auth')
-				->join('users',"auth.id=users.auth_id")
-				->where("`bookmark`=%bookmark%")
+				->join('users',"a_id=u_auth_id")
+				->where("`a_bookmark`=%bookmark%")
 				->data('%bookmark%',$bookmark)
 				->limit(1)
 				->get()
@@ -206,8 +206,8 @@
 
 			$user_account = $this->select()
 				->from('auth')
-				->join('users',"auth.id=users.auth_id")
-				->where("`login`=%login%")
+				->join('users',"a_id=u_auth_id")
+				->where("`a_login`=%login%")
 				->data('%login%',$login)
 				->limit(1)
 				->get()
@@ -226,8 +226,8 @@
 
 			$user_account = $this->select()
 				->from('auth')
-				->join('users',"auth.id=users.auth_id")
-				->where("users.id=%id%")
+				->join('users',"a_id=u_auth_id")
+				->where("u_id=%id%")
 				->data('%id%',$user_id)
 				->limit(1)
 				->get()
@@ -246,7 +246,7 @@
 
 			$user_emails = $this->select()
 				->from('auth')
-				->where("`login`=%login%")
+				->where("`a_login`=%login%")
 				->data('%login%',$email)
 				->get()
 				->itemAsArray();
@@ -257,9 +257,9 @@
 
 		public function generateVerifyTokenKey(){
 			$generated_key = fx_gen(128);
-			$verify_token_key = $this->select('verify_token')
+			$verify_token_key = $this->select('a_verify_token')
 				->from('auth')
-				->where("`verify_token`='{$generated_key}'")
+				->where("`a_verify_token`='{$generated_key}'")
 				->get()
 				->itemAsArray();
 			if($verify_token_key){
@@ -270,9 +270,9 @@
 
 		public function generateRestorePasswordToken(){
 			$generated_key = fx_gen(128);
-			$restore_token_key = $this->select('restore_password_token')
+			$restore_token_key = $this->select('a_restore_password_token')
 				->from('auth')
-				->where("`restore_password_token`='{$generated_key}'")
+				->where("`a_restore_password_token`='{$generated_key}'")
 				->get()
 				->itemAsArray();
 			if($restore_token_key){
@@ -283,8 +283,8 @@
 
 		public function updateDateLog($user_id,$date_log){
 			$this->update('users')
-				->field('date_log',$date_log)
-				->where("`id`=%user_id%")
+				->field('u_date_log',$date_log)
+				->where("`u_id`=%user_id%")
 				->data('%user_id%',$user_id)
 				->get()
 				->rows();

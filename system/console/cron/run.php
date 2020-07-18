@@ -26,10 +26,10 @@
 		private $task_ids=array();
 
 		private $update_data = array(
-			'options'	=> null,
-			'errors'	=> null,
-			'result'	=> null,
-			'date_updated'	=> null,
+			'ct_options'	=> null,
+			'ct_errors'	=> null,
+			'ct_result'	=> null,
+			'ct_date_updated'	=> null,
 		);
 
 		public function __construct(){
@@ -62,7 +62,7 @@
 		private function getCronTasksArray(){
 			$this->cron_tasks_array = Database::select('*')
 				->from('cron_tasks')
-				->where("`status`='" . Kernel::STATUS_ACTIVE . "'")
+				->where("`ct_status`=" . Kernel::STATUS_ACTIVE)
 				->get()
 				->allAsArray()
 			;
@@ -78,11 +78,11 @@
 						$this->skippedByID();
 						continue;
 					}
-					if(!$this->checkLastRun($item['date_updated']+$item['period'])){
+					if(!$this->checkLastRun($item['ct_date_updated']+$item['ct_period'])){
 						$this->skippedByTime();
 						continue;
 					}
-					$this->lockFile($item['id']);
+					$this->lockFile($item['ct_id']);
 					$this->makeLockToWrite();
 					if(!$this->checkLocked()){
 						$this->skippedByFile();
@@ -91,7 +91,7 @@
 					$this->shutDownFunction();
 					$this->tryRunCronTask($item);
 
-					$this->cron_tasks_array[$key]['date_updated'] = time();
+					$this->cron_tasks_array[$key]['ct_date_updated'] = time();
 
 					$this->updateCronTaskLastRun($item);
 					$this->unlockFile();
@@ -103,7 +103,7 @@
 
 		private function checkIDInIDsList($item){
 			if($this->task_ids){
-				if(!in_array($item['id'],$this->task_ids)){
+				if(!in_array($item['ct_id'],$this->task_ids)){
 					return false;
 				}
 			}
@@ -112,14 +112,14 @@
 
 		private function tryRunCronTask($cron_task){
 			try{
-				$cron_task_object = new $cron_task['class']();
-				$task_result = call_user_func_array(array($cron_task_object,$cron_task['method']),array($cron_task));
+				$cron_task_object = new $cron_task['ct_class']();
+				$task_result = call_user_func_array(array($cron_task_object,$cron_task['ct_method']),array($cron_task));
 				$this->prepareSuccessfulResult($task_result);
 			}catch(\Error $error){
-				$this->update_data['errors']['message'] = $error->getMessage();
-				$this->update_data['errors']['file'] = $error->getFile();
-				$this->update_data['errors']['line'] = $error->getLine();
-				$this->update_data['errors']['time'] = time();
+				$this->update_data['ct_errors']['message'] = $error->getMessage();
+				$this->update_data['ct_errors']['file'] = $error->getFile();
+				$this->update_data['ct_errors']['line'] = $error->getLine();
+				$this->update_data['ct_errors']['time'] = time();
 				$this->executeError();
 			}
 			return $this;
@@ -136,13 +136,13 @@
 		}
 
 		private function updateCronTaskLastRun($item){
-			$this->update_data['date_updated'] = time();
+			$this->update_data['ct_date_updated'] = time();
 			$update = Database::update('cron_tasks');
 			foreach($this->update_data as $field => $value){
 				$update = $update->field($field,$value);
 			}
-			$update->where("`id`=ITEM_ID");
-			$update->data('ITEM_ID',$item['id']);
+			$update->where("`ct_id`=ITEM_ID");
+			$update->data('ITEM_ID',$item['ct_id']);
 			return $update->get();
 		}
 
@@ -189,8 +189,8 @@
 			return Paint::exec(function(PaintInterface $print)use($item){
 				$print->string( date('d-m-Y H:i:s') .': ')->color('cyan')->print();
 				$print->string(fx_lang('cli.cron_task'))->print();
-				$print->string($item['title'])->fon('blue')->print();
-				$print->string(" (ID №{$item['id']})")->print();
+				$print->string($item['ct_title'])->fon('blue')->print();
+				$print->string(" (ID №{$item['ct_id']})")->print();
 				$print->string(' > ')->print();
 			});
 		}
@@ -229,7 +229,7 @@
 		}
 
 		private function executeSuccessfulWithMsg($msg){
-			$this->update_data['result'] = $msg;
+			$this->update_data['ct_result'] = $msg;
 			return Paint::exec(function(PaintInterface $print)use($msg){
 				$print->string(fx_lang('cli.successful_ended'))->fon('green')->print();
 				$print->string(fx_lang('cli.with_message'))->print();
@@ -237,13 +237,13 @@
 			});
 		}
 		private function executeSuccessful(){
-			$this->update_data['result'] = true;
+			$this->update_data['ct_result'] = true;
 			return Paint::exec(function(PaintInterface $print){
 				$print->string(fx_lang('cli.successful_ended'))->fon('green')->print()->eol();
 			});
 		}
 		private function executeSuccessfulEmpty(){
-			$this->update_data['result'] = false;
+			$this->update_data['ct_result'] = false;
 			return Paint::exec(function(PaintInterface $print){
 				$print->string(fx_lang('cli.successful_ended'))->fon('green')->print();
 				$print->string(fx_lang('cli.without_message'))->print();

@@ -15,13 +15,13 @@
 		}
 
 		public function run(){
-			if(fx_equal((int)$this->verify_account_object->user_data['status'],Kernel::STATUS_ACTIVE)){
+			if(fx_equal((int)$this->verify_account_object->user_data['a_status'],Kernel::STATUS_ACTIVE)){
 				Session_Message::set('registration')
 					->head(fx_lang('auth.email_verification_successful_title',array(
-						'%user_full_name%'	=> $this->verify_account_object->user_data['full_name']
+						'%user_full_name%'	=> $this->verify_account_object->user_data['u_full_name']
 					)))
 					->value(fx_lang('auth.email_verification_successful_body',array(
-						'%mail_box%'	=> $this->verify_account_object->user_data['login']
+						'%mail_box%'	=> $this->verify_account_object->user_data['a_login']
 					)))
 					->send();
 			}

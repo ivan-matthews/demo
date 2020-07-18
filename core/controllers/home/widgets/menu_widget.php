@@ -22,13 +22,13 @@
 		}
 
 		private function getMenuLinks(){
-			$this->links = $this->model->getMenuLinksByWidgetId($this->params['id']);
+			$this->links = $this->model->getMenuLinksByWidgetId($this->params['wa_id']);
 			return $this;
 		}
 
 		private function prepareLinks(){
 			foreach($this->links as $key=>$value){
-				$this->links[$key]['link_array'] = fx_url(fx_arr($value['link_array']));
+				$this->links[$key]['l_link_array'] = fx_url(fx_arr($value['l_link_array']));
 			}
 			return $this;
 		}

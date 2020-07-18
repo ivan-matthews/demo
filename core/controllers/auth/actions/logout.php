@@ -70,7 +70,7 @@
 
 		public function methodGet(){
 			if(fx_equal(fx_csrf_equal($this->config->session['csrf_key_name']),Validator::CSRF_TOKEN_EQUAL)){
-				$user_id = $this->session->get('id',Session::PREFIX_AUTH);
+				$user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
 				if($user_id){
 					$this->model->updateDateLog($user_id,time());
 				}

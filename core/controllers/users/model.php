@@ -27,8 +27,8 @@
 
 		public function updateDateLog($user_id,$date_log){
 			$this->update('users')
-				->field('date_log',$date_log)
-				->where("`id`=%user_id%")
+				->field('u_date_log',$date_log)
+				->where("`u_id`=%user_id%")
 				->data('%user_id%',$user_id)
 				->get()
 				->rows();
@@ -42,7 +42,7 @@
 				return $result['total'];
 			}
 
-			$result = $this->select('COUNT(id) as total')->from('users')
+			$result = $this->select('COUNT(u_id) as total')->from('users')
 				->where($query_suffix)
 				->get()->itemAsArray();
 
@@ -50,7 +50,7 @@
 			return $result['total'];
 		}
 
-		public function getAllUsers($limit=15,$offset=0,$query_suffix=null,$order='date_created',$sort='DESC'){
+		public function getAllUsers($limit=15,$offset=0,$query_suffix=null,$order='u_date_created',$sort='DESC'){
 			$this->cache->key('users.all');
 
 			if(($result = $this->cache->get()->array())){
@@ -59,6 +59,8 @@
 
 			$result = $this->select()
 				->from('users')
+				->join('status',"s_user_id=u_id")
+				->join('photos',"p_user_id=u_id")
 				->where($query_suffix)
 				->limit($limit)
 				->offset($offset)
@@ -71,6 +73,25 @@
 			return $result;
 		}
 
+		public function getUserByID($user_id){
+			$this->cache->key('users.items');
+
+			if(($result = $this->cache->get()->array())){
+				return $result;
+			}
+
+			$result = $this->select()
+				->from('users')
+				->join('status',"s_user_id=u_id")
+				->join('photos',"p_user_id=u_id")
+				->where("`u_id`=%user_id%")
+				->data('%user_id%',$user_id)
+				->get()
+				->itemAsArray();
+
+			$this->cache->set($result);
+			return $result;
+		}
 
 
 

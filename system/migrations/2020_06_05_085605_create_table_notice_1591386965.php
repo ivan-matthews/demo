@@ -16,17 +16,17 @@
 
 		public function secondStep(){
 			Database::makeTable('notice',function(Create $table){
-				$table->bigint('id')->unsigned()->autoIncrement()->primary();
+				$table->bigint('n_id')->unsigned()->autoIncrement()->primary();
 
-				$table->tinyint('status',2)->notNull()->defaults(Notice::STATUS_DEFAULT);
-				$table->varchar('theme')->nullable();
-				$table->varchar('sender_id')->nullable();
-				$table->varchar('receiver_id')->nullable();
-				$table->varchar('content')->nullable();
-				$table->longtext('attachments')->nullable();
-				$table->longtext('options')->nullable();
+				$table->tinyint('n_status',2)->notNull()->defaults(Notice::STATUS_DEFAULT);
+				$table->varchar('n_theme')->nullable();
+				$table->varchar('n_sender_id')->nullable();
+				$table->varchar('n_receiver_id')->nullable();
+				$table->varchar('n_content')->nullable();
+				$table->longtext('n_attachments')->nullable();
+				$table->longtext('n_options')->nullable();
 
-				$table->add_timestamps();
+				$table->add_timestamps('n_');
 			});
 			return $this;
 		}

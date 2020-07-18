@@ -121,6 +121,12 @@
 
 /*-------------------------------------------------------------------------------------------------------------------*/
 
+		public function showColumns($tables){
+			return $this
+				->getDbObject()
+				->showColumns($tables);
+		}
+
 		public function showIndex($table){
 			return $this
 				->getDbObject()

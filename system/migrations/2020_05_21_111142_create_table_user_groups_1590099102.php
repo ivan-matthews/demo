@@ -16,13 +16,13 @@
 
 		public function secondStep(){
 			Database::makeTable('user_groups',function(Create $table){
-				$table->bigint('id')->unsigned()->autoIncrement()->primary();
+				$table->bigint('ug_id')->unsigned()->autoIncrement()->primary();
 
-				$table->varchar('name')->nullable()->unique();
-				$table->tinyint('status')->notNull()->defaults(Kernel::STATUS_ACTIVE);
-				$table->tinyint('default')->notNull()->defaults(0);
+				$table->varchar('ug_name')->nullable()->unique();
+				$table->tinyint('ug_status')->notNull()->defaults(Kernel::STATUS_ACTIVE);
+				$table->tinyint('ug_default')->notNull()->defaults(0);
 
-				$table->add_timestamps();
+				$table->add_timestamps('ug_');
 			});
 			return $this;
 		}

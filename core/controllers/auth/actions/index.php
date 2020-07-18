@@ -89,8 +89,8 @@
 			if($this->auth_form->can()){
 				$this->user_data = $this->model->getAuthDataByLogin($this->form_fields_list['login']['attributes']['value']);
 				if($this->user_data){
-					if(fx_equal($this->user_data['password'],fx_encode($this->form_fields_list['password']['attributes']['value']))){
-						$this->user_data['groups'] = fx_arr($this->user_data['groups']);
+					if(fx_equal($this->user_data['a_password'],fx_encode($this->form_fields_list['password']['attributes']['value']))){
+						$this->user_data['a_groups'] = fx_arr($this->user_data['a_groups']);
 						$this->user->auth($this->user_data,$this->form_fields_list['member_me']['attributes']['value']);
 						return $this->redirect();
 					}else{

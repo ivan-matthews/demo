@@ -17,7 +17,7 @@
 			Database::makeTable('__table_name__',function(Create $table){
 				$table->bigint('id')->unsigned()->autoIncrement()->primary();
 
-				$table->add_timestamps();
+				$table->add_timestamps(null);
 			});
 			return $this;
 		}

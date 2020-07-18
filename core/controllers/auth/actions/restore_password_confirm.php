@@ -119,14 +119,14 @@
 				$this->fields_list = $this->restore_password_form->getFieldsList();
 
 				if($this->restore_password_form->can()){
-					$this->user_data['groups'] 			= $this->params->groups_after_verification;
-					$this->user_data['verify_token'] 	= null;
-					$this->user_data['date_activate'] 	= time();
-					$this->user_data['status'] 			= Kernel::STATUS_ACTIVE;
-					$this->user_data['password']		= fx_encode($this->fields_list['password']['attributes']['value']);
-					$this->user_data['enc_password']	= fx_encryption($this->fields_list['password']['attributes']['value']);
-					$this->user_data['bookmark']		= fx_encode($this->user_data['login'].$this->fields_list['password']['attributes']['value']);
-					$this->user_data['restore_password_token']	= null;
+					$this->user_data['a_groups'] 		= $this->params->groups_after_verification;
+					$this->user_data['a_verify_token'] 	= null;
+					$this->user_data['a_date_activate'] = time();
+					$this->user_data['a_status'] 		= Kernel::STATUS_ACTIVE;
+					$this->user_data['a_password']		= fx_encode($this->fields_list['password']['attributes']['value']);
+					$this->user_data['a_enc_password']	= fx_encryption($this->fields_list['password']['attributes']['value']);
+					$this->user_data['a_bookmark']		= fx_encode($this->user_data['a_login'].$this->fields_list['password']['attributes']['value']);
+					$this->user_data['a_restore_password_token']	= null;
 
 					$this->update_data = $this->model->updateUserAuthDataByRestorePasswordToken($this->user_data);
 					$this->user->escape();
@@ -154,10 +154,10 @@
 				)))
 				->to($input_data['login'])
 				->html('restore_password_successful',array(
-					'login'		=> $input_data['login'],
-					'password'	=> fx_decryption($input_data['enc_password']),
-					'bookmark'	=> $input_data['bookmark'],
-					'id'		=> $input_data['id'],
+					'login'		=> $input_data['a_login'],
+					'password'	=> fx_decryption($input_data['a_enc_password']),
+					'bookmark'	=> $input_data['a_bookmark'],
+					'id'		=> $input_data['u_id'],
 				))
 				->send();
 			return $this;
@@ -167,7 +167,7 @@
 			Session_Message::set('restore_password')
 				->head(fx_lang('auth.successful_restore_password_title'))
 				->value(fx_lang('auth.successful_restore_password_value',array(
-					'%user_email%'	=> $input_data['login']
+					'%user_email%'	=> $input_data['a_login']
 				)))
 				->disabled_pages('auth','resend_email')
 				->send();

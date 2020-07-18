@@ -47,8 +47,8 @@
 		public $limit;
 		public $offset;
 		public $total;
-		public $order = 'id';
 		public $sort;
+		public $order = 'u_id';
 
 		/** @return $this */
 		public static function getInstance(){
@@ -60,30 +60,19 @@
 
 		public function __construct(){
 			parent::__construct();
-			$this->response->title('users.users_index_title');
-			$this->response->breadcrumb('users')
-				->setIcon(null)
-				->setLink('users','index')
-				->setValue('users.users_index_title');
-
-			$this->query	= "`status`!=" . Kernel::STATUS_BLOCKED;
+			$this->query	= "u_status!=" . Kernel::STATUS_BLOCKED;
 		}
 
-		public function methodGet($filter_suffix='all'){
-
-			if(isset($this->params->sorting_panel[$filter_suffix]) &&
-				fx_equal($this->params->sorting_panel[$filter_suffix]['status'],Kernel::STATUS_ACTIVE) &&
-				method_exists($this,$filter_suffix)){
-				$this->query .= call_user_func(array($this,$filter_suffix));
-			}
+		public function methodGet($sorting_action='all'){
+			$this->query .= $this->getQueryFromSortingPanelArray($this->params->sorting_panel,$sorting_action);
 
 			$this->total = $this->model->countAllUsers($this->query);
 			$this->users = $this->model->getAllUsers(
 				$this->limit, $this->offset, $this->query, $this->order, $this->sort
 			);
 
-			$this->paginate(array('users','index',$filter_suffix));
-			$this->sorting($this->params->sorting_panel,$filter_suffix);
+			$this->paginate(array('users','index',$sorting_action));
+			$this->sorting($this->params->sorting_panel,$sorting_action);
 
 			if($this->users){
 				return $this->response->controller('users','index')
@@ -92,62 +81,62 @@
 			return $this->renderEmptyPage();
 		}
 
-		private function all(){
+		protected function all(){
 			return null;
 		}
-		private function online(){
+		protected function online(){
 			$this->response->title('users.users_index_online_title');
 			$this->response->breadcrumb('filter')
 				->setIcon(null)
 				->setLink('users','index','online')
 				->setValue('users.users_index_online_title');
-			$this->order = 'date_log';
-			return " AND `date_log`>" . time();
+			$this->order = '`u_date_log`';
+			return " AND `u_date_log`>" . time();
 		}
-		private function registration(){
+		protected function registration(){
 			$this->response->title('users.users_index_registration_title');
 			$this->response->breadcrumb('filter')
 				->setIcon(null)
 				->setLink('users','index','registration')
 				->setValue('users.users_index_registration_title');
-			$this->order = 'date_created';
+			$this->order = '`u_date_created`';
 			return null;
 		}
-		private function offline(){
+		protected function offline(){
 			$this->response->title('users.users_index_online_title');
 			$this->response->breadcrumb('filter')
 				->setIcon(null)
 				->setLink('users','index','offline')
 				->setValue('users.users_index_online_title');
-			$this->order = 'date_log';
-			return " AND `date_log`<" . time();
+			$this->order = '`u_date_log`';
+			return " AND `u_date_log`<" . time();
 		}
-		private function active(){
+		protected function active(){
 			$this->response->title('users.users_index_active_title');
 			$this->response->breadcrumb('filter')
 				->setIcon(null)
 				->setLink('users','index','active')
 				->setValue('users.users_index_active_title');
 
-			return " AND `status`=" . Kernel::STATUS_ACTIVE;
+			return " AND `u_status`=" . Kernel::STATUS_ACTIVE;
 		}
-		private function inactive(){
+		protected function inactive(){
 			$this->response->title('users.users_index_inactive_title');
 			$this->response->breadcrumb('filter')
 				->setIcon(null)
 				->setLink('users','index','inactive')
 				->setValue('users.users_index_inactive_title');
 
-			return " AND `status`=" . Kernel::STATUS_INACTIVE;
+			return " AND `u_status`=" . Kernel::STATUS_INACTIVE;
 		}
-		private function locked(){
+		protected function locked(){
 			$this->response->title('users.users_index_locked_title');
 			$this->response->breadcrumb('filter')
 				->setIcon(null)
 				->setLink('users','index','locked')
 				->setValue('users.users_index_locked_title');
 
-			return " AND `status`=" . Kernel::STATUS_LOCKED;
+			return " AND `u_status`=" . Kernel::STATUS_LOCKED;
 		}
 
 

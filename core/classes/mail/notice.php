@@ -63,27 +63,27 @@
 			return $this;
 		}
 		public function theme($lang_key){
-			$this->database->value('theme',$lang_key);
+			$this->database->value('n_theme',$lang_key);
 			return $this;
 		}
 		public function sender($sender_id=null){
-			$this->database->value('sender_id',$sender_id);
+			$this->database->value('n_sender_id',$sender_id);
 			return $this;
 		}
 		public function receiver($receiver_id){
-			$this->database->value('receiver_id',$receiver_id);
+			$this->database->value('n_receiver_id',$receiver_id);
 			return $this;
 		}
 		public function content($lang_key){
-			$this->database->value('content',$lang_key);
+			$this->database->value('n_content',$lang_key);
 			return $this;
 		}
 		public function attachments(array $attachments){
-			$this->database->value('attachments',$attachments);
+			$this->database->value('n_attachments',$attachments);
 			return $this;
 		}
 		public function options($options){
-			$this->database->value('options',$options);
+			$this->database->value('n_options',$options);
 			return $this;
 		}
 
@@ -104,11 +104,11 @@
 			return $result_id;
 		}
 		private function setDate(){
-			$this->database->value('date_created',$this->time);
+			$this->database->value('n_date_created',$this->time);
 			return $this;
 		}
 		private function setStatus(){
-			$this->database->value('status',$this->status?:self::STATUS_DEFAULT);
+			$this->database->value('n_status',$this->status?:self::STATUS_DEFAULT);
 			$this->status = null;
 			return $this;
 		}

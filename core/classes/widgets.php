@@ -45,23 +45,23 @@
 
 			foreach($this->widgets_list as $key=>$widget){
 
-				$this->widgets_list[$key]['groups_disabled'] = $widget['groups_disabled'] = fx_arr($widget['groups_disabled']);
-				$this->widgets_list[$key]['pages_disabled'] = $widget['pages_disabled'] = fx_arr($widget['pages_disabled']);
-				$this->widgets_list[$key]['groups_enabled'] = $widget['groups_enabled'] = fx_arr($widget['groups_enabled']);
-				$this->widgets_list[$key]['pages_enabled'] = $widget['pages_enabled'] = fx_arr($widget['pages_enabled']);
+				$this->widgets_list[$key]['wa_groups_disabled'] = $widget['wa_groups_disabled'] = fx_arr($widget['wa_groups_disabled']);
+				$this->widgets_list[$key]['wa_pages_disabled'] = $widget['wa_pages_disabled'] = fx_arr($widget['wa_pages_disabled']);
+				$this->widgets_list[$key]['wa_groups_enabled'] = $widget['wa_groups_enabled'] = fx_arr($widget['wa_groups_enabled']);
+				$this->widgets_list[$key]['wa_pages_enabled'] = $widget['wa_pages_enabled'] = fx_arr($widget['wa_pages_enabled']);
 
-				$access->disableGroups($widget['groups_disabled']);
-				$access->disablePages($widget['pages_disabled']);
-				$access->enableGroups($widget['groups_enabled']);
-				$access->enablePages($widget['pages_enabled']);
+				$access->disableGroups($widget['wa_groups_disabled']);
+				$access->disablePages($widget['wa_pages_disabled']);
+				$access->enableGroups($widget['wa_groups_enabled']);
+				$access->enablePages($widget['wa_pages_enabled']);
 
 				if(!$access->granted()){
 					$access->drop();
 					continue;
 				}
 
-				$widget_object = new $widget['class']($widget);
-				$widget_execute_result = call_user_func(array($widget_object,$widget['method']));
+				$widget_object = new $widget['w_class']($widget);
+				$widget_execute_result = call_user_func(array($widget_object,$widget['w_method']));
 
 				if($this->config->core['debug_enabled']){
 					$debug_back_trace = debug_backtrace();
@@ -74,7 +74,7 @@
 						->setType($this->prepareBackTrace($debug_back_trace,0,'type'))
 						->setLine($this->prepareBackTrace($debug_back_trace,0,'line'))
 						->setArgs($this->prepareBackTrace($debug_back_trace,1,'args'))
-						->setQuery("{$widget['class']}::{$widget['method']}()");
+						->setQuery("{$widget['w_class']}::{$widget['w_method']}()");
 				}
 
 				$this->response->widget($widget)

@@ -88,7 +88,7 @@
 			return $this;
 		}
 
-		private function setMeta(){
+		protected function setMeta(){
 			$this->response->meta('csrf')
 				->set('name','csrf')
 				->set('content',fx_csrf());
@@ -110,17 +110,17 @@
 			return $this;
 		}
 
-		public function doNotSetBackLink(){
+		protected function doNotSetBackLink(){
 			$this->user->no_set_back_url = true;
 			return false;
 		}
 
-		public function renderEmptyPage(){
+		protected function renderEmptyPage(){
 			$this->response->controller('../assets','../empty_page');
 			return $this;
 		}
 
-		public function paginate($link){
+		protected function paginate($link){
 			Paginate::add()
 				->total($this->total)
 				->limit($this->limit)
@@ -130,7 +130,7 @@
 			return $this;
 		}
 
-		public function sorting(array $actions,$current){
+		protected function sorting(array $actions,$current){
 			$current_data['action'] = $current;
 			$current_data['sort'] = $this->sort_key;
 
@@ -139,7 +139,15 @@
 			return $this;
 		}
 
-
+		protected function getQueryFromSortingPanelArray(array $sorting_panel,$sorting_action){
+			$result = null;
+			if(isset($sorting_panel[$sorting_action]) &&
+				fx_equal($sorting_panel[$sorting_action]['status'],Kernel::STATUS_ACTIVE) &&
+				method_exists($this,$sorting_action)){
+				$result .= call_user_func(array($this,$sorting_action));
+			}
+			return $result;
+		}
 
 
 

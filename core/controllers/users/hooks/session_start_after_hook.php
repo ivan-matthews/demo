@@ -19,15 +19,15 @@
 		}
 
 		public function run(){
-			$user_id = $this->session->get('id',Session::PREFIX_AUTH);
+			$user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
 
 			$current_time = time();
-			$user_date_log = $this->session->get('date_log',Session::PREFIX_AUTH);
+			$user_date_log = $this->session->get('u_date_log',Session::PREFIX_AUTH);
 			$online_time = $this->config->session['online_time']+$current_time;
 
 			if($user_id && $user_date_log<$current_time){
 				$this->model->updateDateLog($user_id,$online_time);
-				$this->session->set('date_log',$online_time,Session::PREFIX_AUTH);
+				$this->session->set('u_date_log',$online_time,Session::PREFIX_AUTH);
 			}
 			return true;
 		}

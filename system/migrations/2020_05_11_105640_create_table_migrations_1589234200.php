@@ -15,10 +15,10 @@
 
 		public function secondStep(){
 			Database::makeTable('migrations',function(Create $table){
-				$table->bigint('id')->unsigned()->autoIncrement()->primary();
+				$table->bigint('mg_id')->unsigned()->autoIncrement()->primary();
 
-				$table->varchar('name')->bin()->unique();
-				$table->timestamp('date_created')->currentTimestamp();
+				$table->varchar('mg_name')->bin()->unique();
+				$table->timestamp('mg_date_created')->currentTimestamp();
 			});
 			return $this;
 		}

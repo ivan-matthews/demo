@@ -315,7 +315,7 @@
 			if(isset($this->data['widgets'][$widget_position])){
 				ksort($this->data['widgets'][$widget_position]);
 				foreach($this->data['widgets'][$widget_position] as $widget){
-					$widget_tmp_file = "{$this->site_dir}/{$widget['params']['template']}_{$widget['params']['position']}.html.php";
+					$widget_tmp_file = "{$this->site_dir}/{$widget['params']['wa_template']}_{$widget['params']['wa_position']}.html.php";
 					if(file_exists($widget_tmp_file)){
 						print $this->render($widget_tmp_file,array(
 							'content'	=> $widget['data'],

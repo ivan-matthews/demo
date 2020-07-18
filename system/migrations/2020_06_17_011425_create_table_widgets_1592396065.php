@@ -16,14 +16,14 @@
 
 		public function secondStep(){
 			Database::makeTable('widgets',function(Create $table){
-				$table->bigint('id')->unsigned()->autoIncrement()->primary();
+				$table->bigint('w_id')->unsigned()->autoIncrement()->primary();
 
-				$table->varchar('class')->nullable();
-				$table->varchar('method')->nullable();
-				$table->varchar('status')->nullable()->defaults(Kernel::STATUS_ACTIVE);
-				$table->varchar('template')->nullable();
+				$table->varchar('w_class')->nullable();
+				$table->varchar('w_method')->nullable();
+				$table->varchar('w_status')->nullable()->defaults(Kernel::STATUS_ACTIVE);
+				$table->varchar('w_template')->nullable();
 
-				$table->add_timestamps();
+				$table->add_timestamps('w_');
 			});
 			return $this;
 		}

@@ -65,7 +65,7 @@
 		}
 
 		public function getGroups(){
-			$user_groups = $this->session->get('groups',Session::PREFIX_AUTH);
+			$user_groups = $this->session->get('a_groups',Session::PREFIX_AUTH);
 			if($user_groups){
 				return $this->setLoggedGroups($user_groups);
 			}
@@ -73,7 +73,7 @@
 		}
 
 		public function setGroups(array $groups){
-			$this->session->set('groups',$groups,Session::PREFIX_AUTH);
+			$this->session->set('a_groups',$groups,Session::PREFIX_AUTH);
 			return $this->getGroups();
 		}
 

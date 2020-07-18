@@ -14,8 +14,9 @@
 
 		/**
 		 * @return bool
+		 * @param string $fields_prefix
 		 */
-		public function add_timestamps();
+		public function add_timestamps($fields_prefix);
 
 		/**
 		 * @param $field

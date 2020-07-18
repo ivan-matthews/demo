@@ -1576,6 +1576,8 @@
 			'hsj2',
 			'jls',
 			'jp2',
+			'jpeg',
+			'jpg',
 			'jph',
 			'jphc',
 			'jpm',

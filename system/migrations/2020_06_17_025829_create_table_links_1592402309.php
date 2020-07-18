@@ -16,22 +16,22 @@
 
 		public function secondStep(){
 			Database::makeTable('links',function(Create $table){
-				$table->bigint('id')->unsigned()->autoIncrement()->primary();
-				$table->bigint('menu_id')->unsigned()->nullable();
-				$table->bigint('parent_id')->unsigned()->nullable();
-				$table->longtext('link_array')->nullable();
-				$table->varchar('name')->nullable();
-				$table->varchar('title')->nullable();
-				$table->varchar('value')->notNull()->defaults('home.default_link_value');
-				$table->varchar('css_class')->notNull()->defaults('menu-link');
-				$table->varchar('image')->nullable();
-				$table->varchar('css_class_image')->nullable();
-				$table->varchar('icon')->notNull()->defaults('fa fa-anchor');
-				$table->varchar('css_class_icon')->nullable();
-				$table->int('status')->notNull()->defaults(Kernel::STATUS_ACTIVE);
-				$table->int('ordering')->notNull()->defaults(1);
-				$table->longtext('options')->nullable();
-				$table->add_timestamps();
+				$table->bigint('l_id')->unsigned()->autoIncrement()->primary();
+				$table->bigint('l_menu_id')->unsigned()->nullable();
+				$table->bigint('l_parent_id')->unsigned()->nullable();
+				$table->longtext('l_link_array')->nullable();
+				$table->varchar('l_name')->nullable();
+				$table->varchar('l_title')->nullable();
+				$table->varchar('l_value')->notNull()->defaults('home.default_link_value');
+				$table->varchar('l_css_class')->notNull()->defaults('menu-link');
+				$table->varchar('l_image')->nullable();
+				$table->varchar('l_css_class_image')->nullable();
+				$table->varchar('l_icon')->notNull()->defaults('fa fa-anchor');
+				$table->varchar('l_css_class_icon')->nullable();
+				$table->int('l_status')->notNull()->defaults(Kernel::STATUS_ACTIVE);
+				$table->int('l_ordering')->notNull()->defaults(1);
+				$table->longtext('l_options')->nullable();
+				$table->add_timestamps('l_');
 			});
 			return $this;
 		}

@@ -9,14 +9,14 @@
 
 		public function firstStep(){
 			Database::insert('cron_tasks')
-				->value('title','home remove_old_sessions')
-				->value('description','remove old session files')
-				->value('class',"System\\Cron_Tasks\\Home\\Remove_Old_Sessions")
-				->value('method','execute')
-				->value('params',array())
-				->value('period',5)		// seconds
-				->value('status',Kernel::STATUS_ACTIVE)
-				->value('options',array())
+				->value('ct_title','home remove_old_sessions')
+				->value('ct_description','remove old session files')
+				->value('ct_class',"System\\Cron_Tasks\\Home\\Remove_Old_Sessions")
+				->value('ct_method','execute')
+				->value('ct_params',array())
+				->value('ct_period',5)		// seconds
+				->value('ct_status',Kernel::STATUS_ACTIVE)
+				->value('ct_options',array())
 				->get();
 		}
 

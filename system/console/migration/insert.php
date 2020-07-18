@@ -56,12 +56,12 @@
 
 		private function getOlderMigrations(){
 			if($this->database->showTables()){
-				$this->older_migrations = Database::select('name')
+				$this->older_migrations = Database::select('mg_name')
 					->from('migrations')
 					->get()
 					->allAsArray();
 				if($this->older_migrations){
-					$this->older_migrations = fx_reverse_array($this->older_migrations)['name'];
+					$this->older_migrations = fx_reverse_array($this->older_migrations)['mg_name'];
 				}
 			}
 			return $this;
@@ -105,7 +105,7 @@
 
 		private function insertNewMigrationToDb($file_name){
 			return Database::insert('migrations')
-				->value('name',$file_name)
+				->value('mg_name',$file_name)
 				->get()->id();
 		}
 

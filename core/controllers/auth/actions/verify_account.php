@@ -64,10 +64,10 @@
 
 			$this->user_data = $this->model->getUserByVerifyToken($this->verify_token);
 			if($this->user_data){
-				$this->user_data['groups'] = $this->params->groups_after_verification;
-				$this->user_data['verify_token'] = null;
-				$this->user_data['date_activate'] = time();
-				$this->user_data['status'] = Kernel::STATUS_ACTIVE;
+				$this->user_data['a_groups'] = $this->params->groups_after_verification;
+				$this->user_data['a_verify_token'] = null;
+				$this->user_data['a_date_activate'] = time();
+				$this->user_data['a_status'] = Kernel::STATUS_ACTIVE;
 
 				$this->model->updateUserAuthDataByVerifyToken($this->user_data);
 

@@ -9,5 +9,5 @@
 	return array(
 		'%csrf_token%'	=> fx_csrf(),
 		'%csrf_name%'	=> $config->session['csrf_key_name'],
-		'%user_id%'		=> $session->get('id',Session::PREFIX_AUTH),
+		'%user_id%'		=> $session->get('u_id',Session::PREFIX_AUTH),
 	);

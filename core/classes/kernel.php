@@ -172,12 +172,10 @@
 					$this->hooks->before($hook_key,...$this->params);
 					if($this->hooks->instead($hook_key,...$this->params)){
 						$this->hooks->after($hook_key,...$this->params);
-//						return $this->response->setResponseCode(200);
 						return true;
 					}
 					if(call_user_func_array(array($action,$method),$this->params)){
 						$this->hooks->after($hook_key,...$this->params);
-//						return $this->response->setResponseCode(200);
 						return true;
 					}
 					$this->response->setResponseCode(404);

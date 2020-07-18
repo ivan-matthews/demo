@@ -97,13 +97,13 @@
 			$insert = new DB_Insert();
 
 			$insert_data = "Database::insert('cron_tasks')\r\n";
-			$insert_data .= "\t\t\t\t->value('title','{$this->controller} {$this->file}')\r\n";
-			$insert_data .= "\t\t\t\t->value('description','cron task description')\r\n";
-			$insert_data .= "\t\t\t\t->value('class',\"System\\\\Cron_Tasks\\\\{$this->name_space}\\\\{$this->class_name}\")\r\n";
-			$insert_data .= "\t\t\t\t->value('method','execute')\r\n";
-			$insert_data .= "\t\t\t\t->value('params',array())\r\n";
-			$insert_data .= "\t\t\t\t->value('period',5)\t// seconds\r\n";
-			$insert_data .= "\t\t\t\t->value('options',array())\r\n";
+			$insert_data .= "\t\t\t\t->value('ct_title','{$this->controller} {$this->file}')\r\n";
+			$insert_data .= "\t\t\t\t->value('ct_description','cron task description')\r\n";
+			$insert_data .= "\t\t\t\t->value('ct_class',\"System\\\\Cron_Tasks\\\\{$this->name_space}\\\\{$this->class_name}\")\r\n";
+			$insert_data .= "\t\t\t\t->value('ct_method','execute')\r\n";
+			$insert_data .= "\t\t\t\t->value('ct_params',array())\r\n";
+			$insert_data .= "\t\t\t\t->value('ct_period',5)\t// seconds\r\n";
+			$insert_data .= "\t\t\t\t->value('ct_options',array())\r\n";
 			$insert_data .= "\t\t\t\t->get();\r\n";
 			$insert_data .= "\t\t\t".'return $this;';
 

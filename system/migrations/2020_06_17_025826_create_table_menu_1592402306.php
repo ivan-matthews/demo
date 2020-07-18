@@ -16,12 +16,12 @@
 
 		public function secondStep(){
 			Database::makeTable('menu',function(Create $table){
-				$table->bigint('id')->unsigned()->autoIncrement()->primary();
-				$table->bigint('widget_id')->unsigned()->nullable();
-				$table->varchar('name')->notNull()->unique();
-				$table->varchar('title')->nullable();
-				$table->int('status')->notNull()->defaults(Kernel::STATUS_ACTIVE);
-				$table->add_timestamps();
+				$table->bigint('m_id')->unsigned()->autoIncrement()->primary();
+				$table->bigint('m_widget_id')->unsigned()->nullable();
+				$table->varchar('m_name')->notNull()->unique();
+				$table->varchar('m_title')->nullable();
+				$table->int('m_status')->notNull()->defaults(Kernel::STATUS_ACTIVE);
+				$table->add_timestamps('m_');
 			});
 			return $this;
 		}

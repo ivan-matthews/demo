@@ -14,16 +14,16 @@
 		}
 
 		public function run(){
-			if(fx_equal((int)$this->user_login_action_object->user_data['status'],Kernel::STATUS_LOCKED)){
+			if(fx_equal((int)$this->user_login_action_object->user_data['a_status'],Kernel::STATUS_LOCKED)){
 				$this->user_login_action_object->sendRegisterSessionMessage(array(
-					'login'	=> $this->user_login_action_object->user_data['login']
+					'login'	=> $this->user_login_action_object->user_data['a_login']
 				));
 				$this->user_login_action_object->sendRegisterEmail(array(
-					'login'		=> $this->user_login_action_object->user_data['login'],
-					'password'	=> fx_decryption($this->user_login_action_object->user_data['enc_password']),
-					'bookmark'	=> $this->user_login_action_object->user_data['bookmark'],
-					'token'		=> $this->user_login_action_object->user_data['verify_token'],
-					'id'		=> $this->user_login_action_object->user_data['id'],
+					'login'		=> $this->user_login_action_object->user_data['a_login'],
+					'password'	=> fx_decryption($this->user_login_action_object->user_data['a_enc_password']),
+					'bookmark'	=> $this->user_login_action_object->user_data['a_bookmark'],
+					'token'		=> $this->user_login_action_object->user_data['a_verify_token'],
+					'id'		=> $this->user_login_action_object->user_data['u_id'],
 				));
 			}
 			return $this;

@@ -15,19 +15,17 @@
 
 		public function secondStep(){
 			Database::makeTable('errors',function(Create $table){
-				$table->bigint('id')->unsigned()->autoIncrement()->primary();
+				$table->bigint('e_id')->unsigned()->autoIncrement()->primary();
+				$table->varchar('e_hash')->nullable()->unique();
+				$table->bigint('e_count')->unsigned()->notNull()->defaults(0);
+				$table->varchar('e_number')->nullable();
+				$table->varchar('e_file',1024)->nullable();
+				$table->varchar('e_line')->nullable();
+				$table->longtext('e_message');
+				$table->longtext('e_backtrace');
+				$table->longtext('e_msg');
 
-				$table->varchar('hash')->nullable()->unique();
-				$table->bigint('count')->unsigned()->notNull()->defaults(0);
-				$table->varchar('number')->nullable();
-				$table->varchar('file',1024)->nullable();
-				$table->varchar('line')->nullable();
-
-				$table->longtext('message');
-				$table->longtext('backtrace');
-				$table->longtext('msg');
-
-				$table->add_timestamps();
+				$table->add_timestamps('e_');
 			});
 			return $this;
 		}

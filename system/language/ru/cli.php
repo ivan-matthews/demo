@@ -22,6 +22,7 @@
 		'insert_data_to_db'			=> 'залить данные миграций в базу данных',
 		'make_new_database'			=> 'создать новую базу данных',
 		'run_develop_server'		=> 'запустить сервер разработки',
+		'test_description_string'	=> 'создать тест контроллер / экшн',
 
 		'sometime_went_wrong'		=> 'Что-то пошло не так... ',
 		'command_not_found'			=> 'Команда "%CMD_ARR%" не найдена или вернула пустой результат! ',

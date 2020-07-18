@@ -67,7 +67,7 @@
 			$this->user_data = $this->model->getUserByBookmark($bookmark);
 
 			if($this->user_data){
-				$this->user_data['groups'] = fx_arr($this->user_data['groups']);
+				$this->user_data['a_groups'] = fx_arr($this->user_data['a_groups']);
 				$this->user->escape();
 				$this->user->auth($this->user_data,true);
 

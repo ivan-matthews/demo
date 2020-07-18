@@ -37,9 +37,9 @@
 
 			$menu_links = $this->select()
 				->from('menu')
-				->join("links FORCE INDEX (PRIMARY) ","menu.id=links.menu_id")
-				->where("menu.widget_id='{$widget_id}' AND menu.status='{$active}' AND links.status='{$active}'")
-				->order('ordering')
+				->join("links FORCE INDEX (PRIMARY) ","m_id=l_menu_id")
+				->where("m_widget_id='{$widget_id}' AND m_status='{$active}' AND l_status='{$active}'")
+				->order('l_ordering')
 				->sort()
 				->get()
 				->allAsArray();
@@ -50,7 +50,7 @@
 
 		public function getActiveWidgetsList(){
 
-			$this->cache->key('files.included');
+			$this->cache->key('widgets.active');
 
 			if(($widgets_list = $this->cache->get()->array())){
 				return $widgets_list;
@@ -58,9 +58,9 @@
 
 			$widgets_list = $this->select()
 				->from('widgets')
-				->join('widgets_active',"widgets_active.widget_id=widgets.id")
-				->where("widgets_active.status = " . Kernel::STATUS_ACTIVE . " AND widgets.status=" . Kernel::STATUS_ACTIVE)
-				->order('ordering')
+				->join('widgets_active',"wa_widget_id=w_id")
+				->where("wa_status = " . Kernel::STATUS_ACTIVE . " AND w_status=" . Kernel::STATUS_ACTIVE)
+				->order('wa_ordering')
 				->sort()
 				->get()
 				->allAsArray();

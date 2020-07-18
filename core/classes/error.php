@@ -141,17 +141,17 @@
 			self::$error_keys[$error_hash] = true;
 
 			return Database::insert('errors')
-				->value('count',1)
-				->value('number',$this->error_number)
-				->value('file',$this->error_file)
-				->value('line',$this->error_line)
-				->value('message',$this->error_message)
-				->value('backtrace',$this->error_backtrace)
-				->value('msg',$this->error_msg)
-				->value('hash',$error_hash)
-				->value('date_created',time())
-				->update('date_created',time())
-				->updateQuery('count',"count+1")
+				->value('e_count',1)
+				->value('e_number',$this->error_number)
+				->value('e_file',$this->error_file)
+				->value('e_line',$this->error_line)
+				->value('e_message',$this->error_message)
+				->value('e_backtrace',$this->error_backtrace)
+				->value('e_msg',$this->error_msg)
+				->value('e_hash',$error_hash)
+				->value('e_date_created',time())
+				->update('e_date_created',time())
+				->updateQuery('e_count',"e_count+1")
 				->get();
 		}
 

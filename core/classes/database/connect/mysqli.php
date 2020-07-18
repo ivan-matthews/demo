@@ -446,6 +446,20 @@
 			return array();
 		}
 
+		public function showColumns($table){
+			$sql = "SHOW COLUMNS FROM {$table};";
+			$result = $this->exec($sql);
+			if($result){
+				$data=array();
+				while($item = $result->fetch_assoc()){
+					$data[] = $item['Field'];
+				}
+				$this->freeResult($result);
+				return $data;
+			}
+			return array();
+		}
+
 		public function makeDb($database,$charset,$collate){
 			$sql = "CREATE DATABASE IF NOT EXISTS {$database}";
 			if($charset){ $sql .= " DEFAULT CHARSET={$charset}"; }
@@ -642,6 +656,7 @@
 		}
 
 		public function makeTable($table,$fields,$indexes,$defaults,$engine){
+			if(!$fields){ return false; }
 			$sql = "CREATE TABLE IF NOT EXISTS `{$table}` (" . PHP_EOL;
 			foreach($fields as $key=>$val){
 				$long = isset($val['long']) ? "({$val['long']})" : null;
@@ -680,6 +695,7 @@
 /*--------------------------------------------------------------------------------------------------------------------*/
 
 		public function alterTable($table,$fields){
+			if(!$fields){ return false; }
 			$sql = "ALTER TABLE `{$table}`" . PHP_EOL;
 			foreach($fields as $key=>$field){
 				if(isset($field['method'])){

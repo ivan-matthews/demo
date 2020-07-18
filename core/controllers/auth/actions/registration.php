@@ -104,7 +104,7 @@
 				$this->user_id = $this->model->addNewUser($this->auth_data);
 				if($this->user_id){
 					$this->user_data = $this->model->getAuthDataByUserId($this->user_id);
-					$this->user_data['groups']	= fx_arr($this->user_data['groups']);
+					$this->user_data['a_groups']	= fx_arr($this->user_data['a_groups']);
 
 					$this->user->escape();
 					$this->user->auth($this->user_data,true);

@@ -16,26 +16,26 @@
 
 		public function secondStep(){
 			Database::makeTable('widgets_active',function(Create $table){
-				$table->bigint('id')->unsigned()->autoIncrement()->primary();
+				$table->bigint('wa_id')->unsigned()->autoIncrement()->primary();
 
-				$table->bigint('widget_id')->unsigned()->nullable();
-				$table->varchar('name')->notNull()->unique();
-				$table->varchar('title')->nullable();
-				$table->varchar('css_class')->nullable();
-				$table->varchar('css_class_title')->nullable();
-				$table->varchar('css_class_body')->nullable();
-				$table->boolean('show_title')->defaults(true);
-				$table->boolean('unite_prev')->defaults('0');	// объединить с предыдущим ?
-				$table->varchar('status')->nullable()->defaults(Kernel::STATUS_ACTIVE);
-				$table->varchar('position')->nullable();
-				$table->int('ordering')->notNull()->defaults(1);
-				$table->varchar('template')->nullable();
-				$table->longtext('groups_enabled')->nullable();
-				$table->longtext('groups_disabled')->nullable();
-				$table->longtext('pages_enabled')->nullable();
-				$table->longtext('pages_disabled')->nullable();
+				$table->bigint('wa_widget_id')->unsigned()->nullable();
+				$table->varchar('wa_name')->notNull()->unique();
+				$table->varchar('wa_title')->nullable();
+				$table->varchar('wa_css_class')->nullable();
+				$table->varchar('wa_css_class_title')->nullable();
+				$table->varchar('wa_css_class_body')->nullable();
+				$table->boolean('wa_show_title')->defaults(true);
+				$table->boolean('wa_unite_prev')->defaults('0');	// объединить с предыдущим ?
+				$table->varchar('wa_status')->nullable()->defaults(Kernel::STATUS_ACTIVE);
+				$table->varchar('wa_position')->nullable();
+				$table->int('wa_ordering')->notNull()->defaults(1);
+				$table->varchar('wa_template')->nullable();
+				$table->longtext('wa_groups_enabled')->nullable();
+				$table->longtext('wa_groups_disabled')->nullable();
+				$table->longtext('wa_pages_enabled')->nullable();
+				$table->longtext('wa_pages_disabled')->nullable();
 
-				$table->add_timestamps();
+				$table->add_timestamps('wa_');
 			});
 			return $this;
 		}

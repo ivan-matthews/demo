@@ -29,10 +29,10 @@
 
 		public function addWidget(){
 			$this->menu_widget_id = Database::insert('widgets')
-				->value('class',$this->class)
-				->value('method',$this->method)
-				->value('status',Kernel::STATUS_ACTIVE)
-				->value('template','widgets/menu')
+				->value('w_class',$this->class)
+				->value('w_method',$this->method)
+				->value('w_status',Kernel::STATUS_ACTIVE)
+				->value('w_template','widgets/menu')
 				->get()
 				->id();
 			return $this;
@@ -40,19 +40,19 @@
 
 		public function addActiveWidgetGuestMenu(){
 			$this->guest_menu_id = Database::insert('widgets_active')
-				->value('widget_id',$this->menu_widget_id)
-				->value('name','guest_menu')
-				->value('title','auth.guest_menu_title')
-				->value('css_class','')
-				->value('css_class_title','')
-				->value('css_class_body','')
-				->value('show_title',1)
-				->value('unite_prev',0)
-				->value('status',Kernel::STATUS_ACTIVE)
-				->value('position','sidebar')
-				->value('ordering',2)
-				->value('template','widgets/menu')
-				->value('groups_enabled',array(0))
+				->value('wa_widget_id',$this->menu_widget_id)
+				->value('wa_name','guest_menu')
+				->value('wa_title','auth.guest_menu_title')
+				->value('wa_css_class','')
+				->value('wa_css_class_title','')
+				->value('wa_css_class_body','')
+				->value('wa_show_title',1)
+				->value('wa_unite_prev',0)
+				->value('wa_status',Kernel::STATUS_ACTIVE)
+				->value('wa_position','sidebar')
+				->value('wa_ordering',2)
+				->value('wa_template','widgets/menu')
+				->value('wa_groups_enabled',array(0))
 				->get()
 				->id()
 			;
@@ -61,19 +61,19 @@
 
 		public function addActiveWidgetUserMenu(){
 			$this->user_menu_id = Database::insert('widgets_active')
-					->value('widget_id',$this->menu_widget_id)
-					->value('name','user_menu')
-					->value('title','auth.user_menu_title')
-					->value('css_class','')
-					->value('css_class_title','')
-					->value('css_class_body','')
-					->value('show_title',1)
-					->value('unite_prev',0)
-					->value('status',Kernel::STATUS_ACTIVE)
-					->value('position','sidebar')
-					->value('ordering',2)
-					->value('template','widgets/menu')
-					->value('groups_disabled',array(0))
+					->value('wa_widget_id',$this->menu_widget_id)
+					->value('wa_name','user_menu')
+					->value('wa_title','auth.user_menu_title')
+					->value('wa_css_class','')
+					->value('wa_css_class_title','')
+					->value('wa_css_class_body','')
+					->value('wa_show_title',1)
+					->value('wa_unite_prev',0)
+					->value('wa_status',Kernel::STATUS_ACTIVE)
+					->value('wa_position','sidebar')
+					->value('wa_ordering',2)
+					->value('wa_template','widgets/menu')
+					->value('wa_groups_disabled',array(0))
 					->get()
 					->id()
 			;
@@ -82,18 +82,18 @@
 
 		public function addActiveWidgetMainMenu(){
 			$this->main_menu_id = Database::insert('widgets_active')
-				->value('widget_id',$this->menu_widget_id)
-				->value('name','main_menu')
-				->value('title','home.main_menu_title')
-				->value('css_class','')
-				->value('css_class_title','')
-				->value('css_class_body','')
-				->value('show_title',1)
-				->value('unite_prev',0)
-				->value('status',Kernel::STATUS_ACTIVE)
-				->value('position','sidebar')
-				->value('ordering',1)
-				->value('template','widgets/menu')
+				->value('wa_widget_id',$this->menu_widget_id)
+				->value('wa_name','main_menu')
+				->value('wa_title','home.main_menu_title')
+				->value('wa_css_class','')
+				->value('wa_css_class_title','')
+				->value('wa_css_class_body','')
+				->value('wa_show_title',1)
+				->value('wa_unite_prev',0)
+				->value('wa_status',Kernel::STATUS_ACTIVE)
+				->value('wa_position','sidebar')
+				->value('wa_ordering',1)
+				->value('wa_template','widgets/menu')
 				->get()
 				->id()
 			;
@@ -102,18 +102,18 @@
 
 		public function addActiveWidgetInfoMenu(){
 			$this->info_menu_id = Database::insert('widgets_active')
-				->value('widget_id',$this->menu_widget_id)
-				->value('name','info_menu')
-				->value('title','home.info_menu_title')
-				->value('css_class','')
-				->value('css_class_title','')
-				->value('css_class_body','')
-				->value('show_title',0)
-				->value('unite_prev',0)
-				->value('status',Kernel::STATUS_ACTIVE)
-				->value('position','footer')
-				->value('ordering',1)
-				->value('template','widgets/info')
+				->value('wa_widget_id',$this->menu_widget_id)
+				->value('wa_name','info_menu')
+				->value('wa_title','home.info_menu_title')
+				->value('wa_css_class','')
+				->value('wa_css_class_title','')
+				->value('wa_css_class_body','')
+				->value('wa_show_title',0)
+				->value('wa_unite_prev',0)
+				->value('wa_status',Kernel::STATUS_ACTIVE)
+				->value('wa_position','footer')
+				->value('wa_ordering',1)
+				->value('wa_template','widgets/info')
 				->get()
 				->id()
 			;
@@ -121,9 +121,9 @@
 
 		public function addUserMenu(){
 			$this->user_menu = Database::insert('menu')
-				->value('widget_id',$this->user_menu_id)
-				->value('name','user_menu')
-				->value('title','auth.user_menu_title')
+				->value('m_widget_id',$this->user_menu_id)
+				->value('m_name','user_menu')
+				->value('m_title','auth.user_menu_title')
 				->get()
 				->id();
 			return $this;
@@ -131,9 +131,9 @@
 
 		public function addGuestMenu(){
 			$this->guest_menu = Database::insert('menu')
-				->value('widget_id',$this->guest_menu_id)
-				->value('name','guest_menu')
-				->value('title','auth.guest_menu_title')
+				->value('m_widget_id',$this->guest_menu_id)
+				->value('m_name','guest_menu')
+				->value('m_title','auth.guest_menu_title')
 				->get()
 				->id();
 			return $this;
@@ -141,9 +141,9 @@
 
 		public function addMainMenu(){
 			$this->main_menu = Database::insert('menu')
-				->value('widget_id',$this->main_menu_id)
-				->value('name','main_menu')
-				->value('title','home.main_menu_title')
+				->value('m_widget_id',$this->main_menu_id)
+				->value('m_name','main_menu')
+				->value('m_title','home.main_menu_title')
 				->get()
 				->id();
 			return $this;
@@ -151,9 +151,9 @@
 
 		public function addInfoMenu(){
 			$this->info_menu = Database::insert('menu')
-				->value('widget_id',$this->info_menu_id)
-				->value('name','info_menu')
-				->value('title','home.info_menu_title')
+				->value('m_widget_id',$this->info_menu_id)
+				->value('m_name','info_menu')
+				->value('m_title','home.info_menu_title')
 				->get()
 				->id();
 			return $this;
@@ -234,11 +234,11 @@
 			);
 			$insert_request = Database::insert('links');
 			foreach($links_array as $link){
-				$insert_request->value('menu_id',$link['menu_id']);
-				$insert_request->value('link_array',$link['link_array']);
-				$insert_request->value('name',$link['name']);
-				$insert_request->value('title',$link['title']);
-				$insert_request = $insert_request->value('value',$link['value']);
+				$insert_request->value('l_menu_id',$link['menu_id']);
+				$insert_request->value('l_link_array',$link['link_array']);
+				$insert_request->value('l_name',$link['name']);
+				$insert_request->value('l_title',$link['title']);
+				$insert_request = $insert_request->value('l_value',$link['value']);
 			}
 			$insert_request->get()->id();
 		}
@@ -306,13 +306,13 @@
 			);
 			$insert_request = Database::insert('links');
 			foreach($links_array as $link){
-				$insert_request->value('menu_id',$this->info_menu);
-				$insert_request->value('link_array',$link['link_array']);
-				$insert_request->value('name',$link['name']);
-				$insert_request->value('title',$link['title']);
-				$insert_request->value('icon',$link['icon']);
-				$insert_request->value('css_class_icon',$link['css_class_icon']);
-				$insert_request = $insert_request->value('value',$link['value']);
+				$insert_request->value('l_menu_id',$this->info_menu);
+				$insert_request->value('l_link_array',$link['link_array']);
+				$insert_request->value('l_name',$link['name']);
+				$insert_request->value('l_title',$link['title']);
+				$insert_request->value('l_icon',$link['icon']);
+				$insert_request->value('l_css_class_icon',$link['css_class_icon']);
+				$insert_request = $insert_request->value('l_value',$link['value']);
 			}
 			$insert_request->get()->id();
 		}

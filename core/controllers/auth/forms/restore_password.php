@@ -40,7 +40,7 @@
 			parent::__construct();
 			$this->form_name = $form_name;
 			$this->request = Request::getInstance();
-			$this->login = $this->session->get('login',Session::PREFIX_AUTH);
+			$this->login = $this->session->get('a_login',Session::PREFIX_AUTH);
 		}
 
 		public function generateFieldsList(){

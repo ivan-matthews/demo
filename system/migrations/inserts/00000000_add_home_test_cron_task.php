@@ -9,14 +9,14 @@
 
 		public function first(){
 			Database::insert('cron_tasks')
-				->value('title','home test')
-				->value('description','runt first testing cron task')
-				->value('class',"System\\Cron_Tasks\\Home\\Test")
-				->value('method','execute')
-				->value('params',array())
-				->value('period',5)		// seconds
-				->value('status',Kernel::STATUS_ACTIVE)
-				->value('options',array())
+				->value('ct_title','home test')
+				->value('ct_description','runt first testing cron task')
+				->value('ct_class',"System\\Cron_Tasks\\Home\\Test")
+				->value('ct_method','execute')
+				->value('ct_params',array())
+				->value('ct_period',5)		// seconds
+				->value('ct_status',Kernel::STATUS_ACTIVE)
+				->value('ct_options',array())
 				->get();
 			return $this;
 		}

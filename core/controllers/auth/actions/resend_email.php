@@ -69,7 +69,7 @@
 		}
 
 		public function methodGet(){
-			if(!fx_equal((int)$this->session->get('status',Session::PREFIX_AUTH),Kernel::STATUS_INACTIVE)){
+			if(!fx_equal((int)$this->session->get('a_status',Session::PREFIX_AUTH),Kernel::STATUS_INACTIVE)){
 				return $this->response->setResponseCode(403);
 			}
 			$this->resend_email->generateFieldsList();
@@ -87,7 +87,7 @@
 		}
 
 		public function methodPost(){
-			if(!fx_equal((int)$this->session->get('status',Session::PREFIX_AUTH),Kernel::STATUS_INACTIVE)){
+			if(!fx_equal((int)$this->session->get('a_status',Session::PREFIX_AUTH),Kernel::STATUS_INACTIVE)){
 				return $this->response->setResponseCode(403);
 			}
 			$this->resend_email->checkFieldsList();
@@ -100,13 +100,13 @@
 			$this->fields_list = $this->resend_email->getFieldsList();
 
 			if($this->resend_email->can()){
-				$this->login = $this->session->get('login',Session::PREFIX_AUTH);
+				$this->login = $this->session->get('a_login',Session::PREFIX_AUTH);
 				$this->sendRegisterEmail(array(
 					'login'		=> $this->login,
-					'password'	=>fx_decryption($this->session->get('enc_password',Session::PREFIX_AUTH)),
-					'bookmark'	=> $this->session->get('bookmark',Session::PREFIX_AUTH),
-					'token'		=> $this->session->get('verify_token',Session::PREFIX_AUTH),
-					'id'		=> $this->session->get('id',Session::PREFIX_AUTH),
+					'password'	=>fx_decryption($this->session->get('a_enc_password',Session::PREFIX_AUTH)),
+					'bookmark'	=> $this->session->get('a_bookmark',Session::PREFIX_AUTH),
+					'token'		=> $this->session->get('a_verify_token',Session::PREFIX_AUTH),
+					'id'		=> $this->session->get('u_id',Session::PREFIX_AUTH),
 				));
 				$this->sendRegisterSessionMessage(array(
 					'login'	=> $this->login

@@ -17,48 +17,48 @@
 
 		public function secondStep(){
 			Database::makeTable('users',function(Create $table){
-				$table->bigint('id')->unsigned()->autoIncrement()->primary();
-				$table->bigint('auth_id')->unsigned()->notNull();
+				$table->bigint('u_id')->unsigned()->autoIncrement()->primary();
+				$table->bigint('u_auth_id')->unsigned()->notNull();
 
-				$table->varchar('first_name')->nullable();
-				$table->varchar('last_name')->nullable();
-				$table->varchar('full_name')->nullable();
-				$table->smallint('gender')->notNull()->defaults(User::GENDER_NONE);
-				$table->varchar('avatar_id')->nullable();
-				$table->varchar('status_id')->nullable();
-				$table->varchar('country_id')->nullable();
-				$table->varchar('city_id')->nullable();
-				$table->int('birth_day',2)->nullable();
-				$table->int('birth_month',2)->nullable();
-				$table->int('birth_year',4)->nullable();
+				$table->varchar('u_first_name')->nullable();
+				$table->varchar('u_last_name')->nullable();
+				$table->varchar('u_full_name')->nullable();
+				$table->smallint('u_gender')->notNull()->defaults(User::GENDER_NONE);
+				$table->varchar('u_avatar_id')->nullable();
+				$table->varchar('u_status_id')->nullable();
+				$table->varchar('u_country_id')->nullable();
+				$table->varchar('u_city_id')->nullable();
+				$table->int('u_birth_day',2)->nullable();
+				$table->int('u_birth_month',2)->nullable();
+				$table->int('u_birth_year',4)->nullable();
 
-				$table->varchar('family')->nullable();
-				$table->varchar('phone',20)->nullable();
-				$table->varchar('cophone',20)->nullable();
-				$table->varchar('email')->nullable();
-				$table->varchar('icq')->nullable();
-				$table->varchar('skype')->nullable();
-				$table->varchar('viber')->nullable();
-				$table->varchar('whatsapp')->nullable();
-				$table->varchar('telegram')->nullable();
-				$table->varchar('website')->nullable();
+				$table->varchar('u_family')->nullable();
+				$table->varchar('u_phone',20)->nullable();
+				$table->varchar('u_cophone',20)->nullable();
+				$table->varchar('u_email')->nullable();
+				$table->varchar('u_icq')->nullable();
+				$table->varchar('u_skype')->nullable();
+				$table->varchar('u_viber')->nullable();
+				$table->varchar('u_whatsapp')->nullable();
+				$table->varchar('u_telegram')->nullable();
+				$table->varchar('u_website')->nullable();
 
-				$table->longtext('activities')->nullable();
-				$table->longtext('interests')->nullable();
-				$table->longtext('music')->nullable();
-				$table->longtext('films')->nullable();
-				$table->longtext('shows')->nullable();
-				$table->longtext('books')->nullable();
-				$table->longtext('games')->nullable();
-				$table->longtext('citates')->nullable();
-				$table->longtext('about')->nullable();
+				$table->longtext('u_activities')->nullable();
+				$table->longtext('u_interests')->nullable();
+				$table->longtext('u_music')->nullable();
+				$table->longtext('u_films')->nullable();
+				$table->longtext('u_shows')->nullable();
+				$table->longtext('u_books')->nullable();
+				$table->longtext('u_games')->nullable();
+				$table->longtext('u_citates')->nullable();
+				$table->longtext('u_about')->nullable();
 
-				$table->smallint('status',1)->notNull()->defaults(Kernel::STATUS_LOCKED);
+				$table->smallint('u_status',1)->notNull()->defaults(Kernel::STATUS_LOCKED);
 
-				$table->varchar('log_type')->defaults(User::LOGGED_DEFAULT);
-				$table->bigint('date_log')->nullable();
+				$table->varchar('u_log_type')->defaults(User::LOGGED_DEFAULT);
+				$table->bigint('u_date_log')->nullable();
 
-				$table->add_timestamps();
+				$table->add_timestamps('u_');
 			});
 			return $this;
 		}

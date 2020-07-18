@@ -15,7 +15,7 @@
 
 		public function __construct(Response $response,array $widget){
 			$this->response = $response;
-			$this->widget_position = $widget['position'];
+			$this->widget_position = $widget['wa_position'];
 			$this->widget = $widget;
 		}
 
@@ -29,7 +29,7 @@
 		}
 
 		public function add($index=null){
-			$index = $index ?: $this->widget['ordering'];
+			$index = $index ?: $this->widget['wa_ordering'];
 			$this->response->response_data['response_data']['widgets'][$this->widget_position][$index] = $this->default_params;
 			return true;
 		}

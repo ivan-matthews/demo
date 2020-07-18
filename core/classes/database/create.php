@@ -85,10 +85,10 @@
 			$this->engine['table_collate'] = $collate;
 			return $this;
 		}
-		public function add_timestamps(){
-			$this->bigint('date_created')->nullable()->index();
-			$this->bigint('date_updated')->nullable()->index();
-			$this->bigint('date_deleted')->nullable()->index();
+		public function add_timestamps($fields_prefix){
+			$this->bigint( "{$fields_prefix}date_created")->nullable()->index();
+			$this->bigint( "{$fields_prefix}date_updated")->nullable()->index();
+			$this->bigint( "{$fields_prefix}date_deleted")->nullable()->index();
 			return true;
 		}
 

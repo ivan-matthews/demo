@@ -60,6 +60,12 @@
 			parent::__construct();
 			$this->params = Config::getInstance();	// use Core\Controllers\Users\Config as Config;
 			$this->model = Model::getInstance();	// use Core\Controllers\Users\Model as Model;
+
+			$this->response->title('users.users_index_title');
+			$this->response->breadcrumb('users')
+				->setIcon(null)
+				->setLink('users','index')
+				->setValue('users.users_index_title');
 		}
 
 		public function __destruct(){
