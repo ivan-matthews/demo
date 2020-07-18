@@ -2,6 +2,7 @@
 
 	namespace Core\Controllers\Users\Actions;
 
+	use Core\Classes\Form\Form;
 	use Core\Classes\Hooks;
 	use Core\Classes\Request;
 	use Core\Classes\Session;
@@ -43,6 +44,10 @@
 		public $user_data;
 		public $user_id;
 
+		public $form;
+		public $fields;
+		public $fields_list;
+
 		private $breadcrumbs;
 
 		/** @return $this */
@@ -57,6 +62,7 @@
 			parent::__construct();
 			$this->breadcrumbs = $this->response->breadcrumb('item')
 				->setIcon(null);
+			$this->form = new Form();
 		}
 
 		public function methodGet($user_id){
@@ -67,8 +73,16 @@
 				$this->breadcrumbs->setLink('users','item',$this->user_data['u_id'])
 					->setValue($this->user_data['u_full_name']);
 
+				$this->fields = $this->params->getParams('fields');
+				$this->fields_list = $this->form->setArrayFields($this->fields)
+					->checkArrayFields()
+					->getFieldsList();
+
 				$this->response->controller('users','item')
-					->setArray($this->user_data);
+					->setArray(array(
+						'user'	=> $this->user_data,
+						'fields'=> $this->fields_list
+					));
 				return $this;
 			}
 			return $this->renderEmptyPage();

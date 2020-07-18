@@ -43,6 +43,13 @@
 		public function includeHomePage();
 
 		/**
+		 * @param $file_path
+		 * @param array $data
+		 * @return View
+		 */
+		public function renderAsset($file_path,array $data);
+
+		/**
 		 * @param $path
 		 * @return View
 		 */
@@ -125,4 +132,10 @@
 		 * @return View
 		 */
 		public function printTitle();
+
+		/**
+		 * @param $upload_pth_to_file
+		 * @return string
+		 */
+		public function getUploadSiteRoot($upload_pth_to_file);
 	}

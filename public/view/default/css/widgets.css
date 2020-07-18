@@ -24,3 +24,19 @@
 .paginate .pagination .page-item .page-link {
   border-radius: 0;
 }
+.simple-accordion .accordion-buttons-link {
+  color: #2a5885;
+  cursor: pointer;
+}
+.simple-accordion .accordion-buttons-link .accordion-buttons-block {
+  padding-bottom: 25px;
+  padding-top: 5px;
+  background-color: #f7f7f7;
+}
+.simple-accordion .accordion-buttons-link .accordion-buttons-block:hover {
+  background-color: #d9e2ec;
+}
+.simple-accordion .accordion-buttons-link .accordion-buttons-block .accordion-button {
+  position: absolute;
+  font-weight: 600;
+}

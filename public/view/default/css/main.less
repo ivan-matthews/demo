@@ -1,13 +1,15 @@
 @import "vars";
 @import "session_messages";
-@import "auth";
 @import "breadcrumbs";
 @import "error_pages";
 @import "footer";
 @import "form";
 @import "sidebar";
-@import "users";
 @import "widgets";
+@import "filter";
+
+@import "users";
+@import "auth";
 
 body{
 	color: #656565;
@@ -63,8 +65,31 @@ body{
 .chocolate-icon{
 	color: chocolate;
 }
+.radius-0{
+	border-radius: 0 !important;
+}
+i,svg{
+	color: chocolate;
+	&.desktop{
+		background: 1px #FFFFFF;
+	}
+	&.apple{
 
+	}
+	&.android{
 
+	}
+	&.tablet{
+		background: 1px #FFFFFF;
+	}
+	&.mobile{
+		background: 1px #FFFFFF;
+	}
+	&.circle{
+		background: 1px #FFFFFF;
+		border-radius: 50%;
+	}
+}
 
 
 

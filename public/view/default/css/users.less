@@ -1,318 +1,163 @@
 @import "vars";
 
+.user-profile{
+	.user-left-bar{
+		.user-avatar{
 
-.users{
-	.users-list{
-		.users-item-link{
-			border-radius: 0;
-			//border-bottom: 0;
-			border-left: 0;
-			border-right: 0;
-			&:last-child{
-				border-bottom: 0;
-			}
-			&:first-child{
-				border-top: 0;
-			}
-			.users-info{
-				//display: flex;
-				>a{
-					&:hover{
-						text-decoration: none;
-					}
-				}
-				.users-item-avatar{
-					position: relative;
-					width: 64px;
-					>img{
-						border-radius: 50%;
-						border: solid @general-color 1px;
+		}
+		.user-menu{
+			.list-group{
+				width: 200px;
+				.list-group-item{
+					padding: 0;
+					border: none;
+					.list-item-link{
+						border-left: 1px solid rgba(0, 0, 0, 0.125);
+						border-right: 1px solid rgba(0, 0, 0, 0.125);
+						border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+						border-top: none;
 						width: 100%;
-						//max-width: 64px;
-					}
-					.status{
-						width: 12px;
-						height: 12px;
-						position: absolute;
-						right: 10%;
-						bottom: 10%;
-						//border-radius: 50%;
-						//border: solid 2px #fff;
-					}
-					.status-online{
+						height: 100%;
+						padding: 0.75rem;
+						display: block;
+						font-weight: bold;
 						i,svg{
-							color: @success;
-							border-radius: 50%;
-							&.fa-circle{
-								background: #23b929;
-								border: solid 2px #FFFFFF;
-								font-size: 14px;
-							}
-							&.fa-desktop{}
-							&.fa-apple{
-								font-size: 14px;
-							}
-							&.fa-android{}
-							&.fa-tablet-alt{}
-							&.fa-mobile-alt{}
+
+						}
+						.text{
+							padding-left: 0.5em;
 						}
 					}
-					.status-offline{
-						i,svg{
-							//background: #ff0300;
-							color: @danger;
+					&:first-child{
+						.list-item-link{
+							border-top: 1px solid rgba(0, 0, 0, 0.125);
+						}
+					}
+				}
+			}
+		}
+	}
+	.user-right-bar{
+		.user-header-info{
+			.user-name{
+				font-size: 14px;
+				font-weight: bold;
+			}
+			.user-date-log{
+				&.online{
+					color: @success;
+					i,svg{
+						color: unset;
+						&.circle{
+							background:@success;
+							border: solid 2px #FFFFFF;
+						}
+					}
+				}
+				&.offline{
+					color: @danger;
+					i,svg{
+						color: unset;
+						&.circle{
+							background:@danger;
+							border: solid 2px #FFFFFF;
+						}
+					}
+				}
+			}
+		}
+		.user-status{
+			border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+			padding-bottom: 4px;
+			.status-menu{
+				span{
+					padding-left: 4px;
+					&:after{
+						content: "";
+					}
+					&:last-child{
+						&:after{
+							content: '';
+						}
+					}
+				}
+			}
+		}
+		.user-visible-info{
+			padding: 0;
+		}
+		.user-invisible-info{
+			padding: 0;
+			.field-set{
+			}
+			.field-set-value{
+				font-weight: bold;
+			}
+			.empty-value{
+				border-top: 1px dashed #ccc;
+				margin-top: 10px;
+			}
+		}
+	}
+}
+
+.users-list{
+	.users{
+		.users-item{
+			border-left:none;
+			border-right:none;
+			&:first-child{
+				border-top: none;
+			}
+			&:last-child{
+				border-bottom: none;
+			}
+			.users-info{
+				.users-item-avatar{
+					.avatar{
+						position: relative;
+						width: 64px;
+						img{
 							border-radius: 50%;
-							&.fa-circle{
-								background: #ff0200;
-								border: solid 2px #FFFFFF;
-								font-size: 14px;
+						}
+						.status{
+							position: absolute;
+							bottom: 0;
+							right: 0;
+							border-radius: 50%;
+							padding: 0 3px;
+						}
+						.status-online{
+							i,svg{
+								color: @success;
+								&.circle{
+									background:@success;
+									border: solid 2px #FFFFFF;
+								}
 							}
-							&.fa-desktop{}
-							&.fa-apple{}
-							&.fa-android{}
-							&.fa-tablet-alt{}
-							&.fa-mobile-alt{}
+						}
+						.status-offline{
+							i,svg{
+								color: @danger;
+								&.circle{
+									background:@danger;
+									border: solid 2px #FFFFFF;
+								}
+							}
 						}
 					}
 				}
 				.users-item-info{
-					font-weight: @fat;
-					.date-reg{
-						font-weight: normal;
-						color: #b3b4c3;
-						font-size: 10px;
+					.full-name{
+						font-size: 12px;
+						font-weight: bold;
 					}
-				}
-				.users-item-descriptions{
-					color: #777888;
-				}
-				.users-actions{
-					.user-actions-btn{
-						border: solid 1px #CCCCCC;
-						border-radius: 0;
-					}
-				}
-			}
-		}
-	}
-	.user-profile{
-		.status-panel{
-			.status{
-				position: relative;
-				&:hover{
-					>.edit-status{
-						display: inline-flex;
-						.btn{
-							border-radius: 0;
-							padding: 4px 10px 3px 10px;
-						}
-					}
-				}
-				.edit-status{
-					display: none;
-					position: absolute;
-					left: 0;
-					top: 0;
-					z-index: 1;
-					background: #FFF;
-					//border: solid 1px #ccc;
-					font-size: 18px;
-					padding: 0;
-					margin: 0;
-					a{
-						//display: block;
-						//padding: 4px 6px;
-						//margin: 0;
-					}
-				}
-				&.oppened-panel{
-					&.oppened{
-						position: relative;
-						//border: solid 1px;
-						//padding: 4px 10px 8px 10px;
-						//border-color: rgba(29, 32, 34, 0.2);
-						>.edit-status{
-							display: inline-flex;
-							//margin-right: -1px;
-							//top: -1px;
-							.btn{
-								border-radius: 0;
-								padding: 4px 10px 3px 10px;
-							}
-						}
-					}
-				}
-			}
-		}
-		.user-fullname{
-			font-size: 16px;
-			font-weight: @fat;
-		}
-		.user-status{
-			.online{
-				//color: @success;
-				i,svg{
-					color: @success;
-					border-radius: 50%;
-					&.fa-desktop{}
-					&.fa-apple{
-						font-size: 14px;
-					}
-					&.fa-android{}
-					&.fa-tablet-alt{}
-					&.fa-mobile-alt{}
-					&.fa-circle{
-						border: solid 2px #FFFFFF;
-						font-size: 14px;
-						background: #23b929;
-					}
-				}
-			}
-			.offline{
-				//color: @danger;
-				i,svg{
-					border-radius: 50%;
-					color: @danger;
-					&.fa-desktop{}
-					&.fa-apple{
-						font-size: 14px;
-					}
-					&.fa-android{}
-					&.fa-tablet-alt{}
-					&.fa-mobile-alt{}
-					&.fa-circle{
-						background: #ff0300;
-						border: solid 2px #FFFFFF;
-						font-size: 14px;
-					}
-				}
-			}
-		}
-		.empty-value{
-			border-top: 1px dashed #ccc;
-			margin-top: 10px;
-		}
-		.field-set{
-			font-weight: @fat;
-		}
-		.avatar{
-			position: relative;
-			display: table;
-			margin: 0 auto;
-			&:hover>.avatar-del-link{
-				display: block;
-			}
-			&:hover>.info-block{
-				display: block;
-			}
-			.avatar-del-link{
-				display: none;
-				position: absolute;
-				right: 0;
-				top: 0;
-				z-index: 1;
-				background-color: rgba(29,32,34,0.5);
-				color: #fff;
-				padding: 7.5px 15px;
-				.delete{
-					opacity: 0.5;
-				}
-				&:hover>.delete{
-					opacity: 1;
-				}
-			}
-			.preview{
-				position: relative;
-			}
-			.info-block{
-				display: none;
-				position: absolute;
-				bottom: 0;
-				z-index: 1;
-				background-color: rgba(29,32,34,0.5);
-				left: 0;
-				right: 0;
-				>a{
-					text-decoration: none;
-					>div{
-						padding: 5px 10px;
-						border-bottom: solid 1px #FFFFFF;
-						color: #fff;
-						width: 100%;
-						opacity: 0.5;
-						&:hover{
-							opacity: 1;
-						}
-					}
-				}
-				.update{
+					.info{
 
-				}
-				.view{
-
-				}
-			}
-			&.oppened{
-				.info-block{
-					display: block;
-				}
-				.avatar-del-link{
-					display: block;
-				}
-			}
-		}
-	}
-	.user-avatar{
-		.avatar{
-			.preview{
-				.preview-avatar{
-					max-width: 320px;
-				}
-			}
-		}
-		.avatar-errors{
-			>div{
-				background: rgba(255, 0, 0, 0.08);
-				padding: 5px;
-				text-align: center;
-			}
-		}
-	}
-	.avatar-view{
-		.avatar{
-			.preview{
-				img{
-					max-width: 320px;
-				}
-			}
-		}
-	}
-	.user-actions{
-		margin: 0 auto;
-		.list-group{
-			.user-actions-item{
-				font-weight: @fat;
-				text-decoration: none;
-				border-radius: 0;
-				border-bottom:1px solid rgba(0,0,0,.125);
-				border-left:1px solid rgba(0,0,0,.125);
-				border-right:1px solid rgba(0,0,0,.125);
-				& :hover{
-					background: @background;
-					color: @link_main_color;
-				}
-				.list-group-item{
-					border-radius: 0;
-					border: none;
-				}
-				&:first-child{
-					border-top:1px solid rgba(0,0,0,.125);
-				}
-				&:last-child{
-					border-bottom:1px solid rgba(0,0,0,.125);
-				}
-				i,svg{
-					color: #d67e52;
+					}
+					.users-item-descriptions{
+						color: @text_footer_color;
+					}
 				}
 			}
 		}

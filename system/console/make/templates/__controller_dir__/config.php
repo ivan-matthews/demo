@@ -48,10 +48,9 @@
 
 		}
 
-		public function getParams(){
-			return fx_load_helper('core/controllers/__controller_property__/config/params',Kernel::IMPORT_INCLUDE);
+		public function getParams($file='params'){
+			return fx_load_helper("core/controllers/__controller_property__/config/{$file}",Kernel::IMPORT_INCLUDE);
 		}
-
 
 
 

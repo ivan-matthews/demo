@@ -58,6 +58,9 @@
 
 		public function __construct(){
 			parent::__construct();
+
+			$this->setDefaultData();
+
 			$this->params = Config::getInstance();	// use Core\Controllers\Users\Config as Config;
 			$this->model = Model::getInstance();	// use Core\Controllers\Users\Model as Model;
 

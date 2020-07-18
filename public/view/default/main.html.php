@@ -122,7 +122,9 @@
 
 		<?php
 			$this->addJS("{$this->theme_path}/js/libs/fontawesome",TIME);
+			$this->addJS("{$this->theme_path}/js/libs/popper",TIME);
 			$this->addJS("{$this->theme_path}/js/libs/bootstrap",TIME);
+
 		?>
 		<?php $this->renderCssFiles() ?>
 		<?php $this->renderJsFiles() ?>

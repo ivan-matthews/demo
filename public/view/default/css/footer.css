@@ -104,7 +104,8 @@ footer .footer-block .footer-parent .footer-menu-info .footer-body {
 footer .footer-block .footer-parent .footer-menu-info .footer-body a {
   color: #FFFFFF;
 }
-footer .footer-block .footer-parent .footer-menu-info .footer-body a .icon {
+footer .footer-block .footer-parent .footer-menu-info .footer-body a i,
+footer .footer-block .footer-parent .footer-menu-info .footer-body a svg {
   color: bisque;
 }
 footer .footer-block .footer-parent .footer-menu-info .footer-body a:hover {

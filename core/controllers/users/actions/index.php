@@ -50,6 +50,10 @@
 		public $sort;
 		public $order = 'u_id';
 
+		public $fields;
+
+		protected $sorting_action;
+
 		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -63,16 +67,23 @@
 			$this->query	= "u_status!=" . Kernel::STATUS_BLOCKED;
 		}
 
-		public function methodGet($sorting_action='all'){
-			$this->query .= $this->getQueryFromSortingPanelArray($this->params->sorting_panel,$sorting_action);
+		public function methodGet($sorting_action='all',$sort='dn'){
+			$this->getSort($sorting_action,$sort);
 
-			$this->total = $this->model->countAllUsers($this->query);
+			// фидьтр начало
+			$this->fields = $this->params->getParams('fields');
+			$this->getFilterFromArrayFields('filter',$this->fields);
+			// фидьтр конец
+
+			$this->getQueryFromSortingPanelArray($this->params->sorting_panel,$this->sorting_action);
+
+			$this->total = $this->model->countAllUsers($this->query,$this->replaced_data);
 			$this->users = $this->model->getAllUsers(
-				$this->limit, $this->offset, $this->query, $this->order, $this->sort
+				$this->limit, $this->offset, $this->query, $this->order, $this->sort,$this->replaced_data
 			);
 
-			$this->paginate(array('users','index',$sorting_action));
-			$this->sorting($this->params->sorting_panel,$sorting_action);
+			$this->paginate(array('users','index',$this->sorting_action,$this->sort_key));
+			$this->sorting($this->params->sorting_panel,$this->sorting_action);
 
 			if($this->users){
 				return $this->response->controller('users','index')

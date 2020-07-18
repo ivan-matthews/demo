@@ -2,9 +2,12 @@
 
 	namespace Core\Classes;
 
+	use Core\Classes\Form\Form;
 	use Core\Classes\Response\Response;
+	use Core\Widgets\Filter;
 	use Core\Widgets\Paginate;
 	use Core\Widgets\Sorting_Panel;
+	use Core\Classes\Form\Interfaces\Form as FormInterface;
 
 	class Controller{
 
@@ -17,6 +20,8 @@
 		public $user;
 		public $hook;
 
+		public $query;
+		public $replaced_data = array();
 		public $limit	= 15;
 		public $offset	= 0;
 		public $total	= 0;
@@ -24,10 +29,14 @@
 
 		public $sort	= 'ASC';
 		public $sort_key='dn';
+		protected $sorting_action='all';
 		public $sorting = array(
 			'up'	=> 'DESC',
 			'dn'	=> 'ASC',
 		);
+
+		public $fields_list;
+		public $form;
 
 		private $controller;
 
@@ -57,7 +66,13 @@
 			$this->request = Request::getInstance();
 			$this->user = User::getInstance();
 			$this->hook = Hooks::getInstance();
+		}
 
+		public function __destruct(){
+
+		}
+
+		protected function setDefaultData(){
 			$this->response->title($this->config->core['site_name']);
 			$this->response->breadcrumb('main_breadcrumb')
 				->setValue($this->config->core['site_name'])
@@ -68,14 +83,15 @@
 
 			$this->limit	= $this->request->get('limit')?:15;
 			$this->offset	= $this->request->get('offset')?:0;
-			$this->sort		= $this->request->get('sort');
 
-			$this->sort_key = $this->sort ?: $this->sort_key;
-			$this->sort = isset($this->sorting[$this->sort]) ? $this->sorting[$this->sort] : 'ASC';
+			return $this;
 		}
 
-		public function __destruct(){
-
+		protected function getSort($sorting_action,$sort){
+			$this->sorting_action = $sorting_action;
+			$this->sort_key = $sort ?: $this->sort_key;
+			$this->sort = isset($this->sorting[$sort]) ? $this->sorting[$sort] : 'ASC';
+			return $this;
 		}
 
 		public function redirect($link_to_redirect=null,$status_code=302){
@@ -140,13 +156,61 @@
 		}
 
 		protected function getQueryFromSortingPanelArray(array $sorting_panel,$sorting_action){
-			$result = null;
 			if(isset($sorting_panel[$sorting_action]) &&
 				fx_equal($sorting_panel[$sorting_action]['status'],Kernel::STATUS_ACTIVE) &&
 				method_exists($this,$sorting_action)){
-				$result .= call_user_func(array($this,$sorting_action));
+				$this->query .= call_user_func(array($this,$sorting_action));
 			}
-			return $result;
+			return $this;
+		}
+
+		protected function getFilterFromArrayFields($form_key,$fields){
+			$data = $this->request->getArray($form_key);
+			$this->form = new Form();
+			$this->form->setData($data);
+			$this->form->validate(1);
+			$this->form->form(function(FormInterface $form)use($form_key){
+				$form->setFormAction(fx_get_url('users','index',$this->sorting_action,$this->sort_key));
+				$form->setFormMethod('GET');
+				$form->setFormAutoComplete('off');
+				$form->setFormName($form_key);
+			});
+			$this->fields_list = $this->form->setArrayFields($fields)
+				->checkArrayFields()
+				->getFieldsList();
+
+			foreach($data as $key=>$value){
+				if(isset($this->fields_list[$key]) && $value){
+					$this->query .= " AND `{$key}` {$this->fields_list[$key]['attributes']['params']['filter_validation']} %{$key}%";
+					$this->replaced_data["%{$key}%"] = $this->makeFilter($this->fields_list[$key]['attributes']['params']['filter_validation'],$value);
+				}
+			}
+
+			Filter::add()
+				->form($this->form->getFormAttributes())
+				->fields($this->form->getFieldsList())
+				->errors($this->form->getErrors())
+				->data($data)
+				->set();
+
+			return $this;
+		}
+
+		private function makeFilter($operator,$value){
+			switch($operator){
+				case(fx_equal($operator,'LIKE')):
+					return "%{$value}%";
+					break;
+				case(fx_equal($operator,'=')):
+					return $value;
+					break;
+				case(fx_equal($operator,'!=')):
+					return $value;
+					break;
+				default:
+					return $value;
+					break;
+			}
 		}
 
 

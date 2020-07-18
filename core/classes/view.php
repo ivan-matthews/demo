@@ -112,8 +112,9 @@
 
 		public function renderErrorPages(){
 			$response_code = $this->response->getResponseCode();
-			if(file_exists("{$this->site_dir}/assets/errors/{$response_code}.html.php")){
-				$this->content = $this->render("{$this->site_dir}/assets/errors/{$response_code}.html.php",array());
+			$path = $this->path("assets/errors/{$response_code}.html.php");
+			if(file_exists($path)){
+				$this->content = $this->render($path,array());
 				$this->error_status = $response_code;
 			}
 			return $this;
@@ -123,7 +124,7 @@
 			if($this->error_status){ return $this; }
 			foreach($this->data['controller'] as $controller_name=>$controller_value){
 				foreach($controller_value as $action_name=>$action_value){
-					$tmp_file_path = "{$this->site_dir}/controllers/{$controller_name}/actions/{$action_name}.html.php";
+					$tmp_file_path = $this->path("controllers/{$controller_name}/actions/{$action_name}.html.php");
 					if(file_exists($tmp_file_path)){
 						$this->content .= $this->render($tmp_file_path,$action_value);
 					}
@@ -146,8 +147,15 @@
 			return ob_get_clean();
 		}
 
+		public function renderAsset($file_path,array $data){
+			$file_path = $this->path("{$file_path}.html.php");
+			$data = $this->render($file_path,$data);
+			print $data;
+			return $this;
+		}
+
 		public function includeHomePage(){
-			$home_page = "{$this->site_dir}/main.html.php";
+			$home_page = $this->path('/main.html.php');
 			return include $home_page;
 		}
 
@@ -315,7 +323,7 @@
 			if(isset($this->data['widgets'][$widget_position])){
 				ksort($this->data['widgets'][$widget_position]);
 				foreach($this->data['widgets'][$widget_position] as $widget){
-					$widget_tmp_file = "{$this->site_dir}/{$widget['params']['wa_template']}_{$widget['params']['wa_position']}.html.php";
+					$widget_tmp_file = $this->path("{$widget['params']['wa_template']}_{$widget['params']['wa_position']}.html.php");
 					if(file_exists($widget_tmp_file)){
 						print $this->render($widget_tmp_file,array(
 							'content'	=> $widget['data'],

@@ -171,12 +171,13 @@
 				'form_position'		=> null,
 				'filter_position'	=> null,
 				'item_position'		=> null,
-				'filter_validation'	=> null,	// string [ = | != | > | < | <= | >= ]
+				'filter_validation'	=> '=',	// string [ = | != | > | < | <= | >= ]
 				'filter_query'		=> null,	// return "where [field] [filter_validation] [value]";
 				'render_type'		=> 'text',	// вывод рендинга в item
 				'field_type' 		=> 'simple',// вывод рендинга в form
 				'label' 			=> null,
 				'description' 		=> null,
+				'variants'	 		=> array(),
 			),
 		);
 
@@ -858,6 +859,10 @@
 			return $this;
 		}
 		public function show_in_item($value){
+			$this->setParams(__FUNCTION__,$value);
+			return $this;
+		}
+		public function variants(array $value){
 			$this->setParams(__FUNCTION__,$value);
 			return $this;
 		}

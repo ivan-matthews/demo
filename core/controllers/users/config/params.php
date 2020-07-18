@@ -23,7 +23,7 @@
 			'all'	=> array(
 				'status'=> Kernel::STATUS_ACTIVE,
 				'title'	=> 'users.users_index_all_title',
-				'link'	=> array('users','index'),
+				'link'	=> array('users','index','all'),
 			),
 			'online'	=> array(
 				'status'=> Kernel::STATUS_ACTIVE,

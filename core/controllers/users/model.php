@@ -35,7 +35,7 @@
 			return $this;
 		}
 
-		public function countAllUsers($query_suffix=null){
+		public function countAllUsers($query_suffix=null,$replaced_data=array()){
 			$this->cache->key('users.all');
 
 			if(($result = $this->cache->get()->array())){
@@ -43,14 +43,19 @@
 			}
 
 			$result = $this->select('COUNT(u_id) as total')->from('users')
-				->where($query_suffix)
-				->get()->itemAsArray();
+				->where($query_suffix);
+
+			foreach($replaced_data as $key=>$value){
+				$result->data($key,$value);
+			}
+
+			$result = $result->get()->itemAsArray();
 
 			$this->cache->set($result);
 			return $result['total'];
 		}
 
-		public function getAllUsers($limit=15,$offset=0,$query_suffix=null,$order='u_date_created',$sort='DESC'){
+		public function getAllUsers($limit=15,$offset=0,$query_suffix=null,$order='u_date_created',$sort='DESC',$replaced_data=array()){
 			$this->cache->key('users.all');
 
 			if(($result = $this->cache->get()->array())){
@@ -59,10 +64,15 @@
 
 			$result = $this->select()
 				->from('users')
-				->join('status',"s_user_id=u_id")
-				->join('photos',"p_user_id=u_id")
-				->where($query_suffix)
-				->limit($limit)
+				->join('status FORCE INDEX (PRIMARY)',"s_user_id=u_id")
+				->join('photos FORCE INDEX (PRIMARY)',"p_user_id=u_id")
+				->where($query_suffix);
+
+			foreach($replaced_data as $key=>$value){
+				$result->data($key,$value);
+			}
+
+			$result = $result->limit($limit)
 				->offset($offset)
 				->order($order)
 				->sort($sort)

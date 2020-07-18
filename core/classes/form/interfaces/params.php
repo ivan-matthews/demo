@@ -16,6 +16,12 @@
 		public function show_in_item($value);
 
 		/**
+		 * @param array $value
+		 * @return Params
+		 */
+		public function variants(array $value);
+
+		/**
 		 * @param $value
 		 * @return Params
 		 */
