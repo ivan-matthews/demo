@@ -313,6 +313,7 @@
 
 		public function widget($widget_position){
 			if(isset($this->data['widgets'][$widget_position])){
+				ksort($this->data['widgets'][$widget_position]);
 				foreach($this->data['widgets'][$widget_position] as $widget){
 					$widget_tmp_file = "{$this->site_dir}/{$widget['params']['template']}_{$widget['params']['position']}.html.php";
 					if(file_exists($widget_tmp_file)){

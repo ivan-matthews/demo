@@ -9,7 +9,7 @@
 }else{
 	$last = $content['limit'];
 } ?>
-<nav aria-label="Page navigation example">
+<nav aria-label="Page navigation example" class="paginate">
 	<ul class="pagination justify-content-center">
 		<li class="page-item">
 			<a class="page-link<?php print (!$content['offset']?' active':'') ?>" href="<?php print fx_make_url($content['link'],array(),false) ?>" aria-label="Previous">

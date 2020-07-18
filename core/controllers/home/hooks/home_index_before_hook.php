@@ -17,7 +17,7 @@
 		}
 
 		public function run(){
-			$this->action_object->config->status = Kernel::STATUS_INACTIVE;	// это не работает, юзаем хук controller_run_before_hook
+			$this->action_object->params->status = Kernel::STATUS_INACTIVE;	// это не работает, юзаем хук controller_run_before_hook
 			return false;
 		}
 

@@ -2,6 +2,7 @@
 
 .sorting-panel{
 	.nav-link{
+		border-radius: 0;
 		&.active{
 			position: relative;
 			.sorting-link{
@@ -16,10 +17,18 @@
 				}
 				svg,i{
 					position: absolute;
-					right: 0.5em;
-					top: 0.25em;
-					font-size: 15px;
+					right: 10px;
+					top: 2px;
 				}
+			}
+		}
+	}
+}
+.paginate{
+	.pagination{
+		.page-item{
+			.page-link{
+				border-radius: 0;
 			}
 		}
 	}

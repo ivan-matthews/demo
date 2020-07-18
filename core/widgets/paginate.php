@@ -25,7 +25,7 @@
 			'show_title'		=> 1,
 			'unite_prev'		=> 0,
 			'position'			=> 'body_footer',
-			'ordering'			=> 999,
+			'ordering'			=> 0,
 		);
 
 		private $response;
@@ -58,15 +58,15 @@
 		public function set(){
 			if($this->total < $this->limit){ return false; }
 
-			$this->response->widget($this->default_props['position'])
-				->setIndex(0)
+			$this->response->widget($this->default_props)
 				->set('data',array(
 					'total'		=> $this->total,
 					'limit'		=> $this->limit,
 					'offset'	=> $this->offset,
 					'link'		=> $this->link_array,
 				))
-				->set('params',$this->default_props);
+				->set('params',$this->default_props)
+				->add();
 			return true;
 		}
 

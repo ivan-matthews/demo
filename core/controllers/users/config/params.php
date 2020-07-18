@@ -4,7 +4,7 @@
 
 	return array(
 		'status'	=> Kernel::STATUS_ACTIVE,
-		'controller_name'	=> fx_lang('users.controller_name'),
+		'controller_name'	=> 'users.controller_name',
 		'controller'	=> array(
 			'groups_enabled'	=> array(),
 			'groups_disabled'	=> array(),
@@ -18,5 +18,42 @@
 				'groups_enabled'	=> array(),
 				'groups_disabled'	=> array(),
 			),
-		)
+		),
+		'sorting_panel'	=> array(
+			'all'	=> array(
+				'status'=> Kernel::STATUS_ACTIVE,
+				'title'	=> 'users.users_index_all_title',
+				'link'	=> array('users','index'),
+			),
+			'online'	=> array(
+				'status'=> Kernel::STATUS_ACTIVE,
+				'title'	=> 'users.users_index_online_title',
+				'link'	=> array('users','index','online')
+			),
+			'offline'	=> array(
+				'status'=> Kernel::STATUS_ACTIVE,
+				'title'	=> 'users.users_index_offline_title',
+				'link'	=> array('users','index','offline')
+			),
+			'registration'	=> array(
+				'status'=> Kernel::STATUS_ACTIVE,
+				'title'	=> 'users.users_index_registration_title',
+				'link'	=> array('users','index','registration')
+			),
+			'active'	=> array(
+				'status'=> Kernel::STATUS_INACTIVE,
+				'title'	=> 'users.users_index_active_title',
+				'link'	=> array('users','index','active')
+			),
+			'inactive'	=> array(
+				'status'=> Kernel::STATUS_INACTIVE,
+				'title'	=> 'users.users_index_inactive_title',
+				'link'	=> array('users','index','inactive')
+			),
+			'locked'	=> array(
+				'status'=> Kernel::STATUS_INACTIVE,
+				'title'	=> 'users.users_index_locked_title',
+				'link'	=> array('users','index','locked')
+			),
+		),
 	);

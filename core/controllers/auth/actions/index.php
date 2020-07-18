@@ -3,7 +3,6 @@
 	namespace Core\Controllers\Auth\Actions;
 
 	use Core\Classes\Hooks;
-	use Core\Classes\Kernel;
 	use Core\Classes\Request;
 	use Core\Classes\Response\Response;
 	use Core\Controllers\Auth\Config;
@@ -17,13 +16,13 @@
 		private static $instance;
 
 		/** @var Config */
-		public $config;
+		public $params;
 
 		/** @var Model */
 		public $model;
 
 		/** @var \Core\Classes\Config */
-		public $site_config;
+		public $config;
 
 		/** @var Response */
 		public $response;
@@ -66,7 +65,7 @@
 		public function methodGet(){
 			$this->auth_form->generateFieldsList();
 
-			if($this->config->actions['index']['enable_captcha']){
+			if($this->params->actions['index']['enable_captcha']){
 				$this->auth_form->setCaptcha();
 			}
 
@@ -81,7 +80,7 @@
 		public function methodPost(){
 			$this->auth_form->checkFieldsList();
 
-			if($this->config->actions['index']['enable_captcha']){
+			if($this->params->actions['index']['enable_captcha']){
 				$this->auth_form->setCaptcha();
 			}
 

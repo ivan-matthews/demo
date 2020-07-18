@@ -1,4 +1,5 @@
 <?php
+	use Core\Classes\Kernel;
 	/**
 	 * @var array $content
 	 * @var array $current
@@ -6,6 +7,9 @@
 ?>
 <ul class="nav nav-tabs nav-fill sorting-panel mt-1">
 	<?php foreach($content['actions'] as $key=>$action){ ?>
+
+		<?php if(!fx_equal($action['status'],Kernel::STATUS_ACTIVE)){ continue; } ?>
+
 		<?php if(fx_equal($key,$content['current']['action'])){ ?>
 			<li class="nav-item">
 				<span class="nav-link active">

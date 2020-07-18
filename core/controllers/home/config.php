@@ -7,11 +7,11 @@
 	/**
 	 * Class Config
 	 * @package Core\Controllers\Home
-	 * @property array $just_widgets
 	 * @property boolean $status
 	 * @property string $controller_name
 	 * @property array $controller
 	 * @property array $actions
+	 * @property boolean $just_widgets
 	 * @property array $another_controller
 	 */
 	class Config{
@@ -20,7 +20,7 @@
 		private static $instance;
 
 		/** @var array */
-		private $config;
+		private $params;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -31,19 +31,19 @@
 		}
 
 		public function __get($key){
-			if(isset($this->config[$key])){
-				return $this->config[$key];
+			if(isset($this->params[$key])){
+				return $this->params[$key];
 			}
 			return false;
 		}
 
 		public function __set($name, $value){
-			$this->config[$name] = $value;
-			return $this->config[$name];
+			$this->params[$name] = $value;
+			return $this->params[$name];
 		}
 
 		public function __construct(){
-			$this->config = $this->getParams();
+			$this->params = $this->getParams();
 		}
 
 		public function __destruct(){

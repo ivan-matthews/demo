@@ -11,6 +11,8 @@
 	 * @property string $controller_name
 	 * @property array $controller
 	 * @property array $actions
+	 * @property array $sorting_panel
+	 * @property array $ordering
 	 */
 	class Config{
 
@@ -18,7 +20,7 @@
 		private static $instance;
 
 		/** @var array */
-		private $config;
+		private $params;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -29,19 +31,19 @@
 		}
 
 		public function __get($key){
-			if(isset($this->config[$key])){
-				return $this->config[$key];
+			if(isset($this->params[$key])){
+				return $this->params[$key];
 			}
 			return false;
 		}
 
 		public function __set($name, $value){
-			$this->config[$name] = $value;
-			return $this->config[$name];
+			$this->params[$name] = $value;
+			return $this->params[$name];
 		}
 
 		public function __construct(){
-			$this->config = $this->getParams();
+			$this->params = $this->getParams();
 		}
 
 		public function __destruct(){

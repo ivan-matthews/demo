@@ -17,13 +17,13 @@
 		private static $instance;
 
 		/** @var Config */
-		public $config;
+		public $params;
 
 		/** @var Model */
 		public $model;
 
 		/** @var \Core\Classes\Config */
-		public $site_config;
+		public $config;
 
 		/** @var Response */
 		public $response;
@@ -57,7 +57,7 @@
 		}
 
 		public function methodGet($session_messages_key){
-			if(fx_equal(fx_csrf_equal($this->site_config->session['csrf_key_name']),Validator::CSRF_TOKEN_EQUAL)){
+			if(fx_equal(fx_csrf_equal($this->config->session['csrf_key_name']),Validator::CSRF_TOKEN_EQUAL)){
 				$this->session->unsetSessionMessages($session_messages_key);
 				$this->redirect();
 				return true;

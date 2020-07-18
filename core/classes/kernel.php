@@ -12,11 +12,11 @@
 		const IMPORT_INCLUDE		= 2;
 		const IMPORT_INCLUDE_ONCE	= 3;
 
-		const STATUS_INACTIVE 	= 0;
-		const STATUS_ACTIVE 	= 1;
-		const STATUS_LOCKED 	= 2;
-		const STATUS_BLOCKED 	= 3;
-		const STATUS_DELETED 	= 4;
+		const STATUS_INACTIVE 	= 0;	// отключено
+		const STATUS_ACTIVE 	= 1;	// активно
+		const STATUS_LOCKED 	= 2;	// закрыто
+		const STATUS_BLOCKED 	= 3;	// заблокировано
+		const STATUS_DELETED 	= 4;	// удалено
 
 		private static $instance;
 

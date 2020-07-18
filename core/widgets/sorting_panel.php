@@ -23,7 +23,7 @@
 			'show_title'		=> 1,
 			'unite_prev'		=> 0,
 			'position'			=> 'body_header',
-			'ordering'			=> 0,
+			'ordering'			=> 999,
 		);
 
 		private $response;
@@ -46,13 +46,13 @@
 		}
 
 		public function set(){
-			$this->response->widget($this->default_props['position'])
-				->setIndex(-1)
+			$this->response->widget($this->default_props)
 				->set('data',array(
 					'actions'	=> $this->actions,
 					'current'	=> $this->current
 				))
-				->set('params',$this->default_props);
+				->set('params',$this->default_props)
+				->add();
 			return true;
 		}
 

@@ -76,7 +76,7 @@
 			->value('citates','NaN')
 			->value('about','NaN')
 			->value('date_log',$online_time)
-			->value('log_type',User::LOGGED_DEFAULT)
+			->value('log_type',rand(User::LOGGED_DESKTOP,User::LOGGED_DEFAULT))
 			->value('date_created',time())
 			->value('status',rand(Kernel::STATUS_INACTIVE,Kernel::STATUS_BLOCKED))
 			->get()

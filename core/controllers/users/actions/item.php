@@ -16,13 +16,13 @@
 		private static $instance;
 
 		/** @var Config */
-		public $config;
+		public $params;
 
 		/** @var Model */
 		public $model;
 
 		/** @var \Core\Classes\Config */
-		public $site_config;
+		public $config;
 
 		/** @var Response */
 		public $response;

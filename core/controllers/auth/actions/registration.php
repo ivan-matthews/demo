@@ -17,13 +17,13 @@
 		private static $instance;
 
 		/** @var Config */
-		public $config;
+		public $params;
 
 		/** @var Model */
 		public $model;
 
 		/** @var \Core\Classes\Config */
-		public $site_config;
+		public $config;
 
 		/** @var Response */
 		public $response;
@@ -67,7 +67,7 @@
 		public function methodGet(){
 			$this->registration->generateFieldsList();
 
-			if($this->config->actions['registration']['enable_captcha']){
+			if($this->params->actions['registration']['enable_captcha']){
 				$this->registration->setCaptcha();
 			}
 
@@ -84,7 +84,7 @@
 			$this->registration->checkPasswords();
 			$this->registration->checkLogin($this->model);
 
-			if($this->config->actions['registration']['enable_captcha']){
+			if($this->params->actions['registration']['enable_captcha']){
 				$this->registration->setCaptcha();
 			}
 
@@ -95,7 +95,7 @@
 					'login'			=> $this->fields_list['login']['attributes']['value'],
 					'password'		=> fx_encode($this->fields_list['password']['attributes']['value']),
 					'enc_password'	=> fx_encryption($this->fields_list['password']['attributes']['value']),
-					'groups'		=> $this->config->groups_after_registration,
+					'groups'		=> $this->params->groups_after_registration,
 					'bookmark'		=> fx_encode($this->fields_list['login']['attributes']['value'].$this->fields_list['password']['attributes']['value']),
 					'verify_token'	=> $this->model->generateVerifyTokenKey(),
 					'status'		=> Kernel::STATUS_LOCKED,

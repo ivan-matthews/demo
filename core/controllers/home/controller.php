@@ -13,13 +13,13 @@
 		private static $instance;
 
 		/** @var Config */
-		public $config;
+		public $params;
 
 		/** @var \Core\Classes\Model|Model */
 		public $model;
 
 		/** @var \Core\Classes\Config */
-		public $site_config;
+		public $config;
 
 		/** @var Response */
 		public $response;
@@ -58,7 +58,7 @@
 
 		public function __construct(){
 			parent::__construct();
-			$this->config = Config::getInstance();
+			$this->params = Config::getInstance();
 			$this->model = Model::getInstance();
 
 			$this->response->title('home.title_home_page');

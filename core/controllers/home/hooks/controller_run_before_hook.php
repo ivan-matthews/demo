@@ -17,7 +17,7 @@
 		}
 
 		public function run(){
-			$this->action_object->config->status = Kernel::STATUS_INACTIVE;	// тест, иц ворк!
+			$this->action_object->params->status = Kernel::STATUS_INACTIVE;	// тест, иц ворк!
 			return false;
 		}
 

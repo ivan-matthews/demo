@@ -77,9 +77,10 @@
 						->setQuery("{$widget['class']}::{$widget['method']}()");
 				}
 
-				$this->response->widget($widget['position'])
+				$this->response->widget($widget)
 					->set('data',$widget_execute_result)
-					->set('params',$widget);
+					->set('params',$widget)
+					->add();
 			}
 			return $this;
 		}

@@ -18,13 +18,13 @@
 		private static $instance;
 
 		/** @var Config */
-		public $config;
+		public $params;
 
 		/** @var Model */
 		public $model;
 
 		/** @var \Core\Classes\Config */
-		public $site_config;
+		public $config;
 
 		/** @var Response */
 		public $response;
@@ -74,7 +74,7 @@
 			}
 			$this->resend_email->generateFieldsList();
 
-			if($this->config->actions['resend_email']['enable_captcha']){
+			if($this->params->actions['resend_email']['enable_captcha']){
 				$this->resend_email->setCaptcha();
 			}
 
@@ -93,7 +93,7 @@
 			$this->resend_email->checkFieldsList();
 			$this->resend_email->checkLogin($this->model);
 
-			if($this->config->actions['resend_email']['enable_captcha']){
+			if($this->params->actions['resend_email']['enable_captcha']){
 				$this->resend_email->setCaptcha();
 			}
 

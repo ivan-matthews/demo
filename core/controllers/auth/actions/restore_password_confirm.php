@@ -20,13 +20,13 @@
 		private static $instance;
 
 		/** @var Config */
-		public $config;
+		public $params;
 
 		/** @var Model */
 		public $model;
 
 		/** @var \Core\Classes\Config */
-		public $site_config;
+		public $config;
 
 		/** @var Response */
 		public $response;
@@ -82,7 +82,7 @@
 
 				$this->restore_password_form->generateFieldsList();
 
-				if($this->config->actions['restore_password_confirm']['enable_captcha']){
+				if($this->params->actions['restore_password_confirm']['enable_captcha']){
 					$this->restore_password_form->setCaptcha();
 				}
 
@@ -112,14 +112,14 @@
 				$this->restore_password_form->checkFieldsList();
 				$this->restore_password_form->checkPasswords();
 
-				if($this->config->actions['restore_password_confirm']['enable_captcha']){
+				if($this->params->actions['restore_password_confirm']['enable_captcha']){
 					$this->restore_password_form->setCaptcha();
 				}
 
 				$this->fields_list = $this->restore_password_form->getFieldsList();
 
 				if($this->restore_password_form->can()){
-					$this->user_data['groups'] 			= $this->config->groups_after_verification;
+					$this->user_data['groups'] 			= $this->params->groups_after_verification;
 					$this->user_data['verify_token'] 	= null;
 					$this->user_data['date_activate'] 	= time();
 					$this->user_data['status'] 			= Kernel::STATUS_ACTIVE;
@@ -150,7 +150,7 @@
 		private function sendRestorePasswordConfirmEmail(array $input_data){
 			Mail::set()
 				->subject(fx_lang('auth.registration_mail_subject',array(
-					'%site_name%'	=> $this->site_config->core['site_name']
+					'%site_name%'	=> $this->config->core['site_name']
 				)))
 				->to($input_data['login'])
 				->html('restore_password_successful',array(

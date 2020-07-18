@@ -28,13 +28,13 @@
 		private static $instance;
 
 		/** @var Config */
-		public $config;
+		public $params;
 
 		/** @var \Core\Classes\Model|Model */
 		public $model;
 
 		/** @var \Core\Classes\Config */
-		public $site_config;
+		public $config;
 
 		/** @var Response */
 		public $response;
@@ -58,7 +58,7 @@
 
 		public function __construct(){
 			parent::__construct();
-			$this->config = Config::getInstance();	// use Core\Controllers\Auth\Config as Config;
+			$this->params = Config::getInstance();	// use Core\Controllers\Auth\Config as Config;
 			$this->model = Model::getInstance();	// use Core\Controllers\Auth\Model as Model;
 
 			$this->response->title('auth.title_auth_controller');
@@ -72,7 +72,7 @@
 		public function sendRegisterEmail(array $input_data){
 			Mail::set()
 				->subject(fx_lang('auth.registration_mail_subject',array(
-					'%site_name%'	=> $this->site_config->core['site_name']
+					'%site_name%'	=> $this->config->core['site_name']
 				)))
 				->to($input_data['login'])
 				->html('registration_successful',array(

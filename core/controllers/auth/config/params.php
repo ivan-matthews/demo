@@ -4,7 +4,7 @@
 
 	return array(
 		'status'	=> Kernel::STATUS_ACTIVE,
-		'controller_name'	=> fx_lang('auth.controller_name'),
+		'controller_name'	=> 'auth.controller_name',
 		'groups_after_registration'	=> array(1),		// guest
 		'groups_after_verification'	=> array(2),		// user
 		'controller'	=> array(
@@ -13,7 +13,7 @@
 		),
 		'actions'		=> array(
 			'index'				=> array(
-				'enable_captcha'	=> true,
+				'enable_captcha'	=> false,
 				'groups_enabled'	=> array(0),
 				'groups_disabled'	=> array(),
 			),

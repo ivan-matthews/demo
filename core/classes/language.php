@@ -81,7 +81,7 @@
 		}
 
 		public function setLanguageKey(){
-			if(($language_key = $this->session->get('lang',Session::PREFIX_CONF))){
+			if(($language_key = $this->session->get('lang',Session::PREFIX_AUTH))){
 				return $this->setVerifiedLangKey($language_key);
 			}
 			return $this->parseServerLanguageHeader();

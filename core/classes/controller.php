@@ -10,7 +10,7 @@
 
 		private static $instance;
 
-		public $site_config;
+		public $config;
 		public $response;
 		public $session;
 		public $request;
@@ -20,9 +20,9 @@
 		public $limit	= 15;
 		public $offset	= 0;
 		public $total	= 0;
-		public $order	= 'ASC';
-		public $sort	= 'id';
+		public $order	= 'id';
 
+		public $sort	= 'ASC';
 		public $sort_key='dn';
 		public $sorting = array(
 			'up'	=> 'DESC',
@@ -51,27 +51,27 @@
 		}
 
 		public function __construct(){
-			$this->site_config = Config::getInstance();
+			$this->config = Config::getInstance();
 			$this->response = Response::getInstance();
 			$this->session = Session::getInstance();
 			$this->request = Request::getInstance();
 			$this->user = User::getInstance();
 			$this->hook = Hooks::getInstance();
 
-			$this->response->title($this->site_config->core['site_name']);
+			$this->response->title($this->config->core['site_name']);
 			$this->response->breadcrumb('main_breadcrumb')
-				->setValue($this->site_config->core['site_name'])
+				->setValue($this->config->core['site_name'])
 				->setLink()
 				->setIcon('fa fa-home');
-			$this->response->favicon($this->site_config->view['default_favicon']);
+			$this->response->favicon($this->config->view['default_favicon']);
 			$this->setMeta();
 
 			$this->limit	= $this->request->get('limit')?:15;
 			$this->offset	= $this->request->get('offset')?:0;
-			$this->order	= $this->request->get('order');
 			$this->sort		= $this->request->get('sort');
 
 			$this->sort_key = $this->sort ?: $this->sort_key;
+			$this->sort = isset($this->sorting[$this->sort]) ? $this->sorting[$this->sort] : 'ASC';
 		}
 
 		public function __destruct(){
@@ -96,7 +96,7 @@
 				->set('charset','utf-8');
 			$this->response->meta('description')
 				->set('name','description')
-				->set('content',$this->site_config->core['site_name']);
+				->set('content',$this->config->core['site_name']);
 			$this->response->meta('generator')
 				->set('name','generator')
 				->set('content','simple generated values');

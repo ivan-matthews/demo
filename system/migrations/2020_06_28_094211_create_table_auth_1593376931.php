@@ -21,6 +21,7 @@
 				$table->varchar('login')->notNull()->unique();
 				$table->varchar('password')->notNull();
 				$table->longtext('enc_password')->notNull();
+				$table->varchar('lang',2)->nullable();
 				$table->longtext('groups')->notNull();
 
 				$table->varchar('bookmark')->bin()->unique();

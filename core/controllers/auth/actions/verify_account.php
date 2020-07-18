@@ -16,13 +16,13 @@
 		private static $instance;
 
 		/** @var Config */
-		public $config;
+		public $params;
 
 		/** @var Model */
 		public $model;
 
 		/** @var \Core\Classes\Config */
-		public $site_config;
+		public $config;
 
 		/** @var Response */
 		public $response;
@@ -64,7 +64,7 @@
 
 			$this->user_data = $this->model->getUserByVerifyToken($this->verify_token);
 			if($this->user_data){
-				$this->user_data['groups'] = $this->config->groups_after_verification;
+				$this->user_data['groups'] = $this->params->groups_after_verification;
 				$this->user_data['verify_token'] = null;
 				$this->user_data['date_activate'] = time();
 				$this->user_data['status'] = Kernel::STATUS_ACTIVE;

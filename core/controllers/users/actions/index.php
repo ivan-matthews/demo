@@ -17,13 +17,13 @@
 		private static $instance;
 
 		/** @var Config */
-		public $config;
+		public $params;
 
 		/** @var Model */
 		public $model;
 
 		/** @var \Core\Classes\Config */
-		public $site_config;
+		public $config;
 
 		/** @var Response */
 		public $response;
@@ -47,40 +47,8 @@
 		public $limit;
 		public $offset;
 		public $total;
-		public $order;
+		public $order = 'id';
 		public $sort;
-
-		public $ordering = array(
-			'create'	=> 'date_created',
-			'logged'	=> 'date_log',
-		);
-
-		public $filter_desired_values = array(
-			'all'	=> array(
-				'title'	=> 'users.users_index_all_title',
-				'link'	=> array('users','index'),
-			),
-			'online'	=> array(
-				'title'	=> 'users.users_index_online_title',
-				'link'	=> array('users','index','online')
-			),
-			'offline'	=> array(
-				'title'	=> 'users.users_index_offline_title',
-				'link'	=> array('users','index','offline')
-			),
-			'active'	=> array(
-				'title'	=> 'users.users_index_active_title',
-				'link'	=> array('users','index','active')
-			),
-			'inactive'	=> array(
-				'title'	=> 'users.users_index_inactive_title',
-				'link'	=> array('users','index','inactive')
-			),
-			'locked'	=> array(
-				'title'	=> 'users.users_index_locked_title',
-				'link'	=> array('users','index','locked')
-			),
-		);
 
 		/** @return $this */
 		public static function getInstance(){
@@ -101,21 +69,21 @@
 			$this->query	= "`status`!=" . Kernel::STATUS_BLOCKED;
 		}
 
-		public function methodGet($filter_suffix=null){
-			$this->order	= isset($this->ordering[$this->order]) ? $this->ordering[$this->order] : 'id';
-			$this->sort		= isset($this->sorting[$this->sort]) ? $this->sorting[$this->sort] : 'ASC';
+		public function methodGet($filter_suffix='all'){
 
-			if(isset($this->filter_desired_values[$filter_suffix]) && method_exists($this,$filter_suffix)){
+			if(isset($this->params->sorting_panel[$filter_suffix]) &&
+				fx_equal($this->params->sorting_panel[$filter_suffix]['status'],Kernel::STATUS_ACTIVE) &&
+				method_exists($this,$filter_suffix)){
 				$this->query .= call_user_func(array($this,$filter_suffix));
 			}
 
-			$this->total = $this->users = $this->model->countAllUsers($this->query);
+			$this->total = $this->model->countAllUsers($this->query);
 			$this->users = $this->model->getAllUsers(
 				$this->limit, $this->offset, $this->query, $this->order, $this->sort
 			);
 
 			$this->paginate(array('users','index',$filter_suffix));
-			$this->sorting($this->filter_desired_values,$filter_suffix);
+			$this->sorting($this->params->sorting_panel,$filter_suffix);
 
 			if($this->users){
 				return $this->response->controller('users','index')
@@ -124,15 +92,26 @@
 			return $this->renderEmptyPage();
 		}
 
-
+		private function all(){
+			return null;
+		}
 		private function online(){
 			$this->response->title('users.users_index_online_title');
 			$this->response->breadcrumb('filter')
 				->setIcon(null)
 				->setLink('users','index','online')
 				->setValue('users.users_index_online_title');
-
+			$this->order = 'date_log';
 			return " AND `date_log`>" . time();
+		}
+		private function registration(){
+			$this->response->title('users.users_index_registration_title');
+			$this->response->breadcrumb('filter')
+				->setIcon(null)
+				->setLink('users','index','registration')
+				->setValue('users.users_index_registration_title');
+			$this->order = 'date_created';
+			return null;
 		}
 		private function offline(){
 			$this->response->title('users.users_index_online_title');
@@ -140,7 +119,7 @@
 				->setIcon(null)
 				->setLink('users','index','offline')
 				->setValue('users.users_index_online_title');
-
+			$this->order = 'date_log';
 			return " AND `date_log`<" . time();
 		}
 		private function active(){

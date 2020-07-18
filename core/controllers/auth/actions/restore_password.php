@@ -18,13 +18,13 @@
 		private static $instance;
 
 		/** @var Config */
-		public $config;
+		public $params;
 
 		/** @var Model */
 		public $model;
 
 		/** @var \Core\Classes\Config */
-		public $site_config;
+		public $config;
 
 		/** @var Response */
 		public $response;
@@ -64,7 +64,7 @@
 		public function methodGet(){
 			$this->restore_password_form->generateFieldsList();
 
-			if($this->config->actions['restore_password']['enable_captcha']){
+			if($this->params->actions['restore_password']['enable_captcha']){
 				$this->restore_password_form->setCaptcha();
 			}
 
@@ -80,7 +80,7 @@
 			$this->restore_password_form->checkFieldsList();
 			$this->restore_password_form->checkLogin($this->model);
 
-			if($this->config->actions['restore_password']['enable_captcha']){
+			if($this->params->actions['restore_password']['enable_captcha']){
 				$this->restore_password_form->setCaptcha();
 			}
 

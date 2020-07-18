@@ -16,13 +16,13 @@
 		private static $instance;
 
 		/** @var Config */
-		public $config;
+		public $params;
 
 		/** @var Model */
 		public $model;
 
 		/** @var \Core\Classes\Config */
-		public $site_config;
+		public $config;
 
 		/** @var Response */
 		public $response;
@@ -58,13 +58,13 @@
 
 		public function methodGet(){
 
-			if($this->config->just_widgets){ return true; }
+			if($this->params->just_widgets){ return true; }
 
-			if(class_exists($this->config->another_controller['class'])){
-				$this->called_class_object = call_user_func(array($this->config->another_controller['class'],'getInstance'));
+			if(class_exists($this->params->another_controller['class'])){
+				$this->called_class_object = call_user_func(array($this->params->another_controller['class'],'getInstance'));
 				return call_user_func_array(array(
-					$this->called_class_object, $this->config->another_controller['method']
-				),array($this->config->another_controller['params']));
+					$this->called_class_object, $this->params->another_controller['method']
+				),array($this->params->another_controller['params']));
 			}
 
 			return true;

@@ -13,4 +13,5 @@
 		'users_index_active_title'	=> 'Подтвержденные',
 		'users_index_inactive_title'=> 'Не подтвержденные',
 		'users_index_locked_title'	=> 'Приостановленные',
+		'users_index_registration_title'	=> 'Регистрация',
 	);
