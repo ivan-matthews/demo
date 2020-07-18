@@ -366,25 +366,25 @@ form label {
 .sidebar-parent .sidebar:last-child {
   margin-bottom: 0;
 }
-.sorting-panel .nav-link {
+.sorting-panel .sorting-panel-item .nav-link {
   border-radius: 0;
 }
-.sorting-panel .nav-link.active {
+.sorting-panel .sorting-panel-item .nav-link.active {
   position: relative;
 }
-.sorting-panel .nav-link.active .sorting-link {
+.sorting-panel .sorting-panel-item .nav-link.active .sorting-link {
   position: absolute;
   left: 0;
   top: 0;
   bottom: 0;
   right: 0;
 }
-.sorting-panel .nav-link.active .sorting-link:hover {
+.sorting-panel .sorting-panel-item .nav-link.active .sorting-link:hover {
   opacity: 0.8;
   background: none;
 }
-.sorting-panel .nav-link.active .sorting-link svg,
-.sorting-panel .nav-link.active .sorting-link i {
+.sorting-panel .sorting-panel-item .nav-link.active .sorting-link svg,
+.sorting-panel .sorting-panel-item .nav-link.active .sorting-link i {
   position: absolute;
   right: 10px;
   top: 2px;
@@ -707,6 +707,10 @@ svg.fa-dizzy {
 i.fa-angry,
 svg.fa-angry {
   color: #dc3545;
+}
+i .fa-frown-open,
+svg .fa-frown-open {
+  color: #ffc107;
 }
 option.empty-value,
 select[value="0"] {

@@ -54,8 +54,9 @@
 				$table->longtext('u_about')->nullable();
 
 				$table->smallint('u_status',1)->notNull()->defaults(Kernel::STATUS_LOCKED);
+				$table->smallint('u_log_type',1)->defaults(User::LOGGED_DEFAULT);
+				$table->smallint('u_user_type',1)->notNull()->defaults(1);	// 1 | 2 - user|bot
 
-				$table->varchar('u_log_type')->defaults(User::LOGGED_DEFAULT);
 				$table->bigint('u_date_log')->nullable();
 
 				$table->add_timestamps('u_');

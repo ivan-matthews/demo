@@ -18,7 +18,7 @@
 	<div class="filter-panel">
 
 		<form <?php print $form_attributes_string?>>
-			<div class="input-group mt-3">
+			<div class="input-group mt-2">
 				<div class="input-group-prepend">
 
 					<div class="input-group-text radius-0">

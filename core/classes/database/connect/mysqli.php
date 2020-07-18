@@ -574,7 +574,7 @@
 			return $this->exec(trim($query) . ";",$preparing);
 		}
 
-		public function update($fields,$table,$where,$nested_query,$join,$limit,$offset,$preparing){
+		public function update($fields,$table,$where,$nested_query,$join,$limit,$offset,$order,$sort,$group,$preparing){
 			$this->removeProps();
 
 			$this->getUpdateStringForInsert($fields);
@@ -587,6 +587,9 @@
 			$query .= trim($this->update_insert_string, ", \n");
 			$query .= " \n";
 			$query .= $this->getWhere($where);
+			$query .= $this->getOrder($order);
+			$query .= $this->getSort($sort,$order);
+			$query .= $this->getGroup($group);
 			$query .= $this->getLimit($limit);
 			$query .= $this->getOffset($offset);
 

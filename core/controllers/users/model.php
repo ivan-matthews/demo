@@ -25,16 +25,6 @@
 			parent::__construct();
 		}
 
-		public function updateDateLog($user_id,$date_log){
-			$this->update('users')
-				->field('u_date_log',$date_log)
-				->where("`u_id`=%user_id%")
-				->data('%user_id%',$user_id)
-				->get()
-				->rows();
-			return $this;
-		}
-
 		public function countAllUsers($query_suffix=null,$replaced_data=array()){
 			$this->cache->key('users.all');
 

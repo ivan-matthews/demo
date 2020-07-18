@@ -38,6 +38,18 @@
 		public function offset($offset=0);
 
 		/**
+		 * @param array ...$order
+		 * @return Sorting
+		 */
+		public function order(...$order);
+
+		/**
+		 * @param array ...$group
+		 * @return Actions
+		 */
+		public function group(...$group);
+
+		/**
 		 * @param $key
 		 * @param $value
 		 * @return Update | Actions

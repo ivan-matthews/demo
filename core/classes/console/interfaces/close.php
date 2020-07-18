@@ -21,4 +21,9 @@
 		 * @return Close
 		 */
 		public function tab($repeating=1);
+
+		/**
+		 * @return string
+		 */
+		public function __toString();
 	}

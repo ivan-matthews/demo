@@ -1,13 +1,13 @@
 <?php
 
-	namespace Core\Widgets;
+	namespace Core\Controllers\Users\Widgets;
 
 	use Core\Classes\Response\Response;
 	use Core\Classes\Session;
 	use Core\Controllers\Users\Model as UserModel;
 	use Core\Controllers\Home\Model as HomeModel;
 
-	class User_info{
+	class User_Info{
 
 		private $params;
 		private $user_info;

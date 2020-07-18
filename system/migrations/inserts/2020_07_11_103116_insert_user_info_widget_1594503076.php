@@ -3,7 +3,7 @@
 	namespace System\Migrations\Inserts;
 
 	use Core\Classes\Database\Database;
-	use Core\Widgets\User_info;
+	use Core\Controllers\Users\Widgets\User_Info;
 	use Core\Classes\Kernel;
 
 	class InsertUserInfoWidget202007111031161594503076{
@@ -14,7 +14,7 @@
 
 		public function addWidget(){
 			$this->widget_id = Database::insert('widgets')
-				->value('w_class',User_info::class)
+				->value('w_class',User_Info::class)
 				->value('w_method','run')
 				->value('w_status',Kernel::STATUS_ACTIVE)
 				->value('w_template','widgets/user_info')
@@ -72,7 +72,7 @@
 					'css_class_icon'=> 'chocolate-icon',
 				),
 				array(
-					'link_array'	=> array('link'=>array('auth','logout'),'query'=>array('%csrf_name%'=>'%csrf_token%')),
+					'link_array'	=> array('link'=>array('auth','logout','%csrf_token%'),'query'=>array()),
 					'name'			=> 'user_escape_link',
 					'title'			=> 'auth.logout_link_title',
 					'value'			=> 'auth.logout_link',

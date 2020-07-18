@@ -221,11 +221,9 @@
 					'menu_id'		=> $this->user_menu,
 					'link_array'	=> array(
 						'link'=>array(
-							'auth','logout'
+							'auth','logout','%csrf_token%'
 						),
-						'query'=>array(
-							'%csrf_name%'=>'%csrf_token%'
-						)
+						'query'=>array()
 					),
 					'name'			=> 'auth_log_out',
 					'title'			=> 'auth.logout_link_title',

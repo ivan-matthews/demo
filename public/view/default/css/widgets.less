@@ -1,24 +1,27 @@
 @import "vars";
 
 .sorting-panel{
-	.nav-link{
-		border-radius: 0;
-		&.active{
-			position: relative;
-			.sorting-link{
-				position: absolute;
-				left: 0;
-				top: 0;
-				bottom: 0;
-				right: 0;
-				&:hover{
-					opacity: 0.8;
-					background: none;
-				}
-				svg,i{
+	.sorting-panel-item{
+		//z-index: 1;
+		.nav-link{
+			border-radius: 0;
+			&.active{
+				position: relative;
+				.sorting-link{
 					position: absolute;
-					right: 10px;
-					top: 2px;
+					left: 0;
+					top: 0;
+					bottom: 0;
+					right: 0;
+					&:hover{
+						opacity: 0.8;
+						background: none;
+					}
+					svg,i{
+						position: absolute;
+						right: 10px;
+						top: 2px;
+					}
 				}
 			}
 		}

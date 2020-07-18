@@ -85,6 +85,7 @@
 			->value('u_log_type',rand(User::LOGGED_DESKTOP,User::LOGGED_DEFAULT))
 			->value('u_date_created',time())
 			->value('u_status',rand(Kernel::STATUS_INACTIVE,Kernel::STATUS_BLOCKED))
+			->value('u_user_type',2)
 			->get()
 			->id();
 	}

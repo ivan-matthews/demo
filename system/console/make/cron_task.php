@@ -108,7 +108,7 @@
 			$insert_data .= "\t\t\t".'return $this;';
 
 			$insert->setInsertDataToReplace($insert_data);
-			return $insert->execute("{$this->controller}_{$this->file}_cron_task");
+			return $insert->execute("cron_task_{$this->controller}_{$this->file}");
 		}
 
 

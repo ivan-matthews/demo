@@ -7,6 +7,7 @@
 	require ROOT . "/vendor/autoload.php";
 
 	error_reporting(0);
+//	set_time_limit(5);
 	ini_set('display_errors','1');
 	ini_set('xdebug.max_nesting_level','1024');
 

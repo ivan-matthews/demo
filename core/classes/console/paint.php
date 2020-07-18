@@ -32,6 +32,7 @@
 		protected $fon;
 
 		private $result_string;
+		/** @var string */
 		private $debug_result_string;
 
 		protected $paint;
@@ -79,6 +80,13 @@
 				return $this->paint[$key];
 			}
 			return false;
+		}
+
+		/**
+		 * @return string
+		 */
+		public function __toString(){
+			return;
 		}
 
 		public function __set($name, $value){

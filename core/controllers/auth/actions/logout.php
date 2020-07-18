@@ -2,7 +2,6 @@
 
 	namespace Core\Controllers\Auth\Actions;
 
-	use Core\Classes\Form\Validator;
 	use Core\Classes\Hooks;
 	use Core\Classes\Request;
 	use Core\Classes\Response\Response;
@@ -68,8 +67,8 @@
 
 		}
 
-		public function methodGet(){
-			if(fx_equal(fx_csrf_equal($this->config->session['csrf_key_name']),Validator::CSRF_TOKEN_EQUAL)){
+		public function methodGet($csrf_token){
+			if(fx_equal($csrf_token,fx_csrf())){
 				$user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
 				if($user_id){
 					$this->model->updateDateLog($user_id,time());

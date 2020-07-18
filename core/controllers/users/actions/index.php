@@ -67,7 +67,7 @@
 			$this->query	= "u_status!=" . Kernel::STATUS_BLOCKED;
 		}
 
-		public function methodGet($sorting_action='all',$sort='dn'){
+		public function methodGet($sorting_action='all',$sort='up'){
 
 	//-------------------------------------------------------------------------------------//
 
@@ -122,11 +122,11 @@
 			return null;
 		}
 		protected function offline(){
-			$this->response->title('users.users_index_online_title');
+			$this->response->title('users.users_index_offline_title');
 			$this->response->breadcrumb('filter')
 				->setIcon(null)
 				->setLink('users','index','offline')
-				->setValue('users.users_index_online_title');
+				->setValue('users.users_index_offline_title');
 			$this->order = '`u_date_log`';
 			return " AND `u_date_log`<" . time();
 		}

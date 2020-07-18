@@ -10,7 +10,7 @@
 		<?php if(!fx_equal($action['status'],Kernel::STATUS_ACTIVE)){ continue; } ?>
 
 		<?php if(fx_equal($key,$content['current']['action'])){ ?>
-			<li class="nav-item">
+			<li class="nav-item sorting-panel-item">
 				<span class="nav-link active">
 					<?php print fx_lang($action['title']) ?>
 					<?php if(fx_equal('up',$content['current']['sort'])){ ?>

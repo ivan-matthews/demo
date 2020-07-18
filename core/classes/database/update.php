@@ -37,6 +37,9 @@
 		protected $join = array();
 		protected $limit;
 		protected $offset;
+		protected $order_by=array();
+		protected $sorting='ASC';
+		protected $group_by;
 		protected $preparing_data=array();
 
 		/** @var object */
@@ -90,6 +93,21 @@
 			return $this;
 		}
 
+		public function order(...$order){
+			$this->order_by = $order;
+			return $this;
+		}
+
+		public function sort($sorting='ASC'){
+			$this->sorting = $sorting;
+			return $this;
+		}
+
+		public function group(...$group){
+			$this->group_by = $group;
+			return $this;
+		}
+
 		public function data($key,$value){
 			$this->preparing_data[$key] = $value;
 			return $this;
@@ -105,6 +123,9 @@
 				$this->join,
 				$this->limit,
 				$this->offset,
+				$this->order_by,
+				$this->sorting,
+				$this->group_by,
 				$this->preparing_data
 			);
 
