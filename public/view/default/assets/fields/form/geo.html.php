@@ -10,22 +10,22 @@
 	$field_string = $this->getAttributesStringFromArray($attributes);
 ?>
 
-<div class="fields" id="geo-fields-list">
+<div class="fields form-group form-block u_first_name col-md-12 col-sm-12 col-12 col-lg-12 col-xl-12" id="geo-fields-list">
 	<input id="country" type="hidden" name="<?php print $attributes['params']['country']['name'] ?>" value="<?php print $attributes['params']['country']['id'] ?>">
 	<input id="region" type="hidden" name="<?php print $attributes['params']['region']['name'] ?>" value="<?php print $attributes['params']['region']['id'] ?>">
 	<input id="city" type="hidden" name="<?php print $attributes['params']['city']['name'] ?>" value="<?php print $attributes['params']['city']['id'] ?>">
 
-	<div class="country field mt-2 radius-0">
+	<div class="country field mt-2">
 		<label class="form-check-label" for=""><?php print fx_lang('home.country_label') ?></label>
-		<input id="for-country" class="radius-0 form-control" placeholder="<?php print fx_lang('home.country_placeholder') ?>" type="text" value="<?php print $attributes['params']['country']['value'] ?>">
+		<input id="for-country" class="form-control" placeholder="<?php print fx_lang('home.country_placeholder') ?>" type="text" value="<?php print $attributes['params']['country']['value'] ?>">
 	</div>
-	<div class="region field mt-2 radius-0">
+	<div class="region field mt-2">
 		<label class="form-check-label" for=""><?php print fx_lang('home.region_label') ?></label>
-		<input id="for-region" class="radius-0 form-control" placeholder="<?php print fx_lang('home.region_placeholder') ?>" type="text" value="<?php print $attributes['params']['region']['value'] ?>">
+		<input id="for-region" class="form-control" placeholder="<?php print fx_lang('home.region_placeholder') ?>" type="text" value="<?php print $attributes['params']['region']['value'] ?>">
 	</div>
-	<div class="city field mt-2 radius-0">
+	<div class="city field mt-2">
 		<label class="form-check-label" for=""><?php print fx_lang('home.city_label') ?></label>
-		<input id="for-city" class="radius-0 form-control" placeholder="<?php print fx_lang('home.city_placeholder') ?>" type="text" value="<?php print $attributes['params']['city']['value'] ?>">
+		<input id="for-city" class="form-control" placeholder="<?php print fx_lang('home.city_placeholder') ?>" type="text" value="<?php print $attributes['params']['city']['value'] ?>">
 	</div>
 </div>
 

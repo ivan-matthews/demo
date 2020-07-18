@@ -5,6 +5,8 @@
 	return array(
 		array(
 			'field'	=> 'u_first_name',
+			'jevix'	=> true,
+			'max'	=> 95,
 			'params'	=> array(
 				'item_position'	=> 'visible',
 				'show_in_item'	=> false,
@@ -17,6 +19,8 @@
 		),
 		array(
 			'field'	=> 'u_last_name',
+			'jevix'	=> true,
+			'max'	=> 95,
 			'params'	=> array(
 				'item_position'	=> 'visible',
 				'show_in_item'	=> false,
@@ -29,7 +33,9 @@
 		),
 		array(
 			'field'	=> 'u_full_name',
+			'jevix'	=> true,
 			'placeholder'	=> fx_lang('users.full_name_placeholder'),
+			'max'	=> 191,
 			'params'	=> array(
 				'filter_validation'	=> 'LIKE',
 				'filter_position'=> 'visible',
@@ -81,11 +87,13 @@
 		),*/
 		array(
 			'field'	=> 'u_gender',
+			'jevix'	=> true,
+			'max'	=> 1,
 			'params'	=> array(
 				'field_type' 	=> 'select',
 				'show_validation'	=> false,
 				'item_position'	=> 'visible',
-				'field_sets'	=> 'field_set_gender',
+				'field_sets'	=> 'field_set_name',
 				'render_type'	=> 'gender',
 				'label'			=> fx_lang('users.gender'),
 				'variants'		=> array(
@@ -97,6 +105,8 @@
 		),
 		array(
 			'field'	=> 'u_birth_day',
+			'jevix'	=> true,
+			'max'	=> 2,
 			'params'	=> array(
 				'field_type' 	=> 'select',
 				'show_validation'	=> false,
@@ -109,6 +119,8 @@
 		),
 		array(
 			'field'	=> 'u_birth_month',
+			'max'	=> 2,
+			'jevix'	=> true,
 			'params'	=> array(
 				'field_type' 	=> 'select',
 				'show_validation'	=> false,
@@ -134,6 +146,8 @@
 		),
 		array(
 			'field'	=> 'u_birth_year',
+			'max'	=> 4,
+			'jevix'	=> true,
 			'params'	=> array(
 				'field_type' 	=> 'select',
 				'show_validation'	=> false,
@@ -146,11 +160,13 @@
 		),
 		array(
 			'field'	=> 'u_family',
+			'jevix'	=> true,
+			'max'	=> 1,
 			'params'	=> array(
 				'field_type' 	=> 'select',
 				'show_validation'	=> false,
 				'item_position'	=> 'visible',
-				'field_sets'	=> 'field_set_family',
+				'field_sets'	=> 'field_set_name',
 				'render_type'	=> 'family',
 				'label'			=> fx_lang('users.family'),
 				'variants'		=> array(
@@ -164,6 +180,8 @@
 		),
 		array(
 			'field'	=> 'u_phone',
+			'max'	=> 20,
+			'jevix'	=> true,
 			'params'	=> array(
 				'show_validation'	=> false,
 				'show_in_filter'=> false,
@@ -175,6 +193,8 @@
 		),
 		array(
 			'field'	=> 'u_cophone',
+			'max'	=> 20,
+			'jevix'	=> true,
 			'params'	=> array(
 				'show_validation'	=> false,
 				'show_in_filter'=> false,
@@ -186,6 +206,8 @@
 		),
 		array(
 			'field'	=> 'u_email',
+			'jevix'	=> true,
+			'max'	=> 191,
 			'params'	=> array(
 				'show_validation'	=> false,
 				'show_in_filter'=> false,
@@ -197,6 +219,8 @@
 		),
 		array(
 			'field'	=> 'u_icq',
+			'jevix'	=> true,
+			'max'	=> 191,
 			'params'	=> array(
 				'show_validation'	=> false,
 				'show_in_filter'=> false,
@@ -208,6 +232,8 @@
 		),
 		array(
 			'field'	=> 'u_skype',
+			'jevix'	=> true,
+			'max'	=> 191,
 			'params'	=> array(
 				'show_validation'	=> false,
 				'show_in_filter'=> false,
@@ -219,6 +245,8 @@
 		),
 		array(
 			'field'	=> 'u_viber',
+			'jevix'	=> true,
+			'max'	=> 191,
 			'params'	=> array(
 				'show_validation'	=> false,
 				'show_in_filter'=> false,
@@ -230,6 +258,8 @@
 		),
 		array(
 			'field'	=> 'u_whatsapp',
+			'jevix'	=> true,
+			'max'	=> 191,
 			'params'	=> array(
 				'show_validation'	=> false,
 				'show_in_filter'=> false,
@@ -241,6 +271,8 @@
 		),
 		array(
 			'field'	=> 'u_telegram',
+			'jevix'	=> true,
+			'max'	=> 191,
 			'params'	=> array(
 				'show_validation'	=> false,
 				'show_in_filter'=> false,
@@ -252,6 +284,9 @@
 		),
 		array(
 			'field'	=> 'u_website',
+			'htmlspecialchars'	=> true,
+			'max'	=> 191,
+//			'url'	=> true,
 			'params'	=> array(
 				'show_validation'	=> false,
 				'show_in_filter'=> false,
@@ -263,7 +298,9 @@
 		),
 		array(
 			'field'	=> 'u_activities',
+			'jevix'	=> true,
 			'params'	=> array(
+				'field_type' 	=> 'textarea',
 				'show_validation'	=> false,
 				'show_in_filter'=> false,
 				'item_position'	=> 'invisible',
@@ -274,7 +311,9 @@
 		),
 		array(
 			'field'	=> 'u_interests',
+			'jevix'	=> true,
 			'params'	=> array(
+				'field_type' 	=> 'textarea',
 				'show_validation'	=> false,
 				'show_in_filter'=> false,
 				'item_position'	=> 'invisible',
@@ -285,7 +324,9 @@
 		),
 		array(
 			'field'	=> 'u_music',
+			'jevix'	=> true,
 			'params'	=> array(
+				'field_type' 	=> 'textarea',
 				'show_validation'	=> false,
 				'show_in_filter'=> false,
 				'item_position'	=> 'invisible',
@@ -296,7 +337,9 @@
 		),
 		array(
 			'field'	=> 'u_films',
+			'jevix'	=> true,
 			'params'	=> array(
+				'field_type' 	=> 'textarea',
 				'show_validation'	=> false,
 				'show_in_filter'=> false,
 				'item_position'	=> 'invisible',
@@ -307,7 +350,9 @@
 		),
 		array(
 			'field'	=> 'u_shows',
+			'jevix'	=> true,
 			'params'	=> array(
+				'field_type' 	=> 'textarea',
 				'show_validation'	=> false,
 				'show_in_filter'=> false,
 				'item_position'	=> 'invisible',
@@ -318,7 +363,9 @@
 		),
 		array(
 			'field'	=> 'u_books',
+			'jevix'	=> true,
 			'params'	=> array(
+				'field_type' 	=> 'textarea',
 				'show_validation'	=> false,
 				'show_in_filter'=> false,
 				'item_position'	=> 'invisible',
@@ -329,7 +376,9 @@
 		),
 		array(
 			'field'	=> 'u_games',
+			'jevix'	=> true,
 			'params'	=> array(
+				'field_type' 	=> 'textarea',
 				'show_validation'	=> false,
 				'show_in_filter'=> false,
 				'item_position'	=> 'invisible',
@@ -340,7 +389,9 @@
 		),
 		array(
 			'field'	=> 'u_citates',
+			'jevix'	=> true,
 			'params'	=> array(
+				'field_type' 	=> 'textarea',
 				'show_validation'	=> false,
 				'show_in_filter'=> false,
 				'item_position'	=> 'invisible',
@@ -351,7 +402,9 @@
 		),
 		array(
 			'field'	=> 'u_about',
+			'jevix'	=> true,
 			'params'	=> array(
+				'field_type' 	=> 'textarea',
 				'show_validation'	=> false,
 				'show_in_filter'=> false,
 				'item_position'	=> 'invisible',

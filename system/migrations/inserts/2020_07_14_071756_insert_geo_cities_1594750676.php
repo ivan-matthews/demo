@@ -33,7 +33,7 @@
 				foreach($data as $item){
 
 					$this->reconnectByMemoryLimit()
-						->lastInstance();
+						->lastHope();
 
 					$insert = Database::insert('geo_cities');
 					$insert = $insert->value('gc_city_id',$item['gc_city_id']);
@@ -79,7 +79,7 @@
 			return $this;
 		}
 
-		private function lastInstance(){
+		private function lastHope(){
 			if(memory_get_usage() > $this->memory_limit+10240000){
 				Paint::exec(function(Types $types){
 					$types->eol(2);

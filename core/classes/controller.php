@@ -8,7 +8,7 @@
 	use Core\Widgets\Filter;
 	use Core\Widgets\Paginate;
 	use Core\Widgets\Sorting_Panel;
-	use Core\Controllers\Home\Model;
+	use Core\Widgets\Header_Bar;
 
 	class Controller{
 
@@ -249,7 +249,27 @@
 			$current_data['sort'] = $this->sort_key;
 
 			Sorting_Panel::add()
-				->actions($actions)->current($current_data)->set();
+				->actions($actions)
+				->current($current_data)->set();
+			return $this;
+		}
+
+		/**
+		 * Установить панель хидер-бар (без сортровки)
+		 *
+		 * @param array $header_bar_data
+		 * @param $current_tab
+		 * @return $this
+		 */
+		protected function header_bar(array $header_bar_data,$current_tab){
+			$action = "{$current_tab}HeaderBar";
+			if(method_exists($this,$action)){
+				call_user_func(array($this,$action));
+			}
+			Header_Bar::add()
+				->data($header_bar_data)
+				->current($current_tab)
+				->set();
 			return $this;
 		}
 
@@ -301,10 +321,6 @@
 
 		protected function geo($country_field_name,$region_field_name,$city_field_name){
 			if(!$this->filter){ return $this; }
-			$lang_key = $this->language->getLanguageKey();
-
-			$this->filter->field('geo')
-				->field_type('geo');
 
 			if(($country_value = $this->filter->getValue($country_field_name))){
 				$this->query .= " AND {$country_field_name}=%country%";
@@ -319,24 +335,7 @@
 				$this->replaced_data["%city%"] = $city_value;
 			}
 
-			$geo_info = Model::getInstance()
-				->getGeoByIds($country_value,$region_value,$city_value);
-
-			$this->filter->setParams('country',array(
-				'id'	=> $country_value,
-				'name'	=> $this->filter_name ? "{$this->filter_name}[{$country_field_name}]" : $country_field_name,
-				'value'	=> $geo_info["g_title_{$lang_key}"],
-			));
-			$this->filter->setParams('region',array(
-				'id'	=> $region_value,
-				'name'	=> $this->filter_name ? "{$this->filter_name}[{$region_field_name}]" : $region_field_name,
-				'value'	=> $geo_info["gr_title_{$lang_key}"],
-			));
-			$this->filter->setParams('city',array(
-				'id'	=> $city_value,
-				'name'	=> $this->filter_name ? "{$this->filter_name}[{$city_field_name}]" : $city_field_name,
-				'value'	=> (!$geo_info['gc_area']?'':"{$geo_info['gc_area']}, ") . $geo_info["gc_title_{$lang_key}"],
-			));
+			$this->filter->geo($country_field_name,$region_field_name,$city_field_name);
 			return $this;
 		}
 

@@ -103,6 +103,40 @@ form label {
   -moz-user-select: none;
   user-select: none;
 }
+form .fields {
+  position: relative;
+}
+form .fields .clickable-geo-fields {
+  position: absolute;
+  background: #FFF;
+  width: 100%;
+  border: solid 1px #ccc;
+  z-index: 3;
+  max-height: 200px;
+  overflow-y: auto;
+}
+form .fields .clickable-geo-fields .link {
+  padding: 0.25em 1em;
+  border-bottom: solid 1px #ccc;
+}
+form .fields .clickable-geo-fields .link:hover {
+  background: #d9e2ec;
+}
+form .fields .closable {
+  position: absolute;
+  right: 0;
+  border: solid 1px #ccc;
+  padding: 0 8px;
+  background: #dc3545;
+  z-index: 4;
+}
+form .fields .closable a {
+  font-weight: bold;
+  color: #fff;
+}
+form .fields .closable a:hover {
+  background: none;
+}
 .csrf {
   margin-bottom: 0;
 }

@@ -52,7 +52,7 @@
 				return $result;
 			}
 
-			$result = $this->select()
+			$result = $this->select('SQL_CACHE *')
 				->from('users')
 				->join('status FORCE INDEX (PRIMARY)',"u_id=s_user_id")
 				->join('photos FORCE INDEX (PRIMARY)',"u_id=p_user_id")
@@ -77,7 +77,7 @@
 		}
 
 		public function getUserByID($user_id){
-			$this->cache->key('users.items');
+			$this->cache->key('users.items.' . $user_id);
 
 			if(($result = $this->cache->get()->array())){
 				return $result;
@@ -116,6 +116,21 @@
 			return $result['total'];
 		}
 
+		public function updateUserData($fields_and_data,$user_id){
+			$update = $this->update('users');
+			foreach($fields_and_data as $key=>$value){
+				if(fx_equal($key,'csrf')){ continue; }
+				$update = $update->field($key,$value['attributes']['value']);
+			}
+			$update = $update->where("u_id=%u_id%");
+			$update = $update->data('%u_id%',$user_id);
+			$update = $update->get()
+				->rows();
+
+			$this->cache->key('users.items.' . $user_id);
+
+			return $update;
+		}
 
 
 

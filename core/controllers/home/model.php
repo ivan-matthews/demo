@@ -88,6 +88,12 @@
 		}
 
 		public function getGeoByIds($country_id,$region_id,$city_id){
+			$this->cache->key('widgets.active');
+
+			if(($result = $this->cache->get()->array())){
+				return $result;
+			}
+
 			if($country_id && $region_id && $city_id){
 				$result = $this->getCityById($city_id);
 				return array_merge($this->default_geo_fields,(array)$result);
@@ -104,6 +110,9 @@
 				$result= $this->getCountryById($country_id);
 				return array_merge($this->default_geo_fields,(array)$result);
 			}
+
+			$this->cache->set($result);
+
 			return $this->default_geo_fields;
 		}
 
@@ -141,9 +150,21 @@
 		}
 
 		public function getGeoByName($search_string,$action){
+			$this->cache->key('widgets.active');
+
+			if(($result = $this->cache->get()->array())){
+				return $result;
+			}
+
 			$method = "get{$action}ByName";
+
 			if(method_exists($this,$method)){
-				return call_user_func_array(array($this,$method),array($search_string));
+
+				$result = call_user_func_array(array($this,$method),array($search_string));
+
+				$this->cache->set($result);
+
+				return $result;
 			}
 			return array();
 		}

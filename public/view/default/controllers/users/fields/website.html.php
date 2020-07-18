@@ -8,6 +8,6 @@
 	 * @var string $value
 	 */
 ?>
-<a href="http://<?php print $value ?>">
+<a href="/redirect?url=<?php print $value ?>" target="_blank">
 	<?php print $value ?>
 </a>

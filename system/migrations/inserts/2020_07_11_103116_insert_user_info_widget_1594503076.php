@@ -64,7 +64,7 @@
 					'css_class_icon'=> 'chocolate-icon',
 				),
 				array(
-					'link_array'	=> array('link'=>array('users','item','%user_id%','edit'),'query'=>array()),
+					'link_array'	=> array('link'=>array('users','edit','%user_id%'),'query'=>array()),
 					'name'			=> 'user_edit_page_link',
 					'title'			=> 'users.user_edit_page_title',
 					'value'			=> 'users.user_edit_page_value',

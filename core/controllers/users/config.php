@@ -13,6 +13,7 @@
 	 * @property array $actions
 	 * @property array $sorting_panel
 	 * @property array $ordering
+	 * @property array $header_bar_user_edit
 	 */
 	class Config{
 

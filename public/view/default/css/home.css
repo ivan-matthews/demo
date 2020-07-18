@@ -429,6 +429,40 @@ form label {
   -moz-user-select: none;
   user-select: none;
 }
+form .fields {
+  position: relative;
+}
+form .fields .clickable-geo-fields {
+  position: absolute;
+  background: #FFF;
+  width: 100%;
+  border: solid 1px #ccc;
+  z-index: 3;
+  max-height: 200px;
+  overflow-y: auto;
+}
+form .fields .clickable-geo-fields .link {
+  padding: 0.25em 1em;
+  border-bottom: solid 1px #ccc;
+}
+form .fields .clickable-geo-fields .link:hover {
+  background: #d9e2ec;
+}
+form .fields .closable {
+  position: absolute;
+  right: 0;
+  border: solid 1px #ccc;
+  padding: 0 8px;
+  background: #dc3545;
+  z-index: 4;
+}
+form .fields .closable a {
+  font-weight: bold;
+  color: #fff;
+}
+form .fields .closable a:hover {
+  background: none;
+}
 .csrf {
   margin-bottom: 0;
 }
@@ -465,6 +499,13 @@ form label {
   height: calc(100vh - 0px);
   background: #FFFFFF;
 }
+.sidebar-parent.sidebar-display-block .sidebar-main .sidebar {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.sidebar-parent.sidebar-display-block .sidebar-main .sidebar:last-child {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
 .sidebar-parent .sidebar-title {
   color: #FFFFFF;
   background: #4a76a8;
@@ -472,11 +513,14 @@ form label {
   margin-right: 0;
   padding: 10px 20px;
   font-size: 15px;
+  margin-top: 1em;
+}
+.sidebar-parent .sidebar-title:first-child {
+  margin-top: 0;
 }
 .sidebar-parent .sidebar {
   -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
-  margin-bottom: 1em;
 }
 .sidebar-parent .sidebar .list-group-item {
   padding: 0;
@@ -609,7 +653,7 @@ form label {
   border-top: none;
   width: 100%;
   height: 100%;
-  padding: 0.75rem;
+  padding: 0.5rem;
   display: block;
   font-weight: bold;
 }

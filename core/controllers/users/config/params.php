@@ -56,4 +56,26 @@
 				'link'	=> array('users','index','locked')
 			),
 		),
+		'header_bar_user_edit'	=> array(
+			'name'	=> array(
+				'title'	=> 'users.header_bar_name',
+				'link'	=> array(),
+			),
+			'geo'	=> array(
+				'title'	=> 'users.header_bar_geo',
+				'link'	=> array(),
+			),
+			'old'	=> array(
+				'title'	=> 'users.header_bar_old',
+				'link'	=> array(),
+			),
+			'contacts'	=> array(
+				'title'	=> 'users.header_bar_contacts',
+				'link'	=> array(),
+			),
+			'about'	=> array(
+				'title'	=> 'users.header_bar_about',
+				'link'	=> array(),
+			),
+		)
 	);

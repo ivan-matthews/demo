@@ -20,9 +20,9 @@
 		}
 
 		public function run(){
-			if(fx_me($this->user_object->user_id)){
+			if($this->user_object->user_data && fx_me($this->user_object->user_id)){
 				$this->user_object->user_menu['edit_profile']	= array(
-					'link'			=> fx_get_url('users','item',$this->user_object->user_id,'edit'),
+					'link'			=> fx_get_url('users','edit',$this->user_object->user_id),
 					'value'			=> fx_lang('users.edit_profile_link_value'),
 					'icon'			=> 'fas fa-pen',
 					'link_class'	=> '',

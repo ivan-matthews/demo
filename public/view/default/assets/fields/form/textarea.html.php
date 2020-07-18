@@ -7,6 +7,9 @@
 
 	$errors_status = isset($errors) && !empty($errors);
 
+	$value = $attributes['value'];
+	unset($attributes['value']);
+
 	if($attributes['params']['validate_status'] && $attributes['params']['show_validation']){
 		$attributes['class'] .= " is-";
 		if($errors_status){
@@ -16,8 +19,6 @@
 	}
 
 	if(!$attributes['params']['show_title_in_form']){ unset($attributes['title']); }
-
-//	$attributes['value'] = htmlspecialchars($attributes['value']);
 
 	$field_string = $this->getAttributesStringFromArray($attributes);
 ?>
@@ -48,6 +49,6 @@
 
 	<?php } ?>
 
-	<input <?php print $field_string ?>>
+	<textarea <?php print $field_string ?>><?php print $value ?></textarea>
 
 </div>

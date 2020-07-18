@@ -62,6 +62,7 @@
 		'hide_more_info'	=> 'скрыть информацию',
 
 		'month_nom_'		=> '',
+		'month_nom_0'		=> '',
 		'month_nom_1'		=> 'Январь',
 		'month_nom_2'		=> 'Февраль',
 		'month_nom_3'		=> 'Март',
@@ -75,6 +76,7 @@
 		'month_nom_11'		=> 'Ноябрь',
 		'month_nom_12'		=> 'Декабрь',
 		'month_gen_'		=> '',
+		'month_gen_0'		=> '',
 		'month_gen_1'		=> 'Января',
 		'month_gen_2'		=> 'Февраля',
 		'month_gen_3'		=> 'Марта',
@@ -88,6 +90,7 @@
 		'month_gen_11'		=> 'Ноября',
 		'month_gen_12'		=> 'Декаря',
 		'month_short_'		=> '',
+		'month_short_0'		=> '',
 		'month_short_1'		=> 'Янв',
 		'month_short_2'		=> 'Фев',
 		'month_short_3'		=> 'Мар',

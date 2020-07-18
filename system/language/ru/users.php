@@ -8,9 +8,10 @@
 		'user_is_online'	=> 'В сети',
 
 		'user_gender_'		=> '',
+		'user_gender_0'		=> '',
 		'user_gender_1'		=> 'Мужской',
 		'user_gender_2'		=> 'Женский',
-		'user_gender_3'		=> 'не указан',
+		'user_gender_3'		=> 'Транс',
 
 		'users_index_all_title'		=> 'Все',
 		'users_index_online_title'	=> 'В сети',
@@ -22,14 +23,17 @@
 		'users_index_registration_title'	=> 'Регистрация',
 		'users_index_filter_title'	=> 'Фильтр',
 		'users_visible_first_name_'	=> 'некто',
+		'users_visible_first_name_0'	=> 'некто',
 		'users_visible_first_name_1'	=> 'Какой-то',
 		'users_visible_first_name_2'	=> 'Какая-то',
 		'users_visible_first_name_3'	=> 'Какой-то',
 		'users_visible_last_name_'		=> 'никто',
+		'users_visible_last_name_0'		=> 'никто',
 		'users_visible_last_name_1'		=> 'Неизвестный',
 		'users_visible_last_name_2'		=> 'Неизвестная',
 		'users_visible_last_name_3'		=> 'Неизвестный',
 		'users_visible_full_name_'		=> 'некто никто',
+		'users_visible_full_name_0'		=> 'некто никто',
 		'users_visible_full_name_1'		=> 'Какой-то Неизвестный',
 		'users_visible_full_name_2'		=> 'Какая-то Неизвестная',
 		'users_visible_full_name_3'		=> 'Какой-то Неизвестный',
@@ -68,6 +72,7 @@
 		'field_set_family'		=> 'Семейное положение',
 
 		'users_family_'		=> '',
+		'users_family_0'		=> '',
 		'users_family_1'	=> 'состою в браке',
 		'users_family_2'	=> 'не состою в браке',
 		'users_family_3'	=> 'в активном поиске',
@@ -85,4 +90,14 @@
 		'city_placeholder'			=> 'Введите город',
 
 		'edit_profile_link_value'	=> 'Редактировать',
+		'header_bar_name'		=> 'Имя',
+		'header_bar_geo'		=> 'Страна',
+		'header_bar_old'		=> 'Возраст',
+		'header_bar_contacts'	=> 'Контакты',
+		'header_bar_about'		=> 'О себе',
+		'edit_page_title'		=> 'Редактировать страницу',
+
+		'added_status'	=> 'изменить статус',
+		'change_status'	=> 'изменить статус',
+		'delete_status'	=> 'удалить статус',
 	);

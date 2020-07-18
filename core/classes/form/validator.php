@@ -125,7 +125,9 @@
 	use Core\Classes\Form\Interfaces\Checkers;
 	use Core\Classes\Form\Interfaces\Form;
 	use Core\Classes\Form\Interfaces\Validator as ValidatorInterface;
+	use Core\Classes\Language;
 	use Core\Classes\Session;
+	use Core\Controllers\Home\Model;
 
 	class Validator implements ValidatorInterface, Checkers, Form, Params{
 
@@ -307,14 +309,44 @@
 			return $this;
 		}
 
+		public function geo($country_field_name,$region_field_name,$city_field_name){
+			$lang_key = Language::getInstance()->getLanguageKey();
+
+			$this->field('geo')
+				->field_type('geo')
+				->field_sets('geo_info');
+
+			$country_value = $this->getValue($country_field_name);
+			$region_value = $this->getValue($region_field_name);
+			$city_value = $this->getValue($city_field_name);
+
+			$geo_info = Model::getInstance()->getGeoByIds($country_value,$region_value,$city_value);
+
+			$this->setParams('country',array(
+				'id'	=> $country_value,
+				'name'	=> $this->form_attributes['name'] ? "{$this->form_attributes['name']}[{$country_field_name}]" : $country_field_name,
+				'value'	=> $geo_info["g_title_{$lang_key}"],
+			));
+			$this->setParams('region',array(
+				'id'	=> $region_value,
+				'name'	=> $this->form_attributes['name'] ? "{$this->form_attributes['name']}[{$region_field_name}]" : $region_field_name,
+				'value'	=> $geo_info["gr_title_{$lang_key}"],
+			));
+			$this->setParams('city',array(
+				'id'	=> $city_value,
+				'name'	=> $this->form_attributes['name'] ? "{$this->form_attributes['name']}[{$city_field_name}]" : $city_field_name,
+				'value'	=> (!$geo_info['gc_area']?$geo_info["gc_title_{$lang_key}"]:"{$geo_info["gc_title_{$lang_key}"]}, ") . $geo_info['gc_area'],
+			));
+
+			return $this;
+		}
+
 		public function value($value=null){
 			$this->value = $value;
-			if($this->validate_status){
-				if(isset($this->data[$this->field])){
-					$this->value = $this->data[$this->field];
-				}else{
-					$this->value = null;
-				}
+			if(isset($this->data[$this->field])){
+				$this->value = $this->data[$this->field];
+			}else{
+				$this->value = null;
 			}
 			return $this->setAttribute(__FUNCTION__,$this->value);
 		}
