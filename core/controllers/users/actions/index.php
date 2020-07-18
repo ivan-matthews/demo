@@ -79,6 +79,8 @@
 
 			// установить фильтр-панель; установить заапрос в БД для фильтрации
 			$this->setFilterFromArrayFields('filter',$this->fields);
+			$this->geo('u_country_id','u_region_id','u_city_id');
+			$this->checkFilter();
 
 			// получить запрос для фильтрации; переменные для препарации
 			$this->getQueryFromSortingPanelArray($this->params->sorting_panel,$this->sorting_action);

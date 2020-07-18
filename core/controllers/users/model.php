@@ -54,10 +54,11 @@
 
 			$result = $this->select()
 				->from('users')
-				->join('status FORCE INDEX (PRIMARY)',"s_user_id=u_id")
-				->join('photos FORCE INDEX (PRIMARY)',"p_user_id=u_id")
-				->join('geo_cities FORCE INDEX (gc_city_id)',"gc_city_id=u_city_id")
-				->join('geo_countries FORCE INDEX (g_country_id)',"g_country_id=u_country_id")
+				->join('status FORCE INDEX (PRIMARY)',"u_id=s_user_id")
+				->join('photos FORCE INDEX (PRIMARY)',"u_id=p_user_id")
+				->join('geo_cities FORCE INDEX (PRIMARY)',"u_city_id=gc_city_id")
+				->join('geo_countries FORCE INDEX (PRIMARY)',"u_country_id=g_country_id")
+				->join('geo_regions FORCE INDEX (PRIMARY)',"gc_region_id=gr_region_id")
 				->where($query_suffix);
 
 			foreach($replaced_data as $key=>$value){
@@ -84,10 +85,11 @@
 
 			$result = $this->select()
 				->from('users')
-				->join('status',"s_user_id=u_id")
-				->join('photos',"p_user_id=u_id")
-				->join('geo_cities FORCE INDEX (gc_city_id)',"gc_city_id=u_city_id")
-				->join('geo_countries FORCE INDEX (g_country_id)',"g_country_id=u_country_id")
+				->join('status FORCE INDEX (PRIMARY)',"u_id=s_user_id")
+				->join('photos FORCE INDEX (PRIMARY)',"u_id=p_user_id")
+				->join('geo_cities FORCE INDEX (PRIMARY)',"u_city_id=gc_city_id")
+				->join('geo_countries FORCE INDEX (PRIMARY)',"u_country_id=g_country_id")
+				->join('geo_regions FORCE INDEX (PRIMARY)',"gc_region_id=gr_region_id")
 				->where("`u_id`=%user_id%")
 				->data('%user_id%',$user_id)
 				->get()

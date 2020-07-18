@@ -43,6 +43,42 @@
 				'label'			=> fx_lang('users.full_name'),
 			),
 		),
+/*		array(
+			'field'	=> 'u_country_id',
+			'placeholder'	=> fx_lang('users.country_placeholder'),
+			'params'	=> array(
+				'field_type' 	=> 'geo',
+				'show_validation'	=> false,
+				'item_position'	=> 'visible',
+				'field_sets'	=> 'field_set_geo',
+				'render_type'	=> 'geo',
+				'label'			=> fx_lang('users.country'),
+			),
+		),
+		array(
+			'field'	=> 'u_region_id',
+			'placeholder'	=> fx_lang('users.region_placeholder'),
+			'params'	=> array(
+				'field_type' 	=> 'geo',
+				'show_validation'	=> false,
+				'item_position'	=> 'visible',
+				'field_sets'	=> 'field_set_geo',
+				'render_type'	=> 'geo',
+				'label'			=> fx_lang('users.region'),
+			),
+		),
+		array(
+			'field'	=> 'u_city_id',
+			'placeholder'	=> fx_lang('users.city_placeholder'),
+			'params'	=> array(
+				'field_type' 	=> 'geo',
+				'show_validation'	=> false,
+				'item_position'	=> 'visible',
+				'field_sets'	=> 'field_set_geo',
+				'render_type'	=> 'geo',
+				'label'			=> fx_lang('users.city'),
+			),
+		),*/
 		array(
 			'field'	=> 'u_gender',
 			'params'	=> array(
@@ -56,34 +92,6 @@
 					User::GENDER_MALE 	=> fx_lang("users.user_gender_" . User::GENDER_MALE),
 					User::GENDER_FEMALE => fx_lang("users.user_gender_" . User::GENDER_FEMALE),
 					User::GENDER_NONE 	=> fx_lang("users.user_gender_" . User::GENDER_NONE),
-				)
-			),
-		),
-		array(
-			'field'	=> 'u_country_id',
-			'params'	=> array(
-				'field_type' 	=> 'select',
-				'show_validation'	=> false,
-				'item_position'	=> 'visible',
-				'field_sets'	=> 'field_set_gender',
-				'render_type'	=> 'gender',
-				'label'			=> fx_lang('users.country'),
-				'variants'		=> array(
-
-				)
-			),
-		),
-		array(
-			'field'	=> 'u_city_id',
-			'params'	=> array(
-				'field_type' 	=> 'select',
-				'show_validation'	=> false,
-				'item_position'	=> 'visible',
-				'field_sets'	=> 'field_set_gender',
-				'render_type'	=> 'gender',
-				'label'			=> fx_lang('users.city'),
-				'variants'		=> array(
-
 				)
 			),
 		),

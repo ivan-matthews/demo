@@ -15,8 +15,7 @@
 
 		public function secondStep(){
 			Database::makeTable('geo_countries',function(Create $table){
-				$table->bigint('g_id')->unsigned()->autoIncrement()->primary();
-				$table->bigint('g_country_id')->unsigned()->nullable()->unique();
+				$table->bigint('g_country_id')->unsigned()->autoIncrement()->primary();
 				$table->bigint('g_total_regions')->unsigned()->nullable()->index();
 				$table->bigint('g_total_cities')->unsigned()->nullable()->index();
 				$table->varchar('g_title_ru')->nullable()->index();

@@ -44,10 +44,23 @@
 		<?php print fx_lang('users.city') ?>:
 	</div>
 	<div class="col-8">
-		<a href="<?php print fx_make_url(array('users','index'),array('u_country_id' => $user['u_country_id'],'u_city_id' => $user['u_city_id'])) ?>">
-			<?php print $user["g_title_{$lang}"] ?>,
-			<?php print($user["gc_area"] ? $user['gc_area'] . ", " : null) ?>
-			<?php print $user["gc_title_{$lang}"] ?>
-		</a>
+
+		<?php if($user['u_country_id']){ ?>
+			<a href="<?php print fx_make_url(array('users','index'),array('u_country_id' => $user['u_country_id'])) ?>">
+				<?php print $user["g_title_{$lang}"] ?></a>,
+		<?php } ?>
+
+		<?php if($user['u_region_id']){ ?>
+			<a href="<?php print fx_make_url(array('users','index'),array('u_country_id' => $user['u_country_id'],'u_region_id' => $user['u_region_id'])) ?>">
+				<?php print $user["gr_title_{$lang}"] ?></a>,
+		<?php } ?>
+
+		<?php if($user['u_city_id']){ ?>
+			<a href="<?php print fx_make_url(array('users','index'),array('u_country_id' => $user['u_country_id'],'u_region_id' => $user['u_region_id'],'u_city_id' => $user['u_city_id'])) ?>">
+				<?php print($user["gc_area"] ? $user['gc_area'] . ", " : null) ?>
+				<?php print $user["gc_title_{$lang}"] ?>
+			</a>
+		<?php } ?>
+
 	</div>
 </div>

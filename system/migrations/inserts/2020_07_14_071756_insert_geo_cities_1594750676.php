@@ -52,7 +52,6 @@
 					}
 					$insert = $insert->update('gc_title_ru',$item['gc_title_ru']);
 					$insert->get()->id();
-
 				}
 
 				print "File: {$file}" . PHP_EOL;
@@ -62,7 +61,7 @@
 		}
 
 		private function getOffset(){
-			$total_cities = Database::select('count(gc_id) as total')
+			$total_cities = Database::select('count(gc_country_id) as total')
 				->from('geo_cities')
 				->get()->itemAsArray();
 			$total_cities = $total_cities['total']/1000;

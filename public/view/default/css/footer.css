@@ -115,3 +115,7 @@ footer .footer-block .footer-parent .footer-menu-info .footer-body a:hover {
 footer .footer-block .footer-parent .footer-menu-info .footer-body .site-year {
   color: #FFFFFF;
 }
+footer .footer-block .footer-parent .footer-menu-info .footer-body .site-year i,
+footer .footer-block .footer-parent .footer-menu-info .footer-body .site-year svg {
+  color: #FFFFFF;
+}

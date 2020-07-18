@@ -14,11 +14,11 @@
 	<div class="footer-body">
 		<div class="body mx-auto">
 			<span class="site-year">
+				<i class="copyright">©</i>
 				<?php print $this->config->core['site_year'] ?>
-				<?php print (($this->config->core['site_year'] <> $year?"-{$year}":"")) ?>
+				<?php print (($this->config->core['site_year'] <> $year?"- {$year}":"")) ?>
 			</span>
 			<a class="mx-1 site-info-link" href="/">
-				<i class="copyright">©</i>
 				<?php print $this->config->core['site_name'] ?>
 			</a>
 		</div>

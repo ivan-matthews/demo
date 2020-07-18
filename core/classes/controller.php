@@ -8,6 +8,7 @@
 	use Core\Widgets\Filter;
 	use Core\Widgets\Paginate;
 	use Core\Widgets\Sorting_Panel;
+	use Core\Controllers\Home\Model;
 
 	class Controller{
 
@@ -15,6 +16,8 @@
 
 		/** @var Config  */
 		public $config;
+
+		public $language;
 
 		/** @var Response  */
 		public $response;
@@ -66,9 +69,15 @@
 
 		/** @var array */
 		public $fields_list;
+		public $filter_fields;
+		public $filter_data;
+		public $filter_name;
 
-		/** @var object */
+		/** @var Form */
 		public $form;
+
+		/** @var Form */
+		public $filter;
 
 		/** @var array */
 		private $controller;
@@ -98,6 +107,7 @@
 			$this->session = Session::getInstance();
 			$this->request = Request::getInstance();
 			$this->user = User::getInstance();
+			$this->language = Language::getInstance();
 			$this->hook = Hooks::getInstance();
 		}
 
@@ -273,21 +283,68 @@
 		 * @return $this
 		 */
 		protected function setFilterFromArrayFields($form_key,$fields){
-			$data = $this->request->getArray($form_key);
-			$this->form = new Form();
-			$this->form->setData($data);
-			$this->form->validate(1);
-			$this->form->form(function(FormInterface $form)use($form_key){
+			$this->filter_name = $form_key;
+			$this->filter_fields = $fields;
+			$this->filter_data = $this->request->getArray($form_key);
+			$this->filter = new Form();
+			$this->filter->setData($this->filter_data);
+			$this->filter->validate(1);
+			$this->filter->form(function(FormInterface $form)use($form_key){
 				$form->setFormAction(fx_get_url('users','index',$this->sorting_action,$this->sort_key));
 				$form->setFormMethod('GET');
 				$form->setFormAutoComplete('off');
 				$form->setFormName($form_key);
 			});
-			$this->fields_list = $this->form->setArrayFields($fields)
+
+			return $this;
+		}
+
+		protected function geo($country_field_name,$region_field_name,$city_field_name){
+			if(!$this->filter){ return $this; }
+			$lang_key = $this->language->getLanguageKey();
+
+			$this->filter->field('geo')
+				->field_type('geo');
+
+			if(($country_value = $this->filter->getValue($country_field_name))){
+				$this->query .= " AND {$country_field_name}=%country%";
+				$this->replaced_data["%country%"] = $country_value;
+			}
+			if(($region_value = $this->filter->getValue($region_field_name))){
+				$this->query .= " AND {$region_field_name}=%region%";
+				$this->replaced_data["%region%"] = $region_value;
+			}
+			if(($city_value = $this->filter->getValue($city_field_name))){
+				$this->query .= " AND {$city_field_name}=%city%";
+				$this->replaced_data["%city%"] = $city_value;
+			}
+
+			$geo_info = Model::getInstance()
+				->getGeoByIds($country_value,$region_value,$city_value);
+
+			$this->filter->setParams('country',array(
+				'id'	=> $country_value,
+				'name'	=> $this->filter_name ? "{$this->filter_name}[{$country_field_name}]" : $country_field_name,
+				'value'	=> $geo_info["g_title_{$lang_key}"],
+			));
+			$this->filter->setParams('region',array(
+				'id'	=> $region_value,
+				'name'	=> $this->filter_name ? "{$this->filter_name}[{$region_field_name}]" : $region_field_name,
+				'value'	=> $geo_info["gr_title_{$lang_key}"],
+			));
+			$this->filter->setParams('city',array(
+				'id'	=> $city_value,
+				'name'	=> $this->filter_name ? "{$this->filter_name}[{$city_field_name}]" : $city_field_name,
+				'value'	=> (!$geo_info['gc_area']?'':"{$geo_info['gc_area']}, ") . $geo_info["gc_title_{$lang_key}"],
+			));
+			return $this;
+		}
+
+		protected function checkFilter(){
+			$this->fields_list = $this->filter->setArrayFields($this->filter_fields)
 				->checkArrayFields()
 				->getFieldsList();
-
-			foreach($data as $key=>$value){
+			foreach($this->filter_data as $key=>$value){
 				if(isset($this->fields_list[$key]) && $value){
 					$this->query .= " AND `{$key}` {$this->fields_list[$key]['attributes']['params']['filter_validation']} %{$key}%";
 					$this->replaced_data["%{$key}%"] = $this->makeFilter($this->fields_list[$key]['attributes']['params']['filter_validation'],$value);
@@ -295,12 +352,11 @@
 			}
 
 			Filter::add()
-				->form($this->form->getFormAttributes())
-				->fields($this->form->getFieldsList())
-				->errors($this->form->getErrors())
-				->data($data)
+				->form($this->filter->getFormAttributes())
+				->fields($this->filter->getFieldsList())
+				->errors($this->filter->getErrors())
+				->data($this->filter_data)
 				->set();
-
 			return $this;
 		}
 

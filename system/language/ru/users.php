@@ -77,5 +77,9 @@
 		'user_edit_page_value'	=> 'Редактировать',
 		'user_page_link_value'	=> 'Моя страница',
 		'country'	=> 'Страна',
+		'region'	=> 'Регион',
 		'city'		=> 'Город',
+		'country_placeholder'		=> 'Введите страну',
+		'region_placeholder'		=> 'Введите регион',
+		'city_placeholder'			=> 'Введите город',
 	);

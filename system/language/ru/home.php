@@ -105,4 +105,11 @@
 		'filter_button_drop_value'		=> 'сброс',
 		'filter_button_params_value'	=> 'опции',
 		'user_info_title'	=> 'Панель пользователя',
+
+		'country_placeholder'	=> 'Введите страну',
+		'region_placeholder'	=> 'Введите регион',
+		'city_placeholder'		=> 'Введите город',
+		'country_label'	=> 'Страна',
+		'region_label'	=> 'Регион',
+		'city_label'	=> 'Город',
 	);

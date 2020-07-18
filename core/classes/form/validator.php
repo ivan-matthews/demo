@@ -135,7 +135,7 @@
 
 		protected $label;
 
-		protected $field;
+		public $field;
 		protected $value;
 		protected $check_csrf=true;
 

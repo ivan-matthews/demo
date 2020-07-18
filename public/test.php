@@ -28,17 +28,8 @@
 	$widgets	= Widgets::getInstance();
 	$hooks		= Hooks::getInstance();
 
-	$count_cities = Database::select('count(gc_id) as total')
-		->from('geo_cities')->get()->itemAsArray();
-	$count_cities = $count_cities['total'];
-
-
 	for($i=0;$i<1000;$i++){
-		$random = rand(1,$count_cities);
-		$city = Database::select()
-			->from('geo_cities')
-			->where("gc_id={$random}")
-			->get()->itemAsArray();
+		$city = fx_get_geo();
 
 		$login = fx_gen_lat(rand(15,30)) . '@' . fx_gen_lat(rand(15,30)) . '.'. fx_gen_lat(rand(2,5));
 
@@ -69,6 +60,7 @@
 			->value('u_avatar_id',$auth_id)
 			->value('u_status_id',$auth_id)
 			->value('u_country_id',$city['gc_country_id'])
+			->value('u_region_id',$city['gc_region_id'])
 			->value('u_city_id',$city['gc_city_id'])
 			->value('u_birth_day',rand(1,31))
 			->value('u_birth_month',rand(1,12))
@@ -99,7 +91,7 @@
 			->value('u_user_type',2)
 			->get()
 			->id();
-		unset($login,$fname,$lname,$fullname,$auth_id,$online_time,$random,$city);
+		unset($login,$fname,$lname,$fullname,$auth_id,$online_time,$country_id,$city);
 	}
 
 
@@ -118,3 +110,15 @@
 
 
 
+	function fx_get_geo(){
+		$country_id = rand(1,237);
+		$city = Database::select()
+			->from('geo_cities')
+			->where("gc_country_id={$country_id}")
+			->order('rand()')->sort()->limit(1)
+			->get()->itemAsArray();
+		if(!$city['gc_country_id']){
+			return fx_get_geo();
+		}
+		return $city;
+	}
