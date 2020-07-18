@@ -42,7 +42,7 @@
 
 		/**
 		 * @param array ...$order
-		 * @return Delete
+		 * @return Sorting
 		 */
 		public function order(...$order);
 

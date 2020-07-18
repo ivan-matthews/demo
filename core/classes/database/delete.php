@@ -3,7 +3,7 @@
 	/*
 		Database::delete()
 			->where("`controllers_id`=DATA")
-			->order('controllers_name','DESC')
+			->order('controllers_name')
 			->data('DATA',5)
 			->limit(1)
 			->offset(0)
@@ -32,6 +32,7 @@
 		protected $limit;
 		protected $offset;
 		protected $order_by=array();
+		protected $sorting='ASC';
 		protected $group_by;
 		protected $preparing_data=array();
 
@@ -79,6 +80,11 @@
 
 		public function order(...$order){
 			$this->order_by = $order;
+			return $this;
+		}
+
+		public function sort($sorting='ASC'){
+			$this->sorting = $sorting;
 			return $this;
 		}
 

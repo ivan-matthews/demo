@@ -5,6 +5,7 @@
 	use Core\Classes\Database\Database;
 	use Core\Classes\Database\Interfaces\Create\Create;
 	use Core\Classes\Kernel;
+	use Core\Classes\User;
 
 	class CreateTableUsers202006280938531593376733{
 
@@ -22,7 +23,7 @@
 				$table->varchar('first_name')->nullable();
 				$table->varchar('last_name')->nullable();
 				$table->varchar('full_name')->nullable();
-				$table->varchar('gender')->nullable();
+				$table->smallint('gender')->notNull()->defaults(User::GENDER_NONE);
 				$table->varchar('avatar_id')->nullable();
 				$table->varchar('status_id')->nullable();
 				$table->varchar('country_id')->nullable();
@@ -54,7 +55,7 @@
 
 				$table->smallint('status',1)->notNull()->defaults(Kernel::STATUS_LOCKED);
 
-				$table->varchar('log_type')->defaults('w');
+				$table->varchar('log_type')->defaults(User::LOGGED_DEFAULT);
 				$table->bigint('date_log')->nullable();
 
 				$table->add_timestamps();

@@ -3,6 +3,8 @@
 	namespace Core\Classes;
 
 	use Core\Classes\Response\Response;
+	use Core\Widgets\Paginate;
+	use Core\Widgets\Sorting_Panel;
 
 	class Controller{
 
@@ -14,6 +16,18 @@
 		public $request;
 		public $user;
 		public $hook;
+
+		public $limit	= 15;
+		public $offset	= 0;
+		public $total	= 0;
+		public $order	= 'ASC';
+		public $sort	= 'id';
+
+		public $sort_key='dn';
+		public $sorting = array(
+			'up'	=> 'DESC',
+			'dn'	=> 'ASC',
+		);
 
 		private $controller;
 
@@ -51,6 +65,13 @@
 				->setIcon('fa fa-home');
 			$this->response->favicon($this->site_config->view['default_favicon']);
 			$this->setMeta();
+
+			$this->limit	= $this->request->get('limit')?:15;
+			$this->offset	= $this->request->get('offset')?:0;
+			$this->order	= $this->request->get('order');
+			$this->sort		= $this->request->get('sort');
+
+			$this->sort_key = $this->sort ?: $this->sort_key;
 		}
 
 		public function __destruct(){
@@ -89,12 +110,34 @@
 			return $this;
 		}
 
-		public function dontSetBackLink(){
+		public function doNotSetBackLink(){
 			$this->user->no_set_back_url = true;
 			return false;
 		}
 
+		public function renderEmptyPage(){
+			$this->response->controller('../assets','../empty_page');
+			return $this;
+		}
 
+		public function paginate($link){
+			Paginate::add()
+				->total($this->total)
+				->limit($this->limit)
+				->offset($this->offset)
+				->link($link)
+				->set();
+			return $this;
+		}
+
+		public function sorting(array $actions,$current){
+			$current_data['action'] = $current;
+			$current_data['sort'] = $this->sort_key;
+
+			Sorting_Panel::add()
+				->actions($actions)->current($current_data)->set();
+			return $this;
+		}
 
 
 

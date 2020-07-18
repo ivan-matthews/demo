@@ -207,10 +207,10 @@
 
 		public function prepareValue($value){
 			if(is_array($value)){ return "'" . $this->escape(json_encode($value)) . "'"; }
-			if(empty($value) && !is_string($value)){ return "NULL"; }
+			if(empty($value) && !is_string($value)){ return "0"; }
 			if(is_null($value)){ return "NULL"; }
 			if(is_bool($value)){ return (bool)$value; }
-			if(fx_equal($value,'')){ return "NULL"; }
+			if(fx_equal($value,'')){ return "0"; }
 			$value = $this->escape(trim($value));
 			return "'{$value}'";
 		}
@@ -311,14 +311,15 @@
 		}
 
 		private function getSortingFromArray($order){
-			$sort = strtoupper(end($order));
-			if(!fx_equal($sort,'ASC') && !fx_equal($sort,'DESC')){
-				$sort = 'ASC';
-			}else{
-				unset($order[key($order)]);
-			}
 			$order = implode(', ', $order);
-			return "{$order} {$sort}";
+			return "{$order}";
+		}
+
+		private function getSort($sorting,$order){
+			if($order){
+				return " {$sorting} ";
+			}
+			return null;
 		}
 
 		/**
@@ -504,13 +505,14 @@
 			return array();
 		}
 
-		public function delete($from_table,$where,$nested_query,$using_tables,$limit,$offset,$order,$group,$preparing){
+		public function delete($from_table,$where,$nested_query,$using_tables,$limit,$offset,$order,$sort,$group,$preparing){
 			$query = 'DELETE FROM ';
 			$query .= $this->getTables($from_table);
 			$query .= $this->getUsing($using_tables);
 			$query .= $this->getWhere($where);
 			$query .= $this->getNested($nested_query);
 			$query .= $this->getOrder($order);
+			$query .= $this->getSort($sort,$order);
 			$query .= $this->getGroup($group);
 			$query .= $this->getLimit($limit);
 			$query .= $this->getOffset($offset);
@@ -541,7 +543,7 @@
 			return $this->exec($query,$preparing);
 		}
 
-		public function select($fields,$from_table,$where,$nested_query,$join,$limit,$offset,$order,$group,$preparing){
+		public function select($fields,$from_table,$where,$nested_query,$join,$limit,$offset,$order,$sort,$group,$preparing){
 			$query = 'SELECT ';
 			$query .= $this->getFields($fields);
 			$query .= "FROM ";
@@ -550,6 +552,7 @@
 			$query .= $this->getWhere($where);
 			$query .= $this->getNested($nested_query);
 			$query .= $this->getOrder($order);
+			$query .= $this->getSort($sort,$order);
 			$query .= $this->getGroup($group);
 			$query .= $this->getLimit($limit);
 			$query .= $this->getOffset($offset);

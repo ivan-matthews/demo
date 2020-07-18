@@ -176,6 +176,20 @@
 					'value'			=> 'home.home_link',
 				),
 				array(
+					'menu_id'		=> $this->main_menu,
+					'link_array'	=> array(
+						'link'=>array(
+							'users','index'
+						),
+						'query'=>array(
+
+						)
+					),
+					'name'			=> 'users_page',
+					'title'			=> 'users.users_link_title',
+					'value'			=> 'users.users_link_value',
+				),
+				array(
 					'menu_id'		=> $this->guest_menu,
 					'link_array'	=> array(
 						'link'=>array(

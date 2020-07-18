@@ -4,6 +4,8 @@
 
 	use Core\Classes\Database\Database;
 	use Core\Classes\Kernel;
+	use Core\Classes\Config;
+	use Core\Classes\User;
 
 	class InsertAdminAccount202006280939321593376772{
 
@@ -26,12 +28,13 @@
 		}
 
 		public function addUserData(){
+			$online_time = Config::getInstance()->session['online_time']+time();
 			Database::insert('users')
 				->value('auth_id',$this->user_id)
 				->value('first_name','Admin')
 				->value('last_name','Pitrovich')
 				->value('full_name','Admin Pitrovich')
-				->value('gender','m')
+				->value('gender',User::GENDER_MALE)
 				->value('avatar_id',1)
 				->value('status_id',1)
 				->value('country_id',1)
@@ -57,7 +60,7 @@
 				->value('games','NaN')
 				->value('citates','NaN')
 				->value('about','NaN')
-				->value('date_log',time())
+				->value('date_log',$online_time)
 				->value('status',Kernel::STATUS_ACTIVE)
 				->get()
 				->id();

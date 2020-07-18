@@ -51,4 +51,10 @@
 
 		'session_messages_title'	=> 'Сессионные сообщения',
 		'close_button_title'		=> 'Удалить',
+		'paginate_first_page'		=> 'начало',
+		'paginate_last_page'		=> 'конец',
+		'sorting_panel_widget_title'	=> 'Сортировка',
+		'paginate_widget_title'			=> 'Пагинация',
+		'filter_sorting_items_up'	=> 'Сейчас новые вверху',
+		'filter_sorting_items_down'	=> 'Сейчас новые внизу',
 	);

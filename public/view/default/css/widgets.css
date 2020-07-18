@@ -1,0 +1,21 @@
+.sorting-panel .nav-link.active {
+  position: relative;
+}
+.sorting-panel .nav-link.active .sorting-link {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+}
+.sorting-panel .nav-link.active .sorting-link:hover {
+  opacity: 0.8;
+  background: none;
+}
+.sorting-panel .nav-link.active .sorting-link svg,
+.sorting-panel .nav-link.active .sorting-link i {
+  position: absolute;
+  right: 0.5em;
+  top: 0.25em;
+  font-size: 15px;
+}

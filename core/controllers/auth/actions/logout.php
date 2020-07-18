@@ -6,6 +6,7 @@
 	use Core\Classes\Hooks;
 	use Core\Classes\Request;
 	use Core\Classes\Response\Response;
+	use Core\Classes\Session;
 	use Core\Controllers\Auth\Config;
 	use Core\Controllers\Auth\Controller;
 	use Core\Controllers\Auth\Model;
@@ -69,6 +70,10 @@
 
 		public function methodGet(){
 			if(fx_equal(fx_csrf_equal($this->site_config->session['csrf_key_name']),Validator::CSRF_TOKEN_EQUAL)){
+				$user_id = $this->session->get('id',Session::PREFIX_AUTH);
+				if($user_id){
+					$this->model->updateDateLog($user_id,time());
+				}
 				$this->user->escape();
 				$this->redirect();
 				return true;

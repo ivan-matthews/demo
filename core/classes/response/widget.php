@@ -40,6 +40,11 @@
 			return $last_key;
 		}
 
+		public function setIndex($last_index){
+			$this->last_index = $last_index;
+			return $this;
+		}
+
 
 
 

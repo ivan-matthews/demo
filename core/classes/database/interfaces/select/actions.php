@@ -45,7 +45,7 @@
 
 		/**
 		 * @param array ...$order
-		 * @return Actions
+		 * @return Sorting
 		 */
 		public function order(...$order);
 

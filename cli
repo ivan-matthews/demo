@@ -44,7 +44,7 @@
 
 	$console->getArguments(...fx_get_server('argv'));
 
-	$language->setLangKeyFromConfig();
+	$language->setDefaultLanguageKey();
 	$language->setLanguage();
 
 	if(!$console->runConsoleInterface()){

@@ -31,6 +31,7 @@
 		protected $limit;
 		protected $offset;
 		protected $order_by=array();
+		protected $sorting='ASC';
 		protected $group_by;
 		protected $preparing_data=array();
 
@@ -87,6 +88,11 @@
 			return $this;
 		}
 
+		public function sort($sorting='ASC'){
+			$this->sorting = $sorting;
+			return $this;
+		}
+
 		public function group(...$group){
 			$this->group_by = $group;
 			return $this;
@@ -108,6 +114,7 @@
 				$this->limit,
 				$this->offset,
 				$this->order_by,
+				$this->sorting,
 				$this->group_by,
 				$this->preparing_data
 			);

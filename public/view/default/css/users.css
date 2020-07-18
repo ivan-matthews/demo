@@ -1,0 +1,241 @@
+.users .users-list .users-item-link {
+  border-radius: 0;
+  border-left: 0;
+  border-right: 0;
+}
+.users .users-list .users-item-link:last-child {
+  border-bottom: 0;
+}
+.users .users-list .users-item-link:first-child {
+  border-top: 0;
+}
+.users .users-list .users-item-link .users-info > a:hover {
+  text-decoration: none;
+}
+.users .users-list .users-item-link .users-info .users-item-avatar {
+  position: relative;
+  width: 64px;
+}
+.users .users-list .users-item-link .users-info .users-item-avatar > img {
+  border-radius: 50%;
+  border: solid #4a76a8 1px;
+  width: 100%;
+}
+.users .users-list .users-item-link .users-info .users-item-avatar .status {
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  right: 10%;
+  bottom: 10%;
+}
+.users .users-list .users-item-link .users-info .users-item-avatar .status-online i,
+.users .users-list .users-item-link .users-info .users-item-avatar .status-online svg {
+  color: #28a745;
+  border-radius: 50%;
+}
+.users .users-list .users-item-link .users-info .users-item-avatar .status-online i.fa-circle,
+.users .users-list .users-item-link .users-info .users-item-avatar .status-online svg.fa-circle {
+  background: #23b929;
+  border: solid 2px #FFFFFF;
+  font-size: 14px;
+}
+.users .users-list .users-item-link .users-info .users-item-avatar .status-online i.fa-apple,
+.users .users-list .users-item-link .users-info .users-item-avatar .status-online svg.fa-apple {
+  font-size: 14px;
+}
+.users .users-list .users-item-link .users-info .users-item-avatar .status-offline i,
+.users .users-list .users-item-link .users-info .users-item-avatar .status-offline svg {
+  color: #dc3545;
+  border-radius: 50%;
+}
+.users .users-list .users-item-link .users-info .users-item-avatar .status-offline i.fa-circle,
+.users .users-list .users-item-link .users-info .users-item-avatar .status-offline svg.fa-circle {
+  background: #ff0200;
+  border: solid 2px #FFFFFF;
+  font-size: 14px;
+}
+.users .users-list .users-item-link .users-info .users-item-info {
+  font-weight: 600;
+}
+.users .users-list .users-item-link .users-info .users-item-info .date-reg {
+  font-weight: normal;
+  color: #b3b4c3;
+  font-size: 10px;
+}
+.users .users-list .users-item-link .users-info .users-item-descriptions {
+  color: #777888;
+}
+.users .users-list .users-item-link .users-info .users-actions .user-actions-btn {
+  border: solid 1px #CCCCCC;
+  border-radius: 0;
+}
+.users .user-profile .status-panel .status {
+  position: relative;
+}
+.users .user-profile .status-panel .status:hover > .edit-status {
+  display: inline-flex;
+}
+.users .user-profile .status-panel .status:hover > .edit-status .btn {
+  border-radius: 0;
+  padding: 4px 10px 3px 10px;
+}
+.users .user-profile .status-panel .status .edit-status {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  background: #FFF;
+  font-size: 18px;
+  padding: 0;
+  margin: 0;
+}
+.users .user-profile .status-panel .status.oppened-panel.oppened {
+  position: relative;
+}
+.users .user-profile .status-panel .status.oppened-panel.oppened > .edit-status {
+  display: inline-flex;
+}
+.users .user-profile .status-panel .status.oppened-panel.oppened > .edit-status .btn {
+  border-radius: 0;
+  padding: 4px 10px 3px 10px;
+}
+.users .user-profile .user-fullname {
+  font-size: 16px;
+  font-weight: 600;
+}
+.users .user-profile .user-status .online i,
+.users .user-profile .user-status .online svg {
+  color: #28a745;
+  border-radius: 50%;
+}
+.users .user-profile .user-status .online i.fa-apple,
+.users .user-profile .user-status .online svg.fa-apple {
+  font-size: 14px;
+}
+.users .user-profile .user-status .online i.fa-circle,
+.users .user-profile .user-status .online svg.fa-circle {
+  border: solid 2px #FFFFFF;
+  font-size: 14px;
+  background: #23b929;
+}
+.users .user-profile .user-status .offline i,
+.users .user-profile .user-status .offline svg {
+  border-radius: 50%;
+  color: #dc3545;
+}
+.users .user-profile .user-status .offline i.fa-apple,
+.users .user-profile .user-status .offline svg.fa-apple {
+  font-size: 14px;
+}
+.users .user-profile .user-status .offline i.fa-circle,
+.users .user-profile .user-status .offline svg.fa-circle {
+  background: #ff0300;
+  border: solid 2px #FFFFFF;
+  font-size: 14px;
+}
+.users .user-profile .empty-value {
+  border-top: 1px dashed #ccc;
+  margin-top: 10px;
+}
+.users .user-profile .field-set {
+  font-weight: 600;
+}
+.users .user-profile .avatar {
+  position: relative;
+  display: table;
+  margin: 0 auto;
+}
+.users .user-profile .avatar:hover > .avatar-del-link {
+  display: block;
+}
+.users .user-profile .avatar:hover > .info-block {
+  display: block;
+}
+.users .user-profile .avatar .avatar-del-link {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+  background-color: rgba(29, 32, 34, 0.5);
+  color: #fff;
+  padding: 7.5px 15px;
+}
+.users .user-profile .avatar .avatar-del-link .delete {
+  opacity: 0.5;
+}
+.users .user-profile .avatar .avatar-del-link:hover > .delete {
+  opacity: 1;
+}
+.users .user-profile .avatar .preview {
+  position: relative;
+}
+.users .user-profile .avatar .info-block {
+  display: none;
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+  background-color: rgba(29, 32, 34, 0.5);
+  left: 0;
+  right: 0;
+}
+.users .user-profile .avatar .info-block > a {
+  text-decoration: none;
+}
+.users .user-profile .avatar .info-block > a > div {
+  padding: 5px 10px;
+  border-bottom: solid 1px #FFFFFF;
+  color: #fff;
+  width: 100%;
+  opacity: 0.5;
+}
+.users .user-profile .avatar .info-block > a > div:hover {
+  opacity: 1;
+}
+.users .user-profile .avatar.oppened .info-block {
+  display: block;
+}
+.users .user-profile .avatar.oppened .avatar-del-link {
+  display: block;
+}
+.users .user-avatar .avatar .preview .preview-avatar {
+  max-width: 320px;
+}
+.users .user-avatar .avatar-errors > div {
+  background: rgba(255, 0, 0, 0.08);
+  padding: 5px;
+  text-align: center;
+}
+.users .avatar-view .avatar .preview img {
+  max-width: 320px;
+}
+.users .user-actions {
+  margin: 0 auto;
+}
+.users .user-actions .list-group .user-actions-item {
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  border-left: 1px solid rgba(0, 0, 0, 0.125);
+  border-right: 1px solid rgba(0, 0, 0, 0.125);
+}
+.users .user-actions .list-group .user-actions-item :hover {
+  background: #edeef0;
+  color: #2a5885;
+}
+.users .user-actions .list-group .user-actions-item .list-group-item {
+  border-radius: 0;
+  border: none;
+}
+.users .user-actions .list-group .user-actions-item:first-child {
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+.users .user-actions .list-group .user-actions-item:last-child {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+.users .user-actions .list-group .user-actions-item i,
+.users .user-actions .list-group .user-actions-item svg {
+  color: #d67e52;
+}

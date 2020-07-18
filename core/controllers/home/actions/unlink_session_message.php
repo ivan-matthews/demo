@@ -53,7 +53,7 @@
 
 		public function __construct(){
 			parent::__construct();
-			$this->dontSetBackLink();
+			$this->doNotSetBackLink();
 		}
 
 		public function methodGet($session_messages_key){

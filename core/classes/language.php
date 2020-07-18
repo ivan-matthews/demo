@@ -75,7 +75,7 @@
 			return $this;
 		}
 
-		public function setLangKeyFromConfig(){
+		public function setDefaultLanguageKey(){
 			$this->setVerifiedLangKey($this->config->core['site_language']);
 			return $this;
 		}
@@ -90,13 +90,13 @@
 		private function checkDesiredLanguage(){
 			$language_folder_path = "{$this->language_folder}/{$this->lang_key}";
 			if(!is_readable($language_folder_path)){
-				$this->setLangKeyFromConfig();
+				$this->setDefaultLanguageKey();
 			}
 			return $this->lang_key;
 		}
 
 		private function parseServerLanguageHeader(){
-			$this->lang_key = substr($this->server_language_header,0,2);
+			$this->lang_key = strtolower(substr($this->server_language_header,0,2));
 			return $this->checkDesiredLanguage();
 		}
 

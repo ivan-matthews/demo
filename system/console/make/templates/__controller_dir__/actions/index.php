@@ -42,6 +42,12 @@
 		/** @var array */
 		public $__action_property__;
 
+		public $limit;
+		public $offset;
+		public $total;
+		public $order;
+		public $sort;
+
 		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){

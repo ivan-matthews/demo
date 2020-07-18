@@ -3,6 +3,7 @@
 	use Core\Classes\Router;
 	use Core\Classes\Config;
 	use Core\Classes\Kernel;
+	use Core\Classes\User;
 
 	function fx_get_preparing_url(...$link_args){
 		$router = Router::getInstance();
@@ -50,3 +51,58 @@
 		}
 		return fx_get_url(...$link);
 	}
+
+	function fx_make_url(array $link, $query=array(), $merge_query=true){
+		if($merge_query){
+			$request = Router::getInstance()->getRequest();
+			$query = array_merge($request,$query);
+		}
+		return fx_url(array(
+			'link'	=> $link,
+			'query'	=> $query
+		));
+	}
+
+	function fx_is_online($date_log){
+		if($date_log < time()){
+			return false;
+		}
+		return true;
+	}
+
+	function fx_online_status($date_log){
+		if(!fx_is_online($date_log)){
+			return fx_lang('users.user_is_offline');
+		}
+		return fx_lang('users.user_is_online');
+	}
+
+	function fx_get_icon_logged($user_log_type){
+		$icons = array(
+			User::LOGGED_DESKTOP	=> '<i class="fas fa-desktop" aria-hidden="true"></i>',
+			User::LOGGED_APPLE		=> '<i class="fab fa-apple" aria-hidden="true"></i>',
+			User::LOGGED_ANDROID	=> '<i class="fab fa-android" aria-hidden="true"></i>',
+			User::LOGGED_TABLET		=> '<i class="fas fa-tablet-alt" aria-hidden="true"></i>',
+			User::LOGGED_MOBILE		=> '<i class="fas fa-mobile-alt" aria-hidden="true"></i>',
+			User::LOGGED_DEFAULT	=> '<i class="far fa-circle" aria-hidden="true"></i>',
+		);
+		if(isset($icons[$user_log_type])){
+			return $icons[$user_log_type];
+		}
+		return $icons[User::LOGGED_DEFAULT];
+	}
+
+	function fx_avatar($avatars=array(),$size='normal',$gender=3){
+
+	}
+
+
+
+
+
+
+
+
+
+
+

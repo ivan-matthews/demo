@@ -40,6 +40,7 @@
 				->join("links FORCE INDEX (PRIMARY) ","menu.id=links.menu_id")
 				->where("menu.widget_id='{$widget_id}' AND menu.status='{$active}' AND links.status='{$active}'")
 				->order('ordering')
+				->sort()
 				->get()
 				->allAsArray();
 
@@ -59,7 +60,8 @@
 				->from('widgets')
 				->join('widgets_active',"widgets_active.widget_id=widgets.id")
 				->where("widgets_active.status = " . Kernel::STATUS_ACTIVE . " AND widgets.status=" . Kernel::STATUS_ACTIVE)
-				->order('ordering','asc')
+				->order('ordering')
+				->sort()
 				->get()
 				->allAsArray();
 

@@ -281,8 +281,15 @@
 			return $generated_key;
 		}
 
-
-
+		public function updateDateLog($user_id,$date_log){
+			$this->update('users')
+				->field('date_log',$date_log)
+				->where("`id`=%user_id%")
+				->data('%user_id%',$user_id)
+				->get()
+				->rows();
+			return $this;
+		}
 
 
 

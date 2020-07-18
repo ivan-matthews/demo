@@ -9,7 +9,7 @@
 		protected $findings_links;
 
 		protected $router;
-		protected $request;
+		protected $request = array();
 
 		protected $absolute_url;
 		protected $url_array;

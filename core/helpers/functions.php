@@ -13,6 +13,66 @@
 		return $result;
 	}
 
+	function fx_gen_cyr($max_iteration=64){
+		$letters = array(
+			'й', 'ц', 'у', 'к', 'е', 'н', 'г',
+			'ш', 'щ', 'з', 'х', 'ъ', 'ф', 'ы',
+			'в', 'а', 'п', 'р', 'о', 'л', 'д',
+			'ж', 'э', 'я', 'ч', 'с', 'м', 'и',
+			'т', 'ь', 'б', 'ю', 'дз', 'дж',
+		);
+		$result = null;
+		for($i = 0; $i < $max_iteration; $i++){
+			$result .= $letters[rand(0, max(array_keys($letters)))];
+		}
+		return $result;
+	}
+
+	function fx_gen_cyr_name($max=32){
+		$letters[1] = array(
+			'ц','к','н','г','ш','щ','з','х','ф','в','п',
+			'р','л','д','ж','ч','с','м','т','б','дз','дж',
+		);
+		$letters[2] = array(
+			'у','е','а','о','э','я','и','ю'/*,'ь','ъ'*/
+		);
+		$letters[3] = array(
+			'цц','кк','нн','гг','шш','щщ','зз','хх','фф','вв',
+			'пп','рр','лл','дд','жж','чч','сс','мм','тт','бб'
+		);
+		$result = null;
+		for($i=0;$i<$max;$i++){
+			if(is_int($max/2)){
+				if(is_int($i/2)){
+					$result .= $letters[1][rand(0,max(array_keys($letters[1])))];
+				}else{
+					$result .= $letters[2][rand(0,max(array_keys($letters[2])))];
+				}
+			}else{
+				if(is_int($i/2)){
+					$result .= $letters[2][rand(0,max(array_keys($letters[2])))];
+				}else{
+					$result .= $letters[1][rand(0,max(array_keys($letters[1])))];
+				}
+			}
+			if($i===1){
+				$letters[1] = array_merge($letters[1],array($letters[3][rand(0,max(array_keys($letters[3])))]));
+				$letters[2] = array_merge($letters[2],array('ы',));
+			}
+		}
+		return $result;
+	}
+
+	function fx_gen_lat($max_iteration=64){
+		$result = null;
+		$letters[] = range('A','Z');
+		$letters = array_merge(...$letters);
+		for($start=0;$start<$max_iteration;$start++){
+			$result .= $letters[rand(0,max(array_keys($letters)))];
+		}
+		return mb_strtolower(iconv('CP1251', 'UTF-8',$result));
+	}
+
 	function fx_make_captcha($captcha_word,$fontSize=24,$type='png'){
 		$letters = preg_split('//u', $captcha_word, null, PREG_SPLIT_NO_EMPTY);
 		$textLength = count($letters);

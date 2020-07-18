@@ -17,7 +17,7 @@
 
 		public function run(){
 			$this->getMenuLinks();
-			$this->prepapeLinks();
+			$this->prepareLinks();
 			return $this->links;
 		}
 
@@ -26,7 +26,7 @@
 			return $this;
 		}
 
-		private function prepapeLinks(){
+		private function prepareLinks(){
 			foreach($this->links as $key=>$value){
 				$this->links[$key]['link_array'] = fx_url(fx_arr($value['link_array']));
 			}

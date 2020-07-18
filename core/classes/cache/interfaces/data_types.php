@@ -4,12 +4,12 @@
 
 	interface Data_Types{
 		/**
-		 * @return Cache
+		 * @return object
 		 */
 		public function object();
 
 		/**
-		 * @return Cache
+		 * @return array
 		 */
 		public function array();
 	}
