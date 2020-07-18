@@ -15,12 +15,9 @@
 		}
 
 		public function run(){
-			$this->response->widget($this->params['position'])
-				->set('data',array(
+			return array(
 
-				))
-				->set('params',$this->params);
-			return true;
+			);
 		}
 
 	}

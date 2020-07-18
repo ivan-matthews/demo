@@ -2,6 +2,7 @@
 
 	namespace Core\Classes\Cache;
 
+	use Core\Classes\Config;
 	use Core\Classes\Kernel;
 	use Core\Classes\Response\Response;
 
@@ -46,13 +47,24 @@
 		}
 
 		protected function saveDebug($debug_time){
+			if(!Config::getInstance()->core['debug_enabled']){ return $this; }
+			$this->trace = $this->trace ? $this->trace : debug_backtrace();
 			Response::_debug('cache')
 				->index($this->index)
-				->set('result',$this->cache_filename)
 				->setTime($debug_time)
 				->setQuery("{$this->key}:{$this->mark}")
-				->setTrace($this->trace ? $this->trace : debug_backtrace());
+				->setFile($this->prepareBackTrace($this->trace,1,'file'))
+				->setClass($this->prepareBackTrace($this->trace,1,'class'))
+				->setFunction($this->prepareBackTrace($this->trace,1,'function'))
+				->setType($this->prepareBackTrace($this->trace,1,'type'))
+				->setLine($this->prepareBackTrace($this->trace,1,'line'))
+				->setArgs($this->prepareBackTrace($this->trace,1,'args'))
+				->setTrace($this->trace);
 			return $this;
+		}
+
+		private function prepareBackTrace($debug_back_trace,$index,$key){
+			return isset($debug_back_trace[$index][$key]) ? $debug_back_trace[$index][$key] : null;
 		}
 
 		protected function check(){

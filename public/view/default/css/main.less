@@ -1,0 +1,206 @@
+@general-color: #4a76a8;
+@light-general-color:#d9e2ec;
+@dark-blue: #2a5885;
+@darked-blue: #47469c;
+@light-blue: #009fff;
+@main-background-color: #edeef0;
+
+body{
+	color: #656565;
+	font-size: 13px;
+	background: @main-background-color ;
+	a {
+		color: @dark-blue;
+	}
+	a:active {
+		color: @darked-blue;
+	}
+	a:hover {
+		background: @light-general-color;
+		color: @general-color;
+		text-decoration: none;
+	}
+	.navbar.header-bar {
+		background: @general-color;
+		max-width: 1140px;
+		margin: 0 auto;
+		.logo{
+			a{
+				img.logo {
+					max-height: 40px;
+				}
+				&:hover{
+					background: none;
+				}
+			}
+		}
+	}
+	main.container{
+		.content {
+			-webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+			box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+			-webkit-transition: all 0.3s ease-in-out;
+			-o-transition: all 0.3s ease-in-out;
+			transition: all 0.3s ease-in-out;
+		}
+		.sidebar-parent {
+			font-weight: bold;
+			@media (max-width: 767px) {
+				display: none;
+			}
+			padding-left:0;
+			.sidebar-title{
+				color: #FFFFFF;
+				background: @general-color;
+				margin-left: 0;
+				margin-right: 0;
+				padding: 10px 20px;
+				font-size: 15px;
+			}
+
+			.sidebar {
+				-webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+				box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+				margin-bottom: 1em;
+				.list-group-item{
+					padding: 0;
+				}
+				a{
+					.sidebar-body{
+						color: @general-color;
+					}
+					&:hover{
+						.sidebar-body{
+							background: @light-general-color;
+							color: @general-color;
+						}
+					}
+				}
+				.sidebar-body{
+					background: #FFFFFF;
+					margin-left: 0;
+					margin-right: 0;
+					padding:10px;
+				}
+				.icon{
+					color: chocolate;
+				}
+				&:last-child{
+					margin-bottom: 0;
+				}
+			}
+		}
+	}
+	.content{
+		background: #FFFFFF;
+		.main-content{
+			padding-top: 10px;
+			min-height: calc(100vh - 110px);
+		}
+	}
+
+	footer{
+		padding: 0!important;
+		margin: 0 auto;
+		//background: @main-background-color !important;
+		.footer-block{
+			margin: 0;
+			.footer-parent{
+				padding: 0;
+				.footer{
+					margin-bottom: 0.25em;
+					font-weight: bold;
+					.footer-title{
+						padding: 10px 20px;
+						color: #FFFFFF;
+						background: @general-color;
+						margin-left: 0;
+						margin-right: 0;
+					}
+					.footer-body{
+						padding: 10px 20px;
+						display: flex;
+						background: #FFFFFF;
+						color: @general-color;
+						margin-left: 0;
+						margin-right: 0;
+						&.debug-menu{
+							.title{
+								color: chocolate;
+							}
+							.value{
+								color: #6e7379;
+								&.value-red{
+									color: red;
+								}
+
+								&.value-green{
+									color: green;
+								}
+
+							}
+							.modal{
+								.files{
+									padding: .75rem 1.25rem;
+									margin-bottom: 0;
+									background-color: rgba(0,0,0,.03);
+									border-bottom: 1px solid rgba(0,0,0,.125);
+								}
+								.accordion{
+									.card{
+										border-radius: 0;
+										a{
+											&:hover{
+												border-radius: 0;
+											}
+											.file{
+												color: #6e7379;
+											}
+											.query{
+												color: olivedrab;
+											}
+											.link{
+												color: darkred;
+											}
+											.time{
+												&.green{
+													color: green;
+												}
+												&.red{
+													color: red;
+												}
+											}
+										}
+									}
+									.collapsed-debug-menu{
+										border-radius: 0;
+										ol{
+											li{
+												padding-top:5px;
+												padding-bottom:5px;
+												border-bottom:dashed 1px blue;
+												.backtrace{
+													.file{
+														color: chocolate;
+													}
+													.query{
+														color: olivedrab;
+													}
+												}
+												&:last-child{
+													padding-top:0;
+													padding-bottom:0;
+													border-bottom:none;
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

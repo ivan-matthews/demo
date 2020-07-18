@@ -23,9 +23,11 @@
 				$table->varchar('name')->nullable();
 				$table->varchar('title')->nullable();
 				$table->varchar('value')->notNull()->defaults('home.default_link_value');
+				$table->varchar('css_class')->notNull()->defaults('menu-link');
 				$table->varchar('image')->nullable();
-				$table->varchar('class')->notNull()->defaults('menu-link');
+				$table->varchar('css_class_image')->nullable();
 				$table->varchar('icon')->notNull()->defaults('fa fa-anchor');
+				$table->varchar('css_class_icon')->nullable();
 				$table->int('status')->notNull()->defaults(Kernel::STATUS_ACTIVE);
 				$table->int('ordering')->notNull()->defaults(1);
 				$table->longtext('options')->nullable();

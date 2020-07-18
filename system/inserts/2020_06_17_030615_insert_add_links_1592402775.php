@@ -8,13 +8,11 @@
 
 		protected $links_array = array(
 			array(
-				'menu_id'		=> 1,
-				'link_array'	=> array(
-					'home','index'
-				),
+				'menu_id'		=> 3,
+				'link_array'	=> null,
 				'name'			=> 'home_page',
 				'title'			=> 'home.home_link_title',
-				'value'			=> 'home.home_link_title',
+				'value'			=> 'home.home_link',
 			),
 			array(
 				'menu_id'		=> 1,
@@ -23,16 +21,16 @@
 				),
 				'name'			=> 'auth_page',
 				'title'			=> 'auth.auth_link_title',
-				'value'			=> 'auth.auth_link_title',
+				'value'			=> 'auth.auth_link',
 			),
 			array(
 				'menu_id'		=> 1,
 				'link_array'	=> array(
-					'auth','signup'
+					'auth','registration'
 				),
 				'name'			=> 'auth_sign_up',
-				'title'			=> 'auth.auth_link_title',
-				'value'			=> 'auth.auth_link_title',
+				'title'			=> 'auth.registration_link_title',
+				'value'			=> 'auth.registration_link',
 			),
 			array(
 				'menu_id'		=> 2,
@@ -40,8 +38,8 @@
 					'auth','logout'
 				),
 				'name'			=> 'auth_log_out',
-				'title'			=> 'auth.auth_link_title',
-				'value'			=> 'auth.auth_link_title',
+				'title'			=> 'auth.logout_link_title',
+				'value'			=> 'auth.logout_link',
 			)
 		);
 

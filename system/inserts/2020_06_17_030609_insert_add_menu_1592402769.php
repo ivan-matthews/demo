@@ -10,13 +10,19 @@
 			Database::insert('menu')
 				->value('widget_id','1')
 				->value('name','guest_menu')
-				->value('title','home.guest_menu_title')
+				->value('title','auth.guest_menu_title')
 				->get()
 				->id();
 			Database::insert('menu')
 				->value('widget_id','2')
 				->value('name','user_menu')
-				->value('title','home.user_menu_title')
+				->value('title','auth.user_menu_title')
+				->get()
+				->id();
+			Database::insert('menu')
+				->value('widget_id','3')
+				->value('name','main_menu')
+				->value('title','home.main_menu_title')
 				->get()
 				->id();
 			return $this;

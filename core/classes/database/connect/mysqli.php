@@ -104,11 +104,19 @@
 					(int)$this->params['port'],
 					$this->params['socket']
 				);
-				Response::_debug('database')
-					->setQuery('DATABASE CONNECTION;')
-					->setTime($time)
-					->setTrace($backtrace)
-				;
+				if($this->config->core['debug_enabled']){
+					Response::_debug('database')
+						->setQuery('DATABASE CONNECTION;')
+						->setTime($time)
+						->setTrace($backtrace)
+						->setFile($this->prepareBackTrace($backtrace,8,'file'))
+						->setClass($this->prepareBackTrace($backtrace,8,'class'))
+						->setFunction($this->prepareBackTrace($backtrace,8,'function'))
+						->setType($this->prepareBackTrace($backtrace,8,'type'))
+						->setLine($this->prepareBackTrace($backtrace,8,'line'))
+						->setArgs($this->prepareBackTrace($backtrace,8,'args'))
+					;
+				}
 
 			}catch(\Exception $e){
 				Error::getInstance(
@@ -128,6 +136,10 @@
 			$this->setSqlMode($this->params['clear_sql_mode']);
 		}
 
+		private function prepareBackTrace($debug_back_trace,$index,$key){
+			return isset($debug_back_trace[$index][$key]) ? $debug_back_trace[$index][$key] : null;
+		}
+
 		public function exec($sql,$params=array()){
 			$time = microtime(true);
 			$backtrace = debug_backtrace();
@@ -137,12 +149,19 @@
 			}
 			$this->query[] = $sql;
 			$result = $this->mysqli->query($sql);
-
-			Response::_debug('database')
-				->setQuery($sql)
-				->setTime($time)
-				->setTrace($backtrace)
-			;
+			if($this->config->core['debug_enabled']){
+				Response::_debug('database')
+					->setQuery($sql)
+					->setTime($time)
+					->setTrace($backtrace)
+					->setFile($this->prepareBackTrace($backtrace,8,'file'))
+					->setClass($this->prepareBackTrace($backtrace,8,'class'))
+					->setFunction($this->prepareBackTrace($backtrace,8,'function'))
+					->setType($this->prepareBackTrace($backtrace,8,'type'))
+					->setLine($this->prepareBackTrace($backtrace,8,'line'))
+					->setArgs($this->prepareBackTrace($backtrace,4,'args'))
+				;
+			}
 
 			if(!$this->mysqli->errno){
 				return $result;

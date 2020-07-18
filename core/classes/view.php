@@ -38,8 +38,8 @@
 		public $site_root;
 		public $theme_path;
 
-		private $response;
-		private $config;
+		public $response;
+		public $config;
 
 		/**
 		 * @return ViewInterface
@@ -107,7 +107,7 @@
 		public function renderErrorPages(){
 			$response_code = $this->response->getResponseCode();
 			if(file_exists("{$this->site_dir}/assets/errors/{$response_code}.html.php")){
-				print $this->render("{$this->site_dir}/assets/errors/{$response_code}.html.php",array());
+				$this->content = $this->render("{$this->site_dir}/assets/errors/{$response_code}.html.php",array());
 				$this->error_status = true;
 			}
 			return $this;
@@ -192,10 +192,11 @@
 		}
 
 		public function addJS($js_file_path,$version=null){
+			$key = $js_file_path;
 			$extension = $version ? "js?v={$version}" : "js";
 			$js_file_path = trim($js_file_path,'/');
 			$js_file_path = "{$js_file_path}.{$extension}";
-			self::$js_files[] = $js_file_path;
+			self::$js_files[$key] = $js_file_path;
 			return true;
 		}
 
@@ -216,10 +217,11 @@
 		}
 
 		public function addCSS($css_file_path,$version=null){
+			$key = $css_file_path;
 			$extension = $version ? "css?v={$version}" : "css";
 			$css_file_path = trim($css_file_path,'/');
 			$css_file_path = "{$css_file_path}.{$extension}";
-			self::$css_files[] = $css_file_path;
+			self::$css_files[$key] = $css_file_path;
 			return true;
 		}
 
@@ -246,7 +248,7 @@
 				$js_files .= "\t\t<script src=\"{$file_path}\"></script>" . PHP_EOL;
 				unset(self::$js_files[$key]);
 			}
-			print trim($js_files,"\t");
+			print $js_files;
 			return $this;
 		}
 
@@ -257,7 +259,7 @@
 				$css_files .= "\t\t<link rel=\"stylesheet\" type=\"text/css\" href=\"{$file_path}\">" . PHP_EOL;
 				unset(self::$css_files[$key]);
 			}
-			print trim($css_files,"\t");
+			print $css_files;
 			return $this;
 		}
 
@@ -294,7 +296,10 @@
 				foreach($this->data['widgets'][$widget_position] as $widget){
 					$widget_tmp_file = "{$this->site_dir}/{$widget['params']['template']}_{$widget['params']['position']}.html.php";
 					if(file_exists($widget_tmp_file)){
-						print $this->render($widget_tmp_file,$widget['data']);
+						print $this->render($widget_tmp_file,array(
+							'content'	=> $widget['data'],
+							'options'	=> $widget['params']
+						));
 					}
 				}
 			}
@@ -310,11 +315,25 @@
 				}
 				$meta_tags .= ">" . PHP_EOL;
 			}
-			print trim($meta_tags,"\t");
+			print $meta_tags;
 			return $this;
 		}
 
+		public function getUploadSiteRoot($upload_pth_to_file){
+			$upload_pth_to_file = trim($upload_pth_to_file,'/');
+			$upload_pth_to_file = "{$this->config->view['uploads_dir']}/{$upload_pth_to_file}";
+			return "/{$this->site_root}/{$upload_pth_to_file}";
+		}
 
+		public function getUploadDir($upload_pth_to_file){
+			$upload_pth_to_file = trim($upload_pth_to_file,'/');
+			$upload_pth_to_file = "{$this->config->view['uploads_dir']}/{$upload_pth_to_file}";
+			return "{$this->site_dir}/{$upload_pth_to_file}";
+		}
+
+		public function printUploadSiteRoot($upload_pth_to_file){
+			return print $this->getUploadSiteRoot($upload_pth_to_file);
+		}
 
 
 

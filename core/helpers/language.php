@@ -8,8 +8,8 @@
 			if(isset($language_array[$lang_key_array[0]][$lang_key_array[1]])){
 				return $language->prepareLanguageData($language_array[$lang_key_array[0]][$lang_key_array[1]],$replace_data);
 			}
-			return $language->prepareLanguageData($lang_key_array[1],$replace_data);
+//			return $language->prepareLanguageData($lang_key_array[1],$replace_data);
 		}
-		return $language->prepareLanguageData($lang_key,$replace_data);
+		return $lang_key;
 	}
 

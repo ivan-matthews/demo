@@ -57,7 +57,8 @@
 
 			$widgets_list = $this->select()
 				->from('widgets')
-				->where("`status` = " . Kernel::STATUS_ACTIVE)
+				->join('widgets_active',"widgets_active.widget_id=widgets.id")
+				->where("widgets_active.status = " . Kernel::STATUS_ACTIVE . " AND widgets.status=" . Kernel::STATUS_ACTIVE)
 				->order('ordering','asc')
 				->get()
 				->allAsArray();

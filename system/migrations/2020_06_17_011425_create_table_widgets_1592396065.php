@@ -17,16 +17,12 @@
 		public function secondStep(){
 			Database::makeTable('widgets',function(Create $table){
 				$table->bigint('id')->unsigned()->autoIncrement()->primary();
+
 				$table->varchar('class')->nullable();
 				$table->varchar('method')->nullable();
 				$table->varchar('status')->nullable()->defaults(Kernel::STATUS_ACTIVE);
-				$table->varchar('position')->nullable();
-				$table->int('ordering')->notNull()->defaults(1);
 				$table->varchar('template')->nullable();
-				$table->longtext('groups_enabled')->nullable();
-				$table->longtext('groups_disabled')->nullable();
-				$table->longtext('pages_enabled')->nullable();
-				$table->longtext('pages_disabled')->nullable();
+
 				$table->add_timestamps();
 			});
 			return $this;
