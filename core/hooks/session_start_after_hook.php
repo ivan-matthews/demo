@@ -4,7 +4,7 @@
 
 	use Core\Classes\User;
 
-	class Session_Start_After{
+	class Session_Start_After_Hook{
 
 		private $user;
 
@@ -16,7 +16,6 @@
 			$this->user->validateAuthorize();
 			$this->user->refreshAuthCookieTime();
 			$this->user->resetCSRFToken();
-//			fx_pre('i\'m alive: ' . __METHOD__);
 			return true;
 		}
 

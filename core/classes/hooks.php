@@ -1,7 +1,10 @@
 <?php
 
 	namespace Core\Classes;
+
 	use Core\Classes\Cache\Cache;
+	use Core\Classes\Interfaces\Hooks as HooksInterface;
+	use Core\Classes\Response\Response;
 
 	/**
 	 * Class Hooks
@@ -11,12 +14,13 @@
 	 * @method static _after($callable_function,...$arguments_list)
 	 * @method static _before($callable_function,...$arguments_list)
 	 */
-	class Hooks{
+	class Hooks implements HooksInterface{
 
 		private static $instance;
 		private $cache;
 		protected $hooks_dir;
 		protected $hooks_list = array();
+		protected $all_hooks = array();
 
 		public static function __callStatic($method,$arguments){
 			$method_name = trim($method,'_');
@@ -27,6 +31,7 @@
 			return null;
 		}
 
+		/** @return HooksInterface */
 		public static function getInstance(){
 			if(self::$instance === null){
 				self::$instance = new self();
@@ -41,12 +46,12 @@
 		}
 
 		private function getHooksList(){
-			$this->cache->key('hooks.all')->mark('get.all.hooks.list')->get();
+			$this->cache->key('files.included')->get();
 			if(($this->hooks_list = $this->cache->array())){
 				return $this;
 			}
 			$this->scanHooksDir();
-			$this->cache->set($this->hooks_list)->drop();
+			$this->cache->set($this->hooks_list);
 			return $this;
 		}
 
@@ -54,8 +59,11 @@
 			$hooks_files_list = scandir($this->hooks_dir);
 			unset($hooks_files_list[0],$hooks_files_list[1]);
 			foreach($hooks_files_list as $file){
-				foreach(fx_import_file("{$this->hooks_dir}/{$file}",Kernel::IMPORT_INCLUDE) as $key=>$item){
-					if(!isset($item['status']) || !fx_equal($item['status'],Kernel::STATUS_ACTIVE)){ continue; }
+				$hook_file = fx_import_file("{$this->hooks_dir}/{$file}",Kernel::IMPORT_INCLUDE);
+				$this->all_hooks[pathinfo($file,PATHINFO_FILENAME)] = $hook_file;
+				foreach($hook_file as $key=>$item){
+					$ready = fx_equal($item['status'],Kernel::STATUS_ACTIVE) && method_exists($item['class'],$item['method']);
+					if(!$ready){ continue; }
 					$this->hooks_list[$key][] = $item;
 				}
 			}
@@ -63,13 +71,14 @@
 		}
 
 		public function run($hook_name,...$arguments_list){
+			$hook_name = "{$hook_name}_hook";
 			$result = array();
 			if(isset($this->hooks_list[$hook_name])){
 				foreach($this->hooks_list[$hook_name] as $list){
-					if(class_exists($list['class'])){
-						$hook_obj = new $list['class'];
-						$result = call_user_func(array($hook_obj,$list['method']),...$arguments_list);
-					}
+					$hook_obj = new $list['class'];
+					$result = call_user_func(array($hook_obj,$list['method']),...$arguments_list);
+					Response::_debug('hooks')
+						->setQuery("{$list['class']}::{$list['method']}()");
 				}
 			}
 			return $result;
@@ -88,6 +97,14 @@
 		public function after($hook_name,...$arguments_list){
 			$hook_name = "{$hook_name}_after";
 			return $this->run($hook_name,...$arguments_list);
+		}
+
+		public function getHooksArray(){
+			return $this->all_hooks;
+		}
+
+		public function getHooks(){
+			return $this->hooks_list;
 		}
 
 

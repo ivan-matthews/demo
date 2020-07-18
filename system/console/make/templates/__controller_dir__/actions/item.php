@@ -4,7 +4,7 @@
 
 	use Core\Classes\Hooks;
 	use Core\Classes\Request;
-	use Core\Classes\Response;
+	use Core\Classes\Response\Response;
 	use Core\Controllers\__controller_namespace__\Config;
 	use Core\Controllers\__controller_namespace__\Controller;
 	use Core\Controllers\__controller_namespace__\Model;
@@ -15,25 +15,25 @@
 		private static $instance;
 
 		/** @var Config */
-		protected $config;
+		public $config;
 
 		/** @var Model */
-		protected $model;
+		public $model;
 
 		/** @var \Core\Classes\Config */
-		protected $site_config;
+		public $site_config;
 
 		/** @var Response */
-		protected $response;
+		public $response;
 
 		/** @var Request */
-		protected $request;
+		public $request;
 
 		/** @var \Core\Classes\User */
-		protected $user;
+		public $user;
 
 		/** @var Hooks */
-		protected $hook;
+		public $hook;
 
 		/** @var array */
 		private $item;

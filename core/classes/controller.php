@@ -2,15 +2,17 @@
 
 	namespace Core\Classes;
 
+	use Core\Classes\Response\Response;
+
 	class Controller{
 
 		private static $instance;
 
-		protected $site_config;
-		protected $response;
-		protected $request;
-		protected $user;
-		protected $hook;
+		public $site_config;
+		public $response;
+		public $request;
+		public $user;
+		public $hook;
 
 		private $controller;
 
@@ -52,7 +54,7 @@
 
 		}
 
-		protected function redirect($link_to_redirect=null,$status_code=302){
+		public function redirect($link_to_redirect=null,$status_code=302){
 			if(!$link_to_redirect){
 				$link_to_redirect = $this->user->getBackUrl();
 			}

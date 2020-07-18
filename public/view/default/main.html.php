@@ -36,7 +36,7 @@
 		'times'=>number_format(microtime(true)-TIME,10),
 	));
 
-	$dbg = \Core\Classes\Response::getInstance()->getDebug();
+	$dbg = \Core\Classes\Response\Response::getInstance()->getDebug();
 	if($dbg){
 		foreach($dbg as $key=>$item){
 			print "<i>{$key}</i><br>";

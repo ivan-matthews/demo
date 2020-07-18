@@ -14,7 +14,7 @@
 
 	namespace Core\Classes\Console;
 
-	use Core\Classes\Response;
+	use Core\Classes\Response\Response;
 	use Core\Classes\Console\Interfaces\Types;
 
 	class Paint implements Types{

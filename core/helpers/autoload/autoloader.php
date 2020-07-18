@@ -14,7 +14,9 @@
 
 		public static function autoload($class){
 			if(!self::searchClassInAliasesList($class)){
-				return self::parseClassName($class);
+				if(!self::parseClassName($class)){
+					return true;
+				}
 			}
 			return false;
 		}

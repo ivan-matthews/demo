@@ -3,7 +3,7 @@
 	namespace Core\Classes\Database\Connect;
 
 	use Core\Classes\Config;
-	use Core\Classes\Response;
+	use Core\Classes\Response\Response;
 	use Core\Classes\Error;
 
 	class MySQLi{

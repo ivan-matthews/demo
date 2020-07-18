@@ -4,7 +4,7 @@
 
 	use Core\Classes\User;
 
-	class Load_Script_After{
+	class Load_System_After_Hook{
 
 		private $user;
 
@@ -14,8 +14,38 @@
 
 		public function run(){
 			$this->user->setBackUrl();
-//			fx_pre('i\'m alive: ' . __METHOD__);
 			return true;
 		}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

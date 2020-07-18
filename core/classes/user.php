@@ -2,6 +2,8 @@
 
 	namespace Core\Classes;
 
+	use Core\Classes\Response\Response;
+
 	class User{
 
 		private static $instance;
@@ -62,7 +64,8 @@
 
 		private function setLoggedGroups($user_groups){
 			$this->unauthorized = null;
-			$this->groups = array_combine(array_values($user_groups),array_values($user_groups));
+//			$this->groups = array_combine(array_values($user_groups),array_values($user_groups));
+			$this->groups = array_flip($user_groups);
 			return $this->groups;
 		}
 

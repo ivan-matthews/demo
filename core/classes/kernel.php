@@ -3,6 +3,7 @@
 	namespace Core\Classes;
 
 	use ReflectionMethod as Reflect;
+	use Core\Classes\Response\Response;
 
 	class Kernel{
 
@@ -114,7 +115,7 @@
 		public function loadSystem(){
 			if($this->controllerExists()){
 				$this->setControllerConfig();
-				if(!$this->controller_config_object->enabled){
+				if(!fx_equal($this->controller_config_object->status,self::STATUS_ACTIVE)){
 					return $this->response->setResponseCode(404);
 				}
 				$this->checkControllerAccess();
@@ -152,9 +153,9 @@
 		}
 
 		protected function loadAction(){
-			$action = call_user_func(array($this->action_class_name,'getInstance'));
 			$method = "method{$this->request_method}";
-			if(method_exists($action,$method)){
+			if(method_exists($this->action_class_name,$method)){
+				$action = call_user_func(array($this->action_class_name,'getInstance'));
 				$this->checkActionAccess();
 				if($this->action_access->denied()){
 					return $this->setDeniedStatus();

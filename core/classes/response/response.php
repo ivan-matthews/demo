@@ -1,15 +1,8 @@
 <?php
 
-	namespace Core\Classes;
+	namespace Core\Classes\Response;
 
-	use Core\Classes\Response\BreadCrumb;
-	use Core\Classes\Response\Controller;
-	use Core\Classes\Response\Debug;
-	use Core\Classes\Response\Error;
-	use Core\Classes\Response\Meta;
-	use Core\Classes\Response\Session_Message;
-	use Core\Classes\Response\Title;
-	use Core\Classes\Response\Widget;
+	use Core\Classes\Kernel;
 
 	/**
 	 * Class Response
@@ -98,8 +91,8 @@
 			return new BreadCrumb(self::getInstance(),$breadcrumb);
 		}
 
-		public function widget($widget_name){
-			return new Widget(self::getInstance(),$widget_name);
+		public function widget($widget_position){
+			return new Widget(self::getInstance(),$widget_position);
 		}
 
 		public function title($title_value=null){

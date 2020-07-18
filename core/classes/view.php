@@ -3,6 +3,7 @@
 	namespace Core\Classes;
 
 	use Core\Classes\Interfaces\View as ViewInterface;
+	use Core\Classes\Response\Response;
 
 	/**
 	 * Class View
@@ -166,8 +167,8 @@
 		private function renderJsonData(){
 			$this->response->setHeader('Content-Type','application/json');
 			$this->response->sendHeaders();
-			print json_encode($this->data);
-			return die();
+			print json_encode($this->data,JSON_PRETTY_PRINT);
+			return true;
 		}
 
 		private function renderXmlData(){
@@ -178,7 +179,7 @@
 			$result .= fx_xml_encode($this->data);
 			$result .= '</root>';*/
 			print fx_array2xml($this->data);
-			return die();
+			return true;
 		}
 
 		private function renderPhpData(){
@@ -187,7 +188,7 @@
 			$result = fx_php_encode($this->data);
 			print_r($result);
 			print '?>';
-			return die();
+			return true;
 		}
 
 		public function addJS($js_file_path,$version=null){
