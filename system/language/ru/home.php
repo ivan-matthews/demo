@@ -48,4 +48,7 @@
 		'hooks_value'	=> 'Хуки',
 		'widgets_value'	=> 'Виджеты',
 		'cache_value'	=> 'Кэш',
+
+		'session_messages_title'	=> 'Сессионные сообщения',
+		'close_button_title'		=> 'Удалить',
 	);

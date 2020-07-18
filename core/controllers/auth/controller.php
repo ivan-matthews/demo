@@ -6,7 +6,22 @@
 	use Core\Classes\Controller as ParentController;
 	use Core\Classes\Request;
 	use Core\Classes\Response\Response;
+	use Core\Classes\Mail\Mail;
+	use Core\Classes\Mail\Session_Message;
 
+	/**
+	 * Class Controller
+	 * @package Core\Controllers\Auth
+	 * @action index 						login				+
+	 * @action item 						bookmark			+
+	 * @action logout 						exit				+
+	 * @action registration 				registration		+
+	 * @action resend_email 				resend email		+
+	 * @action restore_password 			restore password
+	 * @action restore_password_confirm		new password insert form after verify_token successful confirmed
+	 * @action verify_account 				check verify_token	+
+	 * @action change_email 				check verify_token	???
+	 */
 	class Controller extends ParentController{
 
 		/** @var $this */
@@ -33,27 +48,12 @@
 		/** @var Hooks */
 		public $hook;
 
-		/** @var array */
-		private $auth;
-
 		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){
 				self::$instance = new self();
 			}
 			return self::$instance;
-		}
-
-		public function __get($key){
-			if(isset($this->auth[$key])){
-				return $this->auth[$key];
-			}
-			return false;
-		}
-
-		public function __set($name, $value){
-			$this->auth[$name] = $value;
-			return $this->auth[$name];
 		}
 
 		public function __construct(){
@@ -66,12 +66,35 @@
 				->setValue('auth.title_auth_controller')
 				->setLink('auth')
 				->setIcon(null);
-
-			$this->dontSetBackLink();
 		}
 
-		public function __destruct(){
+		public function sendRegisterEmail(array $input_data){
+			Mail::set()
+				->subject(fx_lang('auth.registration_mail_subject',array(
+					'%site_name%'	=> $this->site_config->core['site_name']
+				)))
+				->to($input_data['login'])
+				->html('registration_successful',array(
+					'login'		=> $input_data['login'],
+					'password'	=> $input_data['password'],
+					'bookmark'	=> $input_data['bookmark'],
+					'token'		=> $input_data['token'],
+					'id'		=> $input_data['id'],
+				))
+				->send();
+			return $this;
+		}
 
+		public function sendRegisterSessionMessage(array $input_data){
+			Session_Message::set('registration')
+				->head(fx_lang('auth.successful_registration_title'))
+				->value(fx_lang('auth.successful_registration_value',array(
+					'%user_email%'	=> $input_data['login'],
+					'%resend_link%'	=> fx_get_url('auth','resend_email'),
+				)))
+				->disabled_pages('auth','resend_email')
+				->send();
+			return $this;
 		}
 
 

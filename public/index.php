@@ -31,39 +31,35 @@
 	$view		= View::getInstance();
 	$widgets	= Widgets::getInstance();
 
+	$hooks->before('session_start');
 	$session->setSessionDir(null);
 	$session->setSessionID();
 	$session->setSessionFile();
-
-	$hooks->before('session_start');
 	if(!$hooks->instead('session_start')){
 		$session->sessionStart();
 	}
 	$hooks->after('session_start');
 
+	$hooks->before('set_language');
 	$language->setServerLanguageHeader($request->get('language')?:fx_get_server('HTTP_ACCEPT_LANGUAGE'));
 	$language->setLanguageKey();
-
-	$hooks->before('set_language');
 	if(!$hooks->instead('set_language')){
 		$language->setLanguage();
 	}
 	$hooks->after('set_language');
 
-	$router->parseURL($request->get('link')?:fx_get_server('REQUEST_URI'));
-
 	$hooks->before('parse_url');
+	$router->parseURL($request->get('link')?:fx_get_server('REQUEST_URI'));
 	if(!$hooks->instead('parse_url')){
 		$router->setRoute();
 	}
 	$hooks->after('parse_url');
 
+	$hooks->before('controller_run');
 	$kernel->loadLinkReplaceList();
 	$kernel->setProperty();
 	$kernel->setControllerParams();
 	$kernel->setActionParams();
-
-	$hooks->before('controller_run');
 	if(!$hooks->instead('controller_run')){
 		$kernel->loadSystem();
 	}
@@ -75,10 +71,9 @@
 	}
 	$hooks->after('widgets_run');
 
+	$hooks->before('render_data');
 	$view->setRenderType($request->get('accept')?:fx_get_server('HTTP_ACCEPT'));
 	$view->ready();
-
-	$hooks->before('render_data');
 	if(!$hooks->instead('render_data')){
 		$view->start();
 	}

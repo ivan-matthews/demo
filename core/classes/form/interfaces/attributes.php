@@ -18,6 +18,12 @@
 		 * @param $default
 		 * @return Attributes
 		 */
+		public function description($default);
+
+		/**
+		 * @param $default
+		 * @return Attributes
+		 */
 		public function placeholder($default);
 
 		/**

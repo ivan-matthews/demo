@@ -176,6 +176,7 @@
 				'render_type'		=> 'text',	// вывод рендинга в item
 				'field_type' 		=> 'simple',// вывод рендинга в form
 				'label' 			=> null,
+				'description' 		=> null,
 			),
 		);
 
@@ -365,6 +366,9 @@
 			return $this->setAttribute('autocomplete',$default);
 		}
 		public function class($default){
+			return $this->setAttribute(__FUNCTION__,$default);
+		}
+		public function description($default){
 			return $this->setAttribute(__FUNCTION__,$default);
 		}
 		public function placeholder($default){

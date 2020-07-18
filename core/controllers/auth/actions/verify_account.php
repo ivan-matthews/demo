@@ -3,6 +3,7 @@
 	namespace Core\Controllers\Auth\Actions;
 
 	use Core\Classes\Hooks;
+	use Core\Classes\Kernel;
 	use Core\Classes\Request;
 	use Core\Classes\Response\Response;
 	use Core\Controllers\Auth\Config;
@@ -36,7 +37,9 @@
 		public $hook;
 
 		/** @var array */
-		private $verify_account;
+		public $verify_token;
+
+		public $user_data;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -46,61 +49,37 @@
 			return self::$instance;
 		}
 
-		public function __get($key){
-			if(isset($this->verify_account[$key])){
-				return $this->verify_account[$key];
+		public function __construct(){
+			parent::__construct();
+			$this->dontSetBackLink();
+		}
+
+		public function methodGet($verify_token){
+			$this->verify_token = $verify_token;
+
+			$this->response->title('auth.title_auth_verify_account');
+			$this->response->breadcrumb('verify_account')
+				->setValue('auth.title_auth_verify_account')
+				->setLink('auth','item',$this->verify_token)
+				->setIcon(null);
+
+			$this->user_data = $this->model->getUserByVerifyToken($this->verify_token);
+			if($this->user_data){
+				$this->user_data['groups'] = $this->config->groups_after_verification;
+				$this->user_data['verify_token'] = null;
+				$this->user_data['date_activate'] = time();
+				$this->user_data['status'] = Kernel::STATUS_ACTIVE;
+
+				$this->model->updateUserAuthDataByVerifyToken($this->user_data);
+
+				$this->user->escape();
+				$this->user->auth($this->user_data,true);
+
+				return $this->redirect();
 			}
 			return false;
 		}
 
-		public function __set($name, $value){
-			$this->verify_account[$name] = $value;
-			return $this->verify_account[$name];
-		}
-
-		public function __construct(){
-			parent::__construct();
-		}
-
-		public function __destruct(){
-
-		}
-
-		public function methodGet(){
-			return false;
-		}
-
-		public function methodPost(){
-			return false;
-		}
-
-		public function methodPut(){
-			return false;
-		}
-
-		public function methodHead(){
-			return false;
-		}
-
-		public function methodTrace(){
-			return false;
-		}
-
-		public function methodPatch(){
-			return false;
-		}
-
-		public function methodOptions(){
-			return false;
-		}
-
-		public function methodConnect(){
-			return false;
-		}
-
-		public function methodDelete(){
-			return false;
-		}
 
 
 

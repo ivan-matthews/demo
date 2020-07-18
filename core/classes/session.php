@@ -84,7 +84,7 @@
 
 		public function set($key,$value,$prefix=null){
 			$key = "{$prefix}{$key}";
-			$_SESSION[$key] = $value;
+			$_SESSION[$key] = is_null($value) ? false : $value;
 			return $this;
 		}
 
@@ -147,8 +147,56 @@
 			return $this;
 		}
 
+		public function setSessionMessageArray($message_unique_key,array $message_data){
+			$_SESSION[self::PREFIX_MSG . "{$message_unique_key}"] = $message_data;
+			return $this;
+		}
 
+		public function getSessionMessages($session_message_key=null){
+			if($session_message_key){
+				return $this->get($session_message_key,self::PREFIX_MSG);
+			}
+			$current_time = time();
+			$session_message_key = self::PREFIX_MSG . "{$session_message_key}";
+			$session_messages_array = array();
+			foreach($_SESSION as $key=>$value){
+				if(strpos($key,$session_message_key) !== false){
+					if($value['expired_time'] && $value['expired_time'] < $current_time){
+						$this->drop($key);
+						continue;
+					}
+					if(!$this->checkMessageAccess($value['disabled_pages'],$value['enabled_pages'],$value['disabled_groups'],$value['enabled_groups'])){
+						continue;
+					}
+					$value['viewed'] = true;
+					$this->update($key,$value);
+					$session_messages_array[$key] = $value;
+				}
+			}
+			return $session_messages_array;
+		}
 
+		private function checkMessageAccess($disabled_pages,$enabled_pages,$disabled_groups,$enabled_groups){
+			$access = new Access();
+			$access->disableGroups($disabled_groups);
+			$access->disablePages($disabled_pages);
+			$access->enableGroups($enabled_groups);
+			$access->enablePages($enabled_pages);
+			return $access->granted();
+		}
+
+		public function unsetSessionMessages($session_message_key=null){
+			if($session_message_key){
+				return $this->drop($session_message_key,self::PREFIX_MSG);
+			}
+			$session_message_key = self::PREFIX_MSG . "{$session_message_key}";
+			foreach($_SESSION as $key=>$value){
+				if(strpos($key,$session_message_key) !== false){
+					$this->drop($key);
+				}
+			}
+			return $this;
+		}
 
 
 

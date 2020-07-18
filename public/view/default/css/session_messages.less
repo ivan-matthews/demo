@@ -1,0 +1,71 @@
+@import "vars";
+
+div.session-messages{
+	.container{
+		-webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+		box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+		margin-bottom: 5px;
+		&:last-child{
+			margin-bottom: 0;
+		}
+		.content-block{
+			border-left: solid 1px @background;
+			.card{
+				border-radius: 0;
+				border: none;
+				.card-header{
+					border-radius: 0;
+					border: none;
+					font-weight: @fat;
+					color: @text_footer_color;
+					.close-icon{
+						float: right;
+						padding-right: 10px;
+						position: absolute;
+						right: 4px;
+						top: 4px;
+						a{
+							position: absolute;
+							width: 35px;
+							height: 27px;
+							text-align: center;
+							right: -4px;
+							top: -4px;
+							cursor: pointer;
+							background: #f2f2f2;
+						}
+					}
+				}
+				.card-body{
+					border-radius: 0;
+					border: none;
+					a.sess-message-link{
+						color: @link_hover_color;
+						&:active{
+							color: @link_active_color;
+						}
+						&:hover{
+							color: @link_main_color;
+						}
+					}
+				}
+			}
+		}
+		.icon-block{
+			font-size: 60px;
+			background: @text_main_background;
+			.card{
+				border-radius: 0;
+				border: none;
+				.card-header{
+					border-radius: 0;
+					border: none;
+				}
+				.card-body{
+					border-radius: 0;
+					border: none;
+				}
+			}
+		}
+	}
+}

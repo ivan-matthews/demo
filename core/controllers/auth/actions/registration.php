@@ -3,11 +3,13 @@
 	namespace Core\Controllers\Auth\Actions;
 
 	use Core\Classes\Hooks;
+	use Core\Classes\Kernel;
 	use Core\Classes\Request;
 	use Core\Classes\Response\Response;
 	use Core\Controllers\Auth\Config;
 	use Core\Controllers\Auth\Controller;
 	use Core\Controllers\Auth\Model;
+	use Core\Controllers\Auth\Forms\Registration as RegistrationFrom;
 
 	class Registration extends Controller{
 
@@ -35,8 +37,13 @@
 		/** @var Hooks */
 		public $hook;
 
-		/** @var array */
-		private $registration;
+		/** @var object */
+		public $registration;
+		
+		public $fields_list;
+		public $auth_data;
+		public $user_data;
+		public $user_id;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -46,62 +53,69 @@
 			return self::$instance;
 		}
 
-		public function __get($key){
-			if(isset($this->registration[$key])){
-				return $this->registration[$key];
-			}
-			return false;
-		}
-
-		public function __set($name, $value){
-			$this->registration[$name] = $value;
-			return $this->registration[$name];
-		}
-
 		public function __construct(){
 			parent::__construct();
-		}
+			$this->registration = RegistrationFrom::getInstance('registration');
 
-		public function __destruct(){
-
+			$this->response->title('auth.title_registration_action');
+			$this->response->breadcrumb('registration')
+				->setValue('auth.title_registration_action')
+				->setLink('auth','registration')
+				->setIcon(null);
+			$this->dontSetBackLink();
 		}
 
 		public function methodGet(){
-			return false;
+			$this->registration->generateFieldsList();
+
+			if($this->config->actions['registration']['enable_captcha']){
+				$this->registration->setCaptcha();
+			}
+
+			$this->fields_list = $this->registration->getFieldsList();
+
+			return $this->response->controller('auth','registration')
+				->set('fields',$this->fields_list)
+				->set('form',$this->registration->getFormAttributes())
+				->set('errors',$this->registration->getErrors());
 		}
 
 		public function methodPost(){
-			return false;
-		}
+			$this->registration->checkFieldsList();
+			$this->registration->checkPasswords();
+			$this->registration->checkLogin($this->model);
 
-		public function methodPut(){
-			return false;
-		}
+			if($this->config->actions['registration']['enable_captcha']){
+				$this->registration->setCaptcha();
+			}
 
-		public function methodHead(){
-			return false;
-		}
+			$this->fields_list = $this->registration->getFieldsList();
 
-		public function methodTrace(){
-			return false;
-		}
+			if($this->registration->can()){
+				$this->auth_data = array(
+					'login'			=> $this->fields_list['login']['attributes']['value'],
+					'password'		=> fx_encode($this->fields_list['password']['attributes']['value']),
+					'enc_password'	=> fx_encryption($this->fields_list['password']['attributes']['value']),
+					'groups'		=> $this->config->groups_after_registration,
+					'bookmark'		=> fx_encode($this->fields_list['login']['attributes']['value'].$this->fields_list['password']['attributes']['value']),
+					'verify_token'	=> $this->model->generateVerifyTokenKey(),
+					'status'		=> Kernel::STATUS_LOCKED,
+					'date_created'	=> time(),
+				);
+				$this->user_id = $this->model->addNewUser($this->auth_data);
+				if($this->user_id){
+					$this->user_data = $this->model->getAuthDataByUserId($this->user_id);
+					$this->user_data['groups']	= fx_arr($this->user_data['groups']);
+					$this->user->auth($this->user_data,true);
+					return $this->redirect();
+				}
+			}
 
-		public function methodPatch(){
-			return false;
+			return $this->response->controller('auth','registration')
+				->set('fields',$this->fields_list)
+				->set('form',$this->registration->getFormAttributes())
+				->set('errors',$this->registration->getErrors());
 		}
-
-		public function methodOptions(){
-			return false;
-		}
-
-		public function methodConnect(){
-			return false;
-		}
-
-		public function methodDelete(){
-			return false;
-		}
-
 
 
 

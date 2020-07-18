@@ -6,7 +6,7 @@
 		/**
 		 * @param $field
 		 * @param $value
-		 * @return Actions
+		 * @return Actions | Update
 		 */
 		public function field($field,$value);
 	}

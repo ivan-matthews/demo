@@ -1,0 +1,30 @@
+@import "vars";
+
+form{
+	label{
+		font-weight: bold;
+	}
+	input{
+		&::placeholder{
+			font-style: italic;
+			font-size: 13px;
+			color: #95a7ae;
+			-moz-user-select: none;
+			user-select: none;
+		}
+	}
+	.invalid-feedback{
+		display: block;
+		font-size: 100%;
+	}
+	label{
+		-moz-user-select: none;
+		user-select: none;
+	}
+	.csrf{
+
+	}
+}
+.csrf{
+	margin-bottom: 0;
+}

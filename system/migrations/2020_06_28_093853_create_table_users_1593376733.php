@@ -53,7 +53,6 @@
 				$table->longtext('about')->nullable();
 
 				$table->bigint('date_log')->nullable();
-				$table->bigint('date_reg')->nullable();
 				$table->varchar('log_type')->defaults('w');
 
 				$table->smallint('status',1)->notNull()->defaults(Kernel::STATUS_LOCKED);

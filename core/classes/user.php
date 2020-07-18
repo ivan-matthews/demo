@@ -133,7 +133,7 @@
 		}
 
 		public function setBackUrl(){
-			if($this->no_set_back_url){ return $this; }
+			if($this->no_set_back_url){ return '/'; }
 			$back_url = '/';
 			$response = Response::getInstance();
 			if(fx_equal($response->getResponseCode(),200)){

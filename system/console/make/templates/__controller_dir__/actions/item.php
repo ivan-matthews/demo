@@ -4,6 +4,7 @@
 
 	use Core\Classes\Hooks;
 	use Core\Classes\Request;
+	use Core\Classes\Session;
 	use Core\Classes\Response\Response;
 	use Core\Controllers\__controller_namespace__\Config;
 	use Core\Controllers\__controller_namespace__\Controller;
@@ -34,6 +35,9 @@
 
 		/** @var Hooks */
 		public $hook;
+
+		/** @var Session */
+		public $session;
 
 		/** @var array */
 		public $item;
@@ -66,39 +70,39 @@
 
 		}
 
-		public function methodGet($id){
+		public function methodGet($item_id){
 			return false;
 		}
 
-		public function methodPost($id){
+		public function methodPost($item_id){
 			return false;
 		}
 
-		public function methodPut(){
+		public function methodPut($item_id){
 			return false;
 		}
 
-		public function methodHead(){
+		public function methodHead($item_id){
 			return false;
 		}
 
-		public function methodTrace(){
+		public function methodTrace($item_id){
 			return false;
 		}
 
-		public function methodPatch(){
+		public function methodPatch($item_id){
 			return false;
 		}
 
-		public function methodOptions(){
+		public function methodOptions($item_id){
 			return false;
 		}
 
-		public function methodConnect(){
+		public function methodConnect($item_id){
 			return false;
 		}
 
-		public function methodDelete(){
+		public function methodDelete($item_id){
 			return false;
 		}
 

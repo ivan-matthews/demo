@@ -44,7 +44,9 @@
 
 	<?php if(!$submit){ ?>
 
-		<input class="btn btn-primary" type="submit">
+		<div class="text-center submit">
+			<input class="btn btn-primary" type="submit">
+		</div>
 
 	<?php } ?>
 

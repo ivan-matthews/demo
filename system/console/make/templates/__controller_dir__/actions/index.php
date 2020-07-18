@@ -4,6 +4,7 @@
 
 	use Core\Classes\Hooks;
 	use Core\Classes\Request;
+	use Core\Classes\Session;
 	use Core\Classes\Response\Response;
 	use Core\Controllers\__controller_namespace__\Config;
 	use Core\Controllers\__controller_namespace__\Controller;
@@ -34,6 +35,9 @@
 
 		/** @var Hooks */
 		public $hook;
+
+		/** @var Session */
+		public $session;
 
 		/** @var array */
 		public $__action_property__;

@@ -9,6 +9,8 @@
 	define('THEME_POSITIONS',array(
 		'header'			=> true,
 		'sidebar'			=> true,
+		'top'				=> true,
+		'bottom'			=> true,
 		'body_header'		=> true,
 		'before_content'	=> true,
 		'after_content'		=> true,
@@ -65,6 +67,8 @@
 
 			<div class="row justify-content-center">
 
+				<?php $this->widget('top') ?>
+
 				<div class="sidebar-parent col-md-3 col-sm-3 col-3 col-lg-3 col-xl-3">
 
 					<?php $this->widget('sidebar') ?>
@@ -92,6 +96,8 @@
 					<?php $this->widget('body_footer') ?>
 
 				</div>
+
+				<?php $this->widget('bottom') ?>
 
 			</div>
 

@@ -8,6 +8,7 @@
 	use Core\Classes\Request;
 	use Core\Classes\Form\Interfaces\Validator;
 	use Core\Classes\Form\Interfaces\Form as FormInterface;
+	use Core\Classes\Session;
 
 	class Auth_Form extends Form{
 
@@ -21,6 +22,9 @@
 		private $request;
 
 		private $form_name;
+
+		/** @var Session */
+		protected $session;
 
 		/** @return $this */
 		public static function getInstance($form_name=null){
@@ -98,5 +102,11 @@
 				->validate(1);
 			return $this->generateFieldsList();
 		}
+
+
+
+
+
+
 
 	}

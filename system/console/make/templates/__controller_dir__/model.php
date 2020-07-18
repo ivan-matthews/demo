@@ -4,6 +4,7 @@
 
 	use Core\Classes\Model as ParentModel;
 	use Core\Classes\Cache\Interfaces\Cache;
+	use Core\Classes\Kernel;
 
 	class Model extends ParentModel{
 

@@ -106,7 +106,9 @@
 			$this->parseIndex();
 			$this->cache_directory = "{$this->root}/{$this->key}";
 			$this->cache_filename = "{$this->cache_directory}/{$this->hash}.{$this->file_extension}";
-			fx_make_dir($this->cache_directory,0777);
+			if($this->params['cache_enabled']){
+				fx_make_dir($this->cache_directory,0777);
+			}
 			return $this;
 		}
 

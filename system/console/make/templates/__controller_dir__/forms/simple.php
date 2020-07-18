@@ -27,6 +27,7 @@
 
 	use Core\Classes\Form\Form;
 	use Core\Classes\Request;
+	use Core\Classes\Session;
 	use Core\Classes\Form\Interfaces\Checkers;
 	use Core\Classes\Form\Interfaces\Validator;
 	use Core\Classes\Form\Interfaces\Form as FormInterface;
@@ -41,6 +42,9 @@
 
 		/** @var Request */
 		private $request;
+
+		/** @var Session */
+		protected $session;
 
 		private $form_name;
 

@@ -10,6 +10,7 @@
 
 		public $site_config;
 		public $response;
+		public $session;
 		public $request;
 		public $user;
 		public $hook;
@@ -38,6 +39,7 @@
 		public function __construct(){
 			$this->site_config = Config::getInstance();
 			$this->response = Response::getInstance();
+			$this->session = Session::getInstance();
 			$this->request = Request::getInstance();
 			$this->user = User::getInstance();
 			$this->hook = Hooks::getInstance();

@@ -36,7 +36,9 @@
 		public $hook;
 
 		/** @var array */
-		private $item;
+		public $bookmark;
+
+		public $user_data;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -46,62 +48,30 @@
 			return self::$instance;
 		}
 
-		public function __get($key){
-			if(isset($this->item[$key])){
-				return $this->item[$key];
+		public function __construct(){
+			parent::__construct();
+			$this->response->title('auth.title_auth_bookmark');
+			$this->dontSetBackLink();
+		}
+
+		public function methodGet($bookmark){
+			$this->bookmark = $bookmark;
+			$this->response->breadcrumb('bookmark')
+				->setValue('auth.title_auth_bookmark')
+				->setLink('auth','item',$this->bookmark)
+				->setIcon(null);
+			$this->user_data = $this->model->getUserByBookmark($bookmark);
+			if($this->user_data){
+				$this->user_data['groups'] = fx_arr($this->user_data['groups']);
+				$this->user->escape();
+				$this->user->auth($this->user_data,true);
+
+				// run Users::Item($this->user_data['id']) controller
+
+				return $this->redirect();
 			}
 			return false;
 		}
-
-		public function __set($name, $value){
-			$this->item[$name] = $value;
-			return $this->item[$name];
-		}
-
-		public function __construct(){
-			parent::__construct();
-		}
-
-		public function __destruct(){
-
-		}
-
-		public function methodGet($id){
-			return false;
-		}
-
-		public function methodPost($id){
-			return false;
-		}
-
-		public function methodPut(){
-			return false;
-		}
-
-		public function methodHead(){
-			return false;
-		}
-
-		public function methodTrace(){
-			return false;
-		}
-
-		public function methodPatch(){
-			return false;
-		}
-
-		public function methodOptions(){
-			return false;
-		}
-
-		public function methodConnect(){
-			return false;
-		}
-
-		public function methodDelete(){
-			return false;
-		}
-
 
 
 

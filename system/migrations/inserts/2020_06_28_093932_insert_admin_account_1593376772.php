@@ -58,8 +58,6 @@
 				->value('citates','NaN')
 				->value('about','NaN')
 				->value('date_log',time())
-				->value('date_reg',time())
-				->value('log_type',time())
 				->value('status',Kernel::STATUS_ACTIVE)
 				->get()
 				->id();

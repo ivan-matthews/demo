@@ -61,6 +61,7 @@
 				->setValue('auth.title_index_action')
 				->setLink('auth')
 				->setIcon(null);
+			$this->dontSetBackLink();
 		}
 
 		public function methodGet(){
@@ -91,15 +92,9 @@
 				$this->user_data = $this->model->getAuthDataByLogin($this->form_fields_list['login']['attributes']['value']);
 				if($this->user_data){
 					if(fx_equal($this->user_data['password'],fx_encode($this->form_fields_list['password']['attributes']['value']))){
-						if(fx_equal($this->user_data['status'],Kernel::STATUS_BLOCKED)){
-							$this->form_fields_list['login']['errors'][] = fx_lang('auth.user_blocked',array(
-								'%user_full_name%'	=> $this->user_data['full_name']
-							));
-						}else{
-							$this->user_data['groups'] = fx_arr($this->user_data['groups']);
-							$this->user->auth($this->user_data,$this->form_fields_list['member_me']['attributes']['value']);
-							return $this->redirect();
-						}
+						$this->user_data['groups'] = fx_arr($this->user_data['groups']);
+						$this->user->auth($this->user_data,$this->form_fields_list['member_me']['attributes']['value']);
+						return $this->redirect();
 					}else{
 						$this->form_fields_list['password']['errors'][] = fx_lang('auth.passwords_not_equal',array(
 							'%input_password%'	=> $this->form_fields_list['password']['attributes']['value']

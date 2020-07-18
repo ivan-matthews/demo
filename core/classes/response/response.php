@@ -12,7 +12,6 @@
 	 * @method static Widget _widget($widget_name)
 	 * @method static Title _title()
 	 * @method static Meta _meta($meta)
-	 * @method static Session_Message _sessionMessage($message)
 	 * @method static Error _error($backtrace_key=2)
 	 * @method static Debug _debug($debug_key,$backtrace_key=2)
 	 * @method static Response _favicon($icon)
@@ -38,7 +37,7 @@
 				'title'				=> array(),
 				'meta'				=> array(),
 				'breadcrumb'		=> array(),
-				'session_message'	=> array(),
+				'session_messages'	=> array(),
 				'favicon'			=> '',
 			),
 			'errors'			=> array(),
@@ -107,10 +106,6 @@
 
 		public function meta($meta){
 			return new Meta(self::getInstance(),$meta);
-		}
-
-		public function sessionMessage($message){
-			return new Session_Message(self::getInstance(),$message);
 		}
 
 		public function error($backtrace_key=2){
