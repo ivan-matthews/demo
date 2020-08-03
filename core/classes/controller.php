@@ -2,10 +2,7 @@
 
 	namespace Core\Classes;
 
-	use Core\Classes\Form\Form;
 	use Core\Classes\Response\Response;
-	use Core\Classes\Form\Interfaces\Form as FormInterface;
-	use Core\Widgets\Filter;
 	use Core\Widgets\Paginate;
 	use Core\Widgets\Sorting_Panel;
 	use Core\Widgets\Header_Bar;
@@ -198,6 +195,19 @@
 			return $this;
 		}
 
+		protected function header_bar(array $header_bar_data_from_params_array,array $tabs_link,$current_tab){
+			foreach($header_bar_data_from_params_array as $key=>$value){
+				$new_tabs_link = $tabs_link;
+				$new_tabs_link[] = $key;
+				$header_bar_data_from_params_array[$key]['link'] = $new_tabs_link;
+			}
+
+			Header_Bar::add()
+				->data($header_bar_data_from_params_array)
+				->current($current_tab)
+				->set();
+			return $this;
+		}
 
 
 

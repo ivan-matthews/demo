@@ -125,6 +125,30 @@
 			return $result['total'];
 		}
 
+		public function updateUserInfoByUserId(array $fields_list, array $compare_fields, $user_id){
+			$update_query = $this->update('users');
+			$data_to_update = null;
+			foreach($compare_fields as $compare_field){
+				if(!isset($fields_list[$compare_field['field']])){ continue; }
+				$data_to_update = true;
+				$update_query = $update_query->field(
+					$compare_field['field'],
+					$fields_list[$compare_field['field']]['attributes']['value']
+				);
+			}
+			if($data_to_update){
+				$update_query = $update_query->where("`u_id`=%user_id%");
+				$update_query = $update_query->data('%user_id%',$user_id);
+				$update_query = $update_query->get();
+				$update_query = $update_query->rows();
+
+				$this->cache->key('users.items.' . $user_id)->clear();
+				$this->cache->key('users.all')->clear();
+
+				return $update_query;
+			}
+			return false;
+		}
 
 
 

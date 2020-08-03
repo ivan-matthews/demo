@@ -85,7 +85,7 @@
 
 			$link = array('users', 'index', $this->sorting_action, $this->sorting_type);
 
-			$this->fields = $this->params->getParams('fields');
+			$this->fields = $this->params->loadParamsFromControllerFile('fields');
 
 			$this->filter->filter(fx_get_url(...$link), $this->fields);
 			$this->sorting($this->params->sorting_panel);

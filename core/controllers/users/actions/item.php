@@ -76,7 +76,7 @@
 				$this->breadcrumbs->setLink('users','item',$this->user_data['u_id'])
 					->setValue($this->user_data['u_full_name']);
 
-				$this->fields = $this->params->getParams('fields');
+				$this->fields = $this->params->loadParamsFromControllerFile('fields');
 
 				$this->fields_list = $this->users_item_form->getFields($this->fields);
 

@@ -5,11 +5,9 @@
 	use Core\Classes\Form\Form;
 	use Core\Classes\Request;
 	use Core\Classes\Session;
-	use Core\Classes\Form\Interfaces\Checkers;
 	use Core\Classes\Form\Interfaces\Validator;
-	use Core\Classes\Form\Interfaces\Form as FormInterface;
 
-	class Simple extends Form{
+	class Edit extends Form{
 
 		/** @var $this */
 		private static $instance;
@@ -41,6 +39,21 @@
 			$this->form_name = $form_name;
 		}
 
+		public function setFields($fields,$user_data){
+			$this->validator_interface->setData($user_data);
+			$this->setArrayFields($fields);
+			$this->checkArrayFields();
+			return $this;
+		}
+
+		public function checkForm($fields){
+			$this->validator_interface->csrf(1);
+			$this->validator_interface->validate(1);
+			$this->validator_interface->setData($this->request->getArray($this->form_name));
+			$this->setArrayFields($fields);
+			$this->checkArrayFields();
+			return $this;
+		}
 
 
 
@@ -50,6 +63,6 @@
 
 
 
-
+		
 
 	}

@@ -57,23 +57,23 @@
 			),
 		),
 		'header_bar_user_edit'	=> array(
-			'name'	=> array(
+			'field_set_name'	=> array(
 				'title'	=> 'users.header_bar_name',
 				'link'	=> array(),
 			),
-			'geo'	=> array(
+			'geo_info'	=> array(
 				'title'	=> 'users.header_bar_geo',
 				'link'	=> array(),
 			),
-			'old'	=> array(
+			'field_set_birth_date'	=> array(
 				'title'	=> 'users.header_bar_old',
 				'link'	=> array(),
 			),
-			'contacts'	=> array(
+			'field_set_contacts'	=> array(
 				'title'	=> 'users.header_bar_contacts',
 				'link'	=> array(),
 			),
-			'about'	=> array(
+			'field_set_activities'	=> array(
 				'title'	=> 'users.header_bar_about',
 				'link'	=> array(),
 			),

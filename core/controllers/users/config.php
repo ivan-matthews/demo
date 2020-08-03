@@ -2,7 +2,7 @@
 
 	namespace Core\Controllers\Users;
 
-	use Core\Classes\Kernel;
+	use Core\Classes\Params;
 
 	/**
 	 * Class Config
@@ -15,13 +15,12 @@
 	 * @property array $ordering
 	 * @property array $header_bar_user_edit
 	 */
-	class Config{
+	class Config extends Params{
 
 		/** @var $this */
 		private static $instance;
 
-		/** @var array */
-		private $params;
+		protected $current_controller = 'users';
 
 		/** @return $this */
 		public static function getInstance(){
@@ -31,28 +30,8 @@
 			return self::$instance;
 		}
 
-		public function __get($key){
-			if(isset($this->params[$key])){
-				return $this->params[$key];
-			}
-			return false;
-		}
-
-		public function __set($name, $value){
-			$this->params[$name] = $value;
-			return $this->params[$name];
-		}
-
 		public function __construct(){
-			$this->params = $this->getParams();
-		}
-
-		public function __destruct(){
-
-		}
-
-		public function getParams($file='params'){
-			return fx_load_helper("core/controllers/users/config/{$file}",Kernel::IMPORT_INCLUDE);
+			parent::__construct();
 		}
 
 

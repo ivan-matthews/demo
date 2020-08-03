@@ -2,7 +2,7 @@
 
 	namespace Core\Controllers\__controller_namespace__;
 
-	use Core\Classes\Kernel;
+	use Core\Classes\Params;
 
 	/**
 	 * Class Config
@@ -12,13 +12,12 @@
 	 * @property array $controller
 	 * @property array $actions
 	 */
-	class Config{
+	class Config extends Params{
 
 		/** @var $this */
 		private static $instance;
 
-		/** @var array */
-		private $config;
+		protected $current_controller = '__controller_property__';
 
 		/** @return $this */
 		public static function getInstance(){
@@ -28,29 +27,10 @@
 			return self::$instance;
 		}
 
-		public function __get($key){
-			if(isset($this->config[$key])){
-				return $this->config[$key];
-			}
-			return false;
-		}
-
-		public function __set($name, $value){
-			$this->config[$name] = $value;
-			return $this->config[$name];
-		}
-
 		public function __construct(){
-			$this->config = $this->getParams();
+			parent::__construct();
 		}
 
-		public function __destruct(){
-
-		}
-
-		public function getParams($file='params'){
-			return fx_load_helper("core/controllers/__controller_property__/config/{$file}",Kernel::IMPORT_INCLUDE);
-		}
 
 
 
