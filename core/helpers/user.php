@@ -81,11 +81,15 @@
 
 	function fx_get_icon_logged($user_log_type){
 		$icons = array(
-			User::LOGGED_DESKTOP	=> '<i class="fas desktop fa-desktop" aria-hidden="true"></i>',
 			User::LOGGED_APPLE		=> '<i class="fab apple fa-apple" aria-hidden="true"></i>',
 			User::LOGGED_ANDROID	=> '<i class="fab android fa-android" aria-hidden="true"></i>',
+			User::LOGGED_LINUX		=> '<i class="fab linux fa-linux" aria-hidden="true"></i>',
+			User::LOGGED_WINDOWS	=> '<i class="fab windows fa-windows" aria-hidden="true"></i>',
+
+			User::LOGGED_DESKTOP	=> '<i class="fas desktop fa-desktop" aria-hidden="true"></i>',
 			User::LOGGED_TABLET		=> '<i class="fas tablet fa-tablet-alt" aria-hidden="true"></i>',
 			User::LOGGED_MOBILE		=> '<i class="fas mobile fa-mobile-alt" aria-hidden="true"></i>',
+
 			User::LOGGED_DEFAULT	=> '<i class="far circle fa-circle" aria-hidden="true"></i>',
 		);
 		if(isset($icons[$user_log_type])){

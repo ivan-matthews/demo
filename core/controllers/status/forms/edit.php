@@ -70,13 +70,13 @@
 			return $this;
 		}
 
-		public function generateFieldsList($item_id){
+		public function generateFieldsList($user_id,$item_id){
 			$this->item_id = $item_id;
 
-			$this->validator_interface->form(function(FormInterface $form){
+			$this->validator_interface->form(function(FormInterface $form)use($user_id){
 				$form->setFormMethod('POST');
 				$form->setFormName($this->form_name);
-				$form->setFormAction(fx_get_url('status','edit',$this->item_id));
+				$form->setFormAction(fx_get_url('status','edit',$user_id,$this->item_id));
 			});
 			$this->validator_interface->field('s_status')
 				->jevix(true)
@@ -92,14 +92,14 @@
 			return $this;
 		}
 
-		public function checkFieldsList($input_data,$item_id){
+		public function checkFieldsList($user_id,$input_data,$item_id){
 			$this->item_id = $item_id;
 
 			$this->validator_interface
 				->setData($input_data)
 				->csrf(1)
 				->validate(1);
-			return $this->generateFieldsList($this->item_id);
+			return $this->generateFieldsList($user_id,$this->item_id);
 		}
 
 

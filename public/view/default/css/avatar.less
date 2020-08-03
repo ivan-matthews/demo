@@ -1,0 +1,50 @@
+@import "vars";
+
+.user-avatar{
+	.image{
+		position: relative;
+		.delete,.edit,.view,.add{
+			a{
+				display: none;
+				position: absolute;
+				opacity: 0.4;
+				background: rgba(0, 0, 0, 0.5);
+				width: 50%;
+				text-align: center;
+				padding: 10px 0;
+				&:hover{
+					opacity: 1;
+				}
+				i,svg{
+					color: #FFFFFF;
+					font-size: 25px;
+				}
+			}
+		}
+		.delete{
+			a{
+				right: 0;
+				top: 0;
+			}
+		}
+		.edit{
+			a{
+				left: 0;
+				top: 0;
+			}
+		}
+		.view,.add{
+			a{
+				bottom: 0;
+				width: 100%;
+			}
+		}
+		&:hover{
+			>.edit,>.delete,>.view,>.add{
+				a{
+					display: block;
+				}
+			}
+		}
+	}
+}

@@ -69,11 +69,11 @@
 			return $this;
 		}
 
-		public function generateFieldsList(){
-			$this->validator_interface->form(function(FormInterface $form){
+		public function generateFieldsList($user_id){
+			$this->validator_interface->form(function(FormInterface $form)use($user_id){
 				$form->setFormMethod('POST');
 				$form->setFormName($this->form_name);
-				$form->setFormAction(fx_get_url('status','add'));
+				$form->setFormAction(fx_get_url('status','add',$user_id));
 			});
 			$this->validator_interface->field('s_status')
 				->jevix(true)
@@ -89,12 +89,12 @@
 			return $this;
 		}
 
-		public function checkFieldsList($input_data){
+		public function checkFieldsList($input_data,$user_id){
 			$this->validator_interface
 				->setData($input_data)
 				->csrf(1)
 				->validate(1);
-			return $this->generateFieldsList();
+			return $this->generateFieldsList($user_id);
 		}
 
 

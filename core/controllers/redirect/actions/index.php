@@ -54,6 +54,7 @@
 
 		public function __construct(){
 			parent::__construct();
+			$this->backLink();
 			$this->link_to_redirect = $this->request->get('url');
 		}
 

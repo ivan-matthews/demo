@@ -19,8 +19,8 @@
 				$table->bigint('ug_id')->unsigned()->autoIncrement()->primary();
 
 				$table->varchar('ug_name')->nullable()->unique();
-				$table->tinyint('ug_status')->notNull()->defaults(Kernel::STATUS_ACTIVE);
-				$table->tinyint('ug_default')->notNull()->defaults(0);
+				$table->tinyint('ug_status')->notNull()->defaults(Kernel::STATUS_ACTIVE)->index();
+				$table->tinyint('ug_default')->notNull()->defaults(0)->index();
 
 				$table->add_timestamps('ug_');
 			});

@@ -18,7 +18,7 @@
 			Database::makeTable('photos',function(Create $table){
 				$table->bigint('p_id')->unsigned()->autoIncrement()->primary();
 
-				$table->varchar('p_user_id')->nullable();
+				$table->varchar('p_user_id')->nullable()->index();
 				$table->varchar('p_name')->nullable()->index();
 				$table->varchar('p_size')->nullable()->index();
 

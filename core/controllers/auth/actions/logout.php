@@ -6,6 +6,7 @@
 	use Core\Classes\Request;
 	use Core\Classes\Response\Response;
 	use Core\Classes\Session;
+	use Core\Classes\User;
 	use Core\Controllers\Auth\Config;
 	use Core\Controllers\Auth\Controller;
 	use Core\Controllers\Auth\Model;
@@ -71,7 +72,7 @@
 			if(fx_equal($csrf_token,fx_csrf())){
 				$user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
 				if($user_id){
-					$this->model->updateDateLog($user_id,time());
+					$this->model->updateDateLog($user_id,time(),User::LOGGED_DEFAULT);
 				}
 				$this->user->escape();
 				$this->redirect();

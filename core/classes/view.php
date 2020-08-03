@@ -158,6 +158,17 @@
 			return $this;
 		}
 
+	/*
+	 * Сжать контент перед рендерингом
+	 *
+	 *	public function includeHomePage(){
+	 *		ob_start();
+	 *		$home_page = $this->path('/main.html.php');
+	 *		include $home_page;
+	 *		$home_page_content = ob_get_clean();
+	 *		return print str_replace(array("\s","\r","\n","\t"),array('','','',''),$home_page_content);
+	 *	}
+	*/
 		public function includeHomePage(){
 			$home_page = $this->path('/main.html.php');
 			return include $home_page;
@@ -191,7 +202,7 @@
 
 		/**
 		 * Рендерить только экшн, для внутренних запросов.<br>
-		 * *Посмотреть метод $this->>setRenderType() - из массива `$this->desired_types`<br>
+		 * * Посмотреть метод $this->>setRenderType() - из массива `$this->desired_types`<br>
 		 * можно использовать ё$this->desired_types[1][0] в
 		 *
 		 * @return bool

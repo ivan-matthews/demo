@@ -1,0 +1,146 @@
+.text-default,
+.color-default {
+  color: #4a76a8;
+}
+.btn-default,
+.bg-default,
+a:not([href]) {
+  color: #fff;
+  background-color: #4a76a8;
+  border-color: #4a76a8;
+}
+.btn-default:hover,
+.bg-default:hover,
+a:not([href]):hover {
+  background: #245f9e;
+  color: #fff;
+}
+.chocolate-icon {
+  color: chocolate;
+}
+.radius-0 {
+  border-radius: 0 !important;
+}
+i,
+svg {
+  color: chocolate;
+}
+i.desktop,
+svg.desktop {
+  background: 1px #FFFFFF;
+}
+i.tablet,
+svg.tablet {
+  background: 1px #FFFFFF;
+}
+i.mobile,
+svg.mobile {
+  background: 1px #FFFFFF;
+}
+i.circle,
+svg.circle {
+  background: 1px #FFFFFF;
+  border-radius: 50%;
+}
+i.fa-grin-alt,
+svg.fa-grin-alt {
+  color: #28a745;
+}
+i.fa-dizzy,
+svg.fa-dizzy {
+  color: #6f7985;
+}
+i.fa-angry,
+svg.fa-angry {
+  color: #dc3545;
+}
+i .fa-frown-open,
+svg .fa-frown-open {
+  color: #ffc107;
+}
+option.empty-value,
+select[value="0"] {
+  font-style: italic;
+  color: #c8cbcf;
+}
+.btn-primary,
+.btn-danger,
+.btn-success,
+.btn-warning,
+.btn-default {
+  font-weight: bold;
+}
+.btn-primary i,
+.btn-danger i,
+.btn-success i,
+.btn-warning i,
+.btn-default i,
+.btn-primary svg,
+.btn-danger svg,
+.btn-success svg,
+.btn-warning svg,
+.btn-default svg {
+  color: #FFFFFF;
+}
+.btn-group.field {
+  min-width: 296px;
+}
+iframe {
+  width: 100%;
+  height: auto;
+  border: none;
+}
+.hidden {
+  display: none;
+}
+.user-avatar .image {
+  position: relative;
+}
+.user-avatar .image .delete a,
+.user-avatar .image .edit a,
+.user-avatar .image .view a,
+.user-avatar .image .add a {
+  display: none;
+  position: absolute;
+  opacity: 0.4;
+  background: rgba(0, 0, 0, 0.5);
+  width: 50%;
+  text-align: center;
+  padding: 10px 0;
+}
+.user-avatar .image .delete a:hover,
+.user-avatar .image .edit a:hover,
+.user-avatar .image .view a:hover,
+.user-avatar .image .add a:hover {
+  opacity: 1;
+}
+.user-avatar .image .delete a i,
+.user-avatar .image .edit a i,
+.user-avatar .image .view a i,
+.user-avatar .image .add a i,
+.user-avatar .image .delete a svg,
+.user-avatar .image .edit a svg,
+.user-avatar .image .view a svg,
+.user-avatar .image .add a svg {
+  color: #FFFFFF;
+  font-size: 25px;
+}
+.user-avatar .image .delete a {
+  right: 0;
+  top: 0;
+}
+.user-avatar .image .edit a {
+  left: 0;
+  top: 0;
+}
+.user-avatar .image .view a,
+.user-avatar .image .add a {
+  bottom: 0;
+  width: 100%;
+}
+.user-avatar .image:hover > .edit a,
+.user-avatar .image:hover > .delete a,
+.user-avatar .image:hover > .view a,
+.user-avatar .image:hover > .add a {
+  display: block;
+}

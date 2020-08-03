@@ -62,45 +62,39 @@
 
 		/**
 		 * @param $js_file_path
-		 * @param null $version
 		 * @return View
 		 */
-		public function addJS($js_file_path,$version=true);
+		public function addJS($js_file_path);
 
 		/**
 		 * @param $js_file_path
-		 * @param null $version
 		 * @return View
 		 */
-		public function appendJS($js_file_path,$version=true);
+		public function appendJS($js_file_path);
 
 		/**
 		 * @param $js_file_path
-		 * @param null $version
 		 * @return View
 		 */
-		public function prependJS($js_file_path,$version=true);
+		public function prependJS($js_file_path);
 
 		/**
 		 * @param $css_file_path
-		 * @param null $version
 		 * @return View
 		 */
-		public function addCSS($css_file_path,$version=true);
+		public function addCSS($css_file_path);
 
 		/**
 		 * @param $css_file_path
-		 * @param null $version
 		 * @return View
 		 */
-		public function appendCSS($css_file_path,$version=true);
+		public function appendCSS($css_file_path);
 
 		/**
 		 * @param $css_file_path
-		 * @param null $version
 		 * @return View
 		 */
-		public function prependCSS($css_file_path,$version=true);
+		public function prependCSS($css_file_path);
 
 		/**
 		 * @return View

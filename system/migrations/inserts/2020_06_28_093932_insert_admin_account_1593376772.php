@@ -10,7 +10,7 @@
 	class InsertAdminAccount202006280939321593376772{
 
 		private $user_id;
-		private $status = 'my first status data, more some values, more other data, more other items, more other info, or more... just more... ptichki poyut... volny shumiat...';
+		private $status = 'my first status data, more some values, more other data, more other items, more other info, or more... just more... ptichki poyut... volny shumiat... 😾 😈';
 		private $password = 'Qwerty12345^';
 		private $login = 'admin@m.c';
 		private $file_name = 'simple image.png';

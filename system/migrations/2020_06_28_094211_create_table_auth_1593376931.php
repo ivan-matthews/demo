@@ -19,21 +19,21 @@
 				$table->bigint('a_id')->unsigned()->autoIncrement()->primary();
 
 				$table->varchar('a_login')->notNull()->unique();
-				$table->varchar('a_password')->notNull();
-				$table->longtext('a_enc_password')->notNull();
-				$table->varchar('a_lang',2)->nullable();
-				$table->longtext('a_groups')->notNull();
+				$table->varchar('a_password')->notNull()->index();
+				$table->longtext('a_enc_password')->notNull()->fullText();
+				$table->varchar('a_lang',2)->nullable()->index();
+				$table->longtext('a_groups')->notNull()->fullText();
 
 				$table->varchar('a_bookmark')->bin()->unique();
 				$table->varchar('a_verify_token')->bin()->unique();
 				$table->varchar('a_restore_login_token')->bin()->unique();
 				$table->varchar('a_restore_password_token')->bin()->unique();
 
-				$table->smallint('a_status',1)->notNull()->defaults(Kernel::STATUS_LOCKED);
+				$table->smallint('a_status',1)->notNull()->defaults(Kernel::STATUS_LOCKED)->index();
 
-				$table->bigint('a_date_login_restore')->nullable();
-				$table->bigint('a_date_password_restore')->nullable();
-				$table->bigint('a_date_activate')->nullable();
+				$table->bigint('a_date_login_restore')->nullable()->index();
+				$table->bigint('a_date_password_restore')->nullable()->index();
+				$table->bigint('a_date_activate')->nullable()->index();
 
 				$table->add_timestamps('a_');
 			});

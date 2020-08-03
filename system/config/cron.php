@@ -1,6 +1,6 @@
 <?php
 
-//	http://mysite.com/cron.php?validation_key=Cron_Tab_Task_Manager_Validation_Key&validation_token_key=CronTabTaskManagerValidationTokenKey
+//	http://mysite.com/cron.php?key=[validation_key]&token=[validation_token_key]&list[]=1&list[]=2&list[]=3&list[]=4
 
 	return array(
 		'time_limit'			=> 0,

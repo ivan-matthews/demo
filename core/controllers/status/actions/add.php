@@ -64,15 +64,17 @@
 		public function __construct(){
 			parent::__construct();
 			$this->backLink();
-			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
 			$this->user_name = $this->session->get('u_full_name',Session::PREFIX_AUTH);
 			$this->add_form = Simple::getInstance('status');
 
 			$this->input_data = $this->request->getArray('status');
 		}
 
-		public function methodGet(){
-			$this->add_form->generateFieldsList();
+		public function methodGet($user_id){
+			$this->user_id = $user_id;
+			if(!fx_me($this->user_id)){ return false; }
+
+			$this->add_form->generateFieldsList($this->user_id);
 
 			$this->response->controller('status','add')
 				->setArray(array(
@@ -86,8 +88,11 @@
 			return $this;
 		}
 
-		public function methodPost(){
-			$this->add_form->checkFieldsList($this->input_data);
+		public function methodPost($user_id){
+			$this->user_id = $user_id;
+			if(!fx_me($this->user_id)){ return false; }
+
+			$this->add_form->checkFieldsList($this->input_data,$this->user_id);
 
 			$this->fields_list = $this->add_form->getFieldsList();
 

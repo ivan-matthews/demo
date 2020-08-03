@@ -6,15 +6,16 @@
 
 	class User{
 
-		const LOGGED_DESKTOP	= 1;
-		const LOGGED_APPLE 		= 2;
-		const LOGGED_ANDROID 	= 3;
-		const LOGGED_LINUX 		= 4;
-		const LOGGED_WINDOWS 	= 5;
-		const LOGGED_WP 		= 6;
-		const LOGGED_TABLET 	= 7;
-		const LOGGED_MOBILE 	= 8;
-		const LOGGED_DEFAULT 	= 9;
+		const LOGGED_APPLE 		= 1;
+		const LOGGED_ANDROID 	= 2;
+		const LOGGED_LINUX 		= 3;
+		const LOGGED_WINDOWS 	= 4;
+
+		const LOGGED_DESKTOP	= 5;
+		const LOGGED_TABLET 	= 6;
+		const LOGGED_MOBILE 	= 7;
+
+		const LOGGED_DEFAULT 	= 8;
 
 		const GENDER_MALE		= 1;
 		const GENDER_FEMALE		= 2;

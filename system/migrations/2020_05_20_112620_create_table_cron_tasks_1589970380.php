@@ -19,15 +19,15 @@
 				$table->bigint('ct_id')->unsigned()->autoIncrement()->primary();
 
 				$table->varchar('ct_title')->nullable()->index();
-				$table->longtext('ct_description');
 				$table->varchar('ct_class')->nullable()->index();
-				$table->varchar('ct_method')->notNull()->defaults('execute');
-				$table->varchar('ct_params')->notNull()->defaults('[]');
-				$table->varchar('ct_period')->notNull()->defaults(3600); // seconds
-				$table->tinyint('ct_status',2)->notNull()->defaults(Kernel::STATUS_ACTIVE);
-				$table->longtext('ct_options');
-				$table->longtext('ct_errors');
-				$table->longtext('ct_result');
+				$table->varchar('ct_method')->notNull()->defaults('execute')->index();
+				$table->varchar('ct_params')->notNull()->defaults('[]')->index();
+				$table->varchar('ct_period')->notNull()->defaults(3600)->index(); // seconds
+				$table->tinyint('ct_status',2)->notNull()->defaults(Kernel::STATUS_ACTIVE)->index();
+				$table->longtext('ct_description')->nullable()->fullText();
+				$table->longtext('ct_options')->nullable()->fullText();
+				$table->longtext('ct_errors')->nullable()->fullText();
+				$table->longtext('ct_result')->nullable()->fullText();
 
 				$table->add_timestamps('ct_');
 			});

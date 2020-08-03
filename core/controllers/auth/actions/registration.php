@@ -6,6 +6,7 @@
 	use Core\Classes\Kernel;
 	use Core\Classes\Request;
 	use Core\Classes\Response\Response;
+	use Core\Classes\User;
 	use Core\Controllers\Auth\Config;
 	use Core\Controllers\Auth\Controller;
 	use Core\Controllers\Auth\Model;
@@ -99,7 +100,9 @@
 					'bookmark'		=> fx_encode($this->fields_list['login']['attributes']['value'].$this->fields_list['password']['attributes']['value']),
 					'verify_token'	=> $this->generateVerifyTokenKey(),
 					'status'		=> Kernel::STATUS_LOCKED,
+					'log_type'		=> User::LOGGED_DEFAULT,
 					'date_created'	=> time(),
+					'date_log'		=> time(),
 				);
 				$this->user_id = $this->model->addNewUser($this->auth_data);
 				if($this->user_id){

@@ -17,10 +17,10 @@
 		public function secondStep(){
 			Database::makeTable('menu',function(Create $table){
 				$table->bigint('m_id')->unsigned()->autoIncrement()->primary();
-				$table->bigint('m_widget_id')->unsigned()->nullable();
+				$table->bigint('m_widget_id')->unsigned()->nullable()->index();
 				$table->varchar('m_name')->notNull()->unique();
-				$table->varchar('m_title')->nullable();
-				$table->int('m_status')->notNull()->defaults(Kernel::STATUS_ACTIVE);
+				$table->varchar('m_title')->nullable()->index();
+				$table->int('m_status')->notNull()->defaults(Kernel::STATUS_ACTIVE)->index();
 				$table->add_timestamps('m_');
 			});
 			return $this;

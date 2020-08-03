@@ -2,7 +2,7 @@
 	/** @var \Core\Classes\View $this */
 	/** @var array $data */
 
-	if(!$this->config->core['debug_enabled']){ return false; }
+//	if(!$this->config->core['debug_enabled']){ return false; }
 ?>
 <div class="footer">
 	<?php if($data['options']['wa_show_title']){ ?>

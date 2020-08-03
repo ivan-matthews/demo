@@ -115,6 +115,7 @@
 /*		SORTING PANEL ACTIONS			*/
 
 		protected function setSortingPanelAll(){
+			$this->order = 'RAND()';
 			return null;
 		}
 		protected function setSortingPanelOnline(){

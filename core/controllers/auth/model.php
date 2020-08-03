@@ -45,6 +45,8 @@
 				->value('u_auth_id',$this->auth_id)
 				->value('u_status',$auth_data['status'])
 				->value('u_date_created',$auth_data['date_created'])
+				->value('u_log_type',$auth_data['log_type'])
+				->value('u_date_log',$auth_data['date_log'])
 				->get()
 				->id();
 
@@ -286,9 +288,10 @@
 			return $generated_key;
 		}
 
-		public function updateDateLog($user_id,$date_log){
+		public function updateDateLog($user_id,$date_log,$log_type){
 			$this->update('users')
 				->field('u_date_log',$date_log)
+				->field('u_log_type',$log_type)
 				->where("`u_id`=%user_id%")
 				->data('%user_id%',$user_id)
 				->get()

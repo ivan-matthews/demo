@@ -4,8 +4,12 @@
 	/** @var array $data */
 	/** @var string $link */
 
+	$this->addCSS("{$this->theme_path}/css/redirect");
+
+	$timer = 10;
+
 	$decoded_url = urldecode($link);
-	$decoded_link =  "<span class=\"text-info\">{$decoded_url}</span>";
+	$decoded_link =  "<span class=\"external-link\">{$decoded_url}</span>";
 	$self_link = "<a href=\"{$this->config->core['site_scheme']}://{$this->config->core['site_host']}\">{$this->config->core['site_name']}</a>";
 ?>
 
@@ -13,47 +17,56 @@
 
 	<div class="card col-12 p-0 m-0 radius-0">
 		<div class="card-header text-center">
-			<h3><?php print fx_lang('redirect.redirect_dialog_header',array(
-				'%site_name%'	=> $self_link
-				)) ?></h3>
+			<?php print fx_lang('redirect.redirect_dialog_header',array(
+				'%site_name%'	=> $self_link,
+				'%timer%'		=> "<strong><span class=\"redirect-timer text-success\">{$timer}</span></strong>"
+				)) ?>
 		</div>
 		<div class="card-body text-center">
-			<h5>
+			
 				<strong>
 					<?php print fx_lang('redirect.redirect_dialog_title',array(
 						'%site_name%'	=> $decoded_link
 					)) ?>
 				</strong>
-			</h5>
+			
 		</div>
-		<div class="card-body text-center">
-			<h5>
-				<?php print fx_lang('redirect.redirect_dialog_title_red',array(
-					'%site_name%'	=> $decoded_link,
-					'%n%'			=> "<strong><span class=\"redirect-timer text-success\">10</span></strong>"
-				)) ?>
-			</h5>
-		</div>
-		<div class="card-body text-center">
-			<h8>
-				<?php print fx_lang('redirect.redirect_dialog_title_link',array(
-					'%link%'	=> "<a href=\"{$decoded_url}\" target=\"_blank\" class=\"redirect-link\">{$decoded_url}</a>",
-				)) ?>
-			</h8>
-		</div>
-		<div class="card-body text-center text-warning">
-			<h3>
+		<div class="card-body text-center text-danger ahtung">
+			
 				<?php print fx_lang('redirect.redirect_dialog_title_warn',array(
 					'%site_name%'	=> $decoded_link
 				)) ?>
-			</h3>
+			
 		</div>
-		<div class="card-body text-center text-danger">
-			<h3>
+		<div class="card-body text-center text-danger ahtung">
+			
 				<?php print fx_lang('redirect.redirect_dialog_title_warn1',array(
 					'%site_name%'	=> $self_link
 				)) ?>
-			</h3>
+			
+		</div>
+		<div class="card-body text-center">
+
+			<?php print fx_lang('redirect.redirect_dialog_title_red',array(
+				'%site_name%'	=> $decoded_link,
+				'%n%'			=> "<strong><span class=\"redirect-timer text-success\">{$timer}</span></strong>"
+			)) ?>
+
+		</div>
+		<div class="card-body text-center go-back">
+
+			<?php print fx_lang('redirect.press_link_to_back',array(
+				'%ext_site%'	=> $decoded_link,
+				'%self_site%'	=> $self_link
+			)) ?>
+
+		</div>
+		<div class="card-body text-center micro link">
+
+			<?php print fx_lang('redirect.redirect_dialog_title_link',array(
+				'%link%'	=> "<a href=\"{$decoded_url}\" target=\"_blank\" class=\"redirect-link\">{$decoded_url}</a>",
+			)) ?>
+
 		</div>
 	</div>
 

@@ -18,7 +18,7 @@
 				$table->bigint('mg_id')->unsigned()->autoIncrement()->primary();
 
 				$table->varchar('mg_name')->bin()->unique();
-				$table->timestamp('mg_date_created')->currentTimestamp();
+				$table->timestamp('mg_date_created')->currentTimestamp()->index();
 			});
 			return $this;
 		}

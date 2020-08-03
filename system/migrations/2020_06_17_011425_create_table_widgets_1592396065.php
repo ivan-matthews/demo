@@ -18,10 +18,10 @@
 			Database::makeTable('widgets',function(Create $table){
 				$table->bigint('w_id')->unsigned()->autoIncrement()->primary();
 
-				$table->varchar('w_class')->nullable();
-				$table->varchar('w_method')->nullable();
-				$table->varchar('w_status')->nullable()->defaults(Kernel::STATUS_ACTIVE);
-				$table->varchar('w_template')->nullable();
+				$table->varchar('w_class')->nullable()->index();
+				$table->varchar('w_method')->nullable()->index();
+				$table->varchar('w_status')->nullable()->defaults(Kernel::STATUS_ACTIVE)->index();
+				$table->varchar('w_template')->nullable()->index();
 
 				$table->add_timestamps('w_');
 			});

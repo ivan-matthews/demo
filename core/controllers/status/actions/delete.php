@@ -57,10 +57,11 @@
 
 		public function __construct(){
 			parent::__construct();
-			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
 		}
 
-		public function methodGet($status_id){
+		public function methodGet($user_id,$status_id){
+			$this->user_id = $user_id;
+			if(!fx_me($this->user_id)){ return false; }
 			$this->status_id = $status_id;
 
 			$this->data_to_delete = array(

@@ -1,0 +1,126 @@
+.text-default,
+.color-default {
+  color: #4a76a8;
+}
+.btn-default,
+.bg-default,
+a:not([href]) {
+  color: #fff;
+  background-color: #4a76a8;
+  border-color: #4a76a8;
+}
+.btn-default:hover,
+.bg-default:hover,
+a:not([href]):hover {
+  background: #245f9e;
+  color: #fff;
+}
+.chocolate-icon {
+  color: chocolate;
+}
+.radius-0 {
+  border-radius: 0 !important;
+}
+i,
+svg {
+  color: chocolate;
+}
+i.desktop,
+svg.desktop {
+  background: 1px #FFFFFF;
+}
+i.tablet,
+svg.tablet {
+  background: 1px #FFFFFF;
+}
+i.mobile,
+svg.mobile {
+  background: 1px #FFFFFF;
+}
+i.circle,
+svg.circle {
+  background: 1px #FFFFFF;
+  border-radius: 50%;
+}
+i.fa-grin-alt,
+svg.fa-grin-alt {
+  color: #28a745;
+}
+i.fa-dizzy,
+svg.fa-dizzy {
+  color: #6f7985;
+}
+i.fa-angry,
+svg.fa-angry {
+  color: #dc3545;
+}
+i .fa-frown-open,
+svg .fa-frown-open {
+  color: #ffc107;
+}
+option.empty-value,
+select[value="0"] {
+  font-style: italic;
+  color: #c8cbcf;
+}
+.btn-primary,
+.btn-danger,
+.btn-success,
+.btn-warning,
+.btn-default {
+  font-weight: bold;
+}
+.btn-primary i,
+.btn-danger i,
+.btn-success i,
+.btn-warning i,
+.btn-default i,
+.btn-primary svg,
+.btn-danger svg,
+.btn-success svg,
+.btn-warning svg,
+.btn-default svg {
+  color: #FFFFFF;
+}
+.btn-group.field {
+  min-width: 296px;
+}
+iframe {
+  width: 100%;
+  height: auto;
+  border: none;
+}
+.hidden {
+  display: none;
+}
+.redirect-content .card .card-header {
+  font-size: 20px;
+  font-weight: bold;
+}
+.redirect-content .card .card-header .redirect-timer {
+  color: #dc3545 !important;
+}
+.redirect-content .card .card-body {
+  font-size: 14px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+.redirect-content .card .card-body .redirect-timer {
+  font-size: 32px;
+}
+.redirect-content .card .card-body.micro.link {
+  font-size: 10px;
+}
+.redirect-content .card .card-body.ahtung {
+  font-weight: bold;
+}
+.redirect-content .card .card-body.go-back a {
+  font-size: 20px;
+  font-weight: bold;
+}
+.redirect-content .card .card-body .external-link {
+  background: rgba(0, 0, 0, 0.03);
+  padding: 5px;
+  color: #6f7985;
+  font-weight: bold;
+}

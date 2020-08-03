@@ -3,6 +3,7 @@
 	namespace Core\Controllers\Users\Hooks;
 
 	use Core\Classes\Session;
+	use Core\Classes\User;
 	use Core\Controllers\Auth\Model;
 	use Core\Classes\Config;
 
@@ -26,8 +27,9 @@
 			$online_time = $this->config->session['online_time']+$current_time;
 
 			if($user_id && $user_date_log<$current_time){
-				$this->model->updateDateLog($user_id,$online_time);
+				$this->model->updateDateLog($user_id,$online_time,User::LOGGED_DEFAULT);
 				$this->session->set('u_date_log',$online_time,Session::PREFIX_AUTH);
+				$this->session->set('u_log_type',User::LOGGED_DEFAULT,Session::PREFIX_AUTH);
 			}
 			return true;
 		}

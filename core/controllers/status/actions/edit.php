@@ -66,17 +66,19 @@
 			parent::__construct();
 
 			$this->backLink();
-			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
+
 			$this->user_name = $this->session->get('u_full_name',Session::PREFIX_AUTH);
 			$this->edit_form = EditForm::getInstance('status');
 
 			$this->input_data = $this->request->getArray('status');
 		}
 
-		public function methodGet($status_id){
+		public function methodGet($user_id,$status_id){
+			$this->user_id = $user_id;
+			if(!fx_me($this->user_id)){ return false; }
 			$this->status_id = $status_id;
 
-			$this->edit_form->generateFieldsList($this->status_id);
+			$this->edit_form->generateFieldsList($this->user_id,$this->status_id);
 
 			$this->fields_list = $this->edit_form->getFieldsList();
 
@@ -96,10 +98,12 @@
 			return $this;
 		}
 
-		public function methodPost($status_id){
+		public function methodPost($user_id,$status_id){
+			$this->user_id = $user_id;
+			if(!fx_me($this->user_id)){ return false; }
 			$this->status_id = $status_id;
 
-			$this->edit_form->checkFieldsList($this->input_data,$this->status_id);
+			$this->edit_form->checkFieldsList($this->user_id,$this->input_data,$this->status_id);
 
 			$this->fields_list = $this->edit_form->getFieldsList();
 
