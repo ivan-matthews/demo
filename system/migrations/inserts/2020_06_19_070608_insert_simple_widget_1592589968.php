@@ -33,7 +33,7 @@
 				->value('wa_unite_prev',0)
 				->value('wa_status',Kernel::STATUS_INACTIVE)
 				->value('wa_position','footer')
-				->value('wa_ordering',1)
+				->value('wa_ordering',3)
 				->value('wa_template','widgets/simple')
 				->get()
 				->id()

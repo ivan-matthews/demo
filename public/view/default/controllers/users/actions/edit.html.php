@@ -1,6 +1,10 @@
 <?php
 	/** @var \Core\Classes\View $this */
 	/** @var array $data */
+	/** @var array $form */
+	/** @var array $fields */
+	/** @var array $errors */
+	/** @var array $user */
 ?>
 
 <div class="form row form-auth justify-content-center">

@@ -10,6 +10,7 @@
 }else{
 	$last = $content['limit'];
 } ?>
+
 <nav aria-label="Page navigation example" class="paginate">
 	<ul class="pagination justify-content-center">
 		<li class="page-item">

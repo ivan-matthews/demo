@@ -18,15 +18,16 @@
 		'footer'			=> true,
 	));
 
-	$this->addCSS("{$this->theme_path}/css/libs/bootstrap",TIME);
-	$this->addCSS("{$this->theme_path}/css/libs/fontawesome",TIME);
+	$this->addCSS("{$this->theme_path}/css/libs/bootstrap");
+	$this->addCSS("{$this->theme_path}/css/libs/fontawesome");
 
-	$this->addJS("{$this->theme_path}/js/libs/jquery",TIME);
+	$this->addJS("{$this->theme_path}/js/libs/jquery");
+	$this->addJS("{$this->theme_path}/js/libs/func");
 
-	$this->addCSS("{$this->theme_path}/css/index",TIME);
-	$this->addCSS("{$this->theme_path}/css/home",TIME);
-	$this->addJS("{$this->theme_path}/js/index",TIME);
-	$this->addJS("{$this->theme_path}/js/home",TIME);
+	$this->addCSS("{$this->theme_path}/css/index");
+	$this->addCSS("{$this->theme_path}/css/home");
+	$this->addJS("{$this->theme_path}/js/index");
+	$this->addJS("{$this->theme_path}/js/home");
 
 	$lang_key = $this->language->getLanguageKey();
 	$translation_lang_key = $lang_key . "-" . strtoupper($lang_key);
@@ -48,7 +49,8 @@
 
 	<body class="main-content">
 
-		<nav class="navbar header-bar">
+		<nav class="navbar header-bar"></nav>
+		<nav class="navbar header-bar fixed-top">
 
 			<?php print $this->widget('header') ?>
 
@@ -62,6 +64,7 @@
 
 				<div class="sidebar-parent col-md-4 col-sm-3 col-3 col-lg-3 col-xl-3">
 
+<!--					<div class="sidebar-main fixed-sidebar col-md-4 col-sm-3 col-3 col-lg-3 col-xl-3 p-0 m-0">-->
 					<div class="sidebar-main">
 
 						<?php print $this->widget('sidebar') ?>
@@ -113,9 +116,9 @@
 		</footer>
 
 		<?php
-			$this->addJS("{$this->theme_path}/js/libs/fontawesome",TIME);
-			$this->addJS("{$this->theme_path}/js/libs/popper",TIME);
-			$this->addJS("{$this->theme_path}/js/libs/bootstrap",TIME);
+			$this->addJS("{$this->theme_path}/js/libs/fontawesome");
+			$this->addJS("{$this->theme_path}/js/libs/popper");
+			$this->addJS("{$this->theme_path}/js/libs/bootstrap");
 		?>
 		<?php $this->renderCssFiles() ?>
 		<?php $this->renderJsFiles() ?>

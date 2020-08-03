@@ -4,6 +4,7 @@
 
 	use Core\Classes\Form\Form;
 	use Core\Classes\Form\Interfaces\Checkers;
+	use Core\Classes\Form\Interfaces\Params;
 	use Core\Classes\Request;
 	use Core\Classes\Form\Interfaces\Validator;
 	use Core\Classes\Form\Interfaces\Form as FormInterface;
@@ -50,7 +51,6 @@
 			});
 
 			$this->validator_interface->field("login")
-				->value($this->login)
 				->htmlspecialchars()
 				->title(fx_lang('auth.login_field_title'))
 				->label(fx_lang('auth.login_field_label'))
@@ -58,6 +58,9 @@
 				->type('email')
 				->id('login')
 				->class('form-control mt-2')
+				->params(function(Params $params){
+					$params->default_value($this->login);
+				})
 				->check(function(Checkers $checkers){
 					$checkers->email();
 					$checkers->max(191);

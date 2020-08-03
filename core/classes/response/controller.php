@@ -16,7 +16,14 @@
 			$this->response = $response;
 			$this->controller = $controller;
 			$this->action = $action;
-			$this->response->response_data['response_data']['controller'][$this->controller][$this->action] = $this->default_params;
+			$this->setDefault();
+		}
+
+		private function setDefault(){
+			if(!isset($this->response->response_data['response_data']['controller'][$this->controller][$this->action])){
+				$this->response->response_data['response_data']['controller'][$this->controller][$this->action] = $this->default_params;
+			}
+			return $this;
 		}
 
 		public function set($key,$value){

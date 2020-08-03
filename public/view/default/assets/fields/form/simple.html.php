@@ -7,6 +7,8 @@
 
 	$errors_status = isset($errors) && !empty($errors);
 
+	$attributes['value'] = htmlspecialchars($attributes['value']);
+
 	if($attributes['params']['validate_status'] && $attributes['params']['show_validation']){
 		$attributes['class'] .= " is-";
 		if($errors_status){

@@ -87,8 +87,11 @@ select[value="0"] {
 }
 iframe {
   width: 100%;
-  height: 30000px;
+  height: auto;
   border: none;
+}
+.hidden {
+  display: none;
 }
 .sorting-panel .sorting-panel-item .nav-link {
   border-radius: 0;

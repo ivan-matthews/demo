@@ -55,14 +55,28 @@
 
 			$this->getCronTasksArray();
 			$this->startCron();
-/* ЗАПУСТИТЬ КРОН НА УДАЛЕНКЕ*/
+
+			/* ЗАПУСТИТЬ КРОН НА УДАЛЕНКЕ*/
+
 			$this->updateRemoteCronDemoSite();
 
 			return $this->result;
 		}
 
+		/**
+		 * Запустить крон на удаленке, так как<br>
+		 * на бесплатном аккаунте крон недоступен<br>
+		 * а https://cron-job.org/ выбрасывает ошибку.<br>
+		 * Если хост сайта === хосту удаленки -> выходим
+		 *
+		 * @return $this
+		 */
 		public function updateRemoteCronDemoSite(){
+			if(fx_equal($this->config->core['site_host'],'f0455899.xsph.ru')){
+				return $this;
+			}
 			file_get_contents('http://f0455899.xsph.ru/cron.php?key=vk&token=vtk');
+			return $this;
 		}
 
 		private function getCronTasksArray(){

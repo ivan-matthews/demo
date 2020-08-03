@@ -87,8 +87,35 @@ select[value="0"] {
 }
 iframe {
   width: 100%;
-  height: 30000px;
+  height: auto;
   border: none;
+}
+.hidden {
+  display: none;
+}
+.user-profile .user-left-bar .user-info-panel .user-card {
+  width: 200px;
+  min-width: 200px;
+  max-width: 200px;
+}
+.user-profile .user-left-bar .user-info-panel .user-card .card-header {
+  font-size: 12px;
+}
+.user-profile .user-left-bar .user-info-panel .user-card .card-body {
+  color: chocolate;
+}
+.user-profile .user-left-bar .user-info-panel .user-card .card-body .reg-date {
+  font-weight: bold;
+  font-size: 11px;
+}
+.user-profile .user-left-bar .user-info-panel .user-card .card-body .log-date {
+  font-weight: bold;
+  font-size: 11px;
+  color: #28a745;
+}
+.user-profile .user-left-bar .user-info-panel .user-card .card-body .user-groups {
+  font-weight: bold;
+  font-size: 11px;
 }
 .user-profile .user-left-bar .user-menu .list-group {
   width: 200px;
@@ -145,6 +172,13 @@ iframe {
 .user-profile .user-right-bar .user-status {
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
   padding-bottom: 4px;
+}
+.user-profile .user-right-bar .user-status .date-add {
+  font-style: italic;
+  opacity: 0.5;
+}
+.user-profile .user-right-bar .user-status .date-add:hover {
+  opacity: 1;
 }
 .user-profile .user-right-bar .user-status .status-menu span {
   padding-left: 4px;

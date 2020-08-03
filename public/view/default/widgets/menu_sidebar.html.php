@@ -6,7 +6,7 @@
 	</div>
 <?php } ?>
 <ul class="list-group list-group-flush sidebar<?php print ' ' . $data['options']['wa_css_class'] ?>">
-<?php foreach($data['content'] as $item){?>
+<?php foreach($data['content'] as $item){ ?>
 	<?php $value = fx_lang($item['l_value']) ?>
 		<li class="list-group-item">
 			<a class="menu <?php print $item['l_css_class'] ?>" href="<?php print $item['l_link_array'] ?>">

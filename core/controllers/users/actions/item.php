@@ -42,6 +42,7 @@
 
 		/** @var array */
 		public $user_data;
+		public $user_groups;
 		public $user_id;
 
 		public $users_item_form;
@@ -80,12 +81,17 @@
 
 				$this->fields_list = $this->users_item_form->getFields($this->fields);
 
+				$user_groups = fx_arr($this->user_data['a_groups']);
+				$this->user_groups = $this->model->getUserGroupsByGroupsArray($user_groups);
+
 				$this->response->controller('users','item')
 					->setArray(array(
 						'user'	=> $this->user_data,
-						'fields'=> $this->fields_list,
+						'groups'=> $this->user_groups,
 						'menu'	=> $this->user_menu,
-					));
+						'fields'=> $this->fields_list,
+						));
+
 				return $this;
 			}
 			return $this->renderEmptyPage();

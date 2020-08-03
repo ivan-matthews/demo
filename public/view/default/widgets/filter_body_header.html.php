@@ -21,9 +21,9 @@
 			<div class="input-group mt-2">
 				<div class="input-group-prepend">
 
-					<div class="input-group-text radius-0">
+					<div class="input-group-text radius-0 search-icon">
 
-						<i class="fa fa-filter" aria-hidden="true"></i>
+						<i class="fa fa-search" aria-hidden="true"></i>
 
 					</div>
 				</div>
@@ -32,6 +32,8 @@
 					<?php foreach($field_set_value as $field){ ?>
 
 						<?php if(!$field['attributes']['params']['show_in_filter']){ continue; } ?>
+
+						<?php $field['attributes']['class'] .= " input-group-internal" ?>
 
 						<?php if(fx_equal('visible',$field['attributes']['params']['filter_position'])){ ?>
 
@@ -49,7 +51,7 @@
 				<div class="input-group-append">
 
 					<button type="button" class="btn btn-light more" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<i class="fa fa-arrow-down" aria-hidden="true"></i>
+						<i class="fa fa-filter" aria-hidden="true"></i>
 					</button>
 					<button class="btn btn-default" type="submit">
 						<i class="fa fa-search" aria-hidden="true"></i>
@@ -73,7 +75,6 @@
 
 									<div class="field mt-2">
 										<?php print $this->renderField($field,"assets/fields/filter/{$field['attributes']['params']['field_type']}") ?>
-
 									</div>
 
 								<?php } ?>

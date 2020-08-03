@@ -22,12 +22,12 @@
 				<tbody>
 				<tr>
 					<td>
-						<h4 style="text-align: center;">
+						<h6 style="text-align: center;">
 							<?php print fx_lang('auth.thanks_for_registration',array(
 								'%site_link%'	=> $link_prefix . fx_get_url('users','item',$id),
 								'%site_name%'	=> $this->config->core['site_name']
 							)) ?>
-						</h4>
+						</h6>
 					</td>
 				</tr>
 				<tr>

@@ -139,7 +139,7 @@
 					$params['class'] = isset($params['class']) ? "{$params['class']} external":"external";
 					$params['target'] = '_blank';
 					$params['rel']    = 'noopener';
-					$params['href'] = fx_get_url('redirect','index') . "?to=" . urlencode($params['href']);
+					$params['href'] = fx_get_url('redirect','index') . "?url=" . urlencode($params['href']);
 				}
 			}
 			foreach($params as $param => $value) {

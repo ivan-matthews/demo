@@ -189,6 +189,13 @@
 			return $this;
 		}
 
+		/**
+		 * Рендерить только экшн, для внутренних запросов.<br>
+		 * *Посмотреть метод $this->>setRenderType() - из массива `$this->desired_types`<br>
+		 * можно использовать ё$this->desired_types[1][0] в
+		 *
+		 * @return bool
+		 */
 		private function renderFrameData(){
 			$this->response->setHeader('Content-Type','text/html');
 			$this->response->sendHeaders();
@@ -225,7 +232,10 @@
 			return true;
 		}
 
-		public function addJS($js_file_path,$version=null){
+		public function addJS($js_file_path,$version=true){
+			if($this->config->core['debug_enabled']){
+				$version = TIME;
+			}
 			$key = $js_file_path;
 			$extension = $version ? "js?v={$version}" : "js";
 			$js_file_path = trim($js_file_path,'/');
@@ -234,7 +244,10 @@
 			return true;
 		}
 
-		public function appendJS($js_file_path,$version=null){
+		public function appendJS($js_file_path,$version=true){
+			if($this->config->core['debug_enabled']){
+				$version = TIME;
+			}
 			$extension = $version ? "js?v={$version}" : "js";
 			$js_file_path = trim($js_file_path,'/');
 			$js_file_path = "{$js_file_path}.{$extension}";
@@ -242,7 +255,10 @@
 			return true;
 		}
 
-		public function prependJS($js_file_path,$version=null){
+		public function prependJS($js_file_path,$version=true){
+			if($this->config->core['debug_enabled']){
+				$version = TIME;
+			}
 			$extension = $version ? "js?v={$version}" : "js";
 			$js_file_path = trim($js_file_path,'/');
 			$js_file_path = "{$js_file_path}.{$extension}";
@@ -250,7 +266,10 @@
 			return true;
 		}
 
-		public function addCSS($css_file_path,$version=null){
+		public function addCSS($css_file_path,$version=true){
+			if($this->config->core['debug_enabled']){
+				$version = TIME;
+			}
 			$key = $css_file_path;
 			$extension = $version ? "css?v={$version}" : "css";
 			$css_file_path = trim($css_file_path,'/');
@@ -259,7 +278,10 @@
 			return true;
 		}
 
-		public function appendCSS($css_file_path,$version=null){
+		public function appendCSS($css_file_path,$version=true){
+			if($this->config->core['debug_enabled']){
+				$version = TIME;
+			}
 			$extension = $version ? "css?v={$version}" : "css";
 			$css_file_path = trim($css_file_path,'/');
 			$css_file_path = "{$css_file_path}.{$extension}";
@@ -267,7 +289,10 @@
 			return true;
 		}
 
-		public function prependCSS($css_file_path,$version=null){
+		public function prependCSS($css_file_path,$version=true){
+			if($this->config->core['debug_enabled']){
+				$version = TIME;
+			}
 			$extension = $version ? "css?v={$version}" : "css";
 			$css_file_path = trim($css_file_path,'/');
 			$css_file_path = "{$css_file_path}.{$extension}";

@@ -108,7 +108,7 @@
 
 				$this->setResponseInfo();
 
-				$this->edit_form->setFields($this->fields_list,$this->request->getArray($this->form_name));
+				$this->edit_form->checkForm($this->fields_list,$this->request->getArray($this->form_name));
 
 				if(fx_equal($header_bar_action,'geo_info')){
 					$this->edit_form->geo('u_country_id','u_region_id','u_city_id');
@@ -145,7 +145,6 @@
 			if(isset($fields_list['u_full_name'])){
 				$fields_list['u_full_name'] = $fields_list['u_first_name'];
 				$fields_list['u_full_name']['attributes']['value'] .= ' ' . $fields_list['u_last_name']['attributes']['value'];
-				return $fields_list;
 			}
 			return $this->prepareGeo($fields_list);
 		}

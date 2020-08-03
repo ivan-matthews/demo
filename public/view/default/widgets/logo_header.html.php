@@ -5,7 +5,7 @@
 		</a>
 	</div>
 	<div class="hidden-logo-button pl-3 pr-3 pt-2 pb-2">
-		<a href="javascript:void(0)" onclick="sidebarActions()">
+		<a href="javascript:void(0)" onclick="indexObj.sidebarActions()">
 			<i class="fa fa-bars" aria-hidden="true"></i>
 		</a>
 	</div>

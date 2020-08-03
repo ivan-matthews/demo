@@ -152,7 +152,7 @@
 				->subject(fx_lang('auth.registration_mail_subject',array(
 					'%site_name%'	=> $this->config->core['site_name']
 				)))
-				->to($input_data['login'])
+				->to($input_data['a_login'])
 				->html('restore_password_successful',array(
 					'login'		=> $input_data['a_login'],
 					'password'	=> fx_decryption($input_data['a_enc_password']),

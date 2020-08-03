@@ -28,7 +28,7 @@ indexObj.debugQueryToClipper = function(incoming){
 $(window).resize(function(e){
 	indexObj.closeSidebar($('.sidebar-parent'),$('body'));
 });
-sidebarActions = function(){
+indexObj.sidebarActions = function(){
 	let sidebar = $('.sidebar-parent');
 	let body = $('body');
 	if(sidebar.hasClass('sidebar-display-block')){
@@ -38,11 +38,12 @@ sidebarActions = function(){
 	}
 };
 indexObj.openSidebar = function(sidebar,body){
+	$('html body').addClass('unscrollable');
 	sidebar.addClass('sidebar-display-block');
-	$(body).prepend('<div class="black-fon-bg" onclick="sidebarActions()"></div>');
+	$(body).prepend('<div class="black-fon-bg" onclick="indexObj.sidebarActions()"></div>');
 };
 indexObj.closeSidebar = function(sidebar,body){
+	$('html body').removeClass('unscrollable');
 	sidebar.removeClass('sidebar-display-block');
 	$('.black-fon-bg',body).remove();
 };
-

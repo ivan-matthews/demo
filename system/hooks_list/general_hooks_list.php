@@ -37,7 +37,7 @@
 		'controller_run_before_hook'	=> array(
 			'class'			=> \Core\Controllers\Home\Hooks\Controller_Run_Before_Hook::class,
 			'method'		=> 'run',
-			'status'		=> Kernel::STATUS_INACTIVE,
+			'status'		=> Kernel::STATUS_ACTIVE,
 			'controller'	=> 'home',
 			'action'		=> 'index',
 		),

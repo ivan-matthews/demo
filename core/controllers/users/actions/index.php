@@ -47,7 +47,7 @@
 		public $filter;
 		public $fields;
 
-		public $limit = 20;
+		public $limit = 10;
 		public $offset = 0;
 
 		public $sorting_action;

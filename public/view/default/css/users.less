@@ -2,6 +2,32 @@
 
 .user-profile{
 	.user-left-bar{
+		.user-info-panel{
+			.user-card{
+				width: 200px;
+				min-width: 200px;
+				max-width: 200px;
+				.card-header{
+					font-size: 12px;
+				}
+				.card-body{
+					color: chocolate;
+					.reg-date{
+						font-weight: bold;
+						font-size: 11px;
+					}
+					.log-date{
+						font-weight: bold;
+						font-size: 11px;
+						color: @success;
+					}
+					.user-groups{
+						font-weight: bold;
+						font-size: 11px;
+					}
+				}
+			}
+		}
 		.user-avatar{
 
 		}
@@ -73,6 +99,13 @@
 		.user-status{
 			border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 			padding-bottom: 4px;
+			.date-add{
+				font-style: italic;
+				opacity: 0.5;
+				&:hover{
+					opacity: 1;
+				}
+			}
 			.status-menu{
 				span{
 					padding-left: 4px;

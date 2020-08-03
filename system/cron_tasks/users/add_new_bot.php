@@ -2,6 +2,7 @@
 
 	namespace System\Cron_Tasks\Users;
 
+	use Core\Classes\Cache\Cache;
 	use Core\Classes\Database\Database;
 	use Core\Classes\Kernel;
 	use Core\Classes\User;
@@ -59,7 +60,7 @@
 				->value('a_login',$this->login)
 				->value('a_password',fx_encode('Qwerty12345^'))
 				->value('a_enc_password',fx_encryption('Qwerty12345^'))
-				->value('a_groups',array(1))
+				->value('a_groups',array(2))
 				->value('a_bookmark',fx_encode($this->login.'Qwerty12345^'))
 				->value('a_date_activate',time())
 				->value('a_status',Kernel::STATUS_ACTIVE)
@@ -96,6 +97,8 @@
 				->value('u_user_type',2)
 				->get()
 				->id();
+
+			Cache::getInstance()->key('users.all')->clear();
 
 			return $this;
 		}

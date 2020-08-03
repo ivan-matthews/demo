@@ -59,8 +59,6 @@
 		public function __construct(){
 			parent::__construct();
 
-			$this->setDefaultData();
-
 			$this->params = Config::getInstance();
 			$this->model = Model::getInstance();
 

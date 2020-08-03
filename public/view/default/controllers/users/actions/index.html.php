@@ -47,8 +47,6 @@
 							<div class="list-group-item-text users-item-descriptions">
 
 								<?php print($user["country"] ? $user["country"] . ", " : null) ?>
-								<?php print($user["region"] ? $user["region"] . ", " : null) ?>
-								<?php print($user["area"] ? $user['area'] . ", " : null) ?>
 								<?php print($user["city"] ? $user["city"] : null) ?>
 
 							</div>

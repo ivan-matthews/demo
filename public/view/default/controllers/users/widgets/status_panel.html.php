@@ -13,6 +13,9 @@
 <?php if($user['s_content']){ ?>
 	<div class="user-status pt-1">
 		« <?php print $user['s_content'] ?> »
+		<span class="date-add">
+			(<?php print fx_get_date($user['s_date_updated']?$user['s_date_updated']:$user['s_date_created']) ?>)
+		</span>
 		<?php if(fx_me($user['u_id'])){ ?>
 			<div class="status-menu mt-2">
 				<span class="edit-status">
@@ -34,7 +37,7 @@
 	<?php if(fx_me($user['u_id'])){ ?>
 		<div class="status-menu">
 			<span class="edit-status">
-				<a href="<?php print fx_get_url('status','add',$user['s_id']) ?>">
+				<a href="<?php print fx_get_url('status','add') ?>">
 					<i class="fas fa-pen"></i>
 					<?php print fx_lang('users.added_status') ?>
 				</a>

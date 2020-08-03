@@ -19,25 +19,25 @@
 				<tbody>
 					<tr>
 						<td>
-							<h4 style="text-align: center;">
+							<h6 style="text-align: center;">
 								<?php print fx_lang('auth.restore_password_value',array(
 									'%site_name%'	=> $this->config->core['site_name'],
 									'%site_link%'	=> $link_prefix
 								)) ?>
-							</h4>
+							</h6>
 						</td>
 					</tr>
 					<tr>
 						<td>
 							<div>
 								<strong><?php print fx_lang('auth.restore_password_link_head') ?>:</strong>
-								<h4>
+								<h6>
 									<span>
 										<a href="<?php print $link_prefix . fx_get_url('auth','restore_password_confirm',$restore_password_token) ?>">
 											<?php print $link_prefix . fx_get_url('auth','restore_password_confirm',$restore_password_token) ?>
 										</a>
 									</span>
-								</h4>
+								</h6>
 							</div>
 						</td>
 					</tr>

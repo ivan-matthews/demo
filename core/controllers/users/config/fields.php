@@ -284,16 +284,16 @@
 		),
 		array(
 			'field'	=> 'u_website',
+			'label'		=> fx_lang('users.website'),
 			'htmlspecialchars'	=> true,
 			'max'	=> 191,
-//			'url'	=> true,
+			'url'	=> true,
 			'params'	=> array(
 				'show_validation'	=> false,
 				'show_in_filter'=> false,
 				'item_position'	=> 'invisible',
 				'field_sets'	=> 'field_set_contacts',
 				'render_type'	=> 'website',
-				'label'			=> fx_lang('users.website'),
 			),
 		),
 		array(

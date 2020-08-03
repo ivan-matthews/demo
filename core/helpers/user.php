@@ -63,7 +63,20 @@
 		if(fx_is_online($date_log)){
 			return fx_lang('users.user_is_online');
 		}
-		return date('H:i:s Y m d',$date_log);
+		return fx_get_date($date_log);
+	}
+
+	function fx_get_date($date_timestamp){
+		$date = '<span class="date-block">';
+		$date .= '<span class="invisible-timestamp">';
+		$date .= $date_timestamp;
+		$date .= '</span>';
+
+		$date .= '<span class="visible-formatted-date">';
+		$date .= date('H:i:s, d m, Y',$date_timestamp);
+		$date .= '</span>';
+		$date .= '</span>';
+		return $date;
 	}
 
 	function fx_get_icon_logged($user_log_type){

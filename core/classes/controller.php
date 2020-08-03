@@ -86,22 +86,6 @@
 		}
 
 		/**
-		 * Установка дефолтных параметров для HTML-шаблона
-		 *
-		 * @return $this
-		 */
-		protected function setDefaultData(){
-			$this->response->title($this->config->core['site_name']);
-			$this->response->breadcrumb('main_breadcrumb')
-				->setValue($this->config->core['site_name'])
-				->setLink()
-				->setIcon('fa fa-home');
-			$this->response->favicon($this->config->view['default_favicon']);
-			$this->setMeta();
-			return $this;
-		}
-
-		/**
 		 * установить ссылку для редиректа;
 		 * если ссылки не будет - берем из сессии историю посещений
 		 *
@@ -116,33 +100,6 @@
 			$link_to_redirect = trim($link_to_redirect,' /');
 			$this->response->setResponseCode($status_code)
 				->setHeader('Location',"/{$link_to_redirect}");
-			return $this;
-		}
-
-		/**
-		 * Установить параметры тега <meta> для HTML-шаблона
-		 *
-		 * @return $this
-		 */
-		protected function setMeta(){
-			$this->response->meta('csrf')
-				->set('name','csrf')
-				->set('content',fx_csrf());
-			$this->response->meta('charset')
-				->set('charset','utf-8');
-			$this->response->meta('description')
-				->set('name','description')
-				->set('content',$this->config->core['site_name']);
-			$this->response->meta('generator')
-				->set('name','generator')
-				->set('content','simple generated values');
-			$this->response->meta('viewport')
-				->set('name','viewport')
-				->set('content','width=device-width');
-
-			$this->response->meta('http_equiv')
-				->set('http-equiv','Content-Type')
-				->set('content','text/html; charset=UTF-8');
 			return $this;
 		}
 

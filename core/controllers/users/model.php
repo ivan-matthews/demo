@@ -85,17 +85,42 @@
 			return $result;
 		}
 
+		public function getUserGroupsByGroupsArray(array $groups){
+			$this->cache->key("users.groups");
+
+			if(($result = $this->cache->get()->array())){
+				return $result;
+			}
+			$where = '';
+			foreach($groups as $group){
+				$where .= "`ug_id`='{$group}' OR ";
+			}
+			$where = rtrim($where,"OR ");
+
+			$result = $this->select()
+				->from('user_groups')
+				->where($where)
+				->get()
+				->allAsArray();
+
+			$this->cache->set($result);
+			return $result;
+		}
+
 		public function getUserByID($user_id){
-			$this->cache->key('users.items.' . $user_id);
+			$this->cache->key("users.items.{$user_id}");
 
 			if(($result = $this->cache->get()->array())){
 				return $result;
 			}
 
-			$result = $this->select()
+			$result = $this->select(
+				"users.*","auth.a_groups","status.*","photos.*","geo_cities.*","geo_countries.*","geo_regions.*"
+			)
 				->from('users')
-				->join('status FORCE INDEX (PRIMARY)',"u_id=s_user_id")
-				->join('photos FORCE INDEX (PRIMARY)',"u_id=p_user_id")
+				->join('auth FORCE INDEX (PRIMARY)',"a_id=u_auth_id")
+				->join('status FORCE INDEX (PRIMARY)',"u_status_id=s_id AND u_id=s_user_id")
+				->join('photos FORCE INDEX (PRIMARY)',"u_avatar_id=p_id AND u_id=p_user_id")
 				->join('geo_cities FORCE INDEX (PRIMARY)',"u_city_id=gc_city_id")
 				->join('geo_countries FORCE INDEX (PRIMARY)',"u_country_id=g_country_id")
 				->join('geo_regions FORCE INDEX (PRIMARY)',"gc_region_id=gr_region_id")
@@ -142,7 +167,7 @@
 				$update_query = $update_query->get();
 				$update_query = $update_query->rows();
 
-				$this->cache->key('users.items.' . $user_id)->clear();
+				$this->cache->key("users.items.{$user_id}")->clear();
 				$this->cache->key('users.all')->clear();
 
 				return $update_query;

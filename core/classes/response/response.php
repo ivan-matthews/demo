@@ -111,8 +111,8 @@
 			return new BreadCrumb(self::getInstance(),$breadcrumb);
 		}
 
-		public function widget($widget_position){
-			return new Widget(self::getInstance(),$widget_position);
+		public function widget($widget_array_data){
+			return new Widget(self::getInstance(),$widget_array_data);
 		}
 
 		public function title($title_value=null){
@@ -204,6 +204,10 @@
 			return $this;
 		}
 
+		public function set($key,$value){
+			$this->response_data['response_data'][$key] = $value;
+			return $this;
+		}
 
 
 

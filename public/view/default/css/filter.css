@@ -87,8 +87,11 @@ select[value="0"] {
 }
 iframe {
   width: 100%;
-  height: 30000px;
+  height: auto;
   border: none;
+}
+.hidden {
+  display: none;
 }
 .filter .filter-panel button.more {
   border: 1px solid #ced4da;
@@ -138,4 +141,11 @@ iframe {
 }
 .filter .filter-panel .fields .closable a:hover {
   background: none;
+}
+.filter .filter-panel .input-group-prepend .search-icon {
+  background-color: unset;
+  border-right: solid 0;
+}
+.filter .filter-panel .input-group-internal {
+  border-left: solid 0;
 }

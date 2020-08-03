@@ -10,6 +10,19 @@
 	opacity: 0.5;
 	z-index: 99999998;
 }
+body{
+	&.unscrollable{
+		overflow-y: hidden;
+		nav.header-bar{
+			overflow-y: auto;
+			-ms-overflow-style: none;
+			overflow: -moz-scrollbars-none;
+			&::-webkit-scrollbar{
+				opacity: 0;
+			}
+		}
+	}
+}
 .sidebar-parent{
 	font-weight: bold;
 	@media (max-width: 767px) {
@@ -34,6 +47,16 @@
 				&:last-child{
 					border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 				}
+			}
+			&.fixed-sidebar{
+				position: fixed;
+				z-index: 3;
+				max-width: 270px;
+				width: 275px;
+				overflow-y: auto;
+				bottom: 0;
+				height: auto;
+				top: 0;
 			}
 		}
 	}
@@ -82,5 +105,14 @@
 		&:last-child{
 			margin-bottom: 0;
 		}
+	}
+	.fixed-sidebar{
+		position: fixed;
+		z-index: 3;
+		max-width: 270px;
+		width: 275px;
+		overflow-y: auto;
+		bottom: 0;
+		top: 70px;
 	}
 }

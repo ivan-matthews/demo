@@ -21,10 +21,11 @@
 				->value('a_login',$this->login)
 				->value('a_password',fx_encode($this->password))
 				->value('a_enc_password',fx_encryption($this->password))
-				->value('a_groups',array(1,2,3,4,5))
+				->value('a_groups',array(2,3,4,5))
 				->value('a_bookmark',fx_encode($this->login.$this->password))
 				->value('a_date_activate',time())
 				->value('a_status',Kernel::STATUS_ACTIVE)
+				->value('a_date_created',time())
 				->get()
 				->id();
 			return $this;
@@ -65,6 +66,7 @@
 				->value('u_about','NaN')
 				->value('u_date_log',$online_time)
 				->value('u_status',Kernel::STATUS_ACTIVE)
+				->value('u_date_created',time())
 				->get()
 				->id();
 			return $this;
@@ -85,6 +87,7 @@
 				->value("p_original","users/{$this->user_id}/original{$this->file_hash}.jpeg")
 				->value("p_hash",md5($this->user_id . $this->file_hash))
 				->value("p_mime","image/jpeg")
+				->value('p_date_created',time())
 				->get()
 				->id();
 			return $this;
@@ -94,6 +97,7 @@
 			Database::insert('status')
 				->value('s_user_id',$this->user_id)
 				->value('s_content',$this->status)
+				->value('s_date_created',time())
 				->get()
 				->id();
 			return $this;

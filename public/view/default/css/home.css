@@ -87,8 +87,11 @@ select[value="0"] {
 }
 iframe {
   width: 100%;
-  height: 30000px;
+  height: auto;
   border: none;
+}
+.hidden {
+  display: none;
 }
 div.session-messages .container {
   -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
@@ -481,6 +484,17 @@ form .fields .closable a:hover {
   opacity: 0.5;
   z-index: 99999998;
 }
+body.unscrollable {
+  overflow-y: hidden;
+}
+body.unscrollable nav.header-bar {
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  overflow: -moz-scrollbars-none;
+}
+body.unscrollable nav.header-bar::-webkit-scrollbar {
+  opacity: 0;
+}
 .sidebar-parent {
   font-weight: bold;
   padding-left: 0;
@@ -510,6 +524,16 @@ form .fields .closable a:hover {
 }
 .sidebar-parent.sidebar-display-block .sidebar-main .sidebar:last-child {
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+.sidebar-parent.sidebar-display-block .sidebar-main.fixed-sidebar {
+  position: fixed;
+  z-index: 3;
+  max-width: 270px;
+  width: 275px;
+  overflow-y: auto;
+  bottom: 0;
+  height: auto;
+  top: 0;
 }
 .sidebar-parent .sidebar-title {
   color: #FFFFFF;
@@ -548,6 +572,15 @@ form .fields .closable a:hover {
 }
 .sidebar-parent .sidebar:last-child {
   margin-bottom: 0;
+}
+.sidebar-parent .fixed-sidebar {
+  position: fixed;
+  z-index: 3;
+  max-width: 270px;
+  width: 275px;
+  overflow-y: auto;
+  bottom: 0;
+  top: 70px;
 }
 .sorting-panel .sorting-panel-item .nav-link {
   border-radius: 0;
@@ -644,6 +677,37 @@ form .fields .closable a:hover {
 .filter .filter-panel .fields .closable a:hover {
   background: none;
 }
+.filter .filter-panel .input-group-prepend .search-icon {
+  background-color: unset;
+  border-right: solid 0;
+}
+.filter .filter-panel .input-group-internal {
+  border-left: solid 0;
+}
+.user-profile .user-left-bar .user-info-panel .user-card {
+  width: 200px;
+  min-width: 200px;
+  max-width: 200px;
+}
+.user-profile .user-left-bar .user-info-panel .user-card .card-header {
+  font-size: 12px;
+}
+.user-profile .user-left-bar .user-info-panel .user-card .card-body {
+  color: chocolate;
+}
+.user-profile .user-left-bar .user-info-panel .user-card .card-body .reg-date {
+  font-weight: bold;
+  font-size: 11px;
+}
+.user-profile .user-left-bar .user-info-panel .user-card .card-body .log-date {
+  font-weight: bold;
+  font-size: 11px;
+  color: #28a745;
+}
+.user-profile .user-left-bar .user-info-panel .user-card .card-body .user-groups {
+  font-weight: bold;
+  font-size: 11px;
+}
 .user-profile .user-left-bar .user-menu .list-group {
   width: 200px;
 }
@@ -699,6 +763,13 @@ form .fields .closable a:hover {
 .user-profile .user-right-bar .user-status {
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
   padding-bottom: 4px;
+}
+.user-profile .user-right-bar .user-status .date-add {
+  font-style: italic;
+  opacity: 0.5;
+}
+.user-profile .user-right-bar .user-status .date-add:hover {
+  opacity: 1;
 }
 .user-profile .user-right-bar .user-status .status-menu span {
   padding-left: 4px;
@@ -917,4 +988,7 @@ body main.container .content {
 body main.container .content .main-content {
   padding-top: 10px;
   min-height: calc(100vh - 110px);
+}
+.date-block .invisible-timestamp {
+  display: none;
 }

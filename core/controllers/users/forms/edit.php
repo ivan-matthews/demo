@@ -46,10 +46,10 @@
 			return $this;
 		}
 
-		public function checkForm($fields){
+		public function checkForm($fields,$user_data){
 			$this->validator_interface->csrf(1);
 			$this->validator_interface->validate(1);
-			$this->validator_interface->setData($this->request->getArray($this->form_name));
+			$this->validator_interface->setData($user_data);
 			$this->setArrayFields($fields);
 			$this->checkArrayFields();
 			return $this;

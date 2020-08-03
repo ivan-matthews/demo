@@ -56,24 +56,24 @@
 
 		public function updateUserAuthDataByRestorePasswordToken(array $update_data){
 			$this->update('auth')
-				->field('a_groups',$update_data['groups'])
-				->field('a_verify_token',$update_data['verify_token'])
-				->field('a_date_activate',$update_data['date_activate'])
-				->field('a_status',$update_data['status'])
-				->field('a_password',$update_data['password'])
-				->field('a_enc_password',$update_data['enc_password'])
-				->field('a_bookmark',$update_data['bookmark'])
-				->field('a_restore_password_token',$update_data['restore_password_token'])
+				->field('a_groups',$update_data['a_groups'])
+				->field('a_verify_token',$update_data['a_verify_token'])
+				->field('a_date_activate',$update_data['a_date_activate'])
+				->field('a_status',$update_data['a_status'])
+				->field('a_password',$update_data['a_password'])
+				->field('a_enc_password',$update_data['a_enc_password'])
+				->field('a_bookmark',$update_data['a_bookmark'])
+				->field('a_restore_password_token',$update_data['a_restore_password_token'])
 				->where("`a_id`=%auth_id%")
-				->data('%auth_id%',$update_data['auth_id'])
+				->data('%auth_id%',$update_data['a_id'])
 				->get()
 				->rows();
 
 			$this->update('users')
-				->field('u_status',$update_data['status'])
+				->field('u_status',$update_data['u_status'])
 				->where("`u_id`=%user_id% AND `u_auth_id`=%auth_id%")
-				->data('%user_id%',$update_data['id'])
-				->data('%auth_id%',$update_data['auth_id'])
+				->data('%user_id%',$update_data['u_id'])
+				->data('%auth_id%',$update_data['u_auth_id'])
 				->get()
 				->rows();
 

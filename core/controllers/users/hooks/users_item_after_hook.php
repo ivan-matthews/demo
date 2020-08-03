@@ -35,11 +35,7 @@
 
 		public function setResponse(){
 			$this->user_object->response->controller('users','item')
-				->setArray(array(
-					'user'	=> $this->user_object->user_data,
-					'fields'=> $this->user_object->fields_list,
-					'menu'	=> $this->user_object->user_menu,
-				));
+				->set('menu', $this->user_object->user_menu);
 			return $this;
 		}
 	}

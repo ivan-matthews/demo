@@ -72,7 +72,7 @@
 		}
 
 		public function set(){
-			if($this->total < $this->limit){ return false; }
+			if($this->total <= $this->limit){ return false; }
 
 			$this->response->widget($this->default_props)
 				->set('data',array(

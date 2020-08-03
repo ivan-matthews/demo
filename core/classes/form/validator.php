@@ -313,12 +313,16 @@
 			return $this;
 		}
 
-		public function geo($country_field_name,$region_field_name,$city_field_name){
+		public function geo($country_field_name,$region_field_name,$city_field_name,callable $callback=null){
 			$lang_key = Language::getInstance()->getLanguageKey();
 
 			$this->field('geo')
 				->field_type('geo')
 				->field_sets('geo_info');
+
+			if($callback){
+				call_user_func($callback,$this);
+			}
 
 			$country_value = $this->getValue($country_field_name);
 			$region_value = $this->getValue($region_field_name);

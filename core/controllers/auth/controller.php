@@ -59,8 +59,6 @@
 		public function __construct(){
 			parent::__construct();
 
-			$this->setDefaultData();
-
 			$this->params = Config::getInstance();	// use Core\Controllers\Auth\Config as Config;
 			$this->model = Model::getInstance();	// use Core\Controllers\Auth\Model as Model;
 
