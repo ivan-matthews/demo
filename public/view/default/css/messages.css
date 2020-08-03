@@ -139,8 +139,15 @@
   border-bottom: solid 1px rgba(0, 0, 0, 0.125);
   padding-bottom: 10px;
 }
-.contact .messages-contact .contact-item .contact-info .contact-main-block .messages-item-info .contact-info a .item-title {
+.contact .messages-contact .contact-item .contact-info .contact-main-block .messages-item-info .contact-info a.link .item-title {
   font-weight: bold;
+}
+.contact .messages-contact .contact-item .contact-info .contact-main-block .messages-item-info .contact-info .total {
+  text-align: center;
+  background: #28a745;
+  color: #FFFFFF;
+  font-weight: bold;
+  height: 100%;
 }
 .contact .messages-contact .contact-item .contact-info .contact-main-block .messages-item-info .messages-list .message-item .message-content .content-info {
   font-size: 15px;

@@ -49,7 +49,7 @@
 		public $sort;
 
 		public $user_id;
-		public $contacts_list;
+		public $contacts;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -61,26 +61,28 @@
 
 		public function __construct(){
 			parent::__construct();
+
 			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
 		}
 
 		public function methodGet(){
-			$this->setResponse();
+			if(!fx_me($this->user_id)){ return false; }
 
 			$this->total = $this->model->countContacts($this->user_id);
 
 			if($this->total){
 
-				$this->contacts_list = $this->model->getContacts($this->user_id,$this->limit,$this->offset);
+				$this->contacts = $this->model->getContacts($this->user_id,$this->limit,$this->offset);
 
 				$this->paginate($this->total, array('messages','index'));
 
 				$this->response->controller('messages','index')
 					->setArray(array(
-						'contacts'	=> $this->contacts_list,
+						'contacts'	=> $this->contacts,
 						'total'		=> $this->total
 					));
-				return $this;
+
+				return $this->setResponse();
 			}
 
 			return $this->renderEmptyPage();

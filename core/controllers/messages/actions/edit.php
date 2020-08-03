@@ -10,7 +10,7 @@
 	use Core\Controllers\Messages\Controller;
 	use Core\Controllers\Messages\Model;
 
-	class Delete_Contact extends Controller{
+	class Edit extends Controller{
 
 		/** @var $this */
 		private static $instance;
@@ -40,10 +40,13 @@
 		public $session;
 
 		/** @var array */
-		public $delete_contact;
+		public $edit;
 
-		public $user_id;
-		public $contact_id;
+		public $limit;
+		public $offset;
+		public $total;
+		public $order;
+		public $sort;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -53,18 +56,60 @@
 			return self::$instance;
 		}
 
-		public function __construct(){
-			parent::__construct();
-			$this->backLink();
-			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
+		public function __get($key){
+			if(isset($this->edit[$key])){
+				return $this->edit[$key];
+			}
+			return false;
 		}
 
-		public function methodGet($contact_id){
-			$this->contact_id = $contact_id;
+		public function __set($name, $value){
+			$this->edit[$name] = $value;
+			return $this->edit[$name];
+		}
 
-			$this->model->deleteContact($this->user_id,$this->contact_id);
+		public function __construct(){
+			parent::__construct();
+		}
 
-			return $this->redirect();
+		public function __destruct(){
+
+		}
+
+		public function methodGet(){
+			return false;
+		}
+
+		public function methodPost(){
+			return false;
+		}
+
+		public function methodPut(){
+			return false;
+		}
+
+		public function methodHead(){
+			return false;
+		}
+
+		public function methodTrace(){
+			return false;
+		}
+
+		public function methodPatch(){
+			return false;
+		}
+
+		public function methodOptions(){
+			return false;
+		}
+
+		public function methodConnect(){
+			return false;
+		}
+
+		public function methodDelete(){
+			return false;
 		}
 
 

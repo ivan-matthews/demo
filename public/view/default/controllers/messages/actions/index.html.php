@@ -16,7 +16,7 @@
 
 		<?php foreach($contacts as $contact){ ?>
 
-			<?php $im_not_writer = fx_equal((int)$contact['mc_id'],(int)$contact['m_contact_id']) ?>
+			<?php $im_not_writer = fx_equal($contact['m_sender_id'],$contact['u_id']) ?>
 
 			<div class="list-group-item list-group-item-action messages-item pb-1 pt-1 radius-0<?php if($contact['total']){ ?> new<?php } ?>">
 
@@ -68,7 +68,7 @@
 					</a>
 
 					<?php if($contact['total']){ ?>
-						<div class="total col-1">
+						<div class="total col col-1">
 							<div class="pl-1 pr-1 d-inline-block ml-2 row justify-content-center total-messages bg-danger text-white text-center">
 								<?php print $contact['total'] ?>
 								<span class="total-new">

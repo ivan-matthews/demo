@@ -34,12 +34,16 @@
 				$table->bigint('m_id')->unsigned()->autoIncrement()->primary();
 
 				$table->bigint('m_contact_id')->nullable()->index();
-				$table->tinyint('m_status')->notNull()->defaults(Kernel::STATUS_ACTIVE);
-				$table->boolean('m_hide_in_user')->nullable()->index();
-				$table->boolean('m_hide_in_sender')->nullable()->index();
+				$table->bigint('m_sender_id')->nullable()->index();
+				$table->bigint('m_receiver_id')->nullable()->index();
+
 				$table->longtext('m_content')->nullable()->fullText();
-				$table->longtext('m_content')->nullable()->fullText();
-				$table->bigint( "m_date_read")->nullable()->index();
+
+				$table->tinyint('m_hide_in_user')->nullable()->index();
+				$table->tinyint('m_hide_in_sender')->nullable()->index();
+				$table->tinyint('m_status')->notNull()->defaults(Kernel::STATUS_ACTIVE)->index();
+
+				$table->tinyint( "m_readed")->nullable()->index();
 
 				$table->add_timestamps('m_');
 			});

@@ -10,6 +10,12 @@
 	use Core\Controllers\Messages\Controller;
 	use Core\Controllers\Messages\Model;
 
+	/**
+	 * Get messages by contact_id
+	 *
+	 * Class Item
+	 * @package Core\Controllers\Messages\Actions
+	 */
 	class Item extends Controller{
 
 		/** @var $this */
@@ -42,17 +48,22 @@
 		/** @var array */
 		public $item;
 
-		public $contacts;
+		public $limit=30;
+		public $limit_contacts=15;
 
-		public $contact;
-		public $user_id;
-
-		public $contact_info;
-		public $messages;
-
-		public $limit = 30;
 		public $offset;
 		public $total;
+		public $order;
+		public $sort;
+
+		public $user_id;
+		public $contact_id;
+
+		public $contact_data;
+		public $contacts;
+		public $messages;
+
+		public $query_string_to_update_read_status;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -62,63 +73,55 @@
 			return self::$instance;
 		}
 
-		public function __get($key){
-			if(isset($this->item[$key])){
-				return $this->item[$key];
-			}
-			return false;
-		}
-
-		public function __set($name, $value){
-			$this->item[$name] = $value;
-			return $this->item[$name];
-		}
-
 		public function __construct(){
 			parent::__construct();
+
 			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
 		}
 
-		public function methodGet($messages_contact){
-			$this->contact = $messages_contact;
+		public function methodGet($contact_id){
+			if(!fx_me($this->user_id)){ return false; }
 
-			$this->contact_info = $this->model->getContactById($this->contact);
+			$this->contact_id = $contact_id;
+
+			$this->contact_data = $this->model->getContactById($this->user_id,$this->contact_id);
 
 			$this->setResponse();
 
-			if($this->contact_info){
-				$this->contacts = $this->model->getContacts($this->user_id,10,0);
+			if($this->contact_data){
 
-				$this->total = $this->model->countMessagesByContactId(
-					$this->contact_info['mc_user_id'],
-					$this->contact_info['mc_sender_id']
+				$this->contacts = $this->model->getContacts(
+					$this->user_id,
+					$this->limit_contacts,
+					0,
+					'total'
 				);
 
+				$this->total = $this->model->countMessagesByContactId($this->user_id,$this->contact_id);
+
 				$this->messages = $this->model->getMessagesByContactId(
-					$this->contact_info['mc_user_id'],
-					$this->contact_info['mc_sender_id'],
+					$this->user_id,
+					$this->contact_id,
 					$this->limit,
 					$this->offset
 				);
 
-				if($this->messages){
-					$update_messages_query_string = ltrim($this->getMessagesUpdateQueryString(),' OR ');
-					if($update_messages_query_string){
-						$this->model->updateMessagesAsReadByIDs($update_messages_query_string);
-					}
+				$this->prepareMessagesIdsToUpdateQuery();
+
+				if($this->query_string_to_update_read_status){
+					$this->model->updateMessagesStatusRead($this->query_string_to_update_read_status);
 				}
 
-				$this->paginate($this->total, array('messages','item',$this->user_id,$this->contact));
+				$this->paginate($this->total, array('messages','item',$this->contact_id));
 
 				$this->response->controller('messages','contact')
 					->setArray(array(
 						'contacts'	=> $this->contacts,
 						'messages'	=> $this->messages,
 						'total'		=> $this->total,
-						'contact'	=> $this->contact_info,
+						'contact'	=> $this->contact_data,
 						'user'		=> $this->user_id,
 					));
-
 				return $this;
 			}
 
@@ -127,7 +130,7 @@
 
 
 		public function setResponse(){
-			$user_title = fx_get_full_name($this->contact_info['u_full_name'],$this->contact_info['u_gender']);
+			$user_title = fx_get_full_name($this->contact_data['u_full_name'],$this->contact_data['u_gender']);
 
 			$this->response->title('messages.messages_contacts_title');
 			$this->response->breadcrumb('messages')
@@ -138,23 +141,27 @@
 			$this->response->title($user_title);
 			$this->response->breadcrumb('messages_contact')
 				->setValue($user_title)
-				->setLink('messages','item',$this->contact)
+				->setLink('messages','item',$this->contact_id)
 				->setIcon(null);
 
 			return $this;
 		}
 
-		public function getMessagesUpdateQueryString(){
+		public function prepareMessagesIdsToUpdateQuery(){
 			$messages_string = '';
 			foreach($this->messages as $message){
-				if($message['m_date_read']){ continue; }
-				if(fx_equal($message['mc_sender_id'],$this->user_id)){
-					if(!fx_equal($message['mc_sender_id'],$message['mc_user_id'])){ continue; }
+				if($message['m_readed']){ continue; }
+				if(fx_equal($message['m_sender_id'],$this->user_id)){
+					if(!fx_equal($message['m_sender_id'],$message['m_receiver_id'])){ continue; }
 				}
-				$messages_string .= " OR `m_id` = '{$message['m_id']}'";
+				$messages_string .= "`m_id` = '{$message['m_id']}' OR ";
 			}
-			return $messages_string;
+
+			return $this->query_string_to_update_read_status = rtrim($messages_string,' OR ');
 		}
+
+
+
 
 
 

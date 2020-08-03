@@ -4,6 +4,7 @@
 		'messages_contacts_title'	=> 'Сообщения',
 		'user_say_value'			=> 'пишет: ',
 		'total_new_messages_count'	=> 'новых',
+		'total_messages_count'		=> 'всего',
 		'message_my_identifier_value'	=> 'Я',
 		'message_i_send_value'		=> 'Я',
 		'new_user_message'			=> 'не прочитанное',

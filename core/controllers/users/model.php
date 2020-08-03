@@ -162,8 +162,8 @@
 
 			$result = $this->select('COUNT(m_id) as total')
 				->from('messages')
-				->join('messages_contacts','mc_id=m_contact_id')
-				->where("`mc_user_id`='{$receiver_id}' AND isnull(m_date_read) and m_status !=" . Kernel::STATUS_DELETED . " and mc_status!=" . Kernel::STATUS_DELETED)
+				->join('messages_contacts',"mc_last_message_id=m_id")
+				->where("`m_receiver_id`='{$receiver_id}' AND isnull(m_readed)")
 				->get()
 				->itemAsArray();
 

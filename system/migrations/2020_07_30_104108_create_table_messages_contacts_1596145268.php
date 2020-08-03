@@ -19,10 +19,17 @@
 				$table->bigint('mc_id')->unsigned()->autoIncrement()->primary();
 
 				$table->bigint('mc_sender_id')->nullable()->index();
-				$table->bigint('mc_user_id')->nullable()->index();
+				$table->bigint('mc_receiver_id')->nullable()->index();
+
+				$table->bigint('mc_sender_total')->notNull()->defaults(0);
+				$table->bigint('mc_receiver_total')->notNull()->defaults(0);
+
 				$table->bigint('mc_last_message_id')->nullable()->index();
 
-				$table->tinyint('mc_status')->notNull()->defaults(Kernel::STATUS_ACTIVE);
+				$table->tinyint('mc_hide_in_sender')->nullable()->index();
+				$table->tinyint('mc_hide_in_user')->nullable()->index();
+
+				$table->tinyint('mc_status')->notNull()->defaults(Kernel::STATUS_ACTIVE)->index();
 
 				$table->add_timestamps('mc_');
 			});

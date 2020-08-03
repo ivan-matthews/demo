@@ -44,8 +44,7 @@
 
 		public $user_id;
 		public $message_id;
-
-		public $message_info = array();
+		public $message_data;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -57,34 +56,16 @@
 
 		public function __construct(){
 			parent::__construct();
-
-			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
 			$this->backLink();
+			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
 		}
 
 		public function methodGet($message_id){
 			$this->message_id = $message_id;
 
-			$this->message_info = $this->model->getMessageById($this->message_id);
+			$this->model->deleteMessage($this->user_id,$this->message_id);
 
-			if($this->message_info){
-
-				if(fx_equal($this->user_id,$this->message_info['mc_sender_id'])
-					&& fx_equal($this->user_id,$this->message_info['mc_user_id'])){
-					$this->model->hideOwnMessage($this->message_id);
-				}else{
-					if(fx_equal($this->user_id,$this->message_info['mc_sender_id'])){
-
-						$this->model->hideSenderMessage($this->message_id);
-					}else
-						if(fx_equal($this->user_id,$this->message_info['mc_user_id'])){
-							$this->model->hideMyMessage($this->message_id);
-						}
-				}
-				return $this->redirect();
-			}
-
-			return false;
+			return $this->redirect();
 		}
 
 
