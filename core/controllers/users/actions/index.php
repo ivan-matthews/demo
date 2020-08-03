@@ -115,63 +115,37 @@
 /*		SORTING PANEL ACTIONS			*/
 
 		protected function setSortingPanelAll(){
+			return null;
+		}
+		protected function setSortingPanelAvatar(){
+			return " AND !isnull(u_avatar_id)";
+		}
+		protected function setSortingPanelRandom(){
 			$this->order = 'RAND()';
 			return null;
 		}
 		protected function setSortingPanelOnline(){
-			$this->response->title('users.users_index_online_title');
-			$this->response->breadcrumb('filter')
-				->setIcon(null)
-				->setLink('users','index','online')
-				->setValue('users.users_index_online_title');
 			$this->order = '`u_date_log`';
 			return " AND `u_date_log`>" . time();
 		}
 		protected function setSortingPanelRegistration(){
-			$this->response->title('users.users_index_registration_title');
-			$this->response->breadcrumb('filter')
-				->setIcon(null)
-				->setLink('users','index','registration')
-				->setValue('users.users_index_registration_title');
 			$this->order = '`u_date_created`';
 			return null;
 		}
 		protected function setSortingPanelLast_visit(){
-			$this->response->title('users.users_index_last_visit_title');
-			$this->response->breadcrumb('filter')
-				->setIcon(null)
-				->setLink('users','index','last_visit')
-				->setValue('users.users_index_last_visit_title');
 			$this->order = '`u_date_log`';
 			return " AND `u_date_log`<" . time();
 		}
 		protected function setSortingPanelActive(){
-			$this->response->title('users.users_index_active_title');
-			$this->response->breadcrumb('filter')
-				->setIcon(null)
-				->setLink('users','index','active')
-				->setValue('users.users_index_active_title');
-
 			return " AND `u_status`=" . Kernel::STATUS_ACTIVE;
 		}
 		protected function setSortingPanelInactive(){
-			$this->response->title('users.users_index_inactive_title');
-			$this->response->breadcrumb('filter')
-				->setIcon(null)
-				->setLink('users','index','inactive')
-				->setValue('users.users_index_inactive_title');
-
 			return " AND `u_status`=" . Kernel::STATUS_INACTIVE;
 		}
 		protected function setSortingPanelLocked(){
-			$this->response->title('users.users_index_locked_title');
-			$this->response->breadcrumb('filter')
-				->setIcon(null)
-				->setLink('users','index','locked')
-				->setValue('users.users_index_locked_title');
-
 			return " AND `u_status`=" . Kernel::STATUS_LOCKED;
 		}
+
 
 
 

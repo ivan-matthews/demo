@@ -57,12 +57,28 @@
 			$insert = $insert->update('p_medium',$input_params['p_medium']);
 			$insert = $insert->update('p_normal',$input_params['p_normal']);
 			$insert = $insert->update('p_big',$input_params['p_big']);
+			$insert = $insert->update('p_original',$input_params['p_original']);
+			$insert = $insert->update('p_status',Kernel::STATUS_ACTIVE);
 			$insert = $insert->get();
 			$this->avatar_id = $insert->id();
 
 			return $this->avatar_id;
 		}
 
+		public function getAvatarByID($avatar_id,$user_id){
+			$this->avatar_id = $avatar_id;
+
+			$result = $this->select()
+				->from('photos')
+				->where("p_id=%avatar_id% AND p_user_id=%user_id%")
+				->data('%avatar_id%',$this->avatar_id)
+				->data('%user_id%',$user_id)
+				->limit(1)
+				->get()
+				->itemAsArray();
+
+			return $result;
+		}
 
 
 

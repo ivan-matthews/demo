@@ -50,59 +50,11 @@
 			return self::$instance;
 		}
 
-		public function __get($key){
-			if(isset($this->item[$key])){
-				return $this->item[$key];
-			}
-			return false;
-		}
-
-		public function __set($name, $value){
-			$this->item[$name] = $value;
-			return $this->item[$name];
-		}
-
 		public function __construct(){
 			parent::__construct();
 		}
 
-		public function __destruct(){
-
-		}
-
 		public function methodGet($item_id){
-			return false;
-		}
-
-		public function methodPost($item_id){
-			return false;
-		}
-
-		public function methodPut($item_id){
-			return false;
-		}
-
-		public function methodHead($item_id){
-			return false;
-		}
-
-		public function methodTrace($item_id){
-			return false;
-		}
-
-		public function methodPatch($item_id){
-			return false;
-		}
-
-		public function methodOptions($item_id){
-			return false;
-		}
-
-		public function methodConnect($item_id){
-			return false;
-		}
-
-		public function methodDelete($item_id){
 			return false;
 		}
 

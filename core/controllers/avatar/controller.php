@@ -8,6 +8,7 @@
 	use Core\Classes\Response\Response;
 	use Core\Classes\Kernel;
 	use Core\Classes\View;
+	use Core\Classes\Session;
 
 	class Controller extends ParentController{
 
@@ -41,24 +42,27 @@
 		/** @var View */
 		public $view;
 
+		private $image_params;			// params array
+		private $image_extension;		// explode image extension
+		private $image_folder;			// image folder path without public/[template_name]
+		private $image_directory;		// root path to image folder
+		private $image_hash;			// unique md5 image file hash
+		private $image_original_name;	// name file for original image
+		private $image_sub_folder;		// image sub folder (date(Y), example)
+		private $image_x_coordinate;	// crop X coordinate
+		private $image_y_coordinate;	// crop Y coordinate
+		private $image_insert_data;		// insert to DB data array
+		private $image_user_id;			// current user ID
+		private $image_file_name;		// dynamic file name created from params array in foreach
+		private $image_path_to_save;	// dynamic save path created from params array in foreach
+		private $image_temporary_file;	// copied temporary file
+
 		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){
 				self::$instance = new self();
 			}
 			return self::$instance;
-		}
-
-		public function __get($key){
-			if(isset($this->avatar[$key])){
-				return $this->avatar[$key];
-			}
-			return false;
-		}
-
-		public function __set($name, $value){
-			$this->avatar[$name] = $value;
-			return $this->avatar[$name];
 		}
 
 		public function __construct(){
@@ -73,67 +77,114 @@
 
 		}
 
-		public function saveAndPrepareImage($attributes,$user_id){
+		public function cropAndResizeImage($attributes,$user_id,$images_dir_path='photos',$coordinate_x=null,$coordinate_y=null){
+			$this->image_params = $attributes;
+			$this->image_sub_folder = $images_dir_path;
+			$this->image_x_coordinate = $coordinate_x;
+			$this->image_y_coordinate = $coordinate_y;
+			$this->image_user_id = $user_id;
+
+			$this->getExtension();
+			$this->setImageFolder();
+			$this->setImageDirectory();
+			$this->getImageHash();
+			$this->setOriginalImageName();
+			$this->copyOriginalImage();
+			$this->setImageInsertDataArray();
+			$this->cropOriginalImage();
+			$this->setAnotherImages();
+			$this->unlinkCurrentImage();
+
+			return $this->image_insert_data;
+		}
+
+		public function getExtension(){
 //			получить расширение файла
-			$extension = explode('/',$attributes['type'])[1];
+			$this->image_extension = explode('/',$this->image_params['type'])[1];
+			return $this;
+		}
+		public function setImageFolder(){
 //			установить путь для сохранения картинки
-			$user_files_path = "users/{$user_id}/avatars";
-
-//			получить пареметры обрезки изображения
-			$image_params = $this->request->getAll();
-			$x = isset($image_params['x'][0]) ? $image_params['x'][0] : 0;
-			$y = isset($image_params['y'][0]) ? $image_params['y'][0] : 0;
-
+			$this->image_folder = "users/{$this->image_user_id}/{$this->image_sub_folder}";
+			return $this;
+		}
+		public function setImageDirectory(){
 //			установить путь для сохранения картинки относительно корня ФС
-			$path_to_save = $this->view->getUploadDir($user_files_path);
-
+			$this->image_directory = $this->view->getUploadDir($this->image_folder);
 //			создать папку, если не существует
-			fx_make_dir($path_to_save);
-
+			fx_make_dir($this->image_directory);
+			return $this;
+		}
+		public function getImageHash(){
 //			хеш картинки
-			$image_hash = $user_id . '-' . md5_file($attributes['tmp_name']);
-
+			$this->image_hash = $this->image_user_id . '-' . md5_file($this->image_params['tmp_name']);
+			return $this;
+		}
+		public function setOriginalImageName(){
 //			оригинал не редактируем!
-			$original_file_name = "original-{$image_hash}.{$extension}";
+			$this->image_original_name = "original-{$this->image_hash}.{$this->image_extension}";
+			return $this;
+		}
+		public function copyOriginalImage(){
+			$this->image_temporary_file = "{$this->image_directory}/{$this->image_original_name}-tmp";
 //			скопировать оригинал в папку, где будут расположены другие картинки
-			copy($attributes['tmp_name'], "{$path_to_save}/{$original_file_name}");
-
+			copy($this->image_params['tmp_name'], "{$this->image_directory}/{$this->image_original_name}");
+			copy($this->image_params['tmp_name'], $this->image_temporary_file);
+			return $this;
+		}
+		public function setImageInsertDataArray(){
 //			массив для инзерта в БД
-			$insert_data = array(
-				'p_user_id'			=> $user_id,
-				'p_name'			=> $attributes['name'],
-				'p_size'			=> $attributes['size'],
-				'p_hash'			=> $image_hash,
-				'p_mime'			=> $attributes['type'],
+			$this->image_insert_data = array(
+				'p_user_id'			=> $this->image_user_id,
+				'p_name'			=> $this->image_params['name'],
+				'p_size'			=> $this->image_params['size'],
+				'p_hash'			=> $this->image_hash,
+				'p_mime'			=> $this->image_params['type'],
 				'p_status'			=> Kernel::STATUS_ACTIVE,
 				'p_date_created'	=> time(),
-				'p_original'		=> "{$user_files_path}/{$original_file_name}",
+				'p_original'		=> "{$this->image_folder}/{$this->image_original_name}",
 			);
-
+			return $this;
+		}
+		public function cropOriginalImage(){
 //			обрезать картинку по параметрам ключа `NORMAL` как дефолтного значения
-			fx_crop_image($attributes['tmp_name'],
-				$extension, $this->params->image_params['normal']['width'],
-				$this->params->image_params['normal']['height'],$x,$y);
+			fx_crop_image($this->image_temporary_file,
+				$this->image_extension, $this->params->image_params['normal']['width'],
+				$this->params->image_params['normal']['height'],$this->image_x_coordinate,$this->image_y_coordinate);
 
+			return $this;
+		}
+		public function setAnotherImages(){
 //			перебрать остальные ключи для обрезки картинки по установленным параметрам
 			foreach($this->params->image_params as $key=>$value){
 //				имя файла
-				$image_file_name = "{$key}-{$image_hash}.{$extension}";
+				$this->image_file_name = "{$key}-{$this->image_hash}.{$this->image_extension}";
 //				путь для сохранения
-				$image_path_to_save = "{$path_to_save}/{$image_file_name}";
+				$this->image_path_to_save = "{$this->image_directory}/{$this->image_file_name}";
 //				скопировать картинку в папку с картинками
-				copy($attributes['tmp_name'],$image_path_to_save);
-
-//				заполнить поле размера картинки для БД
-				$insert_data["p_{$key}"] = "{$user_files_path}/{$image_file_name}";
-
-//				`resize_height` установлен в "0", чтоб не плющило изображения по высоте
-				fx_crop_and_resize_image($image_path_to_save, $extension, $value['width'], 0, $value['width'], $value['height']);
+				copy($this->image_temporary_file,$this->image_path_to_save);
+//				заполнить поле ключа картинки для БД
+				$this->image_insert_data["p_{$key}"] = "{$this->image_folder}/{$this->image_file_name}";
+//				параметр `resize_height` установлен в "0", чтоб не плющило изображения по высоте
+				fx_crop_and_resize_image(
+					$this->image_path_to_save, $this->image_extension, $value['width'],
+					0, $value['width'], $value['height']
+				);
 			}
+			return $this;
+		}
+		public function unlinkCurrentImage(){
+			unlink($this->image_temporary_file);
+			return $this;
+		}
 
-			unlink($attributes['tmp_name']);
 
-			return $insert_data;
+		public function sessionUpdate(){
+			$this->insert_data['p_date_updated'] = time();
+			foreach($this->insert_data as $key=>$value){
+				$this->session->set($key,$value,Session::PREFIX_AUTH);
+			}
+			return $this;
 		}
 
 

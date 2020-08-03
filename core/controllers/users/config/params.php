@@ -24,36 +24,55 @@
 				'status'=> Kernel::STATUS_ACTIVE,
 				'title'	=> 'users.users_index_all_title',
 				'link'	=> array('users','index','all'),
+				'icon'	=> null,
 			),
 			'online'	=> array(
 				'status'=> Kernel::STATUS_ACTIVE,
 				'title'	=> 'users.users_index_online_title',
-				'link'	=> array('users','index','online')
+				'link'	=> array('users','index','online'),
+				'icon'	=> null,
 			),
 			'last_visit'	=> array(
 				'status'=> Kernel::STATUS_ACTIVE,
 				'title'	=> 'users.users_index_last_visit_title',
-				'link'	=> array('users','index','last_visit')
+				'link'	=> array('users','index','last_visit'),
+				'icon'	=> null,
+			),
+			'avatar'	=> array(
+				'status'=> Kernel::STATUS_ACTIVE,
+				'title'	=> 'users.users_with_avatar_title',
+				'link'	=> array('users','index','avatar'),
+				'icon'	=> null,
+			),
+			'random'	=> array(
+				'status'=> Kernel::STATUS_ACTIVE,
+				'title'	=> 'users.users_random_title',
+				'link'	=> array('users','index','random'),
+				'icon'	=> null,
 			),
 			'registration'	=> array(
 				'status'=> Kernel::STATUS_INACTIVE,
 				'title'	=> 'users.users_index_registration_title',
-				'link'	=> array('users','index','registration')
+				'link'	=> array('users','index','registration'),
+				'icon'	=> null,
 			),
 			'active'	=> array(
 				'status'=> Kernel::STATUS_INACTIVE,
 				'title'	=> 'users.users_index_active_title',
-				'link'	=> array('users','index','active')
+				'link'	=> array('users','index','active'),
+				'icon'	=> null,
 			),
 			'inactive'	=> array(
 				'status'=> Kernel::STATUS_INACTIVE,
 				'title'	=> 'users.users_index_inactive_title',
-				'link'	=> array('users','index','inactive')
+				'link'	=> array('users','index','inactive'),
+				'icon'	=> null,
 			),
 			'locked'	=> array(
 				'status'=> Kernel::STATUS_INACTIVE,
 				'title'	=> 'users.users_index_locked_title',
-				'link'	=> array('users','index','locked')
+				'link'	=> array('users','index','locked'),
+				'icon'	=> null,
 			),
 		),
 		'header_bar_user_edit'	=> array(

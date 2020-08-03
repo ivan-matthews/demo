@@ -135,11 +135,21 @@
 			return $this;
 		}
 
+		protected function setResponseBySortingPanel(array $response_values){
+			$this->response->title($response_values['title']);
+			$this->response->breadcrumb('filter')
+				->setIcon($response_values['icon'])
+				->setLink(...$response_values['link'])
+				->setValue($response_values['title']);
+			return $this;
+		}
+
 		protected function sorting(array $actions){
 			$callable_action = "setSortingPanel{$this->sorting_action}";
 			if(isset($actions[$this->sorting_action]) && fx_equal($actions[$this->sorting_action]['status'],Kernel::STATUS_ACTIVE) &&
 				method_exists($this,$callable_action)){
 				$this->query .= call_user_func(array($this,$callable_action));
+				$this->setResponseBySortingPanel($actions[$this->sorting_action]);
 			}
 
 			Sorting_Panel::add()
@@ -165,7 +175,6 @@
 				->set();
 			return $this;
 		}
-
 
 
 

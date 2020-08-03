@@ -490,9 +490,6 @@ form .preview .small i,
 form .preview .small svg {
   font-size: 8vw !important;
 }
-form .preview .medium {
-  display: none;
-}
 form .preview .medium i,
 form .preview .medium svg {
   font-size: 12vw !important;
@@ -506,6 +503,13 @@ form .preview .big {
 }
 form .preview .big i,
 form .preview .big svg {
+  font-size: 10vw !important;
+}
+form .preview .original {
+  display: none;
+}
+form .preview .original i,
+form .preview .original svg {
   font-size: 10vw !important;
 }
 form label {

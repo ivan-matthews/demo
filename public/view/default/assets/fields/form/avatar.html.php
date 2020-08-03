@@ -19,7 +19,7 @@
 	$image_params = $attributes['params']['image_params'];
 ?>
 
-<div class="form-group row m-0 justify-content-center form-block <?php print $attributes['params']['original_name'] ?> <?php print $attributes['params']['field_sets_field_class'] ?>">
+<div class="avatar-field form-group row m-0 justify-content-center form-block <?php print $attributes['params']['original_name'] ?> <?php print $attributes['params']['field_sets_field_class'] ?>">
 
 	<?php if($errors_status){ ?>
 
@@ -65,29 +65,30 @@
 
 <script>
 	$('[name=avatar]').on("change",function(){
-		$('.avatar .preview').removeClass('hidden');
+		$('.avatar-field.avatar .preview').removeClass('hidden');
 		if(this.files && this.files[0]){
-			let image_block = $('#image-wapper');
+			let image_block = $('.avatar-field #image-wapper');
 
-			$('.original .image-form').hide();
+			$('.avatar-field .original .image-form').hide();
 			image_block.html("<img id=\"image_avatar\" class=\"preview-avatar\" src=\"\">");
 
 			let reader = new FileReader();
 
 			reader.onload = function(e){
 				$('#image_avatar',image_block).attr('src',e.target.result);
-				cropAvatar();
+				cropAvatar('.avatar-field');
 			};
 			reader.readAsDataURL(this.files[0]);
 		}
 	});
 
-	cropAvatar = function(){
-		let image = $('#image_avatar');
+	cropAvatar = function(unique_selector){
+		let image = $('#image_avatar',unique_selector);
 		image.rcrop({
 			minSize : [<?php print $image_params['normal']['width'] ?>,<?php print $image_params['normal']['height'] ?>],
 			maxSize : [<?php print $image_params['normal']['width'] ?>,<?php print $image_params['normal']['height'] ?>],
 			preserveAspectRatio : true,
+			grid : true,
 		});
 
 		image.on('rcrop-changed', function(){
@@ -95,7 +96,7 @@
 			<?php foreach($image_params as $param_key=>$param_value){ ?>
 
 				let <?php print $param_key ?> = $(this).rcrop('getDataURL', <?php print $param_value['width'] ?>,<?php print $param_value['height'] ?>);
-				$('.avatar .preview .<?php print $param_key ?>').html('<img src="' + <?php print $param_key ?> + '">');
+				$('.avatar .preview .<?php print $param_key ?>').html('<img src="' + <?php print $param_key ?> + '">',unique_selector);
 
 			<?php } ?>
 		})

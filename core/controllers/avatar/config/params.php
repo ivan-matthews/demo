@@ -24,23 +24,23 @@
 		'image_params'	=> array(
 			'micro'	=> array(
 				'width'		=> 24,
-				'height'	=> 24,		// квадраты
+				'height'	=> 24,
 			),
 			'small'	=> array(
 				'width'		=> 64,
-				'height'	=> 64,		// квадраты
+				'height'	=> 64,
 			),
 			'medium'=> array(
 				'width'		=> 96,
-				'height'	=> 96,		// квадраты
+				'height'	=> 96,
 			),
 			'normal'=> array(
 				'width'		=> 240,
-				'height'	=> 320,		// 0 - оригинальная высота
+				'height'	=> 320,
 			),
 			'big'	=> array(
 				'width'		=> 360,
-				'height'	=> 480,		// 0 - оригинальная высота
+				'height'	=> 480,
 			),
 		),
 	);

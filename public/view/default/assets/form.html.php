@@ -7,6 +7,8 @@
 
 	/** @var \Core\Classes\View $this */
 
+	$form['class'] .= ' mb-3 mt-3';
+
 	$submit = $form['submit'];
 
 	unset($form['submit']);

@@ -73,6 +73,9 @@
 	}
 
 	/**
+	 * Ресайз изображения до нужных пропорций
+	 *
+	 *
 	 * @param $file_name
 	 * @param $image_type
 	 * @param int $input_width
@@ -105,11 +108,46 @@
 		return $result_image;
 	}
 
+	/**
+	 * Первичная обрезка оригинального изображения
+	 * для ресайза вызвать fx_resize_image()
+	 * или
+	 * для последующих операций с изображением
+	 * вызвать fx_crop_and_resize_image()
+	 * пример: Core\Controllers\Avatar\Controller -> saveAndPrepareImage()
+	 *
+	 * @param $file_name
+	 * @param $image_type
+	 * @param int $input_width
+	 * @param int $input_height
+	 * @param int $x
+	 * @param int $y
+	 * @return bool
+	 */
 	function fx_crop_image($file_name, $image_type, $input_width = 240, $input_height = 0,$x=0,$y=0){
 
 		$create_function = "imagecreatefrom{$image_type}";
 		$exit_function = "image{$image_type}";
 		if(!is_callable($create_function) || !is_callable($exit_function)){ return false; }
+
+		list($orig_width, $orig_height) = getimagesize($file_name);
+
+		if(is_null($x)){
+			if($orig_width > $input_width){
+				$x = ($orig_width - $input_width) / 2;
+			}else{
+				$x = 0;
+				$input_width = $orig_width;
+			}
+		}
+		if(is_null($y)){
+			if($orig_height > $input_height){
+				$y = ($orig_height - $input_height) / 2;
+			}else{
+				$y = 0;
+				$input_height = $orig_height;
+			}
+		}
 
 		$image = $create_function($file_name);
 
@@ -126,6 +164,19 @@
 		return $result_image;
 	}
 
+	/**
+	 * Обрезка и ресайз изображения
+	 *
+	 * @param $file_name
+	 * @param $image_type
+	 * @param int $resize_width
+	 * @param int $resize_height
+	 * @param int $crop_width
+	 * @param int $crop_height
+	 * @param int $x
+	 * @param int $y
+	 * @return bool
+	 */
 	function fx_crop_and_resize_image($file_name, $image_type, $resize_width = 240, $resize_height = 0, $crop_width = 240, $crop_height = 0, $x=0, $y=0){
 
 		$create_function = "imagecreatefrom{$image_type}";

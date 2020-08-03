@@ -114,7 +114,13 @@
 
 			if($this->add_form->can()){
 
-				$this->insert_data = $this->saveAndPrepareImage($this->fields_list['avatar']['attributes']['files'],$this->user_id);
+				$image_params = $this->request->getAll();
+				$x = isset($image_params['x'][0]) ? (int)$image_params['x'][0] : 0;
+				$y = isset($image_params['y'][0]) ? (int)$image_params['y'][0] : 0;
+
+				$this->insert_data = $this->cropAndResizeImage(
+					$this->fields_list['avatar']['attributes']['files'],$this->user_id,'avatars',$x,$y
+				);
 
 				$this->avatar_id = $this->model->addAvatar($this->insert_data);
 
@@ -137,14 +143,6 @@
 
 			$this->setResponse();
 
-			return $this;
-		}
-
-		public function sessionUpdate(){
-			$this->insert_data['p_date_updated'] = time();
-			foreach($this->insert_data as $key=>$value){
-				$this->session->set($key,$value,Session::PREFIX_AUTH);
-			}
 			return $this;
 		}
 
