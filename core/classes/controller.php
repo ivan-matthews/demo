@@ -18,6 +18,7 @@
 		public $config;
 
 		public $language;
+		public $language_key;
 
 		/** @var Response  */
 		public $response;
@@ -34,53 +35,23 @@
 		/** @var Interfaces\Hooks  */
 		public $hook;
 
-		/** @var string */
-		public $query;
-
-		/** @var array */
-		public $replaced_data = array();
-
-		/** @var int */
-		public $limit	= 15;
-
-		/** @var int */
-		public $offset	= 0;
-
-		/** @var int */
-		public $total	= 0;
-
-		/** @var string */
-		public $order	= 'id';
-
-		/** @var string  */
-		public $sort	= 'ASC';
-
-		/** @var string */
-		public $sort_key='dn';
-
-		/** @var string */
-		protected $sorting_action='all';
-
-		/** @var array */
-		public $sorting = array(
-			'up'	=> 'DESC',
-			'dn'	=> 'ASC',
-		);
-
-		/** @var array */
-		public $fields_list;
-		public $filter_fields;
-		public $filter_data;
-		public $filter_name;
-
-		/** @var Form */
-		public $form;
-
-		/** @var Form */
-		public $filter;
-
 		/** @var array */
 		private $controller;
+
+		public $query = '';
+
+		public $limit = 20;
+		public $offset = 0;
+		public $order;
+		public $sort = 'DESC';
+
+		public $sorting_types = array(
+			'up'	=> 'DESC',
+			'dn'	=> 'ASC'
+		);
+
+		public $sorting_action;
+		public $sorting_type = 'up';
 
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -109,6 +80,8 @@
 			$this->user = User::getInstance();
 			$this->language = Language::getInstance();
 			$this->hook = Hooks::getInstance();
+
+			$this->offset = $this->request->get('offset');
 		}
 
 		public function __destruct(){
@@ -128,26 +101,6 @@
 				->setIcon('fa fa-home');
 			$this->response->favicon($this->config->view['default_favicon']);
 			$this->setMeta();
-
-			$this->limit	= $this->request->get('limit')?:15;
-			$this->offset	= $this->request->get('offset')?:0;
-
-			return $this;
-		}
-
-		/**
-		 * Установка свойств для сортировки
-		 * $sorting_action - подставляется из файла параметров контроллера;
-		 * $sort [dn,up] - dn - DESC; up - ASC;
-		 *
-		 * @param $sorting_action
-		 * @param $sort
-		 * @return $this
-		 */
-		protected function setSortingProps($sorting_action,$sort){
-			$this->sorting_action = $sorting_action;
-			$this->sort_key = $sort ?: $this->sort_key;
-			$this->sort = isset($this->sorting[$sort]) ? $this->sorting[$sort] : 'ASC';
 			return $this;
 		}
 
@@ -218,16 +171,9 @@
 			return $this;
 		}
 
-		/**
-		 * Установить пагинацию?
-		 * должны быть предустановлены свойста $this->total, $this->limit, $this->offset
-		 *
-		 * @param $link
-		 * @return $this
-		 */
-		protected function paginate($link){
+		protected function paginate($total_items,$link){
 			Paginate::add()
-				->total($this->total)
+				->total($total_items)
 				->limit($this->limit)
 				->offset($this->offset)
 				->link($link)
@@ -235,147 +181,22 @@
 			return $this;
 		}
 
-		/**
-		 * Установить панель сортировки?
-		 * $actions - массив, берется из параметров контроллера
-		 * $current - текущая сортировка (можно установить с помощью метода Controller::setSortingProps(all,up))
-		 *
-		 * @param array $actions
-		 * @param $current
-		 * @return $this
-		 */
-		protected function sorting(array $actions,$current){
-			$current_data['action'] = $current;
-			$current_data['sort'] = $this->sort_key;
+		protected function sorting(array $actions){
+			$callable_action = "setSortingPanel{$this->sorting_action}";
+			if(isset($actions[$this->sorting_action]) && fx_equal($actions[$this->sorting_action]['status'],Kernel::STATUS_ACTIVE) &&
+				method_exists($this,$callable_action)){
+				$this->query .= call_user_func(array($this,$callable_action));
+			}
 
 			Sorting_Panel::add()
 				->actions($actions)
-				->current($current_data)->set();
-			return $this;
-		}
-
-		/**
-		 * Установить панель хидер-бар (без сортровки)
-		 *
-		 * @param array $header_bar_data
-		 * @param $current_tab
-		 * @return $this
-		 */
-		protected function header_bar(array $header_bar_data,$current_tab){
-			$action = "{$current_tab}HeaderBar";
-			if(method_exists($this,$action)){
-				call_user_func(array($this,$action));
-			}
-			Header_Bar::add()
-				->data($header_bar_data)
-				->current($current_tab)
+				->current(array(
+					'action'	=> $this->sorting_action,
+					'sort'		=> $this->sorting_type
+				))
 				->set();
 			return $this;
 		}
-
-		/**
-		 * Получить запрос для фильтраии из панели сортировки;
-		 * дополняет свойсто $this->query
-		 *
-		 * @param array $sorting_panel
-		 * @param $sorting_action
-		 * @return $this
-		 */
-		protected function getQueryFromSortingPanelArray(array $sorting_panel,$sorting_action){
-			if(isset($sorting_panel[$sorting_action]) &&
-				fx_equal($sorting_panel[$sorting_action]['status'],Kernel::STATUS_ACTIVE) &&
-				method_exists($this,$sorting_action)){
-				$this->query .= call_user_func(array($this,$sorting_action));
-			}
-			return $this;
-		}
-
-		/**
-		 * установить панель фильтра
-		 * $form_key - имя формы, по нему берутся данные из реквеста
-		 * $fields - массив полей (пример: core/controllers/users/config/fields.php)
-		 *
-		 * заполняет свойства $this->query, array $this->replaced_data, которые отправляем в модель контроллера
-		 * для фильтрации запроса
-		 *
-		 * @param $form_key
-		 * @param $fields
-		 * @return $this
-		 */
-		protected function setFilterFromArrayFields($form_key,$fields){
-			$this->filter_name = $form_key;
-			$this->filter_fields = $fields;
-			$this->filter_data = $this->request->getArray($form_key);
-			$this->filter = new Form();
-			$this->filter->setData($this->filter_data);
-			$this->filter->validate(1);
-			$this->filter->form(function(FormInterface $form)use($form_key){
-				$form->setFormAction(fx_get_url('users','index',$this->sorting_action,$this->sort_key));
-				$form->setFormMethod('GET');
-				$form->setFormAutoComplete('off');
-				$form->setFormName($form_key);
-			});
-
-			return $this;
-		}
-
-		protected function geo($country_field_name,$region_field_name,$city_field_name){
-			if(!$this->filter){ return $this; }
-
-			if(($country_value = $this->filter->getValue($country_field_name))){
-				$this->query .= " AND {$country_field_name}=%country%";
-				$this->replaced_data["%country%"] = $country_value;
-			}
-			if(($region_value = $this->filter->getValue($region_field_name))){
-				$this->query .= " AND {$region_field_name}=%region%";
-				$this->replaced_data["%region%"] = $region_value;
-			}
-			if(($city_value = $this->filter->getValue($city_field_name))){
-				$this->query .= " AND {$city_field_name}=%city%";
-				$this->replaced_data["%city%"] = $city_value;
-			}
-
-			$this->filter->geo($country_field_name,$region_field_name,$city_field_name);
-			return $this;
-		}
-
-		protected function checkFilter(){
-			$this->fields_list = $this->filter->setArrayFields($this->filter_fields)
-				->checkArrayFields()
-				->getFieldsList();
-			foreach($this->filter_data as $key=>$value){
-				if(isset($this->fields_list[$key]) && $value){
-					$this->query .= " AND `{$key}` {$this->fields_list[$key]['attributes']['params']['filter_validation']} %{$key}%";
-					$this->replaced_data["%{$key}%"] = $this->makeFilter($this->fields_list[$key]['attributes']['params']['filter_validation'],$value);
-				}
-			}
-
-			Filter::add()
-				->form($this->filter->getFormAttributes())
-				->fields($this->filter->getFieldsList())
-				->errors($this->filter->getErrors())
-				->data($this->filter_data)
-				->set();
-			return $this;
-		}
-
-		private function makeFilter($operator,$value){
-			switch($operator){
-				case(fx_equal($operator,'LIKE')):
-					return "%{$value}%";
-					break;
-				case(fx_equal($operator,'=')):
-					return $value;
-					break;
-				case(fx_equal($operator,'!=')):
-					return $value;
-					break;
-				default:
-					return $value;
-					break;
-			}
-		}
-
 
 
 

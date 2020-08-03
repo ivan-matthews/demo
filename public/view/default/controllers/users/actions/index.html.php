@@ -46,10 +46,10 @@
 
 							<div class="list-group-item-text users-item-descriptions">
 
-								<?php print($user["g_title_{$lang}"] ? $user["g_title_{$lang}"] . ", " : null) ?>
-								<?php print($user["gr_title_{$lang}"] ? $user["gr_title_{$lang}"] . ", " : null) ?>
-								<?php print($user["gc_area"] ? $user['gc_area'] . ", " : null) ?>
-								<?php print($user["gc_title_{$lang}"] ? $user["gc_title_{$lang}"] : null) ?>
+								<?php print($user["country"] ? $user["country"] . ", " : null) ?>
+								<?php print($user["region"] ? $user["region"] . ", " : null) ?>
+								<?php print($user["area"] ? $user['area'] . ", " : null) ?>
+								<?php print($user["city"] ? $user["city"] : null) ?>
 
 							</div>
 

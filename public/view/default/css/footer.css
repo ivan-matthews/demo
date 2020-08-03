@@ -85,6 +85,12 @@ select[value="0"] {
 .btn-group.field {
   min-width: 296px;
 }
+iframe {
+  width: 100%;
+  height: 100%;
+  min-height: calc(100vh - 10px);
+  border: none;
+}
 footer {
   padding: 0!important;
   margin: 0 auto;
@@ -127,7 +133,7 @@ footer .footer-block .footer-parent .footer .footer-body.debug-menu .value.value
   color: green;
 }
 footer .footer-block .footer-parent .footer .footer-body.debug-menu a {
-  padding: 10px 5px;
+  padding: 0 5px;
 }
 footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal .debug-ol-li {
   position: relative;

@@ -96,13 +96,13 @@
 				});
 
 			$this->validator_interface->field("rules")
-				->value(true)
 				->dont_prepare()
 				->params(function(Params $params){
 					$params->field_type('switch');
 					$params->show_validation(false);
 					$params->field_sets_field_class(null);
 					$params->field_sets('rules');
+					$params->default_value(true);
 				})
 				->title(fx_lang('auth.agree_rules_title'))
 				->label(fx_lang('auth.agree_rules_label'))

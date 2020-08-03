@@ -78,13 +78,13 @@
 				});
 
 			$this->validator_interface->field("member_me")
-				->value(true)
 				->dont_prepare()
 				->params(function(Params $params){
 					$params->field_type('switch');
 					$params->show_validation(false);
 					$params->field_sets_field_class(null);
 					$params->field_sets('member');
+					$params->default_value(true);
 				})
 				->title(fx_lang('auth.remember_me_title'))
 				->label(fx_lang('auth.remember_me_label'))

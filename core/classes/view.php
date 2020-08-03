@@ -189,6 +189,15 @@
 			return $this;
 		}
 
+		private function renderFrameData(){
+			$this->response->setHeader('Content-Type','text/html');
+			$this->response->sendHeaders();
+			$this->renderErrorPages();
+			$this->renderController();
+			$this->printContent();
+			return true;
+		}
+
 		private function renderJsonData(){
 			$this->response->setHeader('Content-Type','application/json');
 			$this->response->sendHeaders();

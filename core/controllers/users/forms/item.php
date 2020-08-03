@@ -9,7 +9,9 @@
 	use Core\Classes\Form\Interfaces\Validator;
 	use Core\Classes\Form\Interfaces\Form as FormInterface;
 
-	class Simple extends Form{
+	use Core\Widgets\Filter as FilterWidget;
+
+	class Item extends Form{
 
 		/** @var $this */
 		private static $instance;
@@ -17,17 +19,17 @@
 		/** @var Validator */
 		protected $validator_interface;
 
-		/** @var Request */
-		private $request;
-
 		/** @var Session */
 		protected $session;
 
-		private $form_name;
+		/** @var Request */
+		private $request;
+
+		public $form_name;
 
 		/**
 		 * @param null $form_name
-		 * @return Simple
+		 * @return $this
 		 */
 		public static function getInstance($form_name=null){
 			if(self::$instance === null){
@@ -39,10 +41,31 @@
 		public function __construct($form_name=null){
 			parent::__construct();
 			$this->form_name = $form_name;
+			$this->request = Request::getInstance();
 		}
 
-		public function makeForm(){
-
+		public function getFields($input_fields){
+			$this->setArrayFields($input_fields)
+				->checkArrayFields();
+			return $this->getFieldsList();
 		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	}

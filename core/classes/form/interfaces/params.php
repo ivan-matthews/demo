@@ -22,6 +22,11 @@
 		public function variants(array $value);
 
 		/**
+		 * @param $default
+		 * @return Params
+		 */
+		public function default_value($default);
+		/**
 		 * @param $value
 		 * @return Params
 		 */

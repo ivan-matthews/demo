@@ -3,13 +3,14 @@
 	namespace Core\Controllers\Users\Actions;
 
 	use Core\Classes\Hooks;
-	use Core\Classes\Kernel;
 	use Core\Classes\Request;
 	use Core\Classes\Session;
 	use Core\Classes\Response\Response;
 	use Core\Controllers\Users\Config;
 	use Core\Controllers\Users\Controller;
+	use Core\Controllers\Users\Forms\Filter;
 	use Core\Controllers\Users\Model;
+	use Core\Classes\Kernel;
 
 	class Index extends Controller{
 
@@ -43,16 +44,17 @@
 		/** @var array */
 		public $users;
 
-		public $query;
-		public $limit;
-		public $offset;
-		public $total;
-		public $sort;
-		public $order = 'u_id';
-
+		public $filter;
 		public $fields;
 
-		protected $sorting_action;
+		public $limit = 20;
+		public $offset = 0;
+
+		public $sorting_action;
+		public $sorting_type;
+
+		public $total_users;
+		public $all_users_data;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -64,48 +66,58 @@
 
 		public function __construct(){
 			parent::__construct();
-			$this->query	= "u_status!=" . Kernel::STATUS_BLOCKED;
+			$this->filter = Filter::getInstance();
+			$this->query = "u_status != '" . Kernel::STATUS_BLOCKED. "'";
+			$this->order = 'u_id';
+
+			$this->language_key = $this->language->getLanguageKey();
+
+			$this->model->users_index_fields[] = "g_title_{$this->language_key} as country";
+			$this->model->users_index_fields[] = "gr_title_{$this->language_key} as region";
+			$this->model->users_index_fields[] = "gc_title_{$this->language_key} as city";
+			$this->model->users_index_fields[] = "gc_area as area";
 		}
 
 		public function methodGet($sorting_action='all',$sort='up'){
+			$this->sorting_action	= $sorting_action;
+			$this->sorting_type		= $sort;
+			$this->sort = isset($this->sorting_types[$this->sorting_type]) ? $this->sorting_types[$this->sorting_type] : 'up';
 
-	//-------------------------------------------------------------------------------------//
+			$link = array('users', 'index', $this->sorting_action, $this->sorting_type);
 
-			//установить сортировку
-			$this->setSortingProps($sorting_action,$sort);
-
-			// получить массив полей для фильтрации
 			$this->fields = $this->params->getParams('fields');
 
-			// установить фильтр-панель; установить заапрос в БД для фильтрации
-			$this->setFilterFromArrayFields('filter',$this->fields);
-			$this->geo('u_country_id','u_region_id','u_city_id');
-			$this->checkFilter();
+			$this->filter->filter(fx_get_url(...$link), $this->fields);
+			$this->sorting($this->params->sorting_panel);
 
-			// получить запрос для фильтрации; переменные для препарации
-			$this->getQueryFromSortingPanelArray($this->params->sorting_panel,$this->sorting_action);
+			$this->query .= $this->filter->getQuery();
+			$replacing_data = $this->filter->getReplacingData();
 
-	//-------------------------------------------------------------------------------------//
-
-			$this->total = $this->model->countAllUsers($this->query,$this->replaced_data);
-			$this->users = $this->model->getAllUsers(
-				$this->limit, $this->offset, $this->query, $this->order, $this->sort,$this->replaced_data
+			$this->total_users = $this->model->countAllUsers(
+				$this->query,$replacing_data
+			);
+			$this->all_users_data = $this->model->getAllUsers(
+				$this->limit,$this->offset,$this->query,$this->order,$this->sort,$replacing_data
 			);
 
-			$this->paginate(array('users','index',$this->sorting_action,$this->sort_key));
-			$this->sorting($this->params->sorting_panel,$this->sorting_action);
+			$this->paginate($this->total_users, $link);
 
-			if($this->users){
+			if($this->all_users_data){
 				return $this->response->controller('users','index')
-					->set('users',$this->users);
+					->set('users',$this->all_users_data);
 			}
+
 			return $this->renderEmptyPage();
 		}
 
-		protected function all(){
+
+
+/*		SORTING PANEL ACTIONS			*/
+
+		protected function setSortingPanelAll(){
 			return null;
 		}
-		protected function online(){
+		protected function setSortingPanelOnline(){
 			$this->response->title('users.users_index_online_title');
 			$this->response->breadcrumb('filter')
 				->setIcon(null)
@@ -114,7 +126,7 @@
 			$this->order = '`u_date_log`';
 			return " AND `u_date_log`>" . time();
 		}
-		protected function registration(){
+		protected function setSortingPanelRegistration(){
 			$this->response->title('users.users_index_registration_title');
 			$this->response->breadcrumb('filter')
 				->setIcon(null)
@@ -123,7 +135,7 @@
 			$this->order = '`u_date_created`';
 			return null;
 		}
-		protected function last_visit(){
+		protected function setSortingPanelLast_visit(){
 			$this->response->title('users.users_index_last_visit_title');
 			$this->response->breadcrumb('filter')
 				->setIcon(null)
@@ -132,7 +144,7 @@
 			$this->order = '`u_date_log`';
 			return " AND `u_date_log`<" . time();
 		}
-		protected function active(){
+		protected function setSortingPanelActive(){
 			$this->response->title('users.users_index_active_title');
 			$this->response->breadcrumb('filter')
 				->setIcon(null)
@@ -141,7 +153,7 @@
 
 			return " AND `u_status`=" . Kernel::STATUS_ACTIVE;
 		}
-		protected function inactive(){
+		protected function setSortingPanelInactive(){
 			$this->response->title('users.users_index_inactive_title');
 			$this->response->breadcrumb('filter')
 				->setIcon(null)
@@ -150,7 +162,7 @@
 
 			return " AND `u_status`=" . Kernel::STATUS_INACTIVE;
 		}
-		protected function locked(){
+		protected function setSortingPanelLocked(){
 			$this->response->title('users.users_index_locked_title');
 			$this->response->breadcrumb('filter')
 				->setIcon(null)
@@ -159,6 +171,7 @@
 
 			return " AND `u_status`=" . Kernel::STATUS_LOCKED;
 		}
+
 
 
 

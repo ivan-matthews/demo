@@ -2,7 +2,6 @@
 
 	namespace Core\Controllers\Users\Actions;
 
-	use Core\Classes\Form\Form;
 	use Core\Classes\Hooks;
 	use Core\Classes\Request;
 	use Core\Classes\Session;
@@ -10,6 +9,7 @@
 	use Core\Controllers\Users\Config;
 	use Core\Controllers\Users\Controller;
 	use Core\Controllers\Users\Model;
+	use Core\Controllers\Users\Forms\Item as UserForm;
 
 	class Item extends Controller{
 
@@ -44,7 +44,7 @@
 		public $user_data;
 		public $user_id;
 
-		public $form;
+		public $users_item_form;
 		public $fields;
 		public $fields_list;
 		public $user_menu = array();
@@ -63,8 +63,7 @@
 			parent::__construct();
 			$this->breadcrumbs = $this->response->breadcrumb('users_item')
 				->setIcon(null);
-
-			$this->form = new Form();
+			$this->users_item_form = UserForm::getInstance();
 		}
 
 		public function methodGet($user_id){
@@ -78,9 +77,8 @@
 					->setValue($this->user_data['u_full_name']);
 
 				$this->fields = $this->params->getParams('fields');
-				$this->fields_list = $this->form->setArrayFields($this->fields)
-					->checkArrayFields()
-					->getFieldsList();
+
+				$this->fields_list = $this->users_item_form->getFields($this->fields);
 
 				$this->response->controller('users','item')
 					->setArray(array(

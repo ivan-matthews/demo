@@ -7,6 +7,15 @@
 
 	class Model extends ParentModel{
 
+		public $users_index_fields = array(
+			'SQL_CACHE u_date_log',
+			'u_id',
+			'u_full_name',
+			'p_small',
+			'u_gender',
+			'u_log_type',
+		);
+
 		/** @var $this */
 		private static $instance;
 
@@ -52,7 +61,7 @@
 				return $result;
 			}
 
-			$result = $this->select('SQL_CACHE *')
+			$result = $this->select(...$this->users_index_fields)
 				->from('users')
 				->join('status FORCE INDEX (PRIMARY)',"u_id=s_user_id")
 				->join('photos FORCE INDEX (PRIMARY)',"u_id=p_user_id")
@@ -114,22 +123,6 @@
 
 			$this->cache->set($result);
 			return $result['total'];
-		}
-
-		public function updateUserData($fields_and_data,$user_id){
-			$update = $this->update('users');
-			foreach($fields_and_data as $key=>$value){
-				if(fx_equal($key,'csrf')){ continue; }
-				$update = $update->field($key,$value['attributes']['value']);
-			}
-			$update = $update->where("u_id=%u_id%");
-			$update = $update->data('%u_id%',$user_id);
-			$update = $update->get()
-				->rows();
-
-			$this->cache->key('users.items.' . $user_id);
-
-			return $update;
 		}
 
 

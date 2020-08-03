@@ -16,7 +16,7 @@
 			),
 		),
 
-		'just_widgets'	=> true,
+		'just_widgets'	=> false,
 		'another_controller'	=> array(
 			'class'		=> '',
 			'method'	=> 'methodGet',

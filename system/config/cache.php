@@ -2,7 +2,7 @@
 
 	return array(
 		'cache_enabled'	=> false,
-		'cache_driver'	=> 'memcached',		// php, json, mongo, memcached
+		'cache_driver'	=> 'php',		// php, json, mongo, memcached
 		'cache_ttl'		=> 86400,
 		'cache_dir'		=> 'system/cache',
 		'mongo'		=> array(

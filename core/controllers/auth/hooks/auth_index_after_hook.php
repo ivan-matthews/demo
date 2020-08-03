@@ -19,7 +19,7 @@
 				Session_Message::set('registration')
 					->head(fx_lang('auth.successful_registration_still_title'))
 					->value(fx_lang('auth.successful_registration_value',array(
-						'%user_email%'	=> $this->user_login_action_object->user_data['login'],
+						'%user_email%'	=> $this->user_login_action_object->user_data['a_login'],
 						'%resend_link%'	=> fx_get_url('auth','resend_email'),
 					)))
 					->icon_class('far fa-angry')

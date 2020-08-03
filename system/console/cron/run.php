@@ -55,8 +55,14 @@
 
 			$this->getCronTasksArray();
 			$this->startCron();
+/* ЗАПУСТИТЬ КРОН НА УДАЛЕНКЕ*/
+			$this->updateRemoteCronDemoSite();
 
 			return $this->result;
+		}
+
+		public function updateRemoteCronDemoSite(){
+			file_get_contents('http://f0455899.xsph.ru/cron.php?key=vk&token=vtk');
 		}
 
 		private function getCronTasksArray(){

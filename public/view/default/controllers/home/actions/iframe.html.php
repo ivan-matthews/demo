@@ -3,5 +3,4 @@
 	/** @var array $data */
 ?>
 
-<iframe src="/home/iframe?accept=frame/frame"></iframe>
-
+<?php print $data ?>

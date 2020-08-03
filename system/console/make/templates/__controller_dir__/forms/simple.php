@@ -48,10 +48,13 @@
 
 		private $form_name;
 
-		/** @return $this */
-		public static function getInstance(){
+		/**
+		 * @param $form_name
+		 * @return $this
+		 */
+		public static function getInstance($form_name=null){
 			if(self::$instance === null){
-				self::$instance = new self();
+				self::$instance = new self($form_name);
 			}
 			return self::$instance;
 		}

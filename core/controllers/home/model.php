@@ -102,6 +102,10 @@
 				$result = $this->getCityById($city_id);
 				return array_merge($this->default_geo_fields,(array)$result);
 			}
+			if(!$country_id && !$region_id && $city_id){
+				$result = $this->getCityById($city_id);
+				return array_merge($this->default_geo_fields,(array)$result);
+			}
 			if($country_id && $region_id && !$city_id){
 				$result = $this->getRegionById($region_id);
 				return array_merge($this->default_geo_fields,(array)$result);
@@ -216,6 +220,32 @@
 				->allAsArray();
 		}
 
+		public function getGitHubPageFromHomeController(){
+			$this->cache->key('home.index');
+
+			if(($result_data = $this->cache->get()->array())){
+				return $result_data['github_page'];
+			}
+
+			$result_download = file_get_contents('https://github.com/ivan-matthews/demo');
+
+			$result_replace_data = preg_replace_callback("#href\=\"(.*?)\"#",function($result){
+				if(substr($result[1],0,4) == 'http'){ return $result[0]; }
+				if(substr($result[1],0,1) == '#'){ return $result[0]; }
+
+				if($result[1]){
+					return 'href="'. 'https://github.com/' . trim($result[1],'/') . '" target="_blank"';
+				}
+
+				return $result[0];
+			},$result_download);
+
+			$data_to_set = array('github_page'=>$result_replace_data);
+
+			$this->cache->set($data_to_set);
+
+			return $result_replace_data;
+		}
 
 
 

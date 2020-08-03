@@ -85,20 +85,20 @@
 
 		public function updateUserAuthDataByVerifyToken(array $update_data){
 			$this->update('auth')
-				->field('a_groups',$update_data['groups'])
-				->field('a_verify_token',$update_data['verify_token'])
-				->field('a_date_activate',$update_data['date_activate'])
-				->field('a_status',$update_data['status'])
+				->field('a_groups',$update_data['a_groups'])
+				->field('a_verify_token',$update_data['a_verify_token'])
+				->field('a_date_activate',$update_data['a_date_activate'])
+				->field('a_status',$update_data['a_status'])
 				->where("`a_id`=%auth_id%")
-				->data('%auth_id%',$update_data['auth_id'])
+				->data('%auth_id%',$update_data['u_auth_id'])
 				->get()
 				->rows();
 
 			$this->update('users')
-				->field('u_status',$update_data['status'])
+				->field('u_status',$update_data['u_status'])
 				->where("`u_id`=%user_id% AND `u_auth_id`=%auth_id%")
-				->data('%user_id%',$update_data['id'])
-				->data('%auth_id%',$update_data['auth_id'])
+				->data('%user_id%',$update_data['u_id'])
+				->data('%auth_id%',$update_data['u_auth_id'])
 				->get()
 				->rows();
 

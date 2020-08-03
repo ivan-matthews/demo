@@ -146,6 +146,9 @@
 		protected $data = array();
 		protected $fields_list = array();
 
+		protected $filter_query;
+		protected $filter_data_to_replace = array();
+
 		protected $default_attributes = array(
 			'autocomplete' => 'on',
 			'placeholder' => null,
@@ -179,6 +182,7 @@
 				'field_type' 		=> 'simple',// вывод рендинга в form
 				'label' 			=> null,
 				'description' 		=> null,
+				'default_value' 	=> null,
 				'variants'	 		=> array(),
 			),
 		);
@@ -402,7 +406,7 @@
 			return $this->setAttribute(__FUNCTION__,$default);
 		}
 		public function description($default){
-			return $this->setAttribute(__FUNCTION__,$default);
+			return $this->setParams(__FUNCTION__,$default);
 		}
 		public function placeholder($default){
 			return $this->setAttribute(__FUNCTION__,$default);
@@ -731,6 +735,7 @@
 			$this->setParams('field_sets','csrf');
 			$this->setParams('field_type','hidden');
 			$this->setParams('field_sets_field_class','m-0 csrf');
+			$this->setParams('filter_validation',null);
 			return $this;
 		}
 		protected function checkCSRF(){
@@ -894,6 +899,12 @@
 			$this->setParams(__FUNCTION__,$value);
 			return $this;
 		}
+		public function default_value($default){
+			if(!$this->validate_status){
+				$this->setAttribute('value',$default);
+			}
+			return $this;
+		}
 		public function variants(array $value){
 			$this->setParams(__FUNCTION__,$value);
 			return $this;
@@ -993,8 +1004,74 @@
 			return $captcha_image;
 		}
 
+		public function setFilter($form_action,$input_data){
+			$this->setData($input_data);
+			$this->csrf(false);
+			$this->validate(true);
+			$this->form(function(Form $form)use($form_action){
+				$form->setFormAction($form_action);
+				$form->setFormMethod('GET');
+				$form->setFormAutoComplete('off');
+				$form->setFormName('filter');
+			});
+			return $this;
+		}
 
+		public function filtrate(callable $callback=null){
+			if($callback){
+				call_user_func($callback);
+			}
+			foreach($this->fields_list as $key=>$value){
+				if($this->fields_list[$key]['attributes']['params']['filter_validation'] &&
+					$value['attributes']['value'] && !fx_equal($key,'geo')){
+					$this->filter_query .= " AND `{$key}` {$this->fields_list[$key]['attributes']['params']['filter_validation']} %{$key}%";
+					$this->filter_data_to_replace["%{$key}%"] = $this->makeFilter($this->fields_list[$key]['attributes']['params']['filter_validation'],$value['attributes']['value']);
+				}
+			}
+			return $this;
+		}
 
+		private function makeFilter($operator,$value){
+			switch($operator){
+				case(fx_equal($operator,'LIKE')):
+					return "%{$value}%";
+					break;
+				case(fx_equal($operator,'=')):
+					return $value;
+					break;
+				case(fx_equal($operator,'!=')):
+					return $value;
+					break;
+				default:
+					return $value;
+					break;
+			}
+		}
+
+		public function geo_filter($country_field_name,$region_field_name,$city_field_name){
+			if(($country_value = $this->getValue($country_field_name))){
+				$this->filter_query .= " AND {$country_field_name}=%country%";
+				$this->filter_data_to_replace["%country%"] = $country_value;
+			}
+			if(($region_value = $this->getValue($region_field_name))){
+				$this->filter_query .= " AND {$region_field_name}=%region%";
+				$this->filter_data_to_replace["%region%"] = $region_value;
+			}
+			if(($city_value = $this->getValue($city_field_name))){
+				$this->filter_query .= " AND {$city_field_name}=%city%";
+				$this->filter_data_to_replace["%city%"] = $city_value;
+			}
+
+			return $this->geo($country_field_name,$region_field_name,$city_field_name);
+		}
+
+		public function getQuery(){
+			return $this->filter_query;
+		}
+
+		public function getReplacingData(){
+			return $this->filter_data_to_replace;
+		}
 
 
 
