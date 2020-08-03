@@ -20,6 +20,7 @@
 .breadcrumbs .breadcrumb .breadcrumb-item + .breadcrumb-item::before {
   padding-right: 2.5px;
   font-weight: bold;
+  content: "›";
 }
 .breadcrumbs .breadcrumb .breadcrumb-item + .breadcrumb-item {
   padding-left: 2.5px;

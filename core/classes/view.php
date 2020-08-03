@@ -468,6 +468,12 @@
 			return $new_fields_array;
 		}
 
+		public function getUrl($link){
+			$host = $this->config->core['site_scheme'];
+			$host .= "://";
+			$host .= $this->config->core['site_host'];
+			return "{$host}{$link}";
+		}
 
 
 

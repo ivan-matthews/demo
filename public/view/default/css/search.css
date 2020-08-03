@@ -1,0 +1,26 @@
+.search-result .search .search-item + .search-item {
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+.search-result .search .search-item {
+  border: none;
+}
+.search-result .search .search-item:last-child {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+.search-result .search .search-item .search-info a .search-item-image .item-photo {
+  padding-top: 0.5em;
+}
+.search-result .search .search-item .search-info a .search-item-image .item-date {
+  font-style: italic;
+  color: #999999;
+}
+.search-result .search .search-item .search-info a .search-item-info .item-title {
+  font-weight: bold;
+}
+.search-result .search .search-item .search-info a .search-item-info .item-content {
+  color: #777;
+}
+.search-result .search .search-item .search-info a .search-item-info .item-link {
+  color: #055412;
+  font-weight: bold;
+}

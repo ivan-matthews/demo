@@ -87,6 +87,7 @@ div.session-messages .container .icon-block .card .card-body {
 .breadcrumbs .breadcrumb .breadcrumb-item + .breadcrumb-item::before {
   padding-right: 2.5px;
   font-weight: bold;
+  content: "›";
 }
 .breadcrumbs .breadcrumb .breadcrumb-item + .breadcrumb-item {
   padding-left: 2.5px;
@@ -802,6 +803,9 @@ body.unscrollable nav.header-bar::-webkit-scrollbar {
   font-weight: bold;
   border: none;
 }
+.user-profile .user-right-bar .avatars-block .avatars-block-header:hover {
+  background-color: #d9e2ec;
+}
 .user-profile .user-right-bar .avatars-block .avatars-block-header .count {
   font-style: italic;
   color: chocolate;
@@ -895,6 +899,14 @@ body.unscrollable nav.header-bar::-webkit-scrollbar {
   overflow: hidden;
   border-top: 1px solid #e9ecef;
   padding: 0;
+}
+.user-info-widget .body.search-panel .input-group input.form-control:active {
+  border: none;
+  box-shadow: unset;
+}
+.user-info-widget .body.search-panel .input-group input.form-control:focus {
+  border: none;
+  box-shadow: unset;
 }
 .form-auth div.form {
   font-size: 24px;

@@ -137,7 +137,15 @@
 		return $result_link;
 	}
 
+	function fx_crop_string($string,$length=200){
+		if(mb_strlen($string) > $length){
+			return mb_substr($string,0,$length) . "...";
+		}
+		return $string;
+	}
 
-
+	function fx_replace_to_space($string,array $replace_data){
+		return str_replace($replace_data,' ',$string);
+	}
 
 

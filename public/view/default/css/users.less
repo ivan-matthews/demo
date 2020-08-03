@@ -143,6 +143,9 @@
 				padding: 0.5em 1.5em;
 				font-weight: bold;
 				border: none;
+				&:hover{
+					background-color: #d9e2ec;
+				}
 				.link{
 
 				}
@@ -270,6 +273,20 @@
 				overflow: hidden;
 				border-top: 1px solid #e9ecef;
 				padding: 0;
+			}
+		}
+		&.search-panel{
+			.input-group{
+				input.form-control{
+					&:active{
+						border: none;
+						box-shadow: unset;
+					}
+					&:focus{
+						border: none;
+						box-shadow: unset;
+					}
+				}
 			}
 		}
 	}

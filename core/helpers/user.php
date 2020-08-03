@@ -107,6 +107,16 @@
 		return $view->getUploadSiteRoot($avatar);
 	}
 
+	function fx_get_image_src($image_path,$image_file_version=null,$image_nof_found_key="micro"){
+		$view = View::getInstance();
+		$image = $view->getUploadSiteRoot($image_path);
+		$result_picture_attributes = $image;
+		$result_picture_attributes .= ($image_file_version ? "?v={$image_file_version}" : $image_file_version);
+		$result_picture_attributes .= '" ';
+		$result_picture_attributes .= "onerror=\"indexObj.brokenImage(this, '{$image_nof_found_key}') ";
+		return $result_picture_attributes;
+	}
+
 	function fx_print_avatar($avatar_image,$avatar_key,$version=null,$gender=3,$title=null,$alt=null,$class="user-avatar"){
 		$version = !$version ? '': "?v={$version}";
 		$alt = $alt ?: $title ?: 'image';

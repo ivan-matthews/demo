@@ -17,7 +17,7 @@
 
 		<div class="form-group row m-0 justify-content-center form-block avatar col-md-12 col-sm-12 col-12 col-lg-12 col-xl-12">
 
-			<div class="col-6 original">
+			<div class="col-md-12 col-sm-12 col-12 col-lg-6 col-xl-6 original">
 
 				<div id="image-wapper">
 
@@ -27,7 +27,7 @@
 
 			</div>
 
-			<div class="col-6 preview justify-content-center">
+			<div class="col-md-12 col-sm-12 col-12 col-lg-6 col-xl-6 preview justify-content-center">
 
 				<?php foreach($image_params as $param_key_block=>$param_value_block){ ?>
 
@@ -43,10 +43,15 @@
 
 		</div>
 
-		<input type="submit" class="btn btn-default">
-		<a href="javascript:void(0)" onclick="changeAvatarManipulationsForms()" class="btn btn-success">
-			<?php print fx_lang('avatar.load_new_image_button') ?>
-		</a>
+		<div class="row justify-content-center col-md-12 col-sm-12 col-12 col-lg-12 col-xl-12 mt-4 mb-4 btn-group m-0">
+
+			<input type="submit" class="btn btn-default">
+			<a href="javascript:void(0)" onclick="changeAvatarManipulationsForms()" class="btn btn-success">
+				<?php print fx_lang('avatar.load_new_image_button') ?>
+			</a>
+
+		</div>
+
 	</form>
 
 </div>

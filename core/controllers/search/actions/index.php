@@ -42,7 +42,18 @@
 		/** @var array */
 		public $index;
 
-		public $limit;
+		public $table;
+
+		public $current_action;
+		public $search_fields;
+
+		public $search_query;
+		public $search_result;
+		public $search_total;
+
+		public $preparing_data = array();
+
+		public $limit = 15;
 		public $offset;
 		public $total;
 		public $order;
@@ -56,63 +67,87 @@
 			return self::$instance;
 		}
 
-		public function __get($key){
-			if(isset($this->index[$key])){
-				return $this->index[$key];
-			}
-			return false;
-		}
-
-		public function __set($name, $value){
-			$this->index[$name] = $value;
-			return $this->index[$name];
-		}
-
 		public function __construct(){
 			parent::__construct();
+
+			$this->search_query = $this->request->get('find');
 		}
 
-		public function __destruct(){
+		public function methodGet($current_action='users'){
+			$this->current_action = $current_action;
 
+			if(isset($this->params->header_bar[$this->current_action])){
+
+				$this->header_bar($this->params->header_bar,array('search','index'),$this->current_action);
+
+				$this->makeQueryFromFields($this->params->header_bar,$this->current_action);
+
+				$this->search_total = $this->model->count($this->table,$this->query,$this->preparing_data);
+
+				$this->search_result = $this->model->find(
+					$this->table,
+					$this->query,
+					$this->params->header_bar[$this->current_action]['fields'],
+					$this->preparing_data,
+					$this->limit
+				);
+
+				$this->paginate($this->search_total,array('search','index',$current_action));
+
+				$this->setResponse();
+
+				$this->response->controller('search','index')
+					->setArray(array(
+						'result'	=> $this->search_result,
+						'current'	=> $this->current_action,
+						'query'		=> $this->search_query,
+						'totla'		=> $this->search_total,
+					));
+
+				$this->paginate($this->total_avatars, array('avatar','index',$this->user_id));
+
+				return $this;
+			}
+
+			return $this->renderEmptyPage();
 		}
 
-		public function methodGet(){
-			return false;
+		public function makeQueryFromFields($header_bar,$current_action){
+			$this->table = isset($header_bar[$current_action]) ? $current_action : null;
+			if($this->table && $this->search_query){
+				foreach($header_bar[$current_action]['search_fields'] as $field){
+					$this->query .= "`{$field}` LIKE %search_query% OR ";
+					$this->preparing_data['%search_query%'] = "%{$this->search_query}%";
+				}
+				$this->query = trim($this->query, ' OR ');
+			}
+
+			return $this;
 		}
 
-		public function methodPost(){
-			return false;
+		public function setResponse(){
+			$this->response->title('search.search_index_title');
+			$this->response->breadcrumb('search')
+				->setIcon(null)
+				->setLink('search','index')
+				->setValue('search.search_index_title');
+
+			$this->response->title($this->params->header_bar[$this->current_action]['title']);
+			$this->response->breadcrumb('search_action')
+				->setIcon(null)
+				->setLink('search','index',$this->current_action)
+				->setValue($this->params->header_bar[$this->current_action]['title']);
+
+			if($this->search_query){
+				$this->response->title($this->search_query);
+				$this->response->breadcrumb('search_query')
+					->setIcon(null)
+					->setLink('search','index',$this->current_action)
+					->setValue($this->search_query);
+			}
+
+			return $this;
 		}
-
-		public function methodPut(){
-			return false;
-		}
-
-		public function methodHead(){
-			return false;
-		}
-
-		public function methodTrace(){
-			return false;
-		}
-
-		public function methodPatch(){
-			return false;
-		}
-
-		public function methodOptions(){
-			return false;
-		}
-
-		public function methodConnect(){
-			return false;
-		}
-
-		public function methodDelete(){
-			return false;
-		}
-
-
 
 
 

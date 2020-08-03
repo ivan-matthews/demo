@@ -23,11 +23,11 @@
 
 					<a class="avatars-item-link" href="<?php print fx_get_url('avatar','item',$user['u_id'],$avatar['p_id']) ?>">
 
-						<img onerror="indexObj.brokenImage(this,'medium')" class="avatars-item-image" src="<?php print $this->getUploadSiteRoot($avatar['p_medium']) ?>?v=<?php print $avatar['p_date_updated'] ?>"/>
+						<img class="avatars-item-image" src="<?php print fx_get_image_src($avatar['p_medium'],$avatar['p_date_updated'],'medium') ?>"/>
 
 						<div class="avatars-item-date">
 
-							<?php print fx_get_date($avatar['p_date_updated']) ?>
+							<?php print fx_get_date($avatar['p_date_created']) ?>
 
 						</div>
 

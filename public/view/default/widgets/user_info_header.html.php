@@ -8,21 +8,64 @@
 //	fx_die($content);
 ?>
 
+<script>
+	showSearchPanel = function(selector_id){
+		let widgets_icon = $('.user-info-widget .header-bar-widget-icon');
+		let search_form = $('.user-info-widget .search-panel .search-form');
+		let search_panel = $('.user-info-widget .search-panel');
+		widgets_icon.animate({
+			width: [ "toggle", "swing" ],
+			height: [ "swing", "swing" ],
+			opacity: "toggle"
+		}, 150, "linear", function(){
+			search_panel.addClass('col-12 row ml-0');
+			search_form.show();
+		});
+	};
+	hideSearchPanel = function(selector_id){
+		let widgets_icon = $('.user-info-widget .header-bar-widget-icon');
+		let search_form = $('.user-info-widget .search-panel .search-form');
+		let search_panel = $('.user-info-widget .search-panel');
+		search_form.animate({
+			width: [ "swing", "swing" ],
+			height: [ "swing", "swing" ],
+			opacity: "toggle"
+		}, 150, "linear", function(){
+			search_panel.removeClass('col-12 row ml-0');
+			widgets_icon.show();
+		});
+	}
+</script>
 
-<div class="row user-info-widget row justify-content-center p-0 col-10 col-sm-10 col-md-9 col-lg-6 col-xl-5">
-	<div class="body mx-auto search">
-		<div class="hidden search-form col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+<div class="row user-info-widget justify-content-center p-0 col-10 col-sm-10 col-md-9 col-lg-6 col-xl-5">
+	<div class="body mx-auto search search-panel">
+		<div class="search-form col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 hidden">
 			<form action="<?php print fx_get_url('search','index') ?>" method="GET">
-				<input type="text" class="form-control">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<div class="input-group-text radius-0 search-icon">
+							<i class="fa fa-search" aria-hidden="true"></i>
+						</div>
+					</div>
+					<input type="text" value="<?php print $this->request->get('find') ?>" class="form-control" name="find" placeholder="<?php print fx_lang('search.write_to_find_placeholder') ?>">
+					<div class="btn-group input-group-append">
+						<button class="btn btn-success radius-0" type="submit">
+							<i class="fa fa-search" aria-hidden="true"></i>
+						</button>
+						<a href="javascript:hideSearchPanel(this)" class="btn btn-warning radius-0">
+							<i class="fas fa-times"></i>
+						</a>
+					</div>
+				</div>
 			</form>
 		</div>
-		<div class="btn-group search-icon">
-			<a class="user-info-link" href="javascript:void(0)">
+		<div class="header-bar-widget-icon btn-group search-icon">
+			<a class="user-info-link" href="javascript:showSearchPanel(this)">
 				<i class="fa fa-search" aria-hidden="true"></i>
 			</a>
 		</div>
 	</div>
-	<div class="body mx-auto user-mail">
+	<div class="header-bar-widget-icon body mx-auto user-mail">
 		<div class="btn-group">
 			<a class="dropdown user-info-link" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<i class="fa fa-envelope" aria-hidden="true"></i>
@@ -37,7 +80,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="body mx-auto user-journal">
+	<div class="header-bar-widget-icon body mx-auto user-journal">
 		<div class="btn-group">
 			<a class="dropdown user-info-link" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<i class="fa fa-bell" aria-hidden="true"></i>
@@ -52,7 +95,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="body mx-auto user-menu">
+	<div class="header-bar-widget-icon body mx-auto user-menu">
 		<div class="btn-group">
 			<a class="dropdown user-info-link" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<?php fx_print_avatar($content['avatar'],'micro',$content['img_date'],$content['gender'],$content['name'],$content['name'],'avatar user-avatar') ?>

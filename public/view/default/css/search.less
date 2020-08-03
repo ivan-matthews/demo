@@ -1,0 +1,40 @@
+@import "vars";
+
+.search-result{
+	.search{
+		.search-item+.search-item{
+			border-top:1px solid rgba(0, 0, 0, 0.125);
+		}
+		.search-item{
+			border: none;
+			&:last-child{
+				border-bottom:1px solid rgba(0, 0, 0, 0.125);
+			}
+			.search-info{
+				a{
+					.search-item-image{
+						.item-photo{
+							padding-top: 0.5em;
+						}
+						.item-date{
+							font-style: italic;
+							color: #999999;
+						}
+					}
+					.search-item-info{
+						.item-title{
+							font-weight: bold;
+						}
+						.item-content{
+							color: #777;
+						}
+						.item-link{
+							color: #055412;
+							font-weight: bold;
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -18,8 +18,18 @@
 			<div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 avatar-image row">
 
 				<div class="image-block">
-					<img onerror="indexObj.brokenImage(this,'big')" src="<?php print $this->getUploadSiteRoot($avatar['p_big']) ?>?v=<?php print $avatar['p_date_updated'] ?>">
+					<img src="<?php print fx_get_image_src($avatar['p_big'],$avatar['p_date_updated'],'big') ?>">
 				</div>
+
+				<?php if($avatar['p_date_updated'] > $avatar['p_date_created']){ ?>
+					<div class="upd-date mt-2">
+
+						(<?php print fx_lang('avatar.avatar_updated_in') ?>
+
+						<?php print fx_get_date($avatar['p_date_updated']) ?>)
+
+					</div>
+				<?php } ?>
 
 				<div class="links-block mt-2 col-12 row justify-content-center p-0 ml-0 mr-0">
 
@@ -92,7 +102,7 @@
 
 							<?php print fx_lang('avatar.avatar_added_in') ?>
 
-							(<?php print fx_get_date($avatar['p_date_updated']) ?>)
+							<?php print fx_get_date($avatar['p_date_created']) ?>
 
 						</div>
 

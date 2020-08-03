@@ -118,6 +118,9 @@
   font-weight: bold;
   border: none;
 }
+.user-profile .user-right-bar .avatars-block .avatars-block-header:hover {
+  background-color: #d9e2ec;
+}
 .user-profile .user-right-bar .avatars-block .avatars-block-header .count {
   font-style: italic;
   color: chocolate;
@@ -211,4 +214,12 @@
   overflow: hidden;
   border-top: 1px solid #e9ecef;
   padding: 0;
+}
+.user-info-widget .body.search-panel .input-group input.form-control:active {
+  border: none;
+  box-shadow: unset;
+}
+.user-info-widget .body.search-panel .input-group input.form-control:focus {
+  border: none;
+  box-shadow: unset;
 }

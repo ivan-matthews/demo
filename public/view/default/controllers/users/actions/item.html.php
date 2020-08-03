@@ -71,7 +71,7 @@
 		<?php if($total_photos){ ?>
 			<div class="avatars-block radius-0 mb-4 row justify-content-center">
 				<a href="<?php print fx_get_url('avatar','index',$user['u_id']) ?>" class="d-cnt">
-					<div class="avatars-block-header card-header col-12">
+					<div class="avatars-block-header card-header col-12 radius-0">
 						<span class="link">
 							<?php print fx_lang('users.all_user_photos') ?>
 						</span>
@@ -84,7 +84,7 @@
 					<?php foreach($photos as $photo){ ?>
 						<div class="mx-auto avatars-block-body-item">
 							<a class="" href="<?php print fx_get_url('avatar','item',$user['u_id'],$photo['p_id']) ?>">
-								<img onerror="indexObj.brokenImage(this,'small')" src="<?php print $this->getUploadSiteRoot($photo['p_small']) ?>">
+								<img src="<?php print fx_get_image_src($photo['p_small'],$photo['p_date_updated'],'small') ?>">
 							</a>
 						</div>
 					<?php } ?>

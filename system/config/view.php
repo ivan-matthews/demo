@@ -5,9 +5,10 @@
 	return array(
 		'site_theme'			=> 'default',	// +
 		'admin_theme'			=> 'admin',		// +-
-		'title_delimiter'		=> ' &rarr; ',
+		'title_delimiter'		=> ' &rsaquo; ',
+//		'title_delimiter'		=> ' &rarr; ',
 //		'title_delimiter'		=> ' :: ',
-		'breadcrumbs_on_main'	=> true,		// +
+		'breadcrumbs_on_main'	=> false,		// +
 		'default_favicon'		=> 'site/favicon.png',
 		'site_logo'				=> 'site/logo_2.png',
 		'uploads_dir'			=> 'uploads',

@@ -53,6 +53,11 @@
   font-weight: bold;
   font-size: 18px;
 }
+.avatar-item .avatar-block .avatar-image .upd-date {
+  font-size: 12px;
+  font-weight: normal;
+  font-style: italic;
+}
 .avatar-item .avatar-block .avatar-image .image-block img {
   max-width: 100%;
 }
