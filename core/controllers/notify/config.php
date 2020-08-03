@@ -11,6 +11,7 @@
 	 * @property string $controller_name
 	 * @property array $controller
 	 * @property array $actions
+	 * @property array $sorting_panel
 	 */
 	class Config extends Params{
 

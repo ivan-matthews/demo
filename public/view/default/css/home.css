@@ -961,14 +961,20 @@ body a {
   color: #2a5885;
   -moz-user-select: none;
   user-select: none;
-}
-body a:active {
-  color: #47469c;
+  border-radius: 0 !important;
 }
 body a:hover {
   background: #d9e2ec;
   color: #4a76a8;
   text-decoration: none;
+  border-radius: 0 !important;
+}
+body a:active {
+  color: #47469c;
+  border-radius: 0 !important;
+}
+body a:focus {
+  border-radius: 0 !important;
 }
 body .navbar.header-bar {
   background: #4a76a8;

@@ -56,6 +56,7 @@
 	$hooks->after('parse_url');
 
 	$hooks->before('controller_run');
+
 	$kernel->loadLinkReplaceList();
 	$kernel->setProperty();
 	$kernel->setControllerParams();

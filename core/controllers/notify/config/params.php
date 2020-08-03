@@ -18,5 +18,19 @@
 				'groups_enabled'	=> array(),
 				'groups_disabled'	=> array(),
 			),
-		)
+		),
+		'sorting_panel'	=> array(
+			'all'	=> array(
+				'title'	=> 'notify.all_notices_sorting',
+				'link'	=> array('notify','index','%current_user_id%','all'),
+			),
+			'unreaded'	=> array(
+				'title'	=> 'notify.unreaded_notices_sorting',
+				'link'	=> array('notify','index','%current_user_id%','created'),
+			),
+			'readed'	=> array(
+				'title'	=> 'notify.readed_notices_sorting',
+				'link'	=> array('notify','index','%current_user_id%','updated'),
+			),
+		),
 	);

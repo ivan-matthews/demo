@@ -21,14 +21,18 @@
 		public $auth_id;
 		public $user_id;
 
+		public $time;
+
 		public function __construct(){
+			$this->getCurrentTime();
+
 			$this->password		= 'Qwerty12345^';
 			$this->geo_data 	= $this->fx_get_geo();
 			$this->login 		= fx_gen_lat(rand(15,30)) . '@' . fx_gen_lat(rand(15,30)) . '.'. fx_gen_lat(rand(2,5));
 			$this->first_name 	= fx_mb_ucfirst(fx_gen_cyr_name(rand(4,10)));
 			$this->last_name 	= fx_mb_ucfirst(fx_gen_cyr_name(rand(4,10)));
 			$this->full_name 	= "{$this->first_name} {$this->last_name}";
-			$this->online_time 	= 900+time();
+			$this->online_time 	= 900+$this->time;
 		}
 
 		public function fx_get_geo(){
@@ -62,11 +66,11 @@
 				->value('a_enc_password',fx_encryption('Qwerty12345^'))
 				->value('a_groups',array(2))
 				->value('a_bookmark',fx_encode($this->login.'Qwerty12345^'))
-				->value('a_date_activate',time())
+				->value('a_date_activate',$this->time)
 				->value('a_status',Kernel::STATUS_ACTIVE)
 				->value('a_verify_token',trim(base64_encode(fx_encode($this->login.$this->login.'Qwerty12345^')),'='))
-				->value('a_date_created',time())
-				->update('a_date_updated',time())
+				->value('a_date_created',$this->time)
+				->update('a_date_updated',$this->time)
 				->get()
 				->id();
 
@@ -92,7 +96,7 @@
 				->value('u_icq',rand(111111111,999999999))
 				->value('u_date_log',$this->online_time)
 				->value('u_log_type',rand(User::LOGGED_DESKTOP,User::LOGGED_DEFAULT))
-				->value('u_date_created',time())
+				->value('u_date_created',$this->time)
 				->value('u_status',rand(Kernel::STATUS_INACTIVE,Kernel::STATUS_BLOCKED))
 				->value('u_user_type',2)
 				->get()
@@ -103,6 +107,19 @@
 			return $this;
 		}
 
+		public function getCurrentTime(){
+			$result = Database::select('u_date_created')
+				->from('users')
+				->order("`u_date_created`")
+				->sort('DESC')
+				->limit(1)
+				->get()
+				->itemAsArray();
+
+			$this->time = rand($result['u_date_created'],time());
+
+			return $this;
+		}
 
 
 

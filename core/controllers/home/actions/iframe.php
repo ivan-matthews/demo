@@ -35,6 +35,8 @@
 		/** @var Hooks */
 		public $hook;
 
+		public $iFrame_data;
+
 		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -45,13 +47,17 @@
 
 		public function __construct(){
 			parent::__construct();
+
+			$this->backLink();
 		}
 
 		public function methodGet(){
-			$iFrame_data = $this->model->getGitHubPageFromHomeController();
+			$this->iFrame_data = $this->model->getGitHubPageFromHomeController();
 
 			return $this->response->controller('home','iframe')
-				->setArray(array('data'=>$iFrame_data));
+				->setArray(array(
+					'data'	=> $this->iFrame_data
+				));
 		}
 
 	}

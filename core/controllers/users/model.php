@@ -2,6 +2,7 @@
 
 	namespace Core\Controllers\Users;
 
+	use Core\Classes\Mail\Notice;
 	use Core\Classes\Model as ParentModel;
 	use Core\Classes\Cache\Interfaces\Cache;
 
@@ -143,7 +144,7 @@
 
 			$result = $this->select('COUNT(n_id) as total')
 				->from('notice')
-				->where("`n_receiver_id`='{$receiver_id}'")
+				->where("`n_receiver_id`='{$receiver_id}' AND `n_status`=" . Notice::STATUS_UNREAD)
 				->get()
 				->itemAsArray();
 

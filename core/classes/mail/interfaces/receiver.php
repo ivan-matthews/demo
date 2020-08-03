@@ -15,4 +15,12 @@
 		 * @return Receiver
 		 */
 		public function sender($sender_id=null);
+
+		/**
+		 * @param $controller
+		 * @param $action
+		 * @param array ...$params
+		 * @return Receiver
+		 */
+		public function action($controller,$action,...$params);
 	}

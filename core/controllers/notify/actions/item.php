@@ -3,6 +3,7 @@
 	namespace Core\Controllers\Notify\Actions;
 
 	use Core\Classes\Hooks;
+	use Core\Classes\Mail\Notice;
 	use Core\Classes\Request;
 	use Core\Classes\Session;
 	use Core\Classes\Response\Response;
@@ -40,7 +41,19 @@
 		public $session;
 
 		/** @var array */
-		public $item;
+		public $item_id;
+		public $user_id;
+
+		public $action_obj;
+		public $action_class;
+
+		public $called_action;
+		public $called_url;
+		public $called_controller;
+		public $called_params;
+
+
+		public $notice_data;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -50,65 +63,39 @@
 			return self::$instance;
 		}
 
-		public function __get($key){
-			if(isset($this->item[$key])){
-				return $this->item[$key];
-			}
-			return false;
-		}
-
-		public function __set($name, $value){
-			$this->item[$name] = $value;
-			return $this->item[$name];
-		}
-
 		public function __construct(){
 			parent::__construct();
 		}
 
-		public function __destruct(){
+		public function methodGet($user_id,$item_id){
+			$this->user_id = $user_id;
+			$this->item_id = $item_id;
 
-		}
+			if(!fx_me($this->user_id)){ return false; }
 
-		public function methodGet($item_id){
+			$this->notice_data = $this->model->getNoticeById($this->item_id);
+
+			if($this->notice_data){
+				$this->getActionObject();
+				if(fx_equal((int)$this->notice_data['n_status'],Notice::STATUS_UNREAD)){
+					$this->model->updateNoticeStatus($this->item_id);
+				}
+				return call_user_func(array($this->action_obj,"methodGet"),...$this->called_params[0]);
+			}
+
 			return false;
 		}
 
-		public function methodPost($item_id){
-			return false;
+		public function getActionObject(){
+			$this->called_url = fx_arr($this->notice_data['n_action']);
+			$this->called_controller = $this->called_url[0];
+			$this->called_action = $this->called_url[1];
+			$this->called_params = array_slice($this->called_url,2);
+
+			$this->action_class = "\\Core\\Controllers\\{$this->called_controller}\\Actions\\{$this->called_action}";
+			$this->action_obj = call_user_func(array($this->action_class,'getInstance'));
+			return $this;
 		}
-
-		public function methodPut($item_id){
-			return false;
-		}
-
-		public function methodHead($item_id){
-			return false;
-		}
-
-		public function methodTrace($item_id){
-			return false;
-		}
-
-		public function methodPatch($item_id){
-			return false;
-		}
-
-		public function methodOptions($item_id){
-			return false;
-		}
-
-		public function methodConnect($item_id){
-			return false;
-		}
-
-		public function methodDelete($item_id){
-			return false;
-		}
-
-
-
-
 
 
 

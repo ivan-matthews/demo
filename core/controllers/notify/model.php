@@ -2,9 +2,9 @@
 
 	namespace Core\Controllers\Notify;
 
+	use Core\Classes\Mail\Notice;
 	use Core\Classes\Model as ParentModel;
 	use Core\Classes\Cache\Interfaces\Cache;
-	use Core\Classes\Kernel;
 
 	class Model extends ParentModel{
 
@@ -27,11 +27,54 @@
 			$this->cache->key('notify');
 		}
 
-		public function __destruct(){
+		public function countNotices($user_id,$query){
+			$result = $this->select("COUNT(n_id) as total")
+				->from('notice')
+				->where("`n_receiver_id`=%user_id% AND {$query}")
+				->data('%user_id%',$user_id)
+				->get()
+				->itemAsArray();
 
+			return $result['total'];
 		}
 
+		public function getNotices($user_id,$query,$limit,$offset){
+			$result = $this->select()
+				->from('notice')
+				->join('users',"n_sender_id=u_id")
+				->join('photos',"p_id=u_avatar_id")
+				->where("`n_receiver_id`=%user_id% AND {$query}")
+				->data('%user_id%',$user_id)
+				->limit($limit)
+				->offset($offset)
+				->order('n_status ASC, n_id DESC')
+				->sort(null)
+				->get()
+				->allAsArray();
 
+			return $result;
+		}
+
+		public function getNoticeById($notice_id){
+			$notice_data = $this->select()
+				->from('notice')
+				->where("`n_id`=%notice_id%")
+				->data('%notice_id%',$notice_id)
+				->get()
+				->itemAsArray();
+			return $notice_data;
+		}
+
+		public function updateNoticeStatus($notice_id,$status=Notice::STATUS_READED){
+			$result = $this->update('notice')
+				->field('n_status',$status)
+				->field('n_date_updated',time())
+				->where("`n_id`=%notice_id%")
+				->data('%notice_id%',$notice_id)
+				->get()
+				->rows();
+			return $result;
+		}
 
 
 

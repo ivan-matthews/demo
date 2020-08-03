@@ -6,6 +6,8 @@
 	 * @var array $options
 	*/
 //	fx_die($content);
+
+	$notify_link = $content['notice'] ? fx_get_url('notify','index',$content['id'],'unreaded') : fx_get_url('notify','index',$content['id']);
 ?>
 
 <script>
@@ -69,7 +71,7 @@
 		<div class="btn-group">
 			<a class="dropdown user-info-link" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<i class="fa fa-envelope" aria-hidden="true"></i>
-				<?php if($content['notice']){ ?>
+				<?php if($content['mail']){ ?>
 					<span class="count">
 					<?php print $content['mail'] ?>
 				</span>
@@ -82,7 +84,7 @@
 	</div>
 	<div class="header-bar-widget-icon body mx-auto user-journal">
 		<div class="btn-group">
-			<a class="dropdown user-info-link" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			<a href="<?php print $notify_link ?>" class="user-info-link">
 				<i class="fa fa-bell" aria-hidden="true"></i>
 				<?php if($content['notice']){ ?>
 					<span class="count">
@@ -90,9 +92,6 @@
 				</span>
 				<?php } ?>
 			</a>
-			<div class="dropdown-menu dropdown-menu-right radius-0">
-				...
-			</div>
 		</div>
 	</div>
 	<div class="header-bar-widget-icon body mx-auto user-menu">

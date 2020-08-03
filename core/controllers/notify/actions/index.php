@@ -3,6 +3,7 @@
 	namespace Core\Controllers\Notify\Actions;
 
 	use Core\Classes\Hooks;
+	use Core\Classes\Mail\Notice;
 	use Core\Classes\Request;
 	use Core\Classes\Session;
 	use Core\Classes\Response\Response;
@@ -42,11 +43,17 @@
 		/** @var array */
 		public $index;
 
-		public $limit;
+		public $limit = 10;
 		public $offset;
 		public $total;
 		public $order;
 		public $sort;
+
+		public $user_id;
+		public $sorting_panel;
+		public $current_tab;
+
+		public $notices_data;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -56,64 +63,97 @@
 			return self::$instance;
 		}
 
-		public function __get($key){
-			if(isset($this->index[$key])){
-				return $this->index[$key];
-			}
-			return false;
-		}
-
-		public function __set($name, $value){
-			$this->index[$name] = $value;
-			return $this->index[$name];
-		}
-
 		public function __construct(){
 			parent::__construct();
+
+			$this->query .= "n_status != " . Notice::STATUS_DELETED;
 		}
 
-		public function __destruct(){
+		public function methodGet($user_id,$current_tab='all'){
+			$this->user_id = $user_id;
+			$this->current_tab = $current_tab;
 
-		}
+			if(!fx_me($this->user_id)){ return false; }
 
-		public function methodGet(){
-			return false;
-		}
+			$this->sorting_panel = $this->params->sorting_panel;
 
-		public function methodPost(){
-			return false;
-		}
+			$this->setResponse();
+			$this->prepareHeaderBarLinks();
 
-		public function methodPut(){
-			return false;
-		}
+			$this->header_bar($this->sorting_panel,array('notify','index',$this->user_id),$this->current_tab);
 
-		public function methodHead(){
-			return false;
-		}
+			$this->total = $this->model->countNotices($this->user_id,$this->query);
 
-		public function methodTrace(){
-			return false;
-		}
+			if($this->total){
+				$this->notices_data = $this->model->getNotices(
+					$this->user_id,
+					$this->query,
+					$this->limit,
+					$this->offset
+				);
 
-		public function methodPatch(){
-			return false;
-		}
+				$this->paginate($this->total, array('notify','index',$this->user_id));
 
-		public function methodOptions(){
-			return false;
-		}
+				$this->response->controller('notify','index')
+					->setArray(array(
+						'notices'	=> $this->notices_data,
+						'total'		=> $this->total,
+					));
+				return $this;
+			}
 
-		public function methodConnect(){
-			return false;
-		}
-
-		public function methodDelete(){
-			return false;
+			return $this->renderEmptyPage();
 		}
 
 
+		public function prepareHeaderBarLinks(){
+			$callable_method = "setHeaderBar{$this->current_tab}";
+			if(method_exists($this,$callable_method)){
+				call_user_func(array($this,$callable_method));
+			}
+			foreach($this->sorting_panel as $sorting_key=>$sorting_value){
+				$this->sorting_panel[$sorting_key]['link'][2] = $this->user_id;
+			}
+			return $this;
+		}
 
+		protected function setHeaderBarAll(){
+			$this->response->title('notify.all_notices_sorting');
+			$this->response->breadcrumb('all')
+				->setLink('notify','index',$this->user_id,'all')
+				->setValue('notify.all_notices_sorting')
+				->setIcon(null);
+			return $this;
+		}
+		protected function setHeaderBarReaded(){
+			$this->response->title('notify.readed_notices_sorting');
+			$this->response->breadcrumb('readed')
+				->setLink('notify','index',$this->user_id,'readed')
+				->setValue('notify.readed_notices_sorting')
+				->setIcon(null);
+			$this->query .= " AND n_status=" . Notice::STATUS_READED;
+			return $this;
+		}
+		protected function setHeaderBarUnreaded(){
+			$this->response->title('notify.unreaded_notices_sorting');
+			$this->response->breadcrumb('unreaded')
+				->setLink('notify','index',$this->user_id,'unreaded')
+				->setValue('notify.unreaded_notices_sorting')
+				->setIcon(null);
+			$this->query .= " AND n_status=" . Notice::STATUS_UNREAD;
+			return $this;
+		}
+
+
+		public function setResponse(){
+			$this->response->title('notify.notices_title');
+			$this->response->breadcrumb('notify')
+				->setLink('notify','index',$this->user_id)
+				->setValue('notify.notices_title')
+				->setIcon(null);
+
+			return $this;
+		}
 
 
 

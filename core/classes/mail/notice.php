@@ -27,14 +27,14 @@
 
 	class Notice implements NoticeInterface{
 
-		const STATUS_DEFAULT = 1;
-		const STATUS_NOTICE = 2;
-		const STATUS_WARNING = 3;
-		const STATUS_DANGER = 4;
+		const STATUS_UNREAD = 1;
+		const STATUS_READED = 2;
+		const STATUS_DELETED = 3;
+		const STATUS_INACTIVE = 4;
 
-		const SENDER_SYSTEM = -1;
-		const SENDER_NOTIFY = -2;
-		const SENDER_MAILING = -3;
+		const MANAGER_SYSTEM = 1;
+		const MANAGER_NOTIFY = 2;
+		const MANAGER_MAILING = 3;
 
 		private $time;
 		/** @var \Core\Classes\Database\Interfaces\Insert\Insert */
@@ -86,6 +86,10 @@
 			$this->database->value('n_options',$options);
 			return $this;
 		}
+		public function action($controller,$action,...$params){
+			$this->database->value('n_action',array($controller,$action,$params));
+			return $this;
+		}
 
 		/**
 		 * @param int $status
@@ -108,7 +112,7 @@
 			return $this;
 		}
 		private function setStatus(){
-			$this->database->value('n_status',$this->status?:self::STATUS_DEFAULT);
+			$this->database->value('n_status',$this->status?:self::STATUS_UNREAD);
 			$this->status = null;
 			return $this;
 		}

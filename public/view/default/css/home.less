@@ -21,18 +21,24 @@ body{
 			right: 2px;
 		}
 	}
-	a {
+	a{
 		color: @dark-blue;
 		-moz-user-select: none;
 		user-select: none;
-	}
-	a:active {
-		color: @darked-blue;
-	}
-	a:hover {
-		background: @light-general-color;
-		color: @general-color;
-		text-decoration: none;
+		border-radius: 0 !important;
+		&:hover {
+			background: @light-general-color;
+			color: @general-color;
+			text-decoration: none;
+			border-radius: 0 !important;
+		}
+		&:active {
+			color: @darked-blue;
+			border-radius: 0 !important;
+		}
+		&:focus {
+			border-radius: 0 !important;
+		}
 	}
 	.navbar.header-bar {
 		background: @general-color;
