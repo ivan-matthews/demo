@@ -870,6 +870,27 @@ body.unscrollable nav.header-bar::-webkit-scrollbar {
 .users-list .users .users-item .users-info .users-item-info .users-item-descriptions {
   color: #6f7985;
 }
+.users-list .users .users-item .users-info .drop-down-user-menu .menu-links .menu-list {
+  width: 200px;
+}
+.users-list .users .users-item .users-info .drop-down-user-menu .menu-links .menu-list .list-group-item {
+  border: none;
+  padding: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+.users-list .users .users-item .users-info .drop-down-user-menu .menu-links .menu-list .list-group-item:first-child {
+  border-top: none;
+}
+.users-list .users .users-item .users-info .drop-down-user-menu .menu-links .menu-list .list-group-item .menu-list-item-link {
+  width: 100%;
+  height: 100%;
+  padding: 0.5rem;
+  display: block;
+  font-weight: bold;
+}
+.users-list .users .users-item .users-info .drop-down-user-menu .menu-links .menu-list .list-group-item .menu-list-item-link .menu-list-item-link-icon {
+  border: none;
+}
 .user-info-widget .body a.user-info-link {
   position: relative;
   padding: 7px 20px;

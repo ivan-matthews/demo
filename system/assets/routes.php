@@ -4,7 +4,7 @@
 
 	return array(
 		array(
-			'url'			=> 'id[id]',
+			'url'			=> '№[id]',
 			'controller'	=> 'users',
 			'action'		=> 'item',
 			'pattern'		=> '([a-zа-я0-9-_.]+)',

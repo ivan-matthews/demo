@@ -54,7 +54,39 @@
 						</div>
 
 					</a>
+					<?php if(isset($user['menu'])){ ?>
+						<div class="dropdown col-1 drop-down-user-menu">
 
+							<button class="btn btn-info radius-0 dropdown-toggle menu-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="fas fa-plus text-white"></i>
+							</button>
+
+							<div class="dropdown-menu dropdown-menu-right radius-0 menu-links pt-0 pb-0" aria-labelledby="dropdownMenuButton">
+
+								<ul class="list-group menu-list">
+
+									<?php foreach($user['menu'] as $user_menu_item){ ?>
+
+										<li class="list-group-item radius-0 menu-list-item">
+
+											<a class="p-2 menu-list-item-link <?php print $user_menu_item['link_class'] ?>" href="<?php print $user_menu_item['link'] ?>">
+
+												<?php if($user_menu_item['link']){ ?>
+													<i class="menu-list-item-link-icon <?php print $user_menu_item['icon'] ?>"></i>
+												<?php } ?>
+
+												<?php print $user_menu_item['value'] ?>
+											</a>
+
+										</li>
+
+									<?php } ?>
+
+								</ul>
+
+							</div>
+						</div>
+					<?php } ?>
 				</div>
 
 			</div>

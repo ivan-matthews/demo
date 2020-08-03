@@ -222,6 +222,33 @@
 						color: @text_footer_color;
 					}
 				}
+				.drop-down-user-menu{
+					.menu-button{}
+					.menu-links{
+						//border: none;
+						.menu-list{
+							width: 200px;
+							.list-group-item{
+								border: none;
+								padding: 0;
+								border-top: 1px solid rgba(0, 0, 0, 0.125);
+								&:first-child{
+									border-top: none;
+								}
+								.menu-list-item-link{
+									width: 100%;
+									height: 100%;
+									padding: 0.5rem;
+									display: block;
+									font-weight: bold;
+									.menu-list-item-link-icon{
+										border: none;
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 	}

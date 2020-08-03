@@ -8,6 +8,7 @@
 	use Core\Classes\Response\Response;
 	use Core\Controllers\Messages\Config;
 	use Core\Controllers\Messages\Controller;
+	use Core\Controllers\Messages\Forms\Send_Message;
 	use Core\Controllers\Messages\Model;
 
 	/**
@@ -59,12 +60,16 @@
 		public $user_id;
 		public $contact_id;
 
+		public $user_data;
 		public $contact_data;
 		public $contacts;
 		public $messages;
 
 		public $query_string_to_update_read_status;
 		public $total_count_readed_to_update=0;
+
+		public $send_form;
+		public $form_fields_list;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -77,11 +82,12 @@
 		public function __construct(){
 			parent::__construct();
 
+			$this->send_form = Send_Message::getInstance();
 			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
 		}
 
 		public function methodGet($contact_id){
-			if(!fx_me($this->user_id)){ return false; }
+			if(!$this->user->logged()){ return false; }
 
 			$this->contact_id = $contact_id;
 
@@ -116,10 +122,25 @@
 					$this->user_id,
 					$this->limit_contacts,
 					0,
-					'total'
+					'total DESC',
+					null
 				);
-				
+
 				$this->paginate($this->total, array('messages','item',$this->contact_id));
+
+				$this->send_form->generateFieldsList(
+					$this->contact_id,
+					(fx_equal($this->user_id,$this->contact_data['mc_receiver_id']) ?
+						$this->contact_data['mc_sender_id'] : $this->contact_data['mc_receiver_id'])
+				);
+				$this->form_fields_list = $this->send_form->getFieldsList();
+
+				$this->user_data = array(
+					'u_id'		=> $this->session->get('u_id',Session::PREFIX_AUTH),
+					'u_gender'	=> $this->session->get('u_gender',Session::PREFIX_AUTH),
+					'p_micro'	=> $this->session->get('p_micro',Session::PREFIX_AUTH),
+					'p_small'	=> $this->session->get('p_small',Session::PREFIX_AUTH),
+				);
 
 				$this->response->controller('messages','contact')
 					->setArray(array(
@@ -127,7 +148,12 @@
 						'messages'	=> $this->messages,
 						'total'		=> $this->total,
 						'contact'	=> $this->contact_data,
-						'user'		=> $this->user_id,
+						'user'		=> $this->user_data,
+						'form_data'	=> array(
+							'fields'	=> $this->form_fields_list,
+							'form'		=> $this->send_form->getFormAttributes(),
+							'errors'	=> $this->send_form->getErrors(),
+						),
 					));
 				return $this;
 			}

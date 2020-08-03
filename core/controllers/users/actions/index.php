@@ -56,6 +56,8 @@
 		public $total_users;
 		public $all_users_data;
 
+		public $users_menu = array();
+
 		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){

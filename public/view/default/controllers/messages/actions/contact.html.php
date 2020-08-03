@@ -8,11 +8,11 @@
 	/** @var array $contact */
 	/** @var string $total */
 	/** @var array $user */
+	/** @var array $form_data */
 
 	$this->prependCSS("{$this->theme_path}/css/messages");
 	$this->prependJS("{$this->theme_path}/js/messages");
 
-//	fx_die($contact);
 ?>
 
 <div class="m-0 mb-4 contact row justify-content-center">
@@ -25,7 +25,7 @@
 
 				<div class="col-12 contact-main-block row ml-0">
 
-					<div class="contacts-list col-md-3 col-sm-3 col-3 col-lg-2 col-xl-2 m-0 p-0 mt-2 d-none d-sm-none d-md-block d-lg-block d-xl-block">
+					<div class="contacts-list col-md-2 col-sm-3 col-3 col-lg-2 col-xl-2 m-0 p-0 mt-2 d-none d-sm-none d-md-block d-lg-block d-xl-block">
 						<?php foreach($contacts as $message_contact){ ?>
 							<div class="contact-item mt-2<?php print(fx_equal($message_contact['u_id'],$contact['u_id'])?' active block':' in-active') ?>">
 								<?php if($message_contact['total']){ ?>
@@ -48,7 +48,7 @@
 						<?php } ?>
 					</div>
 
-					<div class="col-md-9 col-sm-12 col-12 col-lg-10 col-xl-10 messages-item-info mt-2 pb-4">
+					<div class="col-md-10 col-sm-12 col-12 col-lg-10 col-xl-10 messages-item-info mt-2 pb-4">
 						<div class="mt-2 contact-info row col-12">
 							<a class="col-10 link" href="<?php print fx_get_url('users','item',$contact['u_id']) ?>">
 								<div class="item-photo row ml-0 col">
@@ -66,19 +66,30 @@
 									<?php print $total ?>
 								</span>
 							</div>
+
+							<div class="send-form col-12 pr-0">
+								<?php print $this->renderForm($form_data) ?>
+							</div>
+
 						</div>
 						<div class="col-12 messages-list">
+
 							<?php foreach($messages as $message){ ?>
 
-								<?php if(fx_equal($user,$message['m_receiver_id'])){ ?>
+								<?php if(fx_equal($user['u_id'],$message['m_receiver_id'])){ ?>
 
 									<div class="message-item sender-block col-12">
 
 										<div class="message-content col-12 col-sm-11 col-md-10 col-lg-9 col-xl-8 float-left mt-2">
 
-											<div class="user-info">
+											<div class="user-info ml-1">
 
-												<img class="user-avatar" src="<?php print fx_avatar($contact['p_micro'],'micro',$contact['u_gender']) ?>">
+												<a class="user-avatar-link" href="<?php print fx_get_url('users','item',$contact['u_id']) ?>">
+													<img class="user-avatar" src="<?php print fx_avatar($contact['p_micro'],'micro',$contact['u_gender']) ?>">
+													<span class="contact-name">
+														<?php print $contact['u_first_name'] ?>,
+													</span>
+												</a>
 
 												<span class="date-add">
 													<?php print fx_get_date($message['m_date_created']) ?>
@@ -90,8 +101,9 @@
 												<?php } ?>
 											</div>
 
-											<div class="content-info p-0 pl-1 pr-1 pb-2 pt-2 mt-3">
-												<?php print $message['m_content'] ?><div class="message-manage-links">
+											<div class="content-info p-0 pl-4 pr-4 pb-2 pt-2 mt-1">
+												<?php print $message['m_content'] ?>
+												<div class="message-manage-links">
 													<a class="text-danger" href="<?php print fx_get_url('messages','delete',$message['m_id']) ?>">
 														<i class="fas fa-times"></i>
 														<?php print fx_lang('messages.delete_message_link') ?>
@@ -108,21 +120,28 @@
 
 										<div class="message-content col-12 col-sm-11 col-md-10 col-lg-9 col-xl-8 float-right mt-2">
 
-											<div class="date-add float-right">
+											<div class="user-info float-right">
+
 												<?php if(!$message['m_readed']){ ?>
-													<span class="new-message">
-														<?php print fx_lang('messages.new_user_message') ?>
-													</span>
+													<i title="<?php print fx_lang('messages.new_user_message') ?>" class="text-success fas fa-check"></i>
+												<?php }else{ ?>
+													<i title="<?php print fx_lang('messages.new_user_message_read') ?>" class="text-success fas fa-check-double"></i>
 												<?php } ?>
-												<span class="me">
-													<?php print fx_lang('messages.message_my_identifier_value') ?>,
-												</span>
+
 												<span class="date">
-													<?php print fx_get_date($message['m_date_created']) ?>
+													<?php print fx_get_date($message['m_date_created']) ?>,
 												</span>
+
+												<a class="user-avatar-link" href="<?php print fx_get_url('users','item',$user['u_id']) ?>">
+													<span class="me">
+														<?php print fx_lang('messages.message_my_identifier_value') ?>
+													</span>
+													<img class="user-avatar" src="<?php print fx_avatar($user['p_micro'],'micro',$user['u_gender']) ?>">
+												</a>
+
 											</div>
 
-											<div class="content-info p-0 pl-1 pr-1 pb-2 pt-2 float-left col-12 mt-3">
+											<div class="content-info p-0 pl-4 pr-4 pb-2 pt-2 float-left col-12 mt-1 ml-1">
 												<?php print $message['m_content'] ?>
 												<div class="message-manage-links">
 													<a class="text-danger" href="<?php print fx_get_url('messages','delete',$message['m_id']) ?>">

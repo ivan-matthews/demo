@@ -177,6 +177,10 @@
 								.item-title{
 									font-weight: bold;
 								}
+								&:hover{
+									background: none;
+									opacity: 0.8;
+								}
 							}
 							.total{
 								text-align: center;
@@ -189,12 +193,39 @@
 
 								}
 							}
+							.send-form{
+								margin: 0;
+								form{
+									&.mt-3{
+										margin: 0!important;
+									}
+									.add-message-button{
+										width: auto;
+										height: auto;
+										i,svg{
+											font-size: 20px;
+											font-weight: bold;
+										}
+									}
+								}
+							}
 						}
 						.messages-list{
 							.message-item{
 								.message-content{
 									.user-info{
 										.date-add{}
+										a{
+											&.user-avatar-link{
+												&:hover{
+													background: none;
+													opacity: 0.8;
+												}
+												.contact-name{
+													font-weight: bold;
+												}
+											}
+										}
 									}
 									.content-info{
 										font-size: 15px;
@@ -227,17 +258,19 @@
 											&::after{
 												content: '';
 												position: absolute;
-												border: 8px solid transparent;
-												border-bottom: 12px solid #feffb2;
-												top: -18px;
-												left: -1px;
+												border: 6px solid transparent;
+												border-bottom: 6px solid #feffb2;
+												border-left: 6px solid #feffb2;
+												top: -12px;
+												left: 0;
 											}
 											&::before{
 												content: '';
 												position: absolute;
 												border: 8px solid transparent;
-												border-bottom: 12px solid #dfdfc8;
-												top: -20px;
+												border-bottom: 6px solid #dfdfc8;
+												border-left: 8px solid #dfdfc8;
+												top: -14px;
 												left: -1px;
 											}
 										}
@@ -245,7 +278,12 @@
 								}
 								&.user-block{
 									.message-content{
-										.date-add{
+										.user-info{
+											img{
+												&.user-avatar{
+													border-radius: 50%;
+												}
+											}
 											.new-message{
 												font-weight: bold;
 												background: @danger;
@@ -269,17 +307,19 @@
 											&::after{
 												content: '';
 												position: absolute;
-												border: 8px solid transparent;
-												border-bottom: 12px solid #b2ffb7;
-												top: -18px;
-												right: -1px;
+												border: 6px solid transparent;
+												border-bottom: 6px solid #b2ffb7;
+												border-right: 6px solid #b2ffb7;
+												top: -12px;
+												right: 0;
 											}
 											&::before{
 												content: '';
 												position: absolute;
 												border: 8px solid transparent;
-												border-bottom: 12px solid #dfdfc8;
-												top: -20px;
+												border-bottom: 6px solid #dfdfc8;
+												border-right: 8px solid #dfdfc8;
+												top: -14px;
 												right: -1px;
 											}
 										}

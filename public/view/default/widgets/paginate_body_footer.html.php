@@ -22,7 +22,7 @@
 			<?php if($i<=0){ continue; } ?>
 			<?php if(!$current){ ?>
 				<?php $new_offset = $content['offset']+$content['limit']*($i) ?>
-				<li class="page-item<?php print ($content['total'] < $new_offset?' disabled':'') ?>">
+				<li class="page-item<?php print ($content['total'] <= $new_offset?' disabled':'') ?>">
 					<?php if(!fx_equal($new_offset,$content['offset'])){ ?>
 						<a class="page-link" href="<?php print fx_make_url($content['link'],array('offset'=>$new_offset)) ?>">
 							<?php print $current+$i+1 ?>
@@ -37,7 +37,7 @@
 
 			<?php if(fx_equal($current,1)){ ?>
 				<?php $new_offset = $content['offset']+$content['limit']*($i-1) ?>
-				<li class="page-item<?php print ($content['total'] < $new_offset?' disabled':'') ?>">
+				<li class="page-item<?php print ($content['total'] <= $new_offset?' disabled':'') ?>">
 					<?php if(!fx_equal($new_offset,$content['offset'])){ ?>
 						<a class="page-link" href="<?php print fx_make_url($content['link'],array('offset'=>$new_offset)) ?>">
 							<?php print $current+($i) ?>
@@ -52,7 +52,7 @@
 
 			<?php if(fx_equal($current,2)){ ?>
 				<?php $new_offset = $content['offset']+$content['limit']*($i-2) ?>
-				<li class="page-item<?php print ($content['total'] < $new_offset?' disabled':'') ?>">
+				<li class="page-item<?php print ($content['total'] <= $new_offset?' disabled':'') ?>">
 					<?php if(!fx_equal($new_offset,$content['offset'])){ ?>
 						<a class="page-link" href="<?php print fx_make_url($content['link'],array('offset'=>$new_offset)) ?>">
 							<?php print $current+($i-1) ?>
@@ -67,7 +67,7 @@
 
 			<?php if($current>2){ ?>
 				<?php $new_offset = $content['offset']+$content['limit']*($i-3) ?>
-				<li class="page-item<?php print ($content['total'] < $new_offset?' disabled':'') ?>">
+				<li class="page-item<?php print ($content['total'] <= $new_offset?' disabled':'') ?>">
 					<?php if(!fx_equal($new_offset,$content['offset'])){ ?>
 						<a class="page-link" href="<?php print fx_make_url($content['link'],array('offset'=>$new_offset)) ?>">
 							<?php print $current+($i-2) ?>

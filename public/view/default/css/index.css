@@ -103,3 +103,7 @@ blockquote {
   border: solid 1px rgba(0, 0, 0, 0.125);
   border-left: solid 5px rgba(0, 0, 0, 0.125);
 }
+textarea::placeholder {
+  font-style: italic;
+  color: #cccccc !important;
+}

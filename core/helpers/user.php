@@ -123,3 +123,10 @@
 		$avatar_image = fx_avatar($avatar_image,$avatar_key,$gender);
 		return print "<img onerror=\"indexObj.brokenImage(this,'{$avatar_key}')\" class=\"{$class}\" src=\"{$avatar_image}{$version}\" title=\"{$title}\" alt=\"{$alt}\">";
 	}
+
+	function fx_logged(){
+		if(User::getInstance()->logged()){
+			return true;
+		}
+		return false;
+	}
