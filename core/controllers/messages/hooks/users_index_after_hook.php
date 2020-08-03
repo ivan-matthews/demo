@@ -16,7 +16,9 @@
 		public function run(){
 			if($this->users_object->all_users_data){
 				foreach($this->users_object->all_users_data as $key=>$val){
-//					if(fx_me($val['u_id'])){ continue; }
+					if(fx_equal($val['u_id'], $this->users_object->session->get('u_id',Session::PREFIX_AUTH))){
+						continue;
+					}
 					$this->users_object->all_users_data[$key]['menu']['add_contact']	= array(
 						'link'			=> fx_get_url('messages','add',$val['u_id']),
 						'value'			=> fx_lang('messages.add_user_to_contacts_list'),
