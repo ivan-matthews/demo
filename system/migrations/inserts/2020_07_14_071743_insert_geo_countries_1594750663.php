@@ -4,15 +4,17 @@
 
 	use Core\Classes\Database\Database;
 	use Core\Classes\Kernel;
+	use IvanMatthews\GeoPack\Geo;
 
 	class InsertGeoCountries202007140717431594750663{
 
+		/** @var Geo */
+		protected $geo;
 		public function firstStep(){
-			$files_path = fx_path('system/migrations/inserts/geo/countries');
-			foreach(scandir($files_path) as $file){
-				if($file == '.' || $file == '..'){ continue; }
-				$path = "{$files_path}/{$file}";
-				$data = fx_import_file($path,Kernel::IMPORT_INCLUDE);
+			$this->geo = new Geo();
+
+			$this->geo->call($this->geo->getCountriesFiles(),function($file){
+				$data = fx_import_file($file,Kernel::IMPORT_INCLUDE);
 				$insert = Database::insert('geo_countries');
 				foreach($data as $item){
 					$insert->value('g_country_id',$item['g_country_id']);
@@ -22,8 +24,7 @@
 					$insert = $insert->value('g_title_en',$item['g_title_en']);
 				}
 				$insert->get()->id();
-				unset($insert,$path,$data,$item);
-			}
+			});
 			return $this;
 		}
 

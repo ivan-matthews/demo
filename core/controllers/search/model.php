@@ -36,12 +36,11 @@
 				$result = $result->data($key,$value);
 			}
 
-			$result = $result->get();
-			$result = $result->itemAsArray();
+			$result = $result->get()->itemAsArray();
 			return $result['total'];
 		}
 
-		public function find($table,$query,array $fields,$preparing_data,$limit){
+		public function find($table,$query,array $fields,$preparing_data,$order,$limit,$offset){
 			$fields_string = '';
 			foreach($fields as $key=>$field){
 				if(!$field){ continue; }
@@ -53,9 +52,10 @@
 			$result = $result->from($table);
 			$result = $result->join('photos FORCE INDEX(PRIMARY)',"{$fields['image']}=p_id");
 			$result = $result->where($query);
-			$result = $result->order($fields['date']);
+			$result = $result->order($order ? $order : $fields['date']);
 			$result = $result->sort('DESC');
 			$result = $result->limit($limit);
+			$result = $result->offset($offset);
 
 			foreach($preparing_data as $key=>$value){
 				$result = $result->data($key,$value);
@@ -63,6 +63,7 @@
 
 			$result = $result->get();
 			$result = $result->allAsArray();
+
 			return $result;
 		}
 

@@ -1,6 +1,7 @@
 {
     "require": {
         "phpmailer/phpmailer": "^6.1",
-        "mongodb/mongodb": "^1.6"
+        "mongodb/mongodb": "^1.6",
+        "ivan-matthews/geo-package": "^0.1.0"
     }
 }

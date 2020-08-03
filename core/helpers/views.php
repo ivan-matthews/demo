@@ -138,6 +138,7 @@
 	}
 
 	function fx_crop_string($string,$length=200){
+		$string = strip_tags($string);
 		if(mb_strlen($string) > $length){
 			return mb_substr($string,0,$length) . "...";
 		}

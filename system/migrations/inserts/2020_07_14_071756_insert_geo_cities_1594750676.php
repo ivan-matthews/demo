@@ -1,6 +1,6 @@
 <?php
 
-	// иц воркс!
+	// иц ворк!
 
 	namespace System\Migrations\Inserts;
 
@@ -10,41 +10,48 @@
 	use Core\Classes\Database\Database;
 	use Core\Classes\Response\Response;
 	use Core\Classes\Config;
+	use IvanMatthews\GeoPack\Geo;
 
 	class InsertGeoCities202007140717561594750676{
 
+		/** @var Config */
 		public $config;
+
+		/** @var Geo */
+		protected $geo;
+
+		/** @var boolean */
 		public $debug;
 
-		private $memory_limit  = 256 * 1024 * 1024;			// 256M
-		private $insert_files = array();
-		private $file_path = 'system/migrations/inserts/geo/cities';
+		/** @var integer */
 		private $total_cities;
 
-		public function firstStep(){
-			$this->config = Config::getInstance();
+		private $memory_limit  = 256 * 1024 * 1024;			// 256M
 
+		public function __construct(){
+			$this->config = Config::getInstance();
 			$this->debug = $this->config->core['debug_enabled'];
 
-			$this->config->set(false,'core','debug_enabled');
+			$this->geo = new Geo();
+
+			$this->getOffset();
+		}
+
+		public function firstStep(){
+			$this->debug(false);
 
 			$this->getMemoryLimit();
-			$this->getFiles();
-			$this->getOffset();
 
-			foreach($this->insert_files as $file){
-				if(is_dir("{$this->file_path}/{$file}")){ continue; }
-				$number = substr($file,0,-4);
-				if($number < $this->total_cities){ continue; }
+			$this->geo->call($this->geo->getCitiesFiles(),function($file){
 
-				$path = "{$this->file_path}/{$file}";
-				$data = fx_import_file($path,Kernel::IMPORT_INCLUDE);
+				if($this->geo->getFileName() < $this->total_cities){ return false; }
+
+				$data = fx_import_file($file,Kernel::IMPORT_INCLUDE);
 
 				$this->reconnectByMemoryLimit()
 					->lastHope();
 
 				foreach($data as $item){
-
 					$insert = Database::insert('geo_cities');
 					$insert = $insert->value('gc_city_id',$item['gc_city_id']);
 					$insert = $insert->value('gc_country_id',$item['gc_country_id']);
@@ -64,17 +71,27 @@
 					$insert->get()->id();
 				}
 
-				Paint::exec(function(Types $types)use($file){
-					$types->string("File: ")->print();
-					$types->string($file)->color('yellow')->print();
-					$types->eol();
-				});
+				$this->printFile($file);
 
-				unset($insert,$path,$data,$item,$file);
-			}
+				return true;
+			});
 
-			$this->config->set($this->debug,'core','debug_enabled');
+			$this->debug($this->debug);
 
+			return $this;
+		}
+
+		private function printFile($file){
+			Paint::exec(function(Types $types)use($file){
+				$types->string("File: ")->print();
+				$types->string($file)->color('yellow')->print();
+				$types->eol();
+			});
+			return $this;
+		}
+
+		private function debug($debug_status){
+			$this->config->set($debug_status,'core','debug_enabled');
 			return $this;
 		}
 
@@ -91,16 +108,6 @@
 				$types->string(" bytes")->print();
 				$types->eol();
 			});
-			return $this;
-		}
-
-		private function getFiles(){
-			$this->file_path = fx_path($this->file_path);
-
-			$this->insert_files = scandir($this->file_path);
-			unset($this->insert_files[0],$this->insert_files[1]);
-			sort($this->insert_files,SORT_NATURAL);
-
 			return $this;
 		}
 

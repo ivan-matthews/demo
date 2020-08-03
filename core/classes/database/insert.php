@@ -65,6 +65,19 @@
 			$this->database = $database;
 		}
 
+		public function __destruct(){
+			unset($this->database);
+			unset($this->database_object);
+			unset($this->insert);
+			unset($this->table);
+			unset($this->fields);
+			unset($this->nested_query);
+			unset($this->update);
+			unset($this->update_nested_query);
+			unset($this->preparing_data);
+			unset($this->result);
+		}
+
 		private function connect(){
 			$this->database_object = $this->database->getDbObject();
 			return $this;

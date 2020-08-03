@@ -250,7 +250,7 @@
 		}
 		protected function getWhere($where){
 			if($where){
-				return "WHERE {$where} ";
+				return "\n\tWHERE {$where} ";
 			}
 			return null;
 		}
@@ -266,7 +266,7 @@
 			if($join){
 				$result = "";
 				foreach($join as $item){
-					$result .= "{$item['type']} JOIN {$item['table']} ON {$item['query']} \n";
+					$result .= "\n\t{$item['type']} JOIN {$item['table']} \n\t\tON {$item['query']}";
 				}
 				return $result;
 			}
@@ -276,27 +276,27 @@
 		protected function getUsing($tables){
 			if($tables){
 				$result = $this->getTables($tables);
-				return "USING {$result}";
+				return "\n\tUSING {$result}";
 			}
 			return null;
 		}
 		protected function getLimit($limit){
 			$limit = (int)$limit;
 			if($limit){
-				return "LIMIT {$limit} ";
+				return "\n\tLIMIT {$limit} ";
 			}
 			return null;
 		}
 		protected function getOffset($offset){
 			$offset = (int)$offset;
 			if($offset){
-				return "OFFSET {$offset} ";
+				return "\n\t\tOFFSET {$offset} ";
 			}
 			return null;
 		}
 		protected function getOrder($order){
 			if($order){
-				return "ORDER BY " . $this->getSortingFromArray($order) . " ";
+				return "\n\tORDER BY " . $this->getSortingFromArray($order) . " ";
 			}
 			return null;
 		}
@@ -305,7 +305,7 @@
 				if(is_array($group)){
 					$group = implode(', ', $group);
 				}
-				return "GROUP BY {$group} ";
+				return "\n\tGROUP BY {$group} ";
 			}
 			return null;
 		}
@@ -317,7 +317,7 @@
 
 		private function getSort($sorting,$order){
 			if($order){
-				return " {$sorting} ";
+				return "\n\t\t{$sorting} ";
 			}
 			return null;
 		}
@@ -462,8 +462,8 @@
 
 		public function makeDb($database,$charset,$collate){
 			$sql = "CREATE DATABASE IF NOT EXISTS {$database}";
-			if($charset){ $sql .= " DEFAULT CHARSET={$charset}"; }
-			if($collate){ $sql .= " COLLATE {$collate}"; }
+			if($charset){ $sql .= "\n\t DEFAULT CHARSET={$charset}"; }
+			if($collate){ $sql .= "\n\t COLLATE {$collate}"; }
 			$sql .= ';';
 
 			$this->exec($sql);
@@ -545,11 +545,11 @@
 			$query = 'INSERT INTO ';
 			$query .= $this->getTables($table);
 			$query .= $this->getInsertFields();
-			$query .= " VALUES \n";
+			$query .= "\n\tVALUES";
 			$query .= $this->getInsertValues();
 
 			if($this->update_insert_string){
-				$query .= " \nON DUPLICATE KEY UPDATE ";
+				$query .= " \n\t\tON DUPLICATE KEY UPDATE \n\t\t\t";
 				$query .= trim($this->update_insert_string,", \n");
 			}
 			$query .= ';';
@@ -560,7 +560,7 @@
 		public function select($fields,$from_table,$where,$nested_query,$join,$limit,$offset,$order,$sort,$group,$preparing){
 			$query = 'SELECT ';
 			$query .= $this->getFields($fields);
-			$query .= "FROM ";
+			$query .= "\n\tFROM ";
 			$query .= $this->getTables($from_table);
 			$query .= $this->getJoin($join);
 			$query .= $this->getWhere($where);
@@ -583,7 +583,7 @@
 			$query = "UPDATE ";
 			$query .= $this->getTables($table);
 			$query .= $this->getJoin($join);
-			$query .= "SET \n";
+			$query .= "\n\tSET ";
 			$query .= trim($this->update_insert_string, ", \n");
 			$query .= " \n";
 			$query .= $this->getWhere($where);
@@ -627,7 +627,7 @@
 		protected function getInsertValues(){
 			$result = '';
 			foreach($this->insert_values as $value){
-				$result .= "(" . implode(', ', $value) . "),\n";
+				$result .= "\t\t\t(" . implode(', ', $value) . "),\n";
 			}
 			return trim($result,",\n");
 		}

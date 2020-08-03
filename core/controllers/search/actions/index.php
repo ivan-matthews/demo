@@ -3,6 +3,7 @@
 	namespace Core\Controllers\Search\Actions;
 
 	use Core\Classes\Hooks;
+	use Core\Classes\Kernel;
 	use Core\Classes\Request;
 	use Core\Classes\Session;
 	use Core\Classes\Response\Response;
@@ -78,7 +79,9 @@
 
 			if(isset($this->params->header_bar[$this->current_action])){
 
-				$this->header_bar($this->params->header_bar,array('search','index'),$this->current_action);
+				if(count($this->params->header_bar) > 1){
+					$this->header_bar($this->params->header_bar,array('search','index'),$this->current_action);
+				}
 
 				$this->makeQueryFromFields($this->params->header_bar,$this->current_action);
 
@@ -89,7 +92,9 @@
 					$this->query,
 					$this->params->header_bar[$this->current_action]['fields'],
 					$this->preparing_data,
-					$this->limit
+					$this->order,
+					$this->limit,
+					$this->offset
 				);
 
 				$this->paginate($this->search_total,array('search','index',$current_action));
@@ -104,8 +109,6 @@
 						'totla'		=> $this->search_total,
 					));
 
-				$this->paginate($this->total_avatars, array('avatar','index',$this->user_id));
-
 				return $this;
 			}
 
@@ -115,11 +118,16 @@
 		public function makeQueryFromFields($header_bar,$current_action){
 			$this->table = isset($header_bar[$current_action]) ? $current_action : null;
 			if($this->table && $this->search_query){
+				$this->query .= "{$header_bar[$current_action]['status_field']}=" . Kernel::STATUS_ACTIVE;
+				$this->query .= " AND (";
 				foreach($header_bar[$current_action]['search_fields'] as $field){
+					$this->order .= "length(replace({$field},%search_query%,%search_query%))+";
 					$this->query .= "`{$field}` LIKE %search_query% OR ";
 					$this->preparing_data['%search_query%'] = "%{$this->search_query}%";
 				}
 				$this->query = trim($this->query, ' OR ');
+				$this->query .= ")";
+				$this->order = trim($this->order,"+");
 			}
 
 			return $this;

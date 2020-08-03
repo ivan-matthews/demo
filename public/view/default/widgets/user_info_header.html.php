@@ -9,7 +9,7 @@
 ?>
 
 <script>
-	showSearchPanel = function(selector_id){
+	showSearchPanel = function(){
 		let widgets_icon = $('.user-info-widget .header-bar-widget-icon');
 		let search_form = $('.user-info-widget .search-panel .search-form');
 		let search_panel = $('.user-info-widget .search-panel');
@@ -22,7 +22,7 @@
 			search_form.show();
 		});
 	};
-	hideSearchPanel = function(selector_id){
+	hideSearchPanel = function(){
 		let widgets_icon = $('.user-info-widget .header-bar-widget-icon');
 		let search_form = $('.user-info-widget .search-panel .search-form');
 		let search_panel = $('.user-info-widget .search-panel');
@@ -52,7 +52,7 @@
 						<button class="btn btn-success radius-0" type="submit">
 							<i class="fa fa-search" aria-hidden="true"></i>
 						</button>
-						<a href="javascript:hideSearchPanel(this)" class="btn btn-warning radius-0">
+						<a href="javascript:hideSearchPanel()" class="btn btn-warning radius-0">
 							<i class="fas fa-times"></i>
 						</a>
 					</div>

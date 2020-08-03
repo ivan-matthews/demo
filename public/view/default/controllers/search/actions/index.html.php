@@ -4,8 +4,10 @@
 	/** @var array $result */
 	/** @var string $current */
 	/** @var string $query */
+	/** @var string $total */
 
 	$this->addCSS("{$this->theme_path}/css/search");
+//	fx_die($data);
 ?>
 
 <div class="search-result form row form-auth justify-content-center mb-4">
@@ -54,10 +56,10 @@
 
 						<div class="col-md-7 col-sm-8 col-9 col-lg-10 col-xl-10 search-item-info">
 							<div class="list-group-item-heading info item-title mt-1 mb-1">
-								<?php print fx_crop_string(str_ireplace(array($query),array("<span style=\"background:yellow\">{$query}</span>"),$item['title'])) ?>
+								<?php print str_ireplace(array($query),array("<span style=\"background:yellow\">{$query}</span>"),fx_crop_string($item['title'])) ?>
 							</div>
 							<div class="list-group-item-heading info item-content mt-1 mb-1">
-								<?php print fx_crop_string(str_ireplace(array("<br>","</br>","<br/>","\n",$query),array(' ',' ',' ',' ',"<span style=\"background:yellow\">{$query}</span>"),$item['content'])) ?>
+								<?php print str_ireplace(array("<br>","</br>","<br/>","\n",$query),array(' ',' ',' ',' ',"<span style=\"background:yellow\">{$query}</span>"),fx_crop_string($item['content'])) ?>
 							</div>
 							<div class="list-group-item-heading info item-link mt-1 mb-1">
 								<?php print $this->getUrl(fx_get_url($current,'item',$item['id'])) ?>

@@ -32,6 +32,7 @@
 					'date' 		=> 'u_date_created',
 				),
 				'search_fields'		=> array('u_full_name','u_about'),
+				'status_field'		=> 'u_status',
 			),
 			/*'status'	=> array(
 				'title'	=> 'search.find_by_status_table_head',
