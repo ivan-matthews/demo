@@ -93,7 +93,7 @@
 				->placeholder(fx_lang('messages.write_someone_placeholder'))
 				->params(function(Params $param){
 					$param->field_type('textarea');
-					$param->field_sets_field_class('col-11');
+					$param->field_sets_field_class('col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 mb-0');
 					$param->field_sets('row col-12 p-0 m-0');
 				});
 
@@ -105,7 +105,7 @@
 				->type('submit')
 				->params(function(Params $param){
 					$param->field_type('submit');
-					$param->field_sets_field_class('col-1');
+					$param->field_sets_field_class('col-1 mb-0');
 					$param->field_sets('row col-12 p-0 m-0');
 					$param->default_value('<i class="fas fa-paper-plane"></i>');
 				});

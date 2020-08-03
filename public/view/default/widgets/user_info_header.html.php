@@ -96,7 +96,7 @@
 			<a class="dropdown user-info-link" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<?php fx_print_avatar($content['avatar'],'micro',$content['img_date'],$content['gender'],$content['name'],$content['name'],'avatar user-avatar') ?>
 			</a>
-			<div class="dropdown-menu dropdown-menu-right radius-0">
+			<div class="dropdown-menu dropdown-menu-right radius-0 m-0 p-0">
 				<a class="link dropdown-item user-info" href="<?php print fx_get_url('users','item',$content['id']) ?>">
 					<?php fx_print_avatar($content['avatar'],'micro',$content['img_date'],$content['gender'],$content['name'],$content['name'],'avatar user-avatar') ?>
 					<?php print fx_get_full_name($content['name'],$content['gender']) ?>

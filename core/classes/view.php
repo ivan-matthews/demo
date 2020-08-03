@@ -336,7 +336,7 @@
 				unset(self::$js_files[$key]);
 			}
 			print $js_files;
-			return $this;
+			return $this->dropJsFiles();
 		}
 
 		public function renderCssFiles(){
@@ -350,6 +350,18 @@
 				unset(self::$css_files[$key]);
 			}
 			print $css_files;
+			return $this->dropCssFiles();
+		}
+
+		private function dropCssFiles(){
+			self::$append_css = array();
+			self::$prepend_css = array();
+			return $this;
+		}
+
+		private function dropJsFiles(){
+			self::$prepend_js = array();
+			self::$append_js = array();
 			return $this;
 		}
 

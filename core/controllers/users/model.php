@@ -10,13 +10,13 @@
 	class Model extends ParentModel{
 
 		public $users_index_fields = array(
-			'SQL_CACHE u_date_log',
+			'STRAIGHT_JOIN u_date_log',
 			'u_id',
 			'u_full_name',
-			'p_small',
-			'p_date_updated',
 			'u_gender',
 			'u_log_type',
+			'p_small',
+			'p_date_updated',
 		);
 
 		/** @var $this */
@@ -66,7 +66,6 @@
 
 			$result = $this->select(...$this->users_index_fields)
 				->from('users')
-//				->join('status FORCE INDEX (PRIMARY)',"u_id=s_user_id")					// зачем ???
 				->join('photos FORCE INDEX (PRIMARY)',"p_id=u_avatar_id")
 				->join('geo_cities FORCE INDEX (PRIMARY)',"u_city_id=gc_city_id")
 				->join('geo_countries FORCE INDEX (PRIMARY)',"u_country_id=g_country_id")

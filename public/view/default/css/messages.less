@@ -103,6 +103,10 @@
 						.contact-item{
 							position: relative;
 							text-align: center;
+							//margin-top: 0.5em;
+							&:first-child{
+								margin-top: 0;
+							}
 							&.active{
 								background: rgba(40, 167, 69, 0.1);
 								&:hover{
@@ -205,6 +209,11 @@
 										i,svg{
 											font-size: 20px;
 											font-weight: bold;
+										}
+									}
+									textarea{
+										&.form-control{
+											height: 40px;
 										}
 									}
 								}

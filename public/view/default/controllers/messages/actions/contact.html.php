@@ -27,14 +27,14 @@
 
 					<div class="contacts-list col-md-2 col-sm-3 col-3 col-lg-2 col-xl-2 m-0 p-0 mt-2 d-none d-sm-none d-md-block d-lg-block d-xl-block">
 						<?php foreach($contacts as $message_contact){ ?>
-							<div class="contact-item mt-2<?php print(fx_equal($message_contact['u_id'],$contact['u_id'])?' active block':' in-active') ?>">
+							<div class="contact-item <?php print(fx_equal($message_contact['u_id'],$contact['u_id'])?' active block':' in-active') ?>">
 								<?php if($message_contact['total']){ ?>
 									<div class="total">
 										<?php print $message_contact['total'] ?>
 									</div>
 								<?php } ?>
 								<a href="<?php print fx_get_url('messages','item',$message_contact['mc_id']) ?>">
-									<div class="item-photo">
+									<div class="item-photo pt-2">
 										<img src="<?php print fx_avatar($message_contact['p_small'],'small',$message_contact['u_gender']) ?>">
 									</div>
 									<div class="item-name">
@@ -49,7 +49,7 @@
 					</div>
 
 					<div class="col-md-10 col-sm-12 col-12 col-lg-10 col-xl-10 messages-item-info mt-2 pb-4">
-						<div class="mt-2 contact-info row col-12">
+						<div class="mt-2 contact-info row col-12 pl-0 pr-0 ml-0 mr-0">
 							<a class="col-10 link" href="<?php print fx_get_url('users','item',$contact['u_id']) ?>">
 								<div class="item-photo row ml-0 col">
 									<img src="<?php print fx_avatar($contact['p_micro'],'micro',$contact['u_gender']) ?>">
@@ -67,7 +67,7 @@
 								</span>
 							</div>
 
-							<div class="send-form col-12 pr-0">
+							<div class="send-form col-12">
 								<?php print $this->renderForm($form_data) ?>
 							</div>
 
@@ -78,9 +78,9 @@
 
 								<?php if(fx_equal($user['u_id'],$message['m_receiver_id'])){ ?>
 
-									<div class="message-item sender-block col-12">
+									<div class="message-item sender-block col-12 float-left col-12 col-sm-11 col-md-10 col-lg-9 col-xl-8 mt-2">
 
-										<div class="message-content col-12 col-sm-11 col-md-10 col-lg-9 col-xl-8 float-left mt-2">
+										<div class="message-content">
 
 											<div class="user-info ml-1">
 
@@ -116,11 +116,11 @@
 
 								<?php }else{ ?>
 
-									<div class="message-item user-block col-12">
+									<div class="message-item user-block col-12 float-right col-12 col-sm-11 col-md-10 col-lg-9 col-xl-8 mt-2">
 
-										<div class="message-content col-12 col-sm-11 col-md-10 col-lg-9 col-xl-8 float-right mt-2">
+										<div class="message-content">
 
-											<div class="user-info float-right">
+											<div class="user-info text-right">
 
 												<?php if(!$message['m_readed']){ ?>
 													<i title="<?php print fx_lang('messages.new_user_message') ?>" class="text-success fas fa-check"></i>
@@ -141,7 +141,7 @@
 
 											</div>
 
-											<div class="content-info p-0 pl-4 pr-4 pb-2 pt-2 float-left col-12 mt-1 ml-1">
+											<div class="content-info p-0 pl-4 pr-4 pb-2 pt-2 col-12 mt-1 ml-1">
 												<?php print $message['m_content'] ?>
 												<div class="message-manage-links">
 													<a class="text-danger" href="<?php print fx_get_url('messages','delete',$message['m_id']) ?>">

@@ -74,10 +74,10 @@
 
 			$this->language_key = $this->language->getLanguageKey();
 
-			$this->model->users_index_fields[] = "g_title_{$this->language_key} as country";
-			$this->model->users_index_fields[] = "gr_title_{$this->language_key} as region";
 			$this->model->users_index_fields[] = "gc_title_{$this->language_key} as city";
 			$this->model->users_index_fields[] = "gc_area as area";
+			$this->model->users_index_fields[] = "g_title_{$this->language_key} as country";
+			$this->model->users_index_fields[] = "gr_title_{$this->language_key} as region";
 		}
 
 		public function methodGet($sorting_action='all',$sort='up'){
@@ -124,6 +124,7 @@
 		}
 		protected function setSortingPanelRandom(){
 			$this->order = 'RAND()';
+			$this->sort = 'ASC';
 			return null;
 		}
 		protected function setSortingPanelOnline(){

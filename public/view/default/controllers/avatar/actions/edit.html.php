@@ -45,8 +45,8 @@
 
 		<div class="row justify-content-center col-md-12 col-sm-12 col-12 col-lg-12 col-xl-12 mt-4 mb-4 btn-group m-0">
 
-			<input type="submit" class="btn btn-default">
-			<a href="javascript:void(0)" onclick="changeAvatarManipulationsForms()" class="btn btn-success">
+			<input type="submit" class="btn btn-default radius-0">
+			<a href="javascript:void(0)" onclick="changeAvatarManipulationsForms()" class="radius-0 btn btn-success">
 				<?php print fx_lang('avatar.load_new_image_button') ?>
 			</a>
 

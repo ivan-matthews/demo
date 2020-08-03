@@ -106,4 +106,5 @@ blockquote {
 textarea::placeholder {
   font-style: italic;
   color: #cccccc !important;
+  font-size: 12px;
 }

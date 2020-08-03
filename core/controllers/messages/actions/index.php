@@ -70,6 +70,8 @@
 
 			$this->total = $this->model->countContacts($this->user_id);
 
+			$this->setResponse();
+
 			if($this->total){
 
 				$this->contacts = $this->model->getContacts($this->user_id,$this->limit,$this->offset);
@@ -82,7 +84,7 @@
 						'total'		=> $this->total
 					));
 
-				return $this->setResponse();
+				return $this;
 			}
 
 			return $this->renderEmptyPage();

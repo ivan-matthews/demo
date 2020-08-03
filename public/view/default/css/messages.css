@@ -76,6 +76,9 @@
   position: relative;
   text-align: center;
 }
+.contact .messages-contact .contact-item .contact-info .contact-main-block .contacts-list .contact-item:first-child {
+  margin-top: 0;
+}
 .contact .messages-contact .contact-item .contact-info .contact-main-block .contacts-list .contact-item.active {
   background: rgba(40, 167, 69, 0.1);
 }
@@ -167,6 +170,9 @@
 .contact .messages-contact .contact-item .contact-info .contact-main-block .messages-item-info .contact-info .send-form form .add-message-button svg {
   font-size: 20px;
   font-weight: bold;
+}
+.contact .messages-contact .contact-item .contact-info .contact-main-block .messages-item-info .contact-info .send-form form textarea.form-control {
+  height: 40px;
 }
 .contact .messages-contact .contact-item .contact-info .contact-main-block .messages-item-info .messages-list .message-item .message-content .user-info a.user-avatar-link:hover {
   background: none;
