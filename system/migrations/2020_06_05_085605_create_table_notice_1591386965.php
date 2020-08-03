@@ -24,6 +24,8 @@
 				$table->varchar('n_receiver_id')->nullable()->index();								// id получателя
 				$table->varchar('n_manager_id')->notNull()->defaults(Notice::MANAGER_SYSTEM)->index();			// уведомитель
 				$table->varchar('n_content')->nullable()->index();
+				$table->longtext('n_theme_data_to_replace')->nullable()->fullText();
+				$table->longtext('n_content_data_to_replace')->nullable()->fullText();
 				$table->longtext('n_action')->nullable()->fullText();
 				$table->longtext('n_attachments')->nullable()->fullText();
 				$table->longtext('n_options')->nullable()->fullText();

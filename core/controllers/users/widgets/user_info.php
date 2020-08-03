@@ -38,7 +38,7 @@
 				'gender'	=> $this->session->get('u_gender',Session::PREFIX_AUTH),
 				'name'		=> $this->session->get('u_full_name',Session::PREFIX_AUTH),
 				'notice'	=> $this->user_model->countUserNoticesById($this->user_id),
-				'mail'		=> 0,							//$this->user_model->countUserMessagesById($this->user_id)
+				'mail'		=> $this->user_model->countUserMessagesById($this->user_id),
 				'menu'		=> $this->user_menu,
 			);
 			return $this->user_info;

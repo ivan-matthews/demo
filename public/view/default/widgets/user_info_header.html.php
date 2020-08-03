@@ -7,7 +7,7 @@
 	*/
 //	fx_die($content);
 
-	$notify_link = $content['notice'] ? fx_get_url('notify','index',$content['id'],'unreaded') : fx_get_url('notify','index',$content['id']);
+	$notify_link = $content['notice'] ? fx_get_url('notify','index','unreaded') : fx_get_url('notify','index');
 ?>
 
 <script>
@@ -39,7 +39,7 @@
 	}
 </script>
 
-<div class="row user-info-widget justify-content-center p-0 col-10 col-sm-10 col-md-9 col-lg-6 col-xl-5">
+<div class="row user-info-widget justify-content-center p-0 col col-sm-10 col-md-9 col-lg-6 col-xl-5">
 	<div class="body mx-auto search search-panel">
 		<div class="search-form col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 hidden">
 			<form action="<?php print fx_get_url('search','index') ?>" method="GET">
@@ -69,17 +69,14 @@
 	</div>
 	<div class="header-bar-widget-icon body mx-auto user-mail">
 		<div class="btn-group">
-			<a class="dropdown user-info-link" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			<a href="<?php print fx_get_url('messages','index') ?>" class="user-info-link">
 				<i class="fa fa-envelope" aria-hidden="true"></i>
 				<?php if($content['mail']){ ?>
 					<span class="count">
-					<?php print $content['mail'] ?>
-				</span>
+						<?php print $content['mail'] ?>
+					</span>
 				<?php } ?>
 			</a>
-			<div class="dropdown-menu dropdown-menu-right radius-0">
-				...
-			</div>
 		</div>
 	</div>
 	<div class="header-bar-widget-icon body mx-auto user-journal">
@@ -88,8 +85,8 @@
 				<i class="fa fa-bell" aria-hidden="true"></i>
 				<?php if($content['notice']){ ?>
 					<span class="count">
-					<?php print $content['notice'] ?>
-				</span>
+						<?php print $content['notice'] ?>
+					</span>
 				<?php } ?>
 			</a>
 		</div>

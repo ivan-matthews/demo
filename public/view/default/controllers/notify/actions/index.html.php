@@ -48,16 +48,17 @@
 									<?php print fx_lang('notify.notice_is_readed') ?>
 									<?php print fx_get_date($notice['n_date_updated']) ?>
 								</div>
-							<?php }else{ ?>
-								<div class="list-group-item-text item-new">
-									<?php print fx_lang('notify.new_notice') ?>
-								</div>
 							<?php } ?>
 						</div>
 
 						<div class="col-md-9 col-sm-9 col-9 col-lg-10 col-xl-10 notices-item-info">
-							<div class="list-group-item-heading info item-title mt-1 mb-1">
-								<?php print fx_lang($notice['n_theme']) ?>
+							<div class="list-group-item-heading info item-title mt-1 mb-1 pl-0">
+								<?php if(!$reading){ ?>
+									<span class="list-group-item-text item-new bg-danger text-white mr-2 p-1 pl-2 pr-2">
+										<?php print fx_lang('notify.new_notice') ?>
+									</span>
+								<?php } ?>
+								<?php print fx_lang($notice['n_theme'],fx_arr($notice['n_theme_data_to_replace'])) ?>
 							</div>
 							<div class="list-group-item-heading info item-content mt-1 mb-1">
 								<?php if($notice['u_id']){ ?>
@@ -69,26 +70,28 @@
 										)) ?>
 										<div class="content-notice">
 											<blockquote class="quote">
-												<?php print fx_lang($notice['n_content']) ?>
+												<?php print fx_lang($notice['n_content'],fx_arr($notice['n_content_data_to_replace'])) ?>
 											</blockquote>
 										</div>
 									</div>
 								<?php }else{ ?>
 									<div class="content-notice">
-										<?php print fx_lang($notice['n_content']) ?>
+										<?php print fx_lang($notice['n_content'],fx_arr($notice['n_content_data_to_replace'])) ?>
 									</div>
 								<?php } ?>
 							</div>
 							<div class="list-group-item-heading info item-link mt-1 mb-1 text-right">
-								<a class="btn bg-success text-white link-follow" href="<?php print fx_get_url('notify','item',$user,$notice['n_id']) ?>">
-									<?php print fx_lang("notify.follow_to_page") ?>
-								</a>
+								<?php if($notice['n_action']){ ?>
+									<a class="btn bg-success text-white link-follow" href="<?php print fx_get_url('notify','item',$notice['n_id']) ?>">
+										<?php print fx_lang("notify.follow_to_page") ?>
+									</a>
+								<?php } ?>
 								<?php if(!$reading){ ?>
-									<a class="btn bg-warning text-white link-follow" href="<?php print fx_get_url('notify','read',$user,$notice['n_id']) ?>">
+									<a class="btn bg-warning text-white link-follow" href="<?php print fx_get_url('notify','read',$notice['n_id']) ?>">
 										<?php print fx_lang("notify.mark_as_read") ?>
 									</a>
 								<?php } ?>
-								<a class="btn bg-danger text-white link-follow" href="<?php print fx_get_url('notify','delete',$user,$notice['n_id']) ?>">
+								<a class="btn bg-danger text-white link-follow" href="<?php print fx_get_url('notify','delete',$notice['n_id']) ?>">
 									<?php print fx_lang("notify.delete_notice") ?>
 								</a>
 							</div>
@@ -106,11 +109,11 @@
 
 			<div class="btn-group col-11 col-sm-11 col-md-11 col-lg-6 col-xl-6 m-0 p-0">
 				<?php if($unreaded){ ?>
-					<a class="btn btn-warning text-white" href="<?php print fx_get_url('notify','read',$user) ?>">
+					<a class="btn btn-warning text-white" href="<?php print fx_get_url('notify','read') ?>">
 						<?php print fx_lang('notify.read_unreaded_notices') ?>
 					</a>
 				<?php } ?>
-				<a class="btn btn-danger" href="<?php print fx_get_url('notify','delete',$user) ?>">
+				<a class="btn btn-danger" href="<?php print fx_get_url('notify','delete') ?>">
 					<?php print fx_lang('notify.delete_all_notices') ?>
 				</a>
 			</div>

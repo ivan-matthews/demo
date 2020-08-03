@@ -10,5 +10,5 @@
 		 * @param array ...$params
 		 * @return Content
 		 */
-		public function action($controller,$action,...$params);
+		public function action($controller=null,$action=null,...$params);
 	}

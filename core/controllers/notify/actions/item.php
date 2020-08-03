@@ -65,17 +65,15 @@
 
 		public function __construct(){
 			parent::__construct();
+			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
 		}
 
-		public function methodGet($user_id,$item_id){
-			$this->user_id = $user_id;
+		public function methodGet($item_id){
 			$this->item_id = $item_id;
-
-			if(!fx_me($this->user_id)){ return false; }
 
 			$this->notice_data = $this->model->getNoticeById($this->item_id);
 
-			if($this->notice_data){
+			if($this->notice_data && $this->notice_data['n_action']){
 				$this->getActionObject();
 				if(fx_equal((int)$this->notice_data['n_status'],Notice::STATUS_UNREAD)){
 					$this->model->readNotice($this->item_id);

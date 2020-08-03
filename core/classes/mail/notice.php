@@ -75,8 +75,9 @@
 			$this->database = Database::insert('notice');
 			return $this;
 		}
-		public function theme($lang_key){
+		public function theme($lang_key,$replace_data=array()){
 			$this->database->value('n_theme',$lang_key);
+			$this->database->value('n_theme_data_to_replace',$replace_data);
 			return $this;
 		}
 		public function sender($sender_id=null){
@@ -91,8 +92,9 @@
 			$this->database->value('n_receiver_id',$receiver_id);
 			return $this;
 		}
-		public function content($lang_key){
+		public function content($lang_key,$replace_data=array()){
 			$this->database->value('n_content',$lang_key);
+			$this->database->value('n_content_data_to_replace',$replace_data);
 			return $this;
 		}
 		public function attachments(array $attachments){
@@ -103,7 +105,8 @@
 			$this->database->value('n_options',$options);
 			return $this;
 		}
-		public function action($controller,$action,...$params){
+		public function action($controller=null,$action=null,...$params){
+			if(!$controller && !$action && !$params){ return $this; }
 			$this->database->value('n_action',array($controller,$action,$params));
 			return $this;
 		}

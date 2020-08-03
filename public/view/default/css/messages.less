@@ -1,0 +1,283 @@
+@import "vars";
+
+.messages-list{
+	.messages{
+		.messages-item{
+			&.new{							// unreaded
+				background: @light-danger;
+				&:hover{
+					background: @dark-light-danger;
+				}
+			}
+			.contact-buttons{
+				a{
+					border: none;
+					font-weight: bold;
+					font-size: 12px;
+				}
+			}
+			.messages-info{
+				.message-main-link{
+					.messages-item-image{
+						text-align: center;
+						.item-photo{
+							img{
+								border-radius: 50%;
+							}
+						}
+						.item-date{
+							&.is-online{
+								color: #999999;
+								font-style: italic;
+							}
+							&.is-online1{
+								background: @success;
+								font-weight: bold;
+								color: #FFFFFF;
+								margin-top: 5px;
+							}
+						}
+					}
+					.messages-item-info{
+						.item-title{
+							font-weight: bold;
+							.description{
+								font-weight: normal;
+								color: #999999;
+							}
+						}
+						.item-content{
+							color: #999999;
+							blockquote{
+								border-left: solid 5px #9eceba;
+								color: #62ce6c;
+							}
+							.im-writer{
+								.me{
+									font-weight: bold;
+									color: chocolate;
+								}
+								.message{
+									blockquote{
+										border-left: solid 5px chocolate;
+										color: chocolate;
+									}
+								}
+							}
+						}
+						.item-link{
+							font-style: italic;
+						}
+					}
+				}
+				.total{
+					margin: auto 0;
+					.total-messages{
+						//border-radius: 50%;
+						font-weight: bold;
+						.total-new{
+							font-weight: normal;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+.contact{
+	.messages-contact{
+		.contact-item{
+			border: none;
+			&:hover{
+				background: none;
+			}
+			.contact-info{
+				.contact-main-block{
+					.contacts-list{
+						border-right: solid 1px rgba(0,0,0,0.125);
+						.end-contact{
+							border-bottom: solid 1px rgba(0,0,0,0.125);
+							padding:4px 0;
+						}
+						.contact-item{
+							position: relative;
+							text-align: center;
+							&.active{
+								background: rgba(40, 167, 69, 0.1);
+								&:hover{
+									background: rgba(40, 167, 69, 0.25);
+								}
+								&:hover>a>.item-photo{
+									&::after{
+										border-left: 10px solid #c9e9d0;
+									}
+								}
+								&.block{
+									position: relative;
+									width: 100%;
+									.item-photo{
+										&::before{
+											content: '';
+											position: absolute;
+											border: 15px solid transparent;
+											border-left: 10px solid #cccccc;
+											top: 0;
+											right: -26px;
+										}
+										&::after{
+											content: '';
+											position: absolute;
+											border: 15px solid transparent;
+											border-left: 10px solid #e9f6ec;
+											top: 0;
+											right: -25px;
+										}
+									}
+								}
+							}
+							&.in-active{
+								&:hover{
+									background: rgba(40, 167, 169, 0.2);
+								}
+							}
+							.total{
+								position: absolute;
+								right: 0;
+								top: 0;
+								font-weight: bold;
+								background: @danger;
+								color: #FFFFFF;
+								padding: 0 4px;
+							}
+							.item-name{
+								font-weight: bold;
+							}
+							.item-photo{}
+							.item-date{
+								margin-top: 4px;
+								&.is-online1{
+									background: @success;
+									color: #FFFFFF;
+									font-weight: bold;
+								}
+								&.is-online{
+									font-style: italic;
+									color: #999999;
+								}
+							}
+						}
+					}
+					.messages-item-info{
+						background: rgba(0, 0, 0, 0.0125);
+						.contact-info{
+							border-bottom: solid 1px rgba(0,0,0,0.125);
+							padding-bottom: 10px;
+							a{
+								.item-title{
+									font-weight: bold;
+								}
+							}
+						}
+						.messages-list{
+							.message-item{
+								.message-content{
+									.user-info{
+										.date-add{}
+									}
+									.content-info{
+										font-size: 15px;
+										margin-top: 4px;
+										border: solid 1px rgba(0,0,0,0.125);
+									}
+								}
+								&.sender-block{
+									.message-content{
+										.user-info{
+											.new-message{
+												font-weight: bold;
+												background: @danger;
+												color: #FFFFFF;
+												margin: 0 4px;
+												padding: 0 4px;
+											}
+											.user-avatar{
+												border-radius: 50%;
+											}
+											.date-add{
+												color: #999999;
+												font-style: italic;
+											}
+										}
+										.content-info{
+											border-radius: 0 4px 4px 4px;
+											background: #feffb2;			// rgba(252, 255, 0, 0.3);
+											position: relative;
+											&::after{
+												content: '';
+												position: absolute;
+												border: 8px solid transparent;
+												border-bottom: 12px solid #feffb2;
+												top: -18px;
+												left: -1px;
+											}
+											&::before{
+												content: '';
+												position: absolute;
+												border: 8px solid transparent;
+												border-bottom: 12px solid #dfdfc8;
+												top: -20px;
+												left: -1px;
+											}
+										}
+									}
+								}
+								&.user-block{
+									.message-content{
+										.date-add{
+											.new-message{
+												font-weight: bold;
+												background: @danger;
+												color: #FFFFFF;
+												margin: 0 4px;
+												padding: 0 4px;
+											}
+											.me{
+												font-weight: bold;
+												color: chocolate;
+											}
+											.date{
+												color: #999999;
+												font-style: italic;
+											}
+										}
+										.content-info{
+											border-radius: 4px 0 4px 4px;
+											background: #b2ffb7; 			// rgba(0, 255, 18, 0.3);
+											position: relative;
+											&::after{
+												content: '';
+												position: absolute;
+												border: 8px solid transparent;
+												border-bottom: 12px solid #b2ffb7;
+												top: -18px;
+												right: -1px;
+											}
+											&::before{
+												content: '';
+												position: absolute;
+												border: 8px solid transparent;
+												border-bottom: 12px solid #dfdfc8;
+												top: -20px;
+												right: -1px;
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -2,19 +2,19 @@
 
 	/*
 		-------GET-------
-	 		$form = new \Core\Controllers\Mail\Forms\Simple('form');
+	 		$form = new \Core\Controllers\Messages\Forms\Simple('form');
 			$form->generateFieldsList();
 			fx_die($form->getFieldsList());
 		-------GET-------
 
 		-------POST-------
-			$form = new \Core\Controllers\Mail\Forms\Simple();
+			$form = new \Core\Controllers\Messages\Forms\Simple();
 			$form->setRequest(Request::getInstance());
 			$form->checkFieldsList();
 			fx_die($form->can(),$form->getFieldsList(),$form->getErrors());
 
 		--------OR--------
-			$form = new \Core\Controllers\Mail\Forms\Simple();
+			$form = new \Core\Controllers\Messages\Forms\Simple();
 			$form->setRequest(Request::getInstance());
 			$form->checkFieldsFromArray();
 			fx_die($form->can(),$form->getFieldsList(),$form->getErrors());
@@ -23,7 +23,7 @@
 		-------POST-------
 	*/
 
-	namespace Core\Controllers\Mail\Forms;
+	namespace Core\Controllers\Messages\Forms;
 
 	use Core\Classes\Form\Form;
 	use Core\Classes\Request;
@@ -73,7 +73,7 @@
 			$this->validator_interface->form(function(FormInterface $form){
 				$form->setFormMethod('GET');
 				$form->setFormName($this->form_name);
-				$form->setFormAction(fx_get_url('mail','index'));
+				$form->setFormAction(fx_get_url('messages','index'));
 			});
 			$this->validator_interface->field('field')
 				->jevix(true)

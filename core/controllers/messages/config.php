@@ -1,12 +1,12 @@
 <?php
 
-	namespace Core\Controllers\Mail;
+	namespace Core\Controllers\Messages;
 
 	use Core\Classes\Params;
 
 	/**
 	 * Class Config
-	 * @package Core\Controllers\Mail
+	 * @package Core\Controllers\Messages
 	 * @property boolean $status
 	 * @property string $controller_name
 	 * @property array $controller
@@ -17,7 +17,7 @@
 		/** @var $this */
 		private static $instance;
 
-		protected $current_controller = 'mail';
+		protected $current_controller = 'messages';
 
 		/** @return $this */
 		public static function getInstance(){

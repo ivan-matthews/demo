@@ -1,16 +1,16 @@
 <?php
 
-	namespace Core\Controllers\Notify\Actions;
+	namespace Core\Controllers\Messages\Actions;
 
 	use Core\Classes\Hooks;
 	use Core\Classes\Request;
 	use Core\Classes\Session;
 	use Core\Classes\Response\Response;
-	use Core\Controllers\Notify\Config;
-	use Core\Controllers\Notify\Controller;
-	use Core\Controllers\Notify\Model;
+	use Core\Controllers\Messages\Config;
+	use Core\Controllers\Messages\Controller;
+	use Core\Controllers\Messages\Model;
 
-	class Read extends Controller{
+	class Delete_Contact extends Controller{
 
 		/** @var $this */
 		private static $instance;
@@ -40,10 +40,10 @@
 		public $session;
 
 		/** @var array */
-		public $read;
+		public $delete_contact;
 
-		public $receiver_id;
-		public $notice_id;
+		public $user_id;
+		public $contact_id;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -55,26 +55,18 @@
 
 		public function __construct(){
 			parent::__construct();
-			$this->receiver_id = $this->session->get('u_id',Session::PREFIX_AUTH);
+
+			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
 			$this->backLink();
 		}
 
-		public function methodGet($notice_id=null){
-			$this->notice_id = $notice_id;
+		public function methodGet($contact_id){
+			$this->contact_id = $contact_id;
 
-			if(!$this->notice_id){
-				$this->model->readAllNotices($this->receiver_id);
-				return $this->redirect();
-			}
+			$this->model->deleteContact($this->contact_id);
 
-			if($this->model->readNotice($this->notice_id)){
-				return $this->redirect();
-			}
-
-			return false;
+			return $this->redirect();
 		}
-
-
 
 
 

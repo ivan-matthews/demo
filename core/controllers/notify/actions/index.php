@@ -66,21 +66,19 @@
 		public function __construct(){
 			parent::__construct();
 
+			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
 			$this->query .= "n_status != " . Notice::STATUS_DELETED;
 		}
 
-		public function methodGet($user_id,$current_tab='all'){
-			$this->user_id = $user_id;
+		public function methodGet($current_tab='all'){
 			$this->current_tab = $current_tab;
-
-			if(!fx_me($this->user_id)){ return false; }
 
 			$this->sorting_panel = $this->params->sorting_panel;
 
 			$this->setResponse();
 			$this->prepareHeaderBarLinks();
 
-			$this->header_bar($this->sorting_panel,array('notify','index',$this->user_id),$this->current_tab);
+			$this->header_bar($this->sorting_panel,array('notify','index'),$this->current_tab);
 
 			$this->total = $this->model->countNotices($this->user_id,$this->query);
 
@@ -92,7 +90,7 @@
 					$this->offset
 				);
 
-				$this->paginate($this->total, array('notify','index',$this->user_id,$this->current_tab));
+				$this->paginate($this->total, array('notify','index',$this->current_tab));
 
 				$this->response->controller('notify','index')
 					->setArray(array(
@@ -112,16 +110,13 @@
 			if(method_exists($this,$callable_method)){
 				call_user_func(array($this,$callable_method));
 			}
-			foreach($this->sorting_panel as $sorting_key=>$sorting_value){
-				$this->sorting_panel[$sorting_key]['link'][2] = $this->user_id;
-			}
 			return $this;
 		}
 
 		protected function setHeaderBarAll(){
 			$this->response->title('notify.all_notices_sorting');
 			$this->response->breadcrumb('all')
-				->setLink('notify','index',$this->user_id,'all')
+				->setLink('notify','index','all')
 				->setValue('notify.all_notices_sorting')
 				->setIcon(null);
 			return $this;
@@ -129,7 +124,7 @@
 		protected function setHeaderBarReaded(){
 			$this->response->title('notify.readed_notices_sorting');
 			$this->response->breadcrumb('readed')
-				->setLink('notify','index',$this->user_id,'readed')
+				->setLink('notify','index','readed')
 				->setValue('notify.readed_notices_sorting')
 				->setIcon(null);
 			$this->query .= " AND n_status=" . Notice::STATUS_READED;
@@ -138,7 +133,7 @@
 		protected function setHeaderBarUnreaded(){
 			$this->response->title('notify.unreaded_notices_sorting');
 			$this->response->breadcrumb('unreaded')
-				->setLink('notify','index',$this->user_id,'unreaded')
+				->setLink('notify','index','unreaded')
 				->setValue('notify.unreaded_notices_sorting')
 				->setIcon(null);
 			$this->query .= " AND n_status=" . Notice::STATUS_UNREAD;
@@ -149,7 +144,7 @@
 		public function setResponse(){
 			$this->response->title('notify.notices_title');
 			$this->response->breadcrumb('notify')
-				->setLink('notify','index',$this->user_id)
+				->setLink('notify','index')
 				->setValue('notify.notices_title')
 				->setIcon(null);
 

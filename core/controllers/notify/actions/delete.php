@@ -55,13 +55,12 @@
 
 		public function __construct(){
 			parent::__construct();
+			$this->receiver_id = $this->session->get('u_id',Session::PREFIX_AUTH);
 			$this->backLink();
 		}
 
-		public function methodGet($receiver_id,$notice_id=null){
-			$this->receiver_id = $receiver_id;
+		public function methodGet($notice_id=null){
 			$this->notice_id = $notice_id;
-			if(!fx_me($this->receiver_id)){ return false; }
 
 			if(!$this->notice_id){
 				$this->model->deleteAllNotices($this->receiver_id);

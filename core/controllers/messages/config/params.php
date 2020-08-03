@@ -4,7 +4,7 @@
 
 	return array(
 		'status'	=> Kernel::STATUS_ACTIVE,
-		'controller_name'	=> 'mail.controller_name',
+		'controller_name'	=> 'messages.controller_name',
 		'controller'	=> array(
 			'groups_enabled'	=> array(),
 			'groups_disabled'	=> array(),

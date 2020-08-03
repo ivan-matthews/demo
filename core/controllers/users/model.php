@@ -2,6 +2,7 @@
 
 	namespace Core\Controllers\Users;
 
+	use Core\Classes\Kernel;
 	use Core\Classes\Mail\Notice;
 	use Core\Classes\Model as ParentModel;
 	use Core\Classes\Cache\Interfaces\Cache;
@@ -145,6 +146,24 @@
 			$result = $this->select('COUNT(n_id) as total')
 				->from('notice')
 				->where("`n_receiver_id`='{$receiver_id}' AND `n_status`=" . Notice::STATUS_UNREAD)
+				->get()
+				->itemAsArray();
+
+			$this->cache->set($result);
+			return $result['total'];
+		}
+
+		public function countUserMessagesById($receiver_id){
+			$this->cache->key('messages.all');
+
+			if(($result = $this->cache->get()->array())){
+				return $result['total'];
+			}
+
+			$result = $this->select('COUNT(m_id) as total')
+				->from('messages')
+				->join('messages_contacts','mc_id=m_contact_id')
+				->where("`mc_user_id`='{$receiver_id}' AND isnull(m_date_read) and m_status !=" . Kernel::STATUS_DELETED . " and mc_status!=" . Kernel::STATUS_DELETED)
 				->get()
 				->itemAsArray();
 

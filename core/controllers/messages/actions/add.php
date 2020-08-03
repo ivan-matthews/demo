@@ -1,16 +1,16 @@
 <?php
 
-	namespace Core\Controllers\Mail\Actions;
+	namespace Core\Controllers\Messages\Actions;
 
 	use Core\Classes\Hooks;
 	use Core\Classes\Request;
 	use Core\Classes\Session;
 	use Core\Classes\Response\Response;
-	use Core\Controllers\Mail\Config;
-	use Core\Controllers\Mail\Controller;
-	use Core\Controllers\Mail\Model;
+	use Core\Controllers\Messages\Config;
+	use Core\Controllers\Messages\Controller;
+	use Core\Controllers\Messages\Model;
 
-	class Item extends Controller{
+	class Add extends Controller{
 
 		/** @var $this */
 		private static $instance;
@@ -40,7 +40,13 @@
 		public $session;
 
 		/** @var array */
-		public $item;
+		public $add;
+
+		public $limit;
+		public $offset;
+		public $total;
+		public $order;
+		public $sort;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -51,15 +57,15 @@
 		}
 
 		public function __get($key){
-			if(isset($this->item[$key])){
-				return $this->item[$key];
+			if(isset($this->add[$key])){
+				return $this->add[$key];
 			}
 			return false;
 		}
 
 		public function __set($name, $value){
-			$this->item[$name] = $value;
-			return $this->item[$name];
+			$this->add[$name] = $value;
+			return $this->add[$name];
 		}
 
 		public function __construct(){
@@ -70,39 +76,39 @@
 
 		}
 
-		public function methodGet($item_id){
+		public function methodGet(){
 			return false;
 		}
 
-		public function methodPost($item_id){
+		public function methodPost(){
 			return false;
 		}
 
-		public function methodPut($item_id){
+		public function methodPut(){
 			return false;
 		}
 
-		public function methodHead($item_id){
+		public function methodHead(){
 			return false;
 		}
 
-		public function methodTrace($item_id){
+		public function methodTrace(){
 			return false;
 		}
 
-		public function methodPatch($item_id){
+		public function methodPatch(){
 			return false;
 		}
 
-		public function methodOptions($item_id){
+		public function methodOptions(){
 			return false;
 		}
 
-		public function methodConnect($item_id){
+		public function methodConnect(){
 			return false;
 		}
 
-		public function methodDelete($item_id){
+		public function methodDelete(){
 			return false;
 		}
 

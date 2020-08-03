@@ -19,7 +19,7 @@
 				<span class="user-name">%user_name%</span>
 			</a>',
 		'notice_is_readed'			=> '<i class="fa fa-check text-success" aria-hidden="true"></i> ',
-		'new_notice'				=> '<i class="fas fa-question"></i><i class="fas fa-question"></i><i class="fas fa-question"></i> новое',
+		'new_notice'				=> 'новое',
 		'notice_with_sender_title'		=> 'Уведомление с сендером',
 		'notice_without_sender_title'	=> 'Уведомление без сендера',
 		'notice_from_notify_manager_title'	=> 'От разных менеджеров рассылки',

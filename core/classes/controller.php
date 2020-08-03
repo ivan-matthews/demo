@@ -78,7 +78,7 @@
 			$this->language = Language::getInstance();
 			$this->hook = Hooks::getInstance();
 
-			$this->offset = $this->request->get('offset');
+			$this->offset = $this->request->get('offset') ?? 0;
 		}
 
 		public function __destruct(){

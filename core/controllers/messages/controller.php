@@ -1,6 +1,6 @@
 <?php
 
-	namespace Core\Controllers\Mail;
+	namespace Core\Controllers\Messages;
 
 	use Core\Classes\Hooks;
 	use Core\Classes\Controller as ParentController;
@@ -34,7 +34,7 @@
 		public $hook;
 
 		/** @var array */
-		private $mail;
+		private $messages;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -45,22 +45,22 @@
 		}
 
 		public function __get($key){
-			if(isset($this->mail[$key])){
-				return $this->mail[$key];
+			if(isset($this->messages[$key])){
+				return $this->messages[$key];
 			}
 			return false;
 		}
 
 		public function __set($name, $value){
-			$this->mail[$name] = $value;
-			return $this->mail[$name];
+			$this->messages[$name] = $value;
+			return $this->messages[$name];
 		}
 
 		public function __construct(){
 			parent::__construct();
 
-			$this->params = Config::getInstance();	// use Core\Controllers\Mail\Config as Config;
-			$this->model = Model::getInstance();	// use Core\Controllers\Mail\Model as Model;
+			$this->params = Config::getInstance();	// use Core\Controllers\Messages\Config as Config;
+			$this->model = Model::getInstance();	// use Core\Controllers\Messages\Model as Model;
 		}
 
 		public function __destruct(){

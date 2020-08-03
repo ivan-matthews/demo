@@ -6,9 +6,10 @@
 
 		/**
 		 * @param $lang_key
+		 * @param array $replace_data
 		 * @return Create
 		 */
-		public function content($lang_key);
+		public function content($lang_key,$replace_data=array());
 
 		/**
 		 * @param array $attachments
