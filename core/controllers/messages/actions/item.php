@@ -64,6 +64,7 @@
 		public $messages;
 
 		public $query_string_to_update_read_status;
+		public $total_count_readed_to_update=0;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -90,13 +91,6 @@
 
 			if($this->contact_data){
 
-				$this->contacts = $this->model->getContacts(
-					$this->user_id,
-					$this->limit_contacts,
-					0,
-					'total'
-				);
-
 				$this->total = $this->model->countMessagesByContactId($this->user_id,$this->contact_id);
 
 				$this->messages = $this->model->getMessagesByContactId(
@@ -109,9 +103,22 @@
 				$this->prepareMessagesIdsToUpdateQuery();
 
 				if($this->query_string_to_update_read_status){
-					$this->model->updateMessagesStatusRead($this->query_string_to_update_read_status);
+					$this->model->updateMessagesStatusRead(
+						$this->total_count_readed_to_update,
+						$this->user_id,
+						$this->query_string_to_update_read_status
+					);
 				}
 
+				// для *PHPStorm: перенесено, т.к. сначала выбирает
+				// контакты, затем только обновляет прочитанные
+				$this->contacts = $this->model->getContacts(
+					$this->user_id,
+					$this->limit_contacts,
+					0,
+					'total'
+				);
+				
 				$this->paginate($this->total, array('messages','item',$this->contact_id));
 
 				$this->response->controller('messages','contact')
@@ -155,6 +162,7 @@
 					if(!fx_equal($message['m_sender_id'],$message['m_receiver_id'])){ continue; }
 				}
 				$messages_string .= "`m_id` = '{$message['m_id']}' OR ";
+				$this->total_count_readed_to_update++;
 			}
 
 			return $this->query_string_to_update_read_status = rtrim($messages_string,' OR ');

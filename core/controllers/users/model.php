@@ -153,6 +153,7 @@
 			return $result['total'];
 		}
 
+/*
 		public function countUserMessagesById($receiver_id){
 			$this->cache->key('messages.all');
 
@@ -164,6 +165,27 @@
 				->from('messages')
 				->join('messages_contacts',"mc_last_message_id=m_id")
 				->where("`m_receiver_id`='{$receiver_id}' AND isnull(m_readed)")
+				->get()
+				->itemAsArray();
+
+			$this->cache->set($result);
+			return $result['total'];
+		}
+*/
+
+		public function countUserMessagesById($receiver_id){
+			$this->cache->key('messages.all');
+
+			if(($result = $this->cache->get()->array())){
+				return $result['total'];
+			}
+
+			$result = $this->select("sum(if(mc_receiver_id={$receiver_id},mc_receiver_total,mc_sender_total)) as total")
+				->from('messages_contacts')
+				->where(
+					"(`mc_receiver_id`='{$receiver_id}' or `mc_sender_id`='{$receiver_id}')" .
+					" and if(`mc_receiver_id`='{$receiver_id}',isnull(mc_hide_in_user),isnull(mc_hide_in_sender))"
+				)
 				->get()
 				->itemAsArray();
 

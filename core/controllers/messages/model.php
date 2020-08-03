@@ -48,6 +48,7 @@
 		 * @TODO: 1. переписать вложенный SELECT count(m_id), т.к. 4сек на 1М записях, вместо 0.006сек
 		 * @TODO: 1.1.	Возможно на UPDATE total=(
 		 * @TODO:				select count(m_id)
+		 * @TODO:					from messages
 		 * @TODO:					where m_contact_id=mc_id
 		 * @TODO:						and isnull(m_readed)
 		 * @TODO:						and m_receiver_id=%receiver_id% order by m_id
@@ -63,14 +64,6 @@
 		 */
 
 		public function getContacts($receiver_id,$limit,$offset,$order='mc_last_message_id'){
-			$select_nested_query = "\n";
-			$select_nested_query .= "(select count(m_id)\n";
-			$select_nested_query .= "	from messages\n";
-			$select_nested_query .= "	where m_contact_id=mc_id\n";
-			$select_nested_query .= "		and isnull(m_readed)\n";
-			$select_nested_query .= "		and m_receiver_id=%receiver_id% order by m_id\n";
-			$select_nested_query .= ") as total";
-
 			$where_query = "";
 			$where_query .= "if(`mc_sender_id`=%receiver_id%,isnull(mc_hide_in_sender),isnull(mc_hide_in_user))";
 			$where_query .= " and (`mc_receiver_id` = %receiver_id% or `mc_sender_id` = %receiver_id%)";
@@ -90,8 +83,9 @@
 				"m_date_created",
 				"m_date_created",
 				"m_date_created",
-				"m_date_created",
-				$select_nested_query
+				"m_date_created"
+//				, $select_nested_query
+				, "if(mc_receiver_id=%receiver_id%,mc_receiver_total,mc_sender_total) as total"
 				)
 				->from('messages_contacts')
 				->join('users FORCE INDEX (PRIMARY)',$this->users_table_join_query)
@@ -151,9 +145,13 @@
 			return $result;
 		}
 
-		public function updateMessagesStatusRead($where_query){
+		public function updateMessagesStatusRead($total,$sender_id,$where_query){
 			$result = $this->update('messages')
 				->field('m_readed',true)
+				->query('mc_sender_total',"if(mc_sender_id=%sender_id%,mc_sender_total-{$total},mc_sender_total)")
+				->query('mc_receiver_total',"if(mc_receiver_id=%sender_id%,mc_receiver_total-{$total},mc_receiver_total)")
+				->join('messages_contacts',"mc_id=m_contact_id")
+				->data('%sender_id%',$sender_id)
 				->where($where_query)
 				->get()
 				->rows();

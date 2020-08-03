@@ -31,7 +31,7 @@
 					->get()
 					->id();
 
-				$this->updateLastMessageId($contact_id,$message_id);
+				$this->updateLastMessageId($contact_id,$sender_id,$message_id);
 
 				unset($sender_id,$receiver_id,$contact_id,$message_id);
 			}
@@ -42,9 +42,11 @@
 			return $this;
 		}
 
-		private function updateLastMessageId($contact_id,$message_id){
+		private function updateLastMessageId($contact_id,$sender_id,$message_id){
 			return Database::update('messages_contacts')
 				->field('mc_last_message_id',$message_id)
+				->query('mc_sender_total',"if(mc_sender_id=$sender_id,mc_sender_total,mc_sender_total+1)")
+				->query('mc_receiver_total',"if(mc_receiver_id=$sender_id,mc_receiver_total,mc_receiver_total+1)")
 				->where("mc_id={$contact_id}")
 				->get()
 				->rows();
