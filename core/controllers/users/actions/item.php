@@ -3,12 +3,14 @@
 	namespace Core\Controllers\Users\Actions;
 
 	use Core\Classes\Hooks;
+	use Core\Classes\Kernel;
 	use Core\Classes\Request;
 	use Core\Classes\Session;
 	use Core\Classes\Response\Response;
 	use Core\Controllers\Users\Config;
 	use Core\Controllers\Users\Controller;
 	use Core\Controllers\Users\Model;
+	use  Core\Controllers\Avatar\Model as AvatarModel;
 	use Core\Controllers\Users\Forms\Item as UserForm;
 
 	class Item extends Controller{
@@ -50,6 +52,10 @@
 		public $fields_list;
 		public $user_menu = array();
 
+		public $avatar_model;
+		public $user_photos;
+		public $total_user_photos;
+
 		private $breadcrumbs;
 
 		/** @return $this */
@@ -62,6 +68,7 @@
 
 		public function __construct(){
 			parent::__construct();
+			$this->avatar_model = AvatarModel::getInstance();
 			$this->breadcrumbs = $this->response->breadcrumb('users_item')
 				->setIcon(null);
 			$this->users_item_form = UserForm::getInstance();
@@ -84,11 +91,23 @@
 				$user_groups = fx_arr($this->user_data['a_groups']);
 				$this->user_groups = $this->model->getUserGroupsByGroupsArray($user_groups);
 
+				$this->total_user_photos = $this->avatar_model->countAllUserAvatars($this->user_id,"`p_status`!='" . Kernel::STATUS_BLOCKED . "'");
+				$this->user_photos = $this->avatar_model->getAllUserAvatars(
+					$this->user_id,
+					5,
+					0,
+					"`p_status`!='" . Kernel::STATUS_BLOCKED . "'",
+					'p_date_updated',
+					'DESC'
+				);
+
 				$this->response->controller('users','item')
 					->setArray(array(
 						'user'	=> $this->user_data,
 						'groups'=> $this->user_groups,
 						'menu'	=> $this->user_menu,
+						'photos'=> $this->user_photos,
+						'total_photos'=> $this->total_user_photos,
 						'fields'=> $this->fields_list,
 						));
 

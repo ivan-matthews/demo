@@ -57,6 +57,7 @@
 
 		public $file_info;
 		public $insert_data;
+		public $avatar_data = array();
 
 		/** @return $this */
 		public static function getInstance(){
@@ -76,8 +77,6 @@
 
 			$this->add_form->setFileMaxSize($this->params->file_size)
 				->setAllowedFileTypes(...$this->params->file_types);
-
-			$this->user_name = $this->session->get('u_full_name',Session::PREFIX_AUTH);
 		}
 
 		public function methodGet($user_id){
@@ -86,20 +85,28 @@
 
 			$this->add_form->generateFieldsList($this->user_id);
 
-			$this->add_form->setParams('image_params',$this->params->image_params);
+			$this->avatar_data = $this->user_model->getUserByID($this->user_id);
 
-			$this->fields_list = $this->add_form->getFieldsList();
+			if($this->avatar_data){
 
-			$this->response->controller('avatar','add')
-				->setArray(array(
-					'fields'	=> $this->fields_list,
-					'form'		=> $this->add_form->getFormAttributes(),
-					'errors'	=> $this->add_form->getErrors()
-				));
+				$this->add_form->setParams('image_params',$this->params->image_params);
 
-			$this->setResponse();
+				$this->fields_list = $this->add_form->getFieldsList();
 
-			return $this;
+				$this->response->controller('avatar','add')
+					->setArray(array(
+						'fields'	=> $this->fields_list,
+						'form'		=> $this->add_form->getFormAttributes(),
+						'errors'	=> $this->add_form->getErrors()
+					));
+
+				$this->setResponse($this->avatar_data)
+					->appendResponse();
+
+				return $this;
+
+			}
+			return false;
 		}
 
 		public function methodPost($user_id){
@@ -128,7 +135,7 @@
 
 					$this->user_model->updateAvatarId($this->user_id,$this->avatar_id);
 
-					$this->sessionUpdate();
+					$this->sessionUpdate($this->insert_data);
 
 					return $this->redirect();
 				}
@@ -141,23 +148,13 @@
 					'errors'	=> $this->add_form->getErrors()
 				));
 
-			$this->setResponse();
+			$this->setResponse($this->avatar_data)
+				->appendResponse();
 
 			return $this;
 		}
 
-		public function setResponse(){
-			$this->response->title('users.users_index_title');
-			$this->response->breadcrumb('users')
-				->setIcon(null)
-				->setLink('users','index')
-				->setValue('users.users_index_title');
-
-			$this->response->title($this->user_name);
-			$this->response->breadcrumb('user_item')
-				->setValue($this->user_name)
-				->setLink('users','item',$this->user_id);
-
+		public function appendResponse(){
 			$this->response->title('avatar.add_avatar_form_title');
 			$this->response->breadcrumb('avatar_add')
 				->setValue('avatar.add_avatar_form_title')

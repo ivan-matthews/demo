@@ -11,7 +11,12 @@
 
 <div class="row user-info-widget row justify-content-center p-0 col-10 col-sm-10 col-md-9 col-lg-6 col-xl-5">
 	<div class="body mx-auto search">
-		<div class="btn-group">
+		<div class="hidden search-form col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+			<form action="<?php print fx_get_url('search','index') ?>" method="GET">
+				<input type="text" class="form-control">
+			</form>
+		</div>
+		<div class="btn-group search-icon">
 			<a class="user-info-link" href="javascript:void(0)">
 				<i class="fa fa-search" aria-hidden="true"></i>
 			</a>

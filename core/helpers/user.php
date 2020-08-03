@@ -68,7 +68,7 @@
 
 	function fx_get_date($date_timestamp){
 		$date = '<span class="date-block">';
-		$date .= '<span class="invisible-timestamp">';
+		$date .= '<span class="invisible-timestamp hidden">';
 		$date .= $date_timestamp;
 		$date .= '</span>';
 
@@ -111,5 +111,5 @@
 		$version = !$version ? '': "?v={$version}";
 		$alt = $alt ?: $title ?: 'image';
 		$avatar_image = fx_avatar($avatar_image,$avatar_key,$gender);
-		return print "<img class=\"{$class}\" src=\"{$avatar_image}{$version}\" title=\"{$title}\" alt=\"{$alt}\">";
+		return print "<img onerror=\"indexObj.brokenImage(this,'{$avatar_key}')\" class=\"{$class}\" src=\"{$avatar_image}{$version}\" title=\"{$title}\" alt=\"{$alt}\">";
 	}

@@ -9,8 +9,12 @@
 	use Core\Classes\Kernel;
 	use Core\Classes\Database\Database;
 	use Core\Classes\Response\Response;
+	use Core\Classes\Config;
 
 	class InsertGeoCities202007140717561594750676{
+
+		public $config;
+		public $debug;
 
 		private $memory_limit  = 256 * 1024 * 1024;			// 256M
 		private $insert_files = array();
@@ -18,6 +22,12 @@
 		private $total_cities;
 
 		public function firstStep(){
+			$this->config = Config::getInstance();
+
+			$this->debug = $this->config->core['debug_enabled'];
+
+			$this->config->set(false,'core','debug_enabled');
+
 			$this->getMemoryLimit();
 			$this->getFiles();
 			$this->getOffset();
@@ -60,8 +70,11 @@
 					$types->eol();
 				});
 
-				unset($insert,$path,$data,$item);
+				unset($insert,$path,$data,$item,$file);
 			}
+
+			$this->config->set($this->debug,'core','debug_enabled');
+
 			return $this;
 		}
 

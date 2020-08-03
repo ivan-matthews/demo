@@ -13,6 +13,7 @@
 	 * @property array $actions
 	 * @property array $image_params
 	 * @property array $file_types
+	 * @property array $sorting_panel
 	 * @property integer $file_size
 	 */
 	class Config extends Params{

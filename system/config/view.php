@@ -40,11 +40,11 @@
 			)
 		),
 		'broken_image'	=> array(
-			'micro'		=> 'images/avatars/micro122b22ae96d2c8e934e31b6c84ced4d1e.jpeg',
-			'small'		=> 'images/avatars/small122b22ae96d2c8e934e31b6c84ced4d1e.jpeg',
-			'medium'	=> 'images/avatars/medium122b22ae96d2c8e934e31b6c84ced4d1e.jpeg',
-			'normal'	=> 'images/avatars/normal122b22ae96d2c8e934e31b6c84ced4d1e.jpeg',
-			'big'		=> 'images/avatars/big122b22ae96d2c8e934e31b6c84ced4d1e.jpeg',
-			'original'	=> 'images/avatars/original122b22ae96d2c8e934e31b6c84ced4d1e.jpeg',
+			'micro'		=> 'images/not-found/micro-nf.jpeg',
+			'small'		=> 'images/not-found/small-nf.jpeg',
+			'medium'	=> 'images/not-found/medium-nf.jpeg',
+			'normal'	=> 'images/not-found/normal-nf.jpeg',
+			'big'		=> 'images/not-found/big-nf.jpeg',
+			'original'	=> 'images/not-found/original-nf.jpeg',
 		),
 	);

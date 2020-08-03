@@ -1,11 +1,4 @@
 window.homeObj = {
-	getLanguagePack: function(){
-		if(!isset(homeObj.lang)){
-			let language_content = $('.language-invisible-json-content').html();
-			homeObj.lang = JSON.parse(language_content);
-		}
-		return homeObj.lang;
-	},
 	setTimeoutFormatDateTime : function(times=60){
 		homeObj.formatDateTime();
 		let date = new Date();
@@ -14,7 +7,10 @@ window.homeObj = {
 	},
 	formatDateTime : function(){
 		let selector = $('.date-block');
-		let lang_pack = homeObj.getLanguagePack();
+		let lang_pack = indexObj.getLanguagePack();
+
+		if(!lang_pack){ return false; }
+
 		$.each(selector,function(k,v){
 			let timestamp = parseInt($('.invisible-timestamp',this).html());
 			let time_result;

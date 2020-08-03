@@ -59,6 +59,13 @@
 			return $this->config;
 		}
 
+		public function set($value_to_set,...$keys_to_set){
+			$string_to_eval = "['";
+			$string_to_eval .= implode('\'][\'',$keys_to_set);
+			$string_to_eval .= '\']';
+			eval("return " . '$this->config' . "{$string_to_eval} = '{$value_to_set}';");
+			return $this;
+		}
 
 
 

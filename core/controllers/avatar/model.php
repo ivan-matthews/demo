@@ -32,7 +32,7 @@
 		public function deleteAvatar(array $deleted_data,$avatar_id){
 
 			$result = $this->update('photos')
-				->field('p_status',Kernel::STATUS_DELETED)
+				->field('p_status',Kernel::STATUS_INACTIVE)
 				->field('p_date_deleted',$deleted_data['p_date_deleted'])
 				->where("`p_id`=%avatar_id% AND `p_user_id`=%user_id%")
 				->data('%avatar_id%',$avatar_id)
@@ -71,6 +71,7 @@
 
 			$result = $this->select()
 				->from('photos')
+				->join('users',"u_id=p_user_id")
 				->where("p_id=%avatar_id% AND p_user_id=%user_id%")
 				->data('%avatar_id%',$this->avatar_id)
 				->data('%user_id%',$user_id)
@@ -81,7 +82,39 @@
 			return $result;
 		}
 
+		public function countAllUserAvatars($user_id,$query){
+			$result = $this->select('COUNT(p_id) as total')
+				->from('photos')
+				->where("{$query} AND `p_user_id`=%user_id%")
+				->data('%user_id%',$user_id)
+				->get()
+				->itemAsArray();
+			return $result['total'];
+		}
 
+		public function getAllUserAvatars($user_id,$limit,$offset,$query,$order,$sort){
+			$result = $this->select()
+				->from('photos')
+				->where("{$query} AND `p_user_id`=%user_id%")
+				->data('%user_id%',$user_id)
+				->order($order)
+				->sort($sort)
+				->limit($limit)
+				->offset($offset)
+				->get()
+				->allAsArray();
+			return $result;
+		}
+
+		public function dropAvatarItem($avatar_id,$user_id){
+			$result = $this->delete('photos')
+				->where("`p_id`=%avatar_id% AND `p_user_id`=%user_id%")
+				->data('%avatar_id%',$avatar_id)
+				->data('%user_id%',$user_id)
+				->get()
+				->rows();
+			return $result;
+		}
 
 
 

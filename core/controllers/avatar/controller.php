@@ -37,7 +37,7 @@
 		public $hook;
 
 		/** @var array */
-		private $avatar;
+		public $insert_data = array();
 
 		/** @var View */
 		public $view;
@@ -144,6 +144,7 @@
 				'p_mime'			=> $this->image_params['type'],
 				'p_status'			=> Kernel::STATUS_ACTIVE,
 				'p_date_created'	=> time(),
+				'p_date_updated'	=> time(),
 				'p_original'		=> "{$this->image_folder}/{$this->image_original_name}",
 			);
 			return $this;
@@ -180,16 +181,36 @@
 			return $this;
 		}
 
-
-		public function sessionUpdate(){
-			$this->insert_data['p_date_updated'] = time();
-			foreach($this->insert_data as $key=>$value){
+		public function sessionUpdate($insert_data){
+			$insert_data['p_date_updated'] = time();
+			foreach($insert_data as $key=>$value){
 				$this->session->set($key,$value,Session::PREFIX_AUTH);
 			}
 			return $this;
 		}
 
+		public function setResponse($avatar_data){
+			$this->response->title('users.users_index_title');
+			$this->response->breadcrumb('users')
+				->setIcon(null)
+				->setLink('users','index')
+				->setValue('users.users_index_title');
 
+			if($avatar_data['u_id']){
+				$this->response->title($avatar_data['u_full_name']);
+				$this->response->breadcrumb('user_item')
+					->setValue($avatar_data['u_full_name'])
+					->setLink('users','item',$avatar_data['u_id']);
+			}
+
+			$this->response->title('avatar.all_avatars_title');
+			$this->response->breadcrumb('avatar')
+				->setIcon(null)
+				->setLink('avatar','index',$avatar_data['u_id'])
+				->setValue('avatar.all_avatars_title');
+
+			return $this;
+		}
 
 
 

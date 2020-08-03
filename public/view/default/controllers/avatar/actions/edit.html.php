@@ -21,7 +21,7 @@
 
 				<div id="image-wapper">
 
-					<img id="image_avatar" class="edit-preview-avatar" src="<?php print $this->getUploadSiteRoot($image_params['original']) ?>">
+					<img onerror="$('.visible-avatar-form').addClass('hidden');$('.hidden-avatar-form').removeClass('hidden');indexObj.brokenImage(this,'original')" id="image_avatar" class="edit-preview-avatar" src="<?php print $this->getUploadSiteRoot($image_params['original']) ?>">
 
 				</div>
 
@@ -33,7 +33,7 @@
 
 					<div class="preview-content <?php print $param_key_block ?>">
 
-						<img id="image_avatar" class="preview-avatar" src="<?php print $this->getUploadSiteRoot($param_value_block) ?>">
+						<img onerror="indexObj.brokenImage(this,'<?php print $param_key_block ?>')" id="image_avatar" class="preview-avatar" src="<?php print $this->getUploadSiteRoot($param_value_block) ?>">
 
 					</div>
 

@@ -9,8 +9,9 @@
 	use Core\Controllers\Avatar\Config;
 	use Core\Controllers\Avatar\Controller;
 	use Core\Controllers\Avatar\Model;
+	use Core\Controllers\Users\Model as UserModel;
 
-	class Item extends Controller{
+	class Set extends Controller{
 
 		/** @var $this */
 		private static $instance;
@@ -40,11 +41,14 @@
 		public $session;
 
 		/** @var array */
-		public $item;
+		public $set;
 
 		public $user_id;
 		public $avatar_id;
-		public $avatar_data = array();
+		public $user_model;
+
+		public $avatar_data;
+		public $update_data;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -56,40 +60,30 @@
 
 		public function __construct(){
 			parent::__construct();
+			$this->user_model = UserModel::getInstance();
 		}
 
 		public function methodGet($user_id,$avatar_id){
-			$this->avatar_id = $avatar_id;
 			$this->user_id = $user_id;
+			$this->avatar_id = $avatar_id;
+			if(!fx_me($this->user_id)){ return false; }
 
 			$this->avatar_data = $this->model->getAvatarByID($this->avatar_id,$this->user_id);
 
 			if($this->avatar_data){
 
-				$this->setResponse($this->avatar_data)
-					->appendResponse();
+				$this->user_model->updateAvatarId($this->user_id,$this->avatar_id);
 
-				$this->response->controller('avatar','item')
-					->setArray(array(
-						'avatar'	=> $this->avatar_data,
-					));
+				$this->update_data = $this->avatar_data;
+				$this->update_data['u_avatar_id'] = $this->update_data['p_id'];
 
-				return $this;
+				$this->sessionUpdate($this->update_data);
+
+				return $this->redirect();
 			}
 
 			return false;
 		}
-
-		public function appendResponse(){
-			$this->response->title($this->avatar_data['p_name']);
-			$this->response->breadcrumb('avatar_edit')
-				->setValue($this->avatar_data['p_name'])
-				->setLink('avatar','item',$this->user_id,$this->avatar_id);
-
-			return $this;
-		}
-
-
 
 
 

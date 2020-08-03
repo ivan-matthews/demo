@@ -100,12 +100,39 @@ window.indexObj = {
 				$('.progress-bar-ajax').remove();
 			}
 		});
-	}
+	},
+	getLanguagePack: function(){
+		let language_content = $('.language-invisible-json-content').html();
+		if(language_content){
+			if(!isset(indexObj.lang)){
+				indexObj.lang = JSON.parse(language_content);
+			}
+			return indexObj.lang;
+		}
+		return false;
+	},
+	getConfig: function(){
+		let config_content = $('.config-invisible-json-content').html();
+		if(config_content){
+			if(!isset(indexObj.lang)){
+				indexObj.config = JSON.parse(config_content);
+			}
+			return indexObj.config;
+		}
+		return false;
+	},
+	brokenImage : function(image_object,image_size){
+		if(!indexObj.getConfig()){ return false; }
+
+		let img = indexObj.config.view.broken_image[image_size];
+		$(image_object).attr('src',indexObj.config.uploads_root + img);
+		return true;
+	},
 };
 
 // dropdown keep open
 $(document).ready(function(){
-	$(this).on("click.bs.dropdown", ".do-not-close,.clickable-geo-fields,.closable", function (e) {
+	$(this).on("click.bs.dropdown", ".do-not-close,.clickable-geo-fields,.closable", function(e){
 		e.stopPropagation();
 	});
 });

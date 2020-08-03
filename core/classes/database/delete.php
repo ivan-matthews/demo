@@ -108,6 +108,7 @@
 				$this->limit,
 				$this->offset,
 				$this->order_by,
+				$this->sorting,
 				$this->group_by,
 				$this->preparing_data
 			);

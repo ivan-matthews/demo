@@ -113,4 +113,5 @@
 		'added_status'	=> 'изменить статус',
 		'change_status'	=> 'изменить статус',
 		'delete_status'	=> 'удалить статус',
+		'all_user_photos'	=> 'фото',
 	);

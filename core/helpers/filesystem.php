@@ -155,9 +155,11 @@
 			'x' => $x, 'y' => $y, 'width' => $input_width, 'height' => $input_height
 		));
 
-		imagesavealpha($image_p , true);
-		$background_color = imagecolorallocatealpha($image_p , 0, 0, 0, 127);
-		imagefill($image_p , 0, 0, $background_color);
+		if(fx_equal(strtolower($image_type),'png')){
+			imagesavealpha($image_p , true);
+			$background_color = imagecolorallocatealpha($image_p , 0, 0, 0, 127);
+			imagefill($image_p , 0, 0, $background_color);
+		}
 
 		$result_image = $exit_function($image_p,$file_name);
 		imagedestroy($image_p);
@@ -194,9 +196,11 @@
 			'x' => $x, 'y' => $y, 'width' => $crop_width, 'height' => $crop_height
 		));
 
-		imagesavealpha($image_p , true);
-		$background_color = imagecolorallocatealpha($image_p , 0, 0, 0, 127);
-		imagefill($image_p , 0, 0, $background_color);
+		if(fx_equal(strtolower($image_type),'png')){
+			imagesavealpha($image_p , true);
+			$background_color = imagecolorallocatealpha($image_p , 0, 0, 0, 127);
+			imagefill($image_p , 0, 0, $background_color);
+		}
 
 		$image = $create_function($file_name);
 

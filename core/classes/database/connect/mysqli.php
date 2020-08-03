@@ -525,9 +525,9 @@
 			$query .= $this->getUsing($using_tables);
 			$query .= $this->getWhere($where);
 			$query .= $this->getNested($nested_query);
+			$query .= $this->getGroup($group);
 			$query .= $this->getOrder($order);
 			$query .= $this->getSort($sort,$order);
-			$query .= $this->getGroup($group);
 			$query .= $this->getLimit($limit);
 			$query .= $this->getOffset($offset);
 
@@ -565,9 +565,9 @@
 			$query .= $this->getJoin($join);
 			$query .= $this->getWhere($where);
 			$query .= $this->getNested($nested_query);
+			$query .= $this->getGroup($group);
 			$query .= $this->getOrder($order);
 			$query .= $this->getSort($sort,$order);
-			$query .= $this->getGroup($group);
 			$query .= $this->getLimit($limit);
 			$query .= $this->getOffset($offset);
 
@@ -587,9 +587,9 @@
 			$query .= trim($this->update_insert_string, ", \n");
 			$query .= " \n";
 			$query .= $this->getWhere($where);
+			$query .= $this->getGroup($group);
 			$query .= $this->getOrder($order);
 			$query .= $this->getSort($sort,$order);
-			$query .= $this->getGroup($group);
 			$query .= $this->getLimit($limit);
 			$query .= $this->getOffset($offset);
 

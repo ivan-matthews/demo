@@ -31,8 +31,8 @@
 				'height'	=> 64,
 			),
 			'medium'=> array(
-				'width'		=> 96,
-				'height'	=> 96,
+				'width'		=> 128,
+				'height'	=> 128,
 			),
 			'normal'=> array(
 				'width'		=> 240,
@@ -41,6 +41,32 @@
 			'big'	=> array(
 				'width'		=> 360,
 				'height'	=> 480,
+			),
+		),
+		'sorting_panel'	=> array(
+			'all'	=> array(
+				'status'=> Kernel::STATUS_ACTIVE,
+				'title'	=> 'avatar.all_avatars_sorting',
+				'link'	=> array('avatar','index','%current_user_id%','all'),
+				'icon'	=> null,
+			),
+			'created'	=> array(
+				'status'=> Kernel::STATUS_ACTIVE,
+				'title'	=> 'avatar.created_avatars_sorting',
+				'link'	=> array('avatar','index','%current_user_id%','created'),
+				'icon'	=> null,
+			),
+			'updated'	=> array(
+				'status'=> Kernel::STATUS_ACTIVE,
+				'title'	=> 'avatar.updated_avatars_sorting',
+				'link'	=> array('avatar','index','%current_user_id%','updated'),
+				'icon'	=> null,
+			),
+			'random'	=> array(
+				'status'=> Kernel::STATUS_ACTIVE,
+				'title'	=> 'avatar.random_avatars_sorting',
+				'link'	=> array('avatar','index','%current_user_id%','random'),
+				'icon'	=> null,
 			),
 		),
 	);

@@ -105,7 +105,9 @@
 						'errors'		=> $this->avatar_add_form->getErrors()
 					));
 
-				return $this->setResponse();
+				$this->setResponse($this->avatar_data)
+					->appendResponse();
+				return $this;
 			}
 
 			return false;
@@ -148,11 +150,9 @@
 				$this->avatar_id = $this->model->addAvatar($this->insert_data);
 
 				if($this->avatar_id){
-
-					$this->user_model->updateAvatarId($this->user_id,$this->avatar_id);
-
-					$this->sessionUpdate();
-
+					if(fx_equal($this->avatar_data['u_avatar_id'],$this->avatar_data['p_id'])){
+						$this->sessionUpdate($this->insert_data);
+					}
 					return $this->redirect();
 				}
 
@@ -164,24 +164,16 @@
 						'errors'		=> $this->avatar_add_form->getErrors()
 					));
 
-				return $this->setResponse();
+				$this->setResponse($this->avatar_data)
+					->appendResponse();
+
+				return $this;
 			}
 
 			return false;
 		}
 
-		public function setResponse(){
-			$this->response->title('users.users_index_title');
-			$this->response->breadcrumb('users')
-				->setIcon(null)
-				->setLink('users','index')
-				->setValue('users.users_index_title');
-
-			$this->response->title($this->user_name);
-			$this->response->breadcrumb('user_item')
-				->setValue($this->user_name)
-				->setLink('users','item',$this->user_id);
-
+		public function appendResponse(){
 			$this->response->title('avatar.edit_avatar_form_title');
 			$this->response->breadcrumb('avatar_edit')
 				->setValue('avatar.edit_avatar_form_title')

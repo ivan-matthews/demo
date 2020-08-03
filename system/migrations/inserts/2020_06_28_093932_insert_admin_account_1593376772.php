@@ -88,6 +88,7 @@
 				->value("p_hash",$this->file_hash)
 				->value("p_mime","image/jpeg")
 				->value('p_date_created',time())
+				->value('p_date_updated',time())
 				->get()
 				->id();
 			return $this;
