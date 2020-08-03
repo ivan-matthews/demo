@@ -60,6 +60,7 @@
 			$insert = $insert->update('p_original',$input_params['p_original']);
 			$insert = $insert->update('p_status',Kernel::STATUS_ACTIVE);
 			$insert = $insert->get();
+
 			$this->avatar_id = $insert->id();
 
 			return $this->avatar_id;

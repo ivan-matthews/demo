@@ -23,8 +23,8 @@
 		'file_size'		=> 2*1024*1024,
 		'image_params'	=> array(
 			'micro'	=> array(
-				'width'		=> 24,
-				'height'	=> 24,
+				'width'		=> 32,
+				'height'	=> 32,
 			),
 			'small'	=> array(
 				'width'		=> 64,

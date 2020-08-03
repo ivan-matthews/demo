@@ -16,9 +16,17 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ ./index.php [L]
 
-RewriteRule .future - [F]
+RewriteRule .git - [F]
+RewriteRule .idea - [F]
+RewriteRule .gitignore - [F]
 RewriteRule .htaccess - [F]
+RewriteRule .long_box - [F]
+RewriteRule cli - [F]
+RewriteRule composer.json - [F]
+RewriteRule composer.lock - [F]
 RewriteRule loader.php - [F]
+RewriteRule README.MD - [F]
+RewriteRule server.php - [F]
 
 Options +ExecCGI
 AddHandler cgi-script .api

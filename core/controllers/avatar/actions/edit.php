@@ -5,8 +5,8 @@
 	use Core\Classes\Hooks;
 	use Core\Classes\Request;
 	use Core\Classes\Session;
-	use Core\Classes\Response\Response;
 	use Core\Classes\View;
+	use Core\Classes\Response\Response;
 	use Core\Controllers\Avatar\Config;
 	use Core\Controllers\Avatar\Controller;
 	use Core\Controllers\Avatar\Model;
@@ -182,10 +182,10 @@
 				->setValue($this->user_name)
 				->setLink('users','item',$this->user_id);
 
-			$this->response->title('avatar.add_avatar_form_title');
-			$this->response->breadcrumb('avatar_add')
-				->setValue('avatar.add_avatar_form_title')
-				->setLink('avatar','add',$this->user_id);
+			$this->response->title('avatar.edit_avatar_form_title');
+			$this->response->breadcrumb('avatar_edit')
+				->setValue('avatar.edit_avatar_form_title')
+				->setLink('avatar','edit',$this->user_id,$this->avatar_id);
 
 			return $this;
 		}

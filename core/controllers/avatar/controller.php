@@ -111,8 +111,6 @@
 		public function setImageDirectory(){
 //			установить путь для сохранения картинки относительно корня ФС
 			$this->image_directory = $this->view->getUploadDir($this->image_folder);
-//			создать папку, если не существует
-			fx_make_dir($this->image_directory);
 			return $this;
 		}
 		public function getImageHash(){
@@ -126,10 +124,14 @@
 			return $this;
 		}
 		public function copyOriginalImage(){
+//			создать папку, если не существует
+			fx_make_dir($this->image_directory);
+//			создать временный файл ->
 			$this->image_temporary_file = "{$this->image_directory}/{$this->image_original_name}-tmp";
+//			-> сохранить временный файл и вдальнейшем работать с ним
+			copy($this->image_params['tmp_name'], $this->image_temporary_file);
 //			скопировать оригинал в папку, где будут расположены другие картинки
 			copy($this->image_params['tmp_name'], "{$this->image_directory}/{$this->image_original_name}");
-			copy($this->image_params['tmp_name'], $this->image_temporary_file);
 			return $this;
 		}
 		public function setImageInsertDataArray(){

@@ -144,3 +144,24 @@ iframe {
 .user-avatar .image:hover > .add a {
   display: block;
 }
+.avatar-item .image-title {
+  font-weight: bold;
+  font-size: 18px;
+}
+.avatar-item .avatar-block .avatar-image .image-block img {
+  max-width: 100%;
+}
+.avatar-item .avatar-block .avatar-image .links-block a {
+  font-weight: bold;
+}
+.avatar-item .avatar-block .avatar-description .user-info-link .user-info {
+  padding-bottom: 10px;
+  border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+}
+.avatar-item .avatar-block .avatar-description .user-info-link .user-info .user-name {
+  font-weight: bold;
+}
+.avatar-item .avatar-block .avatar-description .user-info-link .add-date {
+  font-style: italic;
+  opacity: 0.5;
+}
