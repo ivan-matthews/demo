@@ -2,25 +2,25 @@
 
 	namespace Core\Classes\Mail\Interfaces;
 
+	use Core\Classes\Mail\Notice;
+
 	interface Receiver{
 
 		/**
 		 * @param $receiver_id
-		 * @return Content
+		 * @return Action | Receiver
 		 */
 		public function receiver($receiver_id);
 
 		/**
 		 * @param null $sender_id
-		 * @return Receiver
+		 * @return Action | Receiver
 		 */
 		public function sender($sender_id=null);
 
 		/**
-		 * @param $controller
-		 * @param $action
-		 * @param array ...$params
-		 * @return Receiver
+		 * @param int $manager_id
+		 * @return Action | Receiver
 		 */
-		public function action($controller,$action,...$params);
+		public function manager($manager_id=Notice::MANAGER_SYSTEM);
 	}

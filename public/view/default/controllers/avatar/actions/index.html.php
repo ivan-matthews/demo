@@ -4,8 +4,8 @@
 	/** @var array $avatars */
 	/** @var array $user */
 
-	$this->addCSS("{$this->theme_path}/css/avatar");
-	$this->addJS("{$this->theme_path}/js/avatar");
+	$this->prependCSS("{$this->theme_path}/css/avatar");
+	$this->prependJS("{$this->theme_path}/js/avatar");
 ?>
 	<div class="avatars-list row justify-content-center">
 

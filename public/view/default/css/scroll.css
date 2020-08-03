@@ -11,7 +11,7 @@
   text-align: center;
   color: #2a5885;
 }
-@media (max-width: 767px) {
+@media (max-width: 991px) {
   .top_up_panel_button {
     display: none !important;
   }

@@ -23,7 +23,7 @@ body.unscrollable nav.header-bar::-webkit-scrollbar {
   font-weight: bold;
   padding-left: 0;
 }
-@media (max-width: 767px) {
+@media (max-width: 991px) {
   .sidebar-parent {
     display: none;
   }

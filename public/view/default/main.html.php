@@ -73,7 +73,7 @@
 
 				</div>
 
-				<div class="col-md-8 col-sm-12 col-12 col-lg-9 col-xl-9 content">
+				<div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 content">
 
 					<?php print $this->widget('body_header') ?>
 

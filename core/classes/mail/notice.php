@@ -5,8 +5,8 @@
 
 		Notice::ready()
 			->theme('theme')
-			->sender(Notice::SENDER_MAILING)
-			->receiver(3)
+			->sender(2)		// user_id
+			->receiver(3)	// users_id
 			->status(Notice::STATUS_NOTICE)
 			->content('notice content')
 			->send();
@@ -18,6 +18,19 @@
 			$notice->theme('theme')->sender(Notice::SENDER_MAILING)->receiver(21)
 				->status(Notice::STATUS_DANGER)->content('hi people!')->send();
 		});
+
+	--------------------------------------------------------
+
+		$notify = \Core\Classes\Mail\Notice::ready();
+		for($i=0;$i<100;$i++){
+			$notify = $notify->theme('hi');
+			$notify = $notify->action('users','index','online','dn');
+			$notify = $notify->sender(rand(2,140));
+			$notify = $notify->receiver(1);
+			$notify = $notify->content('privet ;)');
+			$notify = $notify->create();
+		}
+		$notify->send();
 	*/
 
 	namespace Core\Classes\Mail;
@@ -70,6 +83,10 @@
 			$this->database->value('n_sender_id',$sender_id);
 			return $this;
 		}
+		public function manager($manager_id=self::MANAGER_SYSTEM){
+			$this->database->value('n_manager_id',$manager_id);
+			return $this;
+		}
 		public function receiver($receiver_id){
 			$this->database->value('n_receiver_id',$receiver_id);
 			return $this;
@@ -99,9 +116,14 @@
 			$this->status = $status;
 			return $this;
 		}
-		public function send(){
+
+		public function create(){
 			$this->setDate()
 				->setStatus();
+			return $this;
+		}
+
+		public function send(){
 			$this->send_interface = $this->database;
 			$result_id = $this->send_interface->get()->id();
 			$this->connect();

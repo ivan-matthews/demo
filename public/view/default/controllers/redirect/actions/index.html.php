@@ -4,7 +4,7 @@
 	/** @var array $data */
 	/** @var string $link */
 
-	$this->addCSS("{$this->theme_path}/css/redirect");
+	$this->prependCSS("{$this->theme_path}/css/redirect");
 
 	$timer = 10;
 

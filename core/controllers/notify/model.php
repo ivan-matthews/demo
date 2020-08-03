@@ -65,12 +65,45 @@
 			return $notice_data;
 		}
 
-		public function updateNoticeStatus($notice_id,$status=Notice::STATUS_READED){
+		public function readNotice($notice_id){
 			$result = $this->update('notice')
-				->field('n_status',$status)
+				->field('n_status',Notice::STATUS_READED)
 				->field('n_date_updated',time())
 				->where("`n_id`=%notice_id%")
 				->data('%notice_id%',$notice_id)
+				->get()
+				->rows();
+			return $result;
+		}
+
+		public function deleteNotice($notice_id){
+			$result = $this->update('notice')
+				->field('n_status',Notice::STATUS_DELETED)
+				->field('n_date_deleted',time())
+				->where("`n_id`=%notice_id%")
+				->data('%notice_id%',$notice_id)
+				->get()
+				->rows();
+			return $result;
+		}
+
+		public function readAllNotices($user_id){
+			$result = $this->update('notice')
+				->field('n_status',Notice::STATUS_READED)
+				->field('n_date_updated',time())
+				->where("`n_receiver_id`=%notice_id% AND `n_status`=" . Notice::STATUS_UNREAD)
+				->data('%notice_id%',$user_id)
+				->get()
+				->rows();
+			return $result;
+		}
+
+		public function deleteAllNotices($user_id){
+			$result = $this->update('notice')
+				->field('n_status',Notice::STATUS_DELETED)
+				->field('n_date_deleted',time())
+				->where("`n_receiver_id`=%notice_id%")
+				->data('%notice_id%',$user_id)
 				->get()
 				->rows();
 			return $result;

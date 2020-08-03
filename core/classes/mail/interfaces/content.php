@@ -6,7 +6,7 @@
 
 		/**
 		 * @param $lang_key
-		 * @return Send_Notice
+		 * @return Create
 		 */
 		public function content($lang_key);
 

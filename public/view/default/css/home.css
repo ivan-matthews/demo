@@ -498,7 +498,7 @@ body.unscrollable nav.header-bar::-webkit-scrollbar {
   font-weight: bold;
   padding-left: 0;
 }
-@media (max-width: 767px) {
+@media (max-width: 991px) {
   .sidebar-parent {
     display: none;
   }
@@ -581,25 +581,29 @@ body.unscrollable nav.header-bar::-webkit-scrollbar {
   bottom: 0;
   top: 70px;
 }
-.sorting-panel .sorting-panel-item .nav-link {
+.sorting-panel .nav-item {
+  font-weight: bold;
+}
+.sorting-panel .nav-item.sorting-panel-item .nav-link {
   border-radius: 0;
 }
-.sorting-panel .sorting-panel-item .nav-link.active {
+.sorting-panel .nav-item.sorting-panel-item .nav-link.active {
   position: relative;
 }
-.sorting-panel .sorting-panel-item .nav-link.active .sorting-link {
+.sorting-panel .nav-item.sorting-panel-item .nav-link.active .sorting-link {
   position: absolute;
   left: 0;
   top: 0;
   bottom: 0;
   right: 0;
+  font-weight: bold;
 }
-.sorting-panel .sorting-panel-item .nav-link.active .sorting-link:hover {
+.sorting-panel .nav-item.sorting-panel-item .nav-link.active .sorting-link:hover {
   opacity: 0.8;
   background: none;
 }
-.sorting-panel .sorting-panel-item .nav-link.active .sorting-link svg,
-.sorting-panel .sorting-panel-item .nav-link.active .sorting-link i {
+.sorting-panel .nav-item.sorting-panel-item .nav-link.active .sorting-link svg,
+.sorting-panel .nav-item.sorting-panel-item .nav-link.active .sorting-link i {
   position: absolute;
   right: 10px;
   top: 2px;
@@ -610,6 +614,12 @@ body.unscrollable nav.header-bar::-webkit-scrollbar {
 .paginate .pagination .page-item .page-link.active {
   background: #4a76a8;
   color: #FFFFFF;
+}
+.simple-accordion {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .simple-accordion .accordion-buttons-link {
   color: #2a5885;
@@ -959,8 +969,6 @@ body.modal-open > nav.navbar.fixed-top {
 }
 body a {
   color: #2a5885;
-  -moz-user-select: none;
-  user-select: none;
   border-radius: 0 !important;
 }
 body a:hover {
@@ -982,7 +990,7 @@ body .navbar.header-bar {
   margin: 0 auto;
   height: 55px;
 }
-@media (max-width: 767px) {
+@media (max-width: 991px) {
   body .navbar.header-bar .div-logo .visible-logo-image {
     display: none;
   }
@@ -1010,7 +1018,7 @@ body .navbar.header-bar .div-logo .hidden-logo-button a:hover {
   background: none;
   opacity: 0.8;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   body .navbar.header-bar .div-logo .hidden-logo-button {
     display: none;
   }

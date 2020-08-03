@@ -78,7 +78,7 @@
 			if($this->notice_data){
 				$this->getActionObject();
 				if(fx_equal((int)$this->notice_data['n_status'],Notice::STATUS_UNREAD)){
-					$this->model->updateNoticeStatus($this->item_id);
+					$this->model->readNotice($this->item_id);
 				}
 				return call_user_func(array($this->action_obj,"methodGet"),...$this->called_params[0]);
 			}

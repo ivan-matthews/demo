@@ -1,11 +1,17 @@
 <?php
-	/** @var \Core\Classes\View $this */
+	use Core\Classes\Mail\Notice;
+	use \Core\Classes\View;
+
+	/** @var View $this */
 	/** @var array $data */
 	/** @var array $notices */
 	/** @var string $total */
+	/** @var integer $user */
 
-	$this->addCSS("{$this->theme_path}/css/notify");
+	$this->prependCSS("{$this->theme_path}/css/notify");
 	$this->prependJS("{$this->theme_path}/js/notify");
+
+	$unreaded = null;
 ?>
 
 <div class="m-0 mb-4 notices-list row justify-content-center">
@@ -15,6 +21,9 @@
 		<?php foreach($notices as $notice){ ?>
 
 			<?php $notice_manager_name	= "notice_manager_name_{$notice['n_manager_id']}" ?>
+			<?php $reading	= $notice['n_date_updated'] && fx_equal((int)$notice['n_status'],Notice::STATUS_READED) ?>
+
+			<?php if(!$reading){$unreaded = true; } ?>
 
 			<div class="list-group-item list-group-item-action notices-item pb-1 pt-1 radius-0 status-<?php print $notice['n_status'] ?>">
 
@@ -34,7 +43,7 @@
 							<div class="list-group-item-text item-date">
 								<?php print fx_get_date($notice['n_date_created']) ?>
 							</div>
-							<?php if($notice['n_date_updated']){ ?>
+							<?php if($reading){ ?>
 								<div class="list-group-item-text item-date-readed">
 									<?php print fx_lang('notify.notice_is_readed') ?>
 									<?php print fx_get_date($notice['n_date_updated']) ?>
@@ -46,7 +55,7 @@
 							<?php } ?>
 						</div>
 
-						<div class="col-md-7 col-sm-8 col-9 col-lg-10 col-xl-10 notices-item-info">
+						<div class="col-md-9 col-sm-9 col-9 col-lg-10 col-xl-10 notices-item-info">
 							<div class="list-group-item-heading info item-title mt-1 mb-1">
 								<?php print fx_lang($notice['n_theme']) ?>
 							</div>
@@ -70,9 +79,17 @@
 									</div>
 								<?php } ?>
 							</div>
-							<div class="list-group-item-heading info item-link mt-1 mb-1">
-								<a href="<?php print fx_get_url('notify','item',$notice['n_receiver_id'],$notice['n_id']) ?>">
+							<div class="list-group-item-heading info item-link mt-1 mb-1 text-right">
+								<a class="btn bg-success text-white link-follow" href="<?php print fx_get_url('notify','item',$user,$notice['n_id']) ?>">
 									<?php print fx_lang("notify.follow_to_page") ?>
+								</a>
+								<?php if(!$reading){ ?>
+									<a class="btn bg-warning text-white link-follow" href="<?php print fx_get_url('notify','read',$user,$notice['n_id']) ?>">
+										<?php print fx_lang("notify.mark_as_read") ?>
+									</a>
+								<?php } ?>
+								<a class="btn bg-danger text-white link-follow" href="<?php print fx_get_url('notify','delete',$user,$notice['n_id']) ?>">
+									<?php print fx_lang("notify.delete_notice") ?>
 								</a>
 							</div>
 						</div>
@@ -84,6 +101,20 @@
 			</div>
 
 		<?php } ?>
+
+		<div class="text-center mt-4 notify-all-links">
+
+			<div class="btn-group col-11 col-sm-11 col-md-11 col-lg-6 col-xl-6 m-0 p-0">
+				<?php if($unreaded){ ?>
+					<a class="btn btn-warning text-white" href="<?php print fx_get_url('notify','read',$user) ?>">
+						<?php print fx_lang('notify.read_unreaded_notices') ?>
+					</a>
+				<?php } ?>
+				<a class="btn btn-danger" href="<?php print fx_get_url('notify','delete',$user) ?>">
+					<?php print fx_lang('notify.delete_all_notices') ?>
+				</a>
+			</div>
+		</div>
 
 	</div>
 

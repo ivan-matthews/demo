@@ -6,7 +6,7 @@
 	/** @var string $query */
 	/** @var string $total */
 
-	$this->addCSS("{$this->theme_path}/css/search");
+	$this->prependCSS("{$this->theme_path}/css/search");
 //	fx_die($data);
 ?>
 

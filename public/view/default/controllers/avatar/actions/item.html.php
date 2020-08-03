@@ -3,8 +3,8 @@
 	/** @var array $data */
 	/** @var array $avatar */
 
-	$this->addCSS("{$this->theme_path}/css/avatar");
-	$this->addJS("{$this->theme_path}/js/avatar");
+	$this->prependCSS("{$this->theme_path}/css/avatar");
+	$this->prependJS("{$this->theme_path}/js/avatar");
 ?>
 
 	<div class="avatar-item row justify-content-center">

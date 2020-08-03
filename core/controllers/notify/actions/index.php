@@ -43,7 +43,7 @@
 		/** @var array */
 		public $index;
 
-		public $limit = 10;
+		public $limit = 15;
 		public $offset;
 		public $total;
 		public $order;
@@ -92,12 +92,13 @@
 					$this->offset
 				);
 
-				$this->paginate($this->total, array('notify','index',$this->user_id));
+				$this->paginate($this->total, array('notify','index',$this->user_id,$this->current_tab));
 
 				$this->response->controller('notify','index')
 					->setArray(array(
 						'notices'	=> $this->notices_data,
 						'total'		=> $this->total,
+						'user'		=> $this->user_id,
 					));
 				return $this;
 			}
