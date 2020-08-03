@@ -776,9 +776,11 @@
 			return $this;
 		}
 
-		public function prepare(callable $callback_function){
-			$this->value = call_user_func(array($callback_function,$this->value));
-			$this->setAttribute('value',$this->value);
+		public function prepare(callable $callback_function=null){
+			if($callback_function){
+				$this->value = call_user_func(array($callback_function,$this->value));
+				$this->setAttribute('value',$this->value);
+			}
 			return $this;
 		}
 

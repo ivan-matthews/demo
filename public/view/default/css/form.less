@@ -1,6 +1,100 @@
 @import "vars";
 
 form{
+	.image-form{
+		.image-label{
+			border: solid 1px rgba(0,0,0,0.3);
+			cursor: pointer;
+			padding: 0 20px;
+			&:hover{
+				opacity: 0.7;
+			}
+			i,svg{
+				font-size: 20vw !important;
+			}
+		}
+	}
+	#image-wapper{
+		#image_avatar{
+			max-width: 320px;
+		}
+		.rcrop-outer-wrapper{
+			opacity: .75;
+		}
+		.rcrop-outer{
+			background: #000
+		}
+		.rcrop-croparea-inner{
+			border: 1px dashed #fff;
+		}
+
+		.rcrop-handler-corner{
+			width:12px;
+			height: 12px;
+			background: none;
+			border : 0 solid #51aeff;
+		}
+		.rcrop-handler-top-left{
+			border-top-width: 4px;
+			border-left-width: 4px;
+			top:-2px;
+			left:-2px
+		}
+		.rcrop-handler-top-right{
+			border-top-width: 4px;
+			border-right-width: 4px;
+			top:-2px;
+			right:-2px
+		}
+		.rcrop-handler-bottom-right{
+			border-bottom-width: 4px;
+			border-right-width: 4px;
+			bottom:-2px;
+			right:-2px
+		}
+		.rcrop-handler-bottom-left{
+			border-bottom-width: 4px;
+			border-left-width: 4px;
+			bottom:-2px;
+			left:-2px
+		}
+		.rcrop-handler-border{
+			display: none;
+		}
+	}
+	.preview{
+		text-align: center;
+		.preview-content{
+			margin-top: 1em;
+		}
+		.micro{
+			i,svg{
+				font-size: 5vw !important;
+			}
+		}
+		.small{
+			i,svg{
+				font-size: 8vw !important;
+			}
+		}
+		.medium{
+			display: none;
+			i,svg{
+				font-size: 12vw !important;
+			}
+		}
+		.normal{
+			i,svg{
+				font-size: 15vw !important;
+			}
+		}
+		.big{
+			display: none;
+			i,svg{
+				font-size: 10vw !important;
+			}
+		}
+	}
 	label{
 		font-weight: bold;
 	}

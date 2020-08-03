@@ -22,6 +22,12 @@
 		private static $js_files=array();
 		private static $css_files=array();
 
+		private static $prepend_css = array();
+		private static $append_css = array();
+
+		private static $prepend_js = array();
+		private static $append_js = array();
+
 		public $site_host_is;
 		public $error_status = false;
 
@@ -255,28 +261,6 @@
 			return true;
 		}
 
-		public function appendJS($js_file_path,$version=true){
-			if($this->config->core['debug_enabled']){
-				$version = TIME;
-			}
-			$extension = $version ? "js?v={$version}" : "js";
-			$js_file_path = trim($js_file_path,'/');
-			$js_file_path = "{$js_file_path}.{$extension}";
-			array_unshift(self::$js_files,$js_file_path);
-			return true;
-		}
-
-		public function prependJS($js_file_path,$version=true){
-			if($this->config->core['debug_enabled']){
-				$version = TIME;
-			}
-			$extension = $version ? "js?v={$version}" : "js";
-			$js_file_path = trim($js_file_path,'/');
-			$js_file_path = "{$js_file_path}.{$extension}";
-			array_push(self::$js_files,$js_file_path);
-			return true;
-		}
-
 		public function addCSS($css_file_path,$version=true){
 			if($this->config->core['debug_enabled']){
 				$version = TIME;
@@ -289,14 +273,42 @@
 			return true;
 		}
 
+		public function appendJS($js_file_path,$version=true){
+			if($this->config->core['debug_enabled']){
+				$version = TIME;
+			}
+//			$key = $js_file_path;
+			$extension = $version ? "js?v={$version}" : "js";
+			$js_file_path = trim($js_file_path,'/');
+			$js_file_path = "{$js_file_path}.{$extension}";
+			self::$append_js[] = $js_file_path;
+//			array_unshift(self::$js_files,$js_file_path);
+			return true;
+		}
+
 		public function appendCSS($css_file_path,$version=true){
 			if($this->config->core['debug_enabled']){
 				$version = TIME;
 			}
+//			$key = $css_file_path;
 			$extension = $version ? "css?v={$version}" : "css";
 			$css_file_path = trim($css_file_path,'/');
 			$css_file_path = "{$css_file_path}.{$extension}";
-			array_unshift(self::$css_files,$css_file_path);
+			self::$append_css[] = $css_file_path;
+//			array_unshift(self::$css_files,$css_file_path);
+			return true;
+		}
+
+		public function prependJS($js_file_path,$version=true){
+			if($this->config->core['debug_enabled']){
+				$version = TIME;
+			}
+//			$key = $js_file_path;
+			$extension = $version ? "js?v={$version}" : "js";
+			$js_file_path = trim($js_file_path,'/');
+			$js_file_path = "{$js_file_path}.{$extension}";
+			self::$prepend_js[] = $js_file_path;
+//			array_push(self::$js_files,$js_file_path);
 			return true;
 		}
 
@@ -304,14 +316,19 @@
 			if($this->config->core['debug_enabled']){
 				$version = TIME;
 			}
+//			$key = $css_file_path;
 			$extension = $version ? "css?v={$version}" : "css";
 			$css_file_path = trim($css_file_path,'/');
 			$css_file_path = "{$css_file_path}.{$extension}";
-			array_push(self::$css_files,$css_file_path);
+			self::$prepend_css[] = $css_file_path;
+//			array_push(self::$css_files,$css_file_path);
 			return true;
 		}
 
 		public function renderJsFiles(){
+			!self::$append_js ?: array_unshift(self::$js_files,...self::$append_js);
+			!self::$prepend_js ?: array_push(self::$js_files,...self::$prepend_js);
+
 			$js_files = '';
 			foreach(self::$js_files as $key=>$file){
 				$file_path = $this->site_host_is ? "{$this->site_root}/{$file}" : "/{$this->site_root}/{$file}";
@@ -323,6 +340,9 @@
 		}
 
 		public function renderCssFiles(){
+			!self::$append_css ?: array_unshift(self::$css_files,...self::$append_css);
+			!self::$prepend_css ?: array_push(self::$css_files,...self::$prepend_css);
+
 			$css_files = '';
 			foreach(self::$css_files as $key=>$file){
 				$file_path = $this->site_host_is ? "{$this->site_root}/{$file}" : "/{$this->site_root}/{$file}";
@@ -414,7 +434,7 @@
 		public function getUploadDir($upload_pth_to_file){
 			$upload_pth_to_file = trim($upload_pth_to_file,'/');
 			$upload_pth_to_file = "{$this->config->view['uploads_dir']}/{$upload_pth_to_file}";
-			return "{$this->site_dir}/{$upload_pth_to_file}";
+			return "{$this->web_dir}/{$upload_pth_to_file}";
 		}
 
 		public function printUploadSiteRoot($upload_pth_to_file){

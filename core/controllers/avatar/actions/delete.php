@@ -9,6 +9,7 @@
 	use Core\Controllers\Avatar\Config;
 	use Core\Controllers\Avatar\Controller;
 	use Core\Controllers\Avatar\Model;
+	use Core\Controllers\Users\Model as UserModel;
 
 	class Delete extends Controller{
 
@@ -42,11 +43,11 @@
 		/** @var array */
 		public $delete;
 
-		public $limit;
-		public $offset;
-		public $total;
-		public $order;
-		public $sort;
+		public $user_model;
+
+		public $user_id;
+		public $avatar_id;
+		public $delete_data = array();
 
 		/** @return $this */
 		public static function getInstance(){
@@ -56,65 +57,49 @@
 			return self::$instance;
 		}
 
-		public function __get($key){
-			if(isset($this->delete[$key])){
-				return $this->delete[$key];
-			}
-			return false;
-		}
-
-		public function __set($name, $value){
-			$this->delete[$name] = $value;
-			return $this->delete[$name];
-		}
-
 		public function __construct(){
 			parent::__construct();
+			$this->user_model = UserModel::getInstance();
 		}
 
-		public function __destruct(){
+		public function methodGet($user_id,$avatar_id){
+			$this->user_id = $user_id;
+			$this->avatar_id = $avatar_id;
+			if(!fx_me($this->user_id)){ return false; }
 
-		}
+			$this->delete_data = array(
+				'p_user_id'			=> $this->user_id,
+				'p_date_deleted'	=> time(),
+			);
 
-		public function methodGet(){
+			if($this->model->deleteAvatar($this->delete_data,$this->avatar_id)){
+
+				$this->user_model->updateAvatarId($this->user_id,null);
+
+				return $this->updateSession()
+					->redirect();
+			}
+
 			return false;
 		}
 
-		public function methodPost(){
-			return false;
+		public function updateSession(){
+			$this->session->set('p_user_id',null,Session::PREFIX_AUTH);
+			$this->session->set('p_name',null,Session::PREFIX_AUTH);
+			$this->session->set('p_size',null,Session::PREFIX_AUTH);
+			$this->session->set('p_hash',null,Session::PREFIX_AUTH);
+			$this->session->set('p_mime',null,Session::PREFIX_AUTH);
+			$this->session->set('p_status',null,Session::PREFIX_AUTH);
+			$this->session->set('p_date_created',null,Session::PREFIX_AUTH);
+			$this->session->set('p_original',null,Session::PREFIX_AUTH);
+			$this->session->set('p_micro',null,Session::PREFIX_AUTH);
+			$this->session->set('p_small',null,Session::PREFIX_AUTH);
+			$this->session->set('p_medium',null,Session::PREFIX_AUTH);
+			$this->session->set('p_normal',null,Session::PREFIX_AUTH);
+			$this->session->set('p_big',null,Session::PREFIX_AUTH);
+
+			return $this;
 		}
-
-		public function methodPut(){
-			return false;
-		}
-
-		public function methodHead(){
-			return false;
-		}
-
-		public function methodTrace(){
-			return false;
-		}
-
-		public function methodPatch(){
-			return false;
-		}
-
-		public function methodOptions(){
-			return false;
-		}
-
-		public function methodConnect(){
-			return false;
-		}
-
-		public function methodDelete(){
-			return false;
-		}
-
-
-
-
 
 
 

@@ -95,8 +95,7 @@
 		public function checkFieldsList($user_id,$input_data,$item_id){
 			$this->item_id = $item_id;
 
-			$this->validator_interface
-				->setData($input_data)
+			$this->validator_interface->setData($input_data)
 				->csrf(1)
 				->validate(1);
 			return $this->generateFieldsList($user_id,$this->item_id);

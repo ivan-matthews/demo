@@ -11,6 +11,7 @@
 	use Core\Controllers\Status\Controller;
 	use Core\Controllers\Status\Forms\Simple;
 	use Core\Controllers\Status\Model;
+	use Core\Controllers\Users\Model as UserModel;
 
 	class Add extends Controller{
 
@@ -51,6 +52,8 @@
 		public $user_name;
 		public $status_id;
 
+		public $user_model;
+
 		public $input_data;
 
 		/** @return $this */
@@ -68,6 +71,7 @@
 			$this->add_form = Simple::getInstance('status');
 
 			$this->input_data = $this->request->getArray('status');
+			$this->user_model = UserModel::getInstance();
 		}
 
 		public function methodGet($user_id){
@@ -108,6 +112,9 @@
 				$this->status_id = $this->model->addStatus($this->data_to_insert);
 
 				if($this->status_id){
+
+					$this->user_model->updateStatusId($this->user_id,$this->status_id);
+
 					return $this->redirect();
 				}
 			}
@@ -125,6 +132,12 @@
 		}
 
 		public function setResponse(){
+			$this->response->title('users.users_index_title');
+			$this->response->breadcrumb('users')
+				->setIcon(null)
+				->setLink('users','index')
+				->setValue('users.users_index_title');
+
 			$this->response->title($this->user_name);
 			$this->response->breadcrumb('user_item')
 				->setValue($this->user_name)
@@ -133,7 +146,7 @@
 			$this->response->title('status.add_status_form_title');
 			$this->response->breadcrumb('status_add')
 				->setValue('status.add_status_form_title')
-				->setLink('status','add');
+				->setLink('status','add',$this->user_id);
 			return $this;
 		}
 

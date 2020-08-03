@@ -27,7 +27,7 @@
 
 							<div class="avatar">
 
-								<?php fx_print_avatar($user['p_small'],'small',$user['u_gender'],$user['u_full_name'],$user['u_full_name']) ?>
+								<?php fx_print_avatar($user['p_small'],'small',$user['p_date_updated'],$user['u_gender'],$user['u_full_name'],$user['u_full_name']) ?>
 
 								<div title="<?php print($online?fx_lang('users.user_is_online'):fx_lang('users.user_is_offline')) ?>" class="status status-<?php print($online?'online':'offline') ?>">
 									<?php print fx_get_icon_logged($user['u_log_type']) ?>

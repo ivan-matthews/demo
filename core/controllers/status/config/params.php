@@ -18,5 +18,5 @@
 				'groups_enabled'	=> array(),
 				'groups_disabled'	=> array(),
 			),
-		)
+		),						// 2mb
 	);

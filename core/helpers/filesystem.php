@@ -71,3 +71,103 @@
 		}
 		return false;
 	}
+
+	/**
+	 * @param $file_name
+	 * @param $image_type
+	 * @param int $input_width
+	 * @param int $input_height
+	 * @return bool
+	 */
+	function fx_resize_image($file_name, $image_type, $input_width = 240, $input_height = 0){
+
+		$create_function = "imagecreatefrom{$image_type}";
+		$exit_function = "image{$image_type}";
+		if(!is_callable($create_function) || !is_callable($exit_function)){ return false; }
+
+		list($orig_width, $orig_height) = getimagesize($file_name);
+
+		$height = $input_height ? $input_height : $input_width / ($orig_width / $orig_height);
+		$width = $input_width ? $input_width : $input_height / ($orig_height / $orig_width);
+
+		$image_p = imagecreatetruecolor($width, $height);
+
+		imagesavealpha($image_p , true);
+		$background_color = imagecolorallocatealpha($image_p , 0, 0, 0, 127);
+		imagefill($image_p , 0, 0, $background_color);
+
+		$image = $create_function($file_name);
+
+		imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $orig_width, $orig_height);
+
+		$result_image = $exit_function($image_p,$file_name);
+		imagedestroy($image_p);
+		return $result_image;
+	}
+
+	function fx_crop_image($file_name, $image_type, $input_width = 240, $input_height = 0,$x=0,$y=0){
+
+		$create_function = "imagecreatefrom{$image_type}";
+		$exit_function = "image{$image_type}";
+		if(!is_callable($create_function) || !is_callable($exit_function)){ return false; }
+
+		$image = $create_function($file_name);
+
+		$image_p = imagecrop($image, array(
+			'x' => $x, 'y' => $y, 'width' => $input_width, 'height' => $input_height
+		));
+
+		imagesavealpha($image_p , true);
+		$background_color = imagecolorallocatealpha($image_p , 0, 0, 0, 127);
+		imagefill($image_p , 0, 0, $background_color);
+
+		$result_image = $exit_function($image_p,$file_name);
+		imagedestroy($image_p);
+		return $result_image;
+	}
+
+	function fx_crop_and_resize_image($file_name, $image_type, $resize_width = 240, $resize_height = 0, $crop_width = 240, $crop_height = 0, $x=0, $y=0){
+
+		$create_function = "imagecreatefrom{$image_type}";
+		$exit_function = "image{$image_type}";
+		if(!is_callable($create_function) || !is_callable($exit_function)){ return false; }
+
+		list($orig_width, $orig_height) = getimagesize($file_name);
+
+		$height = $resize_height ? $resize_height : $resize_width / ($orig_width / $orig_height);
+		$width = $resize_width ? $resize_width : $resize_height / ($orig_height / $orig_width);
+
+		$image_p = imagecreatetruecolor($width, $height);
+
+		$image_p = imagecrop($image_p, array(
+			'x' => $x, 'y' => $y, 'width' => $crop_width, 'height' => $crop_height
+		));
+
+		imagesavealpha($image_p , true);
+		$background_color = imagecolorallocatealpha($image_p , 0, 0, 0, 127);
+		imagefill($image_p , 0, 0, $background_color);
+
+		$image = $create_function($file_name);
+
+		imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $orig_width, $orig_height);
+
+		$result_image = $exit_function($image_p,$file_name);
+		imagedestroy($image_p);
+		return $result_image;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

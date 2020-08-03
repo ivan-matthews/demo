@@ -132,4 +132,10 @@
 		 * @return string
 		 */
 		public function getUploadSiteRoot($upload_pth_to_file);
+
+		/**
+		 * @param $upload_pth_to_file
+		 * @return string
+		 */
+		public function getUploadDir($upload_pth_to_file);
 	}

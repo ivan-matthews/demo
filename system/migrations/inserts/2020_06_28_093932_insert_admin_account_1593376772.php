@@ -13,8 +13,9 @@
 		private $status = 'my first status data, more some values, more other data, more other items, more other info, or more... just more... ptichki poyut... volny shumiat... 😾 😈';
 		private $password = 'Qwerty12345^';
 		private $login = 'admin@m.c';
-		private $file_name = 'simple image.png';
-		private $file_hash;
+
+		private $file_name = 'demo.jpg';
+		private $file_hash = '1-edf7cae3bedf012fe83d424f5357f4a1';
 
 		public function addAuthData(){
 			$this->user_id = Database::insert('auth')
@@ -73,19 +74,18 @@
 		}
 
 		public function addPhoto(){
-			$this->file_hash = md5_file(fx_path('public/uploads/images/avatars/original122b22ae96d2c8e934e31b6c84ced4d1e.jpeg'));
 
 			Database::insert("photos")
 				->value("p_user_id",$this->user_id)
 				->value("p_name",$this->file_name)
-				->value("p_size",8617)
-				->value("p_micro","users/{$this->user_id}/micro{$this->file_hash}.jpeg")
-				->value("p_small","users/{$this->user_id}/small{$this->file_hash}.jpeg")
-				->value("p_medium","users/{$this->user_id}/medium{$this->file_hash}.jpeg")
-				->value("p_normal","users/{$this->user_id}/normal{$this->file_hash}.jpeg")
-				->value("p_big","users/{$this->user_id}/big{$this->file_hash}.jpeg")
-				->value("p_original","users/{$this->user_id}/original{$this->file_hash}.jpeg")
-				->value("p_hash",md5($this->user_id . $this->file_hash))
+				->value("p_size",55796)
+				->value("p_micro","users/{$this->user_id}/avatars/micro-{$this->file_hash}.jpeg")
+				->value("p_small","users/{$this->user_id}/avatars/small-{$this->file_hash}.jpeg")
+				->value("p_medium","users/{$this->user_id}/avatars/medium-{$this->file_hash}.jpeg")
+				->value("p_normal","users/{$this->user_id}/avatars/normal-{$this->file_hash}.jpeg")
+				->value("p_big","users/{$this->user_id}/avatars/big-{$this->file_hash}.jpeg")
+				->value("p_original","users/{$this->user_id}/avatars/original-{$this->file_hash}.jpeg")
+				->value("p_hash",$this->file_hash)
 				->value("p_mime","image/jpeg")
 				->value('p_date_created',time())
 				->get()

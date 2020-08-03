@@ -19,13 +19,13 @@
 	<div class="err-number">
 		<?php print $this->error_code_string ?>
 	</div>
-	<div class="err-message"><?php print $this->error_message ?></div>
+	<div class="err-message"><pre><?php print $this->error_message ?></pre></div>
 	<div class="err-file-line">
 		<span class="err-file"><?php print $this->error_file ?></span>,
 		<span class="err-file"><?php print $this->error_line ?></span>
 	</div>
 	<?php if($this->error_msg){ ?>
-		<span class="err-msg"><?php print $this->error_msg ?></span>
+		<span class="err-msg"><code><?php print $this->error_msg ?></code></span>
 	<?php } ?>
 </div>
 <hr>

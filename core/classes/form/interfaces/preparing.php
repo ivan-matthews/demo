@@ -12,7 +12,7 @@
 		 * @param callable $callback_function
 		 * @return Attributes
 		 */
-		public function prepare(callable $callback_function);
+		public function prepare(callable $callback_function=null);
 
 		/**
 		 * @param bool $prepare

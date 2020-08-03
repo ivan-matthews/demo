@@ -107,8 +107,9 @@
 		return $view->getUploadSiteRoot($avatar);
 	}
 
-	function fx_print_avatar($avatar_image,$avatar_key,$gender=3,$title=null,$alt=null,$class="user-avatar"){
+	function fx_print_avatar($avatar_image,$avatar_key,$version=null,$gender=3,$title=null,$alt=null,$class="user-avatar"){
+		$version = !$version ? '': "?v={$version}";
 		$alt = $alt ?: $title ?: 'image';
 		$avatar_image = fx_avatar($avatar_image,$avatar_key,$gender);
-		return print "<img class=\"{$class}\" src=\"{$avatar_image}\" title=\"{$title}\" alt=\"{$alt}\">";
+		return print "<img class=\"{$class}\" src=\"{$avatar_image}{$version}\" title=\"{$title}\" alt=\"{$alt}\">";
 	}

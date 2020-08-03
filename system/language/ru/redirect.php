@@ -1,7 +1,7 @@
 <?php
 
 	return array(
-		'redirect_dialog_header'		=> '%timer% Вы покидаете сайт %site_name%...',
+		'redirect_dialog_header'		=> 'Вы покидаете сайт %site_name%...',
 		'redirect_dialog_title'			=> 'Вы собираетесь перейти на сайт %site_name%.',
 		'redirect_dialog_title_red'		=> 'Вы будете автоматически перенаправлены на сайт %site_name%, через %n% сек...',
 		'redirect_dialog_title_link'	=> 'Чтобы не ожидать окончания таймера переадресации, нажмите %link%',

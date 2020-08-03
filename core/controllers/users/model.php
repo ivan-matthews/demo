@@ -12,6 +12,7 @@
 			'u_id',
 			'u_full_name',
 			'p_small',
+			'p_date_updated',
 			'u_gender',
 			'u_log_type',
 		);
@@ -63,8 +64,8 @@
 
 			$result = $this->select(...$this->users_index_fields)
 				->from('users')
-				->join('status FORCE INDEX (PRIMARY)',"u_id=s_user_id")
-				->join('photos FORCE INDEX (PRIMARY)',"u_id=p_user_id")
+//				->join('status FORCE INDEX (PRIMARY)',"u_id=s_user_id")					// зачем ???
+				->join('photos FORCE INDEX (PRIMARY)',"p_id=u_avatar_id")
 				->join('geo_cities FORCE INDEX (PRIMARY)',"u_city_id=gc_city_id")
 				->join('geo_countries FORCE INDEX (PRIMARY)',"u_country_id=g_country_id")
 				->join('geo_regions FORCE INDEX (PRIMARY)',"gc_region_id=gr_region_id")
@@ -119,8 +120,8 @@
 			)
 				->from('users')
 				->join('auth FORCE INDEX (PRIMARY)',"a_id=u_auth_id")
-				->join('status FORCE INDEX (PRIMARY)',"u_status_id=s_id AND u_id=s_user_id")
-				->join('photos FORCE INDEX (PRIMARY)',"u_avatar_id=p_id AND u_id=p_user_id")
+				->join('status FORCE INDEX (PRIMARY)',"u_status_id=s_id")
+				->join('photos FORCE INDEX (PRIMARY)',"u_avatar_id=p_id")
 				->join('geo_cities FORCE INDEX (PRIMARY)',"u_city_id=gc_city_id")
 				->join('geo_countries FORCE INDEX (PRIMARY)',"u_country_id=g_country_id")
 				->join('geo_regions FORCE INDEX (PRIMARY)',"gc_region_id=gr_region_id")
@@ -175,7 +176,29 @@
 			return false;
 		}
 
+		public function updateAvatarId($user_id,$avatar_id){
 
+			$update_result = $this->update('users')
+				->field('u_avatar_id',$avatar_id)
+				->where("`u_id`=%user_id%")
+				->data('%user_id%',$user_id)
+				->get()
+				->rows();
+
+			return $update_result;
+		}
+
+		public function updateStatusId($user_id,$status_id){
+
+			$update_result = $this->update('users')
+				->field('u_status_id',$status_id)
+				->where("`u_id`=%user_id%")
+				->data('%user_id%',$user_id)
+				->get()
+				->rows();
+
+			return $update_result;
+		}
 
 
 

@@ -136,6 +136,12 @@
 		}
 
 		public function setResponseData(){
+			$this->response->title('users.users_index_title');
+			$this->response->breadcrumb('users')
+				->setIcon(null)
+				->setLink('users','index')
+				->setValue('users.users_index_title');
+
 			$this->response->title($this->user_name);
 			$this->response->breadcrumb('user_item')
 				->setValue($this->user_name)

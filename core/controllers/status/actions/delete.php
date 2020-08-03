@@ -10,6 +10,7 @@
 	use Core\Controllers\Status\Config;
 	use Core\Controllers\Status\Controller;
 	use Core\Controllers\Status\Model;
+	use Core\Controllers\Users\Model as UserModel;
 
 	class Delete extends Controller{
 
@@ -43,6 +44,8 @@
 		/** @var array */
 		public $delete;
 
+		public $user_model;
+
 		public $data_to_delete;
 		public $status_id;
 		public $user_id;
@@ -57,21 +60,25 @@
 
 		public function __construct(){
 			parent::__construct();
+			$this->user_model = UserModel::getInstance();
 		}
 
 		public function methodGet($user_id,$status_id){
 			$this->user_id = $user_id;
-			if(!fx_me($this->user_id)){ return false; }
 			$this->status_id = $status_id;
+
+			if(!fx_me($this->user_id)){ return false; }
 
 			$this->data_to_delete = array(
 				's_status'			=> Kernel::STATUS_DELETED,
 				's_date_deleted'	=> time(),
 				's_user_id'			=> $this->user_id,
 			);
-			$this->status_id = $this->model->deleteStatus($this->data_to_delete,$this->status_id);
 
-			if($this->status_id){
+			if($this->model->deleteStatus($this->data_to_delete,$this->status_id)){
+
+				$this->user_model->updateStatusId($this->user_id,null);
+
 				return $this->redirect();
 			}
 

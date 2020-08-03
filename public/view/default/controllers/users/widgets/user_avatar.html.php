@@ -28,7 +28,7 @@
 				</div>
 			<?php } ?>
 			<div class="view">
-				<a href="<?php print fx_get_url('avatar','view',$user['u_id'],$user['p_id']) ?>">
+				<a href="<?php print fx_get_url('avatar',$user['u_id'],$user['p_id']) ?>">
 					<i class="fa fa-eye" aria-hidden="true"></i>
 				</a>
 			</div>
@@ -45,6 +45,7 @@
 		<?php fx_print_avatar(
 			$user['p_normal'],
 			'normal',
+			$user['p_date_updated'],
 			$user['u_gender']
 		) ?>
 	</div>

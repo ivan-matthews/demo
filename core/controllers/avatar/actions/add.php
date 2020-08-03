@@ -9,6 +9,8 @@
 	use Core\Controllers\Avatar\Config;
 	use Core\Controllers\Avatar\Controller;
 	use Core\Controllers\Avatar\Model;
+	use Core\Controllers\Users\Model as UsersModel;
+	use Core\Controllers\Avatar\Forms\Add as AddForm;
 
 	class Add extends Controller{
 
@@ -39,14 +41,22 @@
 		/** @var Session */
 		public $session;
 
-		/** @var array */
-		public $add;
+		/** @var AddForm */
+		public $add_form;
+		public $form_name = null;				// для файлов нельзя передавать имя формы
+												// из-за костыльного сг-массива _FILES
+												// иначе ошибки полезут
 
-		public $limit;
-		public $offset;
-		public $total;
-		public $order;
-		public $sort;
+		public $fields_list=array();
+
+		public $user_id;
+		public $user_name;
+		public $user_model;
+
+		public $avatar_id;
+
+		public $file_info;
+		public $insert_data;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -56,60 +66,105 @@
 			return self::$instance;
 		}
 
-		public function __get($key){
-			if(isset($this->add[$key])){
-				return $this->add[$key];
-			}
-			return false;
-		}
-
-		public function __set($name, $value){
-			$this->add[$name] = $value;
-			return $this->add[$name];
-		}
-
 		public function __construct(){
 			parent::__construct();
+			$this->backLink();
+
+			$this->user_model = UsersModel::getInstance();
+
+			$this->add_form = AddForm::getInstance($this->form_name);
+
+			$this->add_form->setFileMaxSize($this->params->file_size)
+				->setAllowedFileTypes(...$this->params->file_types);
+
+			$this->user_name = $this->session->get('u_full_name',Session::PREFIX_AUTH);
 		}
 
-		public function __destruct(){
+		public function methodGet($user_id){
+			$this->user_id = $user_id;
+			if(!fx_me($this->user_id)){ return false; }
 
+			$this->add_form->generateFieldsList($this->user_id);
+
+			$this->add_form->setParams('image_params',$this->params->image_params);
+
+			$this->fields_list = $this->add_form->getFieldsList();
+
+			$this->response->controller('avatar','add')
+				->setArray(array(
+					'fields'	=> $this->fields_list,
+					'form'		=> $this->add_form->getFormAttributes(),
+					'errors'	=> $this->add_form->getErrors()
+				));
+
+			$this->setResponse();
+
+			return $this;
 		}
 
-		public function methodGet(){
-			return false;
+		public function methodPost($user_id){
+			$this->user_id = $user_id;
+			if(!fx_me($this->user_id)){ return false; }
+
+			$this->add_form->checkForm($this->request->getArray($this->form_name),$this->user_id);
+
+			$this->add_form->setParams('image_params',$this->params->image_params);
+
+			$this->fields_list = $this->add_form->getFieldsList();
+
+			if($this->add_form->can()){
+
+				$this->insert_data = $this->saveAndPrepareImage($this->fields_list['avatar']['attributes']['files'],$this->user_id);
+
+				$this->avatar_id = $this->model->addAvatar($this->insert_data);
+
+				if($this->avatar_id){
+
+					$this->user_model->updateAvatarId($this->user_id,$this->avatar_id);
+
+					$this->sessionUpdate();
+
+					return $this->redirect();
+				}
+			}
+
+			$this->response->controller('avatar','add')
+				->setArray(array(
+					'fields'	=> $this->add_form->getFieldsList(),
+					'form'		=> $this->add_form->getFormAttributes(),
+					'errors'	=> $this->add_form->getErrors()
+				));
+
+			$this->setResponse();
+
+			return $this;
 		}
 
-		public function methodPost(){
-			return false;
+		public function sessionUpdate(){
+			$this->insert_data['p_date_updated'] = time();
+			foreach($this->insert_data as $key=>$value){
+				$this->session->set($key,$value,Session::PREFIX_AUTH);
+			}
+			return $this;
 		}
 
-		public function methodPut(){
-			return false;
-		}
+		public function setResponse(){
+			$this->response->title('users.users_index_title');
+			$this->response->breadcrumb('users')
+				->setIcon(null)
+				->setLink('users','index')
+				->setValue('users.users_index_title');
 
-		public function methodHead(){
-			return false;
-		}
+			$this->response->title($this->user_name);
+			$this->response->breadcrumb('user_item')
+				->setValue($this->user_name)
+				->setLink('users','item',$this->user_id);
 
-		public function methodTrace(){
-			return false;
-		}
-
-		public function methodPatch(){
-			return false;
-		}
-
-		public function methodOptions(){
-			return false;
-		}
-
-		public function methodConnect(){
-			return false;
-		}
-
-		public function methodDelete(){
-			return false;
+			$this->response->title('avatar.add_avatar_form_title');
+			$this->response->breadcrumb('avatar_add')
+				->setValue('avatar.add_avatar_form_title')
+				->setLink('avatar','add',$this->user_id);
+			return $this;
 		}
 
 
