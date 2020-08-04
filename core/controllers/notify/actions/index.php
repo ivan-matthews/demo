@@ -71,6 +71,8 @@
 		}
 
 		public function methodGet($current_tab='all'){
+			if(!$this->user->logged()){ return false; }
+
 			$this->current_tab = $current_tab;
 
 			$this->sorting_panel = $this->params->sorting_panel;
