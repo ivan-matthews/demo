@@ -99,3 +99,13 @@
 .avatars-list .avatars .avatars-item .avatars-item-link .avatars-item-image {
   max-width: 100%;
 }
+.select-avatars-list .avatars .avatars-item .avatars-item-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: bold;
+}
+.select-avatars-list .avatars .avatars-item .avatars-item-link .avatars-item-image {
+  max-width: 100%;
+  cursor: pointer;
+}

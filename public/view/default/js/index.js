@@ -140,3 +140,14 @@ $(document).ready(function(){
 $(window).resize(function(e){
 	indexObj.closeSidebar($('.sidebar-parent'),$('body'));
 });
+
+$.ajaxSetup({
+	accepts: {
+		frame: 'application/frame'
+	},
+	converters: {
+		'internal frame': function(result){
+			return result;
+		}
+	},
+});

@@ -1,16 +1,17 @@
 <?php
 
-	namespace Core\Controllers\Blog\Actions;
+	namespace Core\Controllers\Avatar\Actions;
 
 	use Core\Classes\Hooks;
+	use Core\Classes\Kernel;
 	use Core\Classes\Request;
 	use Core\Classes\Session;
 	use Core\Classes\Response\Response;
-	use Core\Controllers\Blog\Config;
-	use Core\Controllers\Blog\Controller;
-	use Core\Controllers\Blog\Model;
+	use Core\Controllers\Avatar\Config;
+	use Core\Controllers\Avatar\Controller;
+	use Core\Controllers\Avatar\Model;
 
-	class Delete extends Controller{
+	class Images extends Controller{
 
 		/** @var $this */
 		private static $instance;
@@ -40,11 +41,13 @@
 		public $session;
 
 		/** @var array */
-		public $delete;
-
-		public $post_id;
+		public $images;
 		public $user_id;
-		public $update_result;
+
+		public $limit=30;
+		public $offset=0;
+
+		public $avatars = array();
 
 		/** @return $this */
 		public static function getInstance(){
@@ -56,24 +59,22 @@
 
 		public function __construct(){
 			parent::__construct();
-
-			$this->backLink();
+			$this->query .= "`p_status`!=" . Kernel::STATUS_BLOCKED;
 			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
 		}
 
-		public function methodGet($post_id){
-			$this->post_id = $post_id;
-			if(!fx_me($this->user_id)){ return false; }
+		public function methodGet(){
+			if(!$this->user->logged()){ return false; }
 
-			$this->update_result = $this->model->deleteBlogPostItemById($this->post_id,$this->user_id);
+			$this->avatars = $this->model->getAllUserAvatars($this->user_id,$this->limit,$this->offset,$this->query,'p_id','DESC');
 
-			if($this->update_result){
-				return $this->redirect(fx_get_url('blog','index'));
-			}
+			$this->response->controller('avatar','images')
+				->setArray(array(
+					'images'	=> $this->avatars
+				));
 
-			return false;
+			return $this;
 		}
-
 
 
 

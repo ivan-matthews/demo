@@ -61,12 +61,22 @@
 
 			$this->params = Config::getInstance();	// use Core\Controllers\Blog\Config as Config;
 			$this->model = Model::getInstance();	// use Core\Controllers\Blog\Model as Model;
+
+			$this->response->title($this->params->controller_name);
+			$this->response->breadcrumb('blog')
+				->setLink('blog','index')
+				->setValue($this->params->controller_name)
+				->setIcon(null);
 		}
 
 		public function __destruct(){
 
 		}
 
+		public function updateTotalViewsForPostItem($post_item,$user_id,$post_field_name='b_id'){
+			if(fx_me($user_id)){ return $this; }
+			return $this->model->updateTotalViewsForPostItem($post_item,$post_field_name);
+		}
 
 
 

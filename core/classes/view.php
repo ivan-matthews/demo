@@ -209,7 +209,7 @@
 		/**
 		 * Рендерить только экшн, для внутренних запросов.<br>
 		 * * Посмотреть метод $this->>setRenderType() - из массива `$this->desired_types`<br>
-		 * можно использовать ё$this->desired_types[1][0] в
+		 * можно использовать $this->desired_types[1][0] в
 		 *
 		 * @return bool
 		 */
@@ -219,6 +219,8 @@
 			$this->renderErrorPages();
 			$this->renderController();
 			$this->printContent();
+			$this->renderCssFiles();
+			$this->renderJsFiles();
 			return true;
 		}
 

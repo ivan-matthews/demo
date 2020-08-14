@@ -8,6 +8,7 @@
 	use Core\Classes\Response\Response;
 	use Core\Controllers\Blog\Config;
 	use Core\Controllers\Blog\Controller;
+	use Core\Controllers\Blog\Forms\Add_Post;
 	use Core\Controllers\Blog\Model;
 
 	class Add extends Controller{
@@ -42,6 +43,9 @@
 		/** @var array */
 		public $add;
 
+		/** @var Add_Post */
+		public $add_form;
+
 		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -52,17 +56,39 @@
 
 		public function __construct(){
 			parent::__construct();
+
+			$this->add_form = Add_Post::getInstance();
 		}
 
 		public function methodGet(){
-			return false;
+			if(!$this->user->logged()){ return false; }
+
+			$this->add_form->generateFieldsList();
+
+			$this->response->controller('blog','add')
+				->setArray(array(
+					'form'		=> $this->add_form->getFormAttributes(),
+					'fields'	=> $this->add_form->getFieldsList(),
+					'errors'	=> $this->add_form->getErrors()
+				));
+
+			return $this->setResponse();
 		}
 
 		public function methodPost(){
+			fx_die($this->request->getAll());
 			return false;
 		}
 
+		public function setResponse(){
+			$this->response->title('blog.add_new_post_breadcrumb');
+			$this->response->breadcrumb('add')
+				->setValue('blog.add_new_post_breadcrumb')
+				->setLink('blog','add')
+				->setIcon(null);
 
+			return $this;
+		}
 
 
 

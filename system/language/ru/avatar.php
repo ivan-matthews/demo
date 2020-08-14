@@ -18,4 +18,6 @@
 		'edit_image'				=> 'редактировать',
 		'delete_image'				=> 'удалить',
 		'set_image_as_avatar'		=> 'установить на аватар',
+		'select_image_modal_head'	=> 'Выбрать изображение',
+		'delete_preview_image'		=> 'удалить',
 	);

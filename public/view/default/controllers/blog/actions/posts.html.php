@@ -3,6 +3,7 @@
 	/** @var array $data */
 	/** @var array $posts */
 	/** @var array $total */
+	/** @var array $user */
 
 	$this->prependCSS("{$this->theme_path}/css/blog");
 	$this->prependJS("{$this->theme_path}/js/blog");
@@ -12,13 +13,9 @@
 
 <div class="blog-list row justify-content-center">
 
-	<?php if(fx_logged()){ ?>
+	<?php if(fx_me($user['u_id'])){ ?>
 		<div class="buttons col-12 text-right mb-2">
 			<div class="btn-group">
-				<a class="add-post btn-default radius-0 p-2" href="<?php print fx_make_url(array('blog','posts','%user_id%')) ?>">
-					<i class="far fa-user"></i>
-					<?php print fx_lang('blog.my_blog_posts') ?>
-				</a>
 				<a class="add-post btn-success radius-0 p-2" href="<?php print fx_get_url('blog','add') ?>">
 					<i class="fas fa-plus"></i>
 					<?php print fx_lang('blog.add_new_post') ?>

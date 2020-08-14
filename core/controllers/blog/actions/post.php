@@ -10,7 +10,7 @@
 	use Core\Controllers\Blog\Controller;
 	use Core\Controllers\Blog\Model;
 
-	class Item extends Controller{
+	class Post extends Controller{
 
 		/** @var $this */
 		private static $instance;
@@ -40,8 +40,9 @@
 		public $session;
 
 		/** @var array */
-		public $item;
-		public $item_id;
+		public $post;
+
+		public $item_slug;
 		public $user_id;
 		public $post_data;
 
@@ -59,12 +60,12 @@
 			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
 		}
 
-		public function methodGet($blog_post_id){
-			$this->item_id = $blog_post_id;
-			$this->post_data = $this->model->getBlogPostById($this->item_id);
+		public function methodGet($blog_post_slug){
+			$this->item_slug = $blog_post_slug;
+			$this->post_data = $this->model->getBlogPostById($this->item_slug);
 
 			if($this->post_data){
-				$this->updateTotalViewsForPostItem($this->item_id,$this->user_id);
+				$this->updateTotalViewsForPostItem($this->item_slug,$this->user_id,'b_slug');
 
 				$this->response->controller('blog','item')
 					->setArray(array(
@@ -82,13 +83,12 @@
 
 			$this->response->title($title);
 			$this->response->breadcrumb('item')
-				->setLink('blog','item',$this->post_data['b_id'])
+				->setLink('blog','post',$this->item_slug)
 				->setValue($title)
 				->setIcon(null);
 
 			return $this;
 		}
-
 
 
 
