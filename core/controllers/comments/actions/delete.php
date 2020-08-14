@@ -42,11 +42,17 @@
 		/** @var array */
 		public $delete;
 
-		public $limit;
-		public $offset;
-		public $total;
-		public $order;
-		public $sort;
+		public $sender_id;
+
+		public $controller;
+		public $action = null;
+		public $item_id;
+
+		public $comment_id;
+		public $comment_item;
+
+		public $delete_comment;
+		public $back_url;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -56,59 +62,38 @@
 			return self::$instance;
 		}
 
-		public function __get($key){
-			if(isset($this->delete[$key])){
-				return $this->delete[$key];
-			}
-			return false;
-		}
-
-		public function __set($name, $value){
-			$this->delete[$name] = $value;
-			return $this->delete[$name];
-		}
-
 		public function __construct(){
 			parent::__construct();
+
+			$this->back_url = $this->user->getBackUrl();
+
+			$this->backLink();
+			$this->sender_id = $this->session->get('u_id',Session::PREFIX_AUTH);
 		}
 
-		public function __destruct(){
+		public function methodGet($controller,$action,$item_id,$comment_id){
+			$this->controller = $controller;
+			$this->action = $action;
+			$this->item_id = $item_id;
 
-		}
+			$this->comment_id = $comment_id;
 
-		public function methodGet(){
-			return false;
-		}
+			$this->comment_item = $this->model->getCommentById($this->comment_id);
 
-		public function methodPost(){
-			return false;
-		}
+			if($this->comment_item && fx_me($this->comment_item['c_author_id'])){
+				$this->delete_comment = $this->model->deleteComment($this->comment_id);
+				if($this->delete_comment){
+					$this->model->updateTotalComments(
+						$this->params->allowed_controllers[$this->controller]['table_name'],
+						$this->params->allowed_controllers[$this->controller]['count_field'],
+						$this->params->allowed_controllers[$this->controller]['id_field'],
+						$this->item_id,
+						"{$this->params->allowed_controllers[$this->controller]['count_field']}-1"
+					);
+					return $this->redirect("{$this->back_url}#{$this->comments_list_id}");
+				}
+			}
 
-		public function methodPut(){
-			return false;
-		}
-
-		public function methodHead(){
-			return false;
-		}
-
-		public function methodTrace(){
-			return false;
-		}
-
-		public function methodPatch(){
-			return false;
-		}
-
-		public function methodOptions(){
-			return false;
-		}
-
-		public function methodConnect(){
-			return false;
-		}
-
-		public function methodDelete(){
 			return false;
 		}
 

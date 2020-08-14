@@ -37,7 +37,7 @@
 	*/
 ?>
 
-<div class="row justify-content-center comments comments-list mt-0 mb-4">
+<div class="row justify-content-center comments comments-list mt-0 mb-4" id="comment-list">
 
 	<div class="comments-title p-3 col-12 row">
 		<div class="comments-title-value">
@@ -50,13 +50,18 @@
 		</div>
 	</div>
 
+	<div class="comments-send-form col-12">
+		<?php print $this->renderForm($content['form']) ?>
+	</div>
+
 	<div class="col-md-12 col-sm-12 col-12 col-lg-12 col-xl-12 p-0 list-group comments">
 
 		<?php foreach($content['comments'] as $comment){ ?>
 
+			<?php $parent_length = mb_strlen($comment['parent_content']) ?>
 			<?php $author_link = fx_get_url('users','item',$comment['c_author_id']) ?>
-			<?php $im = fx_equal($content['author_id'],$comment['c_author_id']) ?>
-			<?php $me = fx_equal($content['author_id'],$comment['c_receiver_id']) ?>
+			<?php $im = $content['author_id'] && fx_equal($content['author_id'],$comment['c_author_id']) ?>
+			<?php $me = $content['author_id'] && fx_equal($content['author_id'],$comment['c_receiver_id']) ?>
 			<?php $online = fx_is_online($comment['author_log_date']) ?>
 
 			<div class="list-group-item list-group-item-action comments-item pb-1 pt-1 radius-0 <?php print($me?'me':null) ?>">
@@ -71,7 +76,7 @@
 
 								<?php fx_print_avatar($comment['author_photo'],'small',$comment['a_avatar_updated_date'],$comment['author_gender'],$comment['author_name'],$comment['author_name']) ?>
 
-								<div title="<?php print($online?fx_lang('comments.comment_is_online'):fx_lang('comments.comment_is_offline')) ?>" class="status status-<?php print($online?'online':'offline') ?>">
+								<div title="<?php print($online?fx_lang('users.user_is_online'):fx_lang('users.user_is_offline')) ?>" class="status status-<?php print($online?'online':'offline') ?>">
 									<?php print fx_get_icon_logged($comment['author_log_type']) ?>
 								</div>
 
@@ -88,7 +93,7 @@
 							<div class="list-group-item-text comments-item-descriptions">
 								<?php if($comment['parent_content']){ ?>
 									<?php $user_link = fx_get_url('users','item',$comment['c_receiver_id']) ?>
-									<span class="receiver">
+									<div class="receiver">
 										<a href="<?php print $user_link ?>" class="receiver-link">
 											<?php fx_print_avatar(
 												$comment['user_photo'],
@@ -100,10 +105,30 @@
 											) ?>
 											<?php print fx_get_full_name($comment['user_name'],$comment['user_gender']) ?>,
 										</a>
-										<blockquote>
-											<?php print fx_crop_string($comment['parent_content'],100) ?>
-										</blockquote>
-									</span>
+										<span class="float-right date-add">
+											<i class="fas fa-stopwatch"></i>
+											<?php print fx_get_date($comment['parent_date']) ?>
+										</span>
+
+										<?php if($parent_length > 100){ ?>
+											<blockquote id="content<?php print $comment['c_id'] ?>" onclick="commentOBbj.hideCommentButton(this,<?php print $comment['c_id'] ?>)">
+												<?php print fx_crop_string($comment['parent_content'],100) ?>
+
+												<div class="pl-3 pr-3 show-more-button">
+													<?php print fx_lang('comments.show_more_button_value') ?>
+												</div>
+											</blockquote>
+
+											<div id="comment<?php print $comment['c_id'] ?>" class="card-body card full-content collapse p-2 radius-0 mt-1 mb-3">
+												<?php print $comment['parent_content'] ?>
+											</div>
+										<?php }else{ ?>
+											<blockquote>
+												<?php print $comment['parent_content'] ?>
+											</blockquote>
+										<?php } ?>
+
+									</div>
 								<?php } ?>
 
 								<div class="comment-content p-2 row <?php print($im?'me':'not-me') ?>">
@@ -121,18 +146,24 @@
 									<?php print fx_get_date($comment['c_date_created']) ?>
 								</div>
 
-								<a class="ml-3 text-success" href="/comment/ans">
-									<i class="fas fa-reply"></i>
-									ответить
-								</a>
-								<a class="ml-3 text-default" href="/comment/red">
-									<i class="fas fa-pen-alt"></i>
-									изменить
-								</a>
-								<a class="ml-3 text-danger" href="/comm/del">
-									<i class="fas fa-trash"></i>
-									удалить
-								</a>
+								<?php if(fx_logged()){ ?>
+									<?php if(!$im){ ?>
+										<a class="ml-3 text-success" href="<?php print fx_get_url('comments','reply') ?>">
+											<i class="fas fa-reply"></i>
+											<?php print fx_lang('comments.answer_link_value') ?>
+										</a>
+									<?php }else{ ?>
+
+										<a class="ml-3 text-default" href="<?php print fx_get_url('comments','edit') ?>">
+											<i class="fas fa-pen-alt"></i>
+											<?php print fx_lang('comments.edit_link_value') ?>
+										</a>
+										<a class="ml-3 text-danger" href="<?php print fx_get_url('comments','delete',$content['controller'],$content['action'],$content['item_id'],$comment['c_id']) ?>">
+											<i class="fas fa-trash"></i>
+											<?php print fx_lang('comments.delete_link_value') ?>
+										</a>
+									<?php } ?>
+								<?php } ?>
 							</div>
 
 						</div>

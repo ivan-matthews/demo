@@ -62,7 +62,9 @@
 
 		private $sender;
 		private $content;
-		private $replace_data;
+		private $content_replace_data;
+		private $theme;
+		private $theme_replace_data;
 
 		/**
 		 * @param null $callback_function
@@ -84,6 +86,9 @@
 			return $this;
 		}
 		public function theme($lang_key,$replace_data=array()){
+			$this->theme = $lang_key;
+			$this->theme_replace_data = $replace_data;
+
 			$this->database->value('n_theme',$lang_key);
 			$this->database->value('n_theme_data_to_replace',$replace_data);
 			return $this;
@@ -104,7 +109,7 @@
 		}
 		public function content($lang_key,$replace_data=array()){
 			$this->content = $lang_key;
-			$this->replace_data = $replace_data;
+			$this->content_replace_data = $replace_data;
 
 			$this->database->value('n_content',$lang_key);
 			$this->database->value('n_content_data_to_replace',$replace_data);
@@ -124,7 +129,7 @@
 			return $this;
 		}
 		public function key($unique_key){
-			$this->database->value('n_unique',$unique_key);
+			$this->database->value('n_unique',md5($unique_key));
 			return $this;
 		}
 
@@ -165,7 +170,9 @@
 			$this->update_interface->updateQuery('n_unique_count',"n_unique_count+1");
 			$this->update_interface->update('n_sender_id',$this->sender);
 			$this->update_interface->update('n_content',$this->content);
-			$this->update_interface->update('n_content_data_to_replace',$this->replace_data);
+			$this->update_interface->update('n_theme',$this->theme);
+			$this->update_interface->update('n_theme_data_to_replace',$this->theme_replace_data);
+			$this->update_interface->update('n_content_data_to_replace',$this->content_replace_data);
 			$this->update_interface->update('n_date_updated',null);
 			$this->update_interface->update('n_status',Kernel::STATUS_ACTIVE);
 			return $this;

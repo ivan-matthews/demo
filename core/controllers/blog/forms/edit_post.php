@@ -123,7 +123,7 @@
 					$params->field_type('switch');
 					$params->show_validation(false);
 					$params->field_sets_field_class('ml-2');
-					$params->default_value(true);
+					$params->default_value(isset($this->data['b_comments_enabled']) ? $this->data['b_comments_enabled'] : true);
 				})
 				->title(fx_lang('blog.comments_enabled'))
 				->label(fx_lang('blog.comments_enabled'))
@@ -138,7 +138,7 @@
 					$params->field_type('switch');
 					$params->show_validation(false);
 					$params->field_sets_field_class('ml-2');
-					$params->default_value(true);
+					$params->default_value(isset($this->data['b_public']) ? $this->data['b_public'] : true);
 				})
 				->title(fx_lang('blog.item_is_public'))
 				->label(fx_lang('blog.item_is_public'))

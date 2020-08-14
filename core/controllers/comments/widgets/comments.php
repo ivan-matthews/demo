@@ -4,6 +4,7 @@
 
 	use Core\Classes\Request;
 	use Core\Classes\Response\Response;
+	use Core\Controllers\Comments\Forms\Add_Comment;
 	use Core\Controllers\Comments\Model;
 	use Core\Widgets\Paginate;
 
@@ -54,6 +55,8 @@
 		private $action = null;	// вручную из экшна записи
 		private $item_id;		// вручную из экшна записи
 
+		private $send_form;
+
 		private $comments_list;
 		private $total_comments;
 		private $pagination_link;
@@ -77,6 +80,8 @@
 			$this->response = Response::getInstance();
 			$this->request = Request::getInstance();
 			$this->model = Model::getInstance();
+
+			$this->send_form = Add_Comment::getInstance();
 		}
 
 		public function controller($controller){
@@ -111,11 +116,13 @@
 		}
 
 		public function set(){
+
 			$this->total_comments = $this->model->countCommentsByItem(
 				$this->controller,
 				$this->action,
 				$this->item_id
 			);
+
 			$this->comments_list = $this->model->getCommentsByItem(
 				$this->controller,
 				$this->action,
@@ -125,7 +132,7 @@
 			);
 
 			if($this->comments_list){
-				$this->prepareCommentsList();
+//				$this->prepareCommentsList();
 			}
 
 			Paginate::add()
@@ -134,6 +141,8 @@
 				->offset($this->offset)
 				->link($this->pagination_link)
 				->set();
+
+			$this->send_form->generateFieldsList($this->controller, $this->action, $this->item_id, $this->receiver_id);
 
 			$this->response->widget($this->params)
 				->set('data',array(
@@ -146,12 +155,11 @@
 					'offset'		=> $this->offset,
 					'author_id'		=> $this->author_id,
 					'receiver_id'	=> $this->receiver_id,
-					'hash'			=> fx_encode(
-						$this->controller .
-						$this->action .
-						$this->item_id .
-						$this->author_id
-					),
+					'form'			=> array(
+						'form'		=> $this->send_form->getFormAttributes(),
+						'fields'	=> $this->send_form->getFieldsList(),
+						'errors'	=> $this->send_form->getErrors(),
+					)
 				))
 				->set('params',$this->params)
 				->add();

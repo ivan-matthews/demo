@@ -11,6 +11,7 @@
 	 * @property string $controller_name
 	 * @property array $controller
 	 * @property array $actions
+	 * @property array $allowed_controllers
 	 */
 	class Config extends Params{
 

@@ -36,6 +36,12 @@
 		/** @var array */
 		private $comments;
 
+		public $controller;
+		public $action = null;
+		public $item_id;
+
+		public $comments_list_id= "comment-list";
+		
 		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -65,6 +71,13 @@
 
 		public function __destruct(){
 
+		}
+
+		public function checkAllowedController(){
+			if(isset($this->params->allowed_controllers[$this->controller])){
+				return true;
+			}
+			return null;
 		}
 
 

@@ -18,5 +18,14 @@
 				'groups_enabled'	=> array(),
 				'groups_disabled'	=> array(),
 			),
-		)
+		),
+		'allowed_controllers'	=> array(
+			'blog'	=> array(
+				'table_name'	=> 'blog',
+				'id_field'		=> 'b_id',
+				'count_field'	=> 'b_total_comments',
+				'author_field'	=> 'b_user_id',
+				'status_field'	=> 'b_status',
+			)
+		),
 	);

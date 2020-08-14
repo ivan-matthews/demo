@@ -24,12 +24,14 @@
 				$parent_id = $this->getId($i);
 
 				$insert = $insert->value('c_author_id',rand(1,5));
-				$insert = $insert->value('c_receiver_id',($parent_id?rand(1,5):null));
 				$insert = $insert->value('c_controller','blog');
+				$insert = $insert->value('c_action','item');
 				$insert = $insert->value('c_item_id',$item_id);
-				$insert = $insert->value('c_parent_id',$parent_id);
-				$insert = $insert->value('c_date_created',time());
 				$insert = $insert->value('c_content',$this->demo_data_array[rand(0,7)]);
+				$insert = $insert->value('c_date_created',time());
+
+				$insert = $insert->value('c_receiver_id',($parent_id?rand(1,5):null));		//
+				$insert = $insert->value('c_parent_id',$parent_id);						//
 				$this->items_id[$item_id]++;
 			}
 			$insert->get()->id();

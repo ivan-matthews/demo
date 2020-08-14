@@ -81,7 +81,7 @@
 				->placeholder(fx_lang('blog.title_field_placeholder'))
 				->type('text')
 				->check(function(Checkers $checkers){
-					$checkers->max(185);
+					$checkers->max(191);
 				});
 
 			$this->validator_interface->field('b_image_preview_id')

@@ -9,6 +9,7 @@
 	use Core\Controllers\Blog\Config;
 	use Core\Controllers\Blog\Controller;
 	use Core\Controllers\Blog\Model;
+	use Core\Controllers\Comments\Widgets\Comments;
 
 	class Item extends Controller{
 
@@ -72,7 +73,14 @@
 					));
 
 				if($this->post_data['b_comments_enabled']){
-					$this->addCommentsWidget();
+					Comments::add($this->limit,$this->offset)
+						->controller('blog')
+						->action('item')
+						->item_id($this->post_data['b_id'])
+						->paginate(array('blog','item',$this->item_id))
+						->author($this->user_id)
+						->receiver($this->post_data['b_user_id'])
+						->set();
 				}
 
 				return $this->setResponse();

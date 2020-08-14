@@ -75,7 +75,8 @@
 				'u.u_date_log as user_log_date',
 				'up.p_micro as user_photo',
 				'up.p_date_updated as u_avatar_updated_date',
-				'parent.c_content as parent_content'
+				'parent.c_content as parent_content',
+				'parent.c_date_created as parent_date'
 			)
 				->from('comments')
 				->join('users as a FORCE INDEX(PRIMARY)',"a.u_id=c_author_id")
@@ -97,8 +98,53 @@
 			return $result;
 		}
 
+		public function addComment($controller,$action,$item_id,$author_id,$content){
+			$result = $this->insert('comments')
+				->value('c_controller',$controller)
+				->value('c_action',$action)
+				->value('c_item_id',$item_id)
+				->value('c_author_id',$author_id)
+				->value('c_content',$content)
+				->value('c_date_created',time())
+				->get()
+				->id();
 
+			return $result;
+		}
 
+		public function updateTotalComments($table,$field_name_key,$id_name_key,$item_id,$value){
+			$result = $this->update($table)
+				->query($field_name_key,$value)
+				->where("`{$id_name_key}`=%item_id%")
+				->data('%item_id%',$item_id)
+				->get()
+				->rows();
+
+			return $result;
+		}
+
+		public function deleteComment($comment_id){
+			$result = $this->update('comments')
+				->field('с_status',Kernel::STATUS_DELETED)
+				->field('c_date_deleted',time())
+				->where("`c_id`=%comment_id%")
+				->data('%comment_id%',$comment_id)
+				->get()
+				->rows();
+
+			return $result;
+		}
+
+		public function getCommentById($comment_id){
+			$result = $this->select()
+				->from('comments')
+				->where("`c_id`=%comment_id%")
+				->data('%comment_id%',$comment_id)
+				->get()
+				->itemAsArray();
+
+			return $result;
+		}
 
 
 

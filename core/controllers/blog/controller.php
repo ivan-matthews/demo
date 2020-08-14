@@ -6,7 +6,6 @@
 	use Core\Classes\Controller as ParentController;
 	use Core\Classes\Request;
 	use Core\Classes\Response\Response;
-	use Core\Controllers\Comments\Widgets\Comments;
 
 	class Controller extends ParentController{
 
@@ -86,13 +85,7 @@
 		}
 
 		public function addCommentsWidget(){
-			Comments::add($this->limit,$this->offset)
-				->controller('blog')
-				->item_id($this->post_data['b_id'])
-				->paginate(array('blog','post',$this->item_slug))
-				->author($this->user_id)
-				->receiver($this->post_data['b_user_id'])
-				->set();
+
 			return $this;
 		}
 
