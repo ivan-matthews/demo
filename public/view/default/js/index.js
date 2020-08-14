@@ -128,14 +128,26 @@ window.indexObj = {
 		$(image_object).attr('src',indexObj.config.uploads_root + img);
 		return true;
 	},
+	setActiveClassToSidebarLink: function(){
+		let sidebar = $('.main-content .sidebar-parent>.sidebar-main');
+		let links = $('ul>li>a',sidebar);
+		let current_link = parse_url(window.location.href);
+		let current_link_string = current_link.pathname + current_link.search + current_link.hash;
+		$.each(links,function(key,val){
+			if(equal($(this).attr('href'),current_link_string)){
+				$(this).parent().addClass('active');
+			}
+		});
+	}
 };
 
-// dropdown keep open
-$(document).ready(function(){
-	$(this).on("click.bs.dropdown", ".do-not-close,.clickable-geo-fields,.closable", function(e){
-		e.stopPropagation();
-	});
+// sidebar button
+$(document).on("click.bs.dropdown", ".do-not-close,.clickable-geo-fields,.closable", function(e){
+	e.stopPropagation();
 });
+// set active class to sidebar links
+$(document).ready(indexObj.setActiveClassToSidebarLink);
+
 // sidebar button
 $(window).resize(function(e){
 	indexObj.closeSidebar($('.sidebar-parent'),$('body'));

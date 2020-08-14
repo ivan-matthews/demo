@@ -32,21 +32,28 @@
 	*/
 
 	use Core\Classes\Config;
+	use Core\Classes\Hooks;
 	use Core\Classes\Language;
 	use Core\Classes\Console\Console;
 //	use Core\Classes\Console\Paint;
 
 	require __DIR__ . "/loader.php";
 
+	$hooks = Hooks::getInstance();
+
+	$hooks->before('cli_start');
+
 	$config = Config::getInstance();
 	$console = Console::getInstance();
 	$language = Language::getInstance();
 
-	$console->getArguments(...fx_get_server('argv'));
-
 	$language->setDefaultLanguageKey();
 	$language->setLanguage();
+
+	$console->getArguments(...fx_get_server('argv'));
 
 	if(!$console->runConsoleInterface()){
 		$console->callHelpCenter();
 	}
+
+	$hooks->after('cli_start');

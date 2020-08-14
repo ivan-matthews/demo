@@ -111,13 +111,13 @@
 					),'_',$key);
 					if(is_array($val)){
 						$result .= $tab . "<{$key}>" . ($empty_var?'':PHP_EOL);
-						$result .= $old_tab . fx_xml_encode($val,"{$tab}\t",$old_tab);
+						$result .= $old_tab . fx_xml_encode($val,"{$tab}{$tab}",$old_tab);
 						$result .= ($empty_var?"NULL":$tab) . "</{$key}>" . PHP_EOL;
 					}else
 						if(is_object($val)){
 							$val = json_decode(json_encode($val),1);
 							$result .= $tab . "<{$key}>" . ($empty_var?'':PHP_EOL);
-							$result .= $old_tab . fx_xml_encode($val,"{$tab}\t",$old_tab);
+							$result .= $old_tab . fx_xml_encode($val,"{$tab}{$tab}",$old_tab);
 							$result .= ($empty_var?"NULL":$tab) . "</{$key}>" . PHP_EOL;
 						}
 						else{

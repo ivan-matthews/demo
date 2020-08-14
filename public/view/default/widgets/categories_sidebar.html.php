@@ -21,7 +21,7 @@
 <ul class="list-group list-group-flush sidebar categories-sidebar<?php print ' ' . $data['options']['wa_css_class'] ?>">
 	<?php foreach($data['content'] as $item){ ?>
 		<?php $value = fx_lang($item['ct_title']) ?>
-		<li class="list-group-item<?php print(fx_equal($cat,$item['ct_id'])?" active":"") ?>">
+		<li class="list-group-item">
 			<a class="menu" href="<?php print fx_make_url(array($item['ct_controller']),array('cat'=>$item['ct_id'])) ?>">
 				<div class="sidebar-body<?php print ' ' . $data['options']['wa_css_class_body'] ?>">
 					<?php if($item['ct_icon']){ ?><i class="icon <?php print $item['ct_icon'] ?>"></i><?php } ?>

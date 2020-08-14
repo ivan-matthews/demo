@@ -308,7 +308,7 @@
 					'css_class_icon'=> 'chocolate-icon',
 				),
 				array(
-					'link_array'	=> array('link'=>array('sitemap'),'query'=>array()),
+					'link_array'	=> array('link'=>array('public','sitemaps','sitemap.xml'),'query'=>array()),
 					'name'			=> 'sitemap_page',
 					'title'			=> 'home.sitemap_link_title',
 					'value'			=> 'home.sitemap_link_title',

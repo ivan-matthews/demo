@@ -97,6 +97,9 @@ body.unscrollable nav.header-bar::-webkit-scrollbar {
 .sidebar-parent .sidebar:last-child {
   margin-bottom: 0;
 }
+.sidebar-parent .sidebar .active {
+  border: none;
+}
 .sidebar-parent .sidebar .active .sidebar-body {
   background: #d9e2ec;
 }

@@ -17,4 +17,11 @@
 			'controller'	=> 'users',
 			'action'		=> 'index',
 		),
+		'sitemap_generate_hook'	=> array(
+			'class'			=> \Core\Controllers\Users\Hooks\Generate_Users_Sitemap::class,
+			'method'		=> 'run',
+			'status'		=> Kernel::STATUS_ACTIVE,
+			'controller'	=> 'users',
+			'action'		=> 'index',
+		),
 	);

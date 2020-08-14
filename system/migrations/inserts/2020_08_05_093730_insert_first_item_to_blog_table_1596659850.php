@@ -54,7 +54,7 @@ In dictum, tellus at varius semper, ipsum risus malesuada purus, eu fringilla mi
 			return $this;
 		}
 
-		public function addBlogItemsToCategories(){
+		private function addBlogItemsToCategories(){
 			$db = Database::insert('blog');
 			for($i=0;$i<50;$i++){
 				$db = $db->value('b_user_id',rand(1,20));
