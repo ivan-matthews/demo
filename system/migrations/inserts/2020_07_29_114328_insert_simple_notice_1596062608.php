@@ -10,11 +10,14 @@
 			$notify_object = Notice::ready();
 
 			for($i=0;$i<5;$i++){
+				$item_id = rand(1,2);
+
 				$notify_object = $notify_object->theme('notify.notices_in_cycle_title')
 					->sender(2)
 					->manager(rand(Notice::MANAGER_SYSTEM,Notice::MANAGER_MAILING))
 					->receiver(1)
-					->action('users','index','all','dn')
+					->action('blog','item',$item_id)
+					->key("blog.item.{$item_id}")
 					->content('notify.notices_in_cycle_content')
 					->create();
 			}

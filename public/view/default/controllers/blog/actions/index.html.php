@@ -90,6 +90,10 @@
 							<i class="fas fa-eye"></i>
 							<?php print $post['b_total_views'] ?>
 						</div>
+						<div class="blog-views mr-2">
+							<i class="fas fa-comments"></i>
+							<?php print $post['b_total_comments'] ?>
+						</div>
 					</div>
 				</div>
 			</div>

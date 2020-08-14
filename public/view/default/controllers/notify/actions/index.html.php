@@ -59,6 +59,11 @@
 									</span>
 								<?php } ?>
 								<?php print fx_lang($notice['n_theme'],fx_arr($notice['n_theme_data_to_replace'])) ?>
+								<?php if($notice['n_unique_count']){ ?>
+									<div class="float-right list-group-item-text item-new bg-danger text-white pl-2 pr-2">
+										<?php print $notice['n_unique_count'] ?>
+									</div>
+								<?php } ?>
 							</div>
 							<div class="list-group-item-heading info item-content mt-1 mb-1">
 								<?php if($notice['u_id']){ ?>

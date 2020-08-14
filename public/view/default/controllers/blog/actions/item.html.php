@@ -7,7 +7,7 @@
 	$this->prependJS("{$this->theme_path}/js/blog");
 ?>
 
-<div class="blog-item row justify-content-center mb-4">
+<div class="blog-item row justify-content-center">
 
 	<div class="col-10 title-block row justify-content-center mb-4">
 		<div class="blog-title">
@@ -59,6 +59,10 @@
 		<div class="blog-views mr-2">
 			<i class="fas fa-eye"></i>
 			<?php print $post['b_total_views'] ?>
+		</div>
+		<div class="blog-views mr-2">
+			<i class="fas fa-comments"></i>
+			<?php print $post['b_total_comments'] ?>
 		</div>
 	</div>
 </div>

@@ -28,4 +28,10 @@
 		 * @return Content
 		 */
 		public function status($status);
+
+		/**
+		 * @param $unique_key
+		 * @return Content
+		 */
+		public function key($unique_key);
 	}

@@ -6,6 +6,7 @@
 	use Core\Classes\Controller as ParentController;
 	use Core\Classes\Request;
 	use Core\Classes\Response\Response;
+	use Core\Controllers\Comments\Widgets\Comments;
 
 	class Controller extends ParentController{
 
@@ -82,6 +83,17 @@
 			$slug_string = fx_create_slug_from_string($item_title);
 			$slug_string = "{$item_id}_{$slug_string}";
 			return fx_crop_string($slug_string,80,null);
+		}
+
+		public function addCommentsWidget(){
+			Comments::add($this->limit,$this->offset)
+				->controller('blog')
+				->item_id($this->post_data['b_id'])
+				->paginate(array('blog','post',$this->item_slug))
+				->author($this->user_id)
+				->receiver($this->post_data['b_user_id'])
+				->set();
+			return $this;
 		}
 
 

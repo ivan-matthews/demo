@@ -31,7 +31,22 @@ In dictum, tellus at varius semper, ipsum risus malesuada purus, eu fringilla mi
 				->value('b_slug','1_my_first_blog_post')
 				->value('b_status',Kernel::STATUS_ACTIVE)
 				->value('b_category_id','1')
-				->value('b_title',fx_crop_string($this->title,191))
+				->value('b_title',fx_crop_string($this->title,191,null))
+				->value('b_content',$this->content)
+				->value('b_date_created',time())
+				->get()
+				->id();
+			return $this;
+		}
+
+		public function addItemWithoutImage(){
+			$this->item_id = Database::insert('blog')
+				->value('b_user_id',1)
+				->value('b_total_views',0)
+				->value('b_slug','2_my_second_blog_post')
+				->value('b_status',Kernel::STATUS_ACTIVE)
+				->value('b_category_id','1')
+				->value('b_title',fx_crop_string($this->title,191,null))
 				->value('b_content',$this->content)
 				->value('b_date_created',time())
 				->get()

@@ -1,0 +1,126 @@
+.comments-list .comments-title {
+  background: #d9e2ec;
+  font-weight: bold;
+}
+.comments-list .comments-title .comments-title-value {
+  font-size: 16px;
+}
+.comments-list .comments-title .comments-title-total-count {
+  color: chocolate;
+  font-size: 16px;
+  font-style: italic;
+}
+.comments-list .comments .comments-item {
+  border-left: none;
+  border-right: none;
+}
+.comments-list .comments .comments-item:hover {
+  background: none;
+}
+.comments-list .comments .comments-item:first-child {
+  border-top: none;
+}
+.comments-list .comments .comments-item:last-child {
+  border-bottom: none;
+}
+.comments-list .comments .comments-item.me {
+  background: rgba(178, 255, 173, 0.125);
+}
+.comments-list .comments .comments-item .comments-info .comments-item-avatar {
+  z-index: 4;
+}
+.comments-list .comments .comments-item .comments-info .comments-item-avatar:hover {
+  background: none;
+}
+.comments-list .comments .comments-item .comments-info .comments-item-avatar .avatar {
+  position: relative;
+  width: 64px;
+}
+.comments-list .comments .comments-item .comments-info .comments-item-avatar .avatar img {
+  border-radius: 50%;
+}
+.comments-list .comments .comments-item .comments-info .comments-item-avatar .avatar .status {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-radius: 50%;
+  padding: 0 3px;
+}
+.comments-list .comments .comments-item .comments-info .comments-item-avatar .avatar .status-online i,
+.comments-list .comments .comments-item .comments-info .comments-item-avatar .avatar .status-online svg {
+  color: #28a745;
+}
+.comments-list .comments .comments-item .comments-info .comments-item-avatar .avatar .status-online i.circle,
+.comments-list .comments .comments-item .comments-info .comments-item-avatar .avatar .status-online svg.circle {
+  background: #28a745;
+  border: solid 2px #FFFFFF;
+}
+.comments-list .comments .comments-item .comments-info .comments-item-avatar .avatar .status-offline i,
+.comments-list .comments .comments-item .comments-info .comments-item-avatar .avatar .status-offline svg {
+  color: #dc3545;
+}
+.comments-list .comments .comments-item .comments-info .comments-item-avatar .avatar .status-offline i.circle,
+.comments-list .comments .comments-item .comments-info .comments-item-avatar .avatar .status-offline svg.circle {
+  background: #dc3545;
+  border: solid 2px #FFFFFF;
+}
+.comments-list .comments .comments-item .comments-info .comments-item-info .full-name {
+  font-size: 12px;
+  font-weight: bold;
+}
+.comments-list .comments .comments-item .comments-info .comments-item-info .comments-item-descriptions {
+  color: #6f7985;
+}
+.comments-list .comments .comments-item .comments-info .comments-item-info .comments-item-descriptions .comment-content {
+  background: #feffb2;
+  border: solid 1px rgba(0, 0, 0, 0.125);
+  position: relative;
+  border-radius: 0 4px 4px 4px;
+  min-height: 50px;
+}
+.comments-list .comments .comments-item .comments-info .comments-item-info .comments-item-descriptions .comment-content.not-me::before {
+  content: '';
+  position: absolute;
+  border: 10px solid transparent;
+  border-right: 36px solid #cccccc;
+  left: -47px;
+  top: -1px;
+}
+.comments-list .comments .comments-item .comments-info .comments-item-info .comments-item-descriptions .comment-content.not-me::after {
+  content: '';
+  position: absolute;
+  border: 9px solid transparent;
+  border-right: 36px solid #feffb2;
+  left: -45px;
+  top: 0;
+}
+.comments-list .comments .comments-item .comments-info .comments-item-info .comments-item-descriptions .comment-content.me {
+  background: #b2ffb7;
+}
+.comments-list .comments .comments-item .comments-info .comments-item-info .comments-item-descriptions .comment-content.me::before {
+  content: '';
+  position: absolute;
+  border: 10px solid transparent;
+  border-right: 36px solid #cccccc;
+  left: -47px;
+  top: -1px;
+}
+.comments-list .comments .comments-item .comments-info .comments-item-info .comments-item-descriptions .comment-content.me::after {
+  content: '';
+  position: absolute;
+  border: 9px solid transparent;
+  border-right: 36px solid #b2ffb7;
+  left: -45px;
+  top: 0;
+}
+.comments-list .comments .comments-item .comments-info .comments-item-info .comments-item-descriptions .receiver .receiver-link:hover {
+  background: none;
+}
+.comments-list .comments .comments-item .comments-info .comments-item-info .comments-item-descriptions .receiver .receiver-link .user-avatar {
+  border-radius: 50%;
+  max-width: 24px;
+}
+.comments-list .comments .comments-item .comments-info .comment-info .date-created {
+  font-style: italic;
+  color: #999999;
+}

@@ -20,6 +20,7 @@
 
 				$table->bigint('b_user_id')->nullable()->index();
 				$table->bigint('b_total_views')->notNull()->defaults(0)->index();
+				$table->bigint('b_total_comments')->notNull()->defaults(0)->index();
 
 				$table->bigint('b_image_preview_id')->nullable()->index();
 				$table->varchar('b_title',191)->nullable()->index();

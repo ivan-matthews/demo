@@ -34,11 +34,15 @@
 
 				<div class="post-info row ">
 
-					<div class="post-item-image col-md-3 col-sm-3 col-3 col-lg-2 col-xl-2 pt-2">
-						<img src="<?php print fx_get_image_src($post['blog_image'],$post['blog_image_date'],'small') ?>">
-					</div>
+					<?php if($post['blog_image']){ ?>
 
-					<div class="col-md-7 col-sm-8 col-9 col-lg-10 col-xl-10 post-item-info">
+						<div class="post-item-image col-md-3 col-sm-3 col-3 col-lg-2 col-xl-2 pt-2">
+							<img src="<?php print fx_get_image_src($post['blog_image'],$post['blog_image_date'],'small') ?>">
+						</div>
+
+					<?php } ?>
+
+					<div class="<?php if($post['blog_image']){ ?>col-md-7 col-sm-8 col-9 col-lg-10 col-xl-10<?php }else{ ?>col-12<?php } ?> post-item-info">
 
 						<?php if(fx_me($post['u_id'])){ ?>
 							<div class="btn-group buttons float-right mt-2">
@@ -82,6 +86,10 @@
 						<div class="blog-views mr-2">
 							<i class="fas fa-eye"></i>
 							<?php print $post['b_total_views'] ?>
+						</div>
+						<div class="blog-views mr-2">
+							<i class="fas fa-comments"></i>
+							<?php print $post['b_total_comments'] ?>
 						</div>
 					</div>
 				</div>

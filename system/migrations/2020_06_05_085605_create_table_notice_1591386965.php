@@ -29,6 +29,8 @@
 				$table->longtext('n_action')->nullable()->fullText();
 				$table->longtext('n_attachments')->nullable()->fullText();
 				$table->longtext('n_options')->nullable()->fullText();
+				$table->varchar('n_unique')->nullable()->unique();
+				$table->bigint('n_unique_count')->notNull()->defaults(1);
 
 				$table->add_timestamps('n_');
 			});

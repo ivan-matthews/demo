@@ -71,6 +71,10 @@
 						'post'	=> $this->post_data
 					));
 
+				if($this->post_data['b_comments_enabled']){
+					$this->addCommentsWidget();
+				}
+
 				return $this->setResponse();
 			}
 

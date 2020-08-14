@@ -115,4 +115,5 @@
 		'country_label'	=> 'Страна',
 		'region_label'	=> 'Регион',
 		'city_label'	=> 'Город',
+		'in'	=> ' в ',
 	);
