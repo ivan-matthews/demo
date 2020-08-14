@@ -84,7 +84,7 @@
 		}
 
 		public function methodGet(){
-			$this->add_form->generateFieldsList();
+			$this->add_form->setCategories($this->categories,$this->cat_id)->generateFieldsList();
 
 			$this->response->controller('blog','add')
 				->setArray(array(
@@ -97,9 +97,11 @@
 		}
 
 		public function methodPost(){
-			$this->add_form->checkFieldsList($this->request->getAll());
+			$this->add_form->setCategories($this->categories,$this->cat_id)->checkFieldsList($this->request->getAll());
 
 			if($this->add_form->can()){
+
+				$this->category_id = $this->add_form->getAttribute('b_category_id');
 				$this->image_id = $this->add_form->getAttribute('b_image_preview_id');
 				$this->content = $this->add_form->getAttribute('b_content');
 				$this->title = $this->add_form->getAttribute('b_title');
@@ -149,8 +151,6 @@
 
 			return $this;
 		}
-
-
 
 
 

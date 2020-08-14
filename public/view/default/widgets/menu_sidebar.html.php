@@ -1,3 +1,15 @@
+<?php
+
+	use Core\Classes\View;
+
+	/**
+	 * @var View $this
+	 * @var array $data
+	 * @var array $content
+	 */
+
+?>
+
 <?php if($data['options']['wa_show_title']){ ?>
 	<div class="sidebar-title<?php print ' ' . $data['options']['wa_css_class_title'] ?>">
 		<div class="title">

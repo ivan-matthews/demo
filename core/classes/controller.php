@@ -50,6 +50,8 @@
 		public $sorting_action;
 		public $sorting_type = 'up';
 
+		public $cat_id;		// ID категории контента из GET[cat]
+
 		public static function getInstance(){
 			if(self::$instance === null){
 				self::$instance = new self();
@@ -79,6 +81,7 @@
 			$this->hook = Hooks::getInstance();
 
 			$this->offset = $this->request->get('offset') ?? 0;
+			$this->cat_id = $this->request->get('cat');
 		}
 
 		public function __destruct(){
@@ -144,7 +147,7 @@
 			return $this;
 		}
 
-		protected function sorting(array $actions){
+		protected function sorting(array $actions,...$push_links_params){
 			$callable_action = "setSortingPanel{$this->sorting_action}";
 			if(isset($actions[$this->sorting_action]) && fx_equal($actions[$this->sorting_action]['status'],Kernel::STATUS_ACTIVE) &&
 				method_exists($this,$callable_action)){
@@ -156,9 +159,10 @@
 				->actions($actions)
 				->current(array(
 					'action'	=> $this->sorting_action,
-					'sort'		=> $this->sorting_type
-				))
-				->set();
+					'sort'		=> $this->sorting_type,
+					'push'		=> $push_links_params,
+				))->set();
+
 			return $this;
 		}
 

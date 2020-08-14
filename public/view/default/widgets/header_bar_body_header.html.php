@@ -1,9 +1,15 @@
 <?php
-	use Core\Classes\Kernel;
+
+	use Core\Classes\View;
+
 	/**
+	 * @var View $this
+	 * @var array $data
 	 * @var array $content
 	 */
+
 ?>
+
 <ul class="nav nav-tabs nav-fill sorting-panel mt-1">
 	<?php foreach($content['header'] as $key=>$action){ ?>
 

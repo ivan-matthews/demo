@@ -83,7 +83,7 @@
 		public function methodGet($sorting_action='all',$sort='up'){
 			$this->sorting_action	= $sorting_action;
 			$this->sorting_type		= $sort;
-			$this->sort = isset($this->sorting_types[$this->sorting_type]) ? $this->sorting_types[$this->sorting_type] : 'up';
+			$this->sort = isset($this->sorting_types[$this->sorting_type]) ? $this->sorting_types[$this->sorting_type] : 'DESC';
 
 			$link = array('users', 'index', $this->sorting_action, $this->sorting_type);
 

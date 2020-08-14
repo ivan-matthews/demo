@@ -13,10 +13,6 @@
 <?php if(fx_logged()){ ?>
 	<div class="buttons col-12 text-right mb-2">
 		<div class="btn-group">
-			<a class="add-post btn-default radius-0 p-2" href="<?php print fx_make_url(array('blog','posts','%user_id%')) ?>">
-				<i class="far fa-user"></i>
-				<?php print fx_lang('blog.my_blog_posts') ?>
-			</a>
 			<a class="add-post btn-success radius-0 p-2" href="<?php print fx_get_url('blog','add') ?>">
 				<i class="fas fa-plus"></i>
 				<?php print fx_lang('blog.add_new_post') ?>
@@ -33,7 +29,7 @@
 
 		<?php foreach($posts as $post){ ?>
 
-			<div class="list-group-item list-group-item-action post-item pb-1 pt-1 radius-0">
+			<div class="list-group-item list-group-item-action post-item pb-3 pt-3 radius-0">
 
 				<div class="post-info row ">
 
@@ -47,13 +43,13 @@
 
 					<div class="<?php if($post['blog_image']){ ?>col-md-7 col-sm-8 col-9 col-lg-10 col-xl-10<?php }else{ ?>col-12<?php } ?> post-item-info">
 
-						<?php if(fx_me($post['u_id'])){ ?>
-							<div class="btn-group buttons float-right mt-2">
-								<a class="add-post btn-success radius-0 p-1 pl-2 pr-2" href="<?php print fx_make_url(array('blog','edit',$post['b_id'])) ?>">
+						<?php if(fx_me($post['u_id'])){?>
+							<div class="btn-group buttons float-right mt-1 pr-2">
+								<a class="add-post text-success radius-0 p-1 pl-2 pr-2" href="<?php print fx_get_url('blog','edit',$post['b_id']) ?>">
 									<i class="fas fa-edit"></i>
 									<?php print fx_lang('blog.edit_blog_post') ?>
 								</a>
-								<a class="add-post btn-danger radius-0 p-1 pl-2 pr-2" href="<?php print fx_get_url('blog','delete',$post['b_id']) ?>">
+								<a class="add-post text-danger radius-0 p-1 pl-2 pr-2" href="<?php print fx_get_url('blog','delete',$post['b_id']) ?>">
 									<i class="fas fa-trash-alt"></i>
 									<?php print fx_lang('blog.delete_blog_post') ?>
 								</a>
@@ -70,7 +66,16 @@
 						</div>
 					</div>
 
-					<div class="info row col-12 mt-2">
+					<div class="info row col-12 m-0 mt-2">
+						<?php if($post['ct_id']){ ?>
+							<a class="pl-2 category" href="<?php print fx_make_url(array('blog'),array('cat'=>$post['ct_id'])) ?>">
+								<div class="blog-views mr-2">
+									<?php if($post['ct_icon']){ ?><i class="<?php print $post['ct_icon'] ?>"></i><?php } ?>
+									<?php print fx_lang($post['ct_title']) ?>
+								</div>
+							</a>
+						<?php } ?>
+
 						<div class="blog-user mr-2">
 							<a href="<?php print fx_get_url('users','item',$post['u_id']) ?>" class="p-2 user-link">
 								<?php fx_print_avatar(

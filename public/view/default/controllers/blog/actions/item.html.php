@@ -41,6 +41,14 @@
 		</div>
 	</div>
 	<div class="col-12 post-info row mt-4">
+		<?php if($post['ct_id']){ ?>
+			<a class="pl-2 category" href="<?php print fx_make_url(array('blog'),array('cat'=>$post['ct_id'])) ?>">
+				<div class="blog-views mr-2">
+					<?php if($post['ct_icon']){ ?><i class="<?php print $post['ct_icon'] ?>"></i><?php } ?>
+					<?php print fx_lang($post['ct_title']) ?>
+				</div>
+			</a>
+		<?php } ?>
 		<div class="blog-user mr-2">
 			<a href="<?php print fx_get_url('users','item',$post['u_id']) ?>" class="p-2 user-link">
 				<?php fx_print_avatar(

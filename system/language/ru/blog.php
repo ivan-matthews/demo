@@ -3,6 +3,7 @@
 	return array(
 		'controller_name'		=> 'Блог',
 		'all_posts_sorting'		=> 'Все',
+		'my_posts_sorting'		=> 'Мои',
 		'created_posts_sorting'	=> 'Новые',
 		'updated_posts_sorting'	=> 'Обновленные',
 		'random_posts_sorting'	=> 'Случайные',
@@ -22,4 +23,5 @@
 		'add_image_to_form'		=> 'добавить картинку',
 		'blog_link_title'		=> 'Блог',
 		'blog_link_value'		=> 'Блог',
+		'categories_select_list'=> 'Выбрать категорию',
 	);

@@ -1,9 +1,15 @@
 <?php
-	/** @var \Core\Classes\View $this */
-	/** @var array $data */
 
-//	if(!$this->config->core['debug_enabled']){ return false; }
+	use Core\Classes\View;
+
+	/**
+	 * @var View $this
+	 * @var array $data
+	 * @var array $content
+	 */
+
 ?>
+
 <div class="footer">
 	<?php if($data['options']['wa_show_title']){ ?>
 		<div class="footer-title<?php print ' ' . $data['options']['wa_css_class_title'] ?>">

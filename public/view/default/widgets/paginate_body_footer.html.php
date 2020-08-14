@@ -1,7 +1,13 @@
 <?php
+
+	use Core\Classes\View;
+
 	/**
+	 * @var View $this
+	 * @var array $data
 	 * @var array $content
 	 */
+
 	$content['offset'] = (int)$content['offset'];
 ?>
 <?php $current = (int)floor($content['offset']/$content['limit']) ?>

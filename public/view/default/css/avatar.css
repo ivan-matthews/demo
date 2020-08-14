@@ -90,10 +90,10 @@
   opacity: 0.5;
 }
 .avatar-item .avatar-block .avatar-description .avatar-comments .comments-list .comments .comments-item .comments-info .comments-item-avatar .avatar {
-  max-width: 32px;
+  max-width: 40px;
 }
 .avatar-item .avatar-block .avatar-description .avatar-comments .comments-list .comments .comments-item .comments-info .comments-item-avatar .avatar img {
-  max-width: 32px;
+  max-width: 40px;
 }
 .avatar-item .avatar-block .avatar-description .avatar-comments .comments-list .comments .comments-item .comments-info .comments-item-info .author-link {
   background: none;

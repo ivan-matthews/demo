@@ -65,7 +65,7 @@
 			$this->post_data = $this->model->getBlogPostById($this->item_id);
 
 			if($this->post_data){
-				$this->updateTotalViewsForPostItem($this->item_id,$this->user_id);
+				$this->updateTotalViewsForPostItem($this->item_id,$this->post_data['b_user_id']);
 
 				$this->response->controller('blog','item')
 					->setArray(array(

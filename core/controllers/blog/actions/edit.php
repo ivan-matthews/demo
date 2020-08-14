@@ -88,7 +88,8 @@
 			$this->post_info = $this->model->getBlogPostById($this->post_id,'p_medium');
 
 			if($this->post_info && fx_me($this->post_info['b_user_id'])){
-				$this->edit_form->setData($this->post_info);
+
+				$this->edit_form->setCategories($this->categories,$this->cat_id)->setData($this->post_info);
 				$this->edit_form->generateFieldsList($this->post_id);
 
 				$this->request->set('preview_image',$this->post_info['blog_image']);
@@ -114,9 +115,10 @@
 
 				$this->post_slug = $this->post_info['b_slug'];
 
-				$this->edit_form->checkFieldsList($this->request->getAll(),$this->post_id);
+				$this->edit_form->setCategories($this->categories,$this->cat_id)->checkFieldsList($this->request->getAll(),$this->post_id);
 
 				if($this->edit_form->can()){
+					$this->category_id = $this->edit_form->getAttribute('b_category_id');
 					$this->image_id = $this->edit_form->getAttribute('b_image_preview_id');
 					$this->content = $this->edit_form->getAttribute('b_content');
 					$this->title = $this->edit_form->getAttribute('b_title');

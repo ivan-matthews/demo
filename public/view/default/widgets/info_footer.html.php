@@ -1,7 +1,15 @@
 <?php
-	/** @var \Core\Classes\View $this */
+
+	use Core\Classes\View;
+
+	/**
+	 * @var View $this
+	 * @var array $data
+	 * @var array $content
+	 */
 	$year = date('Y');
 ?>
+
 
 <div class="footer footer-menu-info">
 	<?php if($data['options']['wa_show_title']){ ?>

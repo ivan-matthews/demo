@@ -51,6 +51,8 @@
 		private $form_name;
 
 		private $post_id;
+		private $categories;
+		private $current_category;
 
 		/**
 		 * @param $form_name
@@ -66,6 +68,12 @@
 		public function __construct($form_name=null){
 			parent::__construct();
 			$this->form_name = $form_name;
+		}
+
+		public function setCategories(array $categories,$current_category){
+			$this->categories = $categories;
+			$this->current_category = $current_category;
+			return $this;
 		}
 
 		public function generateFieldsList($post_id){		// для метода GET - генерирует поля
@@ -116,6 +124,20 @@
 					$checkers->required();
 				});
 
+			$this->validator_interface->field('b_category_id')
+				->dont_prepare()
+				->id('title')
+				->label(fx_lang('blog.categories_select_list'))
+				->type('select')
+				->params(function(Params $params){
+					$params->field_type('select');
+					$params->variants($this->categories);
+//					$params->default_value($this->current_category);
+				})
+				->check(function(Checkers $checkers){
+					$checkers->max(191);
+				});
+
 			$this->validator_interface->field("b_comments_enabled")
 				->dont_prepare()
 				->params(function(Params $params){
@@ -155,8 +177,17 @@
 				->setData($post_data)
 				->csrf(1)
 				->validate(1);
+			$this->checkCategory();
 			return $this->generateFieldsList($this->post_id);
 		}
 
+		public function checkCategory(){
+			$category = $this->getValue('b_category_id');
+			if(isset($this->categories[$category])){
+				return $this;
+			}
+			$this->setError(fx_lang('cats.error_category_select'));
+			return $this;
+		}
 
 	}

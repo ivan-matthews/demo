@@ -23,7 +23,7 @@
 		public function addActiveWidget(){
 			Database::insert('widgets_active')
 				->value('wa_name','user_info_sidebar')
-				->query('wa_widget_id',"(select w_id from widgets where w_class='Core\\\\Controllers\\\\Users\\\\Widgets\\\\User_Info' limit 1)")
+				->query('wa_widget_id',15)
 				->value('wa_title','home.user_info_title')
 				->value('wa_css_class','')
 				->value('wa_css_class_title','')

@@ -75,12 +75,13 @@
 			$this->user_model = UserModel::getInstance();
 			$this->query = "p_status != '" . Kernel::STATUS_BLOCKED. "'";
 			$this->order = 'p_id';
+			$this->sorting_panel = $this->params->sorting_panel;
 		}
 
 		public function methodGet($user_id,$sorting_action='all',$sort='up'){
 			$this->sorting_action	= $sorting_action;
 			$this->sorting_type		= $sort;
-			$this->sort = isset($this->sorting_types[$this->sorting_type]) ? $this->sorting_types[$this->sorting_type] : 'up';
+			$this->sort = isset($this->sorting_types[$this->sorting_type]) ? $this->sorting_types[$this->sorting_type] : 'DESC';
 
 			$this->user_id = $user_id;
 
@@ -92,7 +93,6 @@
 
 			if($this->total_avatars && $this->user_data){
 
-				$this->sorting_panel = $this->params->sorting_panel;
 				$this->prepareSortingPanelLinks();
 				$this->sorting($this->sorting_panel);
 

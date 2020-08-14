@@ -52,6 +52,9 @@
 		public $prepared_data = array();
 		public $sorting_panel;
 		public $posts_data;
+		public $user_id;
+
+		public $cat_id;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -63,23 +66,28 @@
 
 		public function __construct(){
 			parent::__construct();
-
+			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
 			$this->query .= "`b_status`=" . Kernel::STATUS_ACTIVE;
 			$this->query .= " AND `b_public`=1";
+			$this->sorting_panel = $this->params->sorting_panel;
 		}
 
 		public function methodGet($order='all',$sort='up'){
 			$this->sorting_action	= $order;
 			$this->sorting_type		= $sort;
-			$this->sort = isset($this->sorting_types[$this->sorting_type]) ? $this->sorting_types[$this->sorting_type] : 'up';
+			$this->sort = isset($this->sorting_types[$this->sorting_type]) ? $this->sorting_types[$this->sorting_type] : 'DESC';
 
-			$this->total = $this->model->countAllPosts($this->query);
+			if($this->cat_id){
+				$this->query .= " AND `b_category_id`=%category_id%";
+				$this->prepared_data['%category_id%'] = $this->cat_id;
+			}
 
-			$this->sorting_panel = $this->params->sorting_panel;
+			$this->total = $this->model->countAllPosts($this->query,$this->prepared_data);
+
 			$this->sorting($this->sorting_panel);
 
 			$this->posts_data = $this->model->getAllPosts(
-				$this->query,$this->limit,$this->offset,$this->order,$this->sort
+				$this->query,$this->limit,$this->offset,$this->order,$this->sort,$this->prepared_data
 			);
 
 			$this->paginate($this->total, array('blog','index',$this->sorting_action,$this->sorting_type));
@@ -111,6 +119,13 @@
 		protected function setSortingPanelRandom(){
 			$this->order = 'RAND()';
 			return null;
+		}
+
+		protected function setSortingPanelMy(){
+			$this->order = 'b_id';
+			$this->prepared_data['%user_id%'] = $this->user_id;
+			$this->query .= " AND `b_user_id`=%user_id%";
+			return "";
 		}
 
 

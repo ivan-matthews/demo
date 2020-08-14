@@ -1,7 +1,11 @@
 <?php
+
+	use Core\Classes\View;
+
 	/**
+	 * @var View $this
+	 * @var array $data
 	 * @var array $content
-	 * @var \Core\Classes\View $this
 	 */
 
 	$this->addCSS("{$this->theme_path}/css/scroll");

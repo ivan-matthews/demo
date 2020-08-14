@@ -31,16 +31,21 @@
 
 		}
 
-		public function countAllPosts($query){
+		public function countAllPosts($query,$preparing_data){
 			$result = $this->select('COUNT(b_id) as total')
 				->from('blog')
-				->where($query)
-				->get()
+				->where($query);
+
+			foreach($preparing_data as $key=>$value){
+				$result = $result->data($key,$value);
+			}
+
+			$result = $result->get()
 				->itemAsArray();
 			return $result['total'];
 		}
 
-		public function getAllPosts($query,$limit,$offset,$order,$sort){
+		public function getAllPosts($query,$limit,$offset,$order,$sort,$preparing_data){
 			$result = $this->select(
 				'blog.*',
 				'users.u_id',
@@ -50,14 +55,24 @@
 				'ui.p_micro',
 				'ui.p_date_updated',
 				'bi.p_small as blog_image',
-				'bi.p_date_updated as blog_image_date'
+				'bi.p_date_updated as blog_image_date',
+				'categories.ct_id',
+				'categories.ct_title',
+				'categories.ct_icon',
+				'categories.ct_controller'
 			)
 				->from('blog')
-				->join('users',"b_user_id=u_id")
-				->join('photos as ui',"u_avatar_id=ui.p_id")
-				->join('photos as bi',"b_image_preview_id=bi.p_id")
-				->where($query)
-				->limit($limit)
+				->join('categories FORCE INDEX(PRIMARY)',"b_category_id=ct_id")
+				->join('users FORCE INDEX(PRIMARY)',"b_user_id=u_id")
+				->join('photos as ui FORCE INDEX(PRIMARY)',"u_avatar_id=ui.p_id")
+				->join('photos as bi FORCE INDEX(PRIMARY)',"b_image_preview_id=bi.p_id")
+				->where($query);
+
+			foreach($preparing_data as $key=>$value){
+				$result = $result->data($key,$value);
+			}
+
+			$result = $result->limit($limit)
 				->offset($offset)
 				->order($order)
 				->sort($sort)
@@ -76,12 +91,17 @@
 				'ui.p_micro',
 				'ui.p_date_updated',
 				'bi.' . $image_size_field_key . ' as blog_image',
-				'bi.p_date_updated as blog_image_date'
+				'bi.p_date_updated as blog_image_date',
+				'categories.ct_id',
+				'categories.ct_title',
+				'categories.ct_icon',
+				'categories.ct_controller'
 			)
 				->from('blog')
-				->join('users',"b_user_id=u_id")
-				->join('photos as ui',"u_avatar_id=ui.p_id")
-				->join('photos as bi',"b_image_preview_id=bi.p_id")
+				->join('categories FORCE INDEX(PRIMARY)',"b_category_id=ct_id")
+				->join('users FORCE INDEX(PRIMARY)',"b_user_id=u_id")
+				->join('photos as ui FORCE INDEX(PRIMARY)',"u_avatar_id=ui.p_id")
+				->join('photos as bi FORCE INDEX(PRIMARY)',"b_image_preview_id=bi.p_id")
 				->where("`b_status`=" . Kernel::STATUS_ACTIVE . " and `b_id`=%post_id%")
 				->data('%post_id%',$post_id)
 				->get()
@@ -100,12 +120,17 @@
 				'ui.p_micro',
 				'ui.p_date_updated',
 				'bi.p_normal as blog_image',
-				'bi.p_date_updated as blog_image_date'
+				'bi.p_date_updated as blog_image_date',
+				'categories.ct_id',
+				'categories.ct_title',
+				'categories.ct_icon',
+				'categories.ct_controller'
 			)
 				->from('blog')
-				->join('users',"b_user_id=u_id")
-				->join('photos as ui',"u_avatar_id=ui.p_id")
-				->join('photos as bi',"b_image_preview_id=bi.p_id")
+				->join('categories FORCE INDEX(PRIMARY)',"b_category_id=ct_id")
+				->join('users FORCE INDEX(PRIMARY)',"b_user_id=u_id")
+				->join('photos as ui FORCE INDEX(PRIMARY)',"u_avatar_id=ui.p_id")
+				->join('photos as bi FORCE INDEX(PRIMARY)',"b_image_preview_id=bi.p_id")
 				->where("`b_status`=" . Kernel::STATUS_ACTIVE . " and `b_slug`=%post_slug%")
 				->data('%post_slug%',$post_url)
 				->get()

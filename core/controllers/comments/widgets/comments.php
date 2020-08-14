@@ -68,6 +68,31 @@
 		private $limit;
 		private $offset;
 
+		/**
+		 * @usage
+		 *
+		 * $comments = Comments::add($this->limit,$this->offset);
+			$comments->controller('blog')
+			->action('item')
+			->item_id($this->post_data['b_id'])
+			->paginate(array('blog','item',$this->item_id))
+			->author($this->user_id)
+			->receiver($this->post_data['b_user_id'])
+			->call(function()use($comments){
+				$comments->setProperty('total_comments',0);
+				$comments->setProperty('comments_list',array());
+			})
+			->set();
+		 *
+		 * @param $property_name
+		 * @param $property_value
+		 * @return $this
+		 */
+		public function setProperty($property_name,$property_value){
+			$this->{$property_name} = $property_value;
+			return $this;
+		}
+
 		public static function add($limit,$offset){
 			return new self($limit,$offset);
 		}
@@ -114,43 +139,27 @@
 			$this->receiver_id = $receiver_id;
 			return $this;
 		}
-		public function parent($parent_comment_id){
-
-		}
-		public function is_public($comment_is_public=true){
-
-		}
 		public function paginate(array $link){
 			$this->pagination_link = $link;
 			return $this;
 		}
 
+		public function call(callable $callback_function){
+			call_user_func($callback_function);
+			return $this;
+		}
+
 		public function set(){
 
-			$this->total_comments = $this->model->countCommentsByItem(
-				$this->controller,
-				$this->action,
-				$this->item_id
-			);
-
-			$this->comments_list = $this->model->getCommentsByItem(
-				$this->controller,
-				$this->action,
-				$this->item_id,
-				$this->limit,
-				$this->offset
-			);
-
-			if($this->comments_list){
-//				$this->prepareCommentsList();
+			if($this->total_comments === null){
+				$this->getCountComments();
 			}
 
-			Paginate::add()
-				->total($this->total_comments)
-				->limit($this->limit)
-				->offset($this->offset)
-				->link($this->pagination_link)
-				->set();
+			if($this->comments_list === null){
+				$this->getCommentsList();
+			}
+
+			$this->addPagination();
 
 			$this->send_form->generateFieldsList($this->controller, $this->action, $this->item_id, $this->receiver_id);
 
@@ -176,15 +185,33 @@
 			return true;
 		}
 
-		public function prepareCommentsList(){
-			foreach($this->comments_list as $key=>$value){
-				$this->comments_list[$key]['hash'] = fx_encode(
-					$this->comments_list[$key]['c_id'] .
-					$this->comments_list[$key]['c_author_id']
-				);
-			}
+
+		private function getCountComments(){
+			$this->total_comments = $this->model->countCommentsByItem(
+				$this->controller,
+				$this->action,
+				$this->item_id
+			);
+			return $this;
+		}
+		private function getCommentsList(){
+			$this->comments_list = $this->model->getCommentsByItem(
+				$this->controller,
+				$this->action,
+				$this->item_id,
+				$this->limit,
+				$this->offset
+			);
 			return $this;
 		}
 
+		private function addPagination(){
+			Paginate::add()->total($this->total_comments)
+				->limit($this->limit)
+				->offset($this->offset)
+				->link($this->pagination_link)
+				->set();
+			return $this;
+		}
 
 	}

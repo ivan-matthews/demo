@@ -30,7 +30,7 @@
 				$table->tinyint('b_comments_enabled',1)->notNull()->defaults(1)->index();
 				$table->tinyint('b_public',1)->notNull()->defaults(1)->index();
 
-				$table->bigint('b_category_id')->nullable()->index();
+				$table->bigint('b_category_id')->notNull()->defaults(1)->index();
 
 				$table->longtext('b_content')->nullable()->fullText();
 

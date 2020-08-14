@@ -1,3 +1,15 @@
+<?php
+
+	use Core\Classes\View;
+
+	/**
+	 * @var View $this
+	 * @var array $data
+	 * @var array $content
+	 */
+
+?>
+
 <div class="div-logo row col-3">
 	<div class="visible-logo-image">
 		<a href="/">

@@ -1,10 +1,14 @@
 <?php
+
 	use Core\Classes\View;
 	use Core\Classes\Session;
 
 	/**
 	 * @var View $this
+	 * @var array $data
+	 * @var array $content
 	 */
+
 	$session = Session::getInstance();
 ?>
 

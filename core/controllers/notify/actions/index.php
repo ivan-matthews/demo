@@ -68,12 +68,11 @@
 
 			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
 			$this->query .= "n_status != " . Notice::STATUS_DELETED;
+			$this->sorting_panel = $this->params->sorting_panel;
 		}
 
 		public function methodGet($current_tab='all'){
 			$this->current_tab = $current_tab;
-
-			$this->sorting_panel = $this->params->sorting_panel;
 
 			$this->setResponse();
 			$this->prepareHeaderBarLinks();

@@ -38,6 +38,12 @@
 				'link'	=> array('blog','index','all'),
 				'icon'	=> null,
 			),
+			'my'	=> array(
+				'status'=> Kernel::STATUS_ACTIVE,
+				'title'	=> 'blog.my_posts_sorting',
+				'link'	=> array('blog','index','my'),
+				'icon'	=> null,
+			),
 			'created'	=> array(
 				'status'=> Kernel::STATUS_ACTIVE,
 				'title'	=> 'blog.created_posts_sorting',
