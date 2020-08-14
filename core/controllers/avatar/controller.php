@@ -196,18 +196,18 @@
 				->setLink('users','index')
 				->setValue('users.users_index_title');
 
-			if($avatar_data['u_id']){
+			if(isset($avatar_data['u_id'])){
 				$this->response->title($avatar_data['u_full_name']);
 				$this->response->breadcrumb('user_item')
 					->setValue($avatar_data['u_full_name'])
 					->setLink('users','item',$avatar_data['u_id']);
-			}
 
-			$this->response->title('avatar.all_avatars_title');
-			$this->response->breadcrumb('avatar')
-				->setIcon(null)
-				->setLink('avatar','index',$avatar_data['u_id'])
-				->setValue('avatar.all_avatars_title');
+				$this->response->title('avatar.all_avatars_title');
+				$this->response->breadcrumb('avatar')
+					->setIcon(null)
+					->setLink('avatar','index',$avatar_data['u_id'])
+					->setValue('avatar.all_avatars_title');
+			}
 
 			return $this;
 		}

@@ -9,14 +9,23 @@
 
 <div class="blog-item row justify-content-center">
 
-	<div class="col-10 title-block row justify-content-center mb-4">
+	<div class="col-12 col-sm-12 col-md-12 col-lg-11 col-xl-10 title-block row justify-content-center">
 		<div class="blog-title">
 			<?php print $post['b_title'] ?>
 		</div>
 	</div>
-	<?php if(fx_me($post['u_id'])){ ?>
-		<div class="buttons col-12 text-right mb-2">
-			<div class="btn-group">
+	<div class="col-12 mb-2 head-menu">
+		<div class="float-left left-bar">
+			<div class="date-upd col-12">
+				<?php if($post['b_date_updated']){ ?>
+					<i class="far fa-hourglass"></i>
+					<?php print fx_lang('blog.date_updated_value') ?>
+					<?php print fx_get_date($post['b_date_updated']) ?>
+				<?php } ?>
+			</div>
+		</div>
+		<?php if(fx_me($post['u_id'])){ ?>
+			<div class="btn-group float-right right-bar">
 				<a class="add-post btn-success radius-0 p-1 pl-2 pr-2" href="<?php print fx_make_url(array('blog','edit',$post['b_id'])) ?>">
 					<i class="fas fa-edit"></i>
 					<?php print fx_lang('blog.edit_blog_post') ?>
@@ -26,8 +35,8 @@
 					<?php print fx_lang('blog.delete_blog_post') ?>
 				</a>
 			</div>
-		</div>
-	<?php } ?>
+		<?php } ?>
+	</div>
 	<div class="col-12 blog-post row">
 		<div class="right-bar col-12">
 			<?php if($post['blog_image']){ ?>

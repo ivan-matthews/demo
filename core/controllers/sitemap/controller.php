@@ -117,7 +117,6 @@
 			$this->setIterator();
 			for($i=0;$i<$this->iterations;$i++){
 				$this->offset = $i * $this->limit;
-
 				$this->setFileSuffix()->makeXMLFile();
 			}
 			return $this;

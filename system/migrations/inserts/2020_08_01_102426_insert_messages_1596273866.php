@@ -12,10 +12,9 @@
 		public $demo_data_array = array();
 
 		public function zeroStepCreateDemoUser(){
-			$add_new_users = new Add_New_Bot();
 
 			for($id=0;$id<5;$id++){
-				$add_new_users->execute(array());
+				(new Add_New_Bot())->execute(array());
 			}
 
 			return $this;

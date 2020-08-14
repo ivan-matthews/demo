@@ -49,9 +49,9 @@
 									</blockquote>
 								<?php }else{ ?>
 									<div class="im-writer ">
-										<div class="me">
-											<?php print fx_lang("messages.message_i_send_value") ?>:
-										</div>
+										<!--<div class="me">
+											<?php /*print fx_lang("messages.message_i_send_value") */?>:
+										</div>-->
 										<div class="message">
 											<blockquote>
 												<?php print str_ireplace(array("<br>","</br>","<br/>","\n"),' ',fx_crop_string($contact['m_content'],50)) ?>

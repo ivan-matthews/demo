@@ -24,4 +24,5 @@
 		'blog_link_title'		=> 'Блог',
 		'blog_link_value'		=> 'Блог',
 		'categories_select_list'=> 'Выбрать категорию',
+		'date_updated_value'	=> 'Обновлено ',
 	);

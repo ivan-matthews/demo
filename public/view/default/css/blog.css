@@ -42,9 +42,16 @@
   font-size: 12px;
   color: #999999;
 }
-.blog-item .buttons a i,
-.blog-item .buttons a svg {
+.blog-item .head-menu .right-bar .add-post i,
+.blog-item .head-menu .right-bar .add-post svg {
+  font-size: 16px;
   margin-right: 0.5em;
+}
+.blog-item .head-menu .left-bar .date-upd {
+  line-height: 2;
+  font-weight: bold;
+  font-style: italic;
+  color: #999999;
 }
 .blog-item .title-block .blog-title {
   font-size: 18px;

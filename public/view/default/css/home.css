@@ -74,7 +74,6 @@ div.session-messages .container .icon-block .card .card-body {
   padding-bottom: 5px;
 }
 .breadcrumbs#bottom .breadcrumb {
-  border-top: solid 1px #edeef0;
   margin-bottom: 15px;
   padding-top: 5px;
 }
@@ -1077,4 +1076,12 @@ body main.container .content {
 body main.container .content .main-content {
   padding-top: 10px;
   min-height: calc(100vh - 110px);
+}
+body main.container .content.general-content {
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+body main.container .content.footer-content {
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
 }

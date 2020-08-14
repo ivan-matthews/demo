@@ -12,6 +12,17 @@
 	use Core\Classes\Config;
 	use IvanMatthews\GeoPack\Geo;
 
+	/**
+	 * select * from geo_regions
+	 * 	where gr_region_id not in (
+	 * 		select gc_region_id
+	 * 			from geo_cities
+	 * 				where gc_region_id=gr_region_id
+	 * 	)
+	 *
+	 * Class InsertGeoCities202007140717561594750676
+	 * @package System\Migrations\Inserts
+	 */
 	class InsertGeoCities202007140717561594750676{
 
 		/** @var Config */
@@ -51,25 +62,22 @@
 				$this->reconnectByMemoryLimit()
 					->lastHope();
 
+				$insert = Database::insert('geo_cities');
 				foreach($data as $item){
-					$insert = Database::insert('geo_cities');
+					$region = md5($item['gc_region']);
+
 					$insert = $insert->value('gc_city_id',$item['gc_city_id']);
 					$insert = $insert->value('gc_country_id',$item['gc_country_id']);
 					$insert = $insert->value('gc_area',$item['gc_area']);
 					$insert = $insert->value('gc_title_ru',$item['gc_title_ru']);
 					$insert = $insert->value('gc_title_en',$item['gc_title_en']);
-
-					if(!$item['gc_region']){
-						$insert = $insert->value('gc_region_id',null);
-					}else{
-						$insert = $insert->query('gc_region_id',
-							"(select gr_region_id from geo_regions where gr_title_ru=%region_id% or gr_title_en=%region_id% limit 1)"
-						);
-						$insert = $insert->data('%region_id%',$item['gc_region']);
-					}
-					$insert = $insert->update('gc_title_ru',$item['gc_title_ru']);
-					$insert->get()->id();
+					$insert = $insert->query('gc_region_id',
+						"(select gr_region_id from geo_regions where (gr_title_ru=%{$region}% or gr_title_en=%{$region}%) and gr_country_id='{$item['gc_country_id']}' limit 1)"
+					);
+					$insert = $insert->data("%{$region}%",$item['gc_region']);
+					$insert = $insert->updateQuery('gc_title_ru','gc_title_ru');
 				}
+				$insert->get()->id();
 
 				$this->printFile($file);
 

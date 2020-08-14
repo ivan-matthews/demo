@@ -23,6 +23,10 @@ Suspendisse ac lobortis justo. Sed elementum orci pellentesque eros dapibus, at 
 Integer lorem eros, finibus finibus feugiat a, iaculis sit amet dolor. Cras nec ligula vel augue pulvinar feugiat. Nullam porttitor, odio sed lobortis pulvinar, nunc lectus tincidunt nulla, in euismod ante enim eu massa. Vivamus efficitur vulputate vehicula. Morbi placerat quis arcu hendrerit dapibus. Fusce in mollis sem. Sed et diam dolor. Curabitur ut tellus sit amet lorem dictum pulvinar ac ut magna. Ut tristique pulvinar neque ut blandit. Mauris dictum ante nec mi convallis euismod. Mauris eget aliquam turpis. Quisque volutpat finibus eleifend.
 In dictum, tellus at varius semper, ipsum risus malesuada purus, eu fringilla mi arcu eu augue. Maecenas rutrum ultricies nulla ac sollicitudin. Sed a accumsan mauris. Cras vulputate, magna ut malesuada cursus, leo neque vehicula nisl, sed finibus justo orci et elit. Maecenas ultrices sapien nunc, nec vestibulum lorem porttitor facilisis. Morbi porttitor elementum leo. Etiam et feugiat risus. Aenean sit amet laoreet ante. Donec pharetra ac nulla in tempor. Aliquam erat volutpat. Quisque sed nisi hendrerit, molestie nunc lacinia, fermentum lacus. Quisque sed orci et erat pharetra sollicitudin sit amet in nisl. Integer pulvinar rutrum odio quis euismod. Aliquam dictum malesuada tempus. Sed mattis, ante et interdum auctor, ligula orci interdum orci, a maximus ante turpis a elit.';
 
+		public function __construct(){
+			$this->title = htmlspecialchars($this->title);
+		}
+
 		public function addItem(){
 			$this->item_id = Database::insert('blog')
 				->value('b_user_id',1)
@@ -45,10 +49,11 @@ In dictum, tellus at varius semper, ipsum risus malesuada purus, eu fringilla mi
 				->value('b_total_views',0)
 				->value('b_slug','2_my_second_blog_post')
 				->value('b_status',Kernel::STATUS_ACTIVE)
-				->value('b_category_id','1')
+				->value('b_category_id',0)
 				->value('b_title',fx_crop_string($this->title,191,null))
 				->value('b_content',$this->content)
 				->value('b_date_created',time())
+				->value('b_date_updated',time()+3600)
 				->get()
 				->id();
 			return $this;

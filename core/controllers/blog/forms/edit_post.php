@@ -183,7 +183,7 @@
 
 		public function checkCategory(){
 			$category = $this->getValue('b_category_id');
-			if(isset($this->categories[$category])){
+			if(fx_equal($category,'0') || isset($this->categories[$category])){
 				return $this;
 			}
 			$this->setError(fx_lang('cats.error_category_select'));

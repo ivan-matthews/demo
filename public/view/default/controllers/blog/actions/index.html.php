@@ -44,7 +44,7 @@
 					<div class="<?php if($post['blog_image']){ ?>col-md-7 col-sm-8 col-9 col-lg-10 col-xl-10<?php }else{ ?>col-12<?php } ?> post-item-info">
 
 						<?php if(fx_me($post['u_id'])){?>
-							<div class="btn-group buttons float-right mt-1 pr-2">
+							<div class="btn-group buttons float-right">
 								<a class="add-post text-success radius-0 p-1 pl-2 pr-2" href="<?php print fx_get_url('blog','edit',$post['b_id']) ?>">
 									<i class="fas fa-edit"></i>
 									<?php print fx_lang('blog.edit_blog_post') ?>

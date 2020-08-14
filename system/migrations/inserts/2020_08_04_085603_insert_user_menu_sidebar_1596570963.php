@@ -21,9 +21,9 @@
 		}
 
 		public function addActiveWidget(){
-			Database::insert('widgets_active')
+			$this->active_widget_id = Database::insert('widgets_active')
 				->value('wa_name','user_info_sidebar')
-				->query('wa_widget_id',15)
+				->query('wa_widget_id',7)
 				->value('wa_title','home.user_info_title')
 				->value('wa_css_class','')
 				->value('wa_css_class_title','')

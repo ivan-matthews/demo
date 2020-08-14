@@ -73,7 +73,7 @@
 
 				</div>
 
-				<div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 content">
+				<div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 content general-content">
 
 					<?php print $this->widget('body_header') ?>
 
@@ -91,8 +91,12 @@
 
 					</div>
 
+				</div>
+				<div class="sidebar-parent col-md-4 col-sm-3 col-3 col-lg-3 col-xl-3">
+					<?php print $this->widget('sidebar_footer') ?>
+				</div>
+				<div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 content footer-content">
 					<?php print $this->widget('body_footer') ?>
-
 				</div>
 
 				<?php print $this->widget('bottom') ?>
