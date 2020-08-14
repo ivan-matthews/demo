@@ -14,7 +14,7 @@
 
 			<div class="avatars-item col-4 col-sm-4 col-md-4 col-lg-3 col-xl-2 mt-2 mb-2">
 
-				<a class="avatars-item-link" onclick="selectImageAndAddToPreview(<?php print $avatar['p_id'] ?>,'<?php print $this->getUploadSiteRoot($avatar['p_medium']) ?>')">
+				<a class="avatars-item-link" onclick="selectImageAndAddToPreview(<?php print $avatar['p_id'] ?>,'<?php print $avatar['p_medium'] ?>')">
 
 					<img class="avatars-item-image" src="<?php print fx_get_image_src($avatar['p_medium'],$avatar['p_date_updated'],'medium') ?>"/>
 

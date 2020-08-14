@@ -75,27 +75,22 @@
 
 			$this->total = $this->model->countAllPosts($this->query);
 
-			if($this->total){
+			$this->sorting_panel = $this->params->sorting_panel;
+			$this->sorting($this->sorting_panel);
 
-				$this->sorting_panel = $this->params->sorting_panel;
-				$this->sorting($this->sorting_panel);
+			$this->posts_data = $this->model->getAllPosts(
+				$this->query,$this->limit,$this->offset,$this->order,$this->sort
+			);
 
-				$this->posts_data = $this->model->getAllPosts(
-					$this->query,$this->limit,$this->offset,$this->order,$this->sort
-				);
+			$this->paginate($this->total, array('blog','index',$this->sorting_action,$this->sorting_type));
 
-				$this->paginate($this->total, array('blog','index',$this->sorting_action,$this->sorting_type));
+			$this->response->controller('blog','index')
+				->setArray(array(
+					'posts'	=> $this->posts_data,
+					'total'	=> $this->total
+				));
 
-				$this->response->controller('blog','index')
-					->setArray(array(
-						'posts'	=> $this->posts_data,
-						'total'	=> $this->total
-					));
-
-				return $this;
-			}
-
-			return $this->renderEmptyPage();
+			return $this;
 		}
 
 		protected function setSortingPanelAll(){

@@ -137,10 +137,10 @@
 		return $result_link;
 	}
 
-	function fx_crop_string($string,$length=200){
+	function fx_crop_string($string,$length=200,$with_points="..."){
 		$string = strip_tags($string);
 		if(mb_strlen($string) > $length){
-			return mb_substr($string,0,$length) . "...";
+			return mb_substr($string,0,$length) . $with_points;
 		}
 		return $string;
 	}

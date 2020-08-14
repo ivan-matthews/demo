@@ -10,22 +10,24 @@
 //	fx_die($posts)
 ?>
 
-<div class="blog-list row justify-content-center">
-
-	<?php if(fx_logged()){ ?>
-		<div class="buttons col-12 text-right mb-2">
-			<div class="btn-group">
-				<a class="add-post btn-default radius-0 p-2" href="<?php print fx_make_url(array('blog','posts','%user_id%')) ?>">
-					<i class="far fa-user"></i>
-					<?php print fx_lang('blog.my_blog_posts') ?>
-				</a>
-				<a class="add-post btn-success radius-0 p-2" href="<?php print fx_get_url('blog','add') ?>">
-					<i class="fas fa-plus"></i>
-					<?php print fx_lang('blog.add_new_post') ?>
-				</a>
-			</div>
+<?php if(fx_logged()){ ?>
+	<div class="buttons col-12 text-right mb-2">
+		<div class="btn-group">
+			<a class="add-post btn-default radius-0 p-2" href="<?php print fx_make_url(array('blog','posts','%user_id%')) ?>">
+				<i class="far fa-user"></i>
+				<?php print fx_lang('blog.my_blog_posts') ?>
+			</a>
+			<a class="add-post btn-success radius-0 p-2" href="<?php print fx_get_url('blog','add') ?>">
+				<i class="fas fa-plus"></i>
+				<?php print fx_lang('blog.add_new_post') ?>
+			</a>
 		</div>
-	<?php } ?>
+	</div>
+<?php } ?>
+
+<?php if(!$posts){ return $this->renderEmptyPage(); } ?>
+
+<div class="blog-list row justify-content-center">
 
 	<div class="col-12 posts row">
 
@@ -35,11 +37,15 @@
 
 				<div class="post-info row ">
 
-					<div class="post-item-image col-md-3 col-sm-3 col-3 col-lg-2 col-xl-2 pt-2">
-						<img src="<?php print fx_get_image_src($post['blog_image'],$post['blog_image_date'],'small') ?>">
-					</div>
+					<?php if($post['blog_image']){ ?>
 
-					<div class="col-md-7 col-sm-8 col-9 col-lg-10 col-xl-10 post-item-info">
+						<div class="post-item-image col-md-3 col-sm-3 col-3 col-lg-2 col-xl-2 pt-2">
+							<img src="<?php print fx_get_image_src($post['blog_image'],$post['blog_image_date'],'small') ?>">
+						</div>
+
+					<?php } ?>
+
+					<div class="<?php if($post['blog_image']){ ?>col-md-7 col-sm-8 col-9 col-lg-10 col-xl-10<?php }else{ ?>col-12<?php } ?> post-item-info">
 
 						<?php if(fx_me($post['u_id'])){ ?>
 							<div class="btn-group buttons float-right mt-2">
@@ -62,29 +68,29 @@
 						<div class="blog-content mt-1 mb-1">
 							<?php print fx_crop_string($post['b_content'],200) ?>
 						</div>
-						<div class="info row col-12">
-							<div class="blog-user mr-2">
-								<a href="<?php print fx_get_url('users','item',$post['u_id']) ?>" class="p-2 user-link">
-									<?php fx_print_avatar(
-										$post['p_micro'],
-										'micro',
-										$post['p_date_updated'],
-										$post['u_gender']
-									) ?>
-									<?php print fx_get_full_name($post['u_full_name'],$post['u_gender']) ?>
-								</a>
-							</div>
-							<div class="blog-date mr-2">
-								<i class="fas fa-clock"></i>
-								<?php print fx_get_date($post['b_date_created']) ?>
-							</div>
-							<div class="blog-views mr-2">
-								<i class="fas fa-eye"></i>
-								<?php print $post['b_total_views'] ?>
-							</div>
-						</div>
 					</div>
 
+					<div class="info row col-12 mt-2">
+						<div class="blog-user mr-2">
+							<a href="<?php print fx_get_url('users','item',$post['u_id']) ?>" class="p-2 user-link">
+								<?php fx_print_avatar(
+									$post['p_micro'],
+									'micro',
+									$post['p_date_updated'],
+									$post['u_gender']
+								) ?>
+								<?php print fx_get_full_name($post['u_full_name'],$post['u_gender']) ?>
+							</a>
+						</div>
+						<div class="blog-date mr-2">
+							<i class="fas fa-clock"></i>
+							<?php print fx_get_date($post['b_date_created']) ?>
+						</div>
+						<div class="blog-views mr-2">
+							<i class="fas fa-eye"></i>
+							<?php print $post['b_total_views'] ?>
+						</div>
+					</div>
 				</div>
 			</div>
 

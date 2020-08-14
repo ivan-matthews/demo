@@ -84,32 +84,27 @@
 
 			$this->total = $this->model->countAllPosts($this->query);
 
-			if($this->total){
+			$this->user_data = $this->user_model->getUserByID($this->user_id);
+			$this->setResponse();
 
-				$this->user_data = $this->user_model->getUserByID($this->user_id);
-				$this->setResponse();
+			$this->sorting_panel = $this->params->sorting_panel;
+			$this->prepareSortingActions();
+			$this->sorting($this->sorting_panel);
 
-				$this->sorting_panel = $this->params->sorting_panel;
-				$this->prepareSortingActions();
-				$this->sorting($this->sorting_panel);
+			$this->posts_data = $this->model->getAllPosts(
+				$this->query,$this->limit,$this->offset,$this->order,$this->sort
+			);
 
-				$this->posts_data = $this->model->getAllPosts(
-					$this->query,$this->limit,$this->offset,$this->order,$this->sort
-				);
+			$this->paginate($this->total, array('blog','posts',$this->user_id,$this->sorting_action,$this->sorting_type));
 
-				$this->paginate($this->total, array('blog','posts',$this->user_id,$this->sorting_action,$this->sorting_type));
+			$this->response->controller('blog','posts')
+				->setArray(array(
+					'posts'	=> $this->posts_data,
+					'total'	=> $this->total,
+					'user'	=> $this->user_data,
+				));
 
-				$this->response->controller('blog','posts')
-					->setArray(array(
-						'posts'	=> $this->posts_data,
-						'total'	=> $this->total,
-						'user'	=> $this->user_data,
-					));
-
-				return $this;
-			}
-
-			return $this->renderEmptyPage();
+			return $this;
 		}
 
 		public function prepareSortingActions(){

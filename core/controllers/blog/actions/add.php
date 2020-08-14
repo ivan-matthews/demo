@@ -45,6 +45,28 @@
 
 		/** @var Add_Post */
 		public $add_form;
+		public $insert_data = array(
+			'b_user_id'			=> '',
+			'b_image_preview_id'=> '',
+			'b_slug'			=> '',
+			'b_category_id'		=> '',
+			'b_title'			=> '',
+			'b_content'			=> '',
+			'b_date_created'	=> '',
+			'b_comments_enabled'=> '',
+			'b_public'			=> '',
+		);
+
+		public $image_id;
+		public $title;
+		public $content;
+		public $comments_enabling;
+		public $public_status;
+
+		public $post_id;
+		public $post_slug;
+		public $user_id;
+		public $category_id = 0;		// временно 0, пока нет категорий
 
 		/** @return $this */
 		public static function getInstance(){
@@ -57,12 +79,11 @@
 		public function __construct(){
 			parent::__construct();
 
+			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
 			$this->add_form = Add_Post::getInstance();
 		}
 
 		public function methodGet(){
-			if(!$this->user->logged()){ return false; }
-
 			$this->add_form->generateFieldsList();
 
 			$this->response->controller('blog','add')
@@ -76,8 +97,47 @@
 		}
 
 		public function methodPost(){
-			fx_die($this->request->getAll());
-			return false;
+			$this->add_form->checkFieldsList($this->request->getAll());
+
+			if($this->add_form->can()){
+				$this->image_id = $this->add_form->getAttribute('b_image_preview_id');
+				$this->content = $this->add_form->getAttribute('b_content');
+				$this->title = $this->add_form->getAttribute('b_title');
+
+				$this->public_status = $this->add_form->getAttribute('b_public');
+				$this->comments_enabling = $this->add_form->getAttribute('b_comments_enabled');
+
+				if(!$this->title){
+					$this->title = fx_crop_string($this->content,191,null);
+				}
+
+				$this->insert_data['b_user_id'] 			= $this->user_id;
+				$this->insert_data['b_image_preview_id']	= (int)$this->image_id;
+				$this->insert_data['b_category_id']			= $this->category_id;
+				$this->insert_data['b_title'] 				= $this->title;
+				$this->insert_data['b_content']				= $this->content;
+				$this->insert_data['b_date_created'] 		= time();
+				$this->insert_data['b_comments_enabled'] 	= $this->comments_enabling ? '1' : '0';
+				$this->insert_data['b_public'] 				= $this->public_status ? '1' : '0';
+
+				$this->post_id = $this->model->addBlogPostItem($this->insert_data);
+
+				if($this->post_id){
+					$this->post_slug = $this->makeSlugFromString($this->post_id,$this->title);
+					if($this->model->updatePostSlugById($this->post_id,$this->post_slug)){
+						return $this->redirect(fx_get_url('blog','post',$this->post_slug));
+					}
+				}
+			}
+
+			$this->response->controller('blog','add')
+				->setArray(array(
+					'form'		=> $this->add_form->getFormAttributes(),
+					'fields'	=> $this->add_form->getFieldsList(),
+					'errors'	=> $this->add_form->getErrors()
+				));
+
+			return $this->setResponse();
 		}
 
 		public function setResponse(){

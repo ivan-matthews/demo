@@ -85,9 +85,6 @@
 		public function methodGet($receiver_id){
 			$this->receiver_id = $receiver_id;
 
-//			if(fx_equal($this->sender_id,$this->receiver_id)){ return false; }
-			if(!$this->user->logged()){ return false; }
-
 			$this->form->generateFieldsList($this->receiver_id);
 
 			$this->form_fields_list = $this->form->getFieldsList();
@@ -100,9 +97,6 @@
 
 		public function methodPost($receiver_id){
 			$this->receiver_id = $receiver_id;
-
-//			if(fx_equal($this->sender_id,$this->receiver_id)){ return false; }
-			if(!$this->user->logged()){ return false; }
 
 			$this->form->setData($this->request->getAll());
 			$this->form->checkFieldsList($this->receiver_id);

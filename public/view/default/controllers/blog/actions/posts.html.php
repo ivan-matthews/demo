@@ -11,18 +11,20 @@
 //	fx_die($posts)
 ?>
 
-<div class="blog-list row justify-content-center">
-
-	<?php if(fx_me($user['u_id'])){ ?>
-		<div class="buttons col-12 text-right mb-2">
-			<div class="btn-group">
-				<a class="add-post btn-success radius-0 p-2" href="<?php print fx_get_url('blog','add') ?>">
-					<i class="fas fa-plus"></i>
-					<?php print fx_lang('blog.add_new_post') ?>
-				</a>
-			</div>
+<?php if(fx_me($user['u_id'])){ ?>
+	<div class="buttons col-12 text-right mb-2">
+		<div class="btn-group">
+			<a class="add-post btn-success radius-0 p-2" href="<?php print fx_get_url('blog','add') ?>">
+				<i class="fas fa-plus"></i>
+				<?php print fx_lang('blog.add_new_post') ?>
+			</a>
 		</div>
-	<?php } ?>
+	</div>
+<?php } ?>
+
+<?php if(!$posts){ return $this->renderEmptyPage(); } ?>
+
+<div class="blog-list row justify-content-center">
 
 	<div class="col-12 posts row">
 
@@ -59,29 +61,29 @@
 						<div class="blog-content mt-1 mb-1">
 							<?php print fx_crop_string($post['b_content'],200) ?>
 						</div>
-						<div class="info row col-12">
-							<div class="blog-user mr-2">
-								<a href="<?php print fx_get_url('users','item',$post['u_id']) ?>" class="p-2 user-link">
-									<?php fx_print_avatar(
-										$post['p_micro'],
-										'micro',
-										$post['p_date_updated'],
-										$post['u_gender']
-									) ?>
-									<?php print fx_get_full_name($post['u_full_name'],$post['u_gender']) ?>
-								</a>
-							</div>
-							<div class="blog-date mr-2">
-								<i class="fas fa-clock"></i>
-								<?php print fx_get_date($post['b_date_created']) ?>
-							</div>
-							<div class="blog-views mr-2">
-								<i class="fas fa-eye"></i>
-								<?php print $post['b_total_views'] ?>
-							</div>
-						</div>
 					</div>
 
+					<div class="info row col-12 mt-2">
+						<div class="blog-user mr-2">
+							<a href="<?php print fx_get_url('users','item',$post['u_id']) ?>" class="p-2 user-link">
+								<?php fx_print_avatar(
+									$post['p_micro'],
+									'micro',
+									$post['p_date_updated'],
+									$post['u_gender']
+								) ?>
+								<?php print fx_get_full_name($post['u_full_name'],$post['u_gender']) ?>
+							</a>
+						</div>
+						<div class="blog-date mr-2">
+							<i class="fas fa-clock"></i>
+							<?php print fx_get_date($post['b_date_created']) ?>
+						</div>
+						<div class="blog-views mr-2">
+							<i class="fas fa-eye"></i>
+							<?php print $post['b_total_views'] ?>
+						</div>
+					</div>
 				</div>
 			</div>
 

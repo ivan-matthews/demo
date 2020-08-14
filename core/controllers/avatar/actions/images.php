@@ -64,8 +64,6 @@
 		}
 
 		public function methodGet(){
-			if(!$this->user->logged()){ return false; }
-
 			$this->avatars = $this->model->getAllUserAvatars($this->user_id,$this->limit,$this->offset,$this->query,'p_id','DESC');
 
 			$this->response->controller('avatar','images')

@@ -14,6 +14,26 @@
 				'groups_enabled'	=> array(),
 				'groups_disabled'	=> array(),
 			),
+			'add'	=> array(
+				'groups_enabled'	=> array(),
+				'groups_disabled'	=> array(0),
+			),
+			'delete'	=> array(
+				'groups_enabled'	=> array(),
+				'groups_disabled'	=> array(0),
+			),
+			'delete_contact'	=> array(
+				'groups_enabled'	=> array(),
+				'groups_disabled'	=> array(0),
+			),
+			'edit'	=> array(
+				'groups_enabled'	=> array(),
+				'groups_disabled'	=> array(0),
+			),
+			'send'	=> array(
+				'groups_enabled'	=> array(),
+				'groups_disabled'	=> array(0),
+			),
 			'item'	=> array(
 				'groups_enabled'	=> array(),
 				'groups_disabled'	=> array(),

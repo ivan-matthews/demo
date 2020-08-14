@@ -66,8 +66,6 @@
 		}
 
 		public function methodGet(){
-			if(!fx_me($this->user_id)){ return false; }
-
 			$this->total = $this->model->countContacts($this->user_id);
 
 			$this->setResponse();

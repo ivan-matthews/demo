@@ -18,5 +18,17 @@
 				'groups_enabled'	=> array(),
 				'groups_disabled'	=> array(),
 			),
-		),						// 2mb
+			'add'	=> array(
+				'groups_enabled'	=> array(),
+				'groups_disabled'	=> array(0),
+			),
+			'delete'	=> array(
+				'groups_enabled'	=> array(),
+				'groups_disabled'	=> array(0),
+			),
+			'edit'	=> array(
+				'groups_enabled'	=> array(),
+				'groups_disabled'	=> array(0),
+			),
+		),
 	);

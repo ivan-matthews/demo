@@ -777,7 +777,7 @@
 		}
 
 		public function prepare(callable $callback_function=null){
-			if($callback_function){
+			if($callback_function && $this->validate_status){
 				$this->value = call_user_func(array($callback_function,$this->value));
 				$this->setAttribute('value',$this->value);
 			}
@@ -785,7 +785,7 @@
 		}
 
 		public function jevix($prepare = true){
-			if($prepare){
+			if($prepare && $this->validate_status){
 				$jevix = new Jevix($this->value);
 				$this->value = $jevix->start()
 					->result();
@@ -795,12 +795,14 @@
 		}
 
 		public function htmlentities($quote_style=null,$charset=null,$double_encode=true){
+			if(!$this->validate_status){ return $this; }
 			$this->value = fx_htmlentities($this->value,$quote_style,$charset,$double_encode);
 			$this->setAttribute('value',$this->value);
 			return $this;
 		}
 
 		public function htmlspecialchars($flags=ENT_COMPAT,$encoding="UTF-8",$double_encode=true){
+			if(!$this->validate_status){ return $this; }
 			$this->value = fx_htmlspecialchars($this->value,$flags,$encoding,$double_encode);
 			$this->setAttribute('value',$this->value);
 			return $this;

@@ -66,7 +66,7 @@
 			return $result;
 		}
 
-		public function getBlogPostById($post_id){
+		public function getBlogPostById($post_id,$image_size_field_key='p_normal'){
 			$result = $this->select(
 				'blog.*',
 				'users.u_id',
@@ -75,7 +75,7 @@
 				'users.u_gender',
 				'ui.p_micro',
 				'ui.p_date_updated',
-				'bi.p_normal as blog_image',
+				'bi.' . $image_size_field_key . ' as blog_image',
 				'bi.p_date_updated as blog_image_date'
 			)
 				->from('blog')
@@ -114,13 +114,13 @@
 			return $result;
 		}
 
-		public function deleteBlogPostItemById($blog_post_item_id,$user_id){
+		public function deleteBlogPostItemById($blog_post_item_id){
 			$result = $this->update('blog')
 				->field('b_status',Kernel::STATUS_DELETED)
 				->field('b_date_deleted',time())
-				->where("`b_id`=%post_id% AND `b_user_id`=%user_id%")
+				->where("`b_id`=%post_id%")
 				->data('%post_id%',$blog_post_item_id)
-				->data('%user_id%',$user_id)
+//				->data('%user_id%',$user_id)
 				->get()
 				->rows();
 
@@ -138,10 +138,40 @@
 			return $result;
 		}
 
-		public function addBlogPostItem(){
+		public function addBlogPostItem($insert_data){
+			$post_insert_obj = $this->insert('blog');
 
+			foreach($insert_data as $key=>$datum){
+				$post_insert_obj = $post_insert_obj->value($key,$datum);
+			}
+			$post_id = $post_insert_obj->get()->id();
+
+			return $post_id;
 		}
 
+		public function updatePostSlugById($item_id,$item_slug){
+			$result = $this->update('blog')
+				->field('b_slug',$item_slug)
+				->where("`b_id`=%post_id%")
+				->data('%post_id%',$item_id)
+				->get()
+				->rows();
+
+			return $result;
+		}
+
+		public function editBlogPostItem($insert_data,$post_id){
+			$post_insert_obj = $this->update('blog');
+
+			foreach($insert_data as $key=>$datum){
+				$post_insert_obj = $post_insert_obj->field($key,$datum);
+			}
+			$post_insert_obj = $post_insert_obj->where("`b_id`=%post_id%");
+			$post_insert_obj = $post_insert_obj->data('%post_id%',$post_id);
+			$post_rows = $post_insert_obj->get()->rows();
+
+			return $post_rows;
+		}
 
 
 

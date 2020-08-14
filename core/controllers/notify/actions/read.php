@@ -60,8 +60,6 @@
 		}
 
 		public function methodGet($notice_id=null){
-			if(!$this->user->logged()){ return false; }
-
 			$this->notice_id = $notice_id;
 
 			if(!$this->notice_id){

@@ -34,7 +34,7 @@
 	use Core\Classes\Form\Interfaces\Validator;
 	use Core\Classes\Form\Interfaces\Form as FormInterface;
 
-	class Add_Post extends Form{
+	class Edit_Post extends Form{
 
 		/** @var $this */
 		private static $instance;
@@ -49,6 +49,8 @@
 		protected $session;
 
 		private $form_name;
+
+		private $post_id;
 
 		/**
 		 * @param $form_name
@@ -66,11 +68,13 @@
 			$this->form_name = $form_name;
 		}
 
-		public function generateFieldsList(){		// для метода GET - генерирует поля
+		public function generateFieldsList($post_id){		// для метода GET - генерирует поля
+			$this->post_id = $post_id;
+
 			$this->validator_interface->form(function(FormInterface $form){
 				$form->setFormMethod('POST');
 				$form->setFormName($this->form_name);
-				$form->setFormAction(fx_get_url('blog','add'));
+				$form->setFormAction(fx_get_url('blog','edit',$this->post_id));
 			});
 
 			$this->validator_interface->field('b_title')
@@ -81,7 +85,7 @@
 				->placeholder(fx_lang('blog.title_field_placeholder'))
 				->type('text')
 				->check(function(Checkers $checkers){
-					$checkers->max(185);
+					$checkers->max(191);
 				});
 
 			$this->validator_interface->field('b_image_preview_id')
@@ -96,7 +100,6 @@
 				})
 				->check(function(Checkers $checkers){
 					$checkers->max(191);
-//					$checkers->int();
 				});
 
 			$this->validator_interface->field('b_content')
@@ -146,12 +149,13 @@
 			return $this;
 		}
 
-		public function checkFieldsList($post_data){
+		public function checkFieldsList($post_data,$post_id){
+			$this->post_id = $post_id;
 			$this->validator_interface
 				->setData($post_data)
 				->csrf(1)
 				->validate(1);
-			return $this->generateFieldsList();
+			return $this->generateFieldsList($this->post_id);
 		}
 
 

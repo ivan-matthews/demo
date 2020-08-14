@@ -101,6 +101,9 @@
 	function fx_avatar($avatar,$image_nof_found_key='micro',$gender=3){
 		$view = View::getInstance();
 		if(!$avatar){
+			if(!$gender){
+				$gender = 3;
+			}
 			$config = Config::getInstance();
 			$avatar = $config->view['user_avatar'][$gender][$image_nof_found_key];
 		}

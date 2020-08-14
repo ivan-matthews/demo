@@ -78,8 +78,11 @@
 			return $this->model->updateTotalViewsForPostItem($post_item,$post_field_name);
 		}
 
-
-
+		public function makeSlugFromString($item_id,$item_title){
+			$slug_string = fx_create_slug_from_string($item_title);
+			$slug_string = "{$item_id}_{$slug_string}";
+			return fx_crop_string($slug_string,80,null);
+		}
 
 
 

@@ -62,7 +62,7 @@
 
 		public function methodGet($blog_post_slug){
 			$this->item_slug = $blog_post_slug;
-			$this->post_data = $this->model->getBlogPostById($this->item_slug);
+			$this->post_data = $this->model->getBlogPostBySlug($this->item_slug);
 
 			if($this->post_data){
 				$this->updateTotalViewsForPostItem($this->item_slug,$this->user_id,'b_slug');

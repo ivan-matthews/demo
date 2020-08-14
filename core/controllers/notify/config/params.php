@@ -18,6 +18,14 @@
 				'groups_enabled'	=> array(),
 				'groups_disabled'	=> array(),
 			),
+			'delete'	=> array(
+				'groups_enabled'	=> array(),
+				'groups_disabled'	=> array(0),
+			),
+			'read'	=> array(
+				'groups_enabled'	=> array(),
+				'groups_disabled'	=> array(0),
+			),
 		),
 		'sorting_panel'	=> array(
 			'all'	=> array(

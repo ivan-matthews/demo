@@ -69,8 +69,6 @@
 		}
 
 		public function methodGet($item_id){
-			if(!$this->user->logged()){ return false; }
-
 			$this->item_id = $item_id;
 
 			$this->notice_data = $this->model->getNoticeById($this->item_id);

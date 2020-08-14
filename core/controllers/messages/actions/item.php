@@ -87,8 +87,6 @@
 		}
 
 		public function methodGet($contact_id){
-			if(!$this->user->logged()){ return false; }
-
 			$this->contact_id = $contact_id;
 
 			$this->contact_data = $this->model->getContactById($this->user_id,$this->contact_id);

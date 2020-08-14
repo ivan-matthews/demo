@@ -190,6 +190,20 @@
 					'value'			=> 'users.users_link_value',
 				),
 				array(
+					'menu_id'		=> $this->main_menu,
+					'link_array'	=> array(
+						'link'=>array(
+							'blog','index'
+						),
+						'query'=>array(
+
+						)
+					),
+					'name'			=> 'blog_page',
+					'title'			=> 'blog.blog_link_title',
+					'value'			=> 'blog.blog_link_value',
+				),
+				array(
 					'menu_id'		=> $this->guest_menu,
 					'link_array'	=> array(
 						'link'=>array(

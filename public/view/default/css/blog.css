@@ -24,18 +24,18 @@
 .blog-list .posts .post-item .post-info .post-item-info .blog-content {
   font-size: 13px;
 }
-.blog-list .posts .post-item .post-info .post-item-info .info {
+.blog-list .posts .post-item .post-info .info {
   margin-top: 1em;
 }
-.blog-list .posts .post-item .post-info .post-item-info .info .blog-user .user-link {
+.blog-list .posts .post-item .post-info .info .blog-user .user-link {
   font-size: 12px;
 }
-.blog-list .posts .post-item .post-info .post-item-info .info .blog-user .user-link .user-avatar {
+.blog-list .posts .post-item .post-info .info .blog-user .user-link .user-avatar {
   margin-right: 0.5em;
   border-radius: 50%;
   max-width: 22px;
 }
-.blog-list .posts .post-item .post-info .post-item-info .info .blog-date {
+.blog-list .posts .post-item .post-info .info .blog-date {
   font-style: italic;
   font-size: 12px;
   color: #999999;

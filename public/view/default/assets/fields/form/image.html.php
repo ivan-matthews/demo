@@ -15,11 +15,20 @@
 
 	$image_params = $attributes['params'];
 
+	$image_preview_value = $this->request->get('preview_image');
 ?>
 
-<div class="image-preview <?php print $attributes['id'] ?> <?php print $attributes['params']['field_sets_field_class'] ?>" style="display:none">
+<div class="image-preview <?php print $attributes['id'] ?> <?php print $attributes['params']['field_sets_field_class'] ?>" <?php if(!$image_preview_value){ ?>style="display:none"<?php } ?>>
 	<div class="img position-relative">
-
+		<?php if($image_preview_value){ ?>
+			<img src="<?php print $this->getUploadSiteRoot($image_preview_value) ?>"/>
+			<div class="deletion-link mt-2">
+				<a href="javascript:deleteImageFromPreviewList()" class="p-1 mt-1">
+					<i class="fas fa-times mr-2"></i>
+					<?php print fx_lang('avatar.delete_preview_image') ?>
+				</a>
+			</div>
+		<?php } ?>
 	</div>
 </div>
 
@@ -27,10 +36,24 @@
 
 	<div class="image-inputs <?php print $attributes['id'] ?>">
 		<input <?php print $field_string ?> >
-		<input id="<?php print $attributes['id'] ?>" class="image-preview-src" type="hidden" name="preview_image">
+		<input value="<?php print $image_preview_value ?>" id="<?php print $attributes['id'] ?>" class="image-preview-src" type="hidden" name="preview_image">
 	</div>
 
-	<a type="button" class="btn btn-primary select-image-button" data-toggle="modal" data-target=".bd-example-modal-lg">
+	<?php if($errors_status){ ?>
+
+		<?php foreach($errors as $item) { ?>
+
+			<div class="invalid-feedback">
+
+				<?php print $item ?>
+
+			</div>
+
+		<?php } ?>
+
+	<?php } ?>
+
+	<a type="button" class="btn btn-primary select-image-button" data-toggle="modal" data-target=".bd-example-modal-lg" <?php if($image_preview_value){ ?>style="display:none"<?php } ?>>
 		<?php print $attributes['params']['label']  ?>
 	</a>
 
@@ -59,11 +82,13 @@
 
 <script>
 	selectImageAndAddToPreview = function(image_id,image_src){
+		let path = '<?php print $this->getUploadSiteRoot(null)  ?>';
+
 		$('.image-inputs.<?php print $attributes['id'] ?> input[name="<?php print $attributes['name'] ?>"]').val(image_id);
 		$('.image-inputs.<?php print $attributes['id'] ?> input[name="preview_image"]').val(image_src);
 
 		$('div.image-preview.<?php print $attributes['id'] ?> .img').html(
-			'<img src="' + image_src + '"/>' +
+			'<img src="' + path + image_src + '"/>' +
 			'<div class="deletion-link mt-2">' +
 			'<a href="javascript:deleteImageFromPreviewList()" class="p-1 mt-1">' +
 			'<i class="fas fa-times mr-2"></i>' +

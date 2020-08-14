@@ -43,6 +43,7 @@
 		public $delete;
 
 		public $post_id;
+		public $post_data;
 		public $user_id;
 		public $update_result;
 
@@ -63,12 +64,19 @@
 
 		public function methodGet($post_id){
 			$this->post_id = $post_id;
-			if(!fx_me($this->user_id)){ return false; }
 
-			$this->update_result = $this->model->deleteBlogPostItemById($this->post_id,$this->user_id);
+			$this->post_data = $this->model->getBlogPostById($this->post_id);
 
-			if($this->update_result){
-				return $this->redirect(fx_get_url('blog','index'));
+			if($this->post_data){
+
+				if(!fx_me($this->post_data['b_user_id'])){ return false; }
+
+				$this->update_result = $this->model->deleteBlogPostItemById($this->post_id);
+
+				if($this->update_result){
+					return $this->redirect(fx_get_url('blog','index'));
+				}
+
 			}
 
 			return false;

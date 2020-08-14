@@ -83,9 +83,6 @@
 			$this->contact_id = $contact_id;
 			$this->receiver_id = $receiver_id;
 
-			if(!$this->user->logged()){ return false; }
-//			if(fx_equal($this->sender_id,$this->receiver_id)){ return false; }
-
 			$this->form->generateFieldsList($this->contact_id,$this->receiver_id);
 
 			$this->form_fields_list = $this->form->getFieldsList();
@@ -101,8 +98,6 @@
 			$this->receiver_id = $receiver_id;
 
 			if(!$this->contact_id){ return false; }
-			if(!$this->user->logged()){ return false; }
-//			if(fx_equal($this->sender_id,$this->receiver_id)){ return false; }
 
 			$this->form->setData($this->request->getAll());
 			$this->form->checkFieldsList($this->contact_id,$this->receiver_id);
