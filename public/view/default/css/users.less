@@ -255,6 +255,26 @@
 }
 
 .user-info-widget{
+	&.sidebar{
+		.name-and-avatar{
+			position: relative;
+			.icon-logged{
+				position: absolute;
+				left: 7px;
+				bottom: 5px;
+				&.online{
+					i,svg{
+						color: @success;
+					}
+				}
+				&.offline{
+					i,svg{
+						color: @danger;
+					}
+				}
+			}
+		}
+	}
 	.body{
 		a{
 			&.user-info-link{

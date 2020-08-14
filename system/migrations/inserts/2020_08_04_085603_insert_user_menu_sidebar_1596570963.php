@@ -3,30 +3,27 @@
 	namespace System\Migrations\Inserts;
 
 	use Core\Classes\Database\Database;
-	use Core\Controllers\Users\Widgets\User_Info;
 	use Core\Classes\Kernel;
 
-	class InsertUserInfoWidget202007111031161594503076{
+	class InsertUserMenuSidebar202008040856031596570963{
 
-		private $widget_id;
+		private $ordering;
 		private $active_widget_id;
 		private $menu_id;
 
-		public function addWidget(){
-			$this->widget_id = Database::insert('widgets')
-				->value('w_class',User_Info::class)
-				->value('w_method','run')
-				->value('w_status',Kernel::STATUS_ACTIVE)
-				->value('w_template','controllers/users/widgets/user_info')
+		public function updateSidebarOrderingPositions(){
+			$this->ordering = Database::update('widgets_active')
+				->query('wa_ordering','wa_ordering+1')
+				->where("wa_position='sidebar'")
 				->get()
-				->id();
+				->rows();
 			return $this;
 		}
 
 		public function addActiveWidget(){
-			$this->active_widget_id = Database::insert('widgets_active')
-				->value('wa_widget_id',$this->widget_id)
-				->value('wa_name','user_info')
+			Database::insert('widgets_active')
+				->value('wa_name','user_info_sidebar')
+				->query('wa_widget_id',"(select w_id from widgets where w_class='Core\\\\Controllers\\\\Users\\\\Widgets\\\\User_Info' limit 1)")
 				->value('wa_title','home.user_info_title')
 				->value('wa_css_class','')
 				->value('wa_css_class_title','')
@@ -34,10 +31,11 @@
 				->value('wa_show_title',0)
 				->value('wa_unite_prev',0)
 				->value('wa_status',Kernel::STATUS_ACTIVE)
-				->value('wa_position','header')
-				->value('wa_ordering',2)
+				->value('wa_position','sidebar')
+				->value('wa_ordering',1)
 				->value('wa_template','controllers/users/widgets/user_info')
 				->value('wa_groups_disabled',array(0))
+				->update('wa_position','sidebar')
 				->get()
 				->id();
 			return $this;
@@ -46,7 +44,7 @@
 		public function addUserMenu(){
 			$this->menu_id = Database::insert('menu')
 				->value('m_widget_id',$this->active_widget_id)
-				->value('m_name','user_info_menu')
+				->value('m_name','user_info_sidebar_menu')
 				->value('m_title','users.user_info_title')
 				->get()
 				->id();
@@ -92,6 +90,7 @@
 			}
 			$insert_request->get()->id();
 		}
+
 
 
 

@@ -37,6 +37,8 @@
 				'img_date'	=> $this->session->get('p_date_updated',Session::PREFIX_AUTH),
 				'gender'	=> $this->session->get('u_gender',Session::PREFIX_AUTH),
 				'name'		=> $this->session->get('u_full_name',Session::PREFIX_AUTH),
+				'date_log'	=> $this->session->get('u_date_log',Session::PREFIX_AUTH),
+				'log_type'	=> $this->session->get('u_log_type',Session::PREFIX_AUTH),
 				'notice'	=> $this->user_model->countUserNoticesById($this->user_id),
 				'mail'		=> $this->user_model->countUserMessagesById($this->user_id),
 				'menu'		=> $this->user_menu,

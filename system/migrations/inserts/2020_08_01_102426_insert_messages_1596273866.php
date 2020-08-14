@@ -4,11 +4,22 @@
 
 	use Core\Classes\Config;
 	use Core\Classes\Database\Database;
+	use System\Cron_Tasks\Users\Add_New_Bot;
 
 	class InsertMessages202008011024261596273866{
 
 		public $demo_data_string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
 		public $demo_data_array = array();
+
+		public function zeroStepCreateDemoUser(){
+			$add_new_users = new Add_New_Bot();
+
+			for($id=0;$id<5;$id++){
+				$add_new_users->execute(array());
+			}
+
+			return $this;
+		}
 
 		public function firstStep(){
 			$this->getDemoDataArray();

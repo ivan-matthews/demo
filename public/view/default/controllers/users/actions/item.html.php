@@ -60,7 +60,7 @@
 
 	<div class="user-right-bar col-md-12 col-sm-12 col-11 col-lg-8 col-xl-8">
 
-		<?php $this->renderAsset('controllers/users/widgets/user_info_header',$data) ?>
+		<?php $this->renderAsset('controllers/users/widgets/user_header',$data) ?>
 
 		<?php $this->renderAsset('controllers/users/widgets/status_panel',$data) ?>
 

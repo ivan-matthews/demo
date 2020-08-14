@@ -24,8 +24,6 @@
 		public $time;
 
 		public function __construct(){
-			$this->getCurrentTime();
-
 			$this->password		= 'Qwerty12345^';
 			$this->geo_data 	= $this->fx_get_geo();
 			$this->login 		= fx_gen_lat(rand(15,30)) . '@' . fx_gen_lat(rand(15,30)) . '.'. fx_gen_lat(rand(2,5));
@@ -54,6 +52,7 @@
 		 */
 		public function execute($params){
 			$this->params = $params;
+			$this->getCurrentTime();
 			$this->makeAuthId();
 			$this->makeUserId();
 			return true;

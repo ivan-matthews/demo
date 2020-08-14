@@ -196,6 +196,22 @@
 .users-list .users .users-item .users-info .drop-down-user-menu .menu-links .menu-list .list-group-item .menu-list-item-link .menu-list-item-link-icon {
   border: none;
 }
+.user-info-widget.sidebar .name-and-avatar {
+  position: relative;
+}
+.user-info-widget.sidebar .name-and-avatar .icon-logged {
+  position: absolute;
+  left: 7px;
+  bottom: 5px;
+}
+.user-info-widget.sidebar .name-and-avatar .icon-logged.online i,
+.user-info-widget.sidebar .name-and-avatar .icon-logged.online svg {
+  color: #28a745;
+}
+.user-info-widget.sidebar .name-and-avatar .icon-logged.offline i,
+.user-info-widget.sidebar .name-and-avatar .icon-logged.offline svg {
+  color: #dc3545;
+}
 .user-info-widget .body a.user-info-link {
   position: relative;
   padding: 7px 20px;
