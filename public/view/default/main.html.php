@@ -15,6 +15,7 @@
 		'before_content'	=> true,
 		'after_content'		=> true,
 		'body_footer'		=> true,
+		'sidebar_footer'	=> true,
 		'footer'			=> true,
 	));
 
@@ -77,7 +78,7 @@
 
 					<?php print $this->widget('body_header') ?>
 
-					<div class="main-content">
+					<div class="main-content mb-4">
 
 						<?php print $this->widget('before_content') ?>
 
@@ -88,7 +89,6 @@
 						<?php } ?>
 
 						<?php print $this->widget('after_content') ?>
-
 					</div>
 
 				</div>

@@ -36,7 +36,7 @@
 			'wa_show_title'		=> 1,
 			'wa_unite_prev'		=> 0,
 			'wa_status'			=> 1,
-			'wa_position'		=> 'body_footer',
+			'wa_position'		=> 'after_content',
 			'wa_ordering'		=> -1000,
 			'wa_template'		=> 'controllers/comments/widgets/comments',
 			'wa_groups_enabled' => null,

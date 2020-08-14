@@ -66,6 +66,8 @@
 		private $theme;
 		private $theme_replace_data;
 
+		private $notify_ready = null;
+
 		/**
 		 * @param null $callback_function
 		 * @return NoticeInterface
@@ -143,15 +145,19 @@
 		}
 
 		public function create(){
+			$this->notify_ready = true;
 			$this->setDate()
 				->setStatus();
 			return $this;
 		}
 
 		public function send(){
-			$this->update();
-			$this->send_interface = $this->database;
-			$result_id = $this->send_interface->get()->id();
+			$result_id = null;
+			if($this->notify_ready){
+				$this->update();
+				$this->send_interface = $this->database;
+				$result_id = $this->send_interface->get()->id();
+			}
 			$this->connect();
 			return $result_id;
 		}

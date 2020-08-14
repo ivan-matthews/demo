@@ -13,7 +13,7 @@
 
 <?php if($this->data['breadcrumb']){ ?>
 
-	<nav aria-label="breadcrumb" class="breadcrumbs" id="top">
+	<nav aria-label="breadcrumb" class="breadcrumbs mb-3" id="top">
 
 		<ol class="breadcrumb">
 

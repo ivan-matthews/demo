@@ -171,10 +171,11 @@
 				$this->limit_notices_author
 			);
 
+			$cropped_content_string = fx_crop_string($this->comment_content,50);
+			$send_obj = Notice::ready();
+
 			if($this->ids_to_notice_send){					// отправить последним комментаторам уведомлени
-				$cropped_content_string = fx_crop_string($this->comment_content,50);
 				$unique_ids = array();
-				$send_obj = Notice::ready();
 				foreach($this->ids_to_notice_send as $value){
 
 					if(isset($unique_ids[$value['c_author_id']])){ continue; }
@@ -189,31 +190,30 @@
 					$send_obj = $send_obj->content($cropped_content_string);
 					$send_obj = $send_obj->create();
 				}
-
-				if(!fx_me($this->receiver_id)){
-					$send_obj->theme('comments.send_notice_title')			// отправить автору контента
-						->sender($this->sender_id)
-						->manager(Notice::MANAGER_SYSTEM)
-						->receiver($this->receiver_id)
-						->action($this->controller,$this->action,$this->item_id)
-						->key("{$this->controller}.{$this->action}.{$this->item_id}.{$this->receiver_id}")
-						->content($cropped_content_string)
-						->create();
-				}
-
-				if(!fx_me($this->author_id)){
-					$send_obj->theme('comments.send_notice_title')			// отправить автору комментария
-						->sender($this->sender_id)
-						->manager(Notice::MANAGER_SYSTEM)
-						->receiver($this->author_id)
-						->action($this->controller,$this->action,$this->item_id)
-						->key("{$this->controller}.{$this->action}.{$this->item_id}.{$this->author_id}")
-						->content($cropped_content_string)
-						->create();
-				}
-
-				$send_obj->send();
 			}
+
+			if(!fx_me($this->receiver_id)){
+				$send_obj->theme('comments.send_notice_title')			// отправить автору контента
+					->sender($this->sender_id)
+					->manager(Notice::MANAGER_SYSTEM)
+					->receiver($this->receiver_id)
+					->action($this->controller,$this->action,$this->item_id)
+					->key("{$this->controller}.{$this->action}.{$this->item_id}.{$this->receiver_id}")
+					->content($cropped_content_string)
+					->create();
+			}
+
+			if(!fx_me($this->author_id) && !fx_equal($this->author_id,$this->receiver_id)){
+				$send_obj->theme('comments.send_notice_title')			// отправить автору комментария
+					->sender($this->sender_id)
+					->manager(Notice::MANAGER_SYSTEM)
+					->receiver($this->author_id)
+					->action($this->controller,$this->action,$this->item_id)
+					->key("{$this->controller}.{$this->action}.{$this->item_id}.{$this->author_id}")
+					->content($cropped_content_string)
+					->create();
+			}
+			$send_obj->send();
 
 			return $this;
 		}
