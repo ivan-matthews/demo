@@ -84,7 +84,14 @@
 				$pattern = $this->preparePattern($value['url'],fx_arr($value['pattern'],'string'));
 				preg_match("#{$pattern}#{$value['modifier']}",$this->url_array['path'],$result_matches);
 				if(isset($result_matches[0]) && fx_equal($result_matches[0],$this->url_array['path'])){
-					$this->setMainTypeRouter($value['controller'],$value['action'],array_slice($result_matches,1));
+					if($value['params']){
+						array_push($result_matches,...$value['params']);
+					}
+					$this->setMainTypeRouter(
+						$value['controller'],
+						$value['action'],
+						array_slice($result_matches,1)
+					);
 				}
 			}
 			return $this;

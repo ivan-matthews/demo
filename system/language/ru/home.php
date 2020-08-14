@@ -35,8 +35,8 @@
 		'support_link_value'	=> 'Поддержка',
 		'feedback_link_title'	=> 'Связь',
 		'feedback_link_value'	=> 'Связь',
-		'blog_link_title'		=> 'Блог',
-		'blog_link_value'		=> 'Блог',
+		'blog_link_title'		=> 'Новости',
+		'blog_link_value'		=> 'Новости',
 		'sitemap_link_title'	=> 'Карта',
 		'sitemap_link_value'	=> 'Карта',
 

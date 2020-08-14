@@ -34,6 +34,19 @@
 				'search_fields'		=> array('u_full_name','u_about'),
 				'status_field'		=> 'u_status',
 			),
+			'blog'	=> array(
+				'title'	=> 'search.find_by_blog_table_head',
+				'link'	=> array(),
+				'fields'=> array(
+					'id'		=> 'b_id',
+					'title'		=> 'b_title',
+					'content'	=> 'b_content',
+					'image'		=> 'b_image_preview_id',
+					'date' 		=> 'b_date_created',
+				),
+				'search_fields'		=> array('b_content','b_title'),
+				'status_field'		=> 'b_status',
+			),
 			/*'status'	=> array(
 				'title'	=> 'search.find_by_status_table_head',
 				'link'	=> array(),

@@ -97,7 +97,7 @@
 					$this->offset
 				);
 
-				$this->paginate($this->search_total,array('search','index',$current_action));
+				$this->paginate($this->search_total,array('search','index',$this->current_action));
 
 				$this->setResponse();
 
@@ -106,7 +106,8 @@
 						'result'	=> $this->search_result,
 						'current'	=> $this->current_action,
 						'query'		=> $this->search_query,
-						'totla'		=> $this->search_total,
+						'total'		=> $this->search_total,
+						'action'	=> $this->current_action,
 					));
 
 				return $this;

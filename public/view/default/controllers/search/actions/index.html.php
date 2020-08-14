@@ -5,6 +5,7 @@
 	/** @var string $current */
 	/** @var string $query */
 	/** @var string $total */
+	/** @var string $action */
 
 	$this->prependCSS("{$this->theme_path}/css/search");
 //	fx_die($data);
@@ -14,7 +15,7 @@
 
 	<div class="col-md-12 col-sm-12 col-12 col-lg-11 col-xl-11 p-0 list-group search">
 
-		<form method="GET" action="<?php print fx_get_url('search','index') ?>">
+		<form method="GET" action="<?php print $action ?>">
 			<div class="input-group">
 				<div class="input-group-prepend">
 					<div class="input-group-text radius-0 search-icon">

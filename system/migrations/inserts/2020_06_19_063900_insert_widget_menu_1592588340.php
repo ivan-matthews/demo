@@ -270,7 +270,7 @@
 					'css_class_icon'=> 'chocolate-icon',
 				),
 				array(
-					'link_array'	=> array('link'=>array('help'),'query'=>array()),
+					'link_array'	=> array('link'=>array('support'),'query'=>array()),
 					'name'			=> 'support_page',
 					'title'			=> 'home.support_link_title',
 					'value'			=> 'home.support_link_value',
@@ -286,7 +286,7 @@
 					'css_class_icon'=> 'chocolate-icon',
 				),
 				array(
-					'link_array'	=> array('link'=>array('blog'),'query'=>array()),
+					'link_array'	=> array('link'=>array('site-news'),'query'=>array()),
 					'name'			=> 'blog_page',
 					'title'			=> 'home.blog_link_title',
 					'value'			=> 'home.blog_link_title',
