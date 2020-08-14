@@ -81,7 +81,6 @@
 }
 .avatar-item .avatar-block .avatar-description .user-info-link .user-info {
   padding-bottom: 10px;
-  border-bottom: solid 1px rgba(0, 0, 0, 0.1);
 }
 .avatar-item .avatar-block .avatar-description .user-info-link .user-info .user-name {
   font-weight: bold;
@@ -89,6 +88,18 @@
 .avatar-item .avatar-block .avatar-description .user-info-link .add-date {
   font-style: italic;
   opacity: 0.5;
+}
+.avatar-item .avatar-block .avatar-description .avatar-comments .comments-list .comments .comments-item .comments-info .comments-item-avatar .avatar {
+  max-width: 32px;
+}
+.avatar-item .avatar-block .avatar-description .avatar-comments .comments-list .comments .comments-item .comments-info .comments-item-avatar .avatar img {
+  max-width: 32px;
+}
+.avatar-item .avatar-block .avatar-description .avatar-comments .comments-list .comments .comments-item .comments-info .comments-item-info .author-link {
+  background: none;
+}
+.avatar-item .avatar-block .avatar-description .avatar-comments .comments-list .comments-title .comments-title-value {
+  font-size: 14px;
 }
 .avatars-list .avatars .avatars-item .avatars-item-title {
   white-space: nowrap;

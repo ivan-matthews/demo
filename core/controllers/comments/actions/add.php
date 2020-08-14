@@ -57,6 +57,8 @@
 		public $content_item;
 		public $back_url;
 
+		public $ids_to_notice_send = array();
+
 		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -154,18 +156,46 @@
 		}
 
 		public function sendNotice(){
-			if(fx_me($this->receiver_id)){ return $this; }
+			$this->ids_to_notice_send = $this->model->getLastCommentatorsIDs(
+				$this->controller,
+				$this->action,
+				$this->item_id,
+				$this->sender_id,
+				$this->receiver_id,
+				$this->limit_notices_author
+			);
 
-			Notice::ready()
-				->theme('comments.send_notice_title')
-				->sender($this->sender_id)
-				->manager(Notice::MANAGER_SYSTEM)
-				->receiver($this->receiver_id)
-				->action($this->controller,$this->action,$this->item_id)
-				->key("{$this->controller}.{$this->action}.{$this->item_id}")
-				->content(fx_crop_string($this->comment_content,50))
-				->create()
-				->send();
+			if($this->ids_to_notice_send){
+				$cropped_content_string = fx_crop_string($this->comment_content,50);
+				$unique_ids = array();
+				$send_obj = Notice::ready();
+				foreach($this->ids_to_notice_send as $value){
+
+					if(isset($unique_ids[$value['c_author_id']])){ continue; }
+					$unique_ids[$value['c_author_id']] = true;
+
+					$send_obj = $send_obj->theme('comments.send_notice_title');
+					$send_obj = $send_obj->sender($this->sender_id);
+					$send_obj = $send_obj->manager(Notice::MANAGER_SYSTEM);
+					$send_obj = $send_obj->receiver($value['c_author_id']);
+					$send_obj = $send_obj->action($this->controller,$this->action,$this->item_id);
+					$send_obj = $send_obj->key("{$this->controller}.{$this->action}.{$this->item_id}.{$value['c_author_id']}");
+					$send_obj = $send_obj->content($cropped_content_string);
+					$send_obj = $send_obj->create();
+				}
+
+				if(!fx_me($this->receiver_id)){
+					$send_obj->theme('comments.send_notice_title')
+						->sender($this->sender_id)
+						->manager(Notice::MANAGER_SYSTEM)
+						->receiver($this->receiver_id)
+						->action($this->controller,$this->action,$this->item_id)
+						->key("{$this->controller}.{$this->action}.{$this->item_id}.{$this->receiver_id}")
+						->content($cropped_content_string)
+						->create();
+				}
+				$send_obj->send();
+			}
 
 			return $this;
 		}

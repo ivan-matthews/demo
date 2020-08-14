@@ -19,19 +19,26 @@
 
 			$insert = Database::insert('comments');
 			for($i=1;$i<101;$i++){
-				$item_id = rand(1,2);
+				$item_id 		= rand(1,2);
+				$author_id 		= rand(1,15);
+				$receiver_id 	= rand(1,15);
 
-				$parent_id = $this->getId($i);
+				$massive[$item_id][$author_id][] = $i;
 
-				$insert = $insert->value('c_author_id',rand(1,5));
+				$insert = $insert->value('c_author_id',$author_id);
 				$insert = $insert->value('c_controller','blog');
 				$insert = $insert->value('c_action','item');
 				$insert = $insert->value('c_item_id',$item_id);
-				$insert = $insert->value('c_content',$this->demo_data_array[rand(0,7)]);
+				$insert = $insert->value('c_content',str_repeat($this->demo_data_array[rand(0,7)],rand(1,10)));
 				$insert = $insert->value('c_date_created',time());
 
-				$insert = $insert->value('c_receiver_id',($parent_id?rand(1,5):null));		//
-				$insert = $insert->value('c_parent_id',$parent_id);						//
+				if(isset($massive[$item_id][$receiver_id]) && !fx_equal($author_id,$receiver_id)){
+					$insert = $insert->value('c_receiver_id',$receiver_id);		//
+					$insert = $insert->value('c_parent_id',$massive[$item_id][$receiver_id][rand(0,max(array_keys($massive[$item_id][$receiver_id])))]);
+				}else{
+					$insert = $insert->value('c_receiver_id',null);		//
+					$insert = $insert->value('c_parent_id',null);
+				}
 				$this->items_id[$item_id]++;
 			}
 			$insert->get()->id();

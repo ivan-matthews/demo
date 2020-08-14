@@ -9,6 +9,7 @@
 	use Core\Controllers\Avatar\Config;
 	use Core\Controllers\Avatar\Controller;
 	use Core\Controllers\Avatar\Model;
+	use Core\Controllers\Comments\Widgets\Comments;
 
 	class Item extends Controller{
 
@@ -46,6 +47,8 @@
 		public $avatar_id;
 		public $avatar_data = array();
 
+		public $sender_id;
+
 		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -56,6 +59,8 @@
 
 		public function __construct(){
 			parent::__construct();
+
+			$this->sender_id = $this->session->get('u_id',Session::PREFIX_AUTH);
 		}
 
 		public function methodGet($user_id,$avatar_id){
@@ -73,6 +78,18 @@
 					->setArray(array(
 						'avatar'	=> $this->avatar_data,
 					));
+
+				Comments::add($this->limit,$this->offset)
+					->setProp('wa_position','avatar_info')
+					->setProp('wa_template','controllers/avatar/widgets/comments')
+					->setProp('w_template','controllers/avatar/widgets/comments')
+					->controller('avatar')
+					->action('item')
+					->item_id($this->avatar_id)
+					->paginate(array('avatar','item',$this->user_id,$this->avatar_id))
+					->author($this->sender_id)
+					->receiver($this->user_id)
+					->set();
 
 				return $this;
 			}

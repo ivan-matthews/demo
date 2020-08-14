@@ -33,7 +33,7 @@
 	use Core\Classes\Form\Interfaces\Validator;
 	use Core\Classes\Form\Interfaces\Form as FormInterface;
 
-	class Add_Comment extends Form{
+	class Reply_Comment extends Form{
 
 		/** @var $this */
 		private static $instance;
@@ -50,6 +50,8 @@
 		public $action;
 		public $item_id;
 		public $receiver_id;
+		public $parent_id;
+		public $author_id;
 
 		public $hash;
 		/**
@@ -68,19 +70,21 @@
 			$this->form_name = $form_name;
 		}
 
-		public function generateFieldsList($controller,$action,$item_id,$receiver_id){
+		public function generateFieldsList($controller,$action,$item_id,$parent_id,$author_id,$receiver_id){
 			$this->controller = $controller;
 			$this->action = $action;
 			$this->item_id = $item_id;
 			$this->receiver_id = $receiver_id;
+			$this->parent_id = $parent_id;
+			$this->author_id = $author_id;
 
-			$this->hash = fx_encode($this->controller . $this->action . $this->item_id . $this->receiver_id);
+			$this->hash = fx_encode($this->controller . $this->action . $this->item_id . $this->parent_id . $this->author_id . $this->receiver_id);
 
 			$this->validator_interface->form(function(FormInterface $form){
 				$form->setFormMethod('POST');
 				$form->setFormName($this->form_name);
 				$form->setFormClass('mbt-0');
-				$form->setFormAction(fx_get_url('comments','add',$this->controller,$this->action,$this->item_id,$this->receiver_id));
+				$form->setFormAction(fx_get_url('comments','reply',$this->controller,$this->action,$this->item_id,$this->parent_id,$this->author_id,$this->receiver_id));
 			});
 
 			$this->validator_interface->field('token')
@@ -116,11 +120,11 @@
 			return $this;
 		}
 
-		public function checkFieldsList($controller,$action,$item_id,$receiver_id){
+		public function checkFieldsList($controller,$action,$item_id,$parent_id,$author_id,$receiver_id){
 			$this->validator_interface
 				->csrf(1)
 				->validate(1);
-			return $this->generateFieldsList($controller,$action,$item_id,$receiver_id)->checkToken();
+			return $this->generateFieldsList($controller,$action,$item_id,$parent_id,$author_id,$receiver_id)->checkToken();
 		}
 
 		public function checkToken(){

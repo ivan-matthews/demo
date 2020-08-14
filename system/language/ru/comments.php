@@ -12,4 +12,6 @@
 		'send_comment_button_value'	=> 'отправить',
 		'send_notice_title'			=> 'Новый комментарий',
 		'send_notice_value'			=> '',
+		'add_comment_form_title'	=> 'Добавить комментарий',
+		'write_someone_placeholder'	=> 'Напишите что-нибудь...',
 	);

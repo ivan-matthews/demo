@@ -174,6 +174,7 @@
 			$this->update_interface->update('n_theme_data_to_replace',$this->theme_replace_data);
 			$this->update_interface->update('n_content_data_to_replace',$this->content_replace_data);
 			$this->update_interface->update('n_date_updated',null);
+			$this->update_interface->update('n_date_created',time());
 			$this->update_interface->update('n_status',Kernel::STATUS_ACTIVE);
 			return $this;
 		}

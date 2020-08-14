@@ -41,6 +41,7 @@
 		public $item_id;
 
 		public $comments_list_id= "comment-list";
+		public $limit_notices_author = 10;
 		
 		/** @return $this */
 		public static function getInstance(){

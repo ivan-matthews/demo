@@ -8,6 +8,7 @@
 	use Core\Classes\Response\Response;
 	use Core\Controllers\Comments\Config;
 	use Core\Controllers\Comments\Controller;
+	use Core\Controllers\Comments\Forms\Edit_Comment;
 	use Core\Controllers\Comments\Model;
 
 	class Edit extends Controller{
@@ -42,11 +43,14 @@
 		/** @var array */
 		public $edit;
 
-		public $limit;
-		public $offset;
-		public $total;
-		public $order;
-		public $sort;
+		public $sender_id;
+		public $back_url;
+
+		public $comment_id;
+		public $comment_content;
+		public $comment_data;
+
+		public $edit_form;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -56,62 +60,81 @@
 			return self::$instance;
 		}
 
-		public function __get($key){
-			if(isset($this->edit[$key])){
-				return $this->edit[$key];
-			}
-			return false;
-		}
-
-		public function __set($name, $value){
-			$this->edit[$name] = $value;
-			return $this->edit[$name];
-		}
-
 		public function __construct(){
 			parent::__construct();
+
+			$this->edit_form = Edit_Comment::getInstance();
+
+			$this->back_url = $this->user->getBackUrl();
+			$this->backLink();
+			$this->sender_id = $this->session->get('u_id',Session::PREFIX_AUTH);
 		}
 
-		public function __destruct(){
+		public function methodGet($comment_id){
+			$this->comment_id = $comment_id;
 
-		}
+			$this->comment_data = $this->model->getCommentById($this->comment_id);
 
-		public function methodGet(){
+			if($this->comment_data && fx_me($this->comment_data['c_author_id'])){
+				$this->edit_form->setData(array(
+					'comment'	=> $this->comment_data['c_content']
+				));
+				$this->edit_form->generateFieldsList($this->comment_id);
+
+				$this->setResponse();
+
+				$this->response->controller('comments','add')
+					->setArray(array(
+						'form'		=> $this->edit_form->getFormAttributes(),
+						'fields'	=> $this->edit_form->getFieldsList(),
+						'errors'	=> $this->edit_form->getErrors(),
+					));
+
+				return $this;
+			}
+
 			return false;
 		}
 
-		public function methodPost(){
+		public function methodPost($comment_id){
+			$this->comment_id = $comment_id;
+
+			$this->comment_data = $this->model->getCommentById($this->comment_id);
+
+			if($this->comment_data && fx_me($this->comment_data['c_author_id'])){
+				$this->edit_form->setData($this->request->getAll());
+				$this->edit_form->checkFieldsList($this->comment_id);
+
+				$this->setResponse();
+
+				if($this->edit_form->can()){
+					$this->comment_content = $this->edit_form->getAttribute('comment','value');
+					if($this->model->updateCommentContent($this->comment_id,$this->comment_content)){
+						return $this->redirect("{$this->back_url}#{$this->comments_list_id}");
+					}
+				}
+
+				$this->response->controller('comments','add')
+					->setArray(array(
+						'form'		=> $this->edit_form->getFormAttributes(),
+						'fields'	=> $this->edit_form->getFieldsList(),
+						'errors'	=> $this->edit_form->getErrors(),
+					));
+
+				return $this;
+			}
+
 			return false;
 		}
 
-		public function methodPut(){
-			return false;
+		public function setResponse(){
+			$this->response->title('comments.comments_controller_title');
+			$this->response->breadcrumb('comment')
+				->setValue('comments.comments_controller_title')
+				->setLink('comments','edit',$this->comment_id)
+				->setIcon(null);
+			return $this;
 		}
-
-		public function methodHead(){
-			return false;
-		}
-
-		public function methodTrace(){
-			return false;
-		}
-
-		public function methodPatch(){
-			return false;
-		}
-
-		public function methodOptions(){
-			return false;
-		}
-
-		public function methodConnect(){
-			return false;
-		}
-
-		public function methodDelete(){
-			return false;
-		}
-
 
 
 

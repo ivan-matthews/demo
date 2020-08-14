@@ -26,6 +26,13 @@
 				'count_field'	=> 'b_total_comments',
 				'author_field'	=> 'b_user_id',
 				'status_field'	=> 'b_status',
-			)
+			),
+			'avatar'	=> array(
+				'table_name'	=> 'photos',
+				'id_field'		=> 'p_id',
+				'count_field'	=> 'p_total_comments',
+				'author_field'	=> 'p_user_id',
+				'status_field'	=> 'p_status',
+			),
 		),
 	);

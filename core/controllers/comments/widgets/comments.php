@@ -84,6 +84,16 @@
 			$this->send_form = Add_Comment::getInstance();
 		}
 
+		public function setProp($key,$value){
+			$this->default_props[$key] = $this->params[$key] = $value;
+			return $this;
+		}
+
+		public function props(array $new_props){
+			$this->default_props = $this->params = array_merge($this->default_props,$new_props);
+			return $this;
+		}
+
 		public function controller($controller){
 			$this->controller = $controller;
 			return $this;

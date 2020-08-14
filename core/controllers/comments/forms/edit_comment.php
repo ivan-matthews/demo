@@ -33,7 +33,7 @@
 	use Core\Classes\Form\Interfaces\Validator;
 	use Core\Classes\Form\Interfaces\Form as FormInterface;
 
-	class Add_Comment extends Form{
+	class Edit_Comment extends Form{
 
 		/** @var $this */
 		private static $instance;
@@ -46,10 +46,7 @@
 
 		private $form_name;
 
-		public $controller;
-		public $action;
-		public $item_id;
-		public $receiver_id;
+		public $comment_id;
 
 		public $hash;
 		/**
@@ -68,34 +65,15 @@
 			$this->form_name = $form_name;
 		}
 
-		public function generateFieldsList($controller,$action,$item_id,$receiver_id){
-			$this->controller = $controller;
-			$this->action = $action;
-			$this->item_id = $item_id;
-			$this->receiver_id = $receiver_id;
-
-			$this->hash = fx_encode($this->controller . $this->action . $this->item_id . $this->receiver_id);
+		public function generateFieldsList($comment_id){
+			$this->comment_id = $comment_id;
 
 			$this->validator_interface->form(function(FormInterface $form){
 				$form->setFormMethod('POST');
 				$form->setFormName($this->form_name);
 				$form->setFormClass('mbt-0');
-				$form->setFormAction(fx_get_url('comments','add',$this->controller,$this->action,$this->item_id,$this->receiver_id));
+				$form->setFormAction(fx_get_url('comments','edit',$this->comment_id));
 			});
-
-			$this->validator_interface->field('token')
-				->dont_prepare()
-				->class('add-message form-control radius-0')
-				->type('hidden')
-				->params(function(Params $param){
-					$param->default_value($this->hash);
-					$param->field_sets('csrf');
-					$param->show_label_in_form(false);
-					$param->field_sets_field_class('m-0');
-				})
-				->check(function(Checkers $checkers){
-					$checkers->required();
-				});
 
 			$this->validator_interface->field('comment')
 				->jevix(true)
@@ -116,20 +94,12 @@
 			return $this;
 		}
 
-		public function checkFieldsList($controller,$action,$item_id,$receiver_id){
+		public function checkFieldsList($comment_id){
 			$this->validator_interface
 				->csrf(1)
 				->validate(1);
-			return $this->generateFieldsList($controller,$action,$item_id,$receiver_id)->checkToken();
+			return $this->generateFieldsList($comment_id);
 		}
 
-		public function checkToken(){
-			$token = $this->getValue('token');
-			if($token && fx_equal($this->hash,$token)){
-				return $this;
-			}
-			$this->setError(fx_lang('comments.tokens_not_equal'));
-			return $token;
-		}
 
 	}

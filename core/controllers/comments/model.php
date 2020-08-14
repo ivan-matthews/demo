@@ -32,8 +32,8 @@
 		}
 
 		public function countCommentsByItem($controller,$action,$item_id){
-			$where_query = '`с_status`!=' . Kernel::STATUS_BLOCKED;
-			$where_query .= " AND comments.`с_status`!=" . Kernel::STATUS_DELETED;;
+			$where_query = '`c_status`!=' . Kernel::STATUS_BLOCKED;
+			$where_query .= " AND comments.`c_status`!=" . Kernel::STATUS_DELETED;;
 			$where_query .= " AND `c_controller`=%controller%";
 			if($action){
 				$where_query .= " AND `c_action`=%action%";
@@ -53,8 +53,8 @@
 		}
 
 		public function getCommentsByItem($controller,$action,$item_id,$limit,$offset){
-			$where_query = 'comments.`с_status`!=' . Kernel::STATUS_BLOCKED;
-			$where_query .= " AND comments.`с_status`!=" . Kernel::STATUS_DELETED;;
+			$where_query = 'comments.`c_status`!=' . Kernel::STATUS_BLOCKED;
+			$where_query .= " AND comments.`c_status`!=" . Kernel::STATUS_DELETED;;
 			$where_query .= " AND comments.`c_controller`=%controller%";
 			if($action){
 				$where_query .= " AND comments.`c_action`=%action%";
@@ -112,6 +112,22 @@
 			return $result;
 		}
 
+		public function addParentComment($controller,$action,$item_id,$author_id,$parent_id,$receiver_id,$content){
+			$result = $this->insert('comments')
+				->value('c_controller',$controller)
+				->value('c_action',$action)
+				->value('c_item_id',$item_id)
+				->value('c_author_id',$author_id)
+				->value('c_parent_id',$parent_id)
+				->value('c_receiver_id',$receiver_id)
+				->value('c_content',$content)
+				->value('c_date_created',time())
+				->get()
+				->id();
+
+			return $result;
+		}
+
 		public function updateTotalComments($table,$field_name_key,$id_name_key,$item_id,$value){
 			$result = $this->update($table)
 				->query($field_name_key,$value)
@@ -125,7 +141,7 @@
 
 		public function deleteComment($comment_id){
 			$result = $this->update('comments')
-				->field('с_status',Kernel::STATUS_DELETED)
+				->field('c_status',Kernel::STATUS_DELETED)
 				->field('c_date_deleted',time())
 				->where("`c_id`=%comment_id%")
 				->data('%comment_id%',$comment_id)
@@ -146,7 +162,69 @@
 			return $result;
 		}
 
+		public function getLastCommentatorsIDs($controller,$action,$item_id,$author_id,$receiver_id,$limit){
+			$where_query = "c_status !=" . Kernel::STATUS_DELETED;
+			$where_query .= " AND c_author_id != %author_id%";
+			$where_query .= " AND c_author_id != %receiver_id%";
+			$where_query .= " AND c_controller = %controller%";
+			$where_query .= " AND c_action = %action%";
+			$where_query .= " AND c_item_id = %item_id%";
 
+			$result = $this->select('DISTINCT c_author_id,c_id')
+				->from('comments')
+				->where($where_query)
+				->data('%author_id%',$author_id)
+				->data('%controller%',$controller)
+				->data('%action%',$action)
+				->data('%item_id%',$item_id)
+				->data('%receiver_id%',$receiver_id)
+				->order('c_id')
+				->sort('DESC')
+				->limit($limit)
+				->get()
+				->allAsArray();
+
+			return $result;
+		}
+
+		public function getLastCommentatorsIDsForReplyAction($controller,$action,$item_id,$author_id,$receiver_id,$content_author,$limit){
+			$where_query = "c_status !=" . Kernel::STATUS_DELETED;
+			$where_query .= " AND c_author_id != %author_id%";
+			$where_query .= " AND c_author_id != %receiver_id%";
+			$where_query .= " AND c_author_id != %content_author%";
+			$where_query .= " AND c_controller = %controller%";
+			$where_query .= " AND c_action = %action%";
+			$where_query .= " AND c_item_id = %item_id%";
+
+			$result = $this->select('DISTINCT c_author_id,c_id')
+				->from('comments')
+				->where($where_query)
+				->data('%author_id%',$author_id)
+				->data('%controller%',$controller)
+				->data('%action%',$action)
+				->data('%item_id%',$item_id)
+				->data('%receiver_id%',$receiver_id)
+				->data('%content_author%',$content_author)
+				->order('c_id')
+				->sort('DESC')
+				->limit($limit)
+				->get()
+				->allAsArray();
+
+			return $result;
+		}
+
+		public function updateCommentContent($comment_id,$comment_content){
+			$result = $this->update('comments')
+				->field('c_content',$comment_content)
+				->field('c_date_updated',time())
+				->where("`c_id`=%comment_id%")
+				->data('%comment_id%',$comment_id)
+				->get()
+				->rows();
+
+			return $result;
+		}
 
 
 

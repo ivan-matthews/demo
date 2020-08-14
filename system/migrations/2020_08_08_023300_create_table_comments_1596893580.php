@@ -27,7 +27,7 @@
 				$table->varchar('c_action')->nullable()->index();
 				$table->varchar('c_item_id')->nullable()->index();
 
-				$table->tinyint('с_status',1)->notNull()->defaults(Kernel::STATUS_ACTIVE)->index();
+				$table->tinyint('c_status',1)->notNull()->defaults(Kernel::STATUS_ACTIVE)->index();
 				$table->tinyint('с_public',1)->notNull()->defaults(1)->index();
 
 				$table->longtext('c_content')->nullable()->fullText();

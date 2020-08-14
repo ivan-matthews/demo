@@ -13,9 +13,9 @@
 			<?php print $avatar['p_name'] ?>
 		</div>
 
-		<div class="col-10 avatar-block row">
+		<div class="col-12 avatar-block row">
 
-			<div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 avatar-image row">
+			<div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5 avatar-image">
 
 				<div class="image-block">
 					<img src="<?php print fx_get_image_src($avatar['p_big'],$avatar['p_date_updated'],'big') ?>">
@@ -80,7 +80,7 @@
 
 			</div>
 
-			<div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mb-4 avatar-description mt-4 mt-sm-4 mt-md-4 mt-xl-0 mt-lg-0">
+			<div class="col-12 col-sm-12 col-md-12 col-lg-7 col-xl-7 mb-4 avatar-description mt-4 mt-sm-4 mt-md-4 mt-xl-0 mt-lg-0">
 
 				<a class="user-info-link" href="<?php print fx_get_url('users','item',$avatar['u_id']) ?>">
 
@@ -110,17 +110,9 @@
 
 				</a>
 
-				<!--<div class="comments mt-2">
-					<div class="comments-title">
-						<h5>Камменты</h5>
-					</div>
-					<div class="comments-form">
-						<input type="text" class="form-control" placeholder="пиши что-нибуть">
-					</div>
-					<div class="comments-items">
-
-					</div>
-				</div>-->
+				<div class="avatar-comments">
+					<?php print $this->widget('avatar_info') ?>
+				</div>
 
 			</div>
 

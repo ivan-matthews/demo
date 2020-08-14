@@ -39,7 +39,7 @@
 
 <div class="row justify-content-center comments comments-list mt-0 mb-4" id="comment-list">
 
-	<div class="comments-title p-3 col-12 row">
+	<div class="comments-title p-1 col-12 row">
 		<div class="comments-title-value">
 			<?php print fx_lang('comments.comments_widget_title') ?>
 		</div>
@@ -70,7 +70,7 @@
 
 					<div class="col-12 row ml-0">
 
-						<a href="<?php print $author_link ?>" class="comments-item-avatar col-md-3 col-sm-3 col-3 col-lg-2 col-xl-2">
+						<a href="<?php print $author_link ?>" class="comments-item-avatar col-md-2 col-sm-2 col-2 col-lg-2 col-xl-2">
 
 							<div class="avatar">
 
@@ -83,7 +83,7 @@
 							</div>
 						</a>
 
-						<div class="col-md-7 col-sm-8 col-9 col-lg-10 col-xl-10 comments-item-info">
+						<div class="col-md-10 col-sm-10 col-10 col-lg-10 col-xl-10 comments-item-info">
 							<a href="<?php print $author_link ?>" class="mb-2 row author-link">
 								<div class="list-group-item-heading info full-name p-1">
 									<?php print fx_get_full_name($comment['author_name'],$comment['author_gender']) ?>
