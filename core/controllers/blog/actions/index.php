@@ -10,6 +10,7 @@
 	use Core\Controllers\Blog\Config;
 	use Core\Controllers\Blog\Controller;
 	use Core\Controllers\Blog\Model;
+	use Core\Controllers\Categories\Controller as CatsController;
 
 	class Index extends Controller{
 
@@ -54,6 +55,7 @@
 		public $posts_data;
 		public $user_id;
 
+		public $cats_controller;
 		public $cat_id;
 
 		/** @return $this */
@@ -70,6 +72,8 @@
 			$this->query .= "`b_status`=" . Kernel::STATUS_ACTIVE;
 			$this->query .= " AND `b_public`=1";
 			$this->sorting_panel = $this->params->sorting_panel;
+			$this->cats_controller = CatsController::getInstance();
+			$this->cat_id = $this->cats_controller->getCurrentCategoryID();
 		}
 
 		public function methodGet($order='all',$sort='up'){

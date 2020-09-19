@@ -138,6 +138,7 @@
 			$this->field('captcha');
 			$this->setAttribute('required',true);
 			$this->setAttribute('autocomplete','off');
+			$this->setParams('label',fx_lang('fields.captcha_secure_label'));
 			$this->setParams('field_type','captcha');
 			$this->setParams('field_sets_field_class','col-md-12 col-sm-12 col-12 col-lg-12 col-xl-12');
 			return $this->setCaptcha();

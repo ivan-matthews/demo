@@ -10,6 +10,7 @@
 	use Core\Controllers\Faq\Controller;
 	use Core\Controllers\Faq\Forms\Add_Form;
 	use Core\Controllers\Faq\Model;
+	use Core\Controllers\Categories\Controller as CatsController;
 
 	class Add extends Controller{
 
@@ -47,6 +48,10 @@
 		public $insert_data;
 		public $new_item_id;
 
+		public $categories;				// список категорий
+		public $cat_id;					// текущая категория
+		public $cats_controller;
+
 		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -59,6 +64,10 @@
 			parent::__construct();
 			$this->backLink();
 			$this->add_form = Add_Form::getInstance();
+			$this->cats_controller = CatsController::getInstance();
+			$this->cat_id = $this->cats_controller->getCurrentCategoryID();
+			$this->categories = $this->cats_controller->setCategories('faq')
+				->getCategories();
 		}
 
 		public function methodGet(){

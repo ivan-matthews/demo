@@ -6,7 +6,6 @@
 	use Core\Widgets\Paginate;
 	use Core\Widgets\Sorting_Panel;
 	use Core\Widgets\Header_Bar;
-	use Core\Controllers\Home\Model as HomeModel;
 
 	class Controller{
 
@@ -51,12 +50,6 @@
 		public $sorting_action;
 		public $sorting_type = 'up';
 
-		public $cat_id;		// ID категории контента из GET[cat]
-
-		public $categories;
-
-		public $home_model;
-
 		public static function getInstance(){
 			if(self::$instance === null){
 				self::$instance = new self();
@@ -86,9 +79,7 @@
 			$this->hook = Hooks::getInstance();
 
 			$this->offset = $this->request->get('offset') ?? 0;
-			$this->cat_id = $this->request->get('cat');
-
-			$this->home_model = HomeModel::getInstance();
+			$this->offset = abs((int)$this->offset);
 		}
 
 		public function __destruct(){
@@ -184,16 +175,6 @@
 				->data($header_bar_data_from_params_array)
 				->current($current_tab)
 				->set();
-			return $this;
-		}
-
-		public function setCategories($controller){
-			$categories = $this->home_model->getCategoriesByCurrentController($controller);
-			if($categories){
-				foreach($categories as $category){
-					$this->categories[$category['ct_id']] = fx_lang($category['ct_title']);
-				}
-			}
 			return $this;
 		}
 

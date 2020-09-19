@@ -97,11 +97,11 @@
 <!--		INCLUDED FILES BEGIN-->
 		<div class="body mx-auto">
 			<?php $files = get_included_files() ?>
-			<a href="javascript:void(0)" class="values modal-link" data-toggle="modal" data-target=".files">
+			<a href="javascript:void(0)" class="values modal-link" data-toggle="modal" data-target=".files-modal">
 				<span class="title"><?php print fx_lang("home.files_value") ?>:</span>
 				<span class="value value-green"><?php print count($files) ?></span>
 			</a>
-			<div class="modal fade files" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal fade files-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 				<div class="modal-dialog modal-lg">
 					<div class="modal-content">
 						<ol>

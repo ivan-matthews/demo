@@ -2,6 +2,11 @@
 	/** @var \Core\Classes\View $this */
 	/** @var array $data */
 	/** @var array $images */
+
+	/** @var array $total */
+	/** @var array $limit */
+	/** @var array $offset */
+	/** @var array $link */
 ?>
 
 <div class="select-photos-list row justify-content-center">

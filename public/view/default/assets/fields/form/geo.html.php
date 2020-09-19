@@ -9,7 +9,11 @@
 
 	$field_string = $this->getAttributesStringFromArray($attributes);
 ?>
-
+<?php if($attributes['required']){ ?>
+	<span class="required text-danger">
+		*
+	</span>
+<?php } ?>
 <div class="fields form-group form-block u_first_name col-md-12 col-sm-12 col-12 col-lg-12 col-xl-12" id="geo-fields-list">
 	<input id="country" type="hidden" name="<?php print $attributes['params']['country']['name'] ?>" value="<?php print $attributes['params']['country']['id'] ?>">
 	<input id="region" type="hidden" name="<?php print $attributes['params']['region']['name'] ?>" value="<?php print $attributes['params']['region']['id'] ?>">

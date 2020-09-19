@@ -45,7 +45,11 @@
 	<?php if($attributes['params']['show_label_in_form']){ ?>
 
 		<label class="form-check-label col-12 row" for="<?php print $attributes['id'] ?>">
-
+			<?php if($attributes['required']){ ?>
+				<span class="required text-danger">
+					*
+				</span>
+			<?php } ?>
 			<?php print $attributes['params']['label'] ?>
 
 		</label>

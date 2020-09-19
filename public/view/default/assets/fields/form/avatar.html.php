@@ -39,9 +39,14 @@
 		<div id="image-wapper"></div>
 		<div class="image-form">
 			<label class="form-check-label image-label">
-			<span id="image">
-				<?php print $preview_content_orig ?>
-			</span>
+				<?php if($attributes['required']){ ?>
+					<span class="required text-danger">
+					*
+				</span>
+				<?php } ?>
+				<span id="image">
+					<?php print $preview_content_orig ?>
+				</span>
 				<input <?php print $field_string ?>>
 			</label>
 		</div>

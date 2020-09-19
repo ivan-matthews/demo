@@ -53,7 +53,8 @@ function isset(s){
 	return false;
 }
 function empty(s){
-	if(!defined(s.length)){ return false; }
+	if(!defined(s)){ return true; }
+	if(!defined(s.length)){ return true; }
 	if(s.length === 0){
 		return true;
 	}

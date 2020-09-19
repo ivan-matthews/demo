@@ -38,7 +38,11 @@
 		<?php } ?>
 
 	<?php } ?>
-
+	<?php if($attributes['required']){ ?>
+		<span class="required text-danger">
+			*
+		</span>
+	<?php } ?>
 	<label class="row justify-content-center images images-field-block">
 		<div class="images col-8 text-center upload-image">
 			<i class="fas fa-camera"></i>
@@ -100,7 +104,7 @@
 						'\n' +
 						'</div>'
 					);
-				
+
 				let reader = new FileReader();
 				reader.onload = function(event){
 					$('img#' + i).attr('src',event.target.result)

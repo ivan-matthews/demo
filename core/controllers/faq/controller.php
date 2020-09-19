@@ -64,8 +64,6 @@
 
 			$this->params = Config::getInstance();	// use Core\Controllers\Faq\Config as Config;
 			$this->model = Model::getInstance();	// use Core\Controllers\Faq\Model as Model;
-
-			$this->setCategories('faq');
 		}
 
 		public function __destruct(){

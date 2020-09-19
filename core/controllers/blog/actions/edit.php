@@ -11,6 +11,7 @@
 	use Core\Controllers\Blog\Model;
 	use Core\Controllers\Blog\Forms\Edit_Post;
 	use Core\Controllers\Attachments\Controller as AttachmentsController;
+	use Core\Controllers\Categories\Controller as CatsController;
 
 	class Edit extends Controller{
 
@@ -67,7 +68,11 @@
 		public $post_id;
 		public $post_slug;
 		public $user_id;
+
 		public $category_id = 0;		// временно 0, пока нет категорий
+		public $categories;				// список категорий
+		public $cat_id;					// текущая категория
+		public $cats_controller;
 
 		public $attachments_controller;
 		public $attachments_ids;
@@ -87,6 +92,10 @@
 			$this->user_id = $this->user->getUID();
 			$this->edit_form = Edit_Post::getInstance();
 			$this->attachments_controller = AttachmentsController::getInstance();
+			$this->cats_controller = CatsController::getInstance();
+			$this->cat_id = $this->cats_controller->getCurrentCategoryID();
+			$this->categories = $this->cats_controller->setCategories('blog')
+				->getCategories();
 		}
 
 		public function methodGet($post_id){
@@ -95,7 +104,8 @@
 
 			if($this->post_info && fx_me($this->post_info['b_user_id'])){
 
-				$this->edit_form->setCategories($this->categories,$this->cat_id)->setData($this->post_info);
+				$this->edit_form->setCategories($this->cats_controller->getCategories(),$this->cat_id)
+					->setData($this->post_info);
 				$this->edit_form->generateFieldsList($this->post_id);
 
 				$this->attachments_ids = fx_arr($this->post_info['b_attachments_ids']);
@@ -129,7 +139,8 @@
 
 				$this->post_slug = $this->post_info['b_slug'];
 
-				$this->edit_form->setCategories($this->categories,$this->cat_id)->checkFieldsList($this->request->getAll(),$this->post_id);
+				$this->edit_form->setCategories($this->categories,$this->cat_id)
+					->checkFieldsList($this->request->getAll(),$this->post_id);
 
 				$this->attachments_ids = $this->attachments_controller->prepareAttachments($this->request->getArray('attachments'),'attachments');
 				$this->attachments_data = $this->attachments_controller->getAttachmentsFromIDsList($this->attachments_ids,$this->user_id);

@@ -43,4 +43,5 @@
 		'captcha_not_found'			=> 'Сбой проверки CAPTCHA!',
 		'captcha_not_equal'			=> 'CAPTCHA не совпала с введенными символами!',
 		'selected_not_select'		=> '-- не выбрано --',
+		'captcha_secure_label'		=> 'Защита от роботов',
 	);

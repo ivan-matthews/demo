@@ -35,3 +35,17 @@
 			return $view->renderAsset("controllers/attachments/widgets/list_{$position}",$attachments);
 		}
 	}
+
+	if(!function_exists('fx_show_more_attachments_button')){
+		function fx_show_more_attachments_button($link,$total,$limit,$offset,$selector){
+			if($total <= $limit || $offset+$limit >= $total){ return false; }
+			$view = View::getInstance();
+			return $view->renderAsset("controllers/attachments/widgets/show_more_button",array(
+				'total'		=> $total,
+				'limit'		=> $limit,
+				'offset'	=> $offset,
+				'link'		=> $link,
+				'selector'	=> $selector,
+			));
+		}
+	}

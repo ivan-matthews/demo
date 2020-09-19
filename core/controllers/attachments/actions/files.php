@@ -44,7 +44,7 @@
 		/** @var array */
 		public $files;
 
-		public $limit = 30;
+		public $limit = 5;
 		public $offset = 0;
 		public $total;
 		public $order = 'f_id';
@@ -79,6 +79,9 @@
 			$this->response->controller('attachments','files')
 				->setArray(array(
 					'total'		=> $this->total,
+					'limit'		=> $this->limit,
+					'offset'	=> $this->offset,
+					'link'		=> fx_get_url('attachments','files', $ids_list),	// позже добавим параметры сортировки
 					'content'	=> $this->files_content,
 					'ids_list'	=> explode(',',$ids_list)
 				));

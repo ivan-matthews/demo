@@ -67,8 +67,6 @@
 				->setLink('blog','index')
 				->setValue($this->params->controller_name)
 				->setIcon(null);
-
-			$this->setCategories('blog');
 		}
 
 		public function __destruct(){

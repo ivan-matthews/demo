@@ -25,4 +25,5 @@
 		'audios_attachments_head'	=> 'Закрепленные аудиофайлы',
 		'photos_attachments_head'	=> 'Закрепленные фотографии',
 		'all_total_count'			=> '<div class="all-attachments"><i class="fas fa-paperclip"></i> %total%</div>',
+		'show_more_button_value'	=> 'Загрузить еще...',
 	);

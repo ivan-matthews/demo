@@ -11,6 +11,7 @@
 	use Core\Controllers\Blog\Forms\Add_Post;
 	use Core\Controllers\Blog\Model;
 	use Core\Controllers\Attachments\Controller as AttachmentsController;
+	use Core\Controllers\Categories\Controller as CatsController;
 
 	class Add extends Controller{
 
@@ -67,7 +68,11 @@
 		public $post_id;
 		public $post_slug;
 		public $user_id;
+
 		public $category_id = 0;		// временно 0, пока нет категорий
+		public $categories;				// список категорий
+		public $cat_id;					// текущая категория
+		public $cats_controller;
 
 		public $attachments_controller;
 		public $attachments_ids;
@@ -87,10 +92,15 @@
 			$this->user_id = $this->user->getUID();
 			$this->add_form = Add_Post::getInstance();
 			$this->attachments_controller = AttachmentsController::getInstance();
+			$this->cats_controller = CatsController::getInstance();
+			$this->cat_id = $this->cats_controller->getCurrentCategoryID();
+			$this->categories = $this->cats_controller->setCategories('blog')
+				->getCategories();
 		}
 
 		public function methodGet(){
-			$this->add_form->setCategories($this->categories,$this->cat_id)->generateFieldsList();
+			$this->add_form->setCategories($this->categories,$this->cat_id)
+				->generateFieldsList();
 
 			$this->response->controller('blog','add')
 				->setArray(array(
@@ -103,7 +113,8 @@
 		}
 
 		public function methodPost(){
-			$this->add_form->setCategories($this->categories,$this->cat_id)->checkFieldsList($this->request->getAll());
+			$this->add_form->setCategories($this->categories,$this->cat_id)
+				->checkFieldsList($this->request->getAll());
 
 			$this->attachments_ids = $this->attachments_controller->prepareAttachments($this->request->getArray('attachments'),'attachments');
 			$this->attachments_data = $this->attachments_controller->getAttachmentsFromIDsList($this->attachments_ids,$this->user_id);

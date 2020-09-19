@@ -247,19 +247,6 @@
 			return $result_replace_data;
 		}
 
-		public function getCategoriesByCurrentController($controller){
-			$result = $this->select()
-				->from('categories')
-				->where("`ct_controller`=%controller%")
-				->data('%controller%',$controller)
-				->order('ct_order')
-				->sort('ASC')
-				->get()
-				->allAsArray();
-
-			return $result;
-		}
-
 
 
 

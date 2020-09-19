@@ -159,6 +159,9 @@
 .selected .selected-icon {
   display: block;
 }
+.selected:hover {
+  opacity: 0.6;
+}
 .attachments-field .attachments-data-block-previews {
   border: solid 1px rgba(0, 0, 0, 0.125);
 }

@@ -4,7 +4,7 @@
 
 	use Core\Classes\Database\Database;
 	use Core\Classes\Kernel;
-	use Core\Widgets\Categories;
+	use Core\Controllers\Categories\Widgets\Categories;
 
 	class InsertCategoriesWidget202008120148351597193315{
 
@@ -15,7 +15,7 @@
 				->value('w_class',Categories::class)
 				->value('w_method','run')
 				->value('w_status',Kernel::STATUS_ACTIVE)
-				->value('w_template','widgets/categories')
+				->value('w_template','controllers/categories/widgets/categories')
 				->get()
 				->id();
 			return $this;
@@ -34,7 +34,7 @@
 				->value('wa_status',Kernel::STATUS_ACTIVE)
 				->value('wa_position','sidebar')
 				->value('wa_ordering',6)
-				->value('wa_template','widgets/categories')
+				->value('wa_template','controllers/categories/widgets/categories')
 				->value('wa_pages_enabled',array(
 					'blog'	=> array(),
 					'faq'	=> array(),

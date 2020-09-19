@@ -10,6 +10,7 @@
 	use Core\Controllers\Faq\Config;
 	use Core\Controllers\Faq\Controller;
 	use Core\Controllers\Faq\Model;
+	use Core\Controllers\Categories\Controller as CatsController;
 
 	class Index extends Controller{
 
@@ -52,6 +53,9 @@
 		public $faq_items;
 		public $prepared_data = array();
 
+		public $cat_id;
+		public $cats_controller;
+
 		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -64,6 +68,8 @@
 			parent::__construct();
 
 			$this->query = "f_status = " . Kernel::STATUS_ACTIVE;
+			$this->cats_controller = CatsController::getInstance();
+			$this->cat_id = $this->cats_controller->getCurrentCategoryID();
 		}
 
 		public function methodGet(){

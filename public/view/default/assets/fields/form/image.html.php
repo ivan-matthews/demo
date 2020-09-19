@@ -54,7 +54,14 @@
 
 	<?php } ?>
 
+	<?php if($attributes['required']){ ?>
+		<span class="required text-danger">
+					*
+				</span>
+	<?php } ?>
+
 	<a type="button" class="btn btn-primary select-image-button" data-toggle="modal" data-target=".bd-example-modal-lg" <?php if($image_preview_value){ ?>style="display:none"<?php } ?>>
+
 		<?php print $attributes['params']['label']  ?>
 	</a>
 

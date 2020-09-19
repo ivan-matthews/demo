@@ -3,6 +3,11 @@
 	/** @var array $data */
 	/** @var array $content */
 	/** @var array $ids_list */
+
+	/** @var array $total */
+	/** @var array $limit */
+	/** @var array $offset */
+	/** @var array $link */
 ?>
 
 <div class="select-videos-list row justify-content-center">
@@ -35,6 +40,9 @@
 
 		<?php } ?>
 
+		<div class="col-12 show-more justify-content-center row">
+			<?php fx_show_more_attachments_button($link,$total,$limit,$offset,'.select-videos-list .videos') ?>
+		</div>
 	</div>
 
 </div>

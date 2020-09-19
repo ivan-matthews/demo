@@ -80,6 +80,9 @@
 			$this->response->controller('attachments','photo')
 				->setArray(array(
 					'total'		=> $this->total,
+					'limit'		=> $this->limit,
+					'offset'	=> $this->offset,
+					'link'		=> fx_get_url('attachments','photo'),	// позже добавим параметры сортировки
 					'images'	=> $this->photo_content
 				));
 			return $this;

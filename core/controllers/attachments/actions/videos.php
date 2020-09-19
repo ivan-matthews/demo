@@ -79,6 +79,9 @@
 			$this->response->controller('attachments','videos')
 				->setArray(array(
 					'total'		=> $this->total,
+					'limit'		=> $this->limit,
+					'offset'	=> $this->offset,
+					'link'		=> fx_get_url('attachments','videos', $ids_list),	// позже добавим параметры сортировки
 					'content'	=> $this->videos_content,
 					'ids_list'	=> explode(',',$ids_list)
 				));

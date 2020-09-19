@@ -38,7 +38,11 @@
 		<?php } ?>
 
 	<?php } ?>
-
+	<?php if($attributes['required']){ ?>
+		<span class="required text-danger">
+					*
+				</span>
+	<?php } ?>
 	<label class="row justify-content-center files files-field-block">
 		<div class="files col-8 text-center upload-file">
 			<i class="fas fa-file-upload mb-4"></i>

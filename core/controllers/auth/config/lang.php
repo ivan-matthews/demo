@@ -38,7 +38,7 @@
 		'title_resend_email'	=> 'Повторная отправка e-mail',
 		'title_registration_action'	=> 'Регистрация',
 		'agree_rules_title'	=> 'Соглашение с правилами',
-		'agree_rules_label'	=> '<div class="agree">Я согласен с <a href="/rules">правилами сайта</a> и <a href="/terms">пользоватеельским соглашением</a>.</div>',
+		'agree_rules_label'	=> '<span class="agree">Я согласен с <a href="/rules">правилами сайта</a> и <a href="/terms">пользоватеельским соглашением</a>.</span>',
 
 		'passwords_not_equals'	=> 'Пароли "<strong>%password%</strong>" и "<strong>%password2%</strong>" не совпадают!',
 		'login_already_exists'	=> 'Почтовый ящик "%email_box%" уже зарегистрирован!',
