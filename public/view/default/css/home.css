@@ -745,6 +745,9 @@ body.unscrollable nav.header-bar::-webkit-scrollbar {
 .user-profile .user-left-bar .user-avatar img {
   max-width: 200px;
 }
+.user-profile .user-left-bar .user-menu .list-group {
+  width: 200px;
+}
 .user-profile .user-left-bar .user-menu .list-group .list-group-item {
   padding: 0;
   border: none;

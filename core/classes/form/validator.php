@@ -865,8 +865,9 @@
 			return $this;
 		}
 
-		public function setParams($attribute_key,$attribute_value){
-			$this->fields_list[$this->field]['attributes']['params'][$attribute_key] = $attribute_value;
+		public function setParams($attribute_key,$attribute_value,$field=null){
+			$field = !$field ? $this->field : $field;
+			$this->fields_list[$field]['attributes']['params'][$attribute_key] = $attribute_value;
 			return $this;
 		}
 

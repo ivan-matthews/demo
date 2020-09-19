@@ -117,3 +117,26 @@
 			return "data:image/{$type};base64," . base64_encode($result);
 		}
 	}
+
+	if(!function_exists('fx_whois')){
+		function fx_whois($domain_name){
+			if(!function_exists('exec')){
+				return array();
+			}
+			exec("whois {$domain_name}",$whois);
+			return $whois;
+		}
+	}
+
+	if(!function_exists('fx_domain_exists')){
+		function fx_domain_exists($domain_name){
+			$domain_info = fx_whois($domain_name);
+			if(isset($domain_info[0])){
+				$domain_string = mb_strtolower(trim($domain_info[0]));
+				$find_str = mb_substr($domain_string,0,11);
+				return fx_equal($find_str,'domain name');
+			}
+			return false;
+		}
+	}
+

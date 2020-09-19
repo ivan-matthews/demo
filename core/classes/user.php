@@ -186,6 +186,9 @@
 			return $this->session->get($this->config->session['csrf_key_name'],Session::PREFIX_CONF);
 		}
 
+		public function getUID(){
+			return $this->session->get('u_id',Session::PREFIX_AUTH);
+		}
 
 
 

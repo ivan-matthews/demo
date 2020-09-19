@@ -29,6 +29,9 @@
 		}
 
 		private function start(){
+			if(!function_exists('passthru')){
+				die('function "passthru" not exists!' . PHP_EOL);
+			}
 			$address = "{$this->host}:{$this->port}";
 			$this->success($address);
 			passthru("/usr/bin/env php -S {$address} server.php");

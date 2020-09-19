@@ -14,8 +14,10 @@
 		'uploads_dir'			=> 'uploads',
 		'tpl_files_host'		=> null,
 
-		'css_cdn'	=> 'https://ivan-matthews.github.io',
-		'js_cdn'	=> 'https://ivan-matthews.github.io',
+		'css_cdn'	=> null,
+		'js_cdn'	=> null,
+//		'css_cdn'	=> 'https://ivan-matthews.github.io',
+//		'js_cdn'	=> 'https://ivan-matthews.github.io',
 
 		'user_avatar'	=> array(
 			User::GENDER_NONE	=> array(

@@ -45,8 +45,10 @@
 	}
 
 	if(!function_exists('fx_get_cpu_usage')){
-
 		function fx_get_cpu_usage(){
+			if(!function_exists('exec')){
+				return array();
+			}
 			try{
 				return trim(exec("ps -p " . getmypid() . " -o %cpu"));
 			}catch(Exception $e){
@@ -57,6 +59,9 @@
 
 	if(!function_exists('fx_get_cpu_stat')){
 		function fx_get_cpu_stat($returned_data=true){
+			if(!function_exists('exec')){
+				return array();
+			}
 			if(!$returned_data){ return null; }
 			try{
 				exec("pidstat",$result);

@@ -10,6 +10,7 @@
 	use Core\Controllers\Blog\Controller;
 	use Core\Controllers\Blog\Model;
 	use Core\Controllers\Blog\Forms\Edit_Post;
+	use Core\Controllers\Attachments\Controller as AttachmentsController;
 
 	class Edit extends Controller{
 
@@ -68,6 +69,10 @@
 		public $user_id;
 		public $category_id = 0;		// временно 0, пока нет категорий
 
+		public $attachments_controller;
+		public $attachments_ids;
+		public $attachments_data;
+
 		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -79,8 +84,9 @@
 		public function __construct(){
 			parent::__construct();
 
-			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
+			$this->user_id = $this->user->getUID();
 			$this->edit_form = Edit_Post::getInstance();
+			$this->attachments_controller = AttachmentsController::getInstance();
 		}
 
 		public function methodGet($post_id){
@@ -91,6 +97,13 @@
 
 				$this->edit_form->setCategories($this->categories,$this->cat_id)->setData($this->post_info);
 				$this->edit_form->generateFieldsList($this->post_id);
+
+				$this->attachments_ids = fx_arr($this->post_info['b_attachments_ids']);
+				$this->attachments_data = $this->attachments_controller->getAttachmentsFromIDsList($this->attachments_ids,$this->user_id);
+				$this->edit_form->setParams('variants',array(
+					'ids'	=> $this->attachments_ids,
+					'data'	=> $this->attachments_data
+				),'attachments');
 
 				$this->request->set('preview_image',$this->post_info['blog_image']);
 
@@ -108,6 +121,7 @@
 		}
 
 		public function methodPost($post_id){
+
 			$this->post_id = $post_id;
 			$this->post_info = $this->model->getBlogPostById($this->post_id);
 
@@ -116,6 +130,13 @@
 				$this->post_slug = $this->post_info['b_slug'];
 
 				$this->edit_form->setCategories($this->categories,$this->cat_id)->checkFieldsList($this->request->getAll(),$this->post_id);
+
+				$this->attachments_ids = $this->attachments_controller->prepareAttachments($this->request->getArray('attachments'),'attachments');
+				$this->attachments_data = $this->attachments_controller->getAttachmentsFromIDsList($this->attachments_ids,$this->user_id);
+				$this->edit_form->setParams('variants',array(
+					'ids'	=> $this->attachments_ids,
+					'data'	=> $this->attachments_data
+				),'attachments');
 
 				if($this->edit_form->can()){
 					$this->category_id = $this->edit_form->getAttribute('b_category_id');
@@ -137,6 +158,7 @@
 					$this->update_data['b_date_updated'] 		= time();
 					$this->update_data['b_comments_enabled'] 	= $this->comments_enabling ? '1' : '0';
 					$this->update_data['b_public'] 				= $this->public_status ? '1' : '0';
+					$this->update_data['b_attachments_ids'] 	= $this->attachments_ids ? $this->attachments_ids : null;
 
 					if($this->model->editBlogPostItem($this->update_data,$this->post_id)){
 						return $this->redirect(fx_get_url('blog','post',$this->post_slug));
@@ -158,7 +180,7 @@
 
 		public function setResponse(){
 			if($this->post_info){
-				$title = fx_crop_string($this->post_info['b_title'],50);
+				$title = fx_crop_string($this->post_info['b_title'],30);
 				$this->response->title($title);
 				$this->response->breadcrumb('item')
 					->setValue($title)
@@ -175,8 +197,7 @@
 			return $this;
 		}
 
-
-
+		// в AttachmentsController
 
 
 

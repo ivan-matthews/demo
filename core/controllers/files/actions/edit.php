@@ -61,7 +61,7 @@
 			parent::__construct();
 			$this->backLink();
 			$this->edit_form = Edit_File::getInstance();
-			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
+			$this->user_id = $this->user->getUID();
 		}
 
 		public function methodGet($file_id){

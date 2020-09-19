@@ -14,6 +14,9 @@
 	$image_params = $attributes['params'];
 
 	$image_preview_value = $this->request->get('preview_image');
+
+	$this->prependCSS("attachments");
+	$this->prependJS("attachments");
 ?>
 
 <div class="image-preview <?php print $attributes['id'] ?> <?php print $attributes['params']['field_sets_field_class'] ?>" <?php if(!$image_preview_value){ ?>style="display:none"<?php } ?>>
@@ -21,9 +24,9 @@
 		<?php if($image_preview_value){ ?>
 			<img src="<?php print $this->getUploadSiteRoot($image_preview_value) ?>"/>
 			<div class="deletion-link mt-2">
-				<a href="javascript:deleteImageFromPreviewList()" class="p-1 mt-1">
+				<a href="javascript:attachmentsObj.deleteImageFromPreviewList()" class="p-1 mt-1">
 					<i class="fas fa-times mr-2"></i>
-					<?php print fx_lang('avatar.delete_preview_image') ?>
+					<?php print fx_lang('photos.delete_preview_image') ?>
 				</a>
 			</div>
 		<?php } ?>
@@ -60,7 +63,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h4 class="modal-title" id="myLargeModalLabel">
-						<?php print fx_lang('avatar.select_image_modal_head') ?>
+						<?php print fx_lang('photos.select_image_modal_head') ?>
 					</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">×</span>
@@ -70,7 +73,9 @@
 					...
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">
+						<?php print fx_lang('photos.close_modal_window') ?>
+					</button>
 				</div>
 			</div>
 		</div>
@@ -79,7 +84,7 @@
 </div>
 
 <script>
-	selectImageAndAddToPreview = function(image_id,image_src){
+	attachmentsObj.selectImageAndAddToPreview = function(image_id,image_src){
 		let path = '<?php print $this->getUploadSiteRoot(null)  ?>';
 
 		$('.image-inputs.<?php print $attributes['id'] ?> input[name="<?php print $attributes['name'] ?>"]').val(image_id);
@@ -88,9 +93,9 @@
 		$('div.image-preview.<?php print $attributes['id'] ?> .img').html(
 			'<img src="' + path + image_src + '"/>' +
 			'<div class="deletion-link mt-2">' +
-			'<a href="javascript:deleteImageFromPreviewList()" class="p-1 mt-1">' +
+			'<a href="javascript:attachmentsObj.deleteImageFromPreviewList()" class="p-1 mt-1">' +
 			'<i class="fas fa-times mr-2"></i>' +
-			'<?php print fx_lang('avatar.delete_preview_image') ?></a>' +
+			'<?php print fx_lang('photos.delete_preview_image') ?></a>' +
 			'</div>'
 		);
 		$('div.image-preview.<?php print $attributes['id'] ?>').show();
@@ -98,7 +103,7 @@
 		$('button[data-dismiss="modal"]').click();
 	};
 
-	deleteImageFromPreviewList = function(){
+	attachmentsObj.deleteImageFromPreviewList = function(){
 		$('.image-inputs.<?php print $attributes['id'] ?> input[name="<?php print $attributes['name'] ?>"]').val('');
 		$('.image-inputs.<?php print $attributes['id'] ?> input[name="preview_image"]').val('');
 
@@ -108,13 +113,24 @@
 
 	$(".image-field > .modal").on("show.bs.modal", function(e){
 		let self = this;
+		let attachments_hidden_old_block = $('.photo-block-ajax-response');
+		let old_result = attachments_hidden_old_block.html();
+
+		if(old_result){
+			$('.modal-content>.modal-body',self).html(old_result);
+			return true;
+		}
 		$.ajax({
-			url:'<?php print fx_get_url('avatar','images') ?>',
+			url:'<?php print fx_get_url('attachments','photo') ?>',
 			method: 'GET',
 			dataType: 'frame',
 			complete: function(response){
-				$('.modal-content>.modal-body').html(response.responseText);
+				$('.modal-content>.modal-body', self).html(response.responseText);
+				attachments_hidden_old_block.html(response.responseText);
 			}
 		});
 	});
 </script>
+
+
+<div class="hidden photo-block-ajax-response"></div>

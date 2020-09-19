@@ -61,7 +61,7 @@
 			parent::__construct();
 			$this->backLink();
 			$this->edit_form = Edit_Video::getInstance();
-			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
+			$this->user_id = $this->user->getUID();
 		}
 
 		public function methodGet($video_id){

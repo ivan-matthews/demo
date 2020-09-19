@@ -83,7 +83,7 @@
 			parent::__construct();
 
 			$this->send_form = Send_Message::getInstance();
-			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
+			$this->user_id = $this->user->getUID();
 		}
 
 		public function methodGet($contact_id){

@@ -57,7 +57,7 @@
 		public function __construct(){
 			parent::__construct();
 			$this->backLink();
-			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
+			$this->user_id = $this->user->getUID();
 		}
 
 		public function methodGet($message_id){

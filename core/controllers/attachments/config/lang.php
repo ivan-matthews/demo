@@ -1,0 +1,28 @@
+<?php
+
+	return array(
+		'attachments_field_label'	=> 'Прикрепить файлы',
+		'attachments_type_photo'	=> 'фото',
+		'attachments_type_video'	=> 'видео',
+		'attachments_type_audio'	=> 'аудио',
+		'attachments_type_file'		=> 'документы',
+		'ready_modal_window'		=> 'Готово',
+		'close_modal_window'		=> 'Отмена',
+		'select_photos_modal_head'	=> 'Выбрать изображения',
+		'select_videos_modal_head'	=> 'Выбрать видеофайлы',
+		'select_audios_modal_head'	=> 'Выбрать аудиофайлы',
+		'select_files_modal_head'	=> 'Выбрать документы',
+		'videos_field_head'			=> 'Видео',
+		'audios_field_head'			=> 'Аудио',
+		'photos_field_head'			=> 'Фото',
+		'files_field_head'			=> 'Файлы',
+		'files_total_count'			=> '<div class="files"><i class="far far fa-file-alt"></i> %total%</div>',
+		'videos_total_count'		=> '<div class="files"><i class="far fa-file-video"></i> %total%</div>',
+		'audios_total_count'		=> '<div class="files"><i class="far fa-file-audio"></i> %total%</div>',
+		'photos_total_count'		=> '<div class="files"><i class="far fa-file-image"></i> %total%</div>',
+		'files_attachments_head'	=> 'Закрепленные файлы',
+		'videos_attachments_head'	=> 'Закрепленные видеофайлы',
+		'audios_attachments_head'	=> 'Закрепленные аудиофайлы',
+		'photos_attachments_head'	=> 'Закрепленные фотографии',
+		'all_total_count'			=> '<div class="all-attachments"><i class="fas fa-paperclip"></i> %total%</div>',
+	);

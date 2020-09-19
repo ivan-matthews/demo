@@ -22,6 +22,7 @@
 				$table->varchar('f_folder_id')->notNull()->defaults(1)->index();
 				$table->longtext('f_description')->nullable()->fullText();
 				$table->bigint('f_total_comments')->notNull()->defaults(0)->index();
+				$table->bigint('f_total_views')->unsigned()->notNull()->defaults(0);
 				$table->varchar('f_name')->nullable()->index();
 				$table->varchar('f_size')->nullable()->index();
 

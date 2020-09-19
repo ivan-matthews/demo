@@ -10,6 +10,7 @@
 	use Core\Controllers\Blog\Controller;
 	use Core\Controllers\Blog\Forms\Add_Post;
 	use Core\Controllers\Blog\Model;
+	use Core\Controllers\Attachments\Controller as AttachmentsController;
 
 	class Add extends Controller{
 
@@ -68,6 +69,10 @@
 		public $user_id;
 		public $category_id = 0;		// временно 0, пока нет категорий
 
+		public $attachments_controller;
+		public $attachments_ids;
+		public $attachments_data;
+
 		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -79,8 +84,9 @@
 		public function __construct(){
 			parent::__construct();
 
-			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
+			$this->user_id = $this->user->getUID();
 			$this->add_form = Add_Post::getInstance();
+			$this->attachments_controller = AttachmentsController::getInstance();
 		}
 
 		public function methodGet(){
@@ -98,6 +104,13 @@
 
 		public function methodPost(){
 			$this->add_form->setCategories($this->categories,$this->cat_id)->checkFieldsList($this->request->getAll());
+
+			$this->attachments_ids = $this->attachments_controller->prepareAttachments($this->request->getArray('attachments'),'attachments');
+			$this->attachments_data = $this->attachments_controller->getAttachmentsFromIDsList($this->attachments_ids,$this->user_id);
+			$this->add_form->setParams('variants',array(
+				'ids'	=> $this->attachments_ids,
+				'data'	=> $this->attachments_data
+			),'attachments');
 
 			if($this->add_form->can()){
 
@@ -121,6 +134,7 @@
 				$this->insert_data['b_date_created'] 		= time();
 				$this->insert_data['b_comments_enabled'] 	= $this->comments_enabling ? 1 : 0;
 				$this->insert_data['b_public'] 				= $this->public_status ? 1 : 0;
+				$this->insert_data['b_attachments_ids'] 	= $this->attachments_ids ? $this->attachments_ids : null;
 
 				$this->post_id = $this->model->addBlogPostItem($this->insert_data);
 

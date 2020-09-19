@@ -65,7 +65,7 @@
 			$this->backLink();
 			$this->query .= "photos.p_status = " . Kernel::STATUS_ACTIVE;
 			$this->edit_form = Edit_Photo::getInstance();
-			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
+			$this->user_id = $this->user->getUID();
 		}
 
 		public function methodGet($photo_id){

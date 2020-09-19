@@ -66,7 +66,7 @@
 
 		public function __construct(){
 			parent::__construct();
-			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
+			$this->user_id = $this->user->getUID();
 			$this->query .= "`b_status`=" . Kernel::STATUS_ACTIVE;
 			$this->query .= " AND `b_public`=1";
 			$this->sorting_panel = $this->params->sorting_panel;

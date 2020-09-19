@@ -61,7 +61,7 @@
 
 		public function __construct(){
 			parent::__construct();
-			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
+			$this->user_id = $this->user->getUID();
 			$this->add_form = Add_Photos::getInstance();
 
 			$this->add_form->setFileMaxSize($this->params->file_size)

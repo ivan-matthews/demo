@@ -22,6 +22,7 @@
 				$table->varchar('p_album_id')->notNull()->defaults(1)->index();
 				$table->longtext('p_description')->nullable()->fullText();
 				$table->bigint('p_total_comments')->notNull()->defaults(0)->index();
+				$table->bigint('p_total_views')->unsigned()->notNull()->defaults(0);
 				$table->varchar('p_name')->nullable()->index();
 				$table->varchar('p_size')->nullable()->index();
 

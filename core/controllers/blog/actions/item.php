@@ -10,6 +10,7 @@
 	use Core\Controllers\Blog\Controller;
 	use Core\Controllers\Blog\Model;
 	use Core\Controllers\Comments\Widgets\Comments;
+	use Core\Controllers\Attachments\Controller as AttachmentsController;
 
 	class Item extends Controller{
 
@@ -46,6 +47,8 @@
 		public $user_id;
 		public $post_data;
 
+		public $attachments_controller;
+
 		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -57,7 +60,8 @@
 		public function __construct(){
 			parent::__construct();
 
-			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
+			$this->user_id = $this->user->getUID();
+			$this->attachments_controller = AttachmentsController::getInstance();
 		}
 
 		public function methodGet($blog_post_id){
@@ -69,7 +73,8 @@
 
 				$this->response->controller('blog','item')
 					->setArray(array(
-						'post'	=> $this->post_data
+						'post'	=> $this->post_data,
+						'attachments'	=> $this->attachments_controller->getAttachmentsFromIDsList(fx_arr($this->post_data['b_attachments_ids']),$this->user_id)
 					));
 
 				if($this->post_data['b_comments_enabled']){

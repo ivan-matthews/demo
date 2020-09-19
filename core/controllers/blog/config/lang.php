@@ -25,4 +25,5 @@
 		'blog_link_title'		=> 'Блог',
 		'blog_link_value'		=> 'Блог',
 		'date_updated_value'	=> 'Обновлено ',
+		'attachments_head'		=> 'Закрепленные файлы ',
 	);

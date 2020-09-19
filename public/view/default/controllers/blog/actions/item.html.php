@@ -2,6 +2,7 @@
 	/** @var \Core\Classes\View $this */
 	/** @var array $data */
 	/** @var array $post */
+	/** @var array $attachments */
 
 	$this->prependCSS("blog");
 	$this->prependJS("blog");
@@ -40,14 +41,19 @@
 	<div class="col-12 blog-post row">
 		<div class="right-bar col-12">
 			<?php if($post['blog_image']){ ?>
-				<div class="post-image float-left pb-2 pr-4">
-					<img src="<?php print fx_get_image_src($post['blog_image'],$post['blog_image_date'],'normal') ?>"/>
-				</div>
+				<a href="<?php print fx_get_url('photos','item',$post['blog_image_id']) ?>">
+					<div class="post-image float-left pb-2 pr-4">
+						<img src="<?php print fx_get_image_src($post['blog_image'],$post['blog_image_date'],'normal') ?>"/>
+					</div>
+				</a>
 			<?php } ?>
 			<div class="blog-content">
 				<?php print $post['b_content'] ?>
 			</div>
 		</div>
+	</div>
+	<div class="row col-12 attachments mt-2 pt-1">
+		<?php fx_render_attachments($attachments) ?>
 	</div>
 	<div class="col-12 post-info row mt-4">
 		<?php if($post['ct_id']){ ?>

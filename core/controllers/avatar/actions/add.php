@@ -74,7 +74,7 @@
 			parent::__construct();
 			$this->backLink();
 
-			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
+			$this->user_id = $this->user->getUID();
 
 			$this->user_model = UsersModel::getInstance();
 

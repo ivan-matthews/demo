@@ -33,6 +33,7 @@
 				$table->bigint('b_category_id')->notNull()->defaults(1)->index();
 
 				$table->longtext('b_content')->nullable()->fullText();
+				$table->text('b_attachments_ids')->nullable()->fullText();
 
 				$table->add_timestamps('b_');
 			});

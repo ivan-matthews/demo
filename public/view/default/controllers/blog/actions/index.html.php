@@ -101,6 +101,9 @@
 								<?php print $post['b_total_comments'] ?>
 							</div>
 						</a>
+						<div class="attachments mr-2">
+							<?php print fx_count_all_attachments(fx_arr($post['b_attachments_ids'])) ?>
+						</div>
 					</div>
 				</div>
 			</div>

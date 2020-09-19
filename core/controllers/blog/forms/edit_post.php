@@ -125,6 +125,17 @@
 					$checkers->required();
 				});
 
+			$this->validator_interface->field('attachments')
+				->prepare()
+				->class('form-control col-12 col-sm-12 col-md-12 col-lg-7 col-xl-6 p-0 m-0 row')
+				->id('attachments')
+				->label(fx_lang('attachments.attachments_field_label'))
+				->type('attachments')
+				->params(function(Params $param){
+					$param->field_type('attachments');
+				})
+				->check();
+
 			$this->validator_interface->field('b_category_id')
 				->prepare()
 				->id('title')

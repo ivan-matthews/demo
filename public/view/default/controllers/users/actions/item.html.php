@@ -31,14 +31,14 @@
 
 		<?php $this->renderAsset('controllers/users/widgets/user_avatar',$data) ?>
 
+		<?php $this->renderAsset('controllers/users/widgets/user_menu',$data) ?>
+
 		<?php $this->renderAsset('controllers/users/widgets/user_info_block',array(
 			'user'	=> $user,
 			'groups'=> $groups
 		)) ?>
 
 		<div class="row">
-			<?php $this->renderAsset('controllers/users/widgets/user_menu',$data) ?>
-
 			<?php $this->renderAsset('controllers/users/widgets/videos',array(
 				'total'	=> $total_videos,
 				'videos'=> $videos,

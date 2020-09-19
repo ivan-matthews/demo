@@ -45,15 +45,26 @@
 			$this->config = Config::getInstance();
 			$this->hooks_dir = fx_path('system/hooks_list');
 			$this->getHooksList();
+			$this->cache->key('files.included');
 		}
 
 		private function getHooksList(){
-			$this->cache->key('files.included')->get();
+			$this->cache->get();
 			if(($this->hooks_list = $this->cache->array())){
 				return $this;
 			}
 			$this->scanHooksDir();
 			$this->cache->set($this->hooks_list);
+			return $this;
+		}
+
+		private function getAllHooksList(){
+			$this->cache->get();
+			if(($this->all_hooks = $this->cache->array())){
+				return $this;
+			}
+			$this->getHooksList();
+			$this->cache->set($this->all_hooks);
 			return $this;
 		}
 
@@ -69,7 +80,8 @@
 
 		private function setCustomHooksFiles(){
 			$controller_folder = fx_path('core/controllers');
-			foreach(scandir($controller_folder) as $file){
+			$hooks_files_list = scandir($controller_folder);
+			foreach($hooks_files_list as $file){
 				if($file == '.' || $file == '..'){ continue; }
 				$hooks_file = "{$controller_folder}/{$file}/config/hooks.php";
 				if(is_readable($hooks_file)){
@@ -137,11 +149,11 @@
 		}
 
 		public function getHooksArray(){
-			return $this->all_hooks;
+			return $this->getAllHooksList()->all_hooks;
 		}
 
 		public function getHooks(){
-			return $this->hooks_list;
+			return $this->getHooksList()->hooks_list;
 		}
 
 

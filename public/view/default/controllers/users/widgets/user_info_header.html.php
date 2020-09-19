@@ -40,7 +40,7 @@
 	}
 </script>
 
-<div id="<?php print $uniquid ?>" class="row user-info-widget justify-content-center p-0 col col-sm-10 col-md-9 col-lg-6 col-xl-5 ml-0">
+<div id="<?php print $uniquid ?>" class="row user-info-widget justify-content-center p-0 col col-sm-9 col-md-9 col-lg-6 col-xl-5 ml-0">
 	<div class="body mx-auto search search-panel">
 		<div class="search-form col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 hidden">
 			<form action="<?php print fx_get_url('search','index') ?>" method="GET">
