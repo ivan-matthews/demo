@@ -227,7 +227,7 @@
 		private function renderJsonData(){
 			$this->response->setHeader('Content-Type','application/json');
 			$this->response->sendHeaders();
-			print json_encode($this->data,JSON_PRETTY_PRINT);
+			print fx_json_encode($this->data);
 			return true;
 		}
 

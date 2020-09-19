@@ -21,7 +21,7 @@
 
 		public function run(){
 			$this->getConfig();
-//			$this->config_array = htmlspecialchars(json_encode($this->config_array));
+//			$this->config_array = htmlspecialchars(fx_json_encode($this->config_array));
 			return $this->config_array;
 		}
 

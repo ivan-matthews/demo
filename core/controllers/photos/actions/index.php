@@ -99,7 +99,7 @@
 				return $this;
 			}
 
-			return $this->renderEmptyPage();
+			return false;
 		}
 
 		protected function setSortingPanelAll(){

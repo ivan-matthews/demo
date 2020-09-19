@@ -1,17 +1,19 @@
 <?php
 
-	namespace Core\Controllers\Photos\Actions;
+	namespace Core\Controllers\Users\Actions;
 
 	use Core\Classes\Hooks;
 	use Core\Classes\Kernel;
 	use Core\Classes\Request;
 	use Core\Classes\Session;
 	use Core\Classes\Response\Response;
-	use Core\Controllers\Photos\Config;
-	use Core\Controllers\Photos\Controller;
-	use Core\Controllers\Photos\Model;
+	use Core\Controllers\Users\Config;
+	use Core\Controllers\Users\Controller;
+	use Core\Controllers\Users\Model;
+	use Core\Controllers\Files\Model as FilesModel;
 
-	class User extends Controller{
+	class Files extends Controller{
+
 
 		/** @var $this */
 		private static $instance;
@@ -44,10 +46,11 @@
 		public $_this;
 
 		public $user_id;
+		public $user_data;
 		public $total;
-		public $photos;
+		public $files;
 
-		public $photos_data;
+		public $files_data;
 		public $query = '';
 		public $limit = 30;
 		public $offset = 0;
@@ -59,9 +62,12 @@
 		public $sorting_type;
 		public $sorting_panel;
 
-		public $total_photos;
+		public $total_files;
 
 		public $prepared_data;
+
+		public $files_model;
+		public $files_params;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -73,10 +79,12 @@
 
 		public function __construct(){
 			parent::__construct();
-			$this->query .= "p_status = " . Kernel::STATUS_ACTIVE;
-			$this->query .= " AND p_user_id = %user_id%";
-			$this->order = 'p_id';
-			$this->sorting_panel = $this->params->sorting_panel;
+			$this->query .= "f_status = " . Kernel::STATUS_ACTIVE;
+			$this->query .= " AND f_user_id = %user_id%";
+			$this->order = 'f_id';
+			$this->files_params = $this->params->loadParamsFromControllerFile('params','files');
+			$this->sorting_panel = $this->files_params['sorting_panel'];
+			$this->files_model = FilesModel::getInstance();
 		}
 
 		public function methodGet($user_id,$sorting_action='all',$sort='up'){
@@ -86,35 +94,37 @@
 			$this->sorting_type		= $sort;
 			$this->sort = isset($this->sorting_types[$this->sorting_type]) ? $this->sorting_types[$this->sorting_type] : 'DESC';
 
-			$this->total_photos = $this->model->countPhotos($this->query,$this->prepared_data);
+			$this->user_data = $this->model->getUserByID($this->user_id);
 
-			$this->setResponse();
+			if($this->user_data){
 
-			if($this->total_photos){
+				$this->setResponse();
+
+				$this->total_files = $this->files_model->countFiles($this->query,$this->prepared_data);
 
 				$this->prepareSortingPanel()->sorting($this->sorting_panel);
 
-				$this->photos_data = $this->model->getPhotos(
+				$this->files_data = $this->files_model->getFiles(
 					$this->limit,$this->offset,$this->query,$this->order,$this->sort,$this->prepared_data
 				);
 
-				$this->paginate($this->total_photos, array('photos','user',$this->user_id));
+				$this->paginate($this->total_files, array('users','files',$this->user_id));
 
-				$this->response->controller('photos','index')
+				$this->response->controller('users','files')
 					->setArray(array(
-						'photos'	=> $this->photos_data
+						'files'	=> $this->files_data
 					));
 
 				return $this;
 			}
 
-			return $this->renderEmptyPage();
+			return false;
 		}
 
 		public function prepareSortingPanel(){
 			foreach($this->sorting_panel as $key=>$value){
 				$post_array = array_slice($this->sorting_panel[$key]['link'],2);
-				$new_array = array('photos','user',$this->user_id);
+				$new_array = array('users','files',$this->user_id);
 				array_push($new_array,...$post_array);
 				$this->sorting_panel[$key]['link'] = $new_array;
 			}
@@ -125,11 +135,11 @@
 			return null;
 		}
 		protected function setSortingPanelCreated(){
-			$this->order = 'p_date_created';
+			$this->order = 'f_date_created';
 			return null;
 		}
 		protected function setSortingPanelUpdated(){
-			$this->order = 'p_date_updated';
+			$this->order = 'f_date_updated';
 			return null;
 		}
 		protected function setSortingPanelRandom(){
@@ -137,11 +147,23 @@
 			return null;
 		}
 
+		public function setResponse(){
+			$this->response->title($this->user_data['u_full_name']);
+			$this->response->breadcrumb('user')
+				->setIcon(null)
+				->setLink('users','item',$this->user_data['u_id'])
+				->setValue($this->user_data['u_full_name']);
+			return $this->addResponse();
+		}
 
-
-
-
-
+		public function addResponse(){
+			$this->response->title('files.files_index_title');
+			$this->response->breadcrumb('index')
+				->setIcon(null)
+				->setLink('users','files',$this->user_data['u_id'])
+				->setValue('files.files_index_title');
+			return $this;
+		}
 
 
 

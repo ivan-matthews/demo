@@ -44,7 +44,13 @@
 		}
 
 		public function getVideos($limit,$offset,$query,$order,$sort,$prepared_data = array()){
-			$this->result = $this->select()
+			$this->result = $this->select(
+				'videos.*',
+				'users.u_gender',
+				'users.u_full_name',
+				'photos.p_micro',
+				'photos.p_date_updated'
+			)
 				->from('videos')
 				->join('users','u_id = v_user_id')
 				->join('photos','u_avatar_id = p_id')

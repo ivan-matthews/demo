@@ -214,7 +214,7 @@
 		}
 
 		public function prepareValue($value){
-			if(is_array($value)){ return $this->escape(json_encode($value)); }
+			if(is_array($value)){ return $this->escape(fx_json_encode($value)); }
 			if(is_null($value)){ return "NULL"; }
 			if(is_bool($value)){ return (bool)$value; }
 			if(fx_equal($value,'')){ return "NULL"; }

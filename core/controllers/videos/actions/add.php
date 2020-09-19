@@ -98,7 +98,7 @@
 				$this->video_id = $this->model->addVideos($this->insert_data);
 
 				if($this->video_id){
-					return $this->redirect(fx_get_url('videos','item',$this->video_id));
+					return $this->redirect(fx_get_url('users','videos',$this->user_id));
 				}
 			}
 

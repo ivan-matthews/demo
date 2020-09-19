@@ -44,7 +44,13 @@
 		}
 
 		public function getAudios($limit,$offset,$query,$order,$sort,$prepared_data = array()){
-			$this->result = $this->select()
+			$this->result = $this->select(
+				'audios.*',
+				'users.u_gender',
+				'users.u_full_name',
+				'photos.p_micro',
+				'photos.p_date_updated'
+			)
 				->from('audios')
 				->join('users','u_id = au_user_id')
 				->join('photos','u_avatar_id = p_id')

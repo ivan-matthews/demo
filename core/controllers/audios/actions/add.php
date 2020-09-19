@@ -98,7 +98,7 @@
 				$this->audio_id = $this->model->addAudios($this->insert_data);
 
 				if($this->audio_id){
-					return $this->redirect(fx_get_url('audios','item',$this->audio_id));
+					return $this->redirect(fx_get_url('users','audios',$this->user_id));
 				}
 			}
 

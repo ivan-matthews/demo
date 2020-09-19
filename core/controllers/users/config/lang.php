@@ -114,4 +114,7 @@
 		'change_status'	=> 'изменить статус',
 		'delete_status'	=> 'удалить статус',
 		'all_user_photos'	=> 'фото',
+		'all_user_videos'	=> 'видео',
+		'all_user_audios'	=> 'музыка',
+		'all_user_files'	=> 'файлы',
 	);

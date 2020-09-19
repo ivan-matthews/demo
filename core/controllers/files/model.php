@@ -44,7 +44,13 @@
 		}
 
 		public function getFiles($limit,$offset,$query,$order,$sort,$prepared_data = array()){
-			$this->result = $this->select()
+			$this->result = $this->select(
+				'files.*',
+				'users.u_gender',
+				'users.u_full_name',
+				'photos.p_micro',
+				'photos.p_date_updated'
+			)
 				->from('files')
 				->join('users','u_id = f_user_id')
 				->join('photos','u_avatar_id = p_id')

@@ -60,6 +60,10 @@
 		return false;
 	}
 
+	function fx_json_encode($data,$options=JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES){
+		return json_encode($data,$options);
+	}
+
 	function fx_array2xml(array $input_data, $pretty_output = true,$root_tag='root',$numeric_indexes="item",$empty_value="NULL",$space2tab=true){
 		$XMLObject = new SimpleXMLElement("<{$root_tag}/>");
 		/**
@@ -72,7 +76,8 @@
 		 */
 		$create_xml = function(callable $self_function,array $input_data,$XMLObject,$numeric_indexes,$empty_value){
 			foreach($input_data as $key=>$value){
-				if(is_numeric($key)){ $key = "{$numeric_indexes}{$key}";}
+				$first_key_letter = substr($key,0,1);
+				if(is_numeric($first_key_letter)){ $key = "{$numeric_indexes}_{$key}";}
 				$key = str_replace(array(
 					' ','+','/','.',',','\\','=','-',')','(','*','&','^','%','$','#','@','!','\'','"',':',';','?','>','<',
 				),'_',$key);
@@ -80,7 +85,7 @@
 				if(is_array($value)){
 					$self_function($self_function,$value,$XMLObject->addChild($key),$numeric_indexes,$empty_value);
 				}else{
-					$XMLObject->addChild($key,trim($value));
+					$XMLObject->addChild($key,htmlentities(trim($value)));
 				}
 			}
 			return $XMLObject;

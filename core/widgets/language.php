@@ -20,7 +20,7 @@
 		}
 
 		public function run(){
-//			$this->language_array = htmlspecialchars(json_encode($this->language_array));
+//			$this->language_array = htmlspecialchars(fx_json_encode($this->language_array));
 			return $this->language_array;
 		}
 

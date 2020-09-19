@@ -113,7 +113,7 @@
 				return $this;
 			}
 
-			return $this->renderEmptyPage();
+			return false;
 		}
 
 		public function makeQueryFromFields($header_bar,$current_action){

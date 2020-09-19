@@ -109,7 +109,7 @@
 					->set('users',$this->all_users_data);
 			}
 
-			return $this->renderEmptyPage();
+			return false;
 		}
 
 

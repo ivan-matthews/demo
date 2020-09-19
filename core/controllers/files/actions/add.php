@@ -98,7 +98,7 @@
 				$this->file_id = $this->model->addFiles($this->insert_data);
 
 				if($this->file_id){
-					return $this->redirect(fx_get_url('files','item',$this->file_id));
+					return $this->redirect(fx_get_url('users','files',$this->user_id));
 				}
 			}
 

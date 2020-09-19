@@ -85,7 +85,7 @@
 				return $this;
 			}
 
-			return $this->renderEmptyPage();
+			return false;
 		}
 
 		public function setResponse(){

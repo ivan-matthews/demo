@@ -100,7 +100,7 @@
 				return $this;
 			}
 
-			return $this->renderEmptyPage();
+			return false;
 		}
 
 

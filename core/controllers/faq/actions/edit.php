@@ -90,7 +90,7 @@
 				return $this->setResponse()
 					->addResponse();
 			}
-			return $this->renderEmptyPage();
+			return false;
 		}
 
 		public function methodPost($item_id){
@@ -128,7 +128,7 @@
 				return $this->setResponse()
 					->addResponse();
 			}
-			return $this->renderEmptyPage();
+			return false;
 		}
 
 		public function addResponse(){

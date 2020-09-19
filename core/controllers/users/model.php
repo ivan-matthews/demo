@@ -236,29 +236,6 @@
 			return $update_result;
 		}
 
-		public function countPhotos($user_id){
-			$this->result = $this->select('COUNT(p_id) as total')
-				->from('photos')
-				->where("p_user_id = %user_id% AND p_status = " . Kernel::STATUS_ACTIVE)
-				->data('%user_id%',$user_id)
-				->get()
-				->itemAsArray();
-			return $this->result['total'];
-		}
-
-		public function getPhotos($user_id){
-			$this->result = $this->select()
-				->from('photos')
-				->where("p_user_id = %user_id% AND p_status = " . Kernel::STATUS_ACTIVE)
-				->data('%user_id%',$user_id)
-				->order('p_date_updated DESC, p_date_created DESC')
-				->sort(null)
-				->limit(5)
-				->offset(0)
-				->get()
-				->allAsArray();
-			return $this->result;
-		}
 
 
 

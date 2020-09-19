@@ -12,7 +12,7 @@
 
 		public function set($data){
 			$this->getCacheAttributes();
-			file_put_contents($this->cache_filename, json_encode($data,JSON_PRETTY_PRINT));
+			file_put_contents($this->cache_filename, fx_json_encode($data));
 			return null;
 		}
 

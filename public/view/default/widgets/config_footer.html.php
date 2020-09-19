@@ -17,9 +17,5 @@
 </style>
 
 <div class="config config-invisible-json-content">
-	<?php print htmlspecialchars(
-		json_encode(
-			$content,JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES
-		)
-	) ?>
+	<?php print htmlspecialchars(fx_json_encode($content)) ?>
 </div>

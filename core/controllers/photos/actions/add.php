@@ -106,7 +106,7 @@
 				$this->photo_id = $this->model->addPhotos($this->insert_data);
 
 				if($this->photo_id){
-					return $this->redirect(fx_get_url('photos','user',$this->user_id));
+					return $this->redirect(fx_get_url('users','photos',$this->user_id));
 				}
 			}
 
