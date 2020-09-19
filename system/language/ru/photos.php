@@ -15,4 +15,8 @@
 		'delete_image'				=> 'удалить',
 		'download_image_description'=> 'Скачать картинку',
 		'photo_added_in'			=> 'добавлено',
+		'placeholder_name'			=> 'Имя файла...',
+		'placeholder_description'	=> 'Описание файла...',
+		'label_name'				=> 'Имя файла',
+		'label_description'			=> 'Описание файла',
 	);

@@ -11,10 +11,34 @@
 		),
 		'actions'	=> array(
 			'index'	=> array(
-				'groups_enabled'	=> array(),
+				'groups_enabled'	=> array(5),
 				'groups_disabled'	=> array(),
 			),
 			'item'	=> array(
+				'groups_enabled'	=> array(5),
+				'groups_disabled'	=> array(),
+			),
+			'add'	=> array(
+				'groups_enabled'	=> array(),
+				'groups_disabled'	=> array(),
+			),
+			'delete'	=> array(
+				'groups_enabled'	=> array(),
+				'groups_disabled'	=> array(),
+			),
+			'edit'	=> array(
+				'groups_enabled'	=> array(),
+				'groups_disabled'	=> array(),
+			),
+			'images'	=> array(
+				'groups_enabled'	=> array(),
+				'groups_disabled'	=> array(),
+			),
+			'set'	=> array(
+				'groups_enabled'	=> array(),
+				'groups_disabled'	=> array(),
+			),
+			'unlink'	=> array(
 				'groups_enabled'	=> array(),
 				'groups_disabled'	=> array(),
 			),

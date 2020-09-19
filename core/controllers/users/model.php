@@ -10,7 +10,7 @@
 	class Model extends ParentModel{
 
 		public $users_index_fields = array(
-			'STRAIGHT_JOIN u_date_log',
+			'u_date_log',
 			'u_id',
 			'u_full_name',
 			'u_gender',
@@ -25,6 +25,8 @@
 		/** @var Cache */
 		protected $cache;
 
+		private $result;
+		
 		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -40,31 +42,31 @@
 		public function countAllUsers($query_suffix=null,$replaced_data=array()){
 			$this->cache->key('users.all');
 
-			if(($result = $this->cache->get()->array())){
-				return $result['total'];
+			if(($this->result = $this->cache->get()->array())){
+				return $this->result['total'];
 			}
 
-			$result = $this->select('COUNT(u_id) as total')->from('users')
+			$this->result = $this->select('COUNT(u_id) as total')->from('users')
 				->where($query_suffix);
 
 			foreach($replaced_data as $key=>$value){
-				$result->data($key,$value);
+				$this->result->data($key,$value);
 			}
 
-			$result = $result->get()->itemAsArray();
+			$this->result = $this->result->get()->itemAsArray();
 
-			$this->cache->set($result);
-			return $result['total'];
+			$this->cache->set($this->result);
+			return $this->result['total'];
 		}
 
 		public function getAllUsers($limit=15,$offset=0,$query_suffix=null,$order='u_date_created',$sort='DESC',$replaced_data=array()){
 			$this->cache->key('users.all');
 
-			if(($result = $this->cache->get()->array())){
-				return $result;
+			if(($this->result = $this->cache->get()->array())){
+				return $this->result;
 			}
 
-			$result = $this->select(...$this->users_index_fields)
+			$this->result = $this->select(...$this->users_index_fields)
 				->from('users')
 				->join('photos FORCE INDEX (PRIMARY)',"p_id=u_avatar_id")
 				->join('geo_cities FORCE INDEX (PRIMARY)',"u_city_id=gc_city_id")
@@ -73,25 +75,25 @@
 				->where($query_suffix);
 
 			foreach($replaced_data as $key=>$value){
-				$result->data($key,$value);
+				$this->result->data($key,$value);
 			}
 
-			$result = $result->limit($limit)
+			$this->result = $this->result->limit($limit)
 				->offset($offset)
 				->order($order)
 				->sort($sort)
 				->get()
 				->allAsArray();
 
-			$this->cache->set($result);
-			return $result;
+			$this->cache->set($this->result);
+			return $this->result;
 		}
 
 		public function getUserGroupsByGroupsArray(array $groups){
 			$this->cache->key("users.groups");
 
-			if(($result = $this->cache->get()->array())){
-				return $result;
+			if(($this->result = $this->cache->get()->array())){
+				return $this->result;
 			}
 			$where = '';
 			foreach($groups as $group){
@@ -99,24 +101,24 @@
 			}
 			$where = rtrim($where,"OR ");
 
-			$result = $this->select()
+			$this->result = $this->select()
 				->from('user_groups')
 				->where($where)
 				->get()
 				->allAsArray();
 
-			$this->cache->set($result);
-			return $result;
+			$this->cache->set($this->result);
+			return $this->result;
 		}
 
 		public function getUserByID($user_id){
 			$this->cache->key("users.items.{$user_id}");
 
-			if(($result = $this->cache->get()->array())){
-				return $result;
+			if(($this->result = $this->cache->get()->array())){
+				return $this->result;
 			}
 
-			$result = $this->select(
+			$this->result = $this->select(
 				"users.*","auth.a_groups","status.*","photos.*","geo_cities.*","geo_countries.*","geo_regions.*"
 			)
 				->from('users')
@@ -131,55 +133,55 @@
 				->get()
 				->itemAsArray();
 
-			$this->cache->set($result);
-			return $result;
+			$this->cache->set($this->result);
+			return $this->result;
 		}
 
 		public function countUserNoticesById($receiver_id){
 			$this->cache->key('notices.all');
 
-			if(($result = $this->cache->get()->array())){
-				return $result['total'];
+			if(($this->result = $this->cache->get()->array())){
+				return $this->result['total'];
 			}
 
-			$result = $this->select('COUNT(n_id) as total')
+			$this->result = $this->select('COUNT(n_id) as total')
 				->from('notice')
 				->where("`n_receiver_id`='{$receiver_id}' AND `n_status`=" . Notice::STATUS_UNREAD)
 				->get()
 				->itemAsArray();
 
-			$this->cache->set($result);
-			return $result['total'];
+			$this->cache->set($this->result);
+			return $this->result['total'];
 		}
 
 /*
 		public function countUserMessagesById($receiver_id){
 			$this->cache->key('messages.all');
 
-			if(($result = $this->cache->get()->array())){
-				return $result['total'];
+			if(($this->result = $this->cache->get()->array())){
+				return $this->result['total'];
 			}
 
-			$result = $this->select('COUNT(m_id) as total')
+			$this->result = $this->select('COUNT(m_id) as total')
 				->from('messages')
 				->join('messages_contacts',"mc_last_message_id=m_id")
 				->where("`m_receiver_id`='{$receiver_id}' AND isnull(m_readed)")
 				->get()
 				->itemAsArray();
 
-			$this->cache->set($result);
-			return $result['total'];
+			$this->cache->set($this->result);
+			return $this->result['total'];
 		}
 */
 
 		public function countUserMessagesById($receiver_id){
 			$this->cache->key('messages.all');
 
-			if(($result = $this->cache->get()->array())){
-				return $result['total'];
+			if(($this->result = $this->cache->get()->array())){
+				return $this->result['total'];
 			}
 
-			$result = $this->select("sum(if(mc_receiver_id={$receiver_id},mc_receiver_total,mc_sender_total)) as total")
+			$this->result = $this->select("sum(if(mc_receiver_id={$receiver_id},mc_receiver_total,mc_sender_total)) as total")
 				->from('messages_contacts')
 				->where(
 					"(`mc_receiver_id`='{$receiver_id}' or `mc_sender_id`='{$receiver_id}')" .
@@ -188,8 +190,8 @@
 				->get()
 				->itemAsArray();
 
-			$this->cache->set($result);
-			return $result['total'];
+			$this->cache->set($this->result);
+			return $this->result['total'];
 		}
 
 		public function updateUserInfoByUserId(array $fields_list, array $compare_fields, $user_id){
@@ -241,7 +243,29 @@
 			return $update_result;
 		}
 
+		public function countPhotos($user_id){
+			$this->result = $this->select('COUNT(p_id) as total')
+				->from('photos')
+				->where("p_user_id = %user_id% AND p_status = " . Kernel::STATUS_ACTIVE)
+				->data('%user_id%',$user_id)
+				->get()
+				->itemAsArray();
+			return $this->result['total'];
+		}
 
+		public function getPhotos($user_id){
+			$this->result = $this->select()
+				->from('photos')
+				->where("p_user_id = %user_id% AND p_status = " . Kernel::STATUS_ACTIVE)
+				->data('%user_id%',$user_id)
+				->order('p_date_updated DESC, p_date_created DESC')
+				->sort(null)
+				->limit(5)
+				->offset(0)
+				->get()
+				->allAsArray();
+			return $this->result;
+		}
 
 
 

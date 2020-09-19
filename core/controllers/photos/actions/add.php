@@ -42,12 +42,6 @@
 		/** @var array */
 		public $add;
 
-		public $limit;
-		public $offset;
-		public $total;
-		public $order;
-		public $sort;
-
 		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -56,24 +50,8 @@
 			return self::$instance;
 		}
 
-		public function __get($key){
-			if(isset($this->add[$key])){
-				return $this->add[$key];
-			}
-			return false;
-		}
-
-		public function __set($name, $value){
-			$this->add[$name] = $value;
-			return $this->add[$name];
-		}
-
 		public function __construct(){
 			parent::__construct();
-		}
-
-		public function __destruct(){
-
 		}
 
 		public function methodGet(){
@@ -81,34 +59,6 @@
 		}
 
 		public function methodPost(){
-			return false;
-		}
-
-		public function methodPut(){
-			return false;
-		}
-
-		public function methodHead(){
-			return false;
-		}
-
-		public function methodTrace(){
-			return false;
-		}
-
-		public function methodPatch(){
-			return false;
-		}
-
-		public function methodOptions(){
-			return false;
-		}
-
-		public function methodConnect(){
-			return false;
-		}
-
-		public function methodDelete(){
 			return false;
 		}
 

@@ -12,6 +12,7 @@
 	use Core\Controllers\Avatar\Model;
 	use Core\Controllers\Avatar\Forms\Add as AddForm;
 	use Core\Controllers\Users\Model as UserModel;
+	use Core\Controllers\Photos\Controller as ImagesController;
 
 	class Edit extends Controller{
 
@@ -57,6 +58,8 @@
 		public $insert_data;
 		public $user_model;
 
+		public $images_controller;
+
 		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -69,6 +72,8 @@
 			parent::__construct();
 			$this->backLink();
 
+			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
+
 			$this->user_model = UserModel::getInstance();
 
 			$this->avatar_add_form = AddForm::getInstance();
@@ -76,12 +81,12 @@
 			$this->avatar_add_form->setFileMaxSize($this->params->file_size)
 				->setAllowedFileTypes(...$this->params->file_types);
 			$this->user_name = $this->session->get('u_full_name',Session::PREFIX_AUTH);
+
+			$this->images_controller = ImagesController::getInstance();
 		}
 
-		public function methodGet($user_id,$avatar_id){
-			$this->user_id = $user_id;
+		public function methodGet($avatar_id){
 			$this->avatar_id = $avatar_id;
-			if(!fx_me($this->user_id)){ return false; }
 
 			$this->avatar_data = $this->model->getAvatarByID($this->avatar_id,$this->user_id);
 
@@ -113,10 +118,8 @@
 			return false;
 		}
 
-		public function methodPost($user_id,$avatar_id){
-			$this->user_id = $user_id;
+		public function methodPost($avatar_id){
 			$this->avatar_id = $avatar_id;
-			if(!fx_me($this->user_id)){ return false; }
 
 			$this->avatar_data = $this->model->getAvatarByID($this->avatar_id,$this->user_id);
 
@@ -143,9 +146,10 @@
 				$x = isset($image_params['x'][0]) ? (int)$image_params['x'][0] : 0;
 				$y = isset($image_params['y'][0]) ? (int)$image_params['y'][0] : 0;
 
-				$this->insert_data = $this->cropAndResizeImage(
-					$image,$this->user_id,'avatars',$x,$y
-				);
+				$this->insert_data = $this->images_controller->setOptions($this->params->image_params)
+					->cropAndResizeImage(
+						$image,$this->user_id,'avatars',$x,$y
+					);
 
 				$this->avatar_id = $this->model->addAvatar($this->insert_data);
 

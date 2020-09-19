@@ -20,6 +20,7 @@
 
 				$table->varchar('v_user_id')->nullable()->index();
 				$table->varchar('v_videolist_id')->notNull()->defaults(1)->index();
+				$table->longtext('v_description')->nullable()->fullText();
 				$table->bigint('v_total_comments')->notNull()->defaults(0)->index();
 				$table->varchar('v_name')->nullable()->index();
 				$table->varchar('v_size')->nullable()->index();

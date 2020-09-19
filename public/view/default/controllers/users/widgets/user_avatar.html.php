@@ -17,25 +17,25 @@
 		<?php if($user['p_normal']){ ?>
 			<?php if(fx_me($user['u_id'])){ ?>
 				<div class="edit">
-					<a href="<?php print fx_get_url('avatar','edit',$user['u_id'],$user['p_id']) ?>">
+					<a href="<?php print fx_get_url('avatar','edit',$user['p_id']) ?>">
 						<i class="fas fa-pen" aria-hidden="true"></i>
 					</a>
 				</div>
 				<div class="delete">
-					<a href="<?php print fx_get_url('avatar','delete',$user['u_id'],$user['p_id']) ?>">
+					<a href="<?php print fx_get_url('avatar','delete',$user['p_id']) ?>">
 						<i class="fa fa-times" aria-hidden="true"></i>
 					</a>
 				</div>
 			<?php } ?>
 			<div class="view">
-				<a href="<?php print fx_get_url('avatar',$user['u_id'],$user['p_id']) ?>">
+				<a href="<?php print fx_get_url('photos','item',$user['p_id']) ?>">
 					<i class="fa fa-eye" aria-hidden="true"></i>
 				</a>
 			</div>
 		<?php }else{ ?>
 			<?php if(fx_me($user['u_id'])){ ?>
 				<div class="add">
-					<a href="<?php print fx_get_url('avatar','add',$user['u_id']) ?>">
+					<a href="<?php print fx_get_url('avatar','add') ?>">
 						<i class="fa fa-plus" aria-hidden="true"></i>
 					</a>
 				</div>

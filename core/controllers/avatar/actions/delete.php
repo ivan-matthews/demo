@@ -60,21 +60,13 @@
 		public function __construct(){
 			parent::__construct();
 			$this->user_model = UserModel::getInstance();
+			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
 		}
 
-		public function methodGet($user_id,$avatar_id){
-			$this->user_id = $user_id;
+		public function methodGet($avatar_id){
 			$this->avatar_id = $avatar_id;
-			if(!fx_me($this->user_id)){ return false; }
 
-			$this->delete_data = array(
-				'p_user_id'			=> $this->user_id,
-				'p_date_deleted'	=> time(),
-			);
-
-			if($this->model->deleteAvatar($this->delete_data,$this->avatar_id)){
-
-				$this->user_model->updateAvatarId($this->user_id,null);
+			if($this->user_model->updateAvatarId($this->user_id,null)){
 
 				return $this->updateSession()
 					->redirect();

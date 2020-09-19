@@ -57,7 +57,7 @@
 		public function __construct(){
 			parent::__construct();
 			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
-			$this->query .= "p_status =" . Kernel::STATUS_ACTIVE;
+			$this->query .= "photos.p_status =" . Kernel::STATUS_ACTIVE;
 		}
 
 		public function methodGet($item_id){

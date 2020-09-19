@@ -14,6 +14,8 @@
 		/** @var Cache */
 		protected $cache;
 
+		private $result;
+
 		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){

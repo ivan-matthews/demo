@@ -83,7 +83,7 @@
 					->setProp('wa_position','avatar_info')
 					->setProp('wa_template','controllers/avatar/widgets/comments')
 					->setProp('w_template','controllers/avatar/widgets/comments')
-					->controller('avatar')
+					->controller('photos')
 					->action('item')
 					->item_id($this->avatar_id)
 					->paginate(array('avatar','item',$this->user_id,$this->avatar_id))

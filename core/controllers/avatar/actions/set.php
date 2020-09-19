@@ -61,10 +61,10 @@
 		public function __construct(){
 			parent::__construct();
 			$this->user_model = UserModel::getInstance();
+			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
 		}
 
-		public function methodGet($user_id,$avatar_id){
-			$this->user_id = $user_id;
+		public function methodGet($avatar_id){
 			$this->avatar_id = $avatar_id;
 			if(!fx_me($this->user_id)){ return false; }
 

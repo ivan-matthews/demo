@@ -48,16 +48,16 @@
 
 							<div class="dropdown-menu dropdown-menu-right radius-0">
 								<?php if(!fx_equal($photo['u_avatar_id'],$photo['p_id'])){ ?>
-									<a class="dropdown-item size-original-link pb-2 pt-2" href="<?php print fx_get_url('avatar','set',$photo['u_id'],$photo['p_id']) ?>">
+									<a class="dropdown-item size-original-link pb-2 pt-2" href="<?php print fx_get_url('avatar','set',$photo['p_id']) ?>">
 										<i class="fa fa-plus" aria-hidden="true"></i>
 										<?php print fx_lang('photos.set_image_as_avatar') ?>
 									</a>
 								<?php } ?>
-								<a class="dropdown-item size-original-link pb-2 pt-2" href="<?php print fx_get_url('photos','edit',$photo['u_id'],$photo['p_id']) ?>">
+								<a class="dropdown-item size-original-link pb-2 pt-2" href="<?php print fx_get_url('photos','edit',$photo['p_id']) ?>">
 									<i class="fas fa-pen" aria-hidden="true"></i>
 									<?php print fx_lang('photos.edit_image') ?>
 								</a>
-								<a class="dropdown-item size-original-link pb-2 pt-2" href="<?php print fx_get_url('photos','unlink',$photo['u_id'],$photo['p_id']) ?>">
+								<a class="dropdown-item size-original-link pb-2 pt-2" href="<?php print fx_get_url('photos','delete',$photo['p_id']) ?>">
 									<i class="fa fa-times" aria-hidden="true"></i>
 									<?php print fx_lang('photos.delete_image') ?>
 								</a>
@@ -82,13 +82,13 @@
 
 			<div class="col-12 col-sm-12 col-md-12 col-lg-7 col-xl-7 mb-4 photos-description mt-4 mt-sm-4 mt-md-4 mt-xl-0 mt-lg-0">
 
-				<a class="user-info-link" href="<?php print fx_get_url('users','item',$photo['u_id']) ?>">
+				<a class="m-0 p-0 user-info-link" href="<?php print fx_get_url('users','item',$photo['u_id']) ?>">
 
-					<div class="user-info row col-12 pl-0 pr-0 mr-0 ml-0">
+					<div class="m-0 p-0 user-info row col-12 pl-0 pr-0 mr-0 ml-0<?php if(!$photo['p_description']){ ?> mb-4<?php } ?>">
 
 						<div class="user-photo">
 
-							<?php fx_print_avatar($photo['p_micro'],'micro',$photo['p_date_updated'],$photo['u_gender']) ?>
+							<?php fx_print_avatar($photo['micro'],'micro',$photo['updated'],$photo['u_gender']) ?>
 
 						</div>
 
@@ -102,13 +102,19 @@
 
 							<?php print fx_lang('photos.photo_added_in') ?>
 
-							<?php print fx_get_date($photo['p_date_created']) ?>
+							<?php print fx_get_date($photo['created']) ?>
 
 						</div>
 
 					</div>
 
 				</a>
+
+				<?php if($photo['p_description']){ ?>
+					<div class="description ml-4 pl-4 footer-line pb-2 mb-2">
+						<?php print $photo['p_description'] ?>
+					</div>
+				<?php } ?>
 
 				<div class="photos-comments">
 					<?php print $this->widget('photo_info') ?>

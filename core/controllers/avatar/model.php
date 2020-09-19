@@ -51,7 +51,7 @@
 				$insert = $insert->value($key,$param);
 			}
 
-			$insert = $insert->update('p_date_updated',$input_params['p_date_created']);
+			$insert = $insert->update('p_date_updated',time());
 			$insert = $insert->update('p_micro',$input_params['p_micro']);
 			$insert = $insert->update('p_small',$input_params['p_small']);
 			$insert = $insert->update('p_medium',$input_params['p_medium']);

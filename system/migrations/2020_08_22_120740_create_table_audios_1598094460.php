@@ -20,6 +20,7 @@
 
 				$table->varchar('au_user_id')->nullable()->index();
 				$table->varchar('au_playlist_id')->notNull()->defaults(1)->index();
+				$table->longtext('au_description')->nullable()->fullText();
 				$table->bigint('au_total_comments')->notNull()->defaults(0)->index();
 				$table->varchar('au_name')->nullable()->index();
 				$table->varchar('au_size')->nullable()->index();

@@ -11,6 +11,7 @@
 	use Core\Controllers\Avatar\Model;
 	use Core\Controllers\Users\Model as UsersModel;
 	use Core\Controllers\Avatar\Forms\Add as AddForm;
+	use Core\Controllers\Photos\Controller as ImagesController;
 
 	class Add extends Controller{
 
@@ -59,6 +60,8 @@
 		public $insert_data;
 		public $avatar_data = array();
 
+		public $images_controller;
+
 		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -71,17 +74,19 @@
 			parent::__construct();
 			$this->backLink();
 
+			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
+
 			$this->user_model = UsersModel::getInstance();
 
 			$this->add_form = AddForm::getInstance($this->form_name);
 
 			$this->add_form->setFileMaxSize($this->params->file_size)
 				->setAllowedFileTypes(...$this->params->file_types);
+
+			$this->images_controller = ImagesController::getInstance();
 		}
 
-		public function methodGet($user_id){
-			$this->user_id = $user_id;
-			if(!fx_me($this->user_id)){ return false; }
+		public function methodGet(){
 
 			$this->add_form->generateFieldsList($this->user_id);
 
@@ -109,9 +114,7 @@
 			return false;
 		}
 
-		public function methodPost($user_id){
-			$this->user_id = $user_id;
-			if(!fx_me($this->user_id)){ return false; }
+		public function methodPost(){
 
 			$this->add_form->checkForm($this->request->getArray($this->form_name),$this->user_id);
 
@@ -127,9 +130,11 @@
 				$x = isset($image_params['x'][0]) ? (int)$image_params['x'][0] : 0;
 				$y = isset($image_params['y'][0]) ? (int)$image_params['y'][0] : 0;
 
-				$this->insert_data = $this->cropAndResizeImage(
-					$this->fields_list['avatar']['attributes']['files'],$this->user_id,'avatars',$x,$y
-				);
+				$this->insert_data = $this->images_controller->setOptions($this->params->image_params)
+					->cropAndResizeImage(
+						$this->fields_list['avatar']['attributes']['files'],
+						$this->user_id,'avatars',$x,$y
+					);
 
 				$this->avatar_id = $this->model->addAvatar($this->insert_data);
 
@@ -160,7 +165,7 @@
 			$this->response->title('avatar.add_avatar_form_title');
 			$this->response->breadcrumb('avatar_add')
 				->setValue('avatar.add_avatar_form_title')
-				->setLink('avatar','add',$this->user_id);
+				->setLink('avatar','add');
 			return $this;
 		}
 

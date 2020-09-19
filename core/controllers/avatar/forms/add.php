@@ -73,7 +73,7 @@
 			$this->validator_interface->form(function(FormInterface $form){
 				$form->setFormMethod('POST');
 				$form->setFormName($this->form_name);
-				$form->setFormAction(fx_get_url('avatar','add',$this->user_id));
+				$form->setFormAction(fx_get_url('avatar','add'));
 			});
 
 			$this->validator_interface->field('avatar')
