@@ -67,6 +67,16 @@
 
 		}
 
+		public function setResponse(){
+			$this->response->title('photos.photos_index_title');
+			$this->response->breadcrumb('index')
+				->setIcon(null)
+				->setLink('photos','index')
+				->setValue('photos.photos_index_title');
+
+			return $this;
+		}
+
 
 
 

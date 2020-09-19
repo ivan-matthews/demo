@@ -3,6 +3,7 @@
 	namespace Core\Controllers\Photos\Actions;
 
 	use Core\Classes\Hooks;
+	use Core\Classes\Kernel;
 	use Core\Classes\Request;
 	use Core\Classes\Session;
 	use Core\Classes\Response\Response;
@@ -42,11 +43,19 @@
 		/** @var array */
 		public $index;
 
-		public $limit;
-		public $offset;
-		public $total;
+		public $photos_data;
+		public $query = '';
+		public $limit = 30;
+		public $offset = 0;
+
 		public $order;
 		public $sort;
+
+		public $sorting_action;
+		public $sorting_type;
+		public $sorting_panel;
+
+		public $total_photos;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -56,62 +65,59 @@
 			return self::$instance;
 		}
 
-		public function __get($key){
-			if(isset($this->index[$key])){
-				return $this->index[$key];
-			}
-			return false;
-		}
-
-		public function __set($name, $value){
-			$this->index[$name] = $value;
-			return $this->index[$name];
-		}
-
 		public function __construct(){
 			parent::__construct();
+			$this->query .= "p_status != '" . Kernel::STATUS_BLOCKED. "'";
+			$this->query .= " AND p_status != '" . Kernel::STATUS_DELETED. "'";
+			$this->order = 'p_id';
+			$this->sorting_panel = $this->params->sorting_panel;
 		}
 
-		public function __destruct(){
+		public function methodGet($sorting_action='all',$sort='up'){
+			$this->sorting_action	= $sorting_action;
+			$this->sorting_type		= $sort;
+			$this->sort = isset($this->sorting_types[$this->sorting_type]) ? $this->sorting_types[$this->sorting_type] : 'DESC';
 
+			$this->total_photos = $this->model->countPhotos($this->query);
+
+			$this->setResponse();
+
+			if($this->total_photos){
+
+				$this->sorting($this->sorting_panel);
+
+				$this->photos_data = $this->model->getPhotos(
+					$this->limit,$this->offset,$this->query,$this->order,$this->sort
+				);
+
+				$this->paginate($this->total_photos, array('photos','index'));
+
+				$this->response->controller('photos','index')
+					->setArray(array(
+						'photos'	=> $this->photos_data
+					));
+
+				return $this;
+			}
+
+			return $this->renderEmptyPage();
 		}
 
-		public function methodGet(){
-			return false;
+		protected function setSortingPanelAll(){
+			return null;
 		}
-
-		public function methodPost(){
-			return false;
+		protected function setSortingPanelCreated(){
+			$this->order = 'p_date_created';
+			return null;
 		}
-
-		public function methodPut(){
-			return false;
+		protected function setSortingPanelUpdated(){
+			$this->order = 'p_date_updated';
+			return null;
 		}
-
-		public function methodHead(){
-			return false;
+		protected function setSortingPanelRandom(){
+			$this->order = 'RAND()';
+			return null;
 		}
-
-		public function methodTrace(){
-			return false;
-		}
-
-		public function methodPatch(){
-			return false;
-		}
-
-		public function methodOptions(){
-			return false;
-		}
-
-		public function methodConnect(){
-			return false;
-		}
-
-		public function methodDelete(){
-			return false;
-		}
-
 
 
 

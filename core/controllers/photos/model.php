@@ -8,6 +8,8 @@
 
 	class Model extends ParentModel{
 
+		private $result;
+
 		/** @var $this */
 		private static $instance;
 
@@ -31,7 +33,38 @@
 
 		}
 
+		public function countPhotos($query){
+			$this->result = $this->select('COUNT(p_id) as total')
+				->from('photos')
+				->where($query)
+				->get()
+				->itemAsArray();
+			return $this->result['total'];
+		}
 
+		public function getPhotos($limit,$offset,$query,$order,$sort){
+			$this->result = $this->select()
+				->from('photos')
+				->where($query)
+				->order($order)
+				->sort($sort)
+				->limit($limit)
+				->offset($offset)
+				->get()
+				->allAsArray();
+			return $this->result;
+		}
+
+		public function getPhotoById($photo_id,$query){
+			$this->result = $this->select()
+				->from('photos')
+				->where("{$query} AND p_id = %photo_id%")
+				->join('users',"u_id=p_user_id")
+				->data('%photo_id%',$photo_id)
+				->get()
+				->itemAsArray();
+			return $this->result;
+		}
 
 
 

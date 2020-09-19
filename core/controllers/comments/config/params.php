@@ -50,5 +50,12 @@
 				'author_field'	=> 'p_user_id',
 				'status_field'	=> 'p_status',
 			),
+			'photos'	=> array(
+				'table_name'	=> 'photos',
+				'id_field'		=> 'p_id',
+				'count_field'	=> 'p_total_comments',
+				'author_field'	=> 'p_user_id',
+				'status_field'	=> 'p_status',
+			),
 		),
 	);
