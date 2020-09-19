@@ -556,6 +556,21 @@
 			return $this;
 		}
 
+		public function phone($default=true){
+			if(!$this->validate_status){ return $this; }
+			if(!$default){ return $this; }
+			$this->value = ltrim($this->value,'+');
+			$phone = (int)$this->value;
+			if($phone == $this->value){
+				return $this;
+			}
+			$this->setError(fx_lang('fields.error_field_not_phone', array(
+					'%field%'	=> $this->label,
+				)
+			));
+			return $this;
+		}
+
 		public function boolean($default=true){
 			if(!$this->validate_status){ return $this; }
 			if(!$default){ return $this; }

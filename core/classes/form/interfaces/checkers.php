@@ -52,6 +52,12 @@
 		public function email($default=true);
 
 		/**
+		 * @param bool $default
+		 * @return Checkers
+		 */
+		public function phone($default=true);
+
+		/**
 		 * @return Validator
 		 */
 		public function captcha();

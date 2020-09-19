@@ -32,7 +32,7 @@
 					<div class="col-12 row ml-0">
 
 						<div class="notices-item-image col-md-3 col-sm-3 col-3 col-lg-2 col-xl-2 p-0 pl-2 pr-2">
-							<div class="item-photo row justify-content-center">
+							<div class="item-photo item-text-photo row justify-content-center">
 								<div class="user-info">
 									<div class="user-info-avatar" id="avatar"></div>
 									<div class="user-info-name" id="name">

@@ -49,11 +49,13 @@
 			</sup>
 		</div>
 	</div>
+	<?php if(fx_logged()){ ?>
 
-	<div class="comments-send-form col-12">
-		<?php print $this->renderForm($content['form']) ?>
-	</div>
+		<div class="comments-send-form col-12">
+			<?php print $this->renderForm($content['form']) ?>
+		</div>
 
+	<?php } ?>
 	<div class="col-md-12 col-sm-12 col-12 col-lg-12 col-xl-12 p-0 list-group comments">
 
 		<?php foreach($content['comments'] as $comment){ ?>

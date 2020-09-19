@@ -46,6 +46,6 @@ window.notifyObj = {
 };
 
 $(document).ready(function(){
-	$.each($('.notices-list .notices .notices-item .notices-info .notices-item-image .item-photo .user-info'),notifyObj.setAvatar);
+	$.each($('.item-text-photo .user-info'),notifyObj.setAvatar);
 });
 

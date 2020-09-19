@@ -68,3 +68,21 @@
 .notices-list .notices .notices-item.status-1:hover {
   background: rgba(255, 0, 0, 0.025);
 }
+.item-text-photo .user-info {
+  padding-top: 0.5em;
+}
+.item-text-photo .user-info .user-info-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 4px;
+  text-align: center;
+  color: white;
+  line-height: 48px;
+  font-size: 30px;
+  margin: 0 auto;
+}
+.item-text-photo .user-info .user-info-name {
+  display: inline-block;
+  font-weight: bold;
+  color: #245f9e;
+}

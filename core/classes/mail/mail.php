@@ -38,11 +38,11 @@
 		 * @param string $config_interface_key
 		 * @return MailInterface
 		 */
-		public static function set($config_interface_key='admin'){
+		public static function set($config_interface_key='system'){
 			return new self($config_interface_key);
 		}
 
-		public function __construct($config_interface_key='admin'){
+		public function __construct($config_interface_key='system'){
 			$this->config_interface = $config_interface_key;
 			$this->config = Config::getInstance();
 			$this->mail_params = $this->config->mail[$this->config_interface];

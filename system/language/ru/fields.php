@@ -8,6 +8,7 @@
 		'error_field_max_length'	=> 'Максимальная длина поля "%field%" - %count% симолов!',
 		'error_field_mask'			=> 'Поле "%field%" не соответствует маске %mask%!',
 		'error_field_not_email'		=> 'Поле "%field%" должно быть e-mail-адресом!',
+		'error_field_not_phone'		=> 'Поле "%field%" должно быть номером телефона',
 		'error_field_not_boolean'	=> 'Поле "%field%" булевое (true или false)!',
 		'error_field_not_domain'	=> 'Поле "%field%" должно быть корректным доменом!',
 		'error_field_not_float'		=> 'Поле "%field%" число с плавающей точкой!',
