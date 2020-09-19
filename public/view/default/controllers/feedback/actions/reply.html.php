@@ -6,8 +6,8 @@
 	/** @var array $errors */
 	/** @var array $item */
 
-	$this->prependCSS("{$this->theme_path}/css/feedback");
-	$this->prependJS("{$this->theme_path}/js/feedback");
+	$this->prependCSS("feedback");
+	$this->prependJS("feedback");
 ?>
 
 <div class="form row form-reply form-auth justify-content-center">

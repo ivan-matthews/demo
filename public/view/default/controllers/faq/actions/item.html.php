@@ -4,8 +4,8 @@
 	/** @var array $item */
 	/** @var array $menu */
 
-	$this->prependCSS("{$this->theme_path}/css/faq");
-	$this->prependJS("{$this->theme_path}/js/faq");
+	$this->prependCSS("faq");
+	$this->prependJS("faq");
 ?>
 <div class="row justify-content-center faq-one-item mt-4 footer-line pb-4">
 	<div class="col-md-12 col-sm-12 col-12 col-lg-11 col-xl-11 p-0 faq-title text-center">

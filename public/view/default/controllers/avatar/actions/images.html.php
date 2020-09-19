@@ -3,7 +3,7 @@
 	/** @var array $data */
 	/** @var array $images */
 	
-	$this->prependCSS("{$this->theme_path}/css/avatar");
+	$this->prependCSS("avatar");
 ?>
 
 <div class="select-avatars-list row justify-content-center">

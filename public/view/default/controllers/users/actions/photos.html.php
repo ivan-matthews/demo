@@ -3,8 +3,8 @@
 	/** @var array $data */
 	/** @var array $photos */
 
-	$this->prependCSS("{$this->theme_path}/css/photos");
-	$this->prependJS("{$this->theme_path}/js/photos");
+	$this->prependCSS("photos");
+	$this->prependJS("photos");
 ?>
 	<?php if(fx_logged()){ ?>
 		<div class="buttons-panel col-12 text-right mb-1 mt-1">

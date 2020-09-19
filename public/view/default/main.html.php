@@ -4,7 +4,6 @@
 	/** @var View $this */
 
 	use Core\Classes\View;
-	use Core\Classes\Language;
 
 	define('THEME_POSITIONS',array(
 		'header'			=> true,
@@ -19,16 +18,16 @@
 		'footer'			=> true,
 	));
 
-	$this->addCSS("{$this->theme_path}/css/libs/bootstrap");
-	$this->addCSS("{$this->theme_path}/css/libs/fontawesome");
+	$this->addCSS("libs/bootstrap");
+	$this->addCSS("libs/fontawesome");
 
-	$this->addJS("{$this->theme_path}/js/libs/jquery");
-	$this->addJS("{$this->theme_path}/js/libs/func");
+	$this->addJS("libs/jquery");
+	$this->addJS("libs/func");
 
-	$this->addCSS("{$this->theme_path}/css/index");
-	$this->addCSS("{$this->theme_path}/css/home");
-	$this->addJS("{$this->theme_path}/js/index");
-	$this->addJS("{$this->theme_path}/js/home");
+	$this->addCSS("index");
+	$this->addCSS("home");
+	$this->addJS("index");
+	$this->addJS("home");
 
 	$lang_key = $this->language->getLanguageKey();
 	$translation_lang_key = $lang_key . "-" . strtoupper($lang_key);
@@ -120,9 +119,9 @@
 		</footer>
 
 		<?php
-//			$this->addJS("{$this->theme_path}/js/libs/fontawesome");
-			$this->addJS("{$this->theme_path}/js/libs/popper");
-			$this->addJS("{$this->theme_path}/js/libs/bootstrap");
+//			$this->addJS("libs/fontawesome");
+			$this->addJS("libs/popper");
+			$this->addJS("libs/bootstrap");
 		?>
 		<?php $this->renderCssFiles() ?>
 		<?php $this->renderJsFiles() ?>

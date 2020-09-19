@@ -5,8 +5,8 @@
 	/** @var integer $total */
 	/** @var array $menu */
 
-	$this->prependCSS("{$this->theme_path}/css/faq");
-	$this->prependJS("{$this->theme_path}/js/faq");
+	$this->prependCSS("faq");
+	$this->prependJS("faq");
 ?>
 
 <?php if($menu['add']){ ?>

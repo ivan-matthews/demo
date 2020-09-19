@@ -14,6 +14,9 @@
 		'uploads_dir'			=> 'uploads',
 		'tpl_files_host'		=> null,
 
+		'css_cdn'	=> 'https://ivan-matthews.github.io',
+		'js_cdn'	=> 'https://ivan-matthews.github.io',
+
 		'user_avatar'	=> array(
 			User::GENDER_NONE	=> array(
 				'micro'		=> 'images/avatars/micro122b22ae96d2c8e934e31b6c84ced4d1e.jpeg',

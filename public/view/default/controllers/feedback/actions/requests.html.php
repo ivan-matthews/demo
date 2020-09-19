@@ -8,10 +8,10 @@
 	/** @var array $bids */
 	/** @var string $total */
 
-	$this->prependCSS("{$this->theme_path}/css/feedback");
-	$this->prependCSS("{$this->theme_path}/css/notify");
-	$this->prependJS("{$this->theme_path}/js/feedback");
-	$this->prependJS("{$this->theme_path}/js/notify");
+	$this->prependCSS("feedback");
+	$this->prependCSS("notify");
+	$this->prependJS("feedback");
+	$this->prependJS("notify");
 ?>
 
 <div class="row justify-content-center feedback-list">

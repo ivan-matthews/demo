@@ -3,8 +3,8 @@
 	/** @var array $data */
 	/** @var array $content */
 
-	$this->prependCSS("{$this->theme_path}/css/comments");
-	$this->prependJS("{$this->theme_path}/js/comments");
+	$this->prependCSS("comments");
+	$this->prependJS("comments");
 	/*
 		[c_id] => 100
 		[c_author_id] => 5

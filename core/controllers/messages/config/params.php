@@ -12,7 +12,7 @@
 		'actions'	=> array(
 			'index'	=> array(
 				'groups_enabled'	=> array(),
-				'groups_disabled'	=> array(),
+				'groups_disabled'	=> array(0),
 			),
 			'add'	=> array(
 				'groups_enabled'	=> array(),
@@ -36,7 +36,7 @@
 			),
 			'item'	=> array(
 				'groups_enabled'	=> array(),
-				'groups_disabled'	=> array(),
+				'groups_disabled'	=> array(0),
 			),
 		)
 	);

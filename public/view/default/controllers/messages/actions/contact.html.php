@@ -10,8 +10,8 @@
 	/** @var array $user */
 	/** @var array $form_data */
 
-	$this->prependCSS("{$this->theme_path}/css/messages");
-	$this->prependJS("{$this->theme_path}/js/messages");
+	$this->prependCSS("messages");
+	$this->prependJS("messages");
 
 ?>
 
@@ -32,6 +32,10 @@
 									<div class="total">
 										<?php print $message_contact['total'] ?>
 									</div>
+								<?php }else{ ?>
+									<div class="all">
+										<?php print $total ?>
+									</div>
 								<?php } ?>
 								<a href="<?php print fx_get_url('messages','item',$message_contact['mc_id']) ?>">
 									<div class="item-photo pt-2">
@@ -50,7 +54,7 @@
 
 					<div class="col-md-10 col-sm-12 col-12 col-lg-10 col-xl-10 messages-item-info mt-2 pb-4">
 						<div class="mt-2 contact-info row col-12 pl-0 pr-0 ml-0 mr-0">
-							<a class="col-10 link" href="<?php print fx_get_url('users','item',$contact['u_id']) ?>">
+							<a class="col-12 row m-0 p-0 link" href="<?php print fx_get_url('users','item',$contact['u_id']) ?>">
 								<div class="item-photo row ml-0 col">
 									<img src="<?php print fx_avatar($contact['p_micro'],'micro',$contact['u_gender']) ?>">
 									<div class="list-group-item-heading info item-title mb-1 ml-2">
@@ -58,14 +62,14 @@
 									</div>
 								</div>
 							</a>
-							<div class="total col-2">
-								<span class="title">
-									<?php print fx_lang('messages.total_messages_count') ?>
-								</span>
-								<span class="total-messages">
-									<?php print $total ?>
-								</span>
-							</div>
+<!--							<div class="total col-2">-->
+<!--								<span class="title">-->
+<!--									--><?php //print fx_lang('messages.total_messages_count') ?>
+<!--								</span>-->
+<!--								<span class="total-messages">-->
+<!--									--><?php //print $total ?>
+<!--								</span>-->
+<!--							</div>-->
 
 							<div class="send-form col-12">
 								<?php print $this->renderForm($form_data) ?>

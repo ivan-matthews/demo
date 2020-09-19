@@ -6,8 +6,8 @@
 	/** @var array $contacts */
 	/** @var string $total */
 
-	$this->prependCSS("{$this->theme_path}/css/messages");
-	$this->prependJS("{$this->theme_path}/js/messages");
+	$this->prependCSS("messages");
+	$this->prependJS("messages");
 ?>
 
 <div class="m-0 mb-4 messages-list row justify-content-center">
@@ -22,9 +22,9 @@
 
 				<div class="messages-info row ">
 
-					<a href="<?php print fx_get_url('messages','item', $contact['mc_id']) ?>" class="col-1<?php if($contact['total']){ ?>1<?php }else{ ?>2<?php } ?> message-main-link row ml-0">
+					<a href="<?php print fx_get_url('messages','item', $contact['mc_id']) ?>" class="col-12 message-main-link row ml-0">
 
-						<div class="messages-item-image col-md-3 col-sm-3 col-3 col-lg-2 col-xl-2 mt-2">
+						<div class="messages-item-image col-md-3 col-sm-3 col-3 col-lg-2 col-xl-2 mt-2 d-none d-sm-block">
 							<div class="item-photo">
 								<img src="<?php print fx_avatar($contact['p_small'],'small',$contact['u_gender']) ?>">
 							</div>
@@ -33,11 +33,23 @@
 							</div>
 						</div>
 
-						<div class="col-md-9 col-sm-9 col-9 col-lg-10 col-xl-10 messages-item-info">
-							<div class="list-group-item-heading info item-title mt-1 mb-1">
+						<div class="col-md-9 col-sm-9 col-12 col-lg-10 col-xl-10 messages-item-info">
+							<div class="list-group-item-heading info item-title mt-1 mb-1 row ml-0">
+
+								<?php if($contact['total']){ ?>
+									<div class="total pr-2 p-0 m-0">
+										<div class="total-messages bg-danger text-white text-center pl-2 pr-2">
+											<?php print $contact['total'] ?>
+											<span class="total-new">
+												<?php print fx_lang('messages.total_new_messages_count') ?>
+											</span>
+										</div>
+									</div>
+								<?php } ?>
+
 								<?php print fx_get_full_name($contact['u_full_name'],$contact['u_gender']) ?>
 								<?php if($im_not_writer){ ?>
-									<span class="description">
+									<span class="description pl-2">
 										<?php print fx_lang('messages.user_say_value') ?>
 									</span>
 								<?php } ?>
@@ -66,17 +78,6 @@
 						</div>
 
 					</a>
-
-					<?php if($contact['total']){ ?>
-						<div class="total col col-1">
-							<div class="pl-1 pr-1 d-inline-block ml-2 row justify-content-center total-messages bg-danger text-white text-center">
-								<?php print $contact['total'] ?>
-								<span class="total-new">
-									<?php print fx_lang('messages.total_new_messages_count') ?>
-								</span>
-							</div>
-						</div>
-					<?php } ?>
 
 					<div class="col col-12 text-right contact-buttons mt-2">
 						<a class="bg-success btn p-0 pl-2 pr-2 m-0 text-white" href="<?php print fx_get_url('messages','delete_contact',$contact['mc_id']) ?>">

@@ -8,8 +8,8 @@
 	 * @var array $content
 	 */
 
-	$this->addCSS("{$this->theme_path}/css/scroll");
-	$this->addJS("{$this->theme_path}/js/scroll");
+	$this->addCSS("scroll");
+	$this->addJS("scroll");
 ?>
 <div class="top_up_panel_button m-auto hidden" style="background: rgba(74, 118, 166, 0.1);" onclick="scrollObj.upToTopClick()">
 	<div id="up" style="">

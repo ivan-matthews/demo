@@ -3,8 +3,8 @@
 	/** @var array $data */
 	/** @var array $post */
 
-	$this->prependCSS("{$this->theme_path}/css/blog");
-	$this->prependJS("{$this->theme_path}/js/blog");
+	$this->prependCSS("blog");
+	$this->prependJS("blog");
 ?>
 
 <div class="blog-item row justify-content-center">

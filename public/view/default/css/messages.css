@@ -123,6 +123,15 @@ p {
   color: #FFFFFF;
   padding: 0 4px;
 }
+.contact .messages-contact .contact-item .contact-info .contact-main-block .contacts-list .contact-item .all {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-weight: bold;
+  background: #28a745;
+  color: #FFFFFF;
+  padding: 0 4px;
+}
 .contact .messages-contact .contact-item .contact-info .contact-main-block .contacts-list .contact-item .item-name {
   font-weight: bold;
 }

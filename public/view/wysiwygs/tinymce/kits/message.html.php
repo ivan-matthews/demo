@@ -275,7 +275,7 @@
 				{text: 'ZEPHIR', value: 'zephir'},
 			],
 			mobile:{
-				height: 350,
+				height: 150,
 				plugins:
 				"codesample fullscreen help image imagetools spellchecker autolink" +
 				" lists link media noneditable preview emoticons charmap quickbars" +

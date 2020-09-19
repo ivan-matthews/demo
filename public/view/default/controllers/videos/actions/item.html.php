@@ -3,8 +3,8 @@
 	/** @var array $data */
 	/** @var array $video */
 
-	$this->prependCSS("{$this->theme_path}/css/videos");
-	$this->prependJS("{$this->theme_path}/js/videos");
+	$this->prependCSS("videos");
+	$this->prependJS("videos");
 ?>
 
 	<div class="videos-item row justify-content-center">
@@ -33,8 +33,8 @@
 				</div>
 			</div>
 
-			<div class="col-12 row justify-content-center">
-				<div class="list-group-item-heading info item-link mt-4 mb-2 btn-group col-8">
+			<div class="col-12 row justify-content-center m-0 p-0">
+				<div class="list-group-item-heading info item-link mt-4 mb-2 btn-group col-12 col-md-8 p-0 m-0">
 					<a href="<?php print fx_get_url('videos','download',$video['v_id']) ?>" class="btn btn-success">
 						<i class="fas fa-download"></i>
 						<?php print fx_lang('videos.download_video_btn_value') ?>

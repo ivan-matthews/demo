@@ -6,8 +6,8 @@
 	/** @var array $data */
 	/** @var array $item */
 
-	$this->prependCSS("{$this->theme_path}/css/feedback");
-	$this->prependJS("{$this->theme_path}/js/feedback");
+	$this->prependCSS("feedback");
+	$this->prependJS("feedback");
 
 	$readed = $item['fb_date_updated'] && fx_equal((int)$item['fb_status'],Kernel::STATUS_INACTIVE)
 ?>

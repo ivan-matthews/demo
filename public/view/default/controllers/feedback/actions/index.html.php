@@ -5,8 +5,8 @@
 	/** @var string $title */
 	/** @var string $footer */
 
-	$this->prependCSS("{$this->theme_path}/css/feedback");
-	$this->prependJS("{$this->theme_path}/js/feedback");
+	$this->prependCSS("feedback");
+	$this->prependJS("feedback");
 
 	$total = count($contacts);
 

@@ -8,7 +8,7 @@
 	 * @var array $user
 	 * @var array $fields
 	 */
-	$this->prependCSS("{$this->theme_path}/css/avatar");
+	$this->prependCSS("avatar");
 ?>
 
 <div class="user-avatar row justify-content-center">

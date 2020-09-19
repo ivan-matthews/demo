@@ -59,7 +59,7 @@
 
 		public function __construct(){
 			parent::__construct();
-			$this->query .= "`p_status`!=" . Kernel::STATUS_BLOCKED;
+			$this->query .= "`p_status` = " . Kernel::STATUS_ACTIVE;
 			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
 		}
 

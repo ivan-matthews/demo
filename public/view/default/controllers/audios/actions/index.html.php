@@ -3,8 +3,8 @@
 	/** @var array $data */
 	/** @var array $audios */
 
-	$this->prependCSS("{$this->theme_path}/css/audios");
-	$this->prependJS("{$this->theme_path}/js/audios");
+	$this->prependCSS("audios");
+	$this->prependJS("audios");
 ?>
 	<?php if(fx_logged()){ ?>
 		<div class="buttons-panel col-12 text-right mb-1 mt-1">

@@ -69,7 +69,7 @@
 		public function __construct(){
 			parent::__construct();
 			$this->filter = Filter::getInstance();
-			$this->query = "u_status != '" . Kernel::STATUS_BLOCKED. "'";
+			$this->query = "u_status = '" . Kernel::STATUS_ACTIVE. "'";
 			$this->order = 'u_id';
 
 			$this->language_key = $this->language->getLanguageKey();

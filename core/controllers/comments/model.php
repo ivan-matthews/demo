@@ -32,8 +32,7 @@
 		}
 
 		public function countCommentsByItem($controller,$action,$item_id){
-			$where_query = '`c_status`!=' . Kernel::STATUS_BLOCKED;
-			$where_query .= " AND comments.`c_status`!=" . Kernel::STATUS_DELETED;;
+			$where_query = '`c_status` = ' . Kernel::STATUS_ACTIVE;
 			$where_query .= " AND `c_controller`=%controller%";
 			if($action){
 				$where_query .= " AND `c_action`=%action%";
@@ -53,8 +52,7 @@
 		}
 
 		public function getCommentsByItem($controller,$action,$item_id,$limit,$offset){
-			$where_query = 'comments.`c_status`!=' . Kernel::STATUS_BLOCKED;
-			$where_query .= " AND comments.`c_status`!=" . Kernel::STATUS_DELETED;;
+			$where_query = 'comments.`c_status` = ' . Kernel::STATUS_ACTIVE;
 			$where_query .= " AND comments.`c_controller`=%controller%";
 			if($action){
 				$where_query .= " AND comments.`c_action`=%action%";

@@ -2,8 +2,8 @@
 	/** @var \Core\Classes\View $this */
 	/** @var array $data */
 
-	$this->prependCSS("{$this->theme_path}/css/photos");
-	$this->prependJS("{$this->theme_path}/js/photos");
+	$this->prependCSS("photos");
+	$this->prependJS("photos");
 ?>
 
 <div class="form row form-auth justify-content-center original-form-block">

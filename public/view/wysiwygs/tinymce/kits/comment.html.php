@@ -269,7 +269,7 @@
 				{text: 'ZEPHIR', value: 'zephir'},
 			],
 			mobile:{
-				height: 100,
+				height: 150,
 				plugins:
 				" autolink" +
 				" link emoticons charmap" +

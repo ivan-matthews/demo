@@ -251,85 +251,72 @@
 			return true;
 		}
 
-		public function addJS($js_file_path,$version=true){
-			if($this->config->core['debug_enabled']){
-				$version = TIME;
-			}
-			$key = $js_file_path;
-			$extension = $version ? "js?v={$version}" : "js";
-			$js_file_path = trim($js_file_path,'/');
-			$js_file_path = "{$js_file_path}.{$extension}";
-			self::$js_files[$key] = $js_file_path;
+		public function addJS($js_file_path,$alternative_path=null,$version=true){
+			self::$js_files[$js_file_path] = $this->makeFileLink(
+				$js_file_path,'js',$alternative_path,$version
+			);
 			return true;
 		}
 
-		public function addCSS($css_file_path,$version=true){
-			if($this->config->core['debug_enabled']){
-				$version = TIME;
-			}
-			$key = $css_file_path;
-			$extension = $version ? "css?v={$version}" : "css";
-			$css_file_path = trim($css_file_path,'/');
-			$css_file_path = "{$css_file_path}.{$extension}";
-			self::$css_files[$key] = $css_file_path;
+		public function addCSS($css_file_path,$alternative_path=null,$version=true){
+			self::$css_files[$css_file_path] = $this->makeFileLink(
+				$css_file_path,'css',$alternative_path,$version
+			);
 			return true;
 		}
 
-		public function appendJS($js_file_path,$version=true){
-			if($this->config->core['debug_enabled']){
-				$version = TIME;
-			}
-			$key = $js_file_path;
-			$extension = "js?v={$version}";
-			$js_file_path = trim($js_file_path,'/');
-			$js_file_path = "{$js_file_path}.{$extension}";
-			self::$append_js[$key] = $js_file_path;
+		public function appendJS($js_file_path,$alternative_path=null,$version=true){
+			self::$append_js[$js_file_path] =$this->makeFileLink(
+				$js_file_path,'js',$alternative_path,$version
+			);
 			return true;
 		}
 
-		public function appendCSS($css_file_path,$version=true){
-			if($this->config->core['debug_enabled']){
-				$version = TIME;
-			}
-			$key = $css_file_path;
-			$extension = "css?v={$version}";
-			$css_file_path = trim($css_file_path,'/');
-			$css_file_path = "{$css_file_path}.{$extension}";
-			self::$append_css[$key] = $css_file_path;
+		public function appendCSS($css_file_path,$alternative_path=null,$version=true){
+			self::$append_css[$css_file_path] = $this->makeFileLink(
+				$css_file_path,'css',$alternative_path,$version
+			);
 			return true;
 		}
 
-		public function prependJS($js_file_path,$version=true){
-			if($this->config->core['debug_enabled']){
-				$version = TIME;
-			}
-			$key = $js_file_path;
-			$extension = "js?v={$version}";
-			$js_file_path = trim($js_file_path,'/');
-			$js_file_path = "{$js_file_path}.{$extension}";
-			self::$prepend_js[$key] = $js_file_path;
+		public function prependJS($js_file_path,$alternative_path=null,$version=true){
+			self::$prepend_js[$js_file_path] = $this->makeFileLink(
+				$js_file_path,'js',$alternative_path,$version
+			);
 			return true;
 		}
 
-		public function prependCSS($css_file_path,$version=true){
+		public function prependCSS($css_file_path,$alternative_path=null,$version=true){
+			self::$prepend_css[$css_file_path] = $this->makeFileLink(
+				$css_file_path,'css',$alternative_path,$version
+			);
+			return true;
+		}
+
+		private function makeFileLink($file_path,$file_extension,$alternative_path=null,$version=true){
 			if($this->config->core['debug_enabled']){
 				$version = TIME;
 			}
-			$key = $css_file_path;
-			$extension = "css?v={$version}";
-			$css_file_path = trim($css_file_path,'/');
-			$css_file_path = "{$css_file_path}.{$extension}";
-			self::$prepend_css[$key] = $css_file_path;
-			return true;
+			$extension = "{$file_extension}?v={$version}";
+			$file_path = trim($file_path,'/');
+			$file_path = "{$file_path}.{$extension}";
+			return $alternative_path ?
+				"/{$alternative_path}/{$file_path}" :
+				"{$this->theme_path}/{$file_extension}/{$file_path}";
 		}
 
 		public function renderJsFiles(){
 			!self::$append_js ?: array_unshift(self::$js_files,...(array_values(self::$append_js)));
 			!self::$prepend_js ?: array_push(self::$js_files,...(array_values(self::$prepend_js)));
 
+			$js_cdn = $this->config->view['js_cdn'];
+			$debug = $this->config->core['debug_enabled'];
 			$js_files = '';
 			foreach(self::$js_files as $key=>$file){
-				$file_path = $this->site_host_is ? "{$this->site_root}/{$file}" : "/{$this->site_root}/{$file}";
+				$file_path = $this->site_host_is ? "{$this->site_root}{$file}" : "/{$this->site_root}{$file}";
+				if($js_cdn/* && !$debug*/){
+					$file_path = "{$js_cdn}{$file_path}\"";
+				}
 				$js_files .= "\t\t<script src=\"{$file_path}\"></script>" . PHP_EOL;
 				unset(self::$js_files[$key]);
 			}
@@ -341,9 +328,14 @@
 			!self::$append_css ?: array_unshift(self::$css_files,...(array_values(self::$append_css)));
 			!self::$prepend_css ?: array_push(self::$css_files,...(array_values(self::$prepend_css)));
 
+			$css_cdn = $this->config->view['js_cdn'];
+			$debug = $this->config->core['debug_enabled'];
 			$css_files = '';
 			foreach(self::$css_files as $key=>$file){
-				$file_path = $this->site_host_is ? "{$this->site_root}/{$file}" : "/{$this->site_root}/{$file}";
+				$file_path = $this->site_host_is ? "{$this->site_root}{$file}" : "/{$this->site_root}{$file}";
+				if($css_cdn/* && !$debug*/){
+					$file_path = "{$css_cdn}{$file_path}\"";
+				}
 				$css_files .= "\t\t<link rel=\"stylesheet\" type=\"text/css\" href=\"{$file_path}\">" . PHP_EOL;
 				unset(self::$css_files[$key]);
 			}

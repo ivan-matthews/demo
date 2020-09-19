@@ -73,7 +73,7 @@
 		public function __construct(){
 			parent::__construct();
 			$this->user_model = UserModel::getInstance();
-			$this->query = "p_status != '" . Kernel::STATUS_BLOCKED. "'";
+			$this->query = "p_status = '" . Kernel::STATUS_ACTIVE. "'";
 			$this->order = 'p_id';
 			$this->sorting_panel = $this->params->sorting_panel;
 		}

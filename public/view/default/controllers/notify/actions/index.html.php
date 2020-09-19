@@ -8,8 +8,8 @@
 	/** @var string $total */
 	/** @var integer $user */
 
-	$this->prependCSS("{$this->theme_path}/css/notify");
-	$this->prependJS("{$this->theme_path}/js/notify");
+	$this->prependCSS("notify");
+	$this->prependJS("notify");
 
 	$unreaded = null;
 ?>
@@ -31,7 +31,7 @@
 
 					<div class="col-12 row ml-0">
 
-						<div class="notices-item-image col-md-3 col-sm-3 col-3 col-lg-2 col-xl-2 p-0 pl-2 pr-2">
+						<div class="d-none d-sm-block notices-item-image col-md-3 col-sm-3 col-3 col-lg-2 col-xl-2 p-0 pl-2 pr-2">
 							<div class="item-photo item-text-photo row justify-content-center">
 								<div class="user-info">
 									<div class="user-info-avatar" id="avatar"></div>
@@ -51,7 +51,7 @@
 							<?php } ?>
 						</div>
 
-						<div class="col-md-9 col-sm-9 col-9 col-lg-10 col-xl-10 notices-item-info">
+						<div class="col-md-9 col-sm-9 col-12 col-lg-10 col-xl-10 notices-item-info">
 							<div class="list-group-item-heading info item-title mt-1 mb-1 pl-0">
 								<?php if(!$reading){ ?>
 									<span class="list-group-item-text item-new bg-danger text-white mr-2 p-1 pl-2 pr-2">
@@ -74,7 +74,7 @@
 											'%user_name%'	=> fx_get_full_name($notice['u_full_name'],$notice['u_gender']),
 										)) ?>
 										<div class="content-notice">
-											<blockquote class="quote">
+											<blockquote class="quote text-break">
 												<?php print fx_lang($notice['n_content'],fx_arr($notice['n_content_data_to_replace'])) ?>
 											</blockquote>
 										</div>
@@ -85,7 +85,7 @@
 									</div>
 								<?php } ?>
 							</div>
-							<div class="list-group-item-heading info item-link mt-1 mb-1 text-right">
+							<div class="list-group-item-heading info item-link float-right row mt-0">
 								<?php if($notice['n_action']){ ?>
 									<a class="btn bg-success text-white link-follow" href="<?php print fx_get_url('notify','item',$notice['n_id']) ?>">
 										<?php print fx_lang("notify.follow_to_page") ?>

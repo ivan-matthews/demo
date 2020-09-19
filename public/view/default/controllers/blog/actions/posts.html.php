@@ -5,8 +5,8 @@
 	/** @var array $total */
 	/** @var array $user */
 
-	$this->prependCSS("{$this->theme_path}/css/blog");
-	$this->prependJS("{$this->theme_path}/js/blog");
+	$this->prependCSS("blog");
+	$this->prependJS("blog");
 
 //	fx_die($posts)
 ?>

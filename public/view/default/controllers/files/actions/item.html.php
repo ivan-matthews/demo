@@ -3,8 +3,8 @@
 	/** @var array $data */
 	/** @var array $file */
 
-	$this->prependCSS("{$this->theme_path}/css/files");
-	$this->prependJS("{$this->theme_path}/js/files");
+	$this->prependCSS("files");
+	$this->prependJS("files");
 ?>
 
 	<div class="files-item row justify-content-center">
@@ -25,8 +25,8 @@
 				</div>
 			</div>
 
-			<div class="col-12 row justify-content-center">
-				<div class="list-group-item-heading info item-link mt-4 mb-2 btn-group col-8">
+			<div class="col-12 row justify-content-center m-0 p-0">
+				<div class="list-group-item-heading info item-link mt-4 mb-2 btn-group col-12 col-md-8 p-0 m-0">
 					<a href="<?php print fx_get_url('files','download',$file['f_id']) ?>" class="btn btn-success">
 						<i class="fas fa-download"></i>
 						<?php print fx_lang('files.download_file_btn_value') ?>

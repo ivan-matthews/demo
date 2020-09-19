@@ -7,7 +7,7 @@
 	/** @var string $total */
 	/** @var string $action */
 
-	$this->prependCSS("{$this->theme_path}/css/search");
+	$this->prependCSS("search");
 //	fx_die($data);
 ?>
 
@@ -15,26 +15,28 @@
 
 	<div class="col-md-12 col-sm-12 col-12 col-lg-11 col-xl-11 p-0 list-group search">
 
-		<form method="GET" action="<?php print $action ?>">
-			<div class="input-group">
-				<div class="input-group-prepend">
-					<div class="input-group-text radius-0 search-icon">
-						 <i class="fa fa-search" aria-hidden="true"></i>
+		<div class="mt-2 mb-2">
+			<form method="GET" action="<?php print $action ?>">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<div class="input-group-text radius-0 search-icon">
+							<i class="fa fa-search" aria-hidden="true"></i>
+						</div>
+					</div>
+					<input type="text" value="<?php print $this->request->get('find') ?>" class="form-control" name="find" placeholder="<?php print fx_lang('search.write_to_find_placeholder') ?>">
+					<div class="btn-group input-group-append">
+						<button class="btn btn-success radius-0" type="submit">
+							<i class="fa fa-search" aria-hidden="true"></i>
+						</button>
+						<?php if($query){ ?>
+							<a href="<?php print fx_get_url('search','index') ?>" class="btn btn-warning radius-0">
+								<i class="fas fa-times"></i>
+							</a>
+						<?php } ?>
 					</div>
 				</div>
-				<input type="text" value="<?php print $this->request->get('find') ?>" class="form-control" name="find" placeholder="<?php print fx_lang('search.write_to_find_placeholder') ?>">
-				<div class="btn-group input-group-append">
-					<button class="btn btn-success radius-0" type="submit">
-						 <i class="fa fa-search" aria-hidden="true"></i>
-					</button>
-					<?php if($query){ ?>
-						<a href="<?php print fx_get_url('search','index') ?>" class="btn btn-warning radius-0">
-							<i class="fas fa-times"></i>
-						</a>
-					<?php } ?>
-				</div>
-			</div>
-		</form>
+			</form>
+		</div>
 
 		<?php foreach($result as $item){ ?>
 
@@ -44,7 +46,7 @@
 
 					<a href="<?php print fx_get_url($current,'item', $item['id']) ?>" class="col-11 row ml-0">
 
-						<div class="search-item-image col-md-3 col-sm-3 col-3 col-lg-2 col-xl-2">
+						<div class="search-item-image d-none d-sn-block col-md-3 col-sm-3 col-3 col-lg-2 col-xl-2">
 							<div class="item-photo">
 								<img src="<?php print fx_get_image_src($item['image'],'','small') ?>">
 							</div>
@@ -55,7 +57,7 @@
 							<?php } ?>
 						</div>
 
-						<div class="col-md-7 col-sm-8 col-9 col-lg-10 col-xl-10 search-item-info">
+						<div class="col-md-7 col-sm-8 col-12 col-lg-10 col-xl-10 search-item-info">
 							<div class="list-group-item-heading info item-title mt-1 mb-1">
 								<?php print str_ireplace(array($query),array("<span style=\"background:yellow\">{$query}</span>"),fx_crop_string($item['title'])) ?>
 							</div>

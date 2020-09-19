@@ -3,8 +3,8 @@
 	/** @var array $data */
 	/** @var array $photo */
 
-	$this->prependCSS("{$this->theme_path}/css/photos");
-	$this->prependJS("{$this->theme_path}/js/photos");
+	$this->prependCSS("photos");
+	$this->prependJS("photos");
 ?>
 
 	<div class="photos-item row justify-content-center">

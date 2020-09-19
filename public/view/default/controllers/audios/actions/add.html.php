@@ -2,8 +2,8 @@
 	/** @var \Core\Classes\View $this */
 	/** @var array $data */
 
-	$this->prependCSS("{$this->theme_path}/css/audios");
-	$this->prependJS("{$this->theme_path}/js/audios");
+	$this->prependCSS("audios");
+	$this->prependJS("audios");
 ?>
 
 <div class="form row form-auth justify-content-center original-form-block">

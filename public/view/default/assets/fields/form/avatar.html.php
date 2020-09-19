@@ -13,8 +13,8 @@
 
 	$preview_content_orig = "<i class=\"fas fa-camera\"></i>";
 
-	$this->prependCSS("{$this->theme_path}/css/libs/rcrop");
-	$this->prependJS("{$this->theme_path}/js/libs/rcrop");
+	$this->prependCSS("libs/rcrop");
+	$this->prependJS("libs/rcrop");
 
 	$image_params = $attributes['params']['image_params'];
 ?>

@@ -21,9 +21,9 @@
 
 				<div class="users-info row ">
 
-					<a href="<?php print fx_get_url('users','item',$user['u_id']) ?>" class="col-11 row ml-0">
+					<a href="<?php print fx_get_url('users','item',$user['u_id']) ?>" class="col-10 col-sm-10 col-md-10 col-xl-11 col-lg-11 row ml-0">
 
-						<div class="users-item-avatar col-md-3 col-sm-3 col-3 col-lg-2 col-xl-2">
+						<div class="users-item-avatar col-md-3 col-sm-3 col-4 col-lg-2 col-xl-2">
 
 							<div class="avatar">
 
@@ -36,7 +36,7 @@
 							</div>
 						</div>
 
-						<div class="col-md-7 col-sm-8 col-9 col-lg-10 col-xl-10 users-item-info">
+						<div class="col-md-7 col-sm-8 col-8 col-lg-10 col-xl-10 users-item-info">
 
 							<div class="list-group-item-heading info full-name mt-1 mb-1">
 
@@ -55,7 +55,7 @@
 
 					</a>
 					<?php if(isset($user['menu'])){ ?>
-						<div class="dropdown col-1 drop-down-user-menu">
+						<div class="dropdown col-2 col-sm-2 col-md-2 col-xl-1 col-lg-1 drop-down-user-menu">
 
 							<button class="btn btn-info radius-0 dropdown-toggle menu-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<i class="fas fa-plus text-white"></i>

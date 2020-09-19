@@ -3,8 +3,8 @@
 	/** @var array $data */
 	/** @var array $content */
 
-	$this->prependCSS("{$this->theme_path}/css/comments");
-	$this->prependJS("{$this->theme_path}/js/comments");
+	$this->prependCSS("comments");
+	$this->prependJS("comments");
 	/*
 		[c_id] => 100
 		[c_author_id] => 5
@@ -74,7 +74,7 @@
 
 					<div class="col-12 row ml-0">
 
-						<a href="<?php print $author_link ?>" class="comments-item-avatar col-md-2 col-sm-2 col-2 col-lg-2 col-xl-2">
+						<a href="<?php print $author_link ?>" class="comments-item-avatar col-md-2 col-sm-2 col-3 col-lg-2 col-xl-2">
 
 							<div class="avatar">
 
@@ -87,7 +87,7 @@
 							</div>
 						</a>
 
-						<div class="col-md-10 col-sm-10 col-10 col-lg-10 col-xl-10 comments-item-info">
+						<div class="col-md-10 col-sm-10 col-9 col-lg-10 col-xl-10 comments-item-info">
 							<a href="<?php print $author_link ?>" class="mb-2 row author-link">
 								<div class="list-group-item-heading info full-name p-1">
 									<?php print fx_get_full_name($comment['author_name'],$comment['author_gender']) ?>
