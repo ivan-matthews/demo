@@ -183,8 +183,6 @@
 			return $this;
 		}
 
-
-
 		private function cronTaskStarted($item){
 			return Paint::exec(function(PaintInterface $print)use($item){
 				$print->string( date('d-m-Y H:i:s') .': ')->color('cyan')->print();
