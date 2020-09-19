@@ -116,4 +116,5 @@
 		'region_label'	=> 'Регион',
 		'city_label'	=> 'Город',
 		'in'	=> ' в ',
+		'categories_select_list'=> 'Выбрать категорию',
 	);

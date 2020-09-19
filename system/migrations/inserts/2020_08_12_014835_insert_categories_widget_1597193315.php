@@ -36,7 +36,8 @@
 				->value('wa_ordering',6)
 				->value('wa_template','widgets/categories')
 				->value('wa_pages_enabled',array(
-					'blog'	=> array()
+					'blog'	=> array(),
+					'faq'	=> array(),
 				))
 				->get()
 				->id()

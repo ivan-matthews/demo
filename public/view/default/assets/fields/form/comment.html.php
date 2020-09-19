@@ -22,12 +22,10 @@
 
 	$field_string = $this->getAttributesStringFromArray($attributes);
 
-	$attributes['unique_id'] = md5(uniqid() . microtime(1));
-
-	$this->renderAsset("../wysiwygs/{$attributes['params']['wysiwyg']}/kits/{$attributes['params']['field_type']}",$attributes);
+	$this->renderAsset("../wysiwygs/{$attributes['params']['wysiwyg']}/config",$attributes);
 ?>
 
-<div id="<?php print $attributes['unique_id'] ?>" class="form-group form-block <?php print $attributes['params']['original_name'] ?> <?php print $attributes['params']['field_sets_field_class'] ?>">
+<div class="field-comment form-group form-block <?php print $attributes['params']['original_name'] ?> <?php print $attributes['params']['field_sets_field_class'] ?>">
 
 	<?php if($attributes['params']['show_label_in_form']){ ?>
 

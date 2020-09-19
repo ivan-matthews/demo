@@ -1,21 +1,9 @@
-<?php
-	/** @var \Core\Classes\View $this */
-	/** @var array $data */
-	/** @var array $attributes */
-	/** @var array $errors */
-	/** @var string $field_string */
-
-	$lang = \Core\Classes\Language::getInstance()->getLanguageKey();
-	$lang = "{$lang}_" . mb_strtoupper($lang);
-	$hash = $data['unique_id'];
-	$this->appendJS('view/wysiwygs/tinymce/tinymce.min');
-?>
-
 <script>
 	document.addEventListener("DOMContentLoaded", function(event){
 		tinymce.init({
-			selector: '#<?php print $hash ?>>textarea',
+			selector: '.field-post>textarea',
 			language: '<?php print $lang ?>',
+			placeholder: "<?php print $data['placeholder'] ?>",
 			branding: false,
 			body_class: 'full',
 			content_css: '/public/view/wysiwygs/tinymce/tinymce.css',

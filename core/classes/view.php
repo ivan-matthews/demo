@@ -279,12 +279,11 @@
 			if($this->config->core['debug_enabled']){
 				$version = TIME;
 			}
-//			$key = $js_file_path;
-			$extension = $version ? "js?v={$version}" : "js";
+			$key = $js_file_path;
+			$extension = "js?v={$version}";
 			$js_file_path = trim($js_file_path,'/');
 			$js_file_path = "{$js_file_path}.{$extension}";
-			self::$append_js[] = $js_file_path;
-//			array_unshift(self::$js_files,$js_file_path);
+			self::$append_js[$key] = $js_file_path;
 			return true;
 		}
 
@@ -292,12 +291,11 @@
 			if($this->config->core['debug_enabled']){
 				$version = TIME;
 			}
-//			$key = $css_file_path;
-			$extension = $version ? "css?v={$version}" : "css";
+			$key = $css_file_path;
+			$extension = "css?v={$version}";
 			$css_file_path = trim($css_file_path,'/');
 			$css_file_path = "{$css_file_path}.{$extension}";
-			self::$append_css[] = $css_file_path;
-//			array_unshift(self::$css_files,$css_file_path);
+			self::$append_css[$key] = $css_file_path;
 			return true;
 		}
 
@@ -305,12 +303,11 @@
 			if($this->config->core['debug_enabled']){
 				$version = TIME;
 			}
-//			$key = $js_file_path;
-			$extension = $version ? "js?v={$version}" : "js";
+			$key = $js_file_path;
+			$extension = "js?v={$version}";
 			$js_file_path = trim($js_file_path,'/');
 			$js_file_path = "{$js_file_path}.{$extension}";
-			self::$prepend_js[] = $js_file_path;
-//			array_push(self::$js_files,$js_file_path);
+			self::$prepend_js[$key] = $js_file_path;
 			return true;
 		}
 
@@ -318,18 +315,17 @@
 			if($this->config->core['debug_enabled']){
 				$version = TIME;
 			}
-//			$key = $css_file_path;
-			$extension = $version ? "css?v={$version}" : "css";
+			$key = $css_file_path;
+			$extension = "css?v={$version}";
 			$css_file_path = trim($css_file_path,'/');
 			$css_file_path = "{$css_file_path}.{$extension}";
-			self::$prepend_css[] = $css_file_path;
-//			array_push(self::$css_files,$css_file_path);
+			self::$prepend_css[$key] = $css_file_path;
 			return true;
 		}
 
 		public function renderJsFiles(){
-			!self::$append_js ?: array_unshift(self::$js_files,...self::$append_js);
-			!self::$prepend_js ?: array_push(self::$js_files,...self::$prepend_js);
+			!self::$append_js ?: array_unshift(self::$js_files,...(array_values(self::$append_js)));
+			!self::$prepend_js ?: array_push(self::$js_files,...(array_values(self::$prepend_js)));
 
 			$js_files = '';
 			foreach(self::$js_files as $key=>$file){
@@ -342,8 +338,8 @@
 		}
 
 		public function renderCssFiles(){
-			!self::$append_css ?: array_unshift(self::$css_files,...self::$append_css);
-			!self::$prepend_css ?: array_push(self::$css_files,...self::$prepend_css);
+			!self::$append_css ?: array_unshift(self::$css_files,...(array_values(self::$append_css)));
+			!self::$prepend_css ?: array_push(self::$css_files,...(array_values(self::$prepend_css)));
 
 			$css_files = '';
 			foreach(self::$css_files as $key=>$file){

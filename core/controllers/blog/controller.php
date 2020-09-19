@@ -6,7 +6,6 @@
 	use Core\Classes\Controller as ParentController;
 	use Core\Classes\Request;
 	use Core\Classes\Response\Response;
-	use Core\Controllers\Home\Model as HomeModel;
 
 	class Controller extends ParentController{
 
@@ -36,10 +35,6 @@
 
 		/** @var array */
 		private $blog;
-
-		public $categories;
-
-		public $home_model;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -73,8 +68,7 @@
 				->setValue($this->params->controller_name)
 				->setIcon(null);
 
-			$this->home_model = HomeModel::getInstance();
-			$this->setCategories();
+			$this->setCategories('blog');
 		}
 
 		public function __destruct(){
@@ -92,15 +86,6 @@
 			return fx_crop_string($slug_string,80,null);
 		}
 
-		public function setCategories(){
-			$categories = $this->home_model->getCategoriesByCurrentController('blog');
-			if($categories){
-				foreach($categories as $category){
-					$this->categories[$category['ct_id']] = fx_lang($category['ct_title']);
-				}
-			}
-			return $this;
-		}
 
 
 

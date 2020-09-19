@@ -25,7 +25,7 @@
 			'sorting'		=> 1,
 			'before'		=> null,
 			'after'			=> null,
-			'status'		=> Kernel::STATUS_ACTIVE,
+			'status'		=> Kernel::STATUS_INACTIVE,
 		),
 		array(
 			'url'			=> 'faq',
@@ -37,7 +37,7 @@
 			'sorting'		=> 1,
 			'before'		=> null,
 			'after'			=> null,
-			'status'		=> Kernel::STATUS_ACTIVE,
+			'status'		=> Kernel::STATUS_INACTIVE,
 		),
 		array(
 			'url'			=> 'help',
@@ -49,7 +49,7 @@
 			'sorting'		=> 1,
 			'before'		=> null,
 			'after'			=> null,
-			'status'		=> Kernel::STATUS_ACTIVE,
+			'status'		=> Kernel::STATUS_INACTIVE,
 		),
 		array(
 			'url'			=> 'support',
@@ -61,7 +61,7 @@
 			'sorting'		=> 1,
 			'before'		=> null,
 			'after'			=> null,
-			'status'		=> Kernel::STATUS_ACTIVE,
+			'status'		=> Kernel::STATUS_INACTIVE,
 		),
 		array(
 			'url'			=> 'feedback',
@@ -73,7 +73,7 @@
 			'sorting'		=> 1,
 			'before'		=> null,
 			'after'			=> null,
-			'status'		=> Kernel::STATUS_ACTIVE,
+			'status'		=> Kernel::STATUS_INACTIVE,
 		),
 		array(
 			'url'			=> 'site-news',
@@ -85,7 +85,7 @@
 			'sorting'		=> 1,
 			'before'		=> null,
 			'after'			=> null,
-			'status'		=> Kernel::STATUS_ACTIVE,
+			'status'		=> Kernel::STATUS_INACTIVE,
 		),
 		array(
 			'url'			=> 'sitemap',
@@ -97,6 +97,6 @@
 			'sorting'		=> 1,
 			'before'		=> null,
 			'after'			=> null,
-			'status'		=> Kernel::STATUS_ACTIVE,
+			'status'		=> Kernel::STATUS_INACTIVE,
 		),
 	);

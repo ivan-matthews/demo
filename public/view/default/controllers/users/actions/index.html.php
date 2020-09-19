@@ -9,7 +9,7 @@
 	$lang = $this->language->getLanguageKey();
 ?>
 
-<div class="row justify-content-center users-list">
+<div class="row justify-content-center users-list mt-4">
 
 	<div class="col-md-12 col-sm-12 col-12 col-lg-11 col-xl-11 p-0 list-group users">
 

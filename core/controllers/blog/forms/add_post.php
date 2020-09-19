@@ -126,7 +126,7 @@
 			$this->validator_interface->field('b_category_id')
 				->dont_prepare()
 				->id('title')
-				->label(fx_lang('blog.categories_select_list'))
+				->label(fx_lang('home.categories_select_list'))
 				->type('select')
 				->params(function(Params $params){
 					$params->field_type('select');
