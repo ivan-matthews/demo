@@ -108,6 +108,22 @@
 			return $this->result;
 		}
 
+		public function addPhotos(array $photos_multi_array){
+			$insert = $this->insert('photos');
+			$time = time();
+			foreach($photos_multi_array as $photos){
+				foreach($photos as $key=>$param){
+					$insert = $insert->value($key,$param);
+				}
+
+				$insert = $insert->update('p_date_updated',$time);
+				$insert = $insert->update('p_status',Kernel::STATUS_ACTIVE);
+			}
+			$insert = $insert->get();
+
+			return $insert->id();
+		}
+
 
 
 

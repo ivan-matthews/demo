@@ -35,6 +35,30 @@
 				'groups_disabled'	=> array(),
 			),
 		),
+		'file_types'	=> array('jpg','jpeg','png','bmp'),
+		'file_size'		=> 2*1024*1024,
+		'image_params'	=> array(
+			'micro'	=> array(
+				'width'		=> 32,
+				'height'	=> 32,
+			),
+			'small'	=> array(
+				'width'		=> 64,
+				'height'	=> 64,
+			),
+			'medium'=> array(
+				'width'		=> 128,
+				'height'	=> 128,
+			),
+			'normal'=> array(
+				'width'		=> 240,
+				'height'	=> 320,
+			),
+			'big'	=> array(
+				'width'		=> 360,
+				'height'	=> 480,
+			),
+		),
 		'sorting_panel'	=> array(
 			'all'	=> array(
 				'status'=> Kernel::STATUS_ACTIVE,

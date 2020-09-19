@@ -59,3 +59,24 @@
 .photos-list .photos .photos-item .photos-item-link .photos-item-image {
   max-width: 100%;
 }
+form label.images:hover {
+  cursor: pointer;
+}
+form label.images i,
+form label.images svg {
+  font-size: 20vw;
+}
+form .photos-list img {
+  max-width: 128px;
+  width: auto;
+}
+form .photos-list .size {
+  font-style: italic;
+}
+form .photos-list .name {
+  font-weight: bold;
+}
+form .photos-list .buttons a {
+  z-index: 5;
+  background: #ffffff;
+}

@@ -80,10 +80,8 @@
 			$file_mime_type_array = array(null,null);
 			foreach($this->files as $item){
 				$file_mime_type_array = explode('/',$item['type']);
-				if(fx_equal($file_type,$file_mime_type_array[0])){
-					if(!in_array($file_mime_type_array[1],$subtypes)){
-						$error = true;
-					}
+				if(!fx_equal($file_type,$file_mime_type_array[0]) || !in_array($file_mime_type_array[1],$subtypes)){
+					$error = true;
 				}
 			}
 			if($error){

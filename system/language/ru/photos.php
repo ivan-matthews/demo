@@ -19,4 +19,9 @@
 		'placeholder_description'	=> 'Описание файла...',
 		'label_name'				=> 'Имя файла',
 		'label_description'			=> 'Описание файла',
+		'add_photos_button'			=> 'добавить',
+		'add_photos_form'			=> 'Добавить фотографии',
+		'add_photos'				=> 'Добавить фотографии',
+		'select_photos'				=> 'выберите фотографии',
+		'delete_link_value'			=> 'убрать',
 	);

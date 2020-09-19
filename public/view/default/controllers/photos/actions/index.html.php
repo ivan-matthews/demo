@@ -6,6 +6,15 @@
 	$this->prependCSS("{$this->theme_path}/css/photos");
 	$this->prependJS("{$this->theme_path}/js/photos");
 ?>
+	<div class="buttons-panel col-12 text-right mb-1 mt-1">
+		<div class="btn-group">
+			<a class="add-post btn-success radius-0 p-2" href="<?php print fx_get_url('photos','add') ?>">
+				 <i class="fas fa-plus"></i>
+				<?php print fx_lang('photos.add_photos_button') ?>
+			</a>
+		</div>
+	</div>
+
 	<div class="photos-list row justify-content-center">
 
 		<div class="col-12 photos row">

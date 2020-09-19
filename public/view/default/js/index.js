@@ -138,6 +138,25 @@ window.indexObj = {
 				$(this).parent().addClass('active');
 			}
 		});
+	},
+	prepareMemory: function(mem_size){
+		mem_size = parseInt(mem_size);
+		switch(true){
+			case mem_size < 1024:
+				return parseInt(mem_size) + ' B';
+			case mem_size < 1024*1024:
+				return parseInt(mem_size/1024) + ' KB';
+			case mem_size < 1024*1024*1024:
+				return parseInt(mem_size/1024/1024) + ' MB';
+			case mem_size < 1024*1024*1024*1024:
+				return parseInt(mem_size/1024/1024/1024) + ' GB';
+			case mem_size < 1024*1024*1024*1024*1024:
+				return parseInt(mem_size/1024/1024/1024/1024) + ' TB';
+			case mem_size < 1024*1024*1024*1024*1024*1024:
+				return parseInt(mem_size/1024/1024/1024/1024/1024) + ' PB';
+			default:
+				return parseInt(mem_size) + ' B';
+		}
 	}
 };
 

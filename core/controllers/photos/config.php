@@ -12,6 +12,9 @@
 	 * @property array $controller
 	 * @property array $actions
 	 * @property array $sorting_panel
+	 * @property array $image_params
+	 * @property array $file_types
+	 * @property integer $file_size
 	 */
 	class Config extends Params{
 
