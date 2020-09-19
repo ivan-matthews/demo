@@ -47,9 +47,33 @@
   font-size: 14px;
   padding: 5px 10px;
 }
-.feedback-item .feedback-item-class .feedback-info .col {
+.feedback-item .feedback-item-class .feedback-info .name .feedback-name,
+.feedback-item .feedback-item-class .feedback-info .email .feedback-name,
+.feedback-item .feedback-item-class .feedback-info .phone .feedback-name,
+.feedback-item .feedback-item-class .feedback-info .name .feedback-email,
+.feedback-item .feedback-item-class .feedback-info .email .feedback-email,
+.feedback-item .feedback-item-class .feedback-info .phone .feedback-email,
+.feedback-item .feedback-item-class .feedback-info .name .feedback-phone,
+.feedback-item .feedback-item-class .feedback-info .email .feedback-phone,
+.feedback-item .feedback-item-class .feedback-info .phone .feedback-phone {
   font-weight: bold;
   font-size: 14px;
+}
+.feedback-item .feedback-item-class .feedback-question-title {
+  font-weight: bold;
+}
+.feedback-item .feedback-item-class .feedback-question .date {
+  color: #28a745;
+  font-weight: bold;
+  font-style: italic;
+}
+.feedback-item .feedback-item-class .feedback-answer-title {
+  font-weight: bold;
+}
+.feedback-item .feedback-item-class .feedback-answer .date {
+  color: #28a745;
+  font-weight: bold;
+  font-style: italic;
 }
 .form-reply .item-content .item-user {
   font-size: 15px;

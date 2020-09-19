@@ -11,8 +11,6 @@
 
 	$field_string = $this->getAttributesStringFromArray($attributes);
 
-	$preview_content_orig = "<i class=\"fas fa-camera\"></i>";
-
 	$image_params = $attributes['params'];
 
 	$image_preview_value = $this->request->get('preview_image');

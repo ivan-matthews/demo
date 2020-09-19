@@ -32,4 +32,9 @@
 		'feedback_answer'		=> 'Здравствуйте %user_name%!',
 		'recently_asked'		=> 'Недавно, на сайте <a href="%site_link%">%site_name%</a>, в форме обратной связи, Вы задавали вопрос:',
 		'we_answer_to_you'		=> 'Мы получили Ваш вопрос, и вот, что ответили Вам:',
+		'question_title'		=> 'Сообщение:',
+		'title_feedback_name'	=> 'Имя',
+		'title_feedback_email'	=> 'Почтовый ящик',
+		'title_feedback_phone'	=> 'Контактный тлф',
+		'answer_title'			=> 'Ответ на это сообщение:',
 	);

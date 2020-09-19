@@ -110,6 +110,9 @@
 			return $this;
 		}
 		public function content($lang_key,$replace_data=array()){
+			if(mb_strlen($lang_key) > 191){
+				$lang_key = fx_crop_string($lang_key,191,null);
+			}
 			$this->content = $lang_key;
 			$this->content_replace_data = $replace_data;
 

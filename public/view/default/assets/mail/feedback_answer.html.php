@@ -23,7 +23,7 @@
 					'%site_name%'	=> $this->config->core['site_name'],
 					'%site_link%'	=> $link_prefix,
 				)) ?>
-				<blockquote style="padding: 8px 10px;margin-top: 4px;font-style: italic;border: solid 1px rgba(0, 0, 0, 0.125);border-left: solid 5px rgba(0, 0, 0, 0.125);">
+				<blockquote style="color:#9c6868;padding: 8px 10px;margin-top: 4px;font-style: italic;border: solid 1px rgba(0, 0, 0, 0.125);border-left: solid 5px rgba(0, 0, 0, 0.125);">
 					<?php print fx_crop_string($item_data['fb_content'],300) ?>
 				</blockquote>
 			</h1>

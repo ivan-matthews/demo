@@ -22,7 +22,7 @@
 				$table->varchar('fb_phone')->notNull()->index();
 				$table->varchar('fb_email')->notNull()->index();
 				$table->longtext('fb_content')->notNull()->fullText();
-				$table->longtext('fb_answer')->notNull()->fullText();
+				$table->longtext('fb_answer')->nullable()->fullText();
 				$table->tinyint('fb_status')->notNull()->defaults(Kernel::STATUS_ACTIVE)->index();
 
 				$table->add_timestamps('fb_');

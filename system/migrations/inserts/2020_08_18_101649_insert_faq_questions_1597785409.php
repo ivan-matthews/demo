@@ -83,11 +83,15 @@ Morbi quis odio ut metus imperdiet scelerisque. Mauris varius tempor placerat. N
 		private function setContent(){
 			$this->content_array = explode('.',$this->content);
 			$this->content_max = max(array_keys($this->content_array));
+			return $this;
 		}
 
 		private function getContent($offset,$limit=1){
 			$result = '';
 			for($i = $offset;$i < $limit + $offset; $i++){
+				if(!isset($this->content_array[$i])){
+					$this->content_array[$i] = 'NaN';
+				}
 				$result .= $this->content_array[$i] . ".";
 			}
 			return $result;

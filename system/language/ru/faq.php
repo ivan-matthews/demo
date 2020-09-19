@@ -10,4 +10,5 @@
 		'edit_answer_form_title'	=> 'Редактирование ответа',
 		'write_question_title'		=> 'Пишите текст вопроса...',
 		'write_answer_title'		=> 'Пишите ответ на этот вопрос',
+		'faq_link_value'			=> 'FAQ',
 	);

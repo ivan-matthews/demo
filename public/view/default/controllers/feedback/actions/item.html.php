@@ -16,23 +16,56 @@
 
 	<div class="col-12 feedback-item-class">
 
-		<div class="feedback-info row col-12 pb-4 footer-line">
-			<div class="feedback-name col">
-				<?php print $item['fb_name'] ?>
+		<div class="feedback-info row col-12 pb-4 footer-line p-0 m-0">
+			<div class="name col">
+				<?php print fx_lang('feedback.title_feedback_name') ?>
+				<div class="feedback-name">
+					<?php print $item['fb_name'] ?>
+				</div>
 			</div>
-
-			<div class="feedback-email col">
-				<?php print $item['fb_email'] ?>
+			<div class="email col">
+				<?php print fx_lang('feedback.title_feedback_email') ?>
+				<div class="feedback-email">
+					<?php print $item['fb_email'] ?>
+				</div>
 			</div>
-
-			<div class="feedback-phone col">
-				<?php print $item['fb_phone'] ?>
+			<div class="phone col">
+				<?php print fx_lang('feedback.title_feedback_phone') ?>
+				<div class="feedback-phone">
+					<?php print $item['fb_phone'] ?>
+				</div>
 			</div>
 		</div>
 
-		<div class="feedback-content mt-4 pb-4 footer-line">
-			<?php print $item['fb_content'] ?>
+		<div class="feedback-question-title mt-4 ">
+			<?php print fx_lang('feedback.question_title') ?>
 		</div>
+
+		<div class="feedback-question">
+			<blockquote class="m-0 mb-1">
+				<?php print $item['fb_content'] ?>
+			</blockquote>
+			<div class="row col-12 d-block text-right date">
+				<?php print fx_get_date($item['fb_date_created']) ?>
+			</div>
+		</div>
+
+		<?php if($item['fb_answer']){ ?>
+
+			<div class="feedback-answer-title">
+				<?php print fx_lang('feedback.answer_title') ?>
+			</div>
+
+			<div class="feedback-answer footer-line pb-4">
+				<blockquote class="m-0 mb-1">
+					<?php print $item['fb_answer'] ?>
+				</blockquote>
+				<div class="row col-12 d-block text-right date">
+					<?php print fx_get_date($item['fb_date_updated']) ?>
+				</div>
+			</div>
+
+		<?php } ?>
 
 		<div class="col-12 text-right mt-2">
 			<a href="<?php print fx_get_url('feedback','reply',$item['fb_id']) ?>" class="mr-2 p-1">

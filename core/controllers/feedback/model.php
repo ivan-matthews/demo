@@ -108,6 +108,7 @@
 		public function updateAnswer($item_id,$answer){
 			$result = $this->update('feedback')
 				->field('fb_answer',$answer)
+				->field('fb_date_updated',time())
 				->where("fb_id = %item_id%")
 				->data('%item_id%',$item_id)
 				->get()

@@ -52,14 +52,26 @@
 				'groups_disabled'	=> array(),
 			),
 			'item'	=> array(
-				'groups_enabled'	=> array(),
+				'groups_enabled'	=> array(5),
 				'groups_disabled'	=> array(),
 			),
 			'send'	=> array(
 				'groups_enabled'	=> array(),
 				'groups_disabled'	=> array(),
 			),
-			'list'	=> array(
+			'requests'	=> array(
+				'groups_enabled'	=> array(5),
+				'groups_disabled'	=> array(),
+			),
+			'read'	=> array(
+				'groups_enabled'	=> array(5),
+				'groups_disabled'	=> array(),
+			),
+			'reply'	=> array(
+				'groups_enabled'	=> array(5),
+				'groups_disabled'	=> array(),
+			),
+			'delete'	=> array(
 				'groups_enabled'	=> array(5),
 				'groups_disabled'	=> array(),
 			),

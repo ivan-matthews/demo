@@ -105,6 +105,7 @@
 				->check(function(Checkers $checkers){
 					$checkers->max(191);
 					$checkers->phone(true);
+					$checkers->required(true);
 				});
 
 			$this->validator_interface->field('fb_email')
