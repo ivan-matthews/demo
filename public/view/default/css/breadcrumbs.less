@@ -1,0 +1,48 @@
+@import "vars";
+
+
+.breadcrumbs{
+	a{
+		&:hover{
+			&>.value{
+				background: @light-general-color;
+			}
+		}
+	}
+	&#top{
+		.breadcrumb{
+			border-bottom: solid 1px #edeef0;
+			margin-top: 15px;
+			padding-bottom: 5px;
+		}
+	}
+	&#bottom{
+		.breadcrumb{
+			//border-top: solid 1px #edeef0;
+			margin-bottom: 15px;
+			padding-top: 5px;
+		}
+	}
+	.breadcrumb{
+		border-radius: 0;
+		background: #FFFFFF;
+		padding: 0;
+		margin: 0;
+		.breadcrumb-item + .breadcrumb-item::before{
+			padding-right: 2.5px;
+			font-weight: bold;
+			content: "›";
+		}
+		.breadcrumb-item + .breadcrumb-item{
+			padding-left: 2.5px;
+		}
+		.value{
+			display: inline-block;
+			padding: 5px 5px;
+			margin: 0;
+			.icon{
+				color: chocolate;
+			}
+		}
+	}
+}

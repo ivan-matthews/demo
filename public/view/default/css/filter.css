@@ -1,0 +1,56 @@
+.filter .filter-panel button.more {
+  border: 1px solid #ced4da;
+}
+.filter .filter-panel .dropdown-menu {
+  will-change: none !important;
+  transform: none !important;
+  top: auto !important;
+  left: auto !important;
+  width: 300px;
+  right: 0 !important;
+}
+.filter .filter-panel .dropdown-menu .field label {
+  font-weight: 100;
+  font-size: 12px;
+}
+.filter .filter-panel .fields {
+  position: relative;
+}
+.filter .filter-panel .fields .clickable-geo-fields {
+  position: absolute;
+  background: #FFF;
+  width: 100%;
+  border: solid 1px #ccc;
+  z-index: 3;
+  max-height: 200px;
+  overflow-y: auto;
+}
+.filter .filter-panel .fields .clickable-geo-fields .link {
+  padding: 0.25em 1em;
+  border-bottom: solid 1px #ccc;
+}
+.filter .filter-panel .fields .clickable-geo-fields .link:hover {
+  background: #d9e2ec;
+}
+.filter .filter-panel .fields .closable {
+  position: absolute;
+  right: 0;
+  border: solid 1px #ccc;
+  padding: 0 8px;
+  background: #dc3545;
+  z-index: 4;
+}
+.filter .filter-panel .fields .closable a {
+  font-weight: bold;
+  color: #fff;
+}
+.filter .filter-panel .fields .closable a:hover {
+  background: none;
+}
+.filter .filter-panel .input-group-prepend .search-icon {
+  background-color: unset;
+  border-right: solid 0;
+}
+.filter .filter-panel .input-group-internal {
+  border-left: solid 0;
+}

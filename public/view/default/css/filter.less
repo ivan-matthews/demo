@@ -1,0 +1,69 @@
+@import "vars";
+
+.filter{
+	//margin-top: -1px;
+	.filter-panel{
+		button.more{
+			border: 1px solid #ced4da;
+		}
+		.dropdown-menu{
+			will-change: none !important;
+			transform: none !important;
+			top: auto !important;
+			left: auto !important;
+			width: 300px;
+			right: 0 !important;
+			.field{
+
+				label{
+					font-weight: 100;
+					font-size: 12px;
+				}
+			}
+		}
+		.fields{
+			position: relative;
+			.clickable-geo-fields{
+				position: absolute;
+				background: #FFF;
+				width: 100%;
+				border: solid 1px #ccc;
+				z-index: 3;
+				max-height: 200px;
+				overflow-y: auto;
+				.link{
+					padding: 0.25em 1em;
+					border-bottom: solid 1px #ccc;
+					&:hover{
+						background: @light-general-color;
+					}
+				}
+			}
+			.closable{
+				position: absolute;
+				right: 0;
+				border: solid 1px #ccc;
+				padding: 0 8px;
+				background: @danger;
+				z-index: 4;
+				a{
+					font-weight: bold;
+					color: #fff;
+					&:hover{
+						background: none;
+					}
+				}
+			}
+		}
+		.input-group-prepend{
+			.search-icon{
+				background-color: unset;
+				border-right: solid 0;
+			}
+		}
+		.input-group-internal{
+			border-left: solid 0;
+		}
+		.input-group-append{}
+	}
+}

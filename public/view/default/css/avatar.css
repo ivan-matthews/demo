@@ -1,0 +1,122 @@
+.user-avatar .image {
+  position: relative;
+}
+.user-avatar .image .delete a,
+.user-avatar .image .edit a,
+.user-avatar .image .view a,
+.user-avatar .image .add a {
+  display: none;
+  position: absolute;
+  opacity: 0.4;
+  background: rgba(0, 0, 0, 0.5);
+  width: 50%;
+  text-align: center;
+  padding: 10px 0;
+}
+.user-avatar .image .delete a:hover,
+.user-avatar .image .edit a:hover,
+.user-avatar .image .view a:hover,
+.user-avatar .image .add a:hover {
+  opacity: 1;
+}
+.user-avatar .image .delete a i,
+.user-avatar .image .edit a i,
+.user-avatar .image .view a i,
+.user-avatar .image .add a i,
+.user-avatar .image .delete a svg,
+.user-avatar .image .edit a svg,
+.user-avatar .image .view a svg,
+.user-avatar .image .add a svg {
+  color: #FFFFFF;
+  font-size: 25px;
+}
+.user-avatar .image .delete a {
+  right: 0;
+  top: 0;
+}
+.user-avatar .image .edit a {
+  left: 0;
+  top: 0;
+}
+.user-avatar .image .view a,
+.user-avatar .image .add a {
+  bottom: 0;
+  width: 100%;
+}
+.user-avatar .image:hover > .edit a,
+.user-avatar .image:hover > .delete a,
+.user-avatar .image:hover > .view a,
+.user-avatar .image:hover > .add a {
+  display: block;
+}
+.avatar-item .image-title {
+  font-weight: bold;
+  font-size: 18px;
+}
+.avatar-item .avatar-block .avatar-image .upd-date {
+  font-size: 12px;
+  font-weight: normal;
+  font-style: italic;
+}
+.avatar-item .avatar-block .avatar-image .image-block img {
+  max-width: 100%;
+}
+.avatar-item .avatar-block .avatar-image .links-block a {
+  font-weight: bold;
+}
+.avatar-item .avatar-block .avatar-image .links-block a.dropdown-toggle {
+  cursor: pointer;
+  padding: 0 5px;
+}
+.avatar-item .avatar-block .avatar-image .links-block .dropdown-menu a {
+  font-weight: normal;
+  opacity: 0.7;
+}
+.avatar-item .avatar-block .avatar-image .links-block .dropdown-menu a:hover {
+  opacity: 1;
+}
+.avatar-item .avatar-block .avatar-image .links-block .dropdown-menu a i,
+.avatar-item .avatar-block .avatar-image .links-block .dropdown-menu a svg {
+  margin-right: 5px;
+}
+.avatar-item .avatar-block .avatar-description .user-info-link .user-info {
+  padding-bottom: 10px;
+}
+.avatar-item .avatar-block .avatar-description .user-info-link .user-info .user-name {
+  font-weight: bold;
+}
+.avatar-item .avatar-block .avatar-description .user-info-link .add-date {
+  font-style: italic;
+  opacity: 0.5;
+}
+.avatar-item .avatar-block .avatar-description .avatar-comments .comments-list .comments .comments-item .comments-info .comments-item-avatar .avatar {
+  max-width: 40px;
+}
+.avatar-item .avatar-block .avatar-description .avatar-comments .comments-list .comments .comments-item .comments-info .comments-item-avatar .avatar img {
+  max-width: 40px;
+}
+.avatar-item .avatar-block .avatar-description .avatar-comments .comments-list .comments .comments-item .comments-info .comments-item-info .author-link {
+  background: none;
+}
+.avatar-item .avatar-block .avatar-description .avatar-comments .comments-list .comments-title .comments-title-value {
+  font-size: 14px;
+}
+.avatars-list .avatars .avatars-item .avatars-item-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: bold;
+}
+.avatars-list .avatars .avatars-item .avatars-item-link .avatars-item-image {
+  max-width: 100%;
+}
+.select-avatars-list .avatars .avatars-item .avatars-item-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: bold;
+}
+.select-avatars-list .avatars .avatars-item .avatars-item-link .avatars-item-image {
+  max-width: 100%;
+  cursor: pointer;
+}

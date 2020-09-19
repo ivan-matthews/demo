@@ -1,0 +1,67 @@
+div.session-messages .container {
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  margin-bottom: 5px;
+}
+div.session-messages .container:last-child {
+  margin-bottom: 0;
+}
+div.session-messages .container .content-block {
+  border-left: solid 1px #edeef0;
+}
+div.session-messages .container .content-block .card {
+  border-radius: 0;
+  border: none;
+}
+div.session-messages .container .content-block .card .card-header {
+  border-radius: 0;
+  border: none;
+  font-weight: 600;
+  color: #6f7985;
+}
+div.session-messages .container .content-block .card .card-header .close-icon {
+  float: right;
+  padding-right: 10px;
+  position: absolute;
+  right: 4px;
+  top: 4px;
+}
+div.session-messages .container .content-block .card .card-header .close-icon a {
+  position: absolute;
+  width: 35px;
+  height: 27px;
+  text-align: center;
+  right: -4px;
+  top: -4px;
+  cursor: pointer;
+  background: #f2f2f2;
+}
+div.session-messages .container .content-block .card .card-body {
+  border-radius: 0;
+  border: none;
+}
+div.session-messages .container .content-block .card .card-body a.sess-message-link {
+  color: #009fff;
+}
+div.session-messages .container .content-block .card .card-body a.sess-message-link:active {
+  color: #47469c;
+}
+div.session-messages .container .content-block .card .card-body a.sess-message-link:hover {
+  color: #2a5885;
+}
+div.session-messages .container .icon-block {
+  font-size: 60px;
+  background: #ffffff;
+}
+div.session-messages .container .icon-block .card {
+  border-radius: 0;
+  border: none;
+}
+div.session-messages .container .icon-block .card .card-header {
+  border-radius: 0;
+  border: none;
+}
+div.session-messages .container .icon-block .card .card-body {
+  border-radius: 0;
+  border: none;
+}

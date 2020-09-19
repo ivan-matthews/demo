@@ -1,0 +1,44 @@
+.top_up_panel_button {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  z-index: 1;
+  opacity: 0.7;
+  text-align: center;
+  color: #2a5885;
+}
+@media (max-width: 991px) {
+  .top_up_panel_button {
+    display: none !important;
+  }
+}
+.top_up_panel_button:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+.top_up_panel_button #up {
+  position: fixed;
+  top: 80px;
+  width: 80px;
+}
+.top_up_panel_button #up .top-up-icon {
+  font-size: 32px;
+}
+.top_up_panel_button #up .top-up-content {
+  font-size: 16px;
+}
+.top_up_panel_button #down {
+  position: fixed;
+  top: 80px;
+  width: 80px;
+}
+.top_up_panel_button #down .top-up-icon {
+  font-size: 32px;
+}
+.top_up_panel_button #down .top-up-content {
+  font-size: 16px;
+}

@@ -1,0 +1,17 @@
+.faqs-list .faqs .faqs-accordion .faq-list-item .faq-block {
+  border: none;
+}
+.faqs-list .faqs .faqs-accordion .faq-list-item .faq-block .faq-btn .faq-head {
+  text-align: left;
+  border-radius: 0;
+  font-weight: bold;
+  color: #4a76a8;
+  font-size: 14px;
+}
+.faqs-list .faqs .faqs-accordion .faq-list-item .faq-block .faq-btn:hover {
+  text-decoration: none;
+}
+.faq-one-item .faq-title {
+  font-weight: bold;
+  font-size: 20px;
+}

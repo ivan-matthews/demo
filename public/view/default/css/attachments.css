@@ -1,0 +1,300 @@
+.get-attachments.btn-default {
+  font-size: 15px;
+}
+.photos-list .photos .photos-item .photos-item-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: bold;
+}
+.photos-list .photos .photos-item .photos-item-link .photos-item-image {
+  max-width: 100%;
+}
+.select-photos-list .photos .photos-item .photos-item-title,
+.select-photo-list .photos .photos-item .photos-item-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: bold;
+}
+.select-photos-list .photos .photos-item .photos-item-link.selected .selected-icon,
+.select-photo-list .photos .photos-item .photos-item-link.selected .selected-icon {
+  position: absolute;
+  top: 0;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 50%;
+  text-align: center;
+  background: #28a745;
+}
+.select-photos-list .photos .photos-item .photos-item-link.selected .selected-icon i,
+.select-photo-list .photos .photos-item .photos-item-link.selected .selected-icon i,
+.select-photos-list .photos .photos-item .photos-item-link.selected .selected-icon svg,
+.select-photo-list .photos .photos-item .photos-item-link.selected .selected-icon svg {
+  color: #FFFFFF;
+}
+.select-photos-list .photos .photos-item .photos-item-link.selected img,
+.select-photo-list .photos .photos-item .photos-item-link.selected img {
+  background: #d9e2ec;
+  padding: 10px;
+}
+.select-photos-list .photos .photos-item .photos-item-link:hover,
+.select-photo-list .photos .photos-item .photos-item-link:hover {
+  opacity: 0.6;
+}
+.select-photos-list .photos .photos-item .photos-item-link .photos-item-image,
+.select-photo-list .photos .photos-item .photos-item-link .photos-item-image {
+  max-width: 100%;
+  cursor: pointer;
+}
+.select-audios-list .audios .audios-item .audios-item-link {
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background: #FFFFFF;
+}
+.select-audios-list .audios .audios-item .audios-item-link.selected {
+  background: #d9e2ec;
+}
+.select-audios-list .audios .audios-item .audios-item-link.selected .icon .selected-icon {
+  position: absolute;
+  font-size: 13px;
+  left: 0;
+  top: 0;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 50%;
+  text-align: center;
+  background: #28a745;
+}
+.select-audios-list .audios .audios-item .audios-item-link.selected .icon .selected-icon i,
+.select-audios-list .audios .audios-item .audios-item-link.selected .icon .selected-icon svg {
+  color: #FFFFFF;
+}
+.select-audios-list .audios .audios-item .audios-item-link:hover {
+  background: #d9e2ec;
+}
+.select-audios-list .audios .audios-item .audios-item-link .icon {
+  font-size: 30px;
+}
+.select-audios-list .audios .audios-item .audios-item-link .name {
+  line-height: 3;
+  color: #4a76a8;
+  font-weight: bold;
+}
+.select-audios-list .audios .audios-item .audios-item-link .size {
+  line-height: 3;
+  color: #000000;
+}
+.select-videos-list .videos .videos-item .videos-item-link {
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background: #FFFFFF;
+}
+.select-videos-list .videos .videos-item .videos-item-link.selected {
+  background: #d9e2ec;
+}
+.select-videos-list .videos .videos-item .videos-item-link.selected .icon .selected-icon {
+  position: absolute;
+  font-size: 13px;
+  left: 0;
+  top: 0;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 50%;
+  text-align: center;
+  background: #28a745;
+}
+.select-videos-list .videos .videos-item .videos-item-link.selected .icon .selected-icon i,
+.select-videos-list .videos .videos-item .videos-item-link.selected .icon .selected-icon svg {
+  color: #FFFFFF;
+}
+.select-videos-list .videos .videos-item .videos-item-link:hover {
+  background: #d9e2ec;
+}
+.select-videos-list .videos .videos-item .videos-item-link .icon {
+  font-size: 30px;
+}
+.select-videos-list .videos .videos-item .videos-item-link .name {
+  line-height: 3;
+  color: #4a76a8;
+  font-weight: bold;
+}
+.select-videos-list .videos .videos-item .videos-item-link .size {
+  line-height: 3;
+  color: #000000;
+}
+.select-files-list .files .files-item .files-item-link {
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background: #FFFFFF;
+}
+.select-files-list .files .files-item .files-item-link.selected {
+  background: #d9e2ec;
+}
+.select-files-list .files .files-item .files-item-link.selected .icon .selected-icon {
+  position: absolute;
+  font-size: 13px;
+  left: 0;
+  top: 0;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 50%;
+  text-align: center;
+  background: #28a745;
+}
+.select-files-list .files .files-item .files-item-link.selected .icon .selected-icon i,
+.select-files-list .files .files-item .files-item-link.selected .icon .selected-icon svg {
+  color: #FFFFFF;
+}
+.select-files-list .files .files-item .files-item-link:hover {
+  background: #d9e2ec;
+}
+.select-files-list .files .files-item .files-item-link .icon {
+  font-size: 30px;
+}
+.select-files-list .files .files-item .files-item-link .name {
+  line-height: 3;
+  color: #4a76a8;
+  font-weight: bold;
+}
+.select-files-list .files .files-item .files-item-link .size {
+  line-height: 3;
+  color: #000000;
+}
+.selected-icon {
+  display: none;
+}
+.selected .selected-icon {
+  display: block;
+}
+.selected:hover {
+  opacity: 0.6;
+}
+.attachments-field.submit {
+  margin-top: 1.45em;
+  margin-left: 1em;
+}
+.attachments-field .attachments-button {
+  font-size: 12px;
+  padding: 0 8px;
+}
+.attachments-field .attachments-data-block-previews {
+  border: solid 1px rgba(0, 0, 0, 0.125);
+}
+.attachments-field .attachments-data-block-previews .preview-photos .preview-head {
+  font-weight: bold;
+  background: #d9e2ec;
+  padding: 9.5px;
+}
+.attachments-field .attachments-data-block-previews .preview-photos .photo-item img:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
+.attachments-field .attachments-data-block-previews .preview-videos .preview-head {
+  font-weight: bold;
+  background: #d9e2ec;
+  padding: 9.5px;
+}
+.attachments-field .attachments-data-block-previews .preview-videos .video-item:hover {
+  cursor: pointer;
+  background: #f8f8f8;
+}
+.attachments-field .attachments-data-block-previews .preview-videos .video-item .icon {
+  font-size: 30px;
+}
+.attachments-field .attachments-data-block-previews .preview-videos .video-item .name {
+  font-weight: bold;
+  line-height: 3;
+}
+.attachments-field .attachments-data-block-previews .preview-videos .video-item .size {
+  font-weight: bold;
+}
+.attachments-field .attachments-data-block-previews .preview-audios .preview-head {
+  font-weight: bold;
+  background: #d9e2ec;
+  padding: 9.5px;
+}
+.attachments-field .attachments-data-block-previews .preview-audios .audio-item:hover {
+  cursor: pointer;
+  background: #f8f8f8;
+}
+.attachments-field .attachments-data-block-previews .preview-audios .audio-item .icon {
+  font-size: 30px;
+}
+.attachments-field .attachments-data-block-previews .preview-audios .audio-item .name {
+  font-weight: bold;
+  line-height: 3;
+}
+.attachments-field .attachments-data-block-previews .preview-audios .audio-item .size {
+  font-weight: bold;
+}
+.attachments-field .attachments-data-block-previews .preview-files .preview-head {
+  font-weight: bold;
+  background: #d9e2ec;
+  padding: 9.5px;
+}
+.attachments-field .attachments-data-block-previews .preview-files .file-item:hover {
+  cursor: pointer;
+  background: #f8f8f8;
+}
+.attachments-field .attachments-data-block-previews .preview-files .file-item .icon {
+  font-size: 30px;
+}
+.attachments-field .attachments-data-block-previews .preview-files .file-item .name {
+  font-weight: bold;
+  line-height: 3;
+}
+.attachments-field .attachments-data-block-previews .preview-files .file-item .size {
+  font-weight: bold;
+}
+.attachments-list {
+  border: solid 1px rgba(0, 0, 0, 0.125);
+}
+.attachments-list .attachments-header-item {
+  font-size: 12px;
+  font-weight: bold;
+  background: #f8f8f8;
+}
+.attachments-list .attachments-header-item sub {
+  color: chocolate;
+  margin-left: 5px;
+  font-size: 11px;
+}
+.attachments-list .attachments-body-item {
+  background: #fff;
+}
+.attachments-list .videos a .icon {
+  font-size: 20px;
+}
+.attachments-list .videos a .name {
+  line-height: 2;
+  font-weight: bold;
+}
+.attachments-list .videos a .size {
+  color: #495057;
+  font-weight: bold;
+}
+.attachments-list .files a .icon {
+  font-size: 20px;
+}
+.attachments-list .files a .name {
+  line-height: 2;
+  font-weight: bold;
+}
+.attachments-list .files a .size {
+  color: #495057;
+  font-weight: bold;
+}
+.attachments-list .audios a .icon {
+  font-size: 20px;
+}
+.attachments-list .audios a .name {
+  line-height: 2;
+  font-weight: bold;
+}
+.attachments-list .audios a .size {
+  color: #495057;
+  font-weight: bold;
+}

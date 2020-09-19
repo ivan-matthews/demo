@@ -1,0 +1,64 @@
+.files-list .files .file-item {
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+.files-list .files .file-item:last-child {
+  border: none;
+}
+.files-list .files .file-item .file-info .file-icon .icon i,
+.files-list .files .file-item .file-info .file-icon .icon svg {
+  font-size: 44px;
+}
+.files-list .files .file-item .file-info .file-icon .icon i.fa-robot,
+.files-list .files .file-item .file-info .file-icon .icon svg.fa-robot {
+  font-size: 32px;
+}
+.files-list .files .file-item .file-info .file-name .name {
+  font-weight: bold;
+  color: #4a76a8;
+}
+.files-list .files .file-item .file-info .file-name .description {
+  font-style: italic;
+}
+.files-list .files .file-item .file-info .file-details .file-user {
+  font-size: 10px;
+  font-weight: bold;
+  color: #4a76a8;
+}
+.files-list .files .file-item .file-info .file-details .file-user img {
+  border-radius: 50%;
+  max-width: 22px;
+}
+.files-list .files .file-item .file-info .file-details .file-date {
+  font-style: italic;
+  color: #999999;
+}
+.files-list .files .file-item .file-info .file-details .file-size {
+  font-weight: bold;
+}
+.files-item .file-item .file-name {
+  font-weight: bold;
+  font-size: 18px;
+}
+.files-item .file-item .file-info .icon {
+  font-size: 128px;
+}
+.files-item .file-item .file-info .icon .fa-robot {
+  font-size: 96px;
+}
+.files-item .file-item .file-user {
+  font-size: 10px;
+  font-weight: bold;
+  color: #4a76a8;
+}
+.files-item .file-item .file-user img {
+  border-radius: 50%;
+  max-width: 22px;
+}
+.files-item .file-item .file-date {
+  font-style: italic;
+  color: #999999;
+}
+.files-item .file-item .file-size {
+  font-weight: bold;
+}

@@ -1,0 +1,393 @@
+@import "vars";
+
+.get-attachments{
+	&.btn-default{
+		font-size: 15px;
+	}
+}
+.photos-list{
+	.photos{
+		.photos-item{
+			.photos-item-title{
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				font-weight: bold;
+			}
+			.photos-item-link{
+				.photos-item-image{
+					max-width: 100%;
+				}
+				.photos-item-date{
+
+				}
+			}
+		}
+	}
+}
+.select-photos-list,.select-photo-list{
+	.photos{
+		.photos-item{
+			.photos-item-title{
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				font-weight: bold;
+			}
+			.photos-item-link{
+				&.selected{
+					.selected-icon{
+						position: absolute;
+						//font-size: 13px;
+						//left: 0;
+						top: 0;
+						border: 1px solid rgba(0,0,0,0.125);
+						border-radius: 50%;
+						//width: 16%;
+						text-align: center;
+						background: @success;
+						i,svg{
+							color: #FFFFFF;
+						}
+					}
+					img{
+						background: @light-general-color;
+						padding: 10px;
+					}
+				}
+				&:hover{
+					opacity: 0.6;
+				}
+				.photos-item-image{
+					max-width: 100%;
+					cursor: pointer;
+				}
+				.photos-item-date{
+
+				}
+			}
+		}
+	}
+}
+
+.select-audios-list{
+	.audios{
+		.audios-item{
+			.audios-item-link{
+				cursor: pointer;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				background: #FFFFFF;
+				&.selected{
+					background: @light-general-color;
+					.icon{
+						.selected-icon{
+							position: absolute;
+							font-size: 13px;
+							left: 0;
+							top: 0;
+							border: 1px solid rgba(0,0,0,0.125);
+							border-radius: 50%;
+							//width: 16%;
+							text-align: center;
+							background: @success;
+							i,svg{
+								color: #FFFFFF;
+							}
+						}
+					}
+				}
+				&:hover{
+					background: @light-general-color;
+				}
+				.icon{
+					font-size: 30px;
+				}
+				.name{
+					line-height: 3;
+					color: @general-color;
+					font-weight: bold;
+				}
+				.size{
+					line-height: 3;
+					color: #000000;
+				}
+			}
+		}
+	}
+}
+
+.select-videos-list{
+	.videos{
+		.videos-item{
+			.videos-item-link{
+				cursor: pointer;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				background: #FFFFFF;
+				&.selected{
+					background: @light-general-color;
+					.icon{
+						.selected-icon{
+							position: absolute;
+							font-size: 13px;
+							left: 0;
+							top: 0;
+							border: 1px solid rgba(0,0,0,0.125);
+							border-radius: 50%;
+							//width: 16%;
+							text-align: center;
+							background: @success;
+							i,svg{
+								color: #FFFFFF;
+							}
+						}
+					}
+				}
+				&:hover{
+					background: @light-general-color;
+				}
+				.icon{
+					font-size: 30px;
+				}
+				.name{
+					line-height: 3;
+					color: @general-color;
+					font-weight: bold;
+				}
+				.size{
+					line-height: 3;
+					color: #000000;
+				}
+			}
+		}
+	}
+}
+
+.select-files-list{
+	.files{
+		.files-item{
+			.files-item-link{
+				cursor: pointer;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				background: #FFFFFF;
+				&.selected{
+					background: @light-general-color;
+					.icon{
+						.selected-icon{
+							position: absolute;
+							font-size: 13px;
+							left: 0;
+							top: 0;
+							border: 1px solid rgba(0,0,0,0.125);
+							border-radius: 50%;
+							//width: 16%;
+							text-align: center;
+							background: @success;
+							i,svg{
+								color: #FFFFFF;
+							}
+						}
+					}
+				}
+				&:hover{
+					background: @light-general-color;
+				}
+				.icon{
+					font-size: 30px;
+				}
+				.name{
+					line-height: 3;
+					color: @general-color;
+					font-weight: bold;
+				}
+				.size{
+					line-height: 3;
+					color: #000000;
+				}
+			}
+		}
+	}
+}
+.selected-icon{
+	display: none;
+}
+.selected{
+	.selected-icon{
+		display: block;
+	}
+	&:hover{
+		opacity:0.6;
+	}
+}
+.attachments-field{
+	&.submit{
+		margin-top: 1.45em;
+		margin-left: 1em;
+	}
+	.attachments-button{
+		font-size: 12px;
+		padding: 0 8px;
+	}
+	.attachments-data-block-previews{
+		border: solid 1px rgba(0,0,0,0.125);
+		.preview-photos{
+			.preview-head{
+				font-weight: bold;
+				background: @light-general-color;
+				padding: 9.5px;
+			}
+			.photo-item{
+				img{
+					&:hover{
+						cursor: pointer;
+						opacity: 0.6;
+					}
+				}
+			}
+		}
+		.preview-videos{
+			.preview-head{
+				font-weight: bold;
+				background: @light-general-color;
+				padding: 9.5px;
+			}
+			.video-item{
+				&:hover{
+					cursor: pointer;
+					background: @super-light-general-color;
+				}
+				.icon{
+					font-size: 30px;
+				}
+				.name{
+					font-weight: bold;
+					line-height: 3;
+				}
+				.size{
+					font-weight: bold;
+				}
+			}
+		}
+		.preview-audios{
+			.preview-head{
+				font-weight: bold;
+				background: @light-general-color;
+				padding: 9.5px;
+			}
+			.audio-item{
+				&:hover{
+					cursor: pointer;
+					background: @super-light-general-color;
+				}
+				.icon{
+					font-size: 30px;
+				}
+				.name{
+					font-weight: bold;
+					line-height: 3;
+				}
+				.size{
+					font-weight: bold;
+				}
+			}
+		}
+		.preview-files{
+			.preview-head{
+				font-weight: bold;
+				background: @light-general-color;
+				padding: 9.5px;
+			}
+			.file-item{
+				&:hover{
+					cursor: pointer;
+					background: @super-light-general-color;
+				}
+				.icon{
+					font-size: 30px;
+				}
+				.name{
+					font-weight: bold;
+					line-height: 3;
+				}
+				.size{
+					font-weight: bold;
+				}
+			}
+		}
+	}
+}
+.attachments-list{
+	border: solid 1px rgba(0,0,0,0.125);
+	.attachments-header-item{
+		font-size: 12px;
+		font-weight: bold;
+		background: @super-light-general-color;
+		sub{
+			color: chocolate;
+			margin-left: 5px;
+			font-size: 11px;
+		}
+	}
+	.attachments-body-item{
+		background: #fff;
+	}
+	.parent-photos{
+		.photos{
+			a{
+				.image{
+					img{}
+				}
+			}
+		}
+	}
+	.videos{
+		a{
+			.icon{
+				font-size: 20px;
+			}
+			.name{
+				line-height: 2;
+				font-weight: bold;
+			}
+			.size{
+				color: #495057;
+				font-weight: bold;
+			}
+		}
+	}
+	.files{
+		a{
+			.icon{
+				font-size: 20px;
+			}
+			.name{
+				line-height: 2;
+				font-weight: bold;
+			}
+			.size{
+				color: #495057;
+				font-weight: bold;
+			}
+		}
+	}
+	.audios{
+		a{
+			.icon{
+				font-size: 20px;
+			}
+			.name{
+				line-height: 2;
+				font-weight: bold;
+			}
+			.size{
+				color: #495057;
+				font-weight: bold;
+			}
+		}
+	}
+}

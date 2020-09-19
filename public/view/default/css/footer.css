@@ -1,0 +1,140 @@
+footer {
+  padding: 0!important;
+  margin: 0 auto;
+}
+footer .footer-block {
+  margin: 0;
+}
+footer .footer-block .footer-parent {
+  padding: 0;
+}
+footer .footer-block .footer-parent .footer {
+  margin-bottom: 0.25em;
+  font-weight: bold;
+}
+footer .footer-block .footer-parent .footer .footer-title {
+  padding: 10px 20px;
+  color: #FFFFFF;
+  background: #4a76a8;
+  margin-left: 0;
+  margin-right: 0;
+}
+footer .footer-block .footer-parent .footer .footer-body {
+  padding: 10px 20px;
+  display: flex;
+  background: #FFFFFF;
+  color: #4a76a8;
+  margin-left: 0;
+  margin-right: 0;
+}
+footer .footer-block .footer-parent .footer .footer-body.debug-menu .title {
+  color: chocolate;
+}
+footer .footer-block .footer-parent .footer .footer-body.debug-menu .value {
+  color: #6e7379;
+}
+footer .footer-block .footer-parent .footer .footer-body.debug-menu .value.value-red {
+  color: red;
+}
+footer .footer-block .footer-parent .footer .footer-body.debug-menu .value.value-green {
+  color: green;
+}
+footer .footer-block .footer-parent .footer .footer-body.debug-menu a {
+  padding: 0 5px;
+}
+footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal .debug-ol-li {
+  position: relative;
+}
+footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal .debug-ol-li .clipper {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+  /* padding: 8px 0; */
+  display: flex;
+}
+footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal .debug-ol-li .clipper .success {
+  margin: auto;
+}
+footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal .debug-ol-li .clipper i,
+footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal .debug-ol-li .clipper svg {
+  font-size: 20px;
+}
+footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal ol {
+  margin-bottom: 0;
+}
+footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal .card a {
+  padding: 0.75rem 1.25rem;
+}
+footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal table th {
+  cursor: pointer;
+}
+footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal .files {
+  padding: 1.25rem 1.25rem;
+  margin-bottom: 0;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal .accordion .card {
+  border-radius: 0;
+}
+footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal .accordion .card a:hover {
+  border-radius: 0;
+}
+footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal .accordion .card a .file {
+  color: #6e7379;
+}
+footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal .accordion .card a .query {
+  color: olivedrab;
+}
+footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal .accordion .card a .link,
+footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal .accordion .card a .code {
+  color: darkred;
+}
+footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal .accordion .card a .time.green {
+  color: green;
+}
+footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal .accordion .card a .time.red {
+  color: red;
+}
+footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal .accordion .collapsed-debug-menu {
+  border-radius: 0;
+}
+footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal .accordion .collapsed-debug-menu ol li {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-bottom: dashed 1px blue;
+}
+footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal .accordion .collapsed-debug-menu ol li .backtrace .file {
+  color: chocolate;
+}
+footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal .accordion .collapsed-debug-menu ol li .backtrace .query {
+  color: olivedrab;
+}
+footer .footer-block .footer-parent .footer .footer-body.debug-menu .modal .accordion .collapsed-debug-menu ol li:last-child {
+  padding-top: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+footer .footer-block .footer-parent .footer-menu-info .footer-body {
+  font-weight: 100;
+  background: #4a76a8;
+}
+footer .footer-block .footer-parent .footer-menu-info .footer-body a {
+  color: #FFFFFF;
+}
+footer .footer-block .footer-parent .footer-menu-info .footer-body a i,
+footer .footer-block .footer-parent .footer-menu-info .footer-body a svg {
+  color: bisque;
+}
+footer .footer-block .footer-parent .footer-menu-info .footer-body a:hover {
+  background: none;
+  color: #9fcdff;
+}
+footer .footer-block .footer-parent .footer-menu-info .footer-body .site-year {
+  color: #FFFFFF;
+}
+footer .footer-block .footer-parent .footer-menu-info .footer-body .site-year i,
+footer .footer-block .footer-parent .footer-menu-info .footer-body .site-year svg {
+  color: #FFFFFF;
+}

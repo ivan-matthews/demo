@@ -1,0 +1,86 @@
+.photos-item .image-title {
+  font-weight: bold;
+  font-size: 18px;
+}
+.photos-item .photos-block .photos-image .upd-date {
+  font-size: 12px;
+  font-weight: normal;
+  font-style: italic;
+}
+.photos-item .photos-block .photos-image .image-block img {
+  max-width: 100%;
+}
+.photos-item .photos-block .photos-image .links-block a {
+  font-weight: bold;
+}
+.photos-item .photos-block .photos-image .links-block a.dropdown-toggle {
+  cursor: pointer;
+  padding: 0 5px;
+}
+.photos-item .photos-block .photos-image .links-block .dropdown-menu a {
+  font-weight: normal;
+  opacity: 0.7;
+}
+.photos-item .photos-block .photos-image .links-block .dropdown-menu a:hover {
+  opacity: 1;
+}
+.photos-item .photos-block .photos-image .links-block .dropdown-menu a i,
+.photos-item .photos-block .photos-image .links-block .dropdown-menu a svg {
+  margin-right: 5px;
+}
+.photos-item .photos-block .photos-description .user-info-link .user-info {
+  padding-bottom: 10px;
+}
+.photos-item .photos-block .photos-description .user-info-link .user-info .user-name {
+  font-weight: bold;
+}
+.photos-item .photos-block .photos-description .user-info-link .add-date {
+  font-style: italic;
+  opacity: 0.5;
+}
+.photos-item .photos-block .photos-description .photos-comments .comments-list .comments .comments-item .comments-info .comments-item-photos .photos {
+  max-width: 40px;
+}
+.photos-item .photos-block .photos-description .photos-comments .comments-list .comments .comments-item .comments-info .comments-item-photos .photos img {
+  max-width: 40px;
+}
+.photos-item .photos-block .photos-description .photos-comments .comments-list .comments .comments-item .comments-info .comments-item-info .author-link {
+  background: none;
+}
+.photos-item .photos-block .photos-description .photos-comments .comments-list .comments-title .comments-title-value {
+  font-size: 14px;
+}
+.photos-list .photos .photos-item .photos-item-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: bold;
+}
+.photos-list .photos .photos-item .photos-item-link:hover {
+  background: none;
+  opacity: 0.5;
+}
+.photos-list .photos .photos-item .photos-item-link .photos-item-image {
+  max-width: 100%;
+}
+form label.images:hover {
+  cursor: pointer;
+}
+form label.images i,
+form label.images svg {
+  font-size: 20vw;
+}
+form .photos-list img {
+  max-width: 128px;
+  width: auto;
+}
+form .photos-list .size {
+  font-style: italic;
+}
+form .photos-list .name {
+  font-weight: bold;
+}
+form .photos-list .buttons a {
+  z-index: 5;
+  background: #ffffff;
+}

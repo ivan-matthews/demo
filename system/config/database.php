@@ -6,12 +6,12 @@
 			'port'			=> '3306',
 			'user'			=> 'root',
 			'pass'			=> '123',
-			'base'			=> 'm_c_o',
+			'base'			=> 'new_database',
 			'socket'		=> '',
 			'engine'		=> 'MyISAM',
 			'clear_sql_mode'=> false,
 			'sql_charset'	=> 'utf8mb4', 				// utf8
-			'collate'		=> 'utf8mb4_unicode_520_ci',	// utf8_unicode_ci
+			'collate'		=> 'utf8mb4_unicode_ci',	// utf8_unicode_ci
 			'lc_messages'	=> 'ru_RU',
 		),
 		'pgsql'	=> array(

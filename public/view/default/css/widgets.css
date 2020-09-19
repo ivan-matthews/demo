@@ -1,0 +1,56 @@
+.sorting-panel .nav-item {
+  font-weight: bold;
+}
+.sorting-panel .nav-item.sorting-panel-item .nav-link {
+  border-radius: 0;
+}
+.sorting-panel .nav-item.sorting-panel-item .nav-link.active {
+  position: relative;
+}
+.sorting-panel .nav-item.sorting-panel-item .nav-link.active .sorting-link {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  font-weight: bold;
+}
+.sorting-panel .nav-item.sorting-panel-item .nav-link.active .sorting-link:hover {
+  opacity: 0.8;
+  background: none;
+}
+.sorting-panel .nav-item.sorting-panel-item .nav-link.active .sorting-link svg,
+.sorting-panel .nav-item.sorting-panel-item .nav-link.active .sorting-link i {
+  position: absolute;
+  right: 10px;
+  top: 2px;
+}
+.paginate .pagination .page-item .page-link {
+  border-radius: 0;
+}
+.paginate .pagination .page-item .page-link.active {
+  background: #4a76a8;
+  color: #FFFFFF;
+}
+.simple-accordion {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.simple-accordion .accordion-buttons-link {
+  color: #2a5885;
+  cursor: pointer;
+}
+.simple-accordion .accordion-buttons-link .accordion-buttons-block {
+  padding-bottom: 25px;
+  padding-top: 5px;
+  background-color: #f7f7f7;
+}
+.simple-accordion .accordion-buttons-link .accordion-buttons-block:hover {
+  background-color: #d9e2ec;
+}
+.simple-accordion .accordion-buttons-link .accordion-buttons-block .accordion-button {
+  position: absolute;
+  font-weight: 600;
+}

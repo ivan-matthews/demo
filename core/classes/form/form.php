@@ -78,6 +78,8 @@
 	namespace Core\Classes\Form;
 
 	use Core\Classes\Session;
+	use Core\Classes\Language;
+	use Core\Controllers\Home\Model;
 
 	class Form extends Validator{
 
@@ -170,6 +172,111 @@
 			});
 			return $this;
 		}
+
+		public function filtrate(callable $callback=null){
+			if($callback){
+				call_user_func($callback);
+			}
+			foreach($this->fields_list as $key=>$value){
+				if($this->fields_list[$key]['attributes']['params']['filter_validation'] &&
+					$value['attributes']['value'] && !fx_equal($key,'geo')){
+					$this->filter_query .= " AND `{$key}` {$this->fields_list[$key]['attributes']['params']['filter_validation']} %{$key}%";
+					$this->filter_data_to_replace["%{$key}%"] = $this->makeFilter($this->fields_list[$key]['attributes']['params']['filter_validation'],$value['attributes']['value']);
+				}
+			}
+			return $this;
+		}
+
+		private function makeFilter($operator,$value){
+			switch($operator){
+				case(fx_equal($operator,'LIKE')):
+					return "%{$value}%";
+					break;
+				case(fx_equal($operator,'=')):
+					return $value;
+					break;
+				case(fx_equal($operator,'!=')):
+					return $value;
+					break;
+				default:
+					return $value;
+					break;
+			}
+		}
+
+		public function geo_filter($country_field_name,$region_field_name,$city_field_name){
+			if(($country_value = $this->getValue($country_field_name))){
+				$this->filter_query .= " AND {$country_field_name}=%country%";
+				$this->filter_data_to_replace["%country%"] = $country_value;
+			}
+			if(($region_value = $this->getValue($region_field_name))){
+				$this->filter_query .= " AND {$region_field_name}=%region%";
+				$this->filter_data_to_replace["%region%"] = $region_value;
+			}
+			if(($city_value = $this->getValue($city_field_name))){
+				$this->filter_query .= " AND {$city_field_name}=%city%";
+				$this->filter_data_to_replace["%city%"] = $city_value;
+			}
+
+			return $this->geo($country_field_name,$region_field_name,$city_field_name);
+		}
+
+		public function geo($country_field_name,$region_field_name,$city_field_name,callable $callback=null){
+			$lang_key = Language::getInstance()->getLanguageKey();
+
+			$this->field('geo')
+				->field_type('geo')
+				->field_sets('geo_info');
+
+			if($callback){
+				call_user_func($callback,$this);
+			}
+
+			$country_value = $this->getValue($country_field_name);
+			$region_value = $this->getValue($region_field_name);
+			$city_value = $this->getValue($city_field_name);
+
+			$geo_info = Model::getInstance()->getGeoByIds($country_value,$region_value,$city_value);
+
+			$this->setParams('country',array(
+				'id'	=> $country_value,
+				'name'	=> $this->form_attributes['name'] ? "{$this->form_attributes['name']}[{$country_field_name}]" : $country_field_name,
+				'value'	=> $geo_info["g_title_{$lang_key}"],
+			));
+			$this->setParams('region',array(
+				'id'	=> $region_value,
+				'name'	=> $this->form_attributes['name'] ? "{$this->form_attributes['name']}[{$region_field_name}]" : $region_field_name,
+				'value'	=> $geo_info["gr_title_{$lang_key}"],
+			));
+			$this->setParams('city',array(
+				'id'	=> $city_value,
+				'name'	=> $this->form_attributes['name'] ? "{$this->form_attributes['name']}[{$city_field_name}]" : $city_field_name,
+				'value'	=> (!$geo_info['gc_area']?$geo_info["gc_title_{$lang_key}"]:"{$geo_info["gc_title_{$lang_key}"]}, ") . $geo_info['gc_area'],
+			));
+
+			return $this;
+		}
+
+/*
+		public function setAvatar(){}
+		public function setCheckbox(){}
+		public function setComment(){}
+		public function setFile_name(){}
+		public function setFiles(){}
+		public function setHidden(){}
+		public function setImage(){}
+		public function setImages(){}
+		public function setMessage(){}
+		public function setPost(){}
+		public function setSelect(){}
+		public function setSubmit(){}
+		public function setSwitch(){}
+		public function setTextarea(){}
+		public function setText(){}
+		public function setPassword(){}
+		public function setEmail(){}
+		public function setNumber(){}
+*/
 
 		public function getQuery(){
 			return $this->filter_query;

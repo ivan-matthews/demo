@@ -1,0 +1,131 @@
+@import "vars";
+
+.feedback-contacts{
+	.feedback{
+		.title-info{
+			font-size: 16px;
+			font-weight: bold;
+		}
+		.feedback-item{
+			.region-head{
+				font-size: 30px;
+				font-weight: bold;
+			}
+			.location{
+				font-weight: bold;
+				.country{}
+				.region{}
+				.city{
+					.street{
+
+					}
+					.house{
+						margin-left: 4px;
+					}
+					.apartment{
+						margin-left: 4px;
+					}
+				}
+				.phones{
+					.phones-title{}
+					.phone{
+						margin: 5px 0;
+						a{
+							padding: 5px 0;
+							&.phone{}
+						}
+					}
+				}
+				.mails{
+					.mails-title{}
+					.mail{
+						margin: 5px 0;
+						a{
+							padding: 5px 0;
+							&.mail{}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+.feedback-list{
+	.feedback-items{
+		.bids-item{
+			&:first-child{
+				border-top: none;
+			}
+			.bid-items-info{
+				.bid-items-item-avatar{
+					.item-photo{}
+					.item-date{
+						font-style: italic;
+						color: #999999;
+						font-size: 10px;
+					}
+					.item-date-readed{
+						color: @success;
+						font-style: italic;
+						font-weight: bold;
+						font-size: 10px;
+					}
+				}
+				.bid-items-item-info{
+					.item-email{
+						background: rgba(0,0,0,0.05);
+						font-weight: bold;
+						font-size: 14px;
+						padding: 5px 10px;
+					}
+					.item-content{}
+				}
+			}
+		}
+	}
+}
+.feedback-item{
+	.feedback-item-class{
+		.feedback-info{
+			.name,.email,.phone{
+				.feedback-name,.feedback-email,.feedback-phone{
+					font-weight: bold;
+					font-size: 14px;
+				}
+			}
+		}
+		.feedback-question-title{
+			font-weight: bold;
+		}
+		.feedback-question{
+			.date{
+				color: @success;
+				font-weight: bold;
+				font-style: italic;
+			}
+		}
+		.feedback-answer-title{
+			font-weight: bold;
+		}
+		.feedback-answer{
+			.date{
+				color: @success;
+				font-weight: bold;
+				font-style: italic;
+			}
+		}
+	}
+}
+.form-reply{
+	.form-title{}
+	.item-content{
+		.item-user{
+			font-size: 15px;
+			.user{
+				font-weight: bold;
+				color: @general-color;
+			}
+		}
+	}
+	.item-form{}
+}

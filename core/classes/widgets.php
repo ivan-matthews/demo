@@ -43,6 +43,8 @@
 			$time = microtime(true);
 			$access = new Access();
 
+			if(!$this->widgets_list){ return false; }
+
 			foreach($this->widgets_list as $key=>$widget){
 
 				if(!fx_equal(Kernel::STATUS_ACTIVE,$widget['w_status'])){ continue; }

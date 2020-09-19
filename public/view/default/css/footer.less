@@ -1,0 +1,162 @@
+@import "vars";
+
+footer{
+	padding: 0!important;
+	margin: 0 auto;
+	//background: @main-background-color !important;
+	.footer-block{
+		margin: 0;
+		.footer-parent{
+			padding: 0;
+			.footer{
+				margin-bottom: 0.25em;
+				font-weight: bold;
+				.footer-title{
+					padding: 10px 20px;
+					color: #FFFFFF;
+					background: @general-color;
+					margin-left: 0;
+					margin-right: 0;
+				}
+				.footer-body{
+					padding: 10px 20px;
+					display: flex;
+					background: #FFFFFF;
+					color: @general-color;
+					margin-left: 0;
+					margin-right: 0;
+					&.debug-menu{
+						.title{
+							color: chocolate;
+						}
+						.value{
+							color: #6e7379;
+							&.value-red{
+								color: red;
+							}
+
+							&.value-green{
+								color: green;
+							}
+
+						}
+						a{
+							padding:0 5px;
+						}
+						.modal{
+							.debug-ol-li{
+								position: relative;
+								.clipper{
+									position: absolute;
+									right: 0;
+									top: 0;
+									z-index: 1;
+									//border: solid 1px #cccc;
+									/* padding: 8px 0; */
+									display: flex;
+									.success{
+										margin: auto;
+									}
+									i,svg{
+										font-size: 20px;
+									}
+								}
+							}
+							ol{
+								margin-bottom: 0;
+							}
+							.card{
+								a{
+									padding: .75rem 1.25rem;
+								}
+							}
+							table{
+								th{
+									cursor: pointer;
+								}
+							}
+							.files{
+								padding: 1.25rem 1.25rem;
+								margin-bottom: 0;
+								background-color: rgba(0,0,0,.03);
+								border-bottom: 1px solid rgba(0,0,0,.125);
+							}
+							.accordion{
+								.card{
+									border-radius: 0;
+									a{
+										&:hover{
+											border-radius: 0;
+										}
+										.file{
+											color: #6e7379;
+										}
+										.query{
+											color: olivedrab;
+										}
+										.link, .code{
+											color: darkred;
+										}
+										.time{
+											&.green{
+												color: green;
+											}
+											&.red{
+												color: red;
+											}
+										}
+									}
+								}
+								.collapsed-debug-menu{
+									border-radius: 0;
+									ol{
+										li{
+											padding-top:5px;
+											padding-bottom:5px;
+											border-bottom:dashed 1px blue;
+											.backtrace{
+												.file{
+													color: chocolate;
+												}
+												.query{
+													color: olivedrab;
+												}
+											}
+											&:last-child{
+												padding-top:0;
+												padding-bottom:0;
+												border-bottom:none;
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			.footer-menu-info{
+				.footer-body{
+					font-weight: 100;
+					background: @general-color;
+					a{
+						color: #FFFFFF;
+						i,svg{
+							color: bisque;
+						}
+						&:hover{
+							background: none;
+							color: #9fcdff;
+						}
+					}
+					.site-year{
+						color: #FFFFFF;
+						i,svg{
+							color: #FFFFFF;
+						}
+					}
+				}
+			}
+		}
+	}
+}

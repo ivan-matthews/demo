@@ -47,7 +47,7 @@
 	if(!function_exists('fx_get_cpu_usage')){
 		function fx_get_cpu_usage(){
 			if(!function_exists('exec')){
-				return array();
+				return "NaN";
 			}
 			try{
 				return trim(exec("ps -p " . getmypid() . " -o %cpu"));

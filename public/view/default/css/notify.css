@@ -1,0 +1,87 @@
+.notices-list .notices .notify-all-links a {
+  font-size: 12px;
+  font-weight: bold;
+}
+.notices-list .notices .notices-item {
+  border-top: none;
+}
+.notices-list .notices .notices-item .notices-info .notices-item-image .item-photo .user-info {
+  padding-top: 0.5em;
+}
+.notices-list .notices .notices-item .notices-info .notices-item-image .item-photo .user-info .user-info-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 4px;
+  text-align: center;
+  color: white;
+  line-height: 48px;
+  font-size: 30px;
+  margin: 0 auto;
+}
+.notices-list .notices .notices-item .notices-info .notices-item-image .item-photo .user-info .user-info-name {
+  display: inline-block;
+  font-weight: bold;
+  color: #245f9e;
+}
+.notices-list .notices .notices-item .notices-info .notices-item-image .item-date {
+  color: #999999;
+  font-style: italic;
+  font-size: 12px;
+  text-align: center;
+}
+.notices-list .notices .notices-item .notices-info .notices-item-image .item-date-readed {
+  color: #28a745;
+  font-style: italic;
+  font-weight: bold;
+  font-size: 10px;
+  text-align: center;
+}
+.notices-list .notices .notices-item .notices-info .notices-item-image .item-new {
+  color: #dc3545;
+  font-weight: bold;
+  text-align: center;
+}
+.notices-list .notices .notices-item .notices-info .notices-item-info .item-title {
+  font-weight: bold;
+  background: rgba(0, 0, 0, 0.0325);
+  padding: 4px 10px;
+}
+.notices-list .notices .notices-item .notices-info .notices-item-info .item-content .content-user .user-link .user-image {
+  border-radius: 50%;
+}
+.notices-list .notices .notices-item .notices-info .notices-item-info .item-content .content-user .user-link .user-name {
+  font-weight: bold;
+}
+.notices-list .notices .notices-item .notices-info .notices-item-info .item-link {
+  padding: 4px 10px;
+  border-top: solid 1px rgba(0, 0, 0, 0.125);
+}
+.notices-list .notices .notices-item .notices-info .notices-item-info .item-link .link-follow {
+  font-size: 12px;
+  color: #2a5885;
+  font-weight: bold;
+}
+.notices-list .notices .notices-item.status-1 {
+  background: rgba(255, 0, 0, 0.0125);
+}
+.notices-list .notices .notices-item.status-1:hover {
+  background: rgba(255, 0, 0, 0.025);
+}
+.item-text-photo .user-info {
+  padding-top: 0.5em;
+}
+.item-text-photo .user-info .user-info-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 4px;
+  text-align: center;
+  color: white;
+  line-height: 48px;
+  font-size: 30px;
+  margin: 0 auto;
+}
+.item-text-photo .user-info .user-info-name {
+  display: inline-block;
+  font-weight: bold;
+  color: #245f9e;
+}

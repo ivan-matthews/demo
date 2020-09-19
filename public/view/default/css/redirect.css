@@ -1,0 +1,31 @@
+.redirect-content .card .card-header {
+  font-size: 20px;
+  font-weight: bold;
+}
+.redirect-content .card .card-header .redirect-timer {
+  color: #dc3545 !important;
+}
+.redirect-content .card .card-body {
+  font-size: 14px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+.redirect-content .card .card-body .redirect-timer {
+  font-size: 32px;
+}
+.redirect-content .card .card-body.micro.link {
+  font-size: 10px;
+}
+.redirect-content .card .card-body.ahtung {
+  font-weight: bold;
+}
+.redirect-content .card .card-body.go-back a {
+  font-size: 20px;
+  font-weight: bold;
+}
+.redirect-content .card .card-body .external-link {
+  background: rgba(0, 0, 0, 0.03);
+  padding: 5px;
+  color: #6f7985;
+  font-weight: bold;
+}

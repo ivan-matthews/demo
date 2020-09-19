@@ -19,10 +19,10 @@
 		'just_widgets'	=> false,
 		'another_controller'	=> array(
 			'run'		=> false,
-			'class'		=> '',
+			'class'		=> \Core\Controllers\Users\Actions\Index::class,
 			'method'	=> 'methodGet',
 			'params'	=> array(
-
+				'online','up'
 			)
 		)
 	);
