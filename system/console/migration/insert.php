@@ -21,7 +21,7 @@
 		private $db_params;
 
 		private $migrations_folder;
-		private $migrations_files;
+		private $migrations_files = array();
 		private $namespace_classes;
 		private $older_migrations=array();
 

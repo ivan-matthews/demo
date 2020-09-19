@@ -148,7 +148,7 @@
 
 			$user_account = $this->select()
 				->from('auth')
-				->join('users',"a_id=u_auth_id")
+				->join('users FORCE INDEX(PRIMARY)',"a_id=u_auth_id")
 				->join('photos FORCE INDEX (PRIMARY)',"u_avatar_id=p_id")
 				->where("`a_verify_token`=%verify_token%")
 				->data('%verify_token%',$verify_token)
@@ -169,7 +169,7 @@
 
 			$user_account = $this->select()
 				->from('auth')
-				->join('users',"a_id=u_auth_id")
+				->join('users FORCE INDEX(PRIMARY)',"a_id=u_auth_id")
 				->join('photos FORCE INDEX (PRIMARY)',"u_avatar_id=p_id")
 				->where("`a_restore_password_token`=%restore_password_token%")
 				->data('%restore_password_token%',$restore_password_token)
@@ -190,7 +190,7 @@
 
 			$user_account = $this->select()
 				->from('auth')
-				->join('users',"a_id=u_auth_id")
+				->join('users FORCE INDEX(PRIMARY)',"a_id=u_auth_id")
 				->join('photos FORCE INDEX (PRIMARY)',"u_avatar_id=p_id")
 				->where("`a_bookmark`=%bookmark%")
 				->data('%bookmark%',$bookmark)
@@ -211,7 +211,7 @@
 
 			$user_account = $this->select()
 				->from('auth')
-				->join('users',"a_id=u_auth_id")
+				->join('users FORCE INDEX(PRIMARY)',"a_id=u_auth_id")
 				->join('photos FORCE INDEX (PRIMARY)',"u_avatar_id=p_id")
 				->where("`a_login`=%login%")
 				->data('%login%',$login)
@@ -232,7 +232,7 @@
 
 			$user_account = $this->select()
 				->from('auth')
-				->join('users',"a_id=u_auth_id")
+				->join('users FORCE INDEX(PRIMARY)',"a_id=u_auth_id")
 				->join('photos FORCE INDEX (PRIMARY)',"u_avatar_id=p_id")
 				->where("u_id=%id%")
 				->data('%id%',$user_id)

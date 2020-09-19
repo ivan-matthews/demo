@@ -71,7 +71,7 @@
 
 			$result = $this->select()
 				->from('photos')
-				->join('users',"u_id=p_user_id")
+				->join('users FORCE INDEX(PRIMARY)',"u_id=p_user_id")
 				->where("p_id=%avatar_id% AND p_user_id=%user_id%")
 				->data('%avatar_id%',$this->avatar_id)
 				->data('%user_id%',$user_id)

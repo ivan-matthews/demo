@@ -43,12 +43,11 @@
 			$time = microtime(true);
 			$access = new Access();
 
+			if(!$this->widgets_list){ return false; }
+
 			foreach($this->widgets_list as $key=>$widget){
 
-				$this->widgets_list[$key]['wa_groups_disabled'] = $widget['wa_groups_disabled'] = fx_arr($widget['wa_groups_disabled']);
-				$this->widgets_list[$key]['wa_pages_disabled'] = $widget['wa_pages_disabled'] = fx_arr($widget['wa_pages_disabled']);
-				$this->widgets_list[$key]['wa_groups_enabled'] = $widget['wa_groups_enabled'] = fx_arr($widget['wa_groups_enabled']);
-				$this->widgets_list[$key]['wa_pages_enabled'] = $widget['wa_pages_enabled'] = fx_arr($widget['wa_pages_enabled']);
+				if(!fx_equal(Kernel::STATUS_ACTIVE,$widget['w_status'])){ continue; }
 
 				$access->disableGroups($widget['wa_groups_disabled']);
 				$access->disablePages($widget['wa_pages_disabled']);

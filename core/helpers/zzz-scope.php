@@ -85,8 +85,7 @@
 			 */
 			$create_xml = function(callable $self_function,array $input_data,$XMLObject,$numeric_indexes,$empty_value){
 				foreach($input_data as $key=>$value){
-					$first_key_letter = substr($key,0,1);
-					if(is_numeric($first_key_letter)){ $key = "{$numeric_indexes}_{$key}";}
+					if(is_numeric($key)){ $key = "{$numeric_indexes}{$key}";}
 					$key = str_replace(array(
 						' ','+','/','.',',','\\','=','-',')','(','*','&','^','%','$','#','@','!','\'','"',':',';','?','>','<',
 					),'_',$key);
@@ -94,7 +93,7 @@
 					if(is_array($value)){
 						$self_function($self_function,$value,$XMLObject->addChild($key),$numeric_indexes,$empty_value);
 					}else{
-						$XMLObject->addChild($key,htmlentities(trim($value)));
+						$XMLObject->addChild($key,htmlspecialchars(trim($value)));
 					}
 				}
 				return $XMLObject;

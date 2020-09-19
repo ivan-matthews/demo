@@ -41,8 +41,8 @@
 		public function getNotices($user_id,$query,$limit,$offset){
 			$result = $this->select()
 				->from('notice')
-				->join('users',"n_sender_id=u_id")
-				->join('photos',"p_id=u_avatar_id")
+				->join('users FORCE INDEX(PRIMARY)',"n_sender_id=u_id")
+				->join('photos FORCE INDEX(PRIMARY)',"p_id=u_avatar_id")
 				->where("`n_receiver_id`=%user_id% AND {$query}")
 				->data('%user_id%',$user_id)
 				->limit($limit)

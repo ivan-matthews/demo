@@ -98,7 +98,7 @@
 
 			if($this->user_data){
 
-				$this->setResponse();
+				$this->addResponse();
 
 				$this->total_photos = $this->photos_model->countPhotos($this->query,$this->prepared_data);
 
@@ -145,16 +145,6 @@
 		protected function setSortingPanelRandom(){
 			$this->order = 'RAND()';
 			return null;
-		}
-
-		public function setResponse(){
-			$this->response->title('photos.photos_index_title');
-			$this->response->breadcrumb('photos')
-				->setIcon(null)
-				->setLink('photos','index')
-				->setValue('photos.photos_index_title');
-
-			return $this->addResponse();
 		}
 
 		public function addResponse(){

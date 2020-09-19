@@ -67,7 +67,23 @@
 		}
 
 		public function getActiveWidgetsList(){
+			return $this->getWidgetsFromDB();
+		}
 
+		public function getWidgetsFromFS(){
+			$widgets_list = array();
+			$controller_folder = fx_path('core/controllers');
+			foreach(scandir($controller_folder) as $controller){
+				if($controller == '.' || $controller == '..'){ continue; }
+				$widgets_file = "{$controller_folder}/{$controller}/config/widgets.php";
+				if(is_readable($widgets_file)){
+					$widgets_list[] = fx_import_file($widgets_file);
+				}
+			}
+			return $widgets_list;
+		}
+
+		public function getWidgetsFromDB(){
 			$this->cache->key('widgets.active');
 
 			if(($widgets_list = $this->cache->get()->array())){
@@ -82,6 +98,16 @@
 				->sort()
 				->get()
 				->allAsArray();
+
+			if($widgets_list){
+				foreach($widgets_list as $k=>$v){
+					$widgets_list[$k]['w_status'] = (int)$widgets_list[$k]['w_status'];
+					$widgets_list[$k]['wa_groups_disabled'] = fx_arr($widgets_list[$k]['wa_groups_disabled']);
+					$widgets_list[$k]['wa_pages_disabled'] = fx_arr($widgets_list[$k]['wa_pages_disabled']);
+					$widgets_list[$k]['wa_groups_enabled'] = fx_arr($widgets_list[$k]['wa_groups_enabled']);
+					$widgets_list[$k]['wa_pages_enabled'] = fx_arr($widgets_list[$k]['wa_pages_enabled']);
+				}
+			}
 
 			$this->cache->set($widgets_list);
 			return $widgets_list;
@@ -229,14 +255,20 @@
 
 			$result_download = file_get_contents('https://github.com/ivan-matthews/demo');
 
-			$result_replace_data = preg_replace_callback("#href\=\"(.*?)\"#",function($result){
-				if(substr($result[1],0,4) == 'http'){ return $result[0]; }
-				if(substr($result[1],0,1) == '#'){ return $result[0]; }
+			$result_replace_data = preg_replace_callback("#(href|src|action)\=\"(.*?)\"#",function($result){
 
-				if($result[1]){
-					return 'href="'. 'https://github.com/' . trim($result[1],'/') . '" target="_blank"';
+				if(substr($result[2],0,4) == 'http'){ return $result[0]; }
+				if(substr($result[2],0,1) == '#'){ return $result[0]; }
+
+				if(fx_equal($result[1],'href')){
+					return 'href="'. 'https://github.com/' . trim($result[2],'/') . '" target="_blank"';
 				}
-
+				if(fx_equal($result[1],'src')){
+					return 'src="'. 'https://github.com/' . trim($result[2],'/') . '"';
+				}
+				if(fx_equal($result[1],'action')){
+					return 'action="'. 'https://github.com/' . trim($result[2],'/') . '" target="_blank"';
+				}
 				return $result[0];
 			},$result_download);
 

@@ -61,7 +61,7 @@
 			'ipa'		=> 'fab fa-apple',
 			'zip'		=> 'far fa-file-archive',
 			'rar'		=> 'far fa-file-archive',
-			'7z'		=> 'far fa-file-archive',
+//			'7z'		=> 'far fa-file-archive',
 			'doc'		=> 'far fa-file-word',
 			'docx'		=> 'far fa-file-word',
 			'odt'		=> 'far fa-file-word',

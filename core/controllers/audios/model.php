@@ -52,8 +52,8 @@
 				'photos.p_date_updated'
 			)
 				->from('audios')
-				->join('users','u_id = au_user_id')
-				->join('photos','u_avatar_id = p_id')
+				->join('users FORCE INDEX(PRIMARY)','u_id = au_user_id')
+				->join('photos FORCE INDEX(PRIMARY)','u_avatar_id = p_id')
 				->where($query)
 				->prepare($prepared_data)
 				->order($order)
@@ -70,8 +70,8 @@
 				->from('audios')
 				->where("au_id = %audio_id% AND au_status = " . Kernel::STATUS_ACTIVE)
 				->data('%audio_id%',$audio_id)
-				->join('users', "au_user_id = u_id")
-				->join('photos',"u_avatar_id = p_id")
+				->join('users FORCE INDEX(PRIMARY)', "au_user_id = u_id")
+				->join('photos FORCE INDEX(PRIMARY)',"u_avatar_id = p_id")
 				->get()
 				->itemAsArray();
 			return $this->result;
@@ -83,8 +83,8 @@
 				->where("au_id = %audio_id% AND au_user_id = %user_id% AND au_status = " . Kernel::STATUS_ACTIVE)
 				->data('%audio_id%',$audio_id)
 				->data('%user_id%',$user_id)
-//				->join('users', "au_user_id = u_id")
-//				->join('photos',"u_avatar_id = p_id")
+//				->join('users FORCE INDEX(PRIMARY)', "au_user_id = u_id")
+//				->join('photos FORCE INDEX(PRIMARY)',"u_avatar_id = p_id")
 				->get()
 				->itemAsArray();
 			return $this->result;
@@ -150,7 +150,7 @@
 
 			$this->result = $this->select('COUNT(au_id) as total')
 				->from('audios')
-				->join('users','u_id = au_user_id')
+				->join('users FORCE INDEX(PRIMARY)','u_id = au_user_id')
 				->where($where_query)
 				->data('%search_query%',"%{$search_query}%")
 				->get()
@@ -177,7 +177,7 @@
 				'au_date_created as date'
 			)
 				->from('audios')
-				->join('users','u_id = au_user_id')
+				->join('users FORCE INDEX(PRIMARY)','u_id = au_user_id')
 				->where($where_query)
 				->limit($limit)
 				->offset($offset)

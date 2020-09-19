@@ -17,8 +17,11 @@
   font-weight: bold;
   font-size: 11px;
 }
+.user-profile .user-left-bar .user-avatar img {
+  max-width: 200px;
+}
 .user-profile .user-left-bar .user-menu .list-group {
-  width: 240px;
+  width: 200px;
 }
 .user-profile .user-left-bar .user-menu .list-group .list-group-item {
   padding: 0;

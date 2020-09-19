@@ -98,7 +98,7 @@
 
 			if($this->user_data){
 
-				$this->setResponse();
+				$this->addResponse();
 
 				$this->total_files = $this->files_model->countFiles($this->query,$this->prepared_data);
 
@@ -145,16 +145,6 @@
 		protected function setSortingPanelRandom(){
 			$this->order = 'RAND()';
 			return null;
-		}
-
-		public function setResponse(){
-			$this->response->title('files.files_index_title');
-			$this->response->breadcrumb('files')
-				->setIcon(null)
-				->setLink('files','index')
-				->setValue('files.files_index_title');
-
-			return $this->addResponse();
 		}
 
 		public function addResponse(){

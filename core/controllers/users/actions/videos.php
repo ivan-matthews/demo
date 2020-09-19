@@ -98,7 +98,7 @@
 
 			if($this->user_data){
 
-				$this->setResponse();
+				$this->addResponse();
 
 				$this->total_videos = $this->videos_model->countVideos($this->query,$this->prepared_data);
 
@@ -145,16 +145,6 @@
 		protected function setSortingPanelRandom(){
 			$this->order = 'RAND()';
 			return null;
-		}
-
-		public function setResponse(){
-			$this->response->title('videos.videos_index_title');
-			$this->response->breadcrumb('videos')
-				->setIcon(null)
-				->setLink('videos','index')
-				->setValue('videos.videos_index_title');
-
-			return $this->addResponse();
 		}
 
 		public function addResponse(){

@@ -98,7 +98,7 @@
 
 			if($this->user_data){
 
-				$this->setResponse();
+				$this->addResponse();
 
 				$this->total_audios = $this->audios_model->countAudios($this->query,$this->prepared_data);
 
@@ -145,16 +145,6 @@
 		protected function setSortingPanelRandom(){
 			$this->order = 'RAND()';
 			return null;
-		}
-
-		public function setResponse(){
-			$this->response->title('audios.audios_index_title');
-			$this->response->breadcrumb('audios')
-				->setIcon(null)
-				->setLink('audios','index')
-				->setValue('audios.audios_index_title');
-
-			return $this->addResponse();
 		}
 
 		public function addResponse(){

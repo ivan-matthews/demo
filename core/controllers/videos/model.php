@@ -52,8 +52,8 @@
 				'photos.p_date_updated'
 			)
 				->from('videos')
-				->join('users','u_id = v_user_id')
-				->join('photos','u_avatar_id = p_id')
+				->join('users FORCE INDEX (PRIMARY)','u_id = v_user_id')
+				->join('photos FORCE INDEX (PRIMARY)','u_avatar_id = p_id')
 				->where($query)
 				->prepare($prepared_data)
 				->order($order)
@@ -70,8 +70,8 @@
 				->from('videos')
 				->where("v_id = %video_id% AND v_status = " . Kernel::STATUS_ACTIVE)
 				->data('%video_id%',$video_id)
-				->join('users', "v_user_id = u_id")
-				->join('photos',"u_avatar_id = p_id")
+				->join('users FORCE INDEX (PRIMARY)', "v_user_id = u_id")
+				->join('photos FORCE INDEX (PRIMARY)',"u_avatar_id = p_id")
 				->get()
 				->itemAsArray();
 			return $this->result;
@@ -83,8 +83,8 @@
 				->where("v_id = %video_id% AND v_user_id = %user_id% AND v_status = " . Kernel::STATUS_ACTIVE)
 				->data('%video_id%',$video_id)
 				->data('%user_id%',$user_id)
-//				->join('users', "v_user_id = u_id")
-//				->join('photos',"u_avatar_id = p_id")
+//				->join('users FORCE INDEX(PRIMARY)', "v_user_id = u_id")
+//				->join('photos FORCE INDEX(PRIMARY)',"u_avatar_id = p_id")
 				->get()
 				->itemAsArray();
 			return $this->result;
@@ -150,7 +150,7 @@
 
 			$this->result = $this->select('COUNT(v_id) as total')
 				->from('videos')
-				->join('users','u_id = v_user_id')
+				->join('users FORCE INDEX(PRIMARY)','u_id = v_user_id')
 				->where($where_query)
 				->data('%search_query%',"%{$search_query}%")
 				->get()
@@ -177,7 +177,7 @@
 				'v_date_created as date'
 			)
 				->from('videos')
-				->join('users','u_id = v_user_id')
+				->join('users FORCE INDEX(PRIMARY)','u_id = v_user_id')
 				->where($where_query)
 				->limit($limit)
 				->offset($offset)
