@@ -8,6 +8,7 @@
 	use Core\Classes\Response\Response;
 	use Core\Controllers\Videos\Config;
 	use Core\Controllers\Videos\Controller;
+	use Core\Controllers\Videos\Forms\Edit_Video;
 	use Core\Controllers\Videos\Model;
 
 	class Edit extends Controller{
@@ -42,11 +43,11 @@
 		/** @var array */
 		public $edit;
 
-		public $limit;
-		public $offset;
-		public $total;
-		public $order;
-		public $sort;
+		public $video_id;
+		public $user_id;
+		public $video_data;
+		public $edit_form;
+		public $update_data = array();
 
 		/** @return $this */
 		public static function getInstance(){
@@ -56,62 +57,87 @@
 			return self::$instance;
 		}
 
-		public function __get($key){
-			if(isset($this->edit[$key])){
-				return $this->edit[$key];
+		public function __construct(){
+			parent::__construct();
+			$this->backLink();
+			$this->edit_form = Edit_Video::getInstance();
+			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
+		}
+
+		public function methodGet($video_id){
+			$this->video_id = $video_id;
+			$this->video_data = $this->model->getUserVideoByID($this->user_id,$this->video_id);
+
+			$this->setResponse();
+
+			if($this->video_data){
+				$this->addResponse();
+
+				$this->edit_form->setData($this->video_data)
+					->setVideoID($this->video_id);
+
+				$this->edit_form->generateFieldsList();
+				$this->response->controller('videos','edit')
+					->setArray(array(
+						'form'	=> $this->edit_form->getFormAttributes(),
+						'fields'	=> $this->edit_form->getFieldsList(),
+						'errors'	=> $this->edit_form->getErrors(),
+						'video'		=> $this->video_data
+					));
+				return $this;
 			}
 			return false;
 		}
 
-		public function __set($name, $value){
-			$this->edit[$name] = $value;
-			return $this->edit[$name];
-		}
+		public function methodPost($video_id){
+			$this->video_id = $video_id;
+			$this->video_data = $this->model->getUserVideoByID($this->user_id,$this->video_id);
 
-		public function __construct(){
-			parent::__construct();
-		}
+			$this->setResponse();
 
-		public function __destruct(){
+			if($this->video_data){
+				$this->addResponse();
 
-		}
+				$this->edit_form->setRequest($this->request)
+					->setVideoID($this->video_id);
 
-		public function methodGet(){
+				$this->edit_form->checkFieldsList();
+
+				if($this->edit_form->can()){
+					$this->update_data['v_name'] = $this->edit_form->getAttribute('v_name','value');
+					$this->update_data['v_description'] = $this->edit_form->getAttribute('v_description','value');
+
+					$video_ext = pathinfo($this->video_data['v_name'],PATHINFO_EXTENSION);
+					$this->update_data['v_name'] = "{$this->update_data['v_name']}.{$video_ext}";
+
+					if($this->model->updateVideo($this->user_id,$this->video_id,$this->update_data)){
+						return $this->redirect(fx_get_url('videos','item',$this->video_id));
+					}
+				}
+
+				$this->response->controller('videos','edit')
+					->setArray(array(
+						'form'	=> $this->edit_form->getFormAttributes(),
+						'fields'	=> $this->edit_form->getFieldsList(),
+						'errors'	=> $this->edit_form->getErrors(),
+						'video'		=> $this->video_data
+					));
+				return $this;
+			}
 			return false;
 		}
 
-		public function methodPost(){
-			return false;
-		}
+		public function addResponse(){
+			$video_info_array = pathinfo($this->video_data['v_name']);
+			$title = fx_crop_string($video_info_array['filename'],30) . ".{$video_info_array['extension']}";
 
-		public function methodPut(){
-			return false;
+			$this->response->title($title);
+			$this->response->breadcrumb('edit')
+				->setValue($title)
+				->setIcon(null)
+				->setLink('videos','item',$this->video_data['v_id']);
+			return $this;
 		}
-
-		public function methodHead(){
-			return false;
-		}
-
-		public function methodTrace(){
-			return false;
-		}
-
-		public function methodPatch(){
-			return false;
-		}
-
-		public function methodOptions(){
-			return false;
-		}
-
-		public function methodConnect(){
-			return false;
-		}
-
-		public function methodDelete(){
-			return false;
-		}
-
 
 
 

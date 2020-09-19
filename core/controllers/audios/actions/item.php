@@ -6,6 +6,7 @@
 	use Core\Classes\Request;
 	use Core\Classes\Session;
 	use Core\Classes\Response\Response;
+	use Core\Controllers\Comments\Widgets\Comments;
 	use Core\Controllers\Audios\Config;
 	use Core\Controllers\Audios\Controller;
 	use Core\Controllers\Audios\Model;
@@ -39,8 +40,13 @@
 		/** @var Session */
 		public $session;
 
-		/** @var array */
+		/** @var string */
 		public $item;
+
+		public $limit = 30;
+		public $offset = 0;
+		public $audio_info;
+		public $user_id;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -50,60 +56,54 @@
 			return self::$instance;
 		}
 
-		public function __get($key){
-			if(isset($this->item[$key])){
-				return $this->item[$key];
-			}
-			return false;
-		}
-
-		public function __set($name, $value){
-			$this->item[$name] = $value;
-			return $this->item[$name];
-		}
-
 		public function __construct(){
 			parent::__construct();
-		}
-
-		public function __destruct(){
-
+			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
 		}
 
 		public function methodGet($item_id){
+			$this->item = $item_id;
+
+			$this->audio_info = $this->model->getAudioByID($this->item);
+
+			$this->setResponse();
+
+			if($this->audio_info){
+
+				$this->addResponse();
+
+				$this->response->controller('audios','item')
+					->setArray(array(
+						'audio'	=> $this->audio_info
+					));
+
+				if($this->params->enable_comments){
+					Comments::add($this->limit,$this->offset)
+						->controller('audios')
+						->action('item')
+						->item_id($this->item)
+						->paginate(array('audios','item',$this->item))
+						->author($this->user_id)
+						->receiver($this->audio_info['au_user_id'])
+						->set();
+				}
+				return $this;
+			}
+
 			return false;
 		}
 
-		public function methodPost($item_id){
-			return false;
-		}
+		public function addResponse(){
+			$audio_info = pathinfo($this->audio_info['au_name']);
+			$title = fx_crop_string($audio_info['filename'],30);
+			$title = "{$title}.{$audio_info['extension']}";
 
-		public function methodPut($item_id){
-			return false;
-		}
-
-		public function methodHead($item_id){
-			return false;
-		}
-
-		public function methodTrace($item_id){
-			return false;
-		}
-
-		public function methodPatch($item_id){
-			return false;
-		}
-
-		public function methodOptions($item_id){
-			return false;
-		}
-
-		public function methodConnect($item_id){
-			return false;
-		}
-
-		public function methodDelete($item_id){
-			return false;
+			$this->response->title($title);
+			$this->response->breadcrumb('item')
+				->setValue($title)
+				->setIcon(null)
+				->setLink('audios','item',$this->audio_info['au_id']);
+			return $this;
 		}
 
 

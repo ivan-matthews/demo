@@ -85,7 +85,7 @@
 			});
 
 			$this->validator_interface->field('token')
-				->dont_prepare()
+				->prepare()
 				->class('add-message form-control radius-0')
 				->type('hidden')
 				->params(function(Params $param){

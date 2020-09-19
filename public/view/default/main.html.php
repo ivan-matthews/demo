@@ -120,7 +120,7 @@
 		</footer>
 
 		<?php
-			$this->addJS("{$this->theme_path}/js/libs/fontawesome");
+//			$this->addJS("{$this->theme_path}/js/libs/fontawesome");
 			$this->addJS("{$this->theme_path}/js/libs/popper");
 			$this->addJS("{$this->theme_path}/js/libs/bootstrap");
 		?>

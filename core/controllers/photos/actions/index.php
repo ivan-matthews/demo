@@ -53,7 +53,7 @@
 
 		public $sorting_action;
 		public $sorting_type;
-		public $sorting_panel;
+		public $sorting_panel = array();
 
 		public $total_photos;
 

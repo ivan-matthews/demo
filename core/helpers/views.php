@@ -149,4 +149,35 @@
 		return str_replace($replace_data,' ',$string);
 	}
 
+	function fx_get_file_icon($file_name){
+		$files_icons = Config::getInstance()->view['files_icons'];
+		$file_extension = pathinfo($file_name,PATHINFO_EXTENSION);
+		if(isset($files_icons[$file_extension])){
+			return "<i class=\"{$files_icons[$file_extension]}\"></i>";
+		}
+		return "<i class=\"{$files_icons['default']}\"></i>";
+	}
 
+	function fx_get_public_path($file_path, $with_trailing_slash = true){
+		$file_path = trim($file_path,'/');
+		$public_dir = fx_get_web_dir_name();
+		$theme_dir = Config::getInstance()->view['site_theme'];
+		$public_dir = $with_trailing_slash ? "/{$public_dir}" : $public_dir;
+		return "{$public_dir}/view/{$theme_dir}/{$file_path}";
+	}
+
+	function fx_get_public_root_path($file_path){
+		return fx_path(fx_get_public_path($file_path, null));
+	}
+
+	function fx_get_upload_path($file_path, $with_trailing_slash = true){
+		$file_path = trim($file_path,'/');
+		$public_dir = fx_get_web_dir_name();
+		$upload_dir = Config::getInstance()->view['uploads_dir'];
+		$public_dir = $with_trailing_slash ? "/{$public_dir}" : $public_dir;
+		return "{$public_dir}/{$upload_dir}/{$file_path}";
+	}
+
+	function fx_get_upload_root_path($file_path){
+		return fx_path(fx_get_upload_path($file_path, null));
+	}

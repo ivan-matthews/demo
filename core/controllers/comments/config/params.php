@@ -57,5 +57,26 @@
 				'author_field'	=> 'p_user_id',
 				'status_field'	=> 'p_status',
 			),
+			'files'	=> array(
+				'table_name'	=> 'files',
+				'id_field'		=> 'f_id',
+				'count_field'	=> 'f_total_comments',
+				'author_field'	=> 'f_user_id',
+				'status_field'	=> 'f_status',
+			),
+			'audios'	=> array(
+				'table_name'	=> 'audios',
+				'id_field'		=> 'au_id',
+				'count_field'	=> 'au_total_comments',
+				'author_field'	=> 'au_user_id',
+				'status_field'	=> 'au_status',
+			),
+			'videos'	=> array(
+				'table_name'	=> 'videos',
+				'id_field'		=> 'v_id',
+				'count_field'	=> 'v_total_comments',
+				'author_field'	=> 'v_user_id',
+				'status_field'	=> 'v_status',
+			),
 		),
 	);

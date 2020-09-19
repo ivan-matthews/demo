@@ -2,6 +2,7 @@
 
 	return array(
 		'application'	=> array(
+			'x-ms-dos-executable',
 			'1d-interleaved-parityfec',
 			'3gpdash-qoe-report+xml',
 			'3gpp-ims+xml',

@@ -93,7 +93,7 @@
 			return $this;
 		}
 
-		public static function add($limit,$offset){
+		public static function add($limit = 30,$offset = 0){
 			return new self($limit,$offset);
 		}
 

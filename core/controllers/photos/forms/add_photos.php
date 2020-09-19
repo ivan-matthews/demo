@@ -23,7 +23,6 @@
 
 		protected $form_name;
 
-		protected $user_id;
 		protected $file_size = 5*1024*1024;		// 5mb
 		protected $file_types = array();
 
@@ -43,9 +42,7 @@
 			$this->form_name = $form_name;
 		}
 
-		public function generateFieldsList($user_id){
-			$this->user_id = $user_id;
-
+		public function generateFieldsList(){
 			$this->validator_interface->form(function(FormInterface $form){
 				$form->setFormMethod('POST');
 				$form->setFormName($this->form_name);
@@ -69,14 +66,12 @@
 			return $this;
 		}
 
-		public function checkForm(array $input_data,$user_id){
-			$this->user_id = $user_id;
-
+		public function checkForm(array $input_data){
 			$this->validator_interface->setData($input_data);
 			$this->validator_interface->csrf(1);
 			$this->validator_interface->validate(1);
 
-			return $this->generateFieldsList($this->user_id);
+			return $this->generateFieldsList();
 		}
 
 		public function setFileMaxSize(int $file_size){

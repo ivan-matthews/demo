@@ -67,6 +67,15 @@
 
 		}
 
+		public function setResponse(){
+			$this->response->title('files.files_index_title');
+			$this->response->breadcrumb('index')
+				->setIcon(null)
+				->setLink('files','index')
+				->setValue('files.files_index_title');
+
+			return $this;
+		}
 
 
 

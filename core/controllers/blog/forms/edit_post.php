@@ -126,7 +126,7 @@
 				});
 
 			$this->validator_interface->field('b_category_id')
-				->dont_prepare()
+				->prepare()
 				->id('title')
 				->label(fx_lang('home.categories_select_list'))
 				->type('select')
@@ -140,7 +140,7 @@
 				});
 
 			$this->validator_interface->field("b_comments_enabled")
-				->dont_prepare()
+				->prepare()
 				->params(function(Params $params){
 					$params->field_sets('comments');
 					$params->field_type('switch');
@@ -155,7 +155,7 @@
 				->id('enable_comments');
 
 			$this->validator_interface->field("b_public")
-				->dont_prepare()
+				->prepare()
 				->params(function(Params $params){
 					$params->field_sets('access');
 					$params->field_type('switch');

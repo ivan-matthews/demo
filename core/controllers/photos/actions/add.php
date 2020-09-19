@@ -49,6 +49,8 @@
 
 		public $insert_data;
 
+		public $photo_id;
+
 		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -70,7 +72,7 @@
 
 			$this->add_form->setParams('image_params',$this->params->image_params);
 
-			$this->add_form->generateFieldsList($this->user_id);
+			$this->add_form->generateFieldsList();
 
 			$this->response->controller('photos','add')
 				->setArray(array(
@@ -89,7 +91,7 @@
 
 			$this->add_form->setParams('image_params',$this->params->image_params);
 
-			$this->add_form->checkForm($this->request->getAll(), $this->user_id);
+			$this->add_form->checkForm($this->request->getAll());
 
 			$this->fields_list = $this->add_form->getFieldsList();
 
@@ -97,10 +99,13 @@
 				foreach($this->fields_list['images']['attributes']['files'] as $index=>$file){
 					$this->insert_data[$index] = $this->setOptions($this->params->image_params)
 						->cropAndResizeImage(
-							$file,$this->user_id,'photos',null,null
+							$file,$this->user_id,'photos',null,null,false
 						);
 				}
-				if($this->model->addPhotos($this->insert_data)){
+
+				$this->photo_id = $this->model->addPhotos($this->insert_data);
+
+				if($this->photo_id){
 					return $this->redirect(fx_get_url('photos','user',$this->user_id));
 				}
 			}

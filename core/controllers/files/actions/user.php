@@ -1,16 +1,16 @@
 <?php
 
-	namespace Core\Controllers\Videos\Actions;
+	namespace Core\Controllers\Files\Actions;
 
 	use Core\Classes\Hooks;
 	use Core\Classes\Request;
 	use Core\Classes\Session;
 	use Core\Classes\Response\Response;
-	use Core\Controllers\Videos\Config;
-	use Core\Controllers\Videos\Controller;
-	use Core\Controllers\Videos\Model;
+	use Core\Controllers\Files\Config;
+	use Core\Controllers\Files\Controller;
+	use Core\Controllers\Files\Model;
 
-	class Select extends Controller{
+	class User extends Controller{
 
 		/** @var $this */
 		private static $instance;
@@ -40,7 +40,7 @@
 		public $session;
 
 		/** @var array */
-		public $select;
+		public $user;
 
 		public $limit;
 		public $offset;
@@ -57,15 +57,15 @@
 		}
 
 		public function __get($key){
-			if(isset($this->select[$key])){
-				return $this->select[$key];
+			if(isset($this->user[$key])){
+				return $this->user[$key];
 			}
 			return false;
 		}
 
 		public function __set($name, $value){
-			$this->select[$name] = $value;
-			return $this->select[$name];
+			$this->user[$name] = $value;
+			return $this->user[$name];
 		}
 
 		public function __construct(){

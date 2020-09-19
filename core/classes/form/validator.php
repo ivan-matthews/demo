@@ -261,12 +261,12 @@
 			$this->setCSRFAttributes();
 		}
 
-		public function files($callable_or_array){
+		public function files($callable_or_array,$extensions = array()){
 			$this->setFormEnctype('multipart/form-data');
 			$this->setFormMethod('POST');
 			$this->setAttribute('type','file');
 			$this->fields_list[$this->field]['attributes'] = array_merge($this->fields_list[$this->field]['attributes'],$this->default_files_attributes);
-			$files = new File($this);
+			$files = new File($this,$extensions);
 			if(is_callable($callable_or_array)){
 				call_user_func($callable_or_array,$files);
 			}
@@ -277,6 +277,10 @@
 					}
 				}
 			}
+
+			$files->prepareExtensions($extensions);
+
+			$this->setAttribute('accept',$files->extensions);
 			$files->setFiles();
 			return $this;
 		}
@@ -794,7 +798,7 @@
 
 		public function prepare(callable $callback_function=null){
 			if($callback_function && $this->validate_status){
-				$this->value = call_user_func(array($callback_function,$this->value));
+				$this->value = call_user_func($callback_function,$this->value);
 				$this->setAttribute('value',$this->value);
 			}
 			return $this;

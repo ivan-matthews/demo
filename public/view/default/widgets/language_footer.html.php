@@ -17,5 +17,9 @@
 </style>
 
 <div class="language language-invisible-json-content">
-	<?php print $content ?>
+	<?php print htmlspecialchars(
+		json_encode(
+			$content,JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES
+		)
+	) ?>
 </div>

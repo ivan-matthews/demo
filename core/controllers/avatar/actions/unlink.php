@@ -10,7 +10,6 @@
 	use Core\Controllers\Avatar\Controller;
 	use Core\Controllers\Avatar\Model;
 	use Core\Controllers\Users\Model as UserModel;
-	use Core\Classes\View;
 
 	class Unlink extends Controller{
 
@@ -41,14 +40,11 @@
 		/** @var Session */
 		public $session;
 
-		public $view;
-
 		/** @var array */
 		public $unlink;
 
-		public $user_id,
-			$avatar_id;
-
+		public $user_id;
+		public $avatar_id;
 		public $avatar_data;
 
 		public $user_model;
@@ -66,7 +62,6 @@
 
 			$this->backLink();
 
-			$this->view = View::getInstance();
 			$this->user_model = UserModel::getInstance();
 		}
 
@@ -80,10 +75,10 @@
 
 			if($this->avatar_data){
 
-				unlink($this->view->getUploadDir($this->avatar_data["p_original"]));
+				unlink(fx_get_upload_root_path($this->avatar_data["p_original"]));
 
 				foreach($this->params->image_params as $key=>$value){
-					unlink($this->view->getUploadDir($this->avatar_data["p_{$key}"]));
+					unlink(fx_get_upload_root_path($this->avatar_data["p_{$key}"]));
 				}
 
 				$this->model->dropAvatarItem($this->avatar_id,$this->user_id);

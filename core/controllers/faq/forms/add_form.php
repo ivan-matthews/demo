@@ -112,7 +112,7 @@
 				->check();
 
 			$this->validator_interface->field('category')
-				->dont_prepare()
+				->prepare()
 				->id('title')
 				->label(fx_lang('home.categories_select_list'))
 				->type('select')

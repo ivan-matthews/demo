@@ -67,6 +67,15 @@
 
 		}
 
+		public function setResponse(){
+			$this->response->title('audios.audios_index_title');
+			$this->response->breadcrumb('index')
+				->setIcon(null)
+				->setLink('audios','index')
+				->setValue('audios.audios_index_title');
+
+			return $this;
+		}
 
 
 

@@ -469,6 +469,31 @@ form .fields .closable a {
 form .fields .closable a:hover {
   background: none;
 }
+form label.files:hover {
+  cursor: pointer;
+}
+form label.files i,
+form label.files svg {
+  font-size: 20vw;
+}
+form .files-list .icon i,
+form .files-list .icon svg {
+  font-size: 48px;
+}
+form .files-list .icon i.fa-robot,
+form .files-list .icon svg.fa-robot {
+  font-size: 36px;
+}
+form .files-list .size {
+  font-style: italic;
+}
+form .files-list .name {
+  font-weight: bold;
+}
+form .files-list .buttons a {
+  z-index: 5;
+  background: #ffffff;
+}
 .csrf {
   margin-bottom: 0;
 }

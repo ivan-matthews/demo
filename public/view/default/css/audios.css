@@ -1,0 +1,67 @@
+.audios-list .audios .audio-item {
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+.audios-list .audios .audio-item:last-child {
+  border: none;
+}
+.audios-list .audios .audio-item .audio-info .audio-icon .icon i,
+.audios-list .audios .audio-item .audio-info .audio-icon .icon svg {
+  font-size: 44px;
+}
+.audios-list .audios .audio-item .audio-info .audio-icon .icon i.fa-robot,
+.audios-list .audios .audio-item .audio-info .audio-icon .icon svg.fa-robot {
+  font-size: 32px;
+}
+.audios-list .audios .audio-item .audio-info .audio-name .name {
+  font-weight: bold;
+  color: #4a76a8;
+}
+.audios-list .audios .audio-item .audio-info .audio-name .description {
+  font-style: italic;
+}
+.audios-list .audios .audio-item .audio-info .audio-details .audio-user {
+  font-size: 10px;
+  font-weight: bold;
+  color: #4a76a8;
+}
+.audios-list .audios .audio-item .audio-info .audio-details .audio-user img {
+  border-radius: 50%;
+  max-width: 22px;
+}
+.audios-list .audios .audio-item .audio-info .audio-details .audio-date {
+  font-style: italic;
+  color: #999999;
+}
+.audios-list .audios .audio-item .audio-info .audio-details .audio-size {
+  font-weight: bold;
+}
+.audios-item .audio-item .audio-name {
+  font-weight: bold;
+  font-size: 18px;
+}
+.audios-item .audio-item .audio-info .icon {
+  font-size: 128px;
+}
+.audios-item .audio-item .audio-info .icon .fa-robot {
+  font-size: 96px;
+}
+.audios-item .audio-item .audio-info .item-content figure audio {
+  width: 100%;
+}
+.audios-item .audio-item .audio-user {
+  font-size: 10px;
+  font-weight: bold;
+  color: #4a76a8;
+}
+.audios-item .audio-item .audio-user img {
+  border-radius: 50%;
+  max-width: 22px;
+}
+.audios-item .audio-item .audio-date {
+  font-style: italic;
+  color: #999999;
+}
+.audios-item .audio-item .audio-size {
+  font-weight: bold;
+}

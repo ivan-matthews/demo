@@ -44,7 +44,7 @@
 		public function generateFieldsList(){
 
 			$this->validator_interface->field("password")
-				->dont_prepare()
+				->prepare()
 				->title(fx_lang('auth.password_field_title'))
 				->label(fx_lang('auth.password_field_label'))
 				->placeholder(fx_lang('auth.password_field_placeholder'))
@@ -61,7 +61,7 @@
 				});
 
 			$this->validator_interface->field("password2")
-				->dont_prepare()
+				->prepare()
 				->title(fx_lang('auth.password2_field_title'))
 				->label(fx_lang('auth.password2_field_label'))
 				->placeholder(fx_lang('auth.password2_field_placeholder'))

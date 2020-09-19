@@ -24,4 +24,6 @@
 		'add_photos'				=> 'Добавить фотографии',
 		'select_photos'				=> 'выберите фотографии',
 		'delete_link_value'			=> 'убрать',
+		'photos_link_title'			=> 'Фотографии',
+		'photos_link_value'			=> 'Фотографии',
 	);

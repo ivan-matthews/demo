@@ -24,22 +24,24 @@
 			'path'		=> null,
 		);
 		private $errors = array();
+		public $extensions;
+		public $explicit_extensions;
 
-		public function __construct(Validator $validator){
+		public function __construct(Validator $validator,$explicit_extensions = array()){
 			$this->raw_files = $_FILES;
 			$this->validator = $validator;
+			$this->explicit_extensions = $explicit_extensions;
 			$this->mime_types = fx_import_file(fx_path('system/assets/mime_types.php'),Kernel::IMPORT_INCLUDE);
 			$this->current_field = $this->validator->getCurrentField();
 			$this->checker_status = $this->validator->getValidatorStatus();
 			$this->getPreparedFiles();
 		}
 
-		protected function prepareExtensions(array $extensions){
-			$result = '';
+		public function prepareExtensions(array $extensions){
 			foreach($extensions as $extension){
-				$result .= ".{$extension},";
+				$this->extensions .= ".{$extension},";
 			}
-			return trim($result,',');
+			return $this;
 		}
 
 		private function acceptSingle($file_type,$subtypes){
@@ -76,19 +78,14 @@
 		}
 
 		private function acceptMultiple($file_type,$subtypes){
-			$error = false;
-			$file_mime_type_array = array(null,null);
 			foreach($this->files as $item){
 				$file_mime_type_array = explode('/',$item['type']);
 				if(!fx_equal($file_type,$file_mime_type_array[0]) || !in_array($file_mime_type_array[1],$subtypes)){
-					$error = true;
+					$this->setError($this->current_field,fx_lang('fields.file_mime_type_not_allowed',array(
+						'%types%'	=> (implode(', ',$subtypes)),
+						'%type%'	=> ($file_mime_type_array[1])
+					)));
 				}
-			}
-			if($error){
-				$this->setError($this->current_field,fx_lang('fields.file_mime_type_not_allowed',array(
-					'%types%'	=> strtoupper(implode(',',$subtypes)),
-					'%type%'	=> strtoupper($file_mime_type_array[1])
-				)));
 			}
 			return $this;
 		}
@@ -208,8 +205,11 @@
 		}
 
 		public function accept($file_type,$subtypes=array()){
-			if(!$subtypes){ $subtypes = $this->mime_types[$file_type]; }
-			$this->setAttribute(__FUNCTION__,$this->prepareExtensions($subtypes));
+			if(!$subtypes){ $subtypes = isset($this->mime_types[$file_type]) ? $this->mime_types[$file_type] : array(); }
+
+			if(!$this->explicit_extensions){
+				$this->extensions = "{$file_type}/*";
+			}
 
 			if(!$this->checker_status){ return $this; }
 			if($this->errors){ return $this; }

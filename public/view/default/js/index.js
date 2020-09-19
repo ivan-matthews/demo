@@ -114,7 +114,7 @@ window.indexObj = {
 	getConfig: function(){
 		let config_content = $('.config-invisible-json-content').html();
 		if(config_content){
-			if(!isset(indexObj.lang)){
+			if(!isset(indexObj.config)){
 				indexObj.config = JSON.parse(config_content);
 			}
 			return indexObj.config;
@@ -157,7 +157,16 @@ window.indexObj = {
 			default:
 				return parseInt(mem_size) + ' B';
 		}
-	}
+	},
+	getFileIcon: function(file_name){
+		let conf = indexObj.getConfig();
+
+		let file_name_segments = file_name.split('.');
+		let file_extension = file_name_segments[file_name_segments.length-1];
+
+		return isset(conf.view.files_icons[file_extension]) ?
+			conf.view.files_icons[file_extension] : conf.view.files_icons.default;
+	},
 };
 
 // sidebar button

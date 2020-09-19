@@ -67,6 +67,15 @@
 
 		}
 
+		public function setResponse(){
+			$this->response->title('videos.videos_index_title');
+			$this->response->breadcrumb('index')
+				->setIcon(null)
+				->setLink('videos','index')
+				->setValue('videos.videos_index_title');
+
+			return $this;
+		}
 
 
 

@@ -10,7 +10,7 @@
 	use Core\Controllers\Videos\Controller;
 	use Core\Controllers\Videos\Model;
 
-	class Unlink extends Controller{
+	class Download extends Controller{
 
 		/** @var $this */
 		private static $instance;
@@ -40,13 +40,10 @@
 		public $session;
 
 		/** @var array */
-		public $unlink;
+		public $download;
 
-		public $limit;
-		public $offset;
-		public $total;
-		public $order;
-		public $sort;
+		public $video_id;
+		public $video_data;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -56,60 +53,22 @@
 			return self::$instance;
 		}
 
-		public function __get($key){
-			if(isset($this->unlink[$key])){
-				return $this->unlink[$key];
-			}
-			return false;
-		}
-
-		public function __set($name, $value){
-			$this->unlink[$name] = $value;
-			return $this->unlink[$name];
-		}
-
 		public function __construct(){
 			parent::__construct();
 		}
 
-		public function __destruct(){
+		public function methodGet($video_id){
+			$this->video_id = $video_id;
+			$this->video_data = $this->model->getVideoByID($this->video_id);
 
-		}
+			if($this->video_data){
+				if(!fx_me($this->video_data['v_user_id']) && fx_logged()){
+					$this->model->updateTotalViewsVideo($this->video_id);
+				}
+				return $this->redirect(fx_get_upload_path($this->video_data['v_path']));
+			}
 
-		public function methodGet(){
-			return false;
-		}
-
-		public function methodPost(){
-			return false;
-		}
-
-		public function methodPut(){
-			return false;
-		}
-
-		public function methodHead(){
-			return false;
-		}
-
-		public function methodTrace(){
-			return false;
-		}
-
-		public function methodPatch(){
-			return false;
-		}
-
-		public function methodOptions(){
-			return false;
-		}
-
-		public function methodConnect(){
-			return false;
-		}
-
-		public function methodDelete(){
-			return false;
+			return $this;
 		}
 
 

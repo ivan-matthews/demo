@@ -54,10 +54,16 @@
 <div class="col-md-12 col-sm-12 col-12 col-lg-12 col-xl-12 p-0 list-group photos-list hidden"></div>
 
 <script>
+	$(document).ready(function(){
+		photosObj.form_object = $('.images-type-field').parents('form');
+		photosObj.button_submit = $('[type=submit]',photosObj.form_object);
+		photosObj.button_submit.hide();
+	});
 	$('.images-type-field input[type=file]').change(function(){
 
 		if(this.files && this.files[0]){
 			let photos_list = $('.photos-list');
+			photosObj.button_submit.show();
 
 			$('.images-field-block').hide();
 

@@ -8,6 +8,7 @@
 	use Core\Classes\Response\Response;
 	use Core\Controllers\Videos\Config;
 	use Core\Controllers\Videos\Controller;
+	use Core\Controllers\Videos\Forms\Add_Videos;
 	use Core\Controllers\Videos\Model;
 
 	class Add extends Controller{
@@ -42,11 +43,16 @@
 		/** @var array */
 		public $add;
 
-		public $limit;
-		public $offset;
-		public $total;
-		public $order;
-		public $sort;
+		public $user_id;
+
+		/** @var Add_Videos */
+		public $add_form;
+
+		public $videos_list = array();
+
+		public $insert_data = array();
+
+		public $video_id;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -56,63 +62,105 @@
 			return self::$instance;
 		}
 
-		public function __get($key){
-			if(isset($this->add[$key])){
-				return $this->add[$key];
-			}
-			return false;
-		}
-
-		public function __set($name, $value){
-			$this->add[$name] = $value;
-			return $this->add[$name];
-		}
-
 		public function __construct(){
 			parent::__construct();
-		}
-
-		public function __destruct(){
-
+			$this->backLink();
+			$this->user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
+			$this->add_form = Add_Videos::getInstance();
 		}
 
 		public function methodGet(){
-			return false;
+			$this->setResponse()->addResponse();
+
+			$this->add_form->generateFieldsList();
+
+			$this->response->controller('videos','add')
+				->setArray(array(
+					'form'	=> $this->add_form->getFormAttributes(),
+					'fields'	=> $this->add_form->getFieldsList(),
+					'errors'	=> $this->add_form->getErrors()
+				));
+			return $this;
 		}
 
 		public function methodPost(){
-			return false;
+			$this->add_form->checkForm($this->request->getAll());
+
+			$this->setResponse()->addResponse();
+
+			if($this->add_form->can()){
+				$this->videos_list = $this->add_form->getAttribute('videos','files');
+
+				foreach($this->videos_list as $video_params){
+					$this->setVideo($this->user_id,$video_params);
+				}
+
+				$this->video_id = $this->model->addVideos($this->insert_data);
+
+				if($this->video_id){
+					return $this->redirect(fx_get_url('videos','item',$this->video_id));
+				}
+			}
+
+			$this->response->controller('videos','add')
+				->setArray(array(
+					'form'	=> $this->add_form->getFormAttributes(),
+					'fields'	=> $this->add_form->getFieldsList(),
+					'errors'	=> $this->add_form->getErrors()
+				));
+			return $this;
 		}
 
-		public function methodPut(){
-			return false;
+		public function setVideo($user_id,$video_params,$folder='videos'){
+			$current_time = time();
+
+			$extension 	= $this->getExt($video_params['name']);
+			$hash 		= $this->getHash($video_params['tmp_name']);
+			$video_name	= "{$hash}.{$extension}";
+			$folder 	= "{$user_id}/{$folder}";
+			$directory 	= $this->setPath($folder);	// /var/www/m.c/public/uploads/users/1/path/to/video
+			$dnl_link	= $this->setDownloadPath("{$folder}/{$video_name}");	// users/1/path/to/video
+
+			fx_make_dir($directory);
+			move_uploaded_file($video_params['tmp_name'],"{$directory}/{$video_name}");
+
+			$this->insert_data[] = array(
+				'v_user_id'			=> $this->user_id,
+				'v_name'			=> $video_params['name'],
+				'v_size'			=> $video_params['size'],
+				'v_path'			=> $dnl_link,
+				'v_hash'			=> "{$user_id}-{$hash}",
+				'v_mime'			=> $video_params['type'],
+				'v_date_created'	=> $current_time,
+			);
+
+			return $this;
 		}
 
-		public function methodHead(){
-			return false;
+		public function getExt($video){
+			return pathinfo($video,PATHINFO_EXTENSION);
 		}
 
-		public function methodTrace(){
-			return false;
+		public function setDownloadPath($folder){
+			return "users/{$folder}";
 		}
 
-		public function methodPatch(){
-			return false;
+		public function setPath($folder){
+			return fx_get_upload_root_path($this->setDownloadPath($folder));
 		}
 
-		public function methodOptions(){
-			return false;
+		public function getHash($video_path){
+			return md5_file($video_path);
 		}
 
-		public function methodConnect(){
-			return false;
+		public function addResponse(){
+			$this->response->title('videos.add_videos');
+			$this->response->breadcrumb('add')
+				->setValue('videos.add_videos')
+				->setLink('videos','add')
+				->setIcon(null);
+			return $this;
 		}
-
-		public function methodDelete(){
-			return false;
-		}
-
-
 
 
 

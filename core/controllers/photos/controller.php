@@ -7,7 +7,6 @@
 	use Core\Classes\Kernel;
 	use Core\Classes\Request;
 	use Core\Classes\Response\Response;
-	use Core\Classes\View;
 
 	class Controller extends ParentController{
 
@@ -37,9 +36,6 @@
 
 		/** @var array */
 		private $photos;
-
-		/** @var View */
-		public $view;
 
 		private $options;
 
@@ -81,7 +77,6 @@
 		public function __construct(){
 			parent::__construct();
 
-			$this->view = View::getInstance();
 			$this->params = Config::getInstance();	// use Core\Controllers\Photos\Config as Config;
 			$this->model = Model::getInstance();	// use Core\Controllers\Photos\Model as Model;
 		}
@@ -90,7 +85,7 @@
 
 		}
 
-		public function cropAndResizeImage($attributes,$user_id,$images_dir_path='photos',$coordinate_x=null,$coordinate_y=null){
+		public function cropAndResizeImage($attributes,$user_id,$images_dir_path='photos',$coordinate_x=null,$coordinate_y=null,$crop_tmp_image = true, $custom_directory = null){
 			$this->image_params = $attributes;
 			$this->image_sub_folder = $images_dir_path;
 			$this->image_x_coordinate = $coordinate_x;
@@ -98,13 +93,17 @@
 			$this->image_user_id = $user_id;
 
 			$this->getExtension();
-			$this->setImageFolder();
+			$this->setImageFolder($custom_directory);
 			$this->setImageDirectory();
 			$this->getImageHash();
 			$this->setOriginalImageName();
 			$this->copyOriginalImage();
 			$this->setImageInsertDataArray();
-			$this->cropOriginalImage();
+
+			if($crop_tmp_image){
+				$this->cropOriginalImage();
+			}
+
 			$this->setAnotherImages();
 			$this->unlinkCurrentImage();
 
@@ -118,17 +117,22 @@
 
 		public function getExtension(){
 //			получить расширение файла
+//			$this->image_extension = pathinfo($this->image_params['name'],PATHINFO_EXTENSION);
 			$this->image_extension = explode('/',$this->image_params['type'])[1];
 			return $this;
 		}
-		public function setImageFolder(){
+		public function setImageFolder($custom_directory){
 //			установить путь для сохранения картинки
-			$this->image_folder = "users/{$this->image_user_id}/{$this->image_sub_folder}";
+			if(!$custom_directory){
+				$this->image_folder = "users/{$this->image_user_id}/{$this->image_sub_folder}";
+			}else{
+				$this->image_folder = $custom_directory;
+			}
 			return $this;
 		}
 		public function setImageDirectory(){
 //			установить путь для сохранения картинки относительно корня ФС
-			$this->image_directory = $this->view->getUploadDir($this->image_folder);
+			$this->image_directory = fx_get_upload_root_path($this->image_folder);
 			return $this;
 		}
 		public function getImageHash(){

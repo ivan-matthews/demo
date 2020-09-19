@@ -157,6 +157,45 @@ form{
 			}
 		}
 	}
+
+	label{
+		&.files{
+			&:hover{
+				cursor: pointer;
+			}
+			i,svg{
+				font-size: 20vw;
+			}
+		}
+	}
+	.files-list{
+		.icon{
+			i,svg{
+				font-size: 48px;
+				&.fa-robot{
+					font-size: 36px;
+				}
+			}
+		}
+		.size{
+			font-style: italic;
+		}
+		.name{
+			font-weight: bold;
+		}
+		.buttons{
+			a{
+				z-index: 5;
+				background: #ffffff;
+				&:hover{
+					//background:;
+				}
+			}
+			i,svg{
+
+			}
+		}
+	}
 }
 .csrf{
 	margin-bottom: 0;

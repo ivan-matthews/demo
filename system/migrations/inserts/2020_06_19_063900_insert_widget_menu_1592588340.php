@@ -204,6 +204,62 @@
 					'value'			=> 'blog.blog_link_value',
 				),
 				array(
+					'menu_id'		=> $this->main_menu,
+					'link_array'	=> array(
+						'link'=>array(
+							'photos','index'
+						),
+						'query'=>array(
+
+						)
+					),
+					'name'			=> 'photos_page',
+					'title'			=> 'photos.photos_link_title',
+					'value'			=> 'photos.photos_link_value',
+				),
+				array(
+					'menu_id'		=> $this->main_menu,
+					'link_array'	=> array(
+						'link'=>array(
+							'files','index'
+						),
+						'query'=>array(
+
+						)
+					),
+					'name'			=> 'files_page',
+					'title'			=> 'files.files_link_title',
+					'value'			=> 'files.files_link_value',
+				),
+				array(
+					'menu_id'		=> $this->main_menu,
+					'link_array'	=> array(
+						'link'=>array(
+							'audios','index'
+						),
+						'query'=>array(
+
+						)
+					),
+					'name'			=> 'audios_page',
+					'title'			=> 'audios.audios_link_title',
+					'value'			=> 'audios.audios_link_value',
+				),
+				array(
+					'menu_id'		=> $this->main_menu,
+					'link_array'	=> array(
+						'link'=>array(
+							'videos','index'
+						),
+						'query'=>array(
+
+						)
+					),
+					'name'			=> 'videos_page',
+					'title'			=> 'videos.videos_link_title',
+					'value'			=> 'videos.videos_link_value',
+				),
+				array(
 					'menu_id'		=> $this->guest_menu,
 					'link_array'	=> array(
 						'link'=>array(

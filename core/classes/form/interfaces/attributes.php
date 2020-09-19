@@ -72,9 +72,10 @@
 
 		/**
 		 * @param callable $callable_or_array
+		 * @param array $extensions
 		 * @return Attributes
 		 */
-		public function files($callable_or_array);
+		public function files($callable_or_array,$extensions = array());
 
 		/**
 		 * @param $callback_or_array

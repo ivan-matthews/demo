@@ -14,6 +14,8 @@
 		/** @var Cache */
 		protected $cache;
 
+		private $result;
+
 		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -31,10 +33,112 @@
 
 		}
 
+		public function countVideos($query,$prepared_data = array()){
+			$this->result = $this->select('COUNT(v_id) as total');
+			$this->result = $this->result->from('videos');
+			$this->result = $this->result->where($query);
+			if($prepared_data){
+				foreach($prepared_data as $key=>$value){
+					$this->result = $this->result->data($key,$value);
+				}
+			}
+			$this->result = $this->result->get();
+			$this->result = $this->result->itemAsArray();
+			return $this->result['total'];
+		}
 
+		public function getVideos($limit,$offset,$query,$order,$sort,$prepared_data = array()){
+			$this->result = $this->select();
+			$this->result = $this->result->from('videos');
+			$this->result = $this->result->join('users','u_id = v_user_id');
+			$this->result = $this->result->join('photos','u_avatar_id = p_id');
+			$this->result = $this->result->where($query);
+			if($prepared_data){
+				foreach($prepared_data as $key=>$value){
+					$this->result = $this->result->data($key,$value);
+				}
+			}
+			$this->result = $this->result->order($order);
+			$this->result = $this->result->sort($sort);
+			$this->result = $this->result->limit($limit);
+			$this->result = $this->result->offset($offset);
+			$this->result = $this->result->get();
+			$this->result = $this->result->allAsArray();
+			return $this->result;
+		}
 
+		public function getVideoByID($video_id){
+			$this->result = $this->select()
+				->from('videos')
+				->where("v_id = %video_id% AND v_status = " . Kernel::STATUS_ACTIVE)
+				->data('%video_id%',$video_id)
+				->join('users', "v_user_id = u_id")
+				->join('photos',"u_avatar_id = p_id")
+				->get()
+				->itemAsArray();
+			return $this->result;
+		}
 
+		public function getUserVideoByID($user_id,$video_id){
+			$this->result = $this->select()
+				->from('videos')
+				->where("v_id = %video_id% AND v_user_id = %user_id% AND v_status = " . Kernel::STATUS_ACTIVE)
+				->data('%video_id%',$video_id)
+				->data('%user_id%',$user_id)
+//				->join('users', "v_user_id = u_id")
+//				->join('photos',"u_avatar_id = p_id")
+				->get()
+				->itemAsArray();
+			return $this->result;
+		}
 
+		public function deleteVideo($user_id,$video_id){
+			$this->result = $this->update('videos')
+				->field('v_status',Kernel::STATUS_DELETED)
+				->field('v_date_deleted',time())
+				->where("v_id = %video_id% AND v_user_id = %user_id% AND v_status = " . Kernel::STATUS_ACTIVE)
+				->data('%video_id%',$video_id)
+				->data('%user_id%',$user_id)
+				->get()
+				->rows();
+			return $this->result;
+		}
+
+		public function updateVideo($user_id,$video_id,$update_data){
+			$this->result = $this->update('videos')
+				->field('v_name',$update_data['v_name'])
+				->field('v_description',$update_data['v_description'])
+				->field('v_date_updated',time())
+				->where("v_id = %video_id% AND v_user_id = %user_id%")
+				->data('%video_id%',$video_id)
+				->data('%user_id%',$user_id)
+				->get()
+				->rows();
+			return $this->result;
+		}
+
+		public function addVideos(array $insert_data){
+			$insert = $this->insert('videos');
+
+			foreach($insert_data as $data){
+				foreach($data as $key=>$value){
+					$insert = $insert->value($key,$value);
+				}
+				$insert = $insert->update('v_date_updated',$data['v_date_created']);
+				$insert = $insert->update('v_status',Kernel::STATUS_ACTIVE);
+			}
+			return $insert->get()->id();
+		}
+
+		public function updateTotalViewsVideo($video_id){
+			$this->result = $this->update('videos')
+				->query('v_total_views','v_total_views+1')
+				->where("v_id = %video_id%")
+				->data('%video_id%',$video_id)
+				->get()
+				->rows();
+			return $this->result;
+		}
 
 
 

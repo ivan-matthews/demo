@@ -10,7 +10,7 @@
 	use Core\Controllers\Audios\Controller;
 	use Core\Controllers\Audios\Model;
 
-	class Select extends Controller{
+	class Download extends Controller{
 
 		/** @var $this */
 		private static $instance;
@@ -40,13 +40,10 @@
 		public $session;
 
 		/** @var array */
-		public $select;
+		public $download;
 
-		public $limit;
-		public $offset;
-		public $total;
-		public $order;
-		public $sort;
+		public $audio_id;
+		public $audio_data;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -56,60 +53,22 @@
 			return self::$instance;
 		}
 
-		public function __get($key){
-			if(isset($this->select[$key])){
-				return $this->select[$key];
-			}
-			return false;
-		}
-
-		public function __set($name, $value){
-			$this->select[$name] = $value;
-			return $this->select[$name];
-		}
-
 		public function __construct(){
 			parent::__construct();
 		}
 
-		public function __destruct(){
+		public function methodGet($audio_id){
+			$this->audio_id = $audio_id;
+			$this->audio_data = $this->model->getAudioByID($this->audio_id);
 
-		}
+			if($this->audio_data){
+				if(!fx_me($this->audio_data['au_user_id']) && fx_logged()){
+					$this->model->updateTotalViewsAudio($this->audio_id);
+				}
+				return $this->redirect(fx_get_upload_path($this->audio_data['au_path']));
+			}
 
-		public function methodGet(){
-			return false;
-		}
-
-		public function methodPost(){
-			return false;
-		}
-
-		public function methodPut(){
-			return false;
-		}
-
-		public function methodHead(){
-			return false;
-		}
-
-		public function methodTrace(){
-			return false;
-		}
-
-		public function methodPatch(){
-			return false;
-		}
-
-		public function methodOptions(){
-			return false;
-		}
-
-		public function methodConnect(){
-			return false;
-		}
-
-		public function methodDelete(){
-			return false;
+			return $this;
 		}
 
 

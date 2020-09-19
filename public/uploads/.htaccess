@@ -1,0 +1,7 @@
+php_flag engine off
+Options -ExecCGI
+SetHandler !
+
+#<If "%{HTTP_REFERER} =~ m#.*(files|photos|audios|videos)/[0-9]# && %{REQUEST_FILENAME} =~ m#^(.*)/public/uploads/users/[0-9]/(files|photos|audios|videos)/.*\.(.*)$#">
+#	RewriteRule ^(.*) $1 [T=application/]
+#</If>

@@ -5,7 +5,6 @@
 	use Core\Classes\Hooks;
 	use Core\Classes\Request;
 	use Core\Classes\Session;
-	use Core\Classes\View;
 	use Core\Classes\Response\Response;
 	use Core\Controllers\Avatar\Config;
 	use Core\Controllers\Avatar\Controller;
@@ -130,12 +129,15 @@
 				}
 
 				$image = array(
-					'tmp_name'	=> View::getInstance()->getUploadDir($this->avatar_data['p_original']),
+					'tmp_name'	=> fx_get_upload_root_path($this->avatar_data['p_original']),
 					'name'		=> $this->avatar_data['p_name'],
 					'type'		=> $this->avatar_data['p_mime'],
 					'size'		=> $this->avatar_data['p_size']
 				);
 
+//				 форму валидировать не надо
+//				 так, как никакие данные
+//				 мы не принимаем
 				$this->avatar_add_form->generateFieldsList($this->user_id);
 
 				$this->avatar_add_form->setParams('image_params',$this->params->image_params);
@@ -148,7 +150,13 @@
 
 				$this->insert_data = $this->images_controller->setOptions($this->params->image_params)
 					->cropAndResizeImage(
-						$image,$this->user_id,'avatars',$x,$y
+						$image,
+						$this->user_id,
+						'avatars',
+						$x,
+						$y,
+						true,
+						dirname($this->avatar_data['p_original'])
 					);
 
 				$this->avatar_id = $this->model->addAvatar($this->insert_data);

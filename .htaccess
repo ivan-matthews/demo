@@ -28,8 +28,11 @@ RewriteRule loader.php - [F]
 RewriteRule README.MD - [F]
 RewriteRule server.php - [F]
 
-Options +ExecCGI
-AddHandler cgi-script .api
+<If "%{REQUEST_FILENAME} =~ /^(.*)\.(cgi|api|exec)$/">
+	Options +ExecCGI
+	AddHandler	cgi-script	.cgi .api .exec
+	AddType 	text/plain 	.cgi .api .exec
+</If>
 
 php_value mail.log ../system/cache/logs/mail.log
 

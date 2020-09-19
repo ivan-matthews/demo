@@ -156,6 +156,17 @@
 			return $this;
 		}
 
+		/**
+		 * alias for $this -> setHeader([header_key], [header_value])
+		 *
+		 * @param $header_key
+		 * @param $header_value
+		 * @return Response
+		 */
+		public function header($header_key,$header_value){
+			return $this->setHeader($header_key,$header_value);
+		}
+
 		public function setResponseCode($code){
 			$this->getResponseCodesList();
 			if(isset($this->response_list[$code])){

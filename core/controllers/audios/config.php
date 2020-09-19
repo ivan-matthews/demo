@@ -11,6 +11,8 @@
 	 * @property string $controller_name
 	 * @property array $controller
 	 * @property array $actions
+	 * @property array $sorting_panel
+	 * @property boolean $enable_comments
 	 */
 	class Config extends Params{
 

@@ -6,8 +6,6 @@
 	use Core\Classes\Controller as ParentController;
 	use Core\Classes\Request;
 	use Core\Classes\Response\Response;
-	use Core\Classes\Kernel;
-	use Core\Classes\View;
 	use Core\Classes\Session;
 
 	class Controller extends ParentController{
