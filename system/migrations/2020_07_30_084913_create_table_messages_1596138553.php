@@ -38,6 +38,7 @@
 				$table->bigint('m_receiver_id')->nullable()->index();
 
 				$table->longtext('m_content')->nullable()->fullText();
+				$table->longtext('m_attachments_ids')->nullable()->fullText();
 
 				$table->tinyint('m_hide_in_user')->nullable()->index();
 				$table->tinyint('m_hide_in_sender')->nullable()->index();

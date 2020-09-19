@@ -112,11 +112,25 @@
 				->params(function(Params $param){
 					$param->field_type('message');
 					$param->field_sets('csrf');
+					$param->field_sets_field_class('m-0 col-12');
+					$param->field_sets('row col-12 p-0 m-0');
 				})
 				->check(function(Checkers $checkers){
 					$checkers->required();
 					$checkers->max(2000);
 				});
+
+			$this->validator_interface->field('attachments')
+				->prepare()
+				->class('float-right')
+				->id('attachments')
+//				->label(fx_lang('attachments.attachments_field_label'))
+				->type('attachments')
+				->params(function(Params $param){
+					$param->field_type('attachments');
+					$param->field_sets('row col-12 m-0 p-0');
+				})
+				->check();
 
 			return $this;
 		}

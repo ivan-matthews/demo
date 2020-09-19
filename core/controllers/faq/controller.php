@@ -7,6 +7,7 @@
 	use Core\Classes\Controller as ParentController;
 	use Core\Classes\Request;
 	use Core\Classes\Response\Response;
+	use Core\Controllers\Attachments\Controller as AttachmentsController;
 
 	class Controller extends ParentController{
 
@@ -39,6 +40,8 @@
 
 		public $menu;
 
+		public $attachments_controller;
+
 		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -64,6 +67,7 @@
 
 			$this->params = Config::getInstance();	// use Core\Controllers\Faq\Config as Config;
 			$this->model = Model::getInstance();	// use Core\Controllers\Faq\Model as Model;
+			$this->attachments_controller = AttachmentsController::getInstance();
 		}
 
 		public function __destruct(){

@@ -56,12 +56,12 @@
 
 	<?php if($attributes['required']){ ?>
 		<span class="required text-danger">
-					*
-				</span>
+			*
+		</span>
 	<?php } ?>
 
 	<a type="button" class="btn btn-primary select-image-button" data-toggle="modal" data-target=".bd-example-modal-lg" <?php if($image_preview_value){ ?>style="display:none"<?php } ?>>
-
+		<i class="fas fa-plus"></i>
 		<?php print $attributes['params']['label']  ?>
 	</a>
 

@@ -40,8 +40,8 @@
 
 		<?php } ?>
 
-		<div class="col-12 show-more justify-content-center row">
-			<?php fx_show_more_attachments_button($link,$total,$limit,$offset,'.select-audios-list .audios') ?>
+		<div class="col-12 show-more audios justify-content-center row">
+			<?php fx_show_more_button($link,$total,$limit,$offset,'.select-audios-list .audios') ?>
 		</div>
 	</div>
 

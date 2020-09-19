@@ -69,6 +69,8 @@
 			$this->user_id = $this->user->getUID();
 			$this->query .= "p_status = " . Kernel::STATUS_ACTIVE;
 			$this->query .= " AND p_user_id = {$this->user_id}";
+
+			$this->backLink();
 		}
 
 		public function methodGet(){

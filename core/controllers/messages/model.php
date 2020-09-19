@@ -234,12 +234,13 @@
 			return $result;
 		}
 
-		public function addNewMessage($contact_id, $receiver_id, $sender_id, $message){
+		public function addNewMessage($contact_id, $receiver_id, $sender_id, $message, $attachments){
 			$result = $this->insert('messages')
 				->value('m_contact_id',$contact_id)
 				->value('m_sender_id',$sender_id)
 				->value('m_receiver_id',$receiver_id)
 				->value('m_content',$message)
+				->value('m_attachments_ids',$attachments)
 				->value('m_date_created',time())
 				->get()
 				->id();

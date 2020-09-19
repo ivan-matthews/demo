@@ -96,13 +96,14 @@
 			return $result;
 		}
 
-		public function addComment($controller,$action,$item_id,$author_id,$content){
+		public function addComment($controller,$action,$item_id,$author_id,$content,$attachments){
 			$result = $this->insert('comments')
 				->value('c_controller',$controller)
 				->value('c_action',$action)
 				->value('c_item_id',$item_id)
 				->value('c_author_id',$author_id)
 				->value('c_content',$content)
+				->value('c_attachments_ids',$attachments)
 				->value('c_date_created',time())
 				->get()
 				->id();
@@ -110,7 +111,7 @@
 			return $result;
 		}
 
-		public function addParentComment($controller,$action,$item_id,$author_id,$parent_id,$receiver_id,$content){
+		public function addParentComment($controller,$action,$item_id,$author_id,$parent_id,$receiver_id,$content,$attachments){
 			$result = $this->insert('comments')
 				->value('c_controller',$controller)
 				->value('c_action',$action)
@@ -119,6 +120,7 @@
 				->value('c_parent_id',$parent_id)
 				->value('c_receiver_id',$receiver_id)
 				->value('c_content',$content)
+				->value('c_attachments_ids',$attachments)
 				->value('c_date_created',time())
 				->get()
 				->id();
@@ -212,9 +214,10 @@
 			return $result;
 		}
 
-		public function updateCommentContent($comment_id,$comment_content){
+		public function updateCommentContent($comment_id,$comment_content,$attachments){
 			$result = $this->update('comments')
 				->field('c_content',$comment_content)
+				->field('c_attachments_ids',$attachments)
 				->field('c_date_updated',time())
 				->where("`c_id`=%comment_id%")
 				->data('%comment_id%',$comment_id)

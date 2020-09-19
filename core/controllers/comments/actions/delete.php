@@ -68,7 +68,7 @@
 			$this->back_url = $this->user->getBackUrl();
 
 			$this->backLink();
-			$this->sender_id = $this->session->get('u_id',Session::PREFIX_AUTH);
+			$this->sender_id = $this->user->getUID();
 		}
 
 		public function methodGet($controller,$action,$item_id,$comment_id){

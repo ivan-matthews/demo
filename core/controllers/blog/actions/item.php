@@ -47,6 +47,7 @@
 		public $user_id;
 		public $post_data;
 
+		/** @var AttachmentsController */
 		public $attachments_controller;
 
 		/** @return $this */
@@ -61,7 +62,6 @@
 			parent::__construct();
 
 			$this->user_id = $this->user->getUID();
-			$this->attachments_controller = AttachmentsController::getInstance();
 		}
 
 		public function methodGet($blog_post_id){
@@ -74,7 +74,7 @@
 				$this->response->controller('blog','item')
 					->setArray(array(
 						'post'	=> $this->post_data,
-						'attachments'	=> $this->attachments_controller->getAttachmentsFromIDsList(fx_arr($this->post_data['b_attachments_ids']),$this->user_id)
+						'attachments'	=> $this->attachments_controller->getAttachmentsFromIDsList(fx_arr($this->post_data['b_attachments_ids']))
 					));
 
 				if($this->post_data['b_comments_enabled']){

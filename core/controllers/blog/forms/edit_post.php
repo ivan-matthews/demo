@@ -118,6 +118,8 @@
 				->placeholder(fx_lang('blog.content_field_placeholder'))
 				->type('post')
 				->params(function(Params $param){
+					$param->field_sets_field_class('m-0 col-12');
+					$param->field_sets('row col-12 p-0 m-0');
 					$param->field_type('post')
 						->wysiwyg();
 				})
@@ -127,12 +129,13 @@
 
 			$this->validator_interface->field('attachments')
 				->prepare()
-				->class('form-control col-12 col-sm-12 col-md-12 col-lg-7 col-xl-6 p-0 m-0 row')
+				->class('float-right')
 				->id('attachments')
-				->label(fx_lang('attachments.attachments_field_label'))
+//				->label(fx_lang('attachments.attachments_field_label'))
 				->type('attachments')
 				->params(function(Params $param){
 					$param->field_type('attachments');
+					$param->field_sets('row col-12 m-0 p-0');
 				})
 				->check();
 

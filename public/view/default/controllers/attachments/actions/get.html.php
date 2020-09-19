@@ -1,12 +1,10 @@
 <?php
 	/** @var \Core\Classes\View $this */
 	/** @var array $data */
-
-	$this->prependCSS("attachments");
-	$this->prependJS("attachments");
+	/** @var array $attachments */
 ?>
 <div class="row col-12 attachments-list m-0 p-0">
-	<?php foreach($data as $attachment_type=>$attachment){ ?>
+	<?php foreach($attachments as $attachment_type=>$attachment){ ?>
 		<?php if(!$attachment){ continue; } ?>
 
 		<div class="col-12 row m-0 p-1 pl-2 attachments-header-item">

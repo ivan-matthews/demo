@@ -74,6 +74,7 @@
 		public $cat_id;					// текущая категория
 		public $cats_controller;
 
+		/** @var AttachmentsController */
 		public $attachments_controller;
 		public $attachments_ids;
 		public $attachments_data;
@@ -91,7 +92,6 @@
 
 			$this->user_id = $this->user->getUID();
 			$this->edit_form = Edit_Post::getInstance();
-			$this->attachments_controller = AttachmentsController::getInstance();
 			$this->cats_controller = CatsController::getInstance();
 			$this->cat_id = $this->cats_controller->getCurrentCategoryID();
 			$this->categories = $this->cats_controller->setCategories('blog')

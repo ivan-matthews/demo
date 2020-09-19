@@ -38,27 +38,31 @@
 								<div class="card-body faq-content">
 									<?php print fx_crop_string($item['f_answer'],1000) ?>
 								</div>
-								<?php if($item['ct_id']){ ?>
-									<div class="btn-group buttons item-menu">
-										<a class="category radius-0 p-1 pl-2 pr-2" href="<?php print fx_make_url(array('faq'),array('cat'=>$item['ct_id'])) ?>">
-											<?php if($item['ct_icon']){ ?><i class="<?php print $item['ct_icon'] ?>"></i><?php } ?>
-											<?php print fx_lang($item['ct_title']) ?>
-										</a>
+								<div class="row col-12">
+									<?php if($item['ct_id']){ ?>
+										<div class="btn-group buttons item-menu col">
+											<a class="category radius-0 p-1 pl-2 pr-2" href="<?php print fx_make_url(array('faq'),array('cat'=>$item['ct_id'])) ?>">
+												<?php if($item['ct_icon']){ ?><i class="<?php print $item['ct_icon'] ?>"></i><?php } ?>
+												<?php print fx_lang($item['ct_title']) ?>
+											</a>
+										</div>
+									<?php } ?>
+
+									<div class="pt-1 col">
+										<?php print fx_count_all_attachments(fx_arr($item['f_attachments_ids'])) ?>
 									</div>
-								<?php } ?>
-								<div class="btn-group buttons float-right item-menu">
-									<a class="view-post text-default radius-0 p-1 pl-2 pr-2" href="<?php print fx_get_url('faq','item',$item['f_id']) ?>">
+									<a class="view-post text-default radius-0 pt-1 col" href="<?php print fx_get_url('faq','item',$item['f_id']) ?>">
 										<i class="fas fa-info-circle"></i>
 										<?php print fx_lang('faq.show_item_value') ?>
 									</a>
 									<?php if($menu['edit']){ ?>
-										<a class="add-post text-success radius-0 p-1 pl-2 pr-2" href="<?php print fx_get_url('faq','edit',$item['f_id']) ?>">
+										<a class="add-post text-success radius-0 pt-1 col" href="<?php print fx_get_url('faq','edit',$item['f_id']) ?>">
 											<i class="fas fa-edit"></i>
 											<?php print fx_lang('faq.edit_item_value') ?>
 										</a>
 									<?php } ?>
 									<?php if($menu['delete']){ ?>
-										<a class="add-post text-danger radius-0 p-1 pl-2 pr-2" href="<?php print fx_get_url('faq','delete',$item['f_id']) ?>">
+										<a class="add-post text-danger radius-0 pt-1 col" href="<?php print fx_get_url('faq','delete',$item['f_id']) ?>">
 											<i class="fas fa-trash-alt"></i>
 											<?php print fx_lang('faq.delete_item_value') ?>
 										</a>

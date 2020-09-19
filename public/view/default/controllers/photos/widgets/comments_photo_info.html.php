@@ -135,10 +135,15 @@
 									</div>
 								<?php } ?>
 
-								<div class="comment-content p-2 row <?php print($im?'me':'not-me') ?>">
+								<div id="comment-<?php print $comment['c_id'] ?>" class="comment-content p-2 row <?php print($im?'me':'not-me') ?>">
 									<?php print $comment['c_content'] ?>
 								</div>
 
+								<?php if($comment['c_attachments_ids']){ ?>
+									<a onclick='attachmentsObj.getAttachments(this,<?php print $comment['c_attachments_ids'] ?>,"<?php print fx_get_url('attachments','get') ?>","#comment-<?php print $comment['c_id'] ?>")' class="get-attachments attachments btn btn-default btn-lg mb-2 p-0 pl-2 pr-2" href="javascript:void(0)">
+										<?php print fx_count_all_attachments(fx_arr($comment['c_attachments_ids'])) ?>
+									</a>
+								<?php } ?>
 							</div>
 
 						</div>

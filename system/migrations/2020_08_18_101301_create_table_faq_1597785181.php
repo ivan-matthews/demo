@@ -20,6 +20,7 @@
 
 				$table->longtext('f_question')->nullable()->fullText();
 				$table->longtext('f_answer')->nullable()->fullText();
+				$table->longtext('f_attachments_ids')->nullable()->fullText();
 
 				$table->bigint('f_category_id')->nullable()->index();
 				$table->bigint('f_status')->notNull()->defaults(Kernel::STATUS_ACTIVE)->index();

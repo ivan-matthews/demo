@@ -36,8 +36,8 @@
 		}
 	}
 
-	if(!function_exists('fx_show_more_attachments_button')){
-		function fx_show_more_attachments_button($link,$total,$limit,$offset,$selector){
+	if(!function_exists('fx_show_more_button')){
+		function fx_show_more_button($link,$total,$limit,$offset,$selector){
 			if($total <= $limit || $offset+$limit >= $total){ return false; }
 			$view = View::getInstance();
 			return $view->renderAsset("controllers/attachments/widgets/show_more_button",array(

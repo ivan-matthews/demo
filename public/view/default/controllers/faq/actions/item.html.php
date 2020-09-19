@@ -3,6 +3,7 @@
 	/** @var array $data */
 	/** @var array $item */
 	/** @var array $menu */
+	/** @var array $attachments */
 
 	$this->prependCSS("faq");
 	$this->prependJS("faq");
@@ -31,6 +32,9 @@
 
 	<div class="col-md-12 col-sm-12 col-12 col-lg-11 col-xl-11 p-0 faq-body mt-4">
 		<?php print $item['f_answer'] ?>
+	</div>
+	<div class="row col-12 attachments mt-2 pt-1">
+		<?php fx_render_attachments($attachments) ?>
 	</div>
 </div>
 

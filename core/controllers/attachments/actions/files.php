@@ -44,7 +44,7 @@
 		/** @var array */
 		public $files;
 
-		public $limit = 5;
+		public $limit = 30;
 		public $offset = 0;
 		public $total;
 		public $order = 'f_id';
@@ -68,6 +68,8 @@
 			$this->user_id = $this->user->getUID();
 			$this->query .= "f_status = " . Kernel::STATUS_ACTIVE;
 			$this->query .= " AND f_user_id = {$this->user_id}";
+
+			$this->backLink();
 		}
 
 		public function methodGet($ids_list=false){

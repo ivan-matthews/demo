@@ -6,6 +6,7 @@
 	use Core\Classes\Controller as ParentController;
 	use Core\Classes\Request;
 	use Core\Classes\Response\Response;
+	use Core\Controllers\Attachments\Controller as AttachmentsController;
 
 	class Controller extends ParentController{
 
@@ -42,7 +43,10 @@
 
 		public $comments_list_id= "comment-list";
 		public $limit_notices_author = 10;
-		
+
+		/** @var AttachmentsController */
+		public $attachments_controller;
+
 		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -68,6 +72,8 @@
 
 			$this->params = Config::getInstance();	// use Core\Controllers\Comments\Config as Config;
 			$this->model = Model::getInstance();	// use Core\Controllers\Comments\Model as Model;
+			
+			$this->attachments_controller = AttachmentsController::getInstance();
 		}
 
 		public function __destruct(){

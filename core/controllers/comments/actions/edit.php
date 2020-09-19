@@ -10,6 +10,7 @@
 	use Core\Controllers\Comments\Controller;
 	use Core\Controllers\Comments\Forms\Edit_Comment;
 	use Core\Controllers\Comments\Model;
+	use Core\Controllers\Attachments\Controller as AttachmentsController;
 
 	class Edit extends Controller{
 
@@ -52,6 +53,12 @@
 
 		public $edit_form;
 
+		/** @var AttachmentsController */
+		public $attachments_controller;
+		public $attachments_ids;
+		public $attachments_data;
+
+
 		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -67,7 +74,7 @@
 
 			$this->back_url = $this->user->getBackUrl();
 			$this->backLink();
-			$this->sender_id = $this->session->get('u_id',Session::PREFIX_AUTH);
+			$this->sender_id = $this->user->getUID();
 		}
 
 		public function methodGet($comment_id){
@@ -82,6 +89,13 @@
 				$this->edit_form->generateFieldsList($this->comment_id);
 
 				$this->setResponse();
+
+				$this->attachments_ids = $this->attachments_controller->prepareAttachments($this->request->getArray('attachments'),'attachments');
+				$this->attachments_data = $this->attachments_controller->getAttachmentsFromIDsList($this->attachments_ids,$this->sender_id);
+				$this->edit_form->setParams('variants',array(
+					'ids'	=> $this->attachments_ids,
+					'data'	=> $this->attachments_data
+				),'attachments');
 
 				$this->response->controller('comments','add')
 					->setArray(array(
@@ -107,9 +121,16 @@
 
 				$this->setResponse();
 
+				$this->attachments_ids = $this->attachments_controller->prepareAttachments($this->request->getArray('attachments'),'attachments');
+				$this->attachments_data = $this->attachments_controller->getAttachmentsFromIDsList($this->attachments_ids,$this->sender_id);
+				$this->edit_form->setParams('variants',array(
+					'ids'	=> $this->attachments_ids,
+					'data'	=> $this->attachments_data
+				),'attachments');
+
 				if($this->edit_form->can()){
 					$this->comment_content = $this->edit_form->getAttribute('comment','value');
-					if($this->model->updateCommentContent($this->comment_id,$this->comment_content)){
+					if($this->model->updateCommentContent($this->comment_id,$this->comment_content,$this->attachments_ids)){
 						return $this->redirect("{$this->back_url}#{$this->comments_list_id}");
 					}
 				}

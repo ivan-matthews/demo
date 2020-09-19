@@ -32,8 +32,8 @@
 
 		<?php } ?>
 
-		<div class="col-12 show-more justify-content-center row">
-			<?php fx_show_more_attachments_button($link,$total,$limit,$offset,'.select-photos-list .photos') ?>
+		<div class="col-12 show-more photos justify-content-center row">
+			<?php fx_show_more_button($link,$total,$limit,$offset,'.select-photos-list .photos') ?>
 		</div>
 	</div>
 

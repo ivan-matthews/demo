@@ -1,3 +1,6 @@
+.get-attachments.btn-default {
+  font-size: 15px;
+}
 .photos-list .photos .photos-item .photos-item-title {
   white-space: nowrap;
   overflow: hidden;
@@ -7,13 +10,15 @@
 .photos-list .photos .photos-item .photos-item-link .photos-item-image {
   max-width: 100%;
 }
-.select-photos-list .photos .photos-item .photos-item-title {
+.select-photos-list .photos .photos-item .photos-item-title,
+.select-photo-list .photos .photos-item .photos-item-title {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   font-weight: bold;
 }
-.select-photos-list .photos .photos-item .photos-item-link.selected .selected-icon {
+.select-photos-list .photos .photos-item .photos-item-link.selected .selected-icon,
+.select-photo-list .photos .photos-item .photos-item-link.selected .selected-icon {
   position: absolute;
   top: 0;
   border: 1px solid rgba(0, 0, 0, 0.125);
@@ -22,17 +27,22 @@
   background: #28a745;
 }
 .select-photos-list .photos .photos-item .photos-item-link.selected .selected-icon i,
-.select-photos-list .photos .photos-item .photos-item-link.selected .selected-icon svg {
+.select-photo-list .photos .photos-item .photos-item-link.selected .selected-icon i,
+.select-photos-list .photos .photos-item .photos-item-link.selected .selected-icon svg,
+.select-photo-list .photos .photos-item .photos-item-link.selected .selected-icon svg {
   color: #FFFFFF;
 }
-.select-photos-list .photos .photos-item .photos-item-link.selected img {
+.select-photos-list .photos .photos-item .photos-item-link.selected img,
+.select-photo-list .photos .photos-item .photos-item-link.selected img {
   background: #d9e2ec;
   padding: 10px;
 }
-.select-photos-list .photos .photos-item .photos-item-link:hover {
+.select-photos-list .photos .photos-item .photos-item-link:hover,
+.select-photo-list .photos .photos-item .photos-item-link:hover {
   opacity: 0.6;
 }
-.select-photos-list .photos .photos-item .photos-item-link .photos-item-image {
+.select-photos-list .photos .photos-item .photos-item-link .photos-item-image,
+.select-photo-list .photos .photos-item .photos-item-link .photos-item-image {
   max-width: 100%;
   cursor: pointer;
 }
@@ -168,7 +178,7 @@
 .attachments-field .attachments-data-block-previews .preview-photos .preview-head {
   font-weight: bold;
   background: #d9e2ec;
-  padding: 1em;
+  padding: 9.5px;
 }
 .attachments-field .attachments-data-block-previews .preview-photos .photo-item img:hover {
   cursor: pointer;
@@ -177,7 +187,7 @@
 .attachments-field .attachments-data-block-previews .preview-videos .preview-head {
   font-weight: bold;
   background: #d9e2ec;
-  padding: 1em;
+  padding: 9.5px;
 }
 .attachments-field .attachments-data-block-previews .preview-videos .video-item:hover {
   cursor: pointer;
@@ -196,7 +206,7 @@
 .attachments-field .attachments-data-block-previews .preview-audios .preview-head {
   font-weight: bold;
   background: #d9e2ec;
-  padding: 1em;
+  padding: 9.5px;
 }
 .attachments-field .attachments-data-block-previews .preview-audios .audio-item:hover {
   cursor: pointer;
@@ -215,7 +225,7 @@
 .attachments-field .attachments-data-block-previews .preview-files .preview-head {
   font-weight: bold;
   background: #d9e2ec;
-  padding: 1em;
+  padding: 9.5px;
 }
 .attachments-field .attachments-data-block-previews .preview-files .file-item:hover {
   cursor: pointer;
@@ -238,6 +248,9 @@
   font-size: 12px;
   font-weight: bold;
   background: #f8f8f8;
+}
+.attachments-list .attachments-body-item {
+  background: #fff;
 }
 .attachments-list .videos a .icon {
   font-size: 20px;

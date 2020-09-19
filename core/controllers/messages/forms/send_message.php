@@ -94,10 +94,23 @@
 				->params(function(Params $param){
 					$param->field_type('message');
 //					$param->field_sets_field_class('col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 mb-0');
-					$param->field_sets_field_class('mb-4 col-12');
+					$param->field_sets_field_class('m-0 col-12');
 					$param->field_sets('row col-12 p-0 m-0');
 					$param->wysiwyg();
 				});
+
+			$this->validator_interface->field('attachments')
+				->prepare()
+				->class('float-right')
+				->id('attachments')
+//				->label(fx_lang('attachments.attachments_field_label'))
+				->type('attachments')
+				->params(function(Params $param){
+					$param->field_type('attachments');
+					$param->field_sets('row col-12 m-0 p-0');
+				})
+				->check();
+
 /*
 			$this->validator_interface->field('submit')
 				->jevix(true)

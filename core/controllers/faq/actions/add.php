@@ -11,6 +11,7 @@
 	use Core\Controllers\Faq\Forms\Add_Form;
 	use Core\Controllers\Faq\Model;
 	use Core\Controllers\Categories\Controller as CatsController;
+	use Core\Controllers\Attachments\Controller as AttachmentsController;
 
 	class Add extends Controller{
 
@@ -44,6 +45,8 @@
 		/** @var array */
 		public $add;
 
+		public $user_id;
+
 		public $add_form;
 		public $insert_data;
 		public $new_item_id;
@@ -51,6 +54,11 @@
 		public $categories;				// список категорий
 		public $cat_id;					// текущая категория
 		public $cats_controller;
+
+		/** @var AttachmentsController */
+		public $attachments_controller;
+		public $attachments_ids;
+		public $attachments_data;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -68,6 +76,8 @@
 			$this->cat_id = $this->cats_controller->getCurrentCategoryID();
 			$this->categories = $this->cats_controller->setCategories('faq')
 				->getCategories();
+
+			$this->user_id = $this->user->getUID();
 		}
 
 		public function methodGet(){
@@ -89,10 +99,18 @@
 			$this->add_form->setCategories($this->categories,$this->cat_id);
 			$this->add_form->checkFieldsList($this->request->getAll());
 
+			$this->attachments_ids = $this->attachments_controller->prepareAttachments($this->request->getArray('attachments'),'attachments');
+			$this->attachments_data = $this->attachments_controller->getAttachmentsFromIDsList($this->attachments_ids,$this->user_id);
+			$this->add_form->setParams('variants',array(
+				'ids'	=> $this->attachments_ids,
+				'data'	=> $this->attachments_data
+			),'attachments');
+
 			if($this->add_form->can()){
 				$this->insert_data['question']	= $this->add_form->getAttribute('question','value');
 				$this->insert_data['answer']	= $this->add_form->getAttribute('answer','value');
 				$this->insert_data['category']	= $this->add_form->getAttribute('category','value');
+				$this->insert_data['attachments'] 	= $this->attachments_ids ? $this->attachments_ids : null;
 
 				$this->new_item_id = $this->model->addNewAnswer($this->insert_data);
 

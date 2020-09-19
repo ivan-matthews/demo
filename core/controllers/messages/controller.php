@@ -6,6 +6,7 @@
 	use Core\Classes\Controller as ParentController;
 	use Core\Classes\Request;
 	use Core\Classes\Response\Response;
+	use Core\Controllers\Attachments\Controller as AttachmentsController;
 
 	class Controller extends ParentController{
 
@@ -36,6 +37,9 @@
 		/** @var array */
 		private $messages;
 
+		/** @var AttachmentsController */
+		public $attachments_controller;
+
 		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -61,6 +65,8 @@
 
 			$this->params = Config::getInstance();	// use Core\Controllers\Messages\Config as Config;
 			$this->model = Model::getInstance();	// use Core\Controllers\Messages\Model as Model;
+
+			$this->attachments_controller = AttachmentsController::getInstance();
 		}
 
 		public function __destruct(){

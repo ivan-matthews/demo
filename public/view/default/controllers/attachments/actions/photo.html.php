@@ -9,7 +9,7 @@
 	/** @var array $link */
 ?>
 
-<div class="select-photos-list row justify-content-center">
+<div class="select-photo-list row justify-content-center">
 
 	<div class="col-12 photos row">
 
@@ -27,6 +27,9 @@
 
 		<?php } ?>
 
+		<div class="col-12 show-more photo justify-content-center row">
+			<?php fx_show_more_button($link,$total,$limit,$offset,'.select-photo-list .photos') ?>
+		</div>
 	</div>
 
 </div>

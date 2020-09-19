@@ -31,6 +31,7 @@
 				$table->tinyint('с_public',1)->notNull()->defaults(1)->index();
 
 				$table->longtext('c_content')->nullable()->fullText();
+				$table->longtext('c_attachments_ids')->nullable()->fullText();
 
 				$table->add_timestamps('c_');
 			});

@@ -9,6 +9,7 @@
 	use Core\Controllers\Faq\Config;
 	use Core\Controllers\Faq\Controller;
 	use Core\Controllers\Faq\Model;
+	use Core\Controllers\Attachments\Controller as AttachmentsController;
 
 	class Item extends Controller{
 
@@ -42,6 +43,10 @@
 		/** @var array */
 		public $item;
 		public $item_id;
+		public $user_id;
+
+		/** @var AttachmentsController */
+		public $attachments_controller;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -65,6 +70,7 @@
 
 		public function __construct(){
 			parent::__construct();
+			$this->user_id = $this->user->getUID();
 		}
 
 		public function methodGet($item_id){
@@ -79,7 +85,8 @@
 				$this->response->controller('faq','item')
 					->setArray(array(
 						'item'	=> $this->item,
-						'menu'	=> $this->menu
+						'menu'	=> $this->menu,
+						'attachments'	=> $this->attachments_controller->getAttachmentsFromIDsList(fx_arr($this->item['f_attachments_ids']))
 					));
 
 				return $this->setResponse()

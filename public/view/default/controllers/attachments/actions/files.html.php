@@ -40,8 +40,8 @@
 
 		<?php } ?>
 
-		<div class="col-12 show-more justify-content-center row">
-			<?php fx_show_more_attachments_button($link,$total,$limit,$offset,'.select-files-list .files') ?>
+		<div class="col-12 show-more files justify-content-center row">
+			<?php fx_show_more_button($link,$total,$limit,$offset,'.select-files-list .files') ?>
 		</div>
 	</div>
 

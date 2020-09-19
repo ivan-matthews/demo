@@ -1,16 +1,16 @@
 <?php
 
-	namespace Core\Controllers\Notify\Actions;
+	namespace Core\Controllers\Attachments\Actions;
 
 	use Core\Classes\Hooks;
 	use Core\Classes\Request;
 	use Core\Classes\Session;
 	use Core\Classes\Response\Response;
-	use Core\Controllers\Notify\Config;
-	use Core\Controllers\Notify\Controller;
-	use Core\Controllers\Notify\Model;
+	use Core\Controllers\Attachments\Config;
+	use Core\Controllers\Attachments\Controller;
+	use Core\Controllers\Attachments\Model;
 
-	class Delete extends Controller{
+	class Get extends Controller{
 
 		/** @var $this */
 		private static $instance;
@@ -40,10 +40,10 @@
 		public $session;
 
 		/** @var array */
-		public $delete;
+		public $get;
 
-		public $receiver_id;
-		public $notice_id;
+		public $attachments = array();
+		public $attachments_data = array();
 
 		/** @return $this */
 		public static function getInstance(){
@@ -55,23 +55,18 @@
 
 		public function __construct(){
 			parent::__construct();
-			$this->receiver_id = $this->user->getUID();
+			$this->attachments = $this->request->getArray('attachments');
 			$this->backLink();
 		}
 
-		public function methodGet($notice_id=null){
-			$this->notice_id = $notice_id;
+		public function methodGet(){
+			$this->attachments_data = $this->getAttachmentsFromIDsList($this->attachments);
 
-			if(!$this->notice_id){
-				$this->model->deleteAllNotices($this->receiver_id);
-				return $this->redirect();
-			}
-
-			if($this->model->deleteNotice($this->notice_id)){
-				return $this->redirect();
-			}
-
-			return false;
+			$this->response->controller('attachments','get')
+				->setArray(array(
+					'attachments'	=> $this->attachments_data
+				));
+			return $this;
 		}
 
 

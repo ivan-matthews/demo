@@ -60,7 +60,7 @@
 		public function __construct(){
 			parent::__construct();
 
-			$this->sender_id = $this->session->get('u_id',Session::PREFIX_AUTH);
+			$this->sender_id = $this->user->getUID();
 		}
 
 		public function methodGet($user_id,$avatar_id){

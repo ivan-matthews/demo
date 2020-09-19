@@ -1,5 +1,10 @@
 @import "vars";
 
+.get-attachments{
+	&.btn-default{
+		font-size: 15px;
+	}
+}
 .photos-list{
 	.photos{
 		.photos-item{
@@ -20,7 +25,7 @@
 		}
 	}
 }
-.select-photos-list{
+.select-photos-list,.select-photo-list{
 	.photos{
 		.photos-item{
 			.photos-item-title{
@@ -226,7 +231,7 @@
 			.preview-head{
 				font-weight: bold;
 				background: @light-general-color;
-				padding: 1em;
+				padding: 9.5px;
 			}
 			.photo-item{
 				img{
@@ -241,7 +246,7 @@
 			.preview-head{
 				font-weight: bold;
 				background: @light-general-color;
-				padding: 1em;
+				padding: 9.5px;
 			}
 			.video-item{
 				&:hover{
@@ -264,7 +269,7 @@
 			.preview-head{
 				font-weight: bold;
 				background: @light-general-color;
-				padding: 1em;
+				padding: 9.5px;
 			}
 			.audio-item{
 				&:hover{
@@ -287,7 +292,7 @@
 			.preview-head{
 				font-weight: bold;
 				background: @light-general-color;
-				padding: 1em;
+				padding: 9.5px;
 			}
 			.file-item{
 				&:hover{
@@ -314,6 +319,9 @@
 		font-size: 12px;
 		font-weight: bold;
 		background: @super-light-general-color;
+	}
+	.attachments-body-item{
+		background: #fff;
 	}
 	.parent-photos{
 		.photos{

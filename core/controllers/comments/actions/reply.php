@@ -11,6 +11,7 @@
 	use Core\Controllers\Comments\Controller;
 	use Core\Controllers\Comments\Forms\Reply_Comment;
 	use Core\Controllers\Comments\Model;
+	use Core\Controllers\Attachments\Controller as AttachmentsController;
 
 	class Reply extends Controller{
 
@@ -61,6 +62,11 @@
 
 		public $ids_to_notice_send;
 
+		/** @var AttachmentsController */
+		public $attachments_controller;
+		public $attachments_ids;
+		public $attachments_data;
+
 		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -76,7 +82,7 @@
 
 			$this->back_url = $this->user->getBackUrl();
 			$this->reply_form = Reply_Comment::getInstance();
-			$this->sender_id = $this->session->get('u_id',Session::PREFIX_AUTH);
+			$this->sender_id = $this->user->getUID();
 		}
 
 		public function methodGet($controller,$action,$item_id,$parent_id,$author_id,$receiver_id){
@@ -116,6 +122,13 @@
 
 			$this->setResponse();
 
+			$this->attachments_ids = $this->attachments_controller->prepareAttachments($this->request->getArray('attachments'),'attachments');
+			$this->attachments_data = $this->attachments_controller->getAttachmentsFromIDsList($this->attachments_ids,$this->sender_id);
+			$this->reply_form->setParams('variants',array(
+				'ids'	=> $this->attachments_ids,
+				'data'	=> $this->attachments_data
+			),'attachments');
+
 			if($this->reply_form->can()){
 				$this->comment_content = $this->reply_form->getAttribute('comment','value');
 
@@ -126,7 +139,8 @@
 					$this->sender_id,
 					$this->parent_id,
 					$this->author_id,
-					$this->comment_content
+					$this->comment_content,
+					$this->attachments_ids
 				);
 				if($this->comment_id){
 					$this->model->updateTotalComments(

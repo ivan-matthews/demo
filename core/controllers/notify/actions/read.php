@@ -55,7 +55,7 @@
 
 		public function __construct(){
 			parent::__construct();
-			$this->receiver_id = $this->session->get('u_id',Session::PREFIX_AUTH);
+			$this->receiver_id = $this->user->getUID();
 			$this->backLink();
 		}
 

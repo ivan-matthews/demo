@@ -108,6 +108,20 @@
 				->placeholder(fx_lang('faq.write_answer_title'))
 				->params(function(Params $params){
 					$params->field_type('post');
+					$params->field_sets_field_class('m-0 col-12');
+					$params->field_sets('row col-12 p-0 m-0');
+				})
+				->check();
+
+			$this->validator_interface->field('attachments')
+				->prepare()
+				->class('float-right')
+				->id('attachments')
+//				->label(fx_lang('attachments.attachments_field_label'))
+				->type('attachments')
+				->params(function(Params $param){
+					$param->field_type('attachments');
+					$param->field_sets('row col-12 m-0 p-0');
 				})
 				->check();
 

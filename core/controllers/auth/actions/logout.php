@@ -70,7 +70,7 @@
 
 		public function methodGet($csrf_token){
 			if(fx_equal($csrf_token,fx_csrf())){
-				$user_id = $this->session->get('u_id',Session::PREFIX_AUTH);
+				$user_id = $this->user->getUID();
 				if($user_id){
 					$this->model->updateDateLog($user_id,time(),User::LOGGED_DEFAULT);
 				}

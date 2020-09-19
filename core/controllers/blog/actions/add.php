@@ -10,8 +10,8 @@
 	use Core\Controllers\Blog\Controller;
 	use Core\Controllers\Blog\Forms\Add_Post;
 	use Core\Controllers\Blog\Model;
-	use Core\Controllers\Attachments\Controller as AttachmentsController;
 	use Core\Controllers\Categories\Controller as CatsController;
+	use Core\Controllers\Attachments\Controller as AttachmentsController;
 
 	class Add extends Controller{
 
@@ -74,6 +74,7 @@
 		public $cat_id;					// текущая категория
 		public $cats_controller;
 
+		/** @var AttachmentsController */
 		public $attachments_controller;
 		public $attachments_ids;
 		public $attachments_data;
@@ -91,7 +92,6 @@
 
 			$this->user_id = $this->user->getUID();
 			$this->add_form = Add_Post::getInstance();
-			$this->attachments_controller = AttachmentsController::getInstance();
 			$this->cats_controller = CatsController::getInstance();
 			$this->cat_id = $this->cats_controller->getCurrentCategoryID();
 			$this->categories = $this->cats_controller->setCategories('blog')

@@ -6,6 +6,7 @@
 	use Core\Classes\Controller as ParentController;
 	use Core\Classes\Request;
 	use Core\Classes\Response\Response;
+	use Core\Controllers\Attachments\Controller as AttachmentsController;
 
 	class Controller extends ParentController{
 
@@ -35,6 +36,9 @@
 
 		/** @var array */
 		private $blog;
+
+		/** @var AttachmentsController */
+		public $attachments_controller;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -67,6 +71,8 @@
 				->setLink('blog','index')
 				->setValue($this->params->controller_name)
 				->setIcon(null);
+
+			$this->attachments_controller = AttachmentsController::getInstance();
 		}
 
 		public function __destruct(){

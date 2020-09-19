@@ -10,6 +10,7 @@
 	use Core\Controllers\Faq\Controller;
 	use Core\Controllers\Faq\Forms\Add_Form;
 	use Core\Controllers\Faq\Model;
+	use Core\Controllers\Attachments\Controller as AttachmentsController;
 	use Core\Controllers\Categories\Controller as CatsController;
 
 	class Edit extends Controller{
@@ -44,6 +45,8 @@
 		/** @var array */
 		public $edit;
 
+		public $user_id;
+
 		public $add_form;
 		public $update_data;
 
@@ -54,6 +57,11 @@
 		public $categories;				// список категорий
 		public $cat_id;					// текущая категория
 		public $cats_controller;
+
+		/** @var AttachmentsController */
+		public $attachments_controller;
+		public $attachments_ids;
+		public $attachments_data;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -71,6 +79,8 @@
 			$this->cat_id = $this->cats_controller->getCurrentCategoryID();
 			$this->categories = $this->cats_controller->setCategories('faq')
 				->getCategories();
+
+			$this->user_id = $this->user->getUID();
 		}
 
 		public function methodGet($item_id){
@@ -88,6 +98,13 @@
 				$this->add_form->setData($this->item_data);
 				$this->add_form->setCategories($this->categories,$this->faq_item['f_category_id'])
 					->generateFieldsList();
+
+				$this->attachments_ids = fx_arr($this->faq_item['f_attachments_ids']);
+				$this->attachments_data = $this->attachments_controller->getAttachmentsFromIDsList($this->attachments_ids,$this->user_id);
+				$this->add_form->setParams('variants',array(
+					'ids'	=> $this->attachments_ids,
+					'data'	=> $this->attachments_data
+				),'attachments');
 
 				$this->response->controller('faq','edit')
 					->setArray(array(
@@ -117,13 +134,21 @@
 				$this->add_form->setCategories($this->categories,$this->cat_id)
 					->checkFieldsList($this->request->getAll());
 
+				$this->attachments_ids = $this->attachments_controller->prepareAttachments($this->request->getArray('attachments'),'attachments');
+				$this->attachments_data = $this->attachments_controller->getAttachmentsFromIDsList($this->attachments_ids,$this->user_id);
+				$this->add_form->setParams('variants',array(
+					'ids'	=> $this->attachments_ids,
+					'data'	=> $this->attachments_data
+				),'attachments');
+
 				if($this->add_form->can()){
 					$this->update_data['question']	= $this->add_form->getAttribute('question','value');
 					$this->update_data['answer']	= $this->add_form->getAttribute('answer','value');
 					$this->update_data['category']	= $this->add_form->getAttribute('category','value');
+					$this->update_data['attachments'] 	= $this->attachments_ids ? $this->attachments_ids : null;
 
 					if($this->model->updateFaqAnswer($this->update_data,$this->item_id)){
-						return $this->redirect();
+						return $this->redirect(fx_get_url('faq','item',$this->item_id));
 					}
 				}
 

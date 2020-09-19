@@ -70,22 +70,27 @@
 
 	<?php } ?>
 
-	<div class="btn-group radius-0 <?php print $attributes['class'] ?>">
-		<div class="btn btn-light radius-0" data-toggle="modal" data-target="#<?php print $attributes['name'] ?>-photos">
-			<i class="far fa-file-image"></i>
-			<?php print fx_lang('attachments.attachments_type_photo') ?>
-		</div>
-		<div class="btn btn-light radius-0" data-toggle="modal" data-target="#<?php print $attributes['name'] ?>-videos">
-			<i class="far fa-file-video"></i>
-			<?php print fx_lang('attachments.attachments_type_video') ?>
-		</div>
-		<div class="btn btn-light radius-0" data-toggle="modal" data-target="#<?php print $attributes['name'] ?>-audios">
-			<i class="far fa-file-audio"></i>
-			<?php print fx_lang('attachments.attachments_type_audio') ?>
-		</div>
-		<div class="btn btn-light radius-0" data-toggle="modal" data-target="#<?php print $attributes['name'] ?>-files">
-			<i class="far fa-file-alt"></i>
-			<?php print fx_lang('attachments.attachments_type_file') ?>
+	<div class="<?php print $attributes['class'] ?>">
+		<button type="button" class="btn btn-success radius-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			<?php print fx_lang('attachments.add_attachments_button_value') ?>
+		</button>
+		<div class="dropdown-menu">
+			<div class="dropdown-item btn btn-light radius-0" data-toggle="modal" data-target="#<?php print $attributes['name'] ?>-photos">
+				<i class="far fa-file-image"></i>
+				<?php print fx_lang('attachments.attachments_type_photo') ?>
+			</div>
+			<div class="dropdown-item btn btn-light radius-0" data-toggle="modal" data-target="#<?php print $attributes['name'] ?>-videos">
+				<i class="far fa-file-video"></i>
+				<?php print fx_lang('attachments.attachments_type_video') ?>
+			</div>
+			<div class="dropdown-item btn btn-light radius-0" data-toggle="modal" data-target="#<?php print $attributes['name'] ?>-audios">
+				<i class="far fa-file-audio"></i>
+				<?php print fx_lang('attachments.attachments_type_audio') ?>
+			</div>
+			<div class="dropdown-item btn btn-light radius-0" data-toggle="modal" data-target="#<?php print $attributes['name'] ?>-files">
+				<i class="far fa-file-alt"></i>
+				<?php print fx_lang('attachments.attachments_type_file') ?>
+			</div>
 		</div>
 	</div>
 
@@ -105,7 +110,7 @@
 				<?php if($photos){ ?>
 					<?php foreach($photos as $photo){ ?>
 						<div id="photo-<?php print $photo['p_id'] ?>" class="photo-item photo-item-<?php print $photo['p_id'] ?>" onclick="attachmentsObj.selectAttachment(this,'photos',<?php print $photo['p_id'] ?>)">
-							<img src="<?php print fx_get_upload_path($photo['p_medium']) ?>">
+							<img src="<?php print fx_get_image_src($photo['p_medium'],$photo['p_date_updated'],'medium') ?>">
 						</div>
 					<?php } ?>
 				<?php } ?>

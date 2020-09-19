@@ -10,6 +10,7 @@
 	use Core\Controllers\Messages\Controller;
 	use Core\Controllers\Messages\Model;
 	use Core\Controllers\Messages\Forms\Send_Message;
+	use Core\Controllers\Attachments\Controller as AttachmentsController;
 
 	/**
 	 * Отправка сообщений по CONTACT_ID;
@@ -63,6 +64,11 @@
 		public $last_message_id;
 		public $updated_last_msg_id;
 
+		/** @var AttachmentsController */
+		public $attachments_controller;
+		public $attachments_ids;
+		public $attachments_data;
+
 		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -76,7 +82,7 @@
 			$this->backLink();
 
 			$this->form = Send_Message::getInstance();
-			$this->sender_id = $this->session->get('u_id',Session::PREFIX_AUTH);
+			$this->sender_id = $this->user->getUID();
 		}
 
 		public function methodGet($contact_id,$receiver_id){
@@ -104,13 +110,21 @@
 
 			$this->form_fields_list = $this->form->getFieldsList();
 
+			$this->attachments_ids = $this->attachments_controller->prepareAttachments($this->request->getArray('attachments'),'attachments');
+			$this->attachments_data = $this->attachments_controller->getAttachmentsFromIDsList($this->attachments_ids,$this->sender_id);
+			$this->form->setParams('variants',array(
+				'ids'	=> $this->attachments_ids,
+				'data'	=> $this->attachments_data
+			),'attachments');
+
 			if($this->form->can()){
 
 				$this->last_message_id = $this->model->addNewMessage(
 					$this->contact_id,
 					$this->receiver_id,
 					$this->sender_id,
-					$this->form->getAttribute('message','value')
+					$this->form->getAttribute('message','value'),
+					$this->attachments_ids
 				);
 
 				if($this->last_message_id){
