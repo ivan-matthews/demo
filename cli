@@ -1,0 +1,64 @@
+#!/usr/bin/env php
+
+<?php
+
+	/*
+		*	Для каждой команды отдельная директория
+
+		*	Для каждой подкоманды отдельный класс
+
+		*	Если не планируется передавать больше одного аргумента,
+	 	класс должен быть System\Console\[COMMAND_DIR]\Index
+		(пример вызова: php cli help - подключает класс System\Console\Help\Index
+
+		*	Все классы храним и вызываем из директории system/console
+
+		*	В каждом классе !!! ОБЯЗАН !!! быть публичный метод execute()
+		с неограниченным количеством аргументов
+
+		*	Количество аргументов публичного метода execute() и
+		количество аргументов вызываемой команды, должны совпадать
+
+		* Метод execute() должен что-то возвращать (TRUE, $this, FALSE, NULL)
+		в случае возврата FALSE или NULL, автоматически вызывается команда справки 'php cli help'
+
+		*	Test: php cli make test какой-то тест
+		будет вызван класс System\Console\Make\Test::execute([какой-то,тест]);
+
+		*	Для добавления справочной информации в консоль, создайте в любом месте класса блок
+				#CMD: php cli [someone_command]
+				#DSC: [описание действий, выполняемых командой]
+				#EXM: пример запуска команды с тестовыми параметрами
+	*/
+
+	use Core\Classes\Config;
+	use Core\Classes\Hooks;
+	use Core\Classes\Language;
+	use Core\Classes\Console\Console;
+	use Core\Classes\Router;
+//	use Core\Classes\Console\Paint;
+
+	require __DIR__ . "/loader.php";
+
+	$hooks 		= Hooks::getInstance();
+	$router 	= Router::getInstance();
+
+	$hooks->before('cli_start');
+
+	$config = Config::getInstance();
+	$console = Console::getInstance();
+	$language = Language::getInstance();
+
+	$language->setDefaultLanguageKey();
+	$language->setLanguage();
+
+	$router->parseURL(fx_get_server('REQUEST_URI'));
+	$router->setRoute();
+
+	$console->getArguments(...fx_get_server('argv'));
+
+	if(!$console->runConsoleInterface()){
+		$console->callHelpCenter();
+	}
+
+	$hooks->after('cli_start');

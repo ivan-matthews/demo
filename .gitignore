@@ -1,0 +1,10 @@
+composer.lock
+/public/sitemaps
+/system/sessions
+/system/cache/dynamic
+/system/cache/logs
+/system/cache/static
+/system/cache/trash
+/system/config
+/vendor
+.idea
