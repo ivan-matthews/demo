@@ -117,4 +117,5 @@
 		'all_user_videos'	=> 'видео',
 		'all_user_audios'	=> 'музыка',
 		'all_user_files'	=> 'файлы',
+		'find_by_users_table_head'	=> 'Пользователи',
 	);

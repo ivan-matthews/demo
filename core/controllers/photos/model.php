@@ -117,6 +117,57 @@
 			return $insert->id();
 		}
 
+		public function countFind($search_query){
+			$where_query = "p_status = " . Kernel::STATUS_ACTIVE;
+			$where_query .= " AND u_status = " . Kernel::STATUS_ACTIVE;
+			if($search_query){
+				$where_query .= " AND (p_name LIKE %search_query%";
+				$where_query .= " OR p_description LIKE %search_query%";
+				$where_query .= ")";
+			}
+
+			$this->result = $this->select('COUNT(p_id) as total')
+				->from('photos')
+				->join('users FORCE INDEX(PRIMARY)',"u_id=p_user_id")
+				->where($where_query)
+				->data('%search_query%',"%{$search_query}%")
+				->get()
+				->itemAsArray();
+			return $this->result['total'];
+		}
+
+		public function find($search_query,$limit,$offset){
+			$where_query = "p_status = " . Kernel::STATUS_ACTIVE;
+			$where_query .= " AND u_status = " . Kernel::STATUS_ACTIVE;
+			if($search_query){
+				$where_query .= " AND (p_name LIKE %search_query%";
+				$where_query .= " OR p_description LIKE %search_query%";
+				$where_query .= ")";
+			}
+
+			$order = "length(replace(p_name,%search_query%,%search_query%))+";
+			$order .= "length(replace(p_description,%search_query%,%search_query%))";
+
+			$this->result = $this->select(
+				'p_small as image',
+				'p_name as title',
+				'p_description as description',
+				'p_id as id',
+				'p_date_created as date'
+			)
+				->from('photos')
+				->join('users FORCE INDEX(PRIMARY)',"u_id=p_user_id")
+				->where($where_query)
+				->limit($limit)
+				->offset($offset)
+				->data('%search_query%',"%{$search_query}%")
+				->order($order)
+				->sort('DESC')
+				->get()
+				->allAsArray();
+			return $this->result;
+		}
+
 
 
 

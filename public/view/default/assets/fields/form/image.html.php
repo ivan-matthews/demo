@@ -14,9 +14,6 @@
 	$image_params = $attributes['params'];
 
 	$image_preview_value = $this->request->get('preview_image');
-
-	$this->prependCSS("attachments");
-	$this->prependJS("attachments");
 ?>
 
 <div class="image-preview <?php print $attributes['id'] ?> <?php print $attributes['params']['field_sets_field_class'] ?>" <?php if(!$image_preview_value){ ?>style="display:none"<?php } ?>>

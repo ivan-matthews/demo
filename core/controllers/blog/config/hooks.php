@@ -10,4 +10,11 @@
 			'controller'	=> 'blog',
 			'action'		=> 'index',
 		),
+		'search_hook'	=> array(
+			'class'			=> \Core\Controllers\Blog\Hooks\Search_Hook::class,
+			'method'		=> 'run',
+			'status'		=> Kernel::STATUS_ACTIVE,
+			'controller'	=> 'blog',
+			'action'		=> 'index',
+		),
 	);

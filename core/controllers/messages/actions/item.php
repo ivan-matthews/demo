@@ -172,7 +172,7 @@
 			$this->response->title($user_title);
 			$this->response->breadcrumb('messages_contact')
 				->setValue($user_title)
-				->setLink('messages','item',$this->contact_id)
+				->setLink('users','item',$this->contact_id)
 				->setIcon(null);
 
 			return $this;

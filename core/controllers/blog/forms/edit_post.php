@@ -129,7 +129,7 @@
 
 			$this->validator_interface->field('attachments')
 				->prepare()
-				->class('float-right')
+				->class('m-0')
 				->id('attachments')
 //				->label(fx_lang('attachments.attachments_field_label'))
 				->type('attachments')

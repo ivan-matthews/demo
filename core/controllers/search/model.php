@@ -14,6 +14,8 @@
 		/** @var Cache */
 		protected $cache;
 
+		private $result;
+
 		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -27,37 +29,8 @@
 			$this->cache->key('search');
 		}
 
-		public function count($table,$query,$preparing_data){
-			$result = $this->select('COUNT(*) as total')
-				->from($table)
-				->where($query)
-				->prepare($preparing_data)
-				->get()
-				->itemAsArray();
-			return $result['total'];
-		}
+		public function __destruct(){
 
-		public function find($table,$query,array $fields,$preparing_data,$order,$limit,$offset){
-			$fields_string = '';
-			foreach($fields as $key=>$field){
-				if(!$field){ continue; }
-				$fields_string .= "{$field} as {$key}, ";
-			}
-			$fields_string .= "p_small as image";
-
-			$result = $this->select($fields_string)
-				->from($table)
-				->join('photos FORCE INDEX(PRIMARY)',"{$fields['image']}=p_id")
-				->where($query)
-				->order($order ? $order : $fields['date'])
-				->sort('DESC')
-				->limit($limit)
-				->offset($offset)
-				->prepare($preparing_data)
-				->get()
-				->allAsArray();
-
-			return $result;
 		}
 
 

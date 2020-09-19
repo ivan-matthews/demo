@@ -21,4 +21,5 @@
 		'placeholder_description'	=> 'Введите новое описание для файла',
 		'label_description'			=> 'Описание файла',
 		'add_new'					=> 'добавить файлов',
+		'find_by_files_table_head'	=> 'Файлы',
 	);

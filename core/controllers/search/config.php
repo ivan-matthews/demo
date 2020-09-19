@@ -12,6 +12,7 @@
 	 * @property array $controller
 	 * @property array $actions
 	 * @property array $header_bar
+	 * @property string $default_controller
 	 */
 	class Config extends Params{
 

@@ -3,7 +3,6 @@
 	namespace Core\Controllers\Search\Actions;
 
 	use Core\Classes\Hooks;
-	use Core\Classes\Kernel;
 	use Core\Classes\Request;
 	use Core\Classes\Session;
 	use Core\Classes\Response\Response;
@@ -43,22 +42,28 @@
 		/** @var array */
 		public $index;
 
-		public $table;
-
-		public $current_action;
-		public $search_fields;
-
-		public $search_query;
-		public $search_result;
-		public $search_total;
-
-		public $preparing_data = array();
-
-		public $limit = 15;
-		public $offset;
+		public $limit = 30;
+		public $offset = 0;
 		public $total;
 		public $order;
 		public $sort;
+
+		public $total_finds = array();
+
+		public $search_key = 'find';
+
+		public $search_query;
+		public $current_controller;
+		public $header_bar = array();
+		public $search_result = array();
+
+		public $default_fields = array(
+			'image'			=> null,
+			'date'			=> null,
+			'title'			=> null,
+			'link'			=> null,
+			'description'	=> null,
+		);
 
 		/** @return $this */
 		public static function getInstance(){
@@ -71,65 +76,33 @@
 		public function __construct(){
 			parent::__construct();
 
-			$this->search_query = $this->request->get('find');
+			$this->search_query = $this->request->get($this->search_key);
 		}
 
-		public function methodGet($current_action='users'){
-			$this->current_action = $current_action;
+		public function methodGet($current_controller=null){
+			$this->current_controller = $current_controller ? $current_controller : $this->params->default_controller;
 
-			if(isset($this->params->header_bar[$this->current_action])){
+			$this->header_bar = $this->params->header_bar;
 
-				if(count($this->params->header_bar) > 1){
-					$this->header_bar($this->params->header_bar,array('search','index'),$this->current_action);
-				}
+			$this->hook->run('search');
 
-				$this->makeQueryFromFields($this->params->header_bar,$this->current_action);
-
-				$this->search_total = $this->model->count($this->table,$this->query,$this->preparing_data);
-
-				$this->search_result = $this->model->find(
-					$this->table,
-					$this->query,
-					$this->params->header_bar[$this->current_action]['fields'],
-					$this->preparing_data,
-					$this->order,
-					$this->limit,
-					$this->offset
-				);
-
-				$this->paginate($this->search_total,array('search','index',$this->current_action));
-
-				$this->setResponse();
-
-				$this->response->controller('search','index')
-					->setArray(array(
-						'result'	=> $this->search_result,
-						'current'	=> $this->current_action,
-						'query'		=> $this->search_query,
-						'total'		=> $this->search_total,
-						'action'	=> $this->current_action,
-					));
-
-				return $this;
+			if(count($this->header_bar) > 1){
+				$this->header_bar($this->header_bar,array('search','index'),$this->current_controller);
 			}
 
-			return false;
-		}
+			$this->total = isset($this->total_finds[$this->current_controller]) ? $this->total_finds[$this->current_controller] : 0;
 
-		public function makeQueryFromFields($header_bar,$current_action){
-			$this->table = isset($header_bar[$current_action]) ? $current_action : null;
-			if($this->table && $this->search_query){
-				$this->query .= "{$header_bar[$current_action]['status_field']}=" . Kernel::STATUS_ACTIVE;
-				$this->query .= " AND (";
-				foreach($header_bar[$current_action]['search_fields'] as $field){
-					$this->order .= "length(replace({$field},%search_query%,%search_query%))+";
-					$this->query .= "`{$field}` LIKE %search_query% OR ";
-					$this->preparing_data['%search_query%'] = "%{$this->search_query}%";
-				}
-				$this->query = trim($this->query, ' OR ');
-				$this->query .= ")";
-				$this->order = trim($this->order,"+");
-			}
+			$this->paginate($this->total,array('search','index',$this->current_controller));
+
+			$this->setResponse();
+
+			$this->response->controller('search')
+				->setArray(array(
+					'total'			=> $this->total,
+					'result'		=> $this->search_result,
+					'controller'	=> $this->current_controller,
+					'query'			=> $this->search_query
+				));
 
 			return $this;
 		}
@@ -141,22 +114,27 @@
 				->setLink('search','index')
 				->setValue('search.search_index_title');
 
-			$this->response->title($this->params->header_bar[$this->current_action]['title']);
+			if(!isset($this->header_bar[$this->current_controller])){
+				return $this;
+			}
+
+			$this->response->title($this->header_bar[$this->current_controller]['title']);
 			$this->response->breadcrumb('search_action')
 				->setIcon(null)
-				->setLink('search','index',$this->current_action)
-				->setValue($this->params->header_bar[$this->current_action]['title']);
+				->setLink('search','index',$this->current_controller)
+				->setValue($this->header_bar[$this->current_controller]['title']);
 
 			if($this->search_query){
 				$this->response->title($this->search_query);
 				$this->response->breadcrumb('search_query')
 					->setIcon(null)
-					->setLink('search','index',$this->current_action)
+					->setLink(trim(fx_make_url(array('search','index',$this->current_controller),array($this->search_key => $this->search_query)),'/'))
 					->setValue($this->search_query);
 			}
 
 			return $this;
 		}
+
 
 
 

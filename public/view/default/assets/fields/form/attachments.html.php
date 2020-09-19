@@ -71,23 +71,23 @@
 	<?php } ?>
 
 	<div class="<?php print $attributes['class'] ?>">
-		<button type="button" class="btn btn-success radius-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		<button type="button" class="btn btn-success radius-0 attachments-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			<?php print fx_lang('attachments.add_attachments_button_value') ?>
 		</button>
 		<div class="dropdown-menu">
-			<div class="dropdown-item btn btn-light radius-0" data-toggle="modal" data-target="#<?php print $attributes['name'] ?>-photos">
+			<div class="dropdown-item btn btn-light radius-0 pl-4 pr-4 p-2" data-toggle="modal" data-target="#<?php print $attributes['name'] ?>-photos">
 				<i class="far fa-file-image"></i>
 				<?php print fx_lang('attachments.attachments_type_photo') ?>
 			</div>
-			<div class="dropdown-item btn btn-light radius-0" data-toggle="modal" data-target="#<?php print $attributes['name'] ?>-videos">
+			<div class="dropdown-item btn btn-light radius-0 pl-4 pr-4 p-2" data-toggle="modal" data-target="#<?php print $attributes['name'] ?>-videos">
 				<i class="far fa-file-video"></i>
 				<?php print fx_lang('attachments.attachments_type_video') ?>
 			</div>
-			<div class="dropdown-item btn btn-light radius-0" data-toggle="modal" data-target="#<?php print $attributes['name'] ?>-audios">
+			<div class="dropdown-item btn btn-light radius-0 pl-4 pr-4 p-2" data-toggle="modal" data-target="#<?php print $attributes['name'] ?>-audios">
 				<i class="far fa-file-audio"></i>
 				<?php print fx_lang('attachments.attachments_type_audio') ?>
 			</div>
-			<div class="dropdown-item btn btn-light radius-0" data-toggle="modal" data-target="#<?php print $attributes['name'] ?>-files">
+			<div class="dropdown-item btn btn-light radius-0 pl-4 pr-4 p-2" data-toggle="modal" data-target="#<?php print $attributes['name'] ?>-files">
 				<i class="far fa-file-alt"></i>
 				<?php print fx_lang('attachments.attachments_type_file') ?>
 			</div>
@@ -128,7 +128,7 @@
 							<div class="icon col-1">
 								<?php print fx_get_file_icon($video['v_name']) ?>
 							</div>
-							<div class="name col-9">
+							<div class="name col-8">
 								<?php print fx_crop_string($video['v_name'],50) ?>
 							</div>
 							<div class="size col-2">
@@ -152,7 +152,7 @@
 							<div class="icon col-1">
 								<?php print fx_get_file_icon($audio['au_name']) ?>
 							</div>
-							<div class="name col-9">
+							<div class="name col-8">
 								<?php print fx_crop_string($audio['au_name'],50) ?>
 							</div>
 							<div class="size col-2">
@@ -176,7 +176,7 @@
 							<div class="icon col-1">
 								<?php print fx_get_file_icon($file['f_name']) ?>
 							</div>
-							<div class="name col-9">
+							<div class="name col-8">
 								<?php print fx_crop_string($file['f_name'],50) ?>
 							</div>
 							<div class="size col-2">
@@ -311,10 +311,8 @@
 		}
 		let selector_obj = $('.attachments-field.form-group.form-block.<?php print $attributes['params']['original_name'] ?>');
 		let fields = $('.attachments-ids-block.hidden',selector_obj);
-		let previews = $('.attachments-data-block-previews',selector_obj);
 
 		let type_field = $('#' + attachments_type, fields);
-		let type_preview = $('.preview-' + attachments_type, previews);
 
 		let field_values = type_field.attr('value');
 
@@ -379,7 +377,7 @@
 		}else{
 			previewAttachmentString += '<div id="' + short_type + '-' + attachment_id + '" class="' + short_type + '-item col-12 row m-0 p-0" onclick="attachmentsObj.selectAttachment(this,\'' + attachment_type + '\',' + attachment_id + ')">\n'+
 				'<div class="icon col-1">\n' + $('.icon',self).html() + '</div>\n' +
-				'<div class="name col-9">\n' + $('.name',self).html() + '</div>\n' +
+				'<div class="name col-8">\n' + $('.name',self).html() + '</div>\n' +
 				'<div class="size col-2">\n' + $('.size',self).html() + '</div>\n' +
 				'<div>';
 			$('.content-block',type_preview).append(previewAttachmentString);

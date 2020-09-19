@@ -139,6 +139,56 @@
 			return $this->result;
 		}
 
+		public function countFind($search_query){
+			$where_query = "au_status = " . Kernel::STATUS_ACTIVE;
+			$where_query .= " AND u_status = " . Kernel::STATUS_ACTIVE;
+			if($search_query){
+				$where_query .= " AND (au_name LIKE %search_query%";
+				$where_query .= " OR au_description LIKE %search_query%";
+				$where_query .= ")";
+			}
+
+			$this->result = $this->select('COUNT(au_id) as total')
+				->from('audios')
+				->join('users','u_id = au_user_id')
+				->where($where_query)
+				->data('%search_query%',"%{$search_query}%")
+				->get()
+				->itemAsArray();
+			return $this->result['total'];
+		}
+
+		public function find($search_query,$limit,$offset){
+			$where_query = "au_status = " . Kernel::STATUS_ACTIVE;
+			$where_query .= " AND u_status = " . Kernel::STATUS_ACTIVE;
+			if($search_query){
+				$where_query .= " AND (au_name LIKE %search_query%";
+				$where_query .= " OR au_description LIKE %search_query%";
+				$where_query .= ")";
+			}
+
+			$order = "length(replace(au_name,%search_query%,%search_query%))+";
+			$order .= "length(replace(au_description,%search_query%,%search_query%))";
+
+			$this->result = $this->select(
+				'au_name as title',
+				'au_description as description',
+				'au_id as id',
+				'au_date_created as date'
+			)
+				->from('audios')
+				->join('users','u_id = au_user_id')
+				->where($where_query)
+				->limit($limit)
+				->offset($offset)
+				->data('%search_query%',"%{$search_query}%")
+				->order($order)
+				->sort('DESC')
+				->get()
+				->allAsArray();
+			return $this->result;
+		}
+
 
 
 

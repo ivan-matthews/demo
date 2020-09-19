@@ -6,6 +6,7 @@
 	use Core\Classes\Controller as ParentController;
 	use Core\Classes\Request;
 	use Core\Classes\Response\Response;
+	use Core\Widgets\Header_Bar;
 
 	class Controller extends ParentController{
 
@@ -34,7 +35,7 @@
 		public $hook;
 
 		/** @var array */
-		private $search;
+		private $_search;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -67,7 +68,20 @@
 
 		}
 
+		protected function header_bar(array $header_bar_data_from_params_array,array $tabs_link,$current_tab){
+			foreach($header_bar_data_from_params_array as $key=>$value){
+				$new_tabs_link = $tabs_link;
+				$new_tabs_link[] = $key;
+				$header_bar_data_from_params_array[$key]['link'] = $new_tabs_link;
+			}
 
+			Header_Bar::add()
+				->data($header_bar_data_from_params_array)
+				->current($current_tab)
+				->template('controllers/search/widgets/header_bar')
+				->set();
+			return $this;
+		}
 
 
 

@@ -21,4 +21,5 @@
 		'placeholder_description'	=> 'Введите новое описание для файла',
 		'label_description'			=> 'Описание файла',
 		'add_new'					=> 'добавить видео',
+		'find_by_videos_table_head'	=> 'Видео',
 	);

@@ -1,9 +1,6 @@
 <?php
 	/** @var \Core\Classes\View $this */
 	/** @var array $data */
-
-	$this->prependCSS("attachments");
-	$this->prependJS("attachments");
 ?>
 <div class="row col-12 attachments-list m-0 p-0">
 	<?php foreach($data as $attachment_type=>$attachment){ ?>
@@ -11,6 +8,7 @@
 
 		<div class="col-12 row m-0 p-1 pl-2 attachments-header-item">
 			<?php print fx_lang("attachments.{$attachment_type}_attachments_head") ?>
+			<sub><?php print count($attachment) ?></sub>
 		</div>
 
 		<?php if(fx_equal($attachment_type,'photos')){ ?>

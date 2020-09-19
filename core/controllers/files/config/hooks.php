@@ -3,13 +3,18 @@
 	use Core\Classes\Kernel;
 
 	return array(
-		/*
-			'session_start_after_hook'	=> array(
-				'class'			=> \Core\Controllers\Users\Hooks\Session_Start_After_Hook::class,
-				'method'		=> 'run',
-				'status'		=> Kernel::STATUS_ACTIVE,
-				'controller'	=> 'users',
-				'action'		=> 'index',
-			),
-		*/
+		'sitemap_generate_hook'	=> array(
+			'class'			=> \Core\Controllers\Files\Hooks\Generate_Files_Sitemap::class,
+			'method'		=> 'run',
+			'status'		=> Kernel::STATUS_ACTIVE,
+			'controller'	=> 'files',
+			'action'		=> 'index',
+		),
+		'search_hook'	=> array(
+			'class'			=> \Core\Controllers\Files\Hooks\Search_Hook::class,
+			'method'		=> 'run',
+			'status'		=> Kernel::STATUS_ACTIVE,
+			'controller'	=> 'files',
+			'action'		=> 'index',
+		),
 	);

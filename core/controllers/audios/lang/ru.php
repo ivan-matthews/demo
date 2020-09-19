@@ -21,4 +21,5 @@
 		'placeholder_description'	=> 'Введите новое описание для файла',
 		'label_description'			=> 'Описание файла',
 		'add_new'					=> 'добавить музыки',
+		'find_by_audios_table_head'	=> 'Аудио',
 	);

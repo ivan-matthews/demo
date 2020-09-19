@@ -33,18 +33,18 @@
 				</div>
 			</div>
 
-			<div class="col-12 row justify-content-center m-0 p-0">
-				<div class="list-group-item-heading info item-link mt-4 mb-2 btn-group col-12 col-md-8 p-0 m-0">
-					<a href="<?php print fx_get_url('videos','download',$video['v_id']) ?>" class="btn btn-success">
+			<div class="row justify-content-center">
+				<div class="info item-link row col-12 col-sm-12 col-md-8 col-xl-6 col-lg-7">
+					<a href="<?php print fx_get_url('videos','download',$video['v_id']) ?>" class="col btn btn-success">
 						<i class="fas fa-download"></i>
 						<?php print fx_lang('videos.download_video_btn_value') ?>
 					</a>
 					<?php if(fx_me($video['v_user_id'])){ ?>
-						<a class="btn btn-default link-follow" href="<?php print fx_get_url('videos','edit',$video['v_id']) ?>">
+						<a class="col btn btn-default link-follow" href="<?php print fx_get_url('videos','edit',$video['v_id']) ?>">
 							<i class="fas fa-marker"></i>
 							<?php print fx_lang('videos.edit_btn_value') ?>
 						</a>
-						<a class="btn btn-danger link-follow" href="<?php print fx_get_url('videos','delete',$video['v_id']) ?>">
+						<a class="col btn btn-danger link-follow" href="<?php print fx_get_url('videos','delete',$video['v_id']) ?>">
 							<i class="fas fa-recycle"></i>
 							<?php print fx_lang('videos.delete_btn_value') ?>
 						</a>

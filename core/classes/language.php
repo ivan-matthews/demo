@@ -68,7 +68,7 @@
 			$controller_folder = fx_path('core/controllers');
 			foreach(scandir($controller_folder) as $file){
 				if($file == '.' || $file == '..'){ continue; }
-				$lang_file = "{$controller_folder}/{$file}/config/lang.php";
+				$lang_file = "{$controller_folder}/{$file}/lang/{$this->lang_key}.php";
 				if(is_readable($lang_file)){
 					$this->language[$file] = fx_import_file($lang_file,Kernel::IMPORT_INCLUDE_ONCE);
 				}

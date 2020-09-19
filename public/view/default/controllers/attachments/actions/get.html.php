@@ -9,6 +9,7 @@
 
 		<div class="col-12 row m-0 p-1 pl-2 attachments-header-item">
 			<?php print fx_lang("attachments.{$attachment_type}_attachments_head") ?>
+			<sub><?php print count($attachment) ?></sub>
 		</div>
 
 		<?php if(fx_equal($attachment_type,'photos')){ ?>

@@ -62,6 +62,16 @@
 			return $this;
 		}
 
+		public function template($template_file){
+			$this->default_props['wa_template'] = $this->params['wa_template'] = $template_file;
+			return $this;
+		}
+
+		public function setValue($key,$value){
+			$this->default_props[$key] = $this->params[$key] = $value;
+			return $this;
+		}
+
 		public function set(){
 			$this->response->widget($this->default_props)
 				->set('data',array(

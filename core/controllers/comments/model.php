@@ -14,6 +14,8 @@
 		/** @var Cache */
 		protected $cache;
 
+		protected $result;
+
 		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -225,6 +227,60 @@
 				->rows();
 
 			return $result;
+		}
+
+		public function countFind($search_query){
+			$where_query = "c_status = " . Kernel::STATUS_ACTIVE;
+			$where_query .= " AND u_status = " . Kernel::STATUS_ACTIVE;
+			if($search_query){
+				$where_query .= " AND (c_content LIKE %search_query%";
+				$where_query .= ")";
+			}
+
+			$this->result = $this->select('COUNT(c_id) as total')
+				->from('comments')
+				->join('users FORCE INDEX(PRIMARY)',"c_author_id = u_id")
+				->where($where_query)
+				->data('%search_query%',"%{$search_query}%")
+				->get()
+				->itemAsArray();
+			return $this->result['total'];
+		}
+
+		public function find($search_query,$limit,$offset){
+			$where_query = "c_status = " . Kernel::STATUS_ACTIVE;
+			$where_query .= " AND u_status = " . Kernel::STATUS_ACTIVE;
+			if($search_query){
+				$where_query .= " AND (c_content LIKE %search_query%";
+				$where_query .= ")";
+			}
+
+			$order = "length(replace(u_full_name,%search_query%,%search_query%))";
+
+			$this->result = $this->select(
+				'p_small as image',
+				'u_full_name as title',
+				'c_content as description',
+				'c_id as id',
+				'p_date_updated as img_date',
+				'u_gender as gender',
+				'c_date_created as date',
+				'c_controller as controller',
+				'c_action as action',
+				'c_item_id as item'
+			)
+				->from('comments')
+				->join('users FORCE INDEX(PRIMARY)',"c_author_id = u_id")
+				->join('photos FORCE INDEX(PRIMARY)',"u_avatar_id = p_id")
+				->where($where_query)
+				->limit($limit)
+				->offset($offset)
+				->data('%search_query%',"%{$search_query}%")
+				->order($order)
+				->sort('DESC')
+				->get()
+				->allAsArray();
+			return $this->result;
 		}
 
 

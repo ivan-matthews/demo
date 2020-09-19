@@ -14,6 +14,8 @@
 		/** @var Cache */
 		protected $cache;
 
+		protected $result;
+
 		/** @return $this */
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -193,6 +195,59 @@
 			return $post_rows;
 		}
 
+		public function countFind($search_query){
+			$where_query = "b_status = " . Kernel::STATUS_ACTIVE;
+			$where_query .= " AND u_status = " . Kernel::STATUS_ACTIVE;
+			if($search_query){
+				$where_query .= " AND (b_title LIKE %search_query%";
+				$where_query .= " OR b_content LIKE %search_query%";
+				$where_query .= ")";
+			}
+
+			$this->result = $this->select('COUNT(b_id) as total')
+				->from('blog')
+				->join('users FORCE INDEX(PRIMARY)',"b_user_id = u_id")
+				->where($where_query)
+				->data('%search_query%',"%{$search_query}%")
+				->get()
+				->itemAsArray();
+			return $this->result['total'];
+		}
+
+		public function find($search_query,$limit,$offset){
+			$where_query = "b_status = " . Kernel::STATUS_ACTIVE;
+			$where_query .= " AND u_status = " . Kernel::STATUS_ACTIVE;
+			if($search_query){
+				$where_query .= " AND (b_title LIKE %search_query%";
+				$where_query .= " OR b_content LIKE %search_query%";
+				$where_query .= ")";
+			}
+
+			$order = "length(replace(b_title,%search_query%,%search_query%))+";
+			$order .= "length(replace(b_content,%search_query%,%search_query%))";
+
+			$this->result = $this->select(
+				'p_small as image',
+				'b_title as title',
+				'b_content as description',
+				'b_id as id',
+				'p_date_updated as img_date',
+				'u_gender as gender',
+				'b_date_created as date'
+			)
+				->from('blog')
+				->join('users FORCE INDEX(PRIMARY)',"b_user_id = u_id")
+				->join('photos FORCE INDEX(PRIMARY)',"u_avatar_id = p_id")
+				->where($where_query)
+				->limit($limit)
+				->offset($offset)
+				->data('%search_query%',"%{$search_query}%")
+				->order($order)
+				->sort('DESC')
+				->get()
+				->allAsArray();
+			return $this->result;
+		}
 
 
 

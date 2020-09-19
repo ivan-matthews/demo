@@ -87,6 +87,7 @@
 				$form->setFormName($this->form_name);
 				$form->setFormAction($this->action);
 			});
+
 			$this->validator_interface->field('question')
 				->jevix(true)
 				->class('form-control')
@@ -115,7 +116,7 @@
 
 			$this->validator_interface->field('attachments')
 				->prepare()
-				->class('float-right')
+				->class('m-0')
 				->id('attachments')
 //				->label(fx_lang('attachments.attachments_field_label'))
 				->type('attachments')

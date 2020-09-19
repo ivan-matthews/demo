@@ -14,6 +14,9 @@
   font-style: italic;
   color: #999999;
 }
+.search-result .search .search-item .search-info a .search-item-image .search-icon {
+  font-size: 40px;
+}
 .search-result .search .search-item .search-info a .search-item-info .item-title {
   font-weight: bold;
 }
@@ -23,4 +26,8 @@
 .search-result .search .search-item .search-info a .search-item-info .item-link {
   color: #055412;
   font-weight: bold;
+}
+.search-custom-sorting-panel sup {
+  font-size: 10px;
+  color: chocolate;
 }

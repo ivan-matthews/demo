@@ -24,4 +24,11 @@
 			'controller'	=> 'users',
 			'action'		=> 'index',
 		),
+		'search_hook'	=> array(
+			'class'			=> \Core\Controllers\Users\Hooks\Search_Hook::class,
+			'method'		=> 'run',
+			'status'		=> Kernel::STATUS_ACTIVE,
+			'controller'	=> 'users',
+			'action'		=> 'index',
+		),
 	);

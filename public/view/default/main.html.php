@@ -29,6 +29,9 @@
 	$this->addJS("index");
 	$this->addJS("home");
 
+	$this->addCSS("attachments");
+	$this->addJS("attachments");
+
 	$lang_key = $this->language->getLanguageKey();
 	$translation_lang_key = $lang_key . "-" . strtoupper($lang_key);
 

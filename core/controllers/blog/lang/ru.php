@@ -26,4 +26,5 @@
 		'blog_link_value'		=> 'Блог',
 		'date_updated_value'	=> 'Обновлено ',
 		'attachments_head'		=> 'Закрепленные файлы ',
+		'find_by_blog_table_head'	=> 'Блоги',
 	);

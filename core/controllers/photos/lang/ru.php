@@ -41,4 +41,5 @@
 		'random_avatars_sorting'	=> 'Перемешать',
 		'select_image_modal_head'	=> 'Выбрать изображение',
 		'delete_preview_image'		=> 'удалить',
+		'find_by_photos_table_head'	=> 'Фото',
 	);
