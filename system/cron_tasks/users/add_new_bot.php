@@ -30,7 +30,6 @@
 			$this->first_name 	= fx_mb_ucfirst(fx_gen_cyr_name(rand(4,10)));
 			$this->last_name 	= fx_mb_ucfirst(fx_gen_cyr_name(rand(4,10)));
 			$this->full_name 	= "{$this->first_name} {$this->last_name}";
-			$this->online_time 	= 900+$this->time;
 		}
 
 		public function fx_get_geo(){
@@ -116,6 +115,7 @@
 				->itemAsArray();
 
 			$this->time = rand($result['u_date_created'],time());
+			$this->online_time 	= 900+$this->time;
 
 			return $this;
 		}

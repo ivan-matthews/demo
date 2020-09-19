@@ -52,8 +52,12 @@
 				}
 			}
 			$this->setError($this->current_field,fx_lang('fields.file_mime_type_not_allowed',array(
-				'%types%'	=> strtoupper(implode(',',$subtypes)),
-				'%type%'	=> strtoupper($file_mime_type_array[1])
+				'%types%'	=> (mb_strtoupper(
+					$this->explicit_extensions ?
+						implode(', ',$this->explicit_extensions) :
+						implode(', ',$subtypes)
+				)),
+				'%type%'	=> $this->files['type']
 			)));
 			return $this;
 		}
@@ -82,8 +86,12 @@
 				$file_mime_type_array = explode('/',$item['type']);
 				if(!fx_equal($file_type,$file_mime_type_array[0]) || !in_array($file_mime_type_array[1],$subtypes)){
 					$this->setError($this->current_field,fx_lang('fields.file_mime_type_not_allowed',array(
-						'%types%'	=> (implode(', ',$subtypes)),
-						'%type%'	=> ($file_mime_type_array[1])
+						'%types%'	=> (
+							$this->explicit_extensions ?
+								implode(', ',$this->explicit_extensions) :
+								implode(', ',$subtypes)
+						),
+						'%type%'	=> $item['type']
 					)));
 				}
 			}
@@ -91,31 +99,24 @@
 		}
 
 		private function minSizeMultiple($default_size){
-			$error = false;
 			foreach($this->files as $item){
-				if($item['size'] < $default_size){
-					$error = true;
-				}
-			}
-			if($error){
-				$this->setError($this->current_field,fx_lang('fields.file_min_size_shortage',array(
+				if($item['size'] < $default_size){$this->setError($this->current_field,fx_lang('fields.file_min_size_shortage',array(
 					'%size%'	=> fx_prepare_memory($default_size),
+					'%file_name%'	=> $item['name'],
 				)));
+				}
 			}
 			return $this;
 		}
 
 		private function maxSizeMultiple($default_size){
-			$error = false;
 			foreach($this->files as $item){
 				if($item['size'] > $default_size){
-					$error = true;
+					$this->setError($this->current_field,fx_lang('fields.file_max_size_exceeded',array(
+						'%size%'		=> fx_prepare_memory($default_size),
+						'%file_name%'	=> $item['name']
+					)));
 				}
-			}
-			if($error){
-				$this->setError($this->current_field,fx_lang('fields.file_max_size_exceeded',array(
-					'%size%'	=> fx_prepare_memory($default_size),
-				)));
 			}
 			return $this;
 		}

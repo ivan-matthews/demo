@@ -128,8 +128,7 @@
 		}
 
 		public function addResponse(){
-			$video_info_array = pathinfo($this->video_data['v_name']);
-			$title = fx_crop_string($video_info_array['filename'],30) . ".{$video_info_array['extension']}";
+			$title = fx_crop_file_name($this->video_data['v_name'],30);
 
 			$this->response->title($title);
 			$this->response->breadcrumb('edit')

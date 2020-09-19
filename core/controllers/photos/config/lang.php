@@ -26,4 +26,5 @@
 		'delete_link_value'			=> 'убрать',
 		'photos_link_title'			=> 'Фотографии',
 		'photos_link_value'			=> 'Фотографии',
+		'add_new'					=> 'добавить картинок',
 	);

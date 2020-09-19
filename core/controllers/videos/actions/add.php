@@ -117,7 +117,13 @@
 			$extension 	= $this->getExt($video_params['name']);
 			$hash 		= $this->getHash($video_params['tmp_name']);
 			$video_name	= "{$hash}.{$extension}";
-			$folder 	= "{$user_id}/{$folder}";
+
+			$image_directory_suffix = mb_substr($hash,0,4);
+			$first_folder = mb_substr($image_directory_suffix,0,2);
+			$second_folder = mb_substr($image_directory_suffix,2,4);
+
+			$folder 	= "{$user_id}/{$folder}/{$first_folder}/{$second_folder}";
+
 			$directory 	= $this->setPath($folder);	// /var/www/m.c/public/uploads/users/1/path/to/video
 			$dnl_link	= $this->setDownloadPath("{$folder}/{$video_name}");	// users/1/path/to/video
 

@@ -83,7 +83,7 @@
 				$this->restore_password_form->generateFieldsList();
 
 				if($this->params->actions['restore_password_confirm']['enable_captcha']){
-					$this->restore_password_form->setCaptcha();
+					$this->restore_password_form->captcha();
 				}
 
 				$this->fields_list = $this->restore_password_form->getFieldsList();
@@ -113,7 +113,7 @@
 				$this->restore_password_form->checkPasswords();
 
 				if($this->params->actions['restore_password_confirm']['enable_captcha']){
-					$this->restore_password_form->setCaptcha();
+					$this->restore_password_form->captcha();
 				}
 
 				$this->fields_list = $this->restore_password_form->getFieldsList();

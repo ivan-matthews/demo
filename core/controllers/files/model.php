@@ -118,11 +118,12 @@
 		public function addFiles(array $insert_data){
 			$insert = $this->insert('files');
 
-			foreach($insert_data as $data){
-				foreach($data as $key=>$value){
+			foreach($insert_data as $file){
+				$file['f_name'] = fx_crop_file_name($file['f_name'],64);
+				foreach($file as $key=>$value){
 					$insert = $insert->value($key,$value);
 				}
-				$insert = $insert->update('f_date_updated',$data['f_date_created']);
+				$insert = $insert->update('f_date_updated',$file['f_date_created']);
 				$insert = $insert->update('f_status',Kernel::STATUS_ACTIVE);
 			}
 			return $insert->get()->id();

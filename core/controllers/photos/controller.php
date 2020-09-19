@@ -92,10 +92,11 @@
 			$this->image_y_coordinate = $coordinate_y;
 			$this->image_user_id = $user_id;
 
+			$this->getImageHash();
+
 			$this->getExtension();
 			$this->setImageFolder($custom_directory);
 			$this->setImageDirectory();
-			$this->getImageHash();
 			$this->setOriginalImageName();
 			$this->copyOriginalImage();
 			$this->setImageInsertDataArray();
@@ -110,6 +111,19 @@
 			return $this->image_insert_data;
 		}
 
+		public function getImageHash(){
+//			хеш картинки
+
+			$md5_file_hash = md5_file($this->image_params['tmp_name']);
+			$image_directory_suffix = mb_substr($md5_file_hash,0,4);
+			$first_folder = mb_substr($image_directory_suffix,0,2);
+			$second_folder = mb_substr($image_directory_suffix,2,4);
+
+			$this->image_sub_folder = "{$this->image_sub_folder}/{$first_folder}/{$second_folder}";
+
+			$this->image_hash = $this->image_user_id . '-' . $md5_file_hash;
+			return $this;
+		}
 		public function setOptions(array $options){
 			$this->options = $options;
 			return $this;
@@ -133,11 +147,6 @@
 		public function setImageDirectory(){
 //			установить путь для сохранения картинки относительно корня ФС
 			$this->image_directory = fx_get_upload_root_path($this->image_folder);
-			return $this;
-		}
-		public function getImageHash(){
-//			хеш картинки
-			$this->image_hash = $this->image_user_id . '-' . md5_file($this->image_params['tmp_name']);
 			return $this;
 		}
 		public function setOriginalImageName(){
@@ -170,6 +179,7 @@
 			);
 			return $this;
 		}
+
 		public function cropOriginalImage(){
 //			обрезать картинку по параметрам ключа `NORMAL` как дефолтного значения
 			fx_crop_image($this->image_temporary_file,

@@ -94,9 +94,7 @@
 		}
 
 		public function addResponse(){
-			$audio_info = pathinfo($this->audio_info['au_name']);
-			$title = fx_crop_string($audio_info['filename'],30);
-			$title = "{$title}.{$audio_info['extension']}";
+			$title = fx_crop_file_name($this->audio_info['au_name'],30);
 
 			$this->response->title($title);
 			$this->response->breadcrumb('item')

@@ -117,7 +117,13 @@
 			$extension 	= $this->getExt($file_params['name']);
 			$hash 		= $this->getHash($file_params['tmp_name']);
 			$file_name	= "{$hash}.{$extension}";
-			$folder 	= "{$user_id}/{$folder}";
+
+			$image_directory_suffix = mb_substr($hash,0,4);
+			$first_folder = mb_substr($image_directory_suffix,0,2);
+			$second_folder = mb_substr($image_directory_suffix,2,4);
+
+			$folder 	= "{$user_id}/{$folder}/{$first_folder}/{$second_folder}";
+
 			$directory 	= $this->setPath($folder);	// /var/www/m.c/public/uploads/users/1/path/to/file
 			$dnl_link	= $this->setDownloadPath("{$folder}/{$file_name}");	// users/1/path/to/file
 

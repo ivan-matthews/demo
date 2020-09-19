@@ -104,6 +104,7 @@
 			$insert = $this->insert('photos');
 			$time = time();
 			foreach($photos_multi_array as $photos){
+				$photos['p_name'] = fx_crop_file_name($photos['p_name'],64);
 				foreach($photos as $key=>$param){
 					$insert = $insert->value($key,$param);
 				}

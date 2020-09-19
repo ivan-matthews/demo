@@ -152,7 +152,7 @@
 					->cropAndResizeImage(
 						$image,
 						$this->user_id,
-						'avatars',
+						'photos',
 						$x,
 						$y,
 						true,

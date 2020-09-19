@@ -25,8 +25,8 @@
 		'error_field_not_numeric'	=> 'Поле "%field%" должно включать в себя числа!',
 		'error_field_not_string'	=> 'Поле "%field%" может быть только строкой!',
 		'file_mime_type_not_allowed'=> 'Тип файла "<strong>%type%</strong>" не поддерживается. Используйте <strong>%types%</strong> типы!',
-		'file_min_size_shortage'	=> 'Минимальный размер файла: %size%!',
-		'file_max_size_exceeded'	=> 'Максимальный размер файла: %size%!',
+		'file_min_size_shortage'	=> 'Файл <strong>%file_name%</strong> слишком мал. Минимальный размер файла: %size%!',
+		'file_max_size_exceeded'	=> 'Файл <strong>%file_name%</strong> привысил допустимый размер. Максимальный размер файла: %size%!',
 		'file_someone_error_detected'=> 'Ошибка! "%error%" Попробуйте еще раз!',
 
 		'file_upload_error_1' => 'Размер принятого файла превысил максимально допустимый размер.',

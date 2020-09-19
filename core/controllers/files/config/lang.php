@@ -20,4 +20,5 @@
 		'label_name'				=> 'Имя файла',
 		'placeholder_description'	=> 'Введите новое описание для файла',
 		'label_description'			=> 'Описание файла',
+		'add_new'					=> 'добавить файлов',
 	);

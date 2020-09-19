@@ -118,11 +118,12 @@
 		public function addAudios(array $insert_data){
 			$insert = $this->insert('audios');
 
-			foreach($insert_data as $data){
-				foreach($data as $key=>$value){
+			foreach($insert_data as $audio){
+				$audio['au_name'] = fx_crop_file_name($audio['au_name'],64);
+				foreach($audio as $key=>$value){
 					$insert = $insert->value($key,$value);
 				}
-				$insert = $insert->update('au_date_updated',$data['au_date_created']);
+				$insert = $insert->update('au_date_updated',$audio['au_date_created']);
 				$insert = $insert->update('au_status',Kernel::STATUS_ACTIVE);
 			}
 			return $insert->get()->id();

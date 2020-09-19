@@ -148,15 +148,25 @@
 		}
 
 		public function setResponse(){
+			$this->response->title('videos.videos_index_title');
+			$this->response->breadcrumb('videos')
+				->setIcon(null)
+				->setLink('videos','index')
+				->setValue('videos.videos_index_title');
+
+			return $this->addResponse();
+		}
+
+		public function addResponse(){
 			$this->response->title($this->user_data['u_full_name']);
 			$this->response->breadcrumb('user')
 				->setIcon(null)
 				->setLink('users','item',$this->user_data['u_id'])
 				->setValue($this->user_data['u_full_name']);
-			return $this->addResponse();
+			return $this->appendResponse();
 		}
 
-		public function addResponse(){
+		public function appendResponse(){
 			$this->response->title('videos.videos_index_title');
 			$this->response->breadcrumb('index')
 				->setIcon(null)

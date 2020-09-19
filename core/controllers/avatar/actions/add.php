@@ -133,7 +133,7 @@
 				$this->insert_data = $this->images_controller->setOptions($this->params->image_params)
 					->cropAndResizeImage(
 						$this->fields_list['avatar']['attributes']['files'],
-						$this->user_id,'avatars',$x,$y
+						$this->user_id,'photos',$x,$y
 					);
 
 				$this->avatar_id = $this->model->addAvatar($this->insert_data);

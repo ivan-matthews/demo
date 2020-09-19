@@ -10,6 +10,8 @@
 
 		protected $params=array();
 
+		protected $param_files = array();
+
 		public static function getInstance(){
 			if(self::$instance === null){
 				self::$instance = new self();
@@ -34,13 +36,27 @@
 		}
 
 		public function loadParamsFromControllerFile($file='params',$controller=null){
-			if(!$controller){
-				$controller = $this->current_controller;
+			$controller = !$controller ? $this->current_controller : $controller;
+
+			if(!isset($this->param_files[$controller][$file])){
+				$this->setParamFile($file,$controller);
 			}
-			return fx_load_helper("core/controllers/{$controller}/config/{$file}",Kernel::IMPORT_INCLUDE);
+
+			return $this->param_files[$controller][$file];
 		}
 
+		public function setParamFile($file='params',$controller=null){
+			$this->param_files[$controller][$file] = fx_load_helper("core/controllers/{$controller}/config/{$file}");
+			return $this;
+		}
 
+		public function controllerExists($controller){
+			$controller_params = $this->loadParamsFromControllerFile('params',$controller);
+			if(fx_equal($controller_params['status'],Kernel::STATUS_ACTIVE)){
+				return true;
+			}
+			return false;
+		}
 
 
 

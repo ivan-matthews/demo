@@ -128,8 +128,7 @@
 		}
 
 		public function addResponse(){
-			$file_info_array = pathinfo($this->file_data['f_name']);
-			$title = fx_crop_string($file_info_array['filename'],30) . ".{$file_info_array['extension']}";
+			$title = fx_crop_file_name($this->file_data['f_name'],30);
 
 			$this->response->title($title);
 			$this->response->breadcrumb('edit')

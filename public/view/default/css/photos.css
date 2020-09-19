@@ -56,6 +56,10 @@
   text-overflow: ellipsis;
   font-weight: bold;
 }
+.photos-list .photos .photos-item .photos-item-link:hover {
+  background: none;
+  opacity: 0.5;
+}
 .photos-list .photos .photos-item .photos-item-link .photos-item-image {
   max-width: 100%;
 }

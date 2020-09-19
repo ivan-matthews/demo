@@ -88,7 +88,7 @@
 				->files(function(Multiple $multiple){
 					$multiple->multiple()
 						->accept('application',array(
-							'zip','apk','gzip','x-msi','msword',
+							'zip','apk','gzip','x-msi','msword','pdf',
 							'x-ms-dos-executable','octet-stream',
 							'vnd.android.package-archive',
 							'vnd.oasis.opendocument.formula',
@@ -98,7 +98,10 @@
 							'vnd.oasis.opendocument.presentation',
 						))
 						->max_size(10 * 1024 * 1024);
-				})
+				},array(
+					'zip','apk','gzip','msi','doc','docx','pdf',
+					'exe','ipa','odt','ods','odp','odg','odf',
+				))
 				->check();
 
 			return $this;

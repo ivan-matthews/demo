@@ -25,7 +25,7 @@
 					'link'			=> fx_get_url('users','edit',$this->user_object->user_id),
 					'value'			=> fx_lang('users.edit_profile_link_value'),
 					'icon'			=> 'fas fa-pen',
-					'link_class'	=> '',
+					'link_class'	=> 'btn-light',
 					'icon_class'	=> '',
 				);
 				return $this->setResponse();

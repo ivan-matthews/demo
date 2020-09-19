@@ -69,7 +69,7 @@
 			$this->registration->generateFieldsList();
 
 			if($this->params->actions['registration']['enable_captcha']){
-				$this->registration->setCaptcha();
+				$this->registration->captcha();
 			}
 
 			$this->fields_list = $this->registration->getFieldsList();
@@ -86,7 +86,7 @@
 			$this->registration->checkLogin($this->model);
 
 			if($this->params->actions['registration']['enable_captcha']){
-				$this->registration->setCaptcha();
+				$this->registration->captcha();
 			}
 
 			$this->fields_list = $this->registration->getFieldsList();

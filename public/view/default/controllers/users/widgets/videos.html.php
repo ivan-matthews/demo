@@ -11,7 +11,7 @@
 	 */
 ?>
 
-<?php if($total){ ?>
+<?php if($total || fx_me($user['u_id'])){ ?>
 	<div class="videos-block radius-0 col-12 mt-2">
 		<a href="<?php print fx_get_url('users','videos',$user['u_id']) ?>" class="d-cnt">
 			<div class="videos-block-header card-header radius-0">
@@ -23,19 +23,32 @@
 				</span>
 			</div>
 		</a>
-		<div class="videos-block-body mb-2 mt-2 footer-line pb-2">
-			<?php foreach($videos as $video){ ?>
-				<?php
+		<div class="videos-block-body">
+			<?php if($total){ ?>
+				<?php foreach($videos as $video){ ?>
+					<?php
 					$file_info = pathinfo($video['v_name']);
 					$short_name = fx_crop_string($file_info['filename'],20) . ".{$file_info['extension']}";
-				?>
-				<div class="videos-block-body-item">
-					<a class="col-12 row m-0 p-2" href="<?php print fx_get_url('videos','item',$video['v_id']) ?>">
-						<div class="icon pr-2">
-							<?php print fx_get_file_icon($file_info['basename']) ?>
+					?>
+					<div class="videos-block-body-item">
+						<a class="col-12 row m-0 p-2" href="<?php print fx_get_url('videos','item',$video['v_id']) ?>">
+							<div class="icon pr-2">
+								<?php print fx_get_file_icon($file_info['basename']) ?>
+							</div>
+							<div class="text">
+								<?php print $short_name ?>
+							</div>
+						</a>
+					</div>
+				<?php } ?>
+			<?php }else{ ?>
+				<div class="add-new block">
+					<a class="row m-0 pb-3 pt-3 p-2 block-link" href="<?php print fx_get_url('videos','add') ?>">
+						<div class="block-icon pr-2">
+							<i class="fas fa-plus"></i>
 						</div>
-						<div class="text">
-							<?php print $short_name ?>
+						<div class="block-content">
+							<?php print fx_lang('videos.add_new') ?>
 						</div>
 					</a>
 				</div>

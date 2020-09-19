@@ -118,11 +118,12 @@
 		public function addVideos(array $insert_data){
 			$insert = $this->insert('videos');
 
-			foreach($insert_data as $data){
-				foreach($data as $key=>$value){
+			foreach($insert_data as $video){
+				$video['v_name'] = fx_crop_file_name($video['v_name'],64);
+				foreach($video as $key=>$value){
 					$insert = $insert->value($key,$value);
 				}
-				$insert = $insert->update('v_date_updated',$data['v_date_created']);
+				$insert = $insert->update('v_date_updated',$video['v_date_created']);
 				$insert = $insert->update('v_status',Kernel::STATUS_ACTIVE);
 			}
 			return $insert->get()->id();

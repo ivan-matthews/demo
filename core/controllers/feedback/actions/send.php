@@ -67,7 +67,7 @@
 
 			$this->send_form->generateFieldsList();
 
-			$this->send_form->setCaptcha();
+			$this->send_form->captcha();
 
 			$this->response->controller('feedback','send')
 				->setArray(array(
@@ -85,7 +85,7 @@
 
 			$this->send_form->checkFieldsList();
 
-			$this->send_form->setCaptcha();
+			$this->send_form->captcha();
 
 			if($this->send_form->can()){
 				$this->form_data['fb_name']	= $this->send_form->getAttribute('fb_name','value');

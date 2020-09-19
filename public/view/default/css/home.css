@@ -770,6 +770,9 @@ body.unscrollable nav.header-bar::-webkit-scrollbar {
   padding: 0.5em 1.5em;
   font-weight: bold;
   border: none;
+  border-left: solid 1px rgba(0, 0, 0, 0.125);
+  border-right: solid 1px rgba(0, 0, 0, 0.125);
+  border-top: solid 1px rgba(0, 0, 0, 0.125);
 }
 .user-profile .user-left-bar .audios-block .audios-block-header:hover {
   background-color: #d9e2ec;
@@ -779,19 +782,47 @@ body.unscrollable nav.header-bar::-webkit-scrollbar {
   color: chocolate;
   font-size: 14px;
 }
+.user-profile .user-left-bar .audios-block .audios-block-body {
+  border: solid 1px rgba(0, 0, 0, 0.125);
+}
 .user-profile .user-left-bar .audios-block .audios-block-body .audios-block-body-item {
   font-weight: bold;
+  border-bottom: solid 1px rgba(0, 0, 0, 0.125);
+}
+.user-profile .user-left-bar .audios-block .audios-block-body .audios-block-body-item:last-child {
+  border: none;
 }
 .user-profile .user-left-bar .audios-block .audios-block-body .audios-block-body-item .icon {
   font-size: 20px;
 }
 .user-profile .user-left-bar .audios-block .audios-block-body .audios-block-body-item .text {
+  line-height: 2.3;
+}
+.user-profile .user-left-bar .audios-block .audios-block-body .block .block-icon {
+  font-size: 24px;
+}
+.user-profile .user-left-bar .audios-block .audios-block-body .block .block-icon i,
+.user-profile .user-left-bar .audios-block .audios-block-body .block .block-icon svg {
+  color: #28a745;
+}
+.user-profile .user-left-bar .audios-block .audios-block-body .block .block-link {
+  color: #999999;
+}
+.user-profile .user-left-bar .audios-block .audios-block-body .block .block-link:hover {
+  color: #FFFFFF;
+}
+.user-profile .user-left-bar .audios-block .audios-block-body .block .block-link .block-content {
   line-height: 2;
+  font-size: 17px;
+  font-style: italic;
 }
 .user-profile .user-left-bar .videos-block .videos-block-header {
   padding: 0.5em 1.5em;
   font-weight: bold;
   border: none;
+  border-left: solid 1px rgba(0, 0, 0, 0.125);
+  border-right: solid 1px rgba(0, 0, 0, 0.125);
+  border-top: solid 1px rgba(0, 0, 0, 0.125);
 }
 .user-profile .user-left-bar .videos-block .videos-block-header:hover {
   background-color: #d9e2ec;
@@ -801,19 +832,47 @@ body.unscrollable nav.header-bar::-webkit-scrollbar {
   color: chocolate;
   font-size: 14px;
 }
+.user-profile .user-left-bar .videos-block .videos-block-body {
+  border: solid 1px rgba(0, 0, 0, 0.125);
+}
 .user-profile .user-left-bar .videos-block .videos-block-body .videos-block-body-item {
   font-weight: bold;
+  border-bottom: solid 1px rgba(0, 0, 0, 0.125);
+}
+.user-profile .user-left-bar .videos-block .videos-block-body .videos-block-body-item:last-child {
+  border: none;
 }
 .user-profile .user-left-bar .videos-block .videos-block-body .videos-block-body-item .icon {
   font-size: 20px;
 }
 .user-profile .user-left-bar .videos-block .videos-block-body .videos-block-body-item .text {
+  line-height: 2.3;
+}
+.user-profile .user-left-bar .videos-block .videos-block-body .block .block-icon {
+  font-size: 24px;
+}
+.user-profile .user-left-bar .videos-block .videos-block-body .block .block-icon i,
+.user-profile .user-left-bar .videos-block .videos-block-body .block .block-icon svg {
+  color: #28a745;
+}
+.user-profile .user-left-bar .videos-block .videos-block-body .block .block-link {
+  color: #999999;
+}
+.user-profile .user-left-bar .videos-block .videos-block-body .block .block-link:hover {
+  color: #FFFFFF;
+}
+.user-profile .user-left-bar .videos-block .videos-block-body .block .block-link .block-content {
   line-height: 2;
+  font-size: 17px;
+  font-style: italic;
 }
 .user-profile .user-left-bar .files-block .files-block-header {
   padding: 0.5em 1.5em;
   font-weight: bold;
   border: none;
+  border-left: solid 1px rgba(0, 0, 0, 0.125);
+  border-right: solid 1px rgba(0, 0, 0, 0.125);
+  border-top: solid 1px rgba(0, 0, 0, 0.125);
 }
 .user-profile .user-left-bar .files-block .files-block-header:hover {
   background-color: #d9e2ec;
@@ -823,14 +882,39 @@ body.unscrollable nav.header-bar::-webkit-scrollbar {
   color: chocolate;
   font-size: 14px;
 }
+.user-profile .user-left-bar .files-block .files-block-body {
+  border: solid 1px rgba(0, 0, 0, 0.125);
+}
 .user-profile .user-left-bar .files-block .files-block-body .files-block-body-item {
   font-weight: bold;
+  border-bottom: solid 1px rgba(0, 0, 0, 0.125);
+}
+.user-profile .user-left-bar .files-block .files-block-body .files-block-body-item:last-child {
+  border: none;
 }
 .user-profile .user-left-bar .files-block .files-block-body .files-block-body-item .icon {
   font-size: 20px;
 }
 .user-profile .user-left-bar .files-block .files-block-body .files-block-body-item .text {
+  line-height: 2.3;
+}
+.user-profile .user-left-bar .files-block .files-block-body .block .block-icon {
+  font-size: 24px;
+}
+.user-profile .user-left-bar .files-block .files-block-body .block .block-icon i,
+.user-profile .user-left-bar .files-block .files-block-body .block .block-icon svg {
+  color: #28a745;
+}
+.user-profile .user-left-bar .files-block .files-block-body .block .block-link {
+  color: #999999;
+}
+.user-profile .user-left-bar .files-block .files-block-body .block .block-link:hover {
+  color: #FFFFFF;
+}
+.user-profile .user-left-bar .files-block .files-block-body .block .block-link .block-content {
   line-height: 2;
+  font-size: 17px;
+  font-style: italic;
 }
 .user-profile .user-right-bar .user-header-info .user-name {
   font-size: 14px;
@@ -908,6 +992,30 @@ body.unscrollable nav.header-bar::-webkit-scrollbar {
   font-style: italic;
   color: chocolate;
   font-size: 14px;
+}
+.user-profile .user-right-bar .photos-block .photos-block-body .photos-block-body-item a:hover {
+  background: none;
+}
+.user-profile .user-right-bar .photos-block .photos-block-body .photos-block-body-item a img {
+  border: solid 1px rgba(0, 0, 0, 0.125);
+}
+.user-profile .user-right-bar .photos-block .photos-block-body .block .block-icon {
+  font-size: 24px;
+}
+.user-profile .user-right-bar .photos-block .photos-block-body .block .block-icon i,
+.user-profile .user-right-bar .photos-block .photos-block-body .block .block-icon svg {
+  color: #28a745;
+}
+.user-profile .user-right-bar .photos-block .photos-block-body .block .block-link {
+  color: #999999;
+}
+.user-profile .user-right-bar .photos-block .photos-block-body .block .block-link:hover {
+  color: #FFFFFF;
+}
+.user-profile .user-right-bar .photos-block .photos-block-body .block .block-link .block-content {
+  line-height: 2;
+  font-size: 17px;
+  font-style: italic;
 }
 .users-list .users .users-item {
   border-left: none;

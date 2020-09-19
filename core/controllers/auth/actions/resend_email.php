@@ -72,7 +72,7 @@
 			$this->resend_email->generateFieldsList();
 
 			if($this->params->actions['resend_email']['enable_captcha']){
-				$this->resend_email->setCaptcha();
+				$this->resend_email->captcha();
 			}
 
 			$this->fields_list = $this->resend_email->getFieldsList();
@@ -88,7 +88,7 @@
 			$this->resend_email->checkLogin($this->model);
 
 			if($this->params->actions['resend_email']['enable_captcha']){
-				$this->resend_email->setCaptcha();
+				$this->resend_email->captcha();
 			}
 
 			$this->fields_list = $this->resend_email->getFieldsList();

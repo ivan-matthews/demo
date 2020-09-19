@@ -66,7 +66,7 @@
 			$this->auth_form->generateFieldsList();
 
 			if($this->params->actions['index']['enable_captcha']){
-				$this->auth_form->setCaptcha();
+				$this->auth_form->captcha();
 			}
 
 			$this->form_fields_list = $this->auth_form->getFieldsList();
@@ -81,7 +81,7 @@
 			$this->auth_form->checkFieldsList();
 
 			if($this->params->actions['index']['enable_captcha']){
-				$this->auth_form->setCaptcha();
+				$this->auth_form->captcha();
 			}
 
 			$this->form_fields_list = $this->auth_form->getFieldsList();

@@ -94,9 +94,7 @@
 		}
 
 		public function addResponse(){
-			$file_info = pathinfo($this->file_info['f_name']);
-			$title = fx_crop_string($file_info['filename'],30);
-			$title = "{$title}.{$file_info['extension']}";
+			$title = fx_crop_file_name($this->file_info['f_name'],30);
 
 			$this->response->title($title);
 			$this->response->breadcrumb('item')

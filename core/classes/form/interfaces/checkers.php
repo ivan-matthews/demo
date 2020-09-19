@@ -58,11 +58,6 @@
 		public function phone($default=true);
 
 		/**
-		 * @return Validator
-		 */
-		public function captcha();
-
-		/**
 		 * @param bool $default
 		 * @return Checkers
 		 */
