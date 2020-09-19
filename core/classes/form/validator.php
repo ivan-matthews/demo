@@ -183,6 +183,7 @@
 				'label' 			=> null,
 				'description' 		=> null,
 				'default_value' 	=> null,
+				'wysiwyg' 			=> 'tinymce',
 				'variants'	 		=> array(),
 			),
 		);
@@ -786,7 +787,10 @@
 
 		public function jevix($prepare = true){
 			if($prepare && $this->validate_status){
-				$jevix = new Jevix($this->value);
+				$jevix = new Jevix(array(
+					'text'		=> $this->value,
+					'is_auto_br'=> false
+				));
 				$this->value = $jevix->start()
 					->result();
 				$this->setAttribute('value',$this->value);
@@ -922,6 +926,10 @@
 			return $this;
 		}
 		public function field_sets($value){
+			$this->setParams(__FUNCTION__,$value);
+			return $this;
+		}
+		public function wysiwyg($value='tinymce'){
 			$this->setParams(__FUNCTION__,$value);
 			return $this;
 		}

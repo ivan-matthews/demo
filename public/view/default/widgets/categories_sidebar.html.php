@@ -19,6 +19,14 @@
 	</div>
 <?php } ?>
 <ul class="list-group list-group-flush sidebar categories-sidebar<?php print ' ' . $data['options']['wa_css_class'] ?>">
+	<li class="list-group-item">
+		<a class="menu" href="<?php print fx_get_url($data['content'][0]['ct_controller']) ?>">
+			<div class="sidebar-body<?php print ' ' . $data['options']['wa_css_class_body'] ?>">
+				<i class="icon fa fa-list"></i>
+				<span class="ml-2"><?php print fx_lang('cats.all_cats_link_value') ?></span>
+			</div>
+		</a>
+	</li>
 	<?php foreach($data['content'] as $item){ ?>
 		<?php $value = fx_lang($item['ct_title']) ?>
 		<li class="list-group-item">

@@ -12,7 +12,7 @@
 
 <?php if($user['s_content']){ ?>
 	<div class="user-status pt-1">
-		« <?php print $user['s_content'] ?> »
+		<?php print $user['s_content'] ?>
 		<span class="date-add">
 			(<?php print fx_get_date($user['s_date_updated']?$user['s_date_updated']:$user['s_date_created']) ?>)
 		</span>

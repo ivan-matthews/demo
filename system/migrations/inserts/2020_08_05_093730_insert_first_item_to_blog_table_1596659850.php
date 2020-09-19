@@ -61,10 +61,10 @@ In dictum, tellus at varius semper, ipsum risus malesuada purus, eu fringilla mi
 
 		private function addBlogItemsToCategories(){
 			$db = Database::insert('blog');
-			for($i=0;$i<50;$i++){
+			for($i=3;$i<50000;$i++){
 				$db = $db->value('b_user_id',rand(1,20));
 				$db = $db->value('b_total_views',0);
-				$db = $db->value('b_slug',($i+3) . '_my_second_blog_post');
+				$db = $db->value('b_slug',"{$i}_my_blog_post");
 				$db = $db->value('b_status',Kernel::STATUS_ACTIVE);
 				$db = $db->value('b_category_id',rand(1,10));
 				$db = $db->value('b_title',fx_crop_string($this->title,191,null));

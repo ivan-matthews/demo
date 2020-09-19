@@ -72,6 +72,7 @@
 				$form->setFormMethod('POST');
 				$form->setFormName($this->form_name);
 				$form->setFormClass('mbt-0');
+				$form->setFormValidation('novalidate');
 				$form->setFormAction(fx_get_url('comments','edit',$this->comment_id));
 			});
 
@@ -83,7 +84,7 @@
 				->type('textarea')
 				->placeholder(fx_lang('comments.write_someone_placeholder'))
 				->params(function(Params $param){
-					$param->field_type('textarea');
+					$param->field_type('message')->wysiwyg();
 					$param->field_sets('csrf');
 				})
 				->check(function(Checkers $checkers){

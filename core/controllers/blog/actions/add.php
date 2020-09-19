@@ -119,8 +119,8 @@
 				$this->insert_data['b_title'] 				= $this->title;
 				$this->insert_data['b_content']				= $this->content;
 				$this->insert_data['b_date_created'] 		= time();
-				$this->insert_data['b_comments_enabled'] 	= $this->comments_enabling ? '1' : '0';
-				$this->insert_data['b_public'] 				= $this->public_status ? '1' : '0';
+				$this->insert_data['b_comments_enabled'] 	= $this->comments_enabling ? 1 : 0;
+				$this->insert_data['b_public'] 				= $this->public_status ? 1 : 0;
 
 				$this->post_id = $this->model->addBlogPostItem($this->insert_data);
 

@@ -79,6 +79,7 @@
 				$form->setFormMethod('POST');
 				$form->setFormName($this->form_name);
 				$form->setFormAction(fx_get_url('blog','add'));
+				$form->setFormValidation('novalidate');
 			});
 
 			$this->validator_interface->field('b_title')
@@ -113,9 +114,10 @@
 				->id('content')
 				->label(fx_lang('blog.content_field'))
 				->placeholder(fx_lang('blog.content_field_placeholder'))
-				->type('textarea')
+				->type('post')
 				->params(function(Params $param){
-					$param->field_type('textarea');
+					$param->field_type('post')
+						->wysiwyg();
 				})
 				->check(function(Checkers $checkers){
 					$checkers->required();

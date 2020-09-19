@@ -88,7 +88,7 @@
 				->title(fx_lang('messages.add_message_form_title'))
 				->type('textarea')
 				->params(function(Params $param){
-					$param->field_type('textarea');
+					$param->field_type('message');
 				});
 			return $this;
 		}

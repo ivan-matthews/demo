@@ -116,9 +116,10 @@
 				->id('content')
 				->label(fx_lang('blog.content_field'))
 				->placeholder(fx_lang('blog.content_field_placeholder'))
-				->type('textarea')
+				->type('post')
 				->params(function(Params $param){
-					$param->field_type('textarea');
+					$param->field_type('post')
+						->wysiwyg();
 				})
 				->check(function(Checkers $checkers){
 					$checkers->required();

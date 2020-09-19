@@ -2,6 +2,7 @@
 
 	return array(
 		'categories_widget_title'	=> 'Категории раздела',
+		'all_cats_link_value'		=> 'Все',
 		'blog_news_title'			=> 'Новости',
 		'blog_word_title'			=> 'В мире',
 		'blog_cook_title'			=> 'Кухня',

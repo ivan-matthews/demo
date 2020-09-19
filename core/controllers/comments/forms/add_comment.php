@@ -80,6 +80,7 @@
 				$form->setFormMethod('POST');
 				$form->setFormName($this->form_name);
 				$form->setFormClass('mbt-0');
+				$form->setFormValidation('novalidate');
 				$form->setFormAction(fx_get_url('comments','add',$this->controller,$this->action,$this->item_id,$this->receiver_id));
 			});
 
@@ -102,10 +103,10 @@
 				->class('add-comment form-control radius-0')
 				->id('add-comment')
 				->title(fx_lang('comments.add_comment_form_title'))
-				->type('textarea')
+				->type('message')
 				->placeholder(fx_lang('comments.write_someone_placeholder'))
 				->params(function(Params $param){
-					$param->field_type('textarea');
+					$param->field_type('message')->wysiwyg();
 					$param->field_sets('csrf');
 				})
 				->check(function(Checkers $checkers){

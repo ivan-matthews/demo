@@ -26,6 +26,7 @@
 	namespace Core\Controllers\Status\Forms;
 
 	use Core\Classes\Form\Form;
+	use Core\Classes\Form\Interfaces\Params;
 	use Core\Classes\Request;
 	use Core\Classes\Session;
 	use Core\Classes\Form\Interfaces\Checkers;
@@ -83,6 +84,9 @@
 				->type('text')
 				->id('status-field')
 				->class('form-control mt-2 status-field')
+				->params(function(Params $params){
+					$params->field_type('comment');
+				})
 				->check(function(Checkers $checkers){
 					$checkers->max(255);
 				});

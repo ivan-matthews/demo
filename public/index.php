@@ -80,4 +80,3 @@
 	$hooks->after('render_data');
 
 	$hooks->after('load_system');
-

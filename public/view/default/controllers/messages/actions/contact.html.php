@@ -78,7 +78,7 @@
 
 								<?php if(fx_equal($user['u_id'],$message['m_receiver_id'])){ ?>
 
-									<div class="message-item sender-block col-12 float-left col-12 col-sm-11 col-md-10 col-lg-9 col-xl-8 mt-2">
+									<div class="message-item sender-block col-12 float-left col-12 col-sm-11 col-md-11 col-lg-11 col-xl-11 mt-2">
 
 										<div class="message-content">
 
@@ -116,7 +116,7 @@
 
 								<?php }else{ ?>
 
-									<div class="message-item user-block col-12 float-right col-12 col-sm-11 col-md-10 col-lg-9 col-xl-8 mt-2">
+									<div class="message-item user-block col-12 float-right col-12 col-sm-11 col-md-11 col-lg-11 col-xl-11 mt-2">
 
 										<div class="message-content">
 

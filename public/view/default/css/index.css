@@ -108,3 +108,6 @@ textarea::placeholder {
   color: #cccccc !important;
   font-size: 12px;
 }
+p {
+  margin-bottom: 0;
+}

@@ -10,6 +10,22 @@
 			'groups_disabled'	=> array(),
 		),
 		'actions'	=> array(
+			'add'	=> array(
+				'groups_enabled'	=> array(),
+				'groups_disabled'	=> array(0),
+			),
+			'reply'	=> array(
+				'groups_enabled'	=> array(),
+				'groups_disabled'	=> array(0),
+			),
+			'delete'	=> array(
+				'groups_enabled'	=> array(),
+				'groups_disabled'	=> array(0),
+			),
+			'edit'	=> array(
+				'groups_enabled'	=> array(),
+				'groups_disabled'	=> array(0),
+			),
 			'index'	=> array(
 				'groups_enabled'	=> array(),
 				'groups_disabled'	=> array(),

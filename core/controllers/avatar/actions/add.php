@@ -119,6 +119,8 @@
 
 			$this->fields_list = $this->add_form->getFieldsList();
 
+			$this->avatar_data = $this->user_model->getUserByID($this->user_id);
+
 			if($this->add_form->can()){
 
 				$image_params = $this->request->getAll();

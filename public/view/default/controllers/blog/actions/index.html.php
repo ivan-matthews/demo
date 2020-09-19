@@ -41,7 +41,7 @@
 
 					<?php } ?>
 
-					<div class="<?php if($post['blog_image']){ ?>col-md-7 col-sm-8 col-9 col-lg-10 col-xl-10<?php }else{ ?>col-12<?php } ?> post-item-info">
+					<div class="<?php if($post['blog_image']){ ?>col-md-9 col-sm-9 col-9 col-lg-10 col-xl-10<?php }else{ ?>col-12<?php } ?> post-item-info">
 
 						<?php if(fx_me($post['u_id'])){?>
 							<div class="btn-group buttons float-right">

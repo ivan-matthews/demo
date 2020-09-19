@@ -12,6 +12,7 @@
 		'edit_blog_post'		=> 'изменить',
 		'delete_blog_post'		=> 'удалить',
 		'create_blog_post_item'	=> 'Создать новую запись блога',
+		'edit_blog_post_item'	=> 'Редактирование',
 		'add_new_post_breadcrumb'=> 'Создать запись',
 		'edit_new_post_breadcrumb'=> 'Изменить запись',
 		'comments_enabled'		=> 'Разрешить комментарии?',

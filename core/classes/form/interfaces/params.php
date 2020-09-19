@@ -99,7 +99,13 @@
 
 		/**
 		 * @param $default
-		 * @return Attributes
+		 * @return Params
 		 */
 		public function field_type($default);
+
+		/**
+		 * @param string $default
+		 * @return Params
+		 */
+		public function wysiwyg($default='tinymce');
 	}
