@@ -10,13 +10,13 @@
 
 	namespace Core\Classes\Database;
 
-	use Core\Classes\Database\Connect\MySQLi;
+	use Core\Classes\Database\Connect\MySQL;
 	use Core\Classes\Database\Interfaces\Select\Select as SelectInterface;
 
 	class Select implements SelectInterface{
 
 		private $database;
-		/** @var MySQLi */
+		/** @var MySQL */
 		private $database_object;
 
 		protected $select;
@@ -100,6 +100,11 @@
 
 		public function data($key,$value){
 			$this->preparing_data[$key] = $value;
+			return $this;
+		}
+
+		public function prepare(array $preparing_data){
+			$this->preparing_data = $preparing_data;
 			return $this;
 		}
 

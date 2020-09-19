@@ -32,6 +32,11 @@
 		public function data($key,$value);
 
 		/**
+		 * @param array $preparing_data
+		 * @return Actions
+		 */
+		public function prepare(array $preparing_data);
+		/**
 		 * @param int $offset
 		 * @return Actions
 		 */

@@ -15,7 +15,7 @@
 	use Core\Classes\Database\Interfaces\Insert\Insert;
 	use Core\Classes\Database\Interfaces\Select\Select;
 	use Core\Classes\Database\Interfaces\Update\Update;
-	use Core\Classes\Database\Connect\MySQLi;
+	use Core\Classes\Database\Connect\MySQL;
 
 	/**
 	 * Class Model
@@ -32,15 +32,15 @@
 	 * @method bool truncate(...$tables)
 	 * @method array showTables($database=false)
 	 * @method array showDBs()
-	 * @method MySQLi useDb($database)
+	 * @method MySQL useDb($database)
 	 * @method bool dropDb($database_name)
 	 * @method bool makeDb($new_database_name)
 	 * @method Database setCollate($collate)
 	 * @method Database setCharset($charset)
 	 * @method Database setDbDriver($driver)
-	 * @method MySQLi setDbObject()
+	 * @method MySQL setDbObject()
 	 * @method string getDbDriver()
-	 * @method MySQLi getDbObject()
+	 * @method MySQL getDbObject()
 	 */
 	class Model{
 

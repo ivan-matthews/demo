@@ -34,11 +34,9 @@
 		public function countItems($query,$prepared_data){
 			$result = $this->select('COUNT(f_id) as total')
 				->from('faq')
-				->where($query);
-			foreach($prepared_data as $key=>$value){
-				$result = $result->data($key,$value);
-			}
-			$result = $result->get()
+				->where($query)
+				->prepare($prepared_data)
+				->get()
 				->itemAsArray();
 			return $result['total'];
 		}
@@ -47,11 +45,9 @@
 			$result = $this->select()
 				->from('faq')
 				->join("categories FORCE INDEX(PRIMARY)","f_category_id = ct_id")
-				->where($query);
-			foreach($prepared_data as $key=>$value){
-				$result = $result->data($key,$value);
-			}
-			$result = $result->limit($limit)
+				->where($query)
+				->prepare($prepared_data)
+				->limit($limit)
 				->offset($offset)
 				->order('f_id')
 				->sort("ASC")

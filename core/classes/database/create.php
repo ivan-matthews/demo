@@ -20,13 +20,13 @@
 	namespace Core\Classes\Database;
 
 	use Core\Classes\Config;
-	use Core\Classes\Database\Connect\MySQLi;
+	use Core\Classes\Database\Connect\MySQL;
 	use Core\Classes\Database\Interfaces\Create\Create as CreateInterface;
 
 	class Create implements CreateInterface{
 
 		private $database;
-		/** @var MySQLi */
+		/** @var MySQL */
 		private $database_object;
 		protected $config;
 		protected $db_driver;

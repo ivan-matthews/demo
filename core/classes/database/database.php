@@ -22,7 +22,7 @@
 
 		private $config;
 		private $database_driver;
-		/** @var \Core\Classes\Database\Connect\MySQLi */
+		/** @var \Core\Classes\Database\Connect\MySQL */
 		private $database_object;
 
 		private $charset;
@@ -207,7 +207,11 @@
 		}
 
 		public function setDbObject(){
-			$class_name = "\\Core\\Classes\\Database\\Connect\\{$this->database_driver}";
+			if($this->config->core['db_use_pdo']){
+				$class_name = "\\Core\\Classes\\Database\\Connect\\PDO\\{$this->database_driver}";
+			}else{
+				$class_name = "\\Core\\Classes\\Database\\Connect\\{$this->database_driver}";
+			}
 			$this->database_object = call_user_func(array($class_name,'getInstance'));
 			return $this->database_object;
 		}

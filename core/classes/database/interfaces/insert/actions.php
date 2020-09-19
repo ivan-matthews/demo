@@ -25,6 +25,11 @@
 		public function data($key,$value);
 
 		/**
+		 * @param array $preparing_data
+		 * @return Actions | Update
+		 */
+		public function prepare(array $preparing_data);
+		/**
 		 * @return Result
 		 */
 		public function get();

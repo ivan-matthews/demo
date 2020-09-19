@@ -47,13 +47,10 @@
 			}
 
 			$this->result = $this->select('COUNT(u_id) as total')->from('users')
-				->where($query_suffix);
-
-			foreach($replaced_data as $key=>$value){
-				$this->result->data($key,$value);
-			}
-
-			$this->result = $this->result->get()->itemAsArray();
+				->where($query_suffix)
+				->prepare($replaced_data)
+				->get()
+				->itemAsArray();
 
 			$this->cache->set($this->result);
 			return $this->result['total'];
@@ -72,13 +69,9 @@
 				->join('geo_cities FORCE INDEX (PRIMARY)',"u_city_id=gc_city_id")
 				->join('geo_countries FORCE INDEX (PRIMARY)',"u_country_id=g_country_id")
 				->join('geo_regions FORCE INDEX (PRIMARY)',"gc_region_id=gr_region_id")
-				->where($query_suffix);
-
-			foreach($replaced_data as $key=>$value){
-				$this->result->data($key,$value);
-			}
-
-			$this->result = $this->result->limit($limit)
+				->where($query_suffix)
+				->prepare($replaced_data)
+				->limit($limit)
 				->offset($offset)
 				->order($order)
 				->sort($sort)

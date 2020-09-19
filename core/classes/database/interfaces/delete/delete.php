@@ -29,6 +29,11 @@
 		public function data($key,$value);
 
 		/**
+		 * @param array $preparing_data
+		 * @return Delete
+		 */
+		public function prepare(array $preparing_data);
+		/**
 		 * @param int $limit
 		 * @return Delete
 		 */

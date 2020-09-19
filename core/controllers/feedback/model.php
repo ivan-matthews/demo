@@ -46,11 +46,9 @@
 		public function countFeedbackItems($query,array $data_to_prepare){
 			$result = $this->select('COUNT(fb_id) as total')
 				->from('feedback')
-				->where($query);
-			foreach($data_to_prepare as $key=>$value){
-				$result = $result->data($key,$value);
-			}
-			$result = $result->get()
+				->where($query)
+				->prepare($data_to_prepare)
+				->get()
 				->itemAsArray();
 			return $result['total'];
 		}
@@ -58,13 +56,9 @@
 		public function getFeedbackItems($query,array $data_to_prepare,$limit,$offset){
 			$result = $this->select()
 				->from('feedback')
-				->where($query);
-
-			foreach($data_to_prepare as $key=>$value){
-				$result = $result->data($key,$value);
-			}
-
-			$result = $result->limit($limit)
+				->where($query)
+				->prepare($data_to_prepare)
+				->limit($limit)
 				->offset($offset)
 				->order('fb_status DESC, fb_id DESC')
 				->sort(null)

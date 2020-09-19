@@ -30,13 +30,13 @@
 	namespace Core\Classes\Database;
 
 	use Core\Classes\Config;
-	use Core\Classes\Database\Connect\MySQLi;
+	use Core\Classes\Database\Connect\MySQL;
 	use Core\Classes\Database\Interfaces\Alter\Alter as AlterInterface;
 
 	class Alter implements AlterInterface{
 
 		private $database;
-		/** @var MySQLi */
+		/** @var MySQL */
 		private $database_object;
 		protected $config;
 		protected $engine;

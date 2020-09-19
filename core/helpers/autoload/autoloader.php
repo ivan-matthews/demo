@@ -8,6 +8,19 @@
 		public static function getAliasesLis(){
 			if(self::$aliases_list === null){
 				self::$aliases_list = fx_load_helper('system/assets/classes_aliases');
+				return self::getCustomClassesAliases();
+			}
+			return self::$aliases_list;
+		}
+
+		public static function getCustomClassesAliases(){
+			$controllers_dir = fx_path('core/controllers');
+			foreach(scandir($controllers_dir) as $controller){
+				if($controller == '.' || $controller == '..'){ continue; }
+				$classes_aliases_file = "{$controllers_dir}/{$controller}/config/classes_aliases.php";
+				if(is_readable($classes_aliases_file)){
+					self::$aliases_list = array_merge(self::$aliases_list, fx_import_file($classes_aliases_file));
+				}
 			}
 			return self::$aliases_list;
 		}

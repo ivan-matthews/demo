@@ -82,6 +82,18 @@
 
 		public function loadLinkReplaceList(){
 			$this->link_replacer_list = fx_import_file(fx_path('system/assets/links_replace.php'));
+			return $this->loadCustomLinkReplaceList();
+		}
+
+		protected function loadCustomLinkReplaceList(){
+			$controllers_dir = fx_path('core/controllers');
+			foreach(scandir($controllers_dir) as $controller){
+				if($controller == '.' || $controller == '..'){ continue; }
+				$replace_list_file = "{$controllers_dir}/{$controller}/config/links_replace.php";
+				if(is_readable($replace_list_file)){
+					$this->link_replacer_list = array_merge($this->link_replacer_list, fx_import_file($replace_list_file));
+				}
+			}
 			return $this;
 		}
 

@@ -34,36 +34,28 @@
 		}
 
 		public function countVideos($query,$prepared_data = array()){
-			$this->result = $this->select('COUNT(v_id) as total');
-			$this->result = $this->result->from('videos');
-			$this->result = $this->result->where($query);
-			if($prepared_data){
-				foreach($prepared_data as $key=>$value){
-					$this->result = $this->result->data($key,$value);
-				}
-			}
-			$this->result = $this->result->get();
-			$this->result = $this->result->itemAsArray();
+			$this->result = $this->select('COUNT(v_id) as total')
+				->from('videos')
+				->where($query)
+				->prepare($prepared_data)
+				->get()
+				->itemAsArray();
 			return $this->result['total'];
 		}
 
 		public function getVideos($limit,$offset,$query,$order,$sort,$prepared_data = array()){
-			$this->result = $this->select();
-			$this->result = $this->result->from('videos');
-			$this->result = $this->result->join('users','u_id = v_user_id');
-			$this->result = $this->result->join('photos','u_avatar_id = p_id');
-			$this->result = $this->result->where($query);
-			if($prepared_data){
-				foreach($prepared_data as $key=>$value){
-					$this->result = $this->result->data($key,$value);
-				}
-			}
-			$this->result = $this->result->order($order);
-			$this->result = $this->result->sort($sort);
-			$this->result = $this->result->limit($limit);
-			$this->result = $this->result->offset($offset);
-			$this->result = $this->result->get();
-			$this->result = $this->result->allAsArray();
+			$this->result = $this->select()
+				->from('videos')
+				->join('users','u_id = v_user_id')
+				->join('photos','u_avatar_id = p_id')
+				->where($query)
+				->prepare($prepared_data)
+				->order($order)
+				->sort($sort)
+				->limit($limit)
+				->offset($offset)
+				->get()
+				->allAsArray();
 			return $this->result;
 		}
 

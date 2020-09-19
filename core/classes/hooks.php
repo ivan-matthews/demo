@@ -59,15 +59,33 @@
 
 		private function scanHooksDir(){
 			$hooks_files_list = scandir($this->hooks_dir);
-			unset($hooks_files_list[0],$hooks_files_list[1]);
 			foreach($hooks_files_list as $file){
-				$hook_file = fx_import_file("{$this->hooks_dir}/{$file}",Kernel::IMPORT_INCLUDE);
-				$this->all_hooks[pathinfo($file,PATHINFO_FILENAME)] = $hook_file;
-				foreach($hook_file as $key=>$item){
-					$ready = fx_equal($item['status'],Kernel::STATUS_ACTIVE) && method_exists($item['class'],$item['method']);
-					if(!$ready){ continue; }
-					$this->hooks_list[$key][] = $item;
+				if($file == '.' || $file == '..'){ continue; }
+				$hooks_file = fx_import_file("{$this->hooks_dir}/{$file}",Kernel::IMPORT_INCLUDE);
+				$this->includeHooksFile($file,$hooks_file);
+			}
+			return $this->setCustomHooksFiles();
+		}
+
+		private function setCustomHooksFiles(){
+			$controller_folder = fx_path('core/controllers');
+			foreach(scandir($controller_folder) as $file){
+				if($file == '.' || $file == '..'){ continue; }
+				$hooks_file = "{$controller_folder}/{$file}/config/hooks.php";
+				if(is_readable($hooks_file)){
+					$hooks_file = fx_import_file($hooks_file,Kernel::IMPORT_INCLUDE);
+					$this->includeHooksFile($file,$hooks_file);
 				}
+			}
+			return $this;
+		}
+
+		private function includeHooksFile($file,$hooks_file){
+			$this->all_hooks[pathinfo($file,PATHINFO_FILENAME)] = $hooks_file;
+			foreach($hooks_file as $key=>$item){
+				$ready = fx_equal($item['status'],Kernel::STATUS_ACTIVE) && method_exists($item['class'],$item['method']);
+				if(!$ready){ continue; }
+				$this->hooks_list[$key][] = $item;
 			}
 			return $this;
 		}

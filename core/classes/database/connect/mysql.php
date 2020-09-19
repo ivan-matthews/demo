@@ -6,7 +6,7 @@
 	use Core\Classes\Response\Response;
 	use Core\Classes\Error;
 
-	class MySQLi{
+	class MySQL{
 
 		private static $instance;
 
@@ -91,7 +91,7 @@
 			$backtrace = debug_backtrace();
 
 			$this->config = Config::getInstance();
-			$this->params = $this->config->database['mysqli'];
+			$this->params = $this->config->database['mysql'];
 
 			mysqli_report(MYSQLI_REPORT_STRICT);
 

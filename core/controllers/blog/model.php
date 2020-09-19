@@ -34,13 +34,9 @@
 		public function countAllPosts($query,$preparing_data){
 			$result = $this->select('COUNT(b_id) as total')
 				->from('blog')
-				->where($query);
-
-			foreach($preparing_data as $key=>$value){
-				$result = $result->data($key,$value);
-			}
-
-			$result = $result->get()
+				->where($query)
+				->prepare($preparing_data)
+				->get()
 				->itemAsArray();
 			return $result['total'];
 		}
@@ -66,13 +62,9 @@
 				->join('users FORCE INDEX(PRIMARY)',"b_user_id=u_id")
 				->join('photos as ui FORCE INDEX(PRIMARY)',"u_avatar_id=ui.p_id")
 				->join('photos as bi FORCE INDEX(PRIMARY)',"b_image_preview_id=bi.p_id")
-				->where($query);
-
-			foreach($preparing_data as $key=>$value){
-				$result = $result->data($key,$value);
-			}
-
-			$result = $result->limit($limit)
+				->where($query)
+				->prepare($preparing_data)
+				->limit($limit)
 				->offset($offset)
 				->order($order)
 				->sort($sort)

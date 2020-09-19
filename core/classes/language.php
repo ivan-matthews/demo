@@ -61,6 +61,18 @@
 			$this->language_keys[$this->lang_key] = true;
 			$language_folder_path = "{$this->language_folder}/{$this->lang_key}";
 			$this->language = fx_load_array($language_folder_path);
+			return $this->setCustomLangFiles();
+		}
+
+		private function setCustomLangFiles(){
+			$controller_folder = fx_path('core/controllers');
+			foreach(scandir($controller_folder) as $file){
+				if($file == '.' || $file == '..'){ continue; }
+				$lang_file = "{$controller_folder}/{$file}/config/lang.php";
+				if(is_readable($lang_file)){
+					$this->language[$file] = fx_import_file($lang_file,Kernel::IMPORT_INCLUDE_ONCE);
+				}
+			}
 			return $this;
 		}
 

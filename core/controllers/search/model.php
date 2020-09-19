@@ -28,15 +28,12 @@
 		}
 
 		public function count($table,$query,$preparing_data){
-			$result = $this->select('COUNT(*) as total');
-			$result = $result->from($table);
-			$result = $result->where($query);
-
-			foreach($preparing_data as $key=>$value){
-				$result = $result->data($key,$value);
-			}
-
-			$result = $result->get()->itemAsArray();
+			$result = $this->select('COUNT(*) as total')
+				->from($table)
+				->where($query)
+				->prepare($preparing_data)
+				->get()
+				->itemAsArray();
 			return $result['total'];
 		}
 
@@ -48,21 +45,17 @@
 			}
 			$fields_string .= "p_small as image";
 
-			$result = $this->select($fields_string);
-			$result = $result->from($table);
-			$result = $result->join('photos FORCE INDEX(PRIMARY)',"{$fields['image']}=p_id");
-			$result = $result->where($query);
-			$result = $result->order($order ? $order : $fields['date']);
-			$result = $result->sort('DESC');
-			$result = $result->limit($limit);
-			$result = $result->offset($offset);
-
-			foreach($preparing_data as $key=>$value){
-				$result = $result->data($key,$value);
-			}
-
-			$result = $result->get();
-			$result = $result->allAsArray();
+			$result = $this->select($fields_string)
+				->from($table)
+				->join('photos FORCE INDEX(PRIMARY)',"{$fields['image']}=p_id")
+				->where($query)
+				->order($order ? $order : $fields['date'])
+				->sort('DESC')
+				->limit($limit)
+				->offset($offset)
+				->prepare($preparing_data)
+				->get()
+				->allAsArray();
 
 			return $result;
 		}

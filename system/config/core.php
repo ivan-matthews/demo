@@ -1,7 +1,8 @@
 <?php
 
 	return array(
-		'db_driver'		=> 'mysqli',
+		'db_driver'		=> 'mysql',
+		'db_use_pdo'	=> false,
 		'site_language'	=> 'ru',
 		'debug_enabled'	=> 1,
 		'debug_cpu_stat'=> 0,

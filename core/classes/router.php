@@ -74,6 +74,18 @@
 
 		protected function getRoutesList(){
 			$this->routes_list = fx_load_helper("system/assets/routes",Kernel::IMPORT_INCLUDE);
+			return $this->loadCustomRoutes();
+		}
+
+		protected function loadCustomRoutes(){
+			$controllers_dir = fx_path('core/controllers');
+			foreach(scandir($controllers_dir) as $controller){
+				if($controller == '.' || $controller == '..'){ continue; }
+				$routes_file = "{$controllers_dir}/{$controller}/config/router.php";
+				if(is_readable($routes_file)){
+					$this->routes_list = array_merge($this->routes_list, fx_import_file($routes_file));
+				}
+			}
 			return $this;
 		}
 

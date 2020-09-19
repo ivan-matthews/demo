@@ -35,11 +35,13 @@
 	use Core\Classes\Hooks;
 	use Core\Classes\Language;
 	use Core\Classes\Console\Console;
+	use Core\Classes\Router;
 //	use Core\Classes\Console\Paint;
 
 	require __DIR__ . "/loader.php";
 
-	$hooks = Hooks::getInstance();
+	$hooks 		= Hooks::getInstance();
+	$router 	= Router::getInstance();
 
 	$hooks->before('cli_start');
 
@@ -49,6 +51,9 @@
 
 	$language->setDefaultLanguageKey();
 	$language->setLanguage();
+
+	$router->parseURL(fx_get_server('REQUEST_URI'));
+	$router->setRoute();
 
 	$console->getArguments(...fx_get_server('argv'));
 

@@ -3,6 +3,8 @@
 	namespace Core\Classes\Database\Connect;
 
 	use Core\Classes\Config;
+	use Core\Classes\Response\Response;
+	use Core\Classes\Error;
 
 	class __class_name__{
 
@@ -55,10 +57,13 @@
 			'current_timestamp'	=> '',
 		);
 
+		private $insert_fields;
+		private $insert_values;
+		private $update_insert_string;
+
 		protected $__db_class_key__;
 		protected $params;
 		protected $config;
-
 		public $query;
 		protected $database;
 
@@ -82,129 +87,148 @@
 		}
 
 		public function __construct(){
+			$time = microtime(true);
+			$backtrace = debug_backtrace();
+
 			$this->config = Config::getInstance();
 			$this->params = $this->config->database['__db_class_key__'];
 		}
 
-		public function exec($sql,$params=array()){
-			$this->query[] = $sql;
+		private function prepareBackTrace($debug_back_trace,$index,$key){
+			return isset($debug_back_trace[$index][$key]) ? $debug_back_trace[$index][$key] : null;
 		}
+
+		public function exec($sql,$params=array()){}
 
 		public function __destruct(){
-
+			$this->close();
 		}
 
-		public function selectDB($database_name){
-			$this->database = $database_name;
-		}
+		protected function close(){}
 
-		public function prepare($sql,$params){
+		public function selectDB($database_name){}
 
-		}
+		public function prepare($sql,$params){}
 
-		public function prepareValue($value){
+		public function prepareValue($value){}
 
-		}
+		public function escape($string){}
 
-		public function escape($string){
+		public function setLcMessages($lang){}
 
-		}
+		public function setSqlMode($sql_mode){}
 
-		public function setLcMessages($lang){
+		private function setTimezone(){}
 
-		}
+		protected function getFields($fields){}
+		protected function getTables($tables){}
+		protected function getWhere($where){}
+		protected function getNested($nested_query){}
 
-		public function setSqlMode($sql_mode){
+		protected function getJoin($join){}
 
-		}
+		protected function getUsing($tables){}
+		protected function getLimit($limit){}
+		protected function getOffset($offset){}
+		protected function getOrder($order){}
+		protected function getGroup($group){}
 
-		public function getAll($result,$resulttype=MYSQLI_ASSOC){
+		private function getSortingFromArray($order){}
 
-		}
+		private function getSort($sorting,$order){}
 
-		public function getItemAsArray($result){
+		public function getAll($result,$resulttype=1){}
 
-		}
+		public function getItemAsArray($result){}
 
-		public function getArray($result){
+		public function getArray($result){}
 
-		}
+		public function getItemAsObject($result){}
 
-		public function getItemAsObject($result){
+		public function getObject($result){}
 
-		}
+		public function lastId(){}
 
-		public function getObject($result){
+		public function freeResult($result){}
 
-		}
+		public function numRows($result){}
 
-		public function lastId(){
+		public function affectedRows(){}
 
-		}
+		public function showTables($database){}
 
-		public function freeResult($result){
+		public function showDatabases(){}
 
-		}
+		public function showColumns($table){}
 
-		public function numRows($result){
+		public function makeDb($database,$charset,$collate){}
 
-		}
+		public function dropDb($database){}
 
-		public function affectedRows(){
+		public function dropTable($table){}
 
-		}
+		public function truncateTable($table){}
 
-		public function showTables($database){
+		public function showIndex($table){}
 
-		}
+		public function delete($from_table,$where,$nested_query,$using_tables,$limit,$offset,$order,$sort,$group,$preparing){}
 
-		public function showDatabases(){
+		public function insert($table,$fields,$nested_query,$update,$update_nested_query,$preparing){}
 
-		}
+		public function select($fields,$from_table,$where,$nested_query,$join,$limit,$offset,$order,$sort,$group,$preparing){}
 
-		public function makeDb($database,$charset,$collate){
+		public function update($fields,$table,$where,$nested_query,$join,$limit,$offset,$order,$sort,$group,$preparing){}
 
-		}
+		protected function getInsertString($fields){}
 
-		public function dropDb($database){
+		protected function getInsertStringFromNestedQuery($fields){}
 
-		}
+		protected function getInsertFields(){}
 
-		public function dropTable($table){
+		protected function getInsertValues(){}
 
-		}
+		protected function getUpdateStringForInsert($update){}
 
-		public function truncateTable($table){
+		protected function getUpdateNestedStringForInsert($update){}
 
-		}
+		protected function removeProps(){}
 
-		public function showIndex($table){
+		public function makeTable($table,$fields,$indexes,$defaults,$engine){}
 
-		}
+/*--------------------------------------------------------------------------------------------------------------------*/
 
-		public function delete($from_table,$where,$nested_query,$using_tables,$limit,$offset,$order,$group,$preparing){
+		public function alterTable($table,$fields){}
 
-		}
+		private function makeStringFromFieldParams($field_name,$field){}
 
-		public function insert($table,$fields,$nested_query,$update,$update_nested_query,$preparing){
+		private function addColumn($field_name,$field){}
 
-		}
+		private function dropColumn($field_name,$field){}
 
-		public function select($fields,$from_table,$where,$nested_query,$join,$limit,$offset,$order,$group,$preparing){
+		private function changeColumn($field_name,$field){}
 
-		}
+		private function modifyColumn($field_name,$field){}
 
-		public function update($fields,$table,$where,$nested_query,$join,$limit,$offset,$preparing){
+		private function addIndex($field_name,$field){}
 
-		}
+		private function addPrimary($field_name,$field){}
 
-		public function makeTable($table,$fields,$indexes,$defaults,$engine){
+		private function addFulltext($field_name,$field){}
 
-		}
+		private function addUnique($field_name,$field){}
 
-		public function alterTable($table,$fields){
+		private function dropIndex($field_name,$field){}
 
-		}
+		private function dropPrimary($field_name,$field){}
+
+		private function dropFulltext($field_name,$field){}
+
+		private function dropUnique($field_name,$field){}
+
+		private function dropAutoIncrement($field_name,$field){}
+
+		private function addAutoIncrement($field_name,$field){}
+
 
 	}
 
