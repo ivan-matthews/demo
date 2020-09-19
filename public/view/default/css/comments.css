@@ -147,10 +147,11 @@
   right: 0;
   top: 0;
   bottom: 0;
+  width: 100%;
 }
 .comments-list .comments .comments-item .comments-info .comments-item-info .comments-item-descriptions .receiver blockquote .show-more-button:hover {
   opacity: 0.8;
-  background: #d9e2ec;
+  background: rgba(0, 0, 0, 0.05);
 }
 .comments-list .comments .comments-item .comments-info .comments-item-info .comments-item-descriptions .receiver blockquote .show-more-button i,
 .comments-list .comments .comments-item .comments-info .comments-item-info .comments-item-descriptions .receiver blockquote .show-more-button svg {

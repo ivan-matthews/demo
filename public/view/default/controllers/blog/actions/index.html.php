@@ -11,7 +11,7 @@
 ?>
 
 <?php if(fx_logged()){ ?>
-	<div class="buttons col-12 text-right mb-1 mt-1">
+	<div class="buttons-panel col-12 text-right mb-1 mt-1">
 		<div class="btn-group">
 			<a class="add-post btn-success radius-0 p-2" href="<?php print fx_get_url('blog','add') ?>">
 				<i class="fas fa-plus"></i>

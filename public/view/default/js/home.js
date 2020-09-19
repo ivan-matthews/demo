@@ -89,7 +89,7 @@ window.homeObj = {
 			lang_pack.in + ' ' +
 			server_obj.hour + ':' +
 			('0' + server_obj.min).slice(-2)
-		('0' + server_obj.sec).slice(-2);
+		+ ('0' + server_obj.sec).slice(-2);
 	},
 	prepareTime : function(server_date,client_date,lang_pack){
 		server_date = parseInt(server_date/1000);

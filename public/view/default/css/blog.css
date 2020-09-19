@@ -1,11 +1,18 @@
-.blog-list .buttons .btn-group .add-post i,
-.blog-list .buttons .btn-group .add-post svg {
+.buttons-panel {
+  border-bottom: solid 1px rgba(0, 0, 0, 0.125);
+  padding-bottom: 0.25em;
+}
+.buttons-panel .btn-group .add-post i,
+.buttons-panel .btn-group .add-post svg {
   font-size: 16px;
   margin-right: 0.5em;
 }
 .blog-list .posts .post-item {
   border: none;
   border-top: solid 1px rgba(0, 0, 0, 0.125);
+}
+.blog-list .posts .post-item:first-child {
+  border-top: none;
 }
 .blog-list .posts .post-item:last-child {
   border-bottom: none;
