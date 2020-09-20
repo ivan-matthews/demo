@@ -90,7 +90,7 @@
 
 				$this->setResponse();
 
-				$this->attachments_ids = $this->attachments_controller->prepareAttachments($this->request->getArray('attachments'),'attachments');
+				$this->attachments_ids = fx_arr($this->comment_data['c_attachments_ids']);
 				$this->attachments_data = $this->attachments_controller->getAttachmentsFromIDsList($this->attachments_ids,$this->sender_id);
 				$this->edit_form->setParams('variants',array(
 					'ids'	=> $this->attachments_ids,

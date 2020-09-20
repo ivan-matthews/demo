@@ -44,4 +44,5 @@
 		'captcha_not_equal'			=> 'CAPTCHA не совпала с введенными символами!',
 		'selected_not_select'		=> '-- не выбрано --',
 		'captcha_secure_label'		=> 'Защита от роботов',
+		'enter_captcha_placeholder'	=> 'Веедите символы, которые видите на картинки слева',
 	);

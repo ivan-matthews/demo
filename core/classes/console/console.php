@@ -144,7 +144,7 @@
 		private function runNativeCommand(){
 			if($this->arguments){
 				if(!isset($this->arguments[1])){ $this->arguments[1] = 'Index'; }
-				$this->cli_command_class = "\\System\\Console\\{$this->arguments[0]}\\{$this->arguments[1]}";
+				$this->cli_command_class = "\\Core\\Console\\{$this->arguments[0]}\\{$this->arguments[1]}";
 				$this->cli_command_method = 'execute';
 				$this->arguments = array_slice($this->arguments,2);
 				return $this->runCommand();

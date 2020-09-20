@@ -34,7 +34,7 @@
 		public $hook;
 
 		/** @var array */
-		private $sitemap;
+		public $sitemap;
 
 		public $site_link;
 
@@ -142,7 +142,7 @@
 		}
 
 
-		private function clearControllerDirectory(){
+		public function clearControllerDirectory(){
 			$path = fx_path("{$this->params->site_map_root_path}/{$this->controller_name}");
 			if(is_dir($path)){
 				foreach(scandir($path) as $file){
@@ -153,20 +153,20 @@
 			return $this;
 		}
 
-		private function setIterator(){
+		public function setIterator(){
 			$this->total_items = $this->model->countData($this->table,$this->order_field,$this->where_query);
 			$this->iterations = ceil($this->total_items/$this->limit);
 			return $this;
 		}
 
-		private function setFileSuffix(){
+		public function setFileSuffix(){
 			if($this->iterations > 1){
 				$this->file_suffix = "_" . $this->offset;
 			}
 			return $this;
 		}
 
-		private function makeXMLFile(){
+		public function makeXMLFile(){
 			$items = $this->model->getData(
 				$this->table,$this->selectable_fields,$this->where_query,$this->limit,$this->offset,$this->order_field
 			);
@@ -190,7 +190,7 @@
 			return $this;
 		}
 
-		private function makeFile(array $file_data){
+		public function makeFile(array $file_data){
 			$xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" . PHP_EOL;
 			$xml .= "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">" . PHP_EOL;
 			$xml .= fx_xml_encode($file_data,'   ','','url');
@@ -198,7 +198,7 @@
 			return $this->saveFile($xml);
 		}
 
-		private function saveFile($xml_data){
+		public function saveFile($xml_data){
 			$xml_file = "{$this->params->site_map_root_path}/{$this->controller_name}/sitemap{$this->file_suffix}.xml";
 			$xml_path = fx_path($xml_file);
 			fx_make_dir(dirname($xml_path));

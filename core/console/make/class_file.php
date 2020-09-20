@@ -4,7 +4,7 @@
 	#DSC: cli.standard_class_file
 	#EXM: make class_file Core/Classes/Database
 
-	namespace System\Console\Make;
+	namespace Core\Console\Make;
 
 	use Core\Classes\Console\Console;
 	use Core\Classes\Console\Paint;
@@ -64,7 +64,7 @@
 		}
 
 		private function getClassData(){
-			$this->class_data = file_get_contents(fx_php_path("system/console/make/templates/mainClass.tmp"));
+			$this->class_data = file_get_contents(fx_php_path("system/console/mainClass.tmp"));
 			return $this;
 		}
 

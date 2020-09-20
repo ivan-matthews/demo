@@ -2,6 +2,7 @@
 
 	namespace Core\Controllers\Feedback\Actions;
 
+	use Core\Classes\Form\Interfaces\Validator;
 	use Core\Classes\Hooks;
 	use Core\Classes\Mail\Notice;
 	use Core\Classes\Request;

@@ -4,7 +4,7 @@
 	#DSC: cli.new_controller_with_acts
 	#EXM: make controller users friends guests
 
-	namespace System\Console\Make;
+	namespace Core\Console\Make;
 
 	use Core\Classes\Console\Console;
 	use Core\Classes\Console\Interfaces\Types;
@@ -25,7 +25,7 @@
 
 		public function execute($controller_name, ...$actions){
 			$this->controller_name	= mb_strtolower($controller_name);
-			$this->controller_tmp_dir = fx_path("system/console/make/templates/__controller_dir__");
+			$this->controller_tmp_dir = fx_path("system/console/__controller_dir__");
 			$this->controller_dir = fx_path("core/controllers/{$this->controller_name}");
 
 			$this->__controller_namespace__ = $this->prepareClassName($this->controller_name);

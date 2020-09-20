@@ -4,7 +4,7 @@
 	#DSC: cli.un_structure_info
 	#EXM: help
 
-	namespace System\Console\Help;
+	namespace Core\Console\Help;
 
 	use Core\Classes\Console\Console;
 	use Core\Classes\Console\Interfaces\Types;
@@ -25,7 +25,7 @@
 
 			$this->separator_string = str_repeat('-',100);
 			$this->structured = $structured;
-			$this->files_dir = fx_path('system/console');
+			$this->files_dir = fx_path('core/console');
 
 			$this->getAliasesCommandsInfo();
 			$this->getFiles();

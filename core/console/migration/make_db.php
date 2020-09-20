@@ -4,7 +4,7 @@
 	#DSC: cli.make_new_database
 	#EXM: migration make_db test_db
 
-	namespace System\Console\Migration;
+	namespace Core\Console\Migration;
 
 	use Core\Classes\Console\Console;
 	use Core\Classes\Console\Interfaces\Types;

@@ -4,7 +4,7 @@
 	#DSC: cli.run_develop_server
 	#EXM: server run
 
-	namespace System\Console\Server;
+	namespace Core\Console\Server;
 
 	use Core\Classes\Console\Console;
 	use Core\Classes\Console\Interfaces\Types;

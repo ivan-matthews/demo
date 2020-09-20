@@ -155,12 +155,15 @@
 		}
 	}
 	if(!function_exists('fx_php_encode')){
-		function fx_php_encode($data,$t="\t\t",$recursion=false){
+		function fx_php_encode($data,$t="\t\t",$recursion=false, $with_php_tag_before=true){
+			$dump = '';
 			if(!$recursion){
-				$dump = "<?php\n\n" .
-					"\treturn array(\n";
+				if($with_php_tag_before){
+					$dump .= "<?php\n\n";
+				}
+				$dump .= "\treturn array(\n";
 			}else{
-				$dump = "array(\n";
+				$dump .= "array(\n";
 			}
 			foreach($data as $key=>$value){
 				$prefix = "{$t}";
@@ -172,11 +175,11 @@
 				}
 				if(is_array($value)){
 					$dump .= $prefix;
-					$dump .= !empty($value) ? fx_php_encode($value,"{$t}\t",1) : "array(),\n";
+					$dump .= !empty($value) ? fx_php_encode($value,"{$t}\t",1,$with_php_tag_before) : "array(),\n";
 				}else
 					if(is_object($value)){
 						$dump .= $prefix;
-						$dump .= !empty($value) ? fx_php_encode($value,"{$t}\t",1) : "array(),\n";
+						$dump .= !empty($value) ? fx_php_encode($value,"{$t}\t",1,$with_php_tag_before) : "array(),\n";
 					}else{
 						$value = var_export($value, true);
 						$dump .= $prefix;
@@ -190,5 +193,11 @@
 				$dump .= "{$t}),\n";
 			}
 			return $dump;
+		}
+	}
+
+	if(!function_exists('fx_php_decode')){
+		function fx_php_decode(string $php_array){
+			return eval($php_array);
 		}
 	}

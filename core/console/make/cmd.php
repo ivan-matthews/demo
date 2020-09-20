@@ -4,7 +4,7 @@
 	#DSC: cli.new_cli_command_class_file
 	#EXM: make cmd server run host port
 
-	namespace System\Console\Make;
+	namespace Core\Console\Make;
 
 	use Core\Classes\Console\Console;
 	use Core\Classes\Console\Interfaces\Types;
@@ -25,14 +25,14 @@
 		private $command_file_template_prepared_data;
 
 		public function execute($command_directory,$command_file='index',...$command_arguments){
-			$this->console_folder = fx_path("system/console");
+			$this->console_folder = fx_path("core/console");
 
 			$this->command_directory = strtolower($command_directory);
 			$this->command_namespace = $this->prepareClassName($command_directory);
 			$this->command_file = strtolower($command_file);
 			$this->command_class = $this->prepareClassName($command_file);
 			$this->command_arguments = $command_arguments;
-			$this->command_file_template = fx_php_path("system/console/make/templates/commandClass.tmp");
+			$this->command_file_template = fx_php_path("system/console/commandClass.tmp");
 
 			$this->getTmpFileData();
 			$this->prepareFileData();

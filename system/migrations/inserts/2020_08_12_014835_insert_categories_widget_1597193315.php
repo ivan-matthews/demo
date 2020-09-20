@@ -25,7 +25,7 @@
 			Database::insert('widgets_active')
 				->value('wa_widget_id',$this->cats_widget)
 				->value('wa_name','categories_widget')
-				->value('wa_title','cats.categories_widget_title')
+				->value('wa_title','categories.categories_widget_title')
 				->value('wa_css_class','')
 				->value('wa_css_class_title','')
 				->value('wa_css_class_body','')

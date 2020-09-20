@@ -20,9 +20,10 @@
 		public function validate($status=true);
 		/**
 		 * @param $error_data_value
+		 * @param $key
 		 * @return Validator
 		 */
-		public function setError($error_data_value);
+		public function setError($error_data_value,$key=null);
 
 		/**
 		 * @return Validator

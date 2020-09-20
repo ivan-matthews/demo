@@ -80,9 +80,10 @@
 			$this->validator_interface->field('fb_name')
 				->htmlspecialchars(true)
 				->class('form-control')
-				->id('id')
-				->title('title')
+				->id('fb_name')
+//				->title('title')
 				->type('text')
+				->label(fx_lang('feedback.write_your_name_label'))
 				->placeholder(fx_lang('feedback.write_your_name'))
 				->params(function(Params $params){
 					$params->field_type('simple');
@@ -95,9 +96,10 @@
 			$this->validator_interface->field('fb_phone')
 				->htmlspecialchars(true)
 				->class('form-control')
-				->id('id')
-				->title('title')
+				->id('fb_phone')
+//				->title('title')
 				->type('text')
+				->label(fx_lang('feedback.write_your_phone_label'))
 				->placeholder(fx_lang('feedback.write_your_phone'))
 				->params(function(Params $params){
 					$params->field_type('simple');
@@ -111,9 +113,10 @@
 			$this->validator_interface->field('fb_email')
 				->htmlspecialchars(true)
 				->class('form-control')
-				->id('id')
-				->title('title')
+				->id('fb_email')
+//				->title('title')
 				->type('email')
+				->label(fx_lang('feedback.write_your_email_label'))
 				->placeholder(fx_lang('feedback.write_your_email'))
 				->params(function(Params $params){
 					$params->field_type('simple');
@@ -127,9 +130,10 @@
 			$this->validator_interface->field('fb_content')
 				->jevix(true)
 				->class('form-control')
-				->id('id')
-				->title('title')
+				->id('fb_content')
+//				->title('title')
 				->type('text')
+				->label(fx_lang('feedback.write_your_question_label'))
 				->placeholder(fx_lang('feedback.write_your_question'))
 				->params(function(Params $params){
 					$params->field_type('textarea');

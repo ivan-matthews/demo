@@ -4,7 +4,7 @@
 	#DSC: cli.make_geo_data
 	#EXM: migration geo
 
-	namespace System\Console\Migration;
+	namespace Core\Console\Migration;
 
 	use Core\Classes\Console\Console;
 	use Core\Classes\Console\Paint;
@@ -12,7 +12,7 @@
 
 	/**
 	 *	fx_die(
-	 *		(new \System\Console\Migration\Geo())
+	 *		(new \Core\Console\Migration\Geo())
 	 *			->setProps()
 	 *				->parseCSVs()
 	 *					->getResult()

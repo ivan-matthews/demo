@@ -198,7 +198,7 @@
 			if(fx_equal($category,'0') || isset($this->categories[$category])){
 				return $this;
 			}
-			$this->setError(fx_lang('cats.error_category_select'));
+			$this->setError(fx_lang('categories.error_category_select'));
 			return $this;
 		}
 

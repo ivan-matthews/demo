@@ -4,7 +4,7 @@
 	#DSC: cli.test_interactive_shell
 	#EXM: interactive test controller
 
-	namespace System\Console\Interactive;
+	namespace Core\Console\Interactive;
 
 	use Core\Classes\Console\Console;
 	use Core\Classes\Console\Paint;

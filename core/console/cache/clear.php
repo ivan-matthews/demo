@@ -4,7 +4,7 @@
 	#DSC: cli.remove_cache
 	#EXM: cache clear 
 
-	namespace System\Console\Cache;
+	namespace Core\Console\Cache;
 
 	use Core\Classes\Cache\Cache;
 	use Core\Classes\Config;

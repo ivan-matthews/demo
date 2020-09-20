@@ -316,8 +316,12 @@
 
 		let field_values = type_field.attr('value');
 
+		if(field_values){
+			field_values = '/' + field_values;
+		}
+
 		$.ajax({
-			url:'/attachments/' + attachments_type + '/' + field_values,
+			url:'/attachments/' + attachments_type + field_values,
 			method: 'GET',
 			dataType: 'frame',
 			complete: function(response){

@@ -4,7 +4,7 @@
 	#DSC: cli.create_migration_table
 	#EXM: make db_table users
 
-	namespace System\Console\Make;
+	namespace Core\Console\Make;
 
 	use Core\Classes\Console\Console;
 	use Core\Classes\Console\Interfaces\Types;
@@ -66,7 +66,7 @@
 		}
 
 		private function getClassData(){
-			$this->file_data = file_get_contents(fx_php_path("system/console/make/templates/tableClass.tmp"));
+			$this->file_data = file_get_contents(fx_php_path("system/console/tableClass.tmp"));
 			return $this;
 		}
 

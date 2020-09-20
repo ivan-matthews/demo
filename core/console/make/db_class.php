@@ -4,7 +4,7 @@
 	#DSC: cli.new_db_connection_class
 	#EXM: make db_class PgSQL
 
-	namespace System\Console\Make;
+	namespace Core\Console\Make;
 
 	use Core\Classes\Console\Console;
 	use Core\Classes\Console\Paint;
@@ -27,7 +27,7 @@
 			$this->database_file_name = strtolower($database);
 			$this->database_class_name = $database;
 			$this->database_config_key = $this->database_file_name;
-			$this->database_tmp_file = fx_php_path("system/console/make/templates/databaseClass.tmp");
+			$this->database_tmp_file = fx_php_path("system/console/databaseClass.tmp");
 
 			$this->getTmpFileData();
 			$this->replaceTmpFileData();

@@ -1,10 +1,10 @@
 <?php
 
-	#CMD: migration insert 
-	#DSC: cli.insert_data_to_db
-	#EXM: migration insert 
+	#CMD: migration run
+	#DSC: cli.run_migrations
+	#EXM: migration run
 
-	namespace System\Console\Migration;
+	namespace Core\Console\Migration;
 
 	use Core\Classes\Console\Console;
 	use Core\Classes\Console\Interfaces\Types;
@@ -13,7 +13,7 @@
 	use Core\Classes\Config;
 	use Core\Classes\Kernel;
 
-	class Insert extends Console{
+	class Run extends Console{
 
 		private $config;
 		private $database;
@@ -21,15 +21,15 @@
 		private $db_params;
 
 		private $migrations_folder;
-		private $migrations_files = array();
+		private $migrations_files;
 		private $namespace_classes;
 		private $older_migrations=array();
 
 		protected $result = true;
 
 		public function __construct(){
-			$this->migrations_folder = fx_path("system/migrations/inserts");
-			$this->namespace_classes = "\\System\\Migrations\\Inserts";
+			$this->migrations_folder = fx_path("system/migrations");
+			$this->namespace_classes = "\\System\\Migrations";
 
 			$this->config = Config::getInstance();
 			$this->database = Database::getInstance();
@@ -111,14 +111,14 @@
 
 		private function success($file_name){
 			return Paint::exec(function(Types $print)use($file_name){
-				$print->string(fx_lang('cli.insert'))->print();
+				$print->string(fx_lang('cli.migration'))->print();
 				$print->string($file_name)->fon('green')->print();
 				$print->string(' ' . fx_lang('cli.successful'))->color('light_green')->print()->eol();
 			});
 		}
 		private function skipped($file_name){
 			return Paint::exec(function(Types $print)use($file_name){
-				$print->string(fx_lang('cli.insert'))->print();
+				$print->string(fx_lang('cli.migration'))->print();
 				$print->string($file_name)->fon('red')->print();
 				$print->string(' ' . fx_lang('cli.skipped'))->color('light_red')->print()->eol();
 			});

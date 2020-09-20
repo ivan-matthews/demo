@@ -4,7 +4,7 @@
 	#DSC: cli.remove_database
 	#EXM: migration drop_db test_db
 
-	namespace System\Console\Migration;
+	namespace Core\Console\Migration;
 
 	use Core\Classes\Console\Console;
 	use Core\Classes\Console\Interfaces\Types;

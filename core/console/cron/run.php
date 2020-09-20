@@ -4,7 +4,7 @@
 	#DSC: cli.run_cron_tasks_with_ids
 	#EXM: cron run 1 2 5 6 99 101 33
 
-	namespace System\Console\Cron;
+	namespace Core\Console\Cron;
 
 	use Core\Classes\Config;
 	use Core\Classes\Database\Database;

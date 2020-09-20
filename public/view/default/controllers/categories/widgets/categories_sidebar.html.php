@@ -23,7 +23,7 @@
 		<a class="menu" href="<?php print fx_get_url($data['content']['controller']) ?>">
 			<div class="sidebar-body<?php print ' ' . $data['options']['wa_css_class_body'] ?>">
 				<i class="icon fa fa-list"></i>
-				<span class="ml-2"><?php print fx_lang('cats.all_cats_link_value') ?></span>
+				<span class="ml-2"><?php print fx_lang('categories.all_cats_link_value') ?></span>
 			</div>
 		</a>
 	</li>

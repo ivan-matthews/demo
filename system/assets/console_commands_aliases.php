@@ -3,7 +3,7 @@
 	return array(
 		array(
 			'command'		=> 'help [structured = false]',
-			'class'			=> '\\System\\Console\\Help\\Index',
+			'class'			=> '\\Core\\Console\\Help\\Index',
 			'method'		=> 'execute',
 			'status'		=> \Core\Classes\Kernel::STATUS_ACTIVE,
 			'pattern'		=> '([a-zа-я0-9-_.]+)',
@@ -14,7 +14,7 @@
 		),
 		array(
 			'command'		=> 'make table:[table_name]',
-			'class'			=> '\\System\\Console\\Make\\DB_Table',
+			'class'			=> '\\Core\\Console\\Make\\DB_Table',
 			'method'		=> 'execute',
 			'status'		=> \Core\Classes\Kernel::STATUS_ACTIVE,
 			'pattern'		=> '([a-zа-я0-9-_.]+)',
@@ -25,7 +25,7 @@
 		),
 		array(
 			'command'		=> 'alter table [table_name]:[alter_description]',
-			'class'			=> '\\System\\Console\\Make\\DB_Alter',
+			'class'			=> '\\Core\\Console\\Make\\DB_Alter',
 			'method'		=> 'execute',
 			'status'		=> \Core\Classes\Kernel::STATUS_ACTIVE,
 			'pattern'		=> '([a-zа-я0-9-_.]+)',
@@ -36,7 +36,7 @@
 		),
 		array(
 			'command'		=> 'migrate',
-			'class'			=> '\\System\\Console\\Migration\\Run',
+			'class'			=> '\\Core\\Console\\Migration\\Run',
 			'method'		=> 'execute',
 			'status'		=> \Core\Classes\Kernel::STATUS_ACTIVE,
 			'pattern'		=> '([a-zа-я0-9-_.]+)',
@@ -47,7 +47,7 @@
 		),
 		array(
 			'command'		=> 'make ctrl:[controller_name]',
-			'class'			=> '\\System\\Console\\Make\\Controller',
+			'class'			=> '\\Core\\Console\\Make\\Controller',
 			'method'		=> 'execute',
 			'status'		=> \Core\Classes\Kernel::STATUS_ACTIVE,
 			'pattern'		=> '([a-zа-я0-9-_.]+)',
@@ -58,7 +58,7 @@
 		),
 		array(
 			'command'		=> 'make class:[Path/To/File]',
-			'class'			=> '\\System\\Console\\Make\\Class_File',
+			'class'			=> '\\Core\\Console\\Make\\Class_File',
 			'method'		=> 'execute',
 			'status'		=> \Core\Classes\Kernel::STATUS_ACTIVE,
 			'pattern'		=> '([a-zа-я0-9-_./]+)',

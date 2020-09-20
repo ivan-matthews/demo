@@ -4,7 +4,7 @@
 	#DSC: cli.default_description_string
 	#EXM: __command_directory____command_file_description__ __command_arguments__
 
-	namespace System\Console\__command_namespace__;
+	namespace Core\Console\__command_namespace__;
 
 	use Core\Classes\Console\Console;
 	use Core\Classes\Console\Paint;

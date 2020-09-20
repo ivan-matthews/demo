@@ -4,7 +4,7 @@
 	#DSC: cli.new_cron_task
 	#EXM: make cron_task home some_cron_action
 
-	namespace System\Console\Make;
+	namespace Core\Console\Make;
 
 	use Core\Classes\Console\Console;
 	use Core\Classes\Console\Interfaces\Types;
@@ -41,7 +41,7 @@
 			$this->class_name = $this->prepareClassName($this->file);
 
 			$this->cron_tasks_path = fx_path($this->cron_tasks_path);
-			$this->tmp_file = fx_path("system/console/make/templates/cronTaskClass.tmp.php");
+			$this->tmp_file = fx_path("system/console/cronTaskClass.tmp.php");
 
 			$this->cron_task_dir = "{$this->cron_tasks_path}/{$this->controller}/cron";
 			fx_make_dir($this->cron_task_dir);
