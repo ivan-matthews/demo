@@ -25,19 +25,6 @@
 			parent::__construct();
 		}
 
-		public function getActiveWidgetsList(){
-			$widgets_list = array();
-			$controller_folder = fx_path('core/controllers');
-			foreach(scandir($controller_folder) as $controller){
-				if($controller == '.' || $controller == '..'){ continue; }
-				$widgets_file = "{$controller_folder}/{$controller}/config/widgets.php";
-				if(is_readable($widgets_file)){
-					$widgets_list[] = fx_import_file($widgets_file);
-				}
-			}
-			return $widgets_list;
-		}
-
 
 
 
