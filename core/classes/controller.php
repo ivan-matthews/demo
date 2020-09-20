@@ -3,9 +3,6 @@
 	namespace Core\Classes;
 
 	use Core\Classes\Response\Response;
-	use Core\Widgets\Paginate;
-	use Core\Widgets\Sorting_Panel;
-	use Core\Widgets\Header_Bar;
 
 	class Controller{
 
@@ -77,9 +74,6 @@
 			$this->user = User::getInstance();
 			$this->language = Language::getInstance();
 			$this->hook = Hooks::getInstance();
-
-			$this->offset = $this->request->get('offset') ?? 0;
-			$this->offset = abs((int)$this->offset);
 		}
 
 		public function __destruct(){
@@ -123,58 +117,6 @@
 		 */
 		protected function renderEmptyPage(){
 			$this->response->controller('../assets','../empty_page');
-			return $this;
-		}
-
-		protected function paginate($total_items,$link){
-			Paginate::add()
-				->total($total_items)
-				->limit($this->limit)
-				->offset($this->offset)
-				->link($link)
-				->set();
-			return $this;
-		}
-
-		protected function setResponseBySortingPanel(array $response_values){
-			$this->response->title($response_values['title']);
-			$this->response->breadcrumb('filter')
-				->setIcon($response_values['icon'])
-				->setLink(...$response_values['link'])
-				->setValue($response_values['title']);
-			return $this;
-		}
-
-		protected function sorting(array $actions,...$push_links_params){
-			$callable_action = "setSortingPanel{$this->sorting_action}";
-			if(isset($actions[$this->sorting_action]) && fx_equal($actions[$this->sorting_action]['status'],Kernel::STATUS_ACTIVE) &&
-				method_exists($this,$callable_action)){
-				$this->query .= call_user_func(array($this,$callable_action));
-				$this->setResponseBySortingPanel($actions[$this->sorting_action]);
-			}
-
-			Sorting_Panel::add()
-				->actions($actions)
-				->current(array(
-					'action'	=> $this->sorting_action,
-					'sort'		=> $this->sorting_type,
-					'push'		=> $push_links_params,
-				))->set();
-
-			return $this;
-		}
-
-		protected function header_bar(array $header_bar_data_from_params_array,array $tabs_link,$current_tab){
-			foreach($header_bar_data_from_params_array as $key=>$value){
-				$new_tabs_link = $tabs_link;
-				$new_tabs_link[] = $key;
-				$header_bar_data_from_params_array[$key]['link'] = $new_tabs_link;
-			}
-
-			Header_Bar::add()
-				->data($header_bar_data_from_params_array)
-				->current($current_tab)
-				->set();
 			return $this;
 		}
 

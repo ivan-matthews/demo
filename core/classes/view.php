@@ -245,8 +245,8 @@
 		private function renderPhpData(){
 			$this->response->setHeader('Content-Type','text/plain');
 			$this->response->sendHeaders();
-			$result = fx_php_encode($this->data);
-			print_r($result);
+			$result = fx_php_encode($this->data,"\t\t",false,false);
+			print $result;
 			print '?>';
 			return true;
 		}
