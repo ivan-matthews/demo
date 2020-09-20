@@ -3,7 +3,6 @@
 	namespace Core\Classes;
 	
 	use Core\Classes\Cache\Cache;
-	use Core\Controllers\Home\Model;
 	use Core\Classes\Response\Response;
 	
 	class Widgets{
@@ -11,11 +10,10 @@
 		private static $instance;
 
 		protected $widgets_dir;
-		protected $widgets_list = array();
+		public $widgets_list = array();
 
 		private $response;
 		private $cache;
-		private $model;
 		private $config;
 
 		public static function getInstance(){
@@ -28,14 +26,20 @@
 		public function __construct(){
 			$this->cache = Cache::getInstance();
 			$this->response = Response::getInstance();
-			$this->model = Model::getInstance();
 			$this->config = Config::getInstance();
 			$this->widgets_dir = fx_path('system/widgets_list');
-			$this->getWidgetsFromDB();
+			$this->getWidgetsList();
 		}
 
-		private function getWidgetsFromDB(){
-			$this->widgets_list = $this->model->getActiveWidgetsList();
+		private function getWidgetsList(){
+			$controller_folder = fx_path('core/controllers');
+			foreach(scandir($controller_folder) as $controller){
+				if($controller == '.' || $controller == '..'){ continue; }
+				$widgets_file = "{$controller_folder}/{$controller}/config/widgets.php";
+				if(is_readable($widgets_file)){
+					$this->widgets_list[] = fx_import_file($widgets_file);
+				}
+			}
 			return $this;
 		}
 

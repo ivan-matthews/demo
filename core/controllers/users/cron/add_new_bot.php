@@ -1,6 +1,6 @@
 <?php
 
-	namespace System\Cron_Tasks\Users;
+	namespace Core\Controllers\Users\Cron;
 
 	use Core\Classes\Cache\Cache;
 	use Core\Classes\Database\Database;

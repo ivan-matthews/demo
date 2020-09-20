@@ -11,7 +11,7 @@
 			Database::insert('cron_tasks')
 				->value('ct_title','home test')
 				->value('ct_description','runt first testing cron task')
-				->value('ct_class',"System\\Cron_Tasks\\Home\\Test")
+				->value('ct_class',\Core\Controllers\Home\Cron\Test::class)
 				->value('ct_method','execute')
 				->value('ct_params',array())
 				->value('ct_period',5)		// seconds

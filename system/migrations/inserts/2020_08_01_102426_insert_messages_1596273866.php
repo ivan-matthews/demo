@@ -4,7 +4,7 @@
 
 	use Core\Classes\Config;
 	use Core\Classes\Database\Database;
-	use System\Cron_Tasks\Users\Add_New_Bot;
+	use Core\Controllers\Users\Cron\Add_New_Bot;
 
 	class InsertMessages202008011024261596273866{
 

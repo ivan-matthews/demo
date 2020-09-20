@@ -3,13 +3,12 @@
 	use Core\Classes\Kernel;
 
 	return array(
-		/*
-			'session_start_after_hook'	=> array(
-				'class'			=> \Core\Controllers\Users\Hooks\Session_Start_After_Hook::class,
-				'method'		=> 'run',
-				'status'		=> Kernel::STATUS_ACTIVE,
-				'controller'	=> 'users',
-				'action'		=> 'index',
-			),
-		*/
+		'widgets_run_before_hook'	=> array(
+			'class'			=> \Core\Controllers\Home\Hooks\Widgets_Run_Before_Hook::class,
+			'method'		=> 'run',
+			'status'		=> Kernel::STATUS_ACTIVE,
+			'controller'	=> 'home',
+			'action'		=> 'index',
+		),
+
 	);

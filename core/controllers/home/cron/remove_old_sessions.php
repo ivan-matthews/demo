@@ -1,6 +1,6 @@
 <?php
 
-	namespace System\Cron_Tasks\Home;
+	namespace Core\Controllers\Home\Cron;
 
 	use Core\Classes\Config;
 	use Core\Classes\Console\Interfaces\Types;

@@ -2,7 +2,7 @@
 
 	namespace System\Migrations\Inserts;
 
-	use Core\Classes\Database\Database;
+	use Core\Classes\Database\Database;	/*uses classes to replace*/
 
 	class __class_name__{
 

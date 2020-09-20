@@ -66,7 +66,7 @@
 				</tbody>
 			</table>
 		</td>
-		<td width="50%">
+		<td width="50%" class="code-window">
 			<div class="code-preview-parent view" id="undefined" title="<?php print $this->error_file ?>, <?php print $this->error_line ?>">
 				<div class="err-file-line">
 					<span class="err-file"><?php print basename($this->error_file) ?></span>

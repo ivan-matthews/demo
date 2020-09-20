@@ -109,9 +109,10 @@
 												<div id="message-<?php print $message['m_id'] ?>">
 													<?php print $message['m_content'] ?>
 												</div>
-												<?php if($message['m_attachments_ids']){ ?>
+												<?php $total_attachments = fx_arr($message['m_attachments_ids']) ?>
+												<?php if($total_attachments){ ?>
 													<a onclick='attachmentsObj.getAttachments(this,<?php print $message['m_attachments_ids'] ?>,"<?php print fx_get_url('attachments','get') ?>","#message-<?php print $message['m_id'] ?>")' class="get-attachments attachments btn btn-default btn-lg mb-2 p-0 pl-2 pr-2" href="javascript:void(0)">
-														<?php print fx_count_all_attachments(fx_arr($message['m_attachments_ids'])) ?>
+														<?php print fx_count_all_attachments($total_attachments) ?>
 													</a>
 												<?php } ?>
 												<div class="message-manage-links">
@@ -159,9 +160,10 @@
 														<?php print $message['m_content'] ?>
 													</div>
 												</div>
-												<?php if($message['m_attachments_ids']){ ?>
+												<?php $total_attachments = fx_arr($message['m_attachments_ids']) ?>
+												<?php if($total_attachments){ ?>
 													<a onclick='attachmentsObj.getAttachments(this,<?php print $message['m_attachments_ids'] ?>,"<?php print fx_get_url('attachments','get') ?>","#message-<?php print $message['m_id'] ?>")' class="get-attachments attachments btn btn-default btn-lg mb-2 p-0 pl-2 pr-2" href="javascript:void(0)">
-														<?php print fx_count_all_attachments(fx_arr($message['m_attachments_ids'])) ?>
+														<?php print fx_count_all_attachments($total_attachments) ?>
 													</a>
 												<?php } ?>
 												<div class="message-manage-links">

@@ -1,6 +1,6 @@
 <?php
 
-	namespace System\Cron_Tasks\__controller_namespace__;
+	namespace Core\Controllers\__controller_namespace__\Cron;
 
 	class __class_name__{
 

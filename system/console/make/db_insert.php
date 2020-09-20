@@ -25,6 +25,7 @@
 
 		private $class_name;
 		private $insert_data_to_replace;
+		private $replace_classes = '';
 		private $file_name;
 
 		private $file_data;
@@ -73,10 +74,15 @@
 
 		private function getReplacedData(){
 			$this->replaced_file_data = str_replace(array(
-				'__class_name__','/*insert data to replace*/'
+				'__class_name__','/*insert data to replace*/','/*uses classes to replace*/'
 			),array(
-				$this->class_name,$this->insert_data_to_replace
+				$this->class_name,$this->insert_data_to_replace,$this->replace_classes,
 			),$this->file_data);
+			return $this;
+		}
+
+		public function setClassesToReplace(string $classes){
+			$this->replace_classes = $classes;
 			return $this;
 		}
 

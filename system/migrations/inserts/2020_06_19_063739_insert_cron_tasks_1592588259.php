@@ -11,7 +11,7 @@
 			Database::insert('cron_tasks')
 				->value('ct_title','home remove_old_sessions')
 				->value('ct_description','remove old session files')
-				->value('ct_class',"System\\Cron_Tasks\\Home\\Remove_Old_Sessions")
+				->value('ct_class',\Core\Controllers\Home\Cron\Remove_Old_Sessions::class)
 				->value('ct_method','execute')
 				->value('ct_params',array())
 				->value('ct_period',5)		// seconds

@@ -1,6 +1,6 @@
 <?php
 
-	namespace System\Cron_Tasks\Sitemap;
+	namespace Core\Controllers\Sitemap\Cron;
 
 	use Core\Classes\Config;
 	use Core\Classes\Hooks;
