@@ -99,14 +99,34 @@
 					if($value['params']){
 						array_push($result_matches,...$value['params']);
 					}
+					if($value['before']){
+						$this->call($value['before']);
+					}
 					$this->setMainTypeRouter(
 						$value['controller'],
 						$value['action'],
 						array_slice($result_matches,1)
 					);
+					if($value['after']){
+						$this->call($value['after']);
+					}
 				}
 			}
 			return $this;
+		}
+
+		private function call($function){
+			if(is_string($function)){
+				try{
+					$function = eval("return {$function} ?>");
+				}catch(\Error $e){
+					return false;
+				}
+			}
+			if(is_callable($function)){
+				return call_user_func($function);
+			}
+			return false;
 		}
 
 		protected function preparePattern($key,$pattern){

@@ -14,12 +14,12 @@
 
 	class Make_DB extends Console{
 
-		private $config;
-		private $database;
-		private $db_driver;
-		private $db_params;
+		public $config;
+		public $database;
+		public $db_driver;
+		public $db_params;
 
-		private $database_name;
+		public $database_name;
 
 		public function __construct(){
 			$this->config = Config::getInstance();
@@ -41,21 +41,21 @@
 			return $this->result;
 		}
 
-		private function getDbName(){
+		public function getDbName(){
 			if(!$this->database_name){
 				$this->database_name = $this->db_params['base'];
 			}
 			return $this;
 		}
 
-		private function dropDB(){
+		public function dropDB(){
 			return $this->database
 				->setCharset($this->db_params['sql_charset'])
 				->setCollate($this->db_params['collate'])
 				->makeDb($this->database_name);
 		}
 
-		private function success(){
+		public function success(){
 			return Paint::exec(function(Types $print){
 				$print->string(fx_lang('cli.database_created',array(
 					'%DATABASE%'	=> $print->string($this->database_name)->fon('green')->get()
@@ -63,7 +63,7 @@
 			});
 		}
 
-		private function skipped(){
+		public function skipped(){
 			return Paint::exec(function(Types $print){
 				$print->string(fx_lang('cli.database_not_created',array(
 					'%DATABASE%'	=> $print->string($this->database_name)->fon('red')->get()

@@ -15,9 +15,9 @@
 
 	class Clear extends Console{
 
-		private $config;
-		private $cache_directory;
-		private $cache_path;
+		public $config;
+		public $cache_directory;
+		public $cache_path;
 
 		public function execute(){
 			$this->config = Config::getInstance();
@@ -29,17 +29,17 @@
 			return $this->result;
 		}
 
-		private function getCacheDirectory(){
+		public function getCacheDirectory(){
 			$this->cache_directory = $this->config->cache['cache_dir'];
 			return $this;
 		}
 
-		private function getCachePath(){
+		public function getCachePath(){
 			$this->cache_path = fx_path($this->cache_directory);
 			return $this;
 		}
 
-		private function deleteAllFindings(){
+		public function deleteAllFindings(){
 			Cache::getInstance()->clear();
 			return Paint::exec(function(Types $print){
 				$print->string(fx_lang('cli.cache_cleared'))->fon('green')->print()->eol();

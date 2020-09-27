@@ -12,15 +12,15 @@
 
 	class Class_File extends Console{
 
-		private $class;
-		private $directory;
-		private $namespace;
-		private $lower_class_name;
-		private $class_name;
-		private $uc_first_class;
-		private $class_data;
-		private $replace_data;
-		private $class_path;
+		public $class;
+		public $directory;
+		public $namespace;
+		public $lower_class_name;
+		public $class_name;
+		public $uc_first_class;
+		public $class_data;
+		public $replace_data;
+		public $class_path;
 
 		public function execute($class){
 			if(!$class){ return false; }
@@ -37,38 +37,38 @@
 			return $this->result;
 		}
 
-		private function setClassName($class){
+		public function setClassName($class){
 			$this->class = $this->prepareClassName($class,'/');
 			return $this;
 		}
 
-		private function getNamespace(){
+		public function getNamespace(){
 			$this->directory = dirname($this->class);
 			$this->namespace = str_replace('/','\\',$this->directory);
 			return $this;
 		}
 
-		private function getLowerClassName(){
+		public function getLowerClassName(){
 			$this->lower_class_name = strtolower($this->class);
 			return $this;
 		}
 
-		private function getBaseName(){
+		public function getBaseName(){
 			$this->class_name = basename($this->lower_class_name);
 			return $this;
 		}
 
-		private function getUcFirstClassName(){
+		public function getUcFirstClassName(){
 			$this->uc_first_class = $this->prepareClassName($this->class_name);
 			return $this;
 		}
 
-		private function getClassData(){
+		public function getClassData(){
 			$this->class_data = file_get_contents(fx_php_path("system/console/mainClass.tmp"));
 			return $this;
 		}
 
-		private function getReplacedData(){
+		public function getReplacedData(){
 			$this->replace_data = str_replace(array(
 				'__namespace__','__property__','__class_name__'
 			),array(
@@ -77,7 +77,7 @@
 			return $this;
 		}
 
-		private function saveNewClass(){
+		public function saveNewClass(){
 			fx_make_dir(fx_path(strtolower($this->directory)));
 			$this->class_path = fx_php_path($this->lower_class_name);
 
@@ -95,7 +95,7 @@
 			return $this;
 		}
 
-		private function errorMaking(){
+		public function errorMaking(){
 			Paint::exec(function(Types $print){
 				$print->string(fx_lang('cli.error_header'))->color('red')->print()->space();
 				$print->string(fx_lang('cli.class_not_created',array(
@@ -106,7 +106,7 @@
 			return $this;
 		}
 
-		private function alreadyMaking(){
+		public function alreadyMaking(){
 			Paint::exec(function(Types $print){
 				$print->string(fx_lang('cli.warning_header'))->color('yellow')->print()->space();
 				$print->string(fx_lang('cli.class_already_created',array(
@@ -117,7 +117,7 @@
 			return $this;
 		}
 
-		private function successfulMaking(){
+		public function successfulMaking(){
 			Paint::exec(function(Types $print){
 				$print->string(fx_lang('cli.success_header'))->color('green')->print()->space();
 				$print->string(fx_lang('cli.class_success_created',array(

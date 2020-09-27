@@ -12,13 +12,13 @@
 
 	class Index extends Console{
 
-		private $structured;
-		private $script_name;
+		public $structured;
+		public $script_name;
 
-		private $EOL = PHP_EOL;
-		private $files_dir;
-		private $separator_string;
-		private $aliases_section = null;
+		public $EOL = PHP_EOL;
+		public $files_dir;
+		public $separator_string;
+		public $aliases_section = null;
 
 		public function execute($structured=null){
 			$this->script_name = $this->getFileScriptName();
@@ -33,7 +33,7 @@
 			return $this->result;
 		}
 
-		private function getFiles(){
+		public function getFiles(){
 			Paint::exec(function(Types $print){
 				$print->string($this->separator_string)->print()->eol();
 				$print->string(fx_lang('cli.native_cmds_header'))->fon('blue')->print()->eol();
@@ -53,7 +53,7 @@
 			return $this;
 		}
 
-		private function searchHelpInfo($file_data){
+		public function searchHelpInfo($file_data){
 			preg_match_all(
 				"#\#CMD:(.*?){$this->EOL}|\#DSC:(.*?){$this->EOL}|\#EXM:(.*?){$this->EOL}#",
 				$file_data,
@@ -67,7 +67,7 @@
 			return false;
 		}
 
-		private function printDirectoryName($directory){
+		public function printDirectoryName($directory){
 			Paint::exec(function(Types $print)use($directory){
 				$print->string($directory)->color('white')->fon('red')->print();
 				$print->eol();
@@ -75,7 +75,7 @@
 			return $this;
 		}
 
-		private function prepareCommandParams(Types $print, $params_string){
+		public function prepareCommandParams(Types $print, $params_string){
 			$result_string = preg_replace_callback("/\[(.*?)\]/",function($find)use($print){
 				$str = $print->string('[')->get();
 				$str .= $print->string($find[1])->color('yellow')->get();
@@ -86,7 +86,7 @@
 			return $this;
 		}
 
-		private function printHelpInfo($command,$description,$example){
+		public function printHelpInfo($command,$description,$example){
 			$command = trim($command);
 			$description = trim($description);
 			$description = fx_lang($description);
@@ -116,7 +116,7 @@
 			return true;
 		}
 
-		private function getAliasesCommandsInfo(){
+		public function getAliasesCommandsInfo(){
 			Paint::exec(function(Types $print){
 				$print->string($this->separator_string)->print()->eol();
 				$print->string(fx_lang('cli.alias_cmds_header'))->fon('green')->print()->eol();

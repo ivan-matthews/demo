@@ -74,11 +74,15 @@
 			$this->user = User::getInstance();
 			$this->language = Language::getInstance();
 			$this->hook = Hooks::getInstance();
+
+			$this->offset = $this->request->get('offset') ?? 0;
+			$this->offset = abs((int)$this->offset);
 		}
 
 		public function __destruct(){
 
 		}
+
 
 		/**
 		 * установить ссылку для редиректа;
@@ -88,7 +92,7 @@
 		 * @param int $status_code
 		 * @return $this
 		 */
-		public function redirect($link_to_redirect=null,$status_code=302){
+		private function redirectInternal($link_to_redirect=null,$status_code=302){
 			if(!$link_to_redirect){
 				$link_to_redirect = $this->user->getBackUrl();
 			}
@@ -96,6 +100,18 @@
 			$this->response->setResponseCode($status_code)
 				->setHeader('Location',"/{$link_to_redirect}");
 			return $this;
+		}
+
+		public function redirect($link_to_redirect=null,$status_code=302){
+			if($link_to_redirect){
+				$link_info = parse_url($link_to_redirect);
+				if(isset($link_info['scheme'])){
+					$this->response->setResponseCode($status_code)
+						->setHeader('Location',$link_to_redirect);
+					return $this;
+				}
+			}
+			return $this->redirectInternal($link_to_redirect,$status_code);
 		}
 
 		/**
@@ -119,7 +135,6 @@
 			$this->response->controller('../assets','../empty_page');
 			return $this;
 		}
-
 
 
 

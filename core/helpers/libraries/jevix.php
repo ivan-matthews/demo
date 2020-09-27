@@ -706,6 +706,7 @@ class Jevix{
 	 *  Получает име (тега, параметра) по принципу 1 символ далее цифра или символ
 	 *
 	 * @param string $name
+	 * @return bool
 	 */
 	protected function name(&$name = '', $minus = false){
 		if(($this->curChClass & self::LAT) == self::LAT){

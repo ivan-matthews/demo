@@ -43,7 +43,7 @@
 			$session = Session::getInstance();
 			$session_id = (int)$session->get($session_key_id,Session::PREFIX_AUTH);
 			$my_id = (int)$my_id;
-			if(($session_id && fx_equal($session_id,$my_id)) /* admin account (debug)*/){
+			if(($session_id && fx_equal($session_id,$my_id))){
 				return true;
 			}
 			return false;
@@ -109,7 +109,6 @@
 	}
 	if(!function_exists('fx_avatar')){
 		function fx_avatar($avatar,$image_nof_found_key='micro',$gender=3){
-			$view = View::getInstance();
 			if(!$avatar){
 				if(!$gender){
 					$gender = 3;
@@ -117,13 +116,12 @@
 				$config = Config::getInstance();
 				$avatar = $config->view['user_avatar'][$gender][$image_nof_found_key];
 			}
-			return $view->getUploadSiteRoot($avatar);
+			return fx_get_upload_path($avatar);
 		}
 	}
 	if(!function_exists('fx_get_image_src')){
 		function fx_get_image_src($image_path,$image_file_version=null,$image_nof_found_key="micro"){
-			$view = View::getInstance();
-			$image = $view->getUploadSiteRoot($image_path);
+			$image = fx_get_upload_path($image_path);
 			$result_picture_attributes = $image;
 			$result_picture_attributes .= ($image_file_version ? "?v={$image_file_version}" : $image_file_version);
 			$result_picture_attributes .= '" ';

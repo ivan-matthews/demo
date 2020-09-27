@@ -328,7 +328,7 @@
 			!self::$append_css ?: array_unshift(self::$css_files,...(array_values(self::$append_css)));
 			!self::$prepend_css ?: array_push(self::$css_files,...(array_values(self::$prepend_css)));
 
-			$css_cdn = $this->config->view['js_cdn'];
+			$css_cdn = $this->config->view['css_cdn'];
 			$debug = $this->config->core['debug_enabled'];
 			$css_files = '';
 			foreach(self::$css_files as $key=>$file){
@@ -427,20 +427,20 @@
 			return $this;
 		}
 
-		public function getUploadSiteRoot($upload_pth_to_file){
-			$upload_pth_to_file = trim($upload_pth_to_file,'/');
-			$upload_pth_to_file = "{$this->config->view['uploads_dir']}/{$upload_pth_to_file}";
-			return "/{$this->site_root}/{$upload_pth_to_file}";
+		public function getUploadSiteRoot($upload_path_to_file){
+			$upload_path_to_file = trim($upload_path_to_file,'/');
+			$upload_path_to_file = "{$this->config->view['uploads_dir']}/{$upload_path_to_file}";
+			return "/{$this->site_root}/{$upload_path_to_file}";
 		}
 
-		public function getUploadDir($upload_pth_to_file){
-			$upload_pth_to_file = trim($upload_pth_to_file,'/');
-			$upload_pth_to_file = "{$this->config->view['uploads_dir']}/{$upload_pth_to_file}";
-			return "{$this->web_dir}/{$upload_pth_to_file}";
+		public function getUploadDir($upload_path_to_file){
+			$upload_path_to_file = trim($upload_path_to_file,'/');
+			$upload_path_to_file = "{$this->config->view['uploads_dir']}/{$upload_path_to_file}";
+			return "{$this->web_dir}/{$upload_path_to_file}";
 		}
 
-		public function printUploadSiteRoot($upload_pth_to_file){
-			return print $this->getUploadSiteRoot($upload_pth_to_file);
+		public function printUploadSiteRoot($upload_path_to_file){
+			return print $this->getUploadSiteRoot($upload_path_to_file);
 		}
 
 		public function renderForm($form_data,$form_file='assets/form'){
@@ -468,13 +468,6 @@
 				$new_fields_array[$value['attributes']['params']['field_sets']][$key] = $value;
 			}
 			return $new_fields_array;
-		}
-
-		public function getUrl($link){
-			$host = $this->config->core['site_scheme'];
-			$host .= "://";
-			$host .= $this->config->core['site_host'];
-			return "{$host}{$link}";
 		}
 
 
