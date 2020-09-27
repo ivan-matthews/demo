@@ -30,7 +30,7 @@
 		}
 
 		private function checkGeoClass(){
-			if(!class_exists("\\IvanMatthews\\GeoPack\\Geo")){
+			if(!class_exists(Geo::class)){
 				$class_file = fx_path("vendor/ivan-matthews/geo-package/src/Geo.php");
 				include $class_file;
 			}

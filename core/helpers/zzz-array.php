@@ -110,14 +110,15 @@
 
 			fx_die($_SESSION);
 		 */
-		function fx_set_multilevel_array(&$output_array = array(),$data_to_set,...$keys){
+		function fx_set_multilevel_array(&$input_array = array(),$data_to_set,...$keys){
+			$output_array = array();
 			$search_keys_string = '';
 			if($keys){
 				foreach($keys as $key){
 					$search_keys_string .= "['{$key}']";
 				}
 			}
-			eval('return $output_array'.$search_keys_string.' = $data_to_set;');
+			eval('return $input_array'.$search_keys_string.' = $output_array'.$search_keys_string.' = $data_to_set;');
 			return $output_array;
 		}
 	}

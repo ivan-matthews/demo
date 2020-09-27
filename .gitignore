@@ -1,4 +1,6 @@
 composer.lock
+composer.json
+.htaccess
 /public/sitemaps
 /system/sessions
 /system/cache/dynamic

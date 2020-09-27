@@ -16,6 +16,8 @@
 	или вручную:	
 	---
 
+	Сначала переименовать файл ``composer.json.default`` в ``composer.json``.
+	Файл ``.htaccess.default`` в ``.htaccess``
     
 1.		composer update
 

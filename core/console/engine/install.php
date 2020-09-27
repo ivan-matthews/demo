@@ -20,12 +20,27 @@
 		public $memory_limit;
 		public $db_driver = 'mysql';
 		public $config;
+		public $config_to_update = array(
+			'core'		=> array(
+				'db_driver'		=> 'mysql',
+				'site_scheme'	=> 'http',
+				'site_host'		=> '',
+				'site_name'		=> '',
+			),
+			'database'	=> array(
+				'host'	=> 'localhost',
+				'port'	=> '3306',
+				'user'	=> 'root',
+				'pass'	=> '',
+				'base'	=> 'simple_database',
+			),
+		);
 
 		public function __construct(){
 			$this->config = Config::getInstance();
 		}
 
-		public function execute($with_demo_data='false',$memory_limit='512MB'){
+		public function execute($with_demo_data='false',$memory_limit='1536MB'){
 			$this->memory_limit = $memory_limit;
 
 			$this->setMemoryLimit();
@@ -33,6 +48,10 @@
 			$this->renameComposerJsonFile();
 			$this->runComposer();
 			$this->setConfigs();
+
+			$this->setSecureWord();
+			$this->setCryptionKey();
+
 			$this->runMigrations();
 			if(!fx_equal($with_demo_data,'false')){
 				$this->insertMigrations();
@@ -107,6 +126,7 @@
 
 		public function setConfigs(){
 			$this->setDataBaseDriver();
+
 			$this->setDataBaseHost();
 			$this->setDataBasePort();
 			$this->setDataBaseUser();
@@ -117,6 +137,45 @@
 			$this->setSiteHost();
 			$this->setSiteName();
 
+			$this->checkConfig();
+
+			return $this;
+		}
+
+		public function checkConfig(){
+			Interactive::exec(function(Interactive $interactive){
+				Paint::exec(function(PaintInterface $types){
+					$types->string(fx_lang("cli.new_config_is"))->fon('green')->print();
+					$types->eol();
+				});
+				foreach($this->config_to_update as $key=>$item){
+					Paint::exec(function(PaintInterface $types)use($key,$item){
+						$types->tab();
+						$types->string(fx_lang("cli.new_config_parent_{$key}"))->color('light_cyan')->print();
+						$types->eol();
+					});
+					foreach($item as $item_key=>$item_value){
+						Paint::exec(function(PaintInterface $types)use($item_key,$item_value){
+							$types->tab(2);
+							$types->string(fx_lang("cli.new_config_{$item_key}"))->fon('cyan')->print();
+							$types->string(" {$item_value}")->print();
+							$types->eol();
+						});
+					}
+				}
+				$success_configs = Paint::exec(function(PaintInterface $types){
+					$success = '';
+					$success .= $types->string(fx_lang("cli.new_config_agree"))->fon('green')->get();
+					return $success;
+				});
+				$interactive->create($success_configs);
+				$result = trim($interactive->getDialogString());
+				if(fx_equal(mb_strtolower($result),'y')){
+					$this->updateConfigFromArray();
+				}else{
+					$this->setConfigs();
+				}
+			});
 			return $this;
 		}
 
@@ -129,7 +188,7 @@
 					return $string;
 				}));
 //				$this->db_driver = $interactive->getDialogString();
-				$this->updateConfigs($this->db_driver,'core',array(
+				$this->setConfig($this->db_driver,'core',array(
 					'db_driver'
 				));
 			});
@@ -144,8 +203,8 @@
 					$string .= $types->string(fx_lang('cli.enter_db_host_simple'))->get();
 					return $string;
 				}));
-				$this->updateConfigs($interactive->getDialogString(),'database',array(
-					$this->db_driver, 'host'
+				$this->setConfig($interactive->getDialogString(),'database',array(
+					'host'
 				));
 			});
 			return $this;
@@ -158,8 +217,8 @@
 					$string .= $types->string(fx_lang('cli.enter_db_port_simple'))->get();
 					return $string;
 				}));
-				$this->updateConfigs($interactive->getDialogString(),'database',array(
-					$this->db_driver, 'port'
+				$this->setConfig($interactive->getDialogString(),'database',array(
+					'port'
 				));
 			});
 			return $this;
@@ -172,8 +231,8 @@
 					$string .= $types->string(fx_lang('cli.enter_db_user_simple'))->get();
 					return $string;
 				}));
-				$this->updateConfigs($interactive->getDialogString(),'database',array(
-					$this->db_driver, 'user'
+				$this->setConfig($interactive->getDialogString(),'database',array(
+					'user'
 				));
 			});
 			return $this;
@@ -186,8 +245,8 @@
 					$string .= $types->string(fx_lang('cli.enter_db_password_simple'))->get();
 					return $string;
 				}));
-				$this->updateConfigs($interactive->getDialogString(),'database',array(
-					$this->db_driver, 'pass'
+				$this->setConfig($interactive->getDialogString(),'database',array(
+					'pass'
 				));
 			});
 			return $this;
@@ -200,8 +259,8 @@
 					$string .= $types->string(fx_lang('cli.enter_db_base_simple'))->get();
 					return $string;
 				}));
-				$this->updateConfigs($interactive->getDialogString(),'database',array(
-					$this->db_driver, 'base'
+				$this->setConfig($interactive->getDialogString(),'database',array(
+					'base'
 				));
 			});
 			return $this;
@@ -215,7 +274,7 @@
 					$string .= $types->string(fx_lang('cli.enter_site_scheme_simple'))->get();
 					return $string;
 				}));
-				$this->updateConfigs($interactive->getDialogString(),'core',array(
+				$this->setConfig($interactive->getDialogString(),'core',array(
 					'site_scheme'
 				));
 			});
@@ -229,7 +288,7 @@
 					$string .= $types->string(fx_lang('cli.enter_site_host_simple'))->get();
 					return $string;
 				}));
-				$this->updateConfigs($interactive->getDialogString(),'core',array(
+				$this->setConfig($interactive->getDialogString(),'core',array(
 					'site_host'
 				));
 			});
@@ -243,10 +302,23 @@
 					$string .= $types->string(fx_lang('cli.enter_site_name_simple'))->get();
 					return $string;
 				}));
-				$this->updateConfigs($interactive->getDialogString(),'core',array(
+				$this->setConfig($interactive->getDialogString(),'core',array(
 					'site_name'
 				));
 			});
+			return $this;
+		}
+
+		public function updateConfigFromArray(){
+			foreach($this->config_to_update as $key=>$item){
+				foreach($item as $item_key=>$item_value){
+					if(fx_equal($key,'database')){
+						$this->updateConfigs($item_value,$key,array($this->db_driver,$item_key));
+					}else{
+						$this->updateConfigs($item_value,$key,array($item_key));
+					}
+				}
+			}
 			return $this;
 		}
 
@@ -254,6 +326,11 @@
 			$config_updater_object = new Set();
 			$config_updater_object->execute($value,$file,...$params);
 			$this->config->set($value, $file, ...$params);
+			return $this;
+		}
+
+		public function setConfig($value, $file, array $params){
+			fx_set_multilevel_array($this->config_to_update, $value, $file, ...$params);
 			return $this;
 		}
 
@@ -266,6 +343,18 @@
 		public function insertMigrations(){
 			$migration_runner_object = new Insert();
 			$migration_runner_object->execute();
+			return $this;
+		}
+
+		public function setSecureWord(){
+			$new_secure_key = fx_gen(128);
+			$this->updateConfigs($new_secure_key, 'secure', array('secret_word'));
+			return $this;
+		}
+
+		public function setCryptionKey(){
+			$new_secure_key = fx_gen(128);
+			$this->updateConfigs($new_secure_key, 'secure', array('cryption','cryption_key'));
 			return $this;
 		}
 

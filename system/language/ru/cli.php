@@ -99,4 +99,20 @@
 		'enter_site_host_simple'	=> ' (без протоколов HTTP или HTTPS)',
 		'enter_site_name'			=> 'Введите имя сайта',
 		'enter_site_name_simple'	=> ' (придумайте что-то оригинальное)',
+
+		'new_config_is'			=> 'Новые параметры:',
+		'new_config_parent_core'		=> 'Сайт:',
+		'new_config_parent_database'	=> 'База Данных',
+
+		'new_config_db_driver'		=> 'Драйвер БД:',
+		'new_config_site_scheme'	=> 'Протокол сайта:',
+		'new_config_site_host'		=> 'Хост сайта:',
+		'new_config_site_name'		=> 'Имя сайта:',
+
+		'new_config_host'	=> 'Хост Базы Данных:',
+		'new_config_port'	=> 'Порт Базы Данных:',
+		'new_config_user'	=> 'Пользователь БД:',
+		'new_config_pass'	=> 'Пароль Базы Данных:',
+		'new_config_base'	=> 'Имя Базы Данных:',
+		'new_config_agree'	=> 'Применить эти установки? (Y/N)',
 	);
