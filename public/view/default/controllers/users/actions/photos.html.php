@@ -33,7 +33,7 @@
 
 					<a class="photos-item-link" href="<?php print fx_get_url('photos','item',$photo['p_id']) ?>">
 
-						<img class="photos-item-image" src="<?php print fx_get_image_src($photo['p_medium'],$photo['p_date_updated'],'medium') ?>"/>
+						<img class="photos-item-image" src="<?php print fx_get_image_src($photo['p_medium'],$photo['p_date_updated'],'medium',$photo['p_external']) ?>"/>
 
 						<div class="photos-item-date">
 

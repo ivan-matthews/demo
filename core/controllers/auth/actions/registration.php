@@ -10,7 +10,7 @@
 	use Core\Controllers\Auth\Config;
 	use Core\Controllers\Auth\Controller;
 	use Core\Controllers\Auth\Model;
-	use Core\Controllers\Auth\Forms\Registration as RegistrationFrom;
+	use Core\Controllers\Auth\Forms\Registration as RegistrationForm;
 
 	class Registration extends Controller{
 
@@ -56,7 +56,7 @@
 
 		public function __construct(){
 			parent::__construct();
-			$this->registration = RegistrationFrom::getInstance('registration');
+			$this->registration = RegistrationForm::getInstance('registration');
 
 			$this->response->title('auth.title_registration_action');
 			$this->response->breadcrumb('registration')

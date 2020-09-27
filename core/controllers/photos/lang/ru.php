@@ -42,4 +42,5 @@
 		'select_image_modal_head'	=> 'Выбрать изображение',
 		'delete_preview_image'		=> 'удалить',
 		'find_by_photos_table_head'	=> 'Фото',
+		'total_views_value'			=> '%total% просмотров',
 	);

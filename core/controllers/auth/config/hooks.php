@@ -31,4 +31,11 @@
 			'controller'	=> 'auth',
 			'action'		=> 'verify_account',
 		),
+		'controller_run_after_hook'	=> array(
+			'class'			=> \Core\Controllers\Auth\Hooks\Controller_Run_After_Hook::class,
+			'method'		=> 'run',
+			'status'		=> Kernel::STATUS_ACTIVE,
+			'controller'	=> 'auth',
+			'action'		=> 'verify_account',
+		),
 	);

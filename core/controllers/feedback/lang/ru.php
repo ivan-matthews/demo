@@ -41,4 +41,5 @@
 		'title_feedback_email'	=> 'Почтовый ящик',
 		'title_feedback_phone'	=> 'Контактный тлф',
 		'answer_title'			=> 'Ответ на это сообщение:',
+		'inactive_contact_value'=> '<span class="bg-danger text-white p-1 font-weight-bold">(не активный)</span>',
 	);

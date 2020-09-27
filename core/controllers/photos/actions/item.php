@@ -76,9 +76,9 @@
 					));
 
 				Comments::add($this->limit,$this->offset)
-					->setProp('wa_position','photo_info')
-					->setProp('wa_template','controllers/photos/widgets/comments')
-					->setProp('w_template','controllers/photos/widgets/comments')
+//					->setProp('wa_position','photo_info')
+//					->setProp('wa_template','controllers/photos/widgets/comments')
+//					->setProp('w_template','controllers/photos/widgets/comments')
 					->controller('photos')
 					->action('item')
 					->item_id($this->item)

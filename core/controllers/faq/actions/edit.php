@@ -166,10 +166,21 @@
 		}
 
 		public function addResponse(){
+			$title = fx_crop_string($this->faq_item['f_question'],50);
+			$this->response->title($title);
+			$this->response->breadcrumb('item')
+				->setValue($title)
+				->setLink('faq','item',$this->item_id)
+				->setIcon(null);
+
+			return $this->appendResponse();
+		}
+
+		public function appendResponse(){
 			$this->response->title('faq.edit_answer_form_title');
-			$this->response->breadcrumb('add')
+			$this->response->breadcrumb('edit')
 				->setValue('faq.edit_answer_form_title')
-				->setLink('faq','add')
+				->setLink('faq','edit',$this->item_id)
 				->setIcon(null);
 
 			return $this;

@@ -276,6 +276,7 @@
 }
 .user-profile .user-right-bar .photos-block .photos-block-body .photos-block-body-item a img {
   border: solid 1px rgba(0, 0, 0, 0.125);
+  max-width: 64px;
 }
 .user-profile .user-right-bar .photos-block .photos-block-body .block .block-icon {
   font-size: 24px;

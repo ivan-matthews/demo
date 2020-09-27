@@ -21,6 +21,9 @@
 				$table->varchar('p_user_id')->nullable()->index();
 				$table->varchar('p_album_id')->notNull()->defaults(1)->index();
 				$table->longtext('p_description')->nullable()->fullText();
+
+				$table->tinyint('p_external')->nullable()->index();
+
 				$table->bigint('p_total_comments')->notNull()->defaults(0)->index();
 				$table->bigint('p_total_views')->unsigned()->notNull()->defaults(0);
 				$table->varchar('p_name')->nullable()->index();

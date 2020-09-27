@@ -15,16 +15,16 @@
 .feedback-contacts .feedback .feedback-item .location .city .apartment {
   margin-left: 4px;
 }
-.feedback-contacts .feedback .feedback-item .location .phones .phone {
-  margin: 5px 0;
-}
-.feedback-contacts .feedback .feedback-item .location .phones .phone a {
+.feedback-contacts .feedback .feedback-item .location .phones .phone a .value {
   padding: 5px 0;
 }
-.feedback-contacts .feedback .feedback-item .location .mails .mail {
-  margin: 5px 0;
+.feedback-contacts .feedback .feedback-item .location .phones .phone a .inactive {
+  padding: 5px 0;
 }
-.feedback-contacts .feedback .feedback-item .location .mails .mail a {
+.feedback-contacts .feedback .feedback-item .location .mails .mail a .value {
+  padding: 5px 0;
+}
+.feedback-contacts .feedback .feedback-item .location .mails .mail a .inactive {
   padding: 5px 0;
 }
 .feedback-list .feedback-items .bids-item:first-child {

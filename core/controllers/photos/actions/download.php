@@ -1,14 +1,15 @@
 <?php
 
-	namespace Core\Controllers\Audios\Actions;
+	namespace Core\Controllers\Photos\Actions;
 
 	use Core\Classes\Hooks;
+	use Core\Classes\Kernel;
 	use Core\Classes\Request;
 	use Core\Classes\Session;
 	use Core\Classes\Response\Response;
-	use Core\Controllers\Audios\Config;
-	use Core\Controllers\Audios\Controller;
-	use Core\Controllers\Audios\Model;
+	use Core\Controllers\Photos\Config;
+	use Core\Controllers\Photos\Controller;
+	use Core\Controllers\Photos\Model;
 
 	class Download extends Controller{
 
@@ -42,8 +43,8 @@
 		/** @var array */
 		public $download;
 
-		public $audio_id;
-		public $audio_data;
+		public $photo_id;
+		public $photo_data;
 
 		/** @return $this */
 		public static function getInstance(){
@@ -57,15 +58,15 @@
 			parent::__construct();
 		}
 
-		public function methodGet($audio_id){
-			$this->audio_id = $audio_id;
-			$this->audio_data = $this->model->getAudioByID($this->audio_id);
+		public function methodGet($photo_id){
+			$this->photo_id = $photo_id;
+			$this->photo_data = $this->model->getPhotoById($this->photo_id,"photos.p_status = " . Kernel::STATUS_ACTIVE);
 
-			if($this->audio_data){
-				if(!fx_me($this->audio_data['au_user_id']) && fx_logged()){
-					$this->model->updateTotalViewsAudio($this->audio_id);
+			if($this->photo_data){
+				if(!fx_me($this->photo_data['p_user_id']) && fx_logged()){
+					$this->model->updateTotalViewsPhoto($this->photo_id);
 				}
-				return $this->redirect(fx_get_upload_path($this->audio_data['au_path'],true, $this->audio_data['au_external']));
+				return $this->redirect(fx_get_upload_path($this->photo_data['p_original'],true, $this->photo_data['p_external']));
 			}
 
 			return $this;

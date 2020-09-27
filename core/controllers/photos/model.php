@@ -117,6 +117,16 @@
 			return $insert->id();
 		}
 
+		public function updateTotalViewsPhoto($photo_id){
+			$this->result = $this->update('photos')
+				->query('p_total_views','p_total_views+1')
+				->where("p_id = %photo_id%")
+				->data('%photo_id%',$photo_id)
+				->get()
+				->rows();
+			return $this->result;
+		}
+
 		public function countFind($search_query){
 			$where_query = "p_status = " . Kernel::STATUS_ACTIVE;
 			$where_query .= " AND u_status = " . Kernel::STATUS_ACTIVE;

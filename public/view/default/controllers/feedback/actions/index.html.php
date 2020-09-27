@@ -65,9 +65,18 @@
 						<div class="phones-title mt-2 footer-line mb-1">
 							<?php print fx_lang('feedback.contact_phones') ?>
 						</div>
-						<?php foreach($contact['phones'] as $phone){ ?>
+						<?php foreach($contact['phones'] as $phone_key=>$phone_status){ ?>
 							<div class="phone">
-								<a class="phone" href="call:+<?php print $phone ?>">+<?php print $phone ?></a>
+								<a class="phone row col-12" href="call:+<?php print $phone_key ?>">
+									<div class="value col">
+										+<?php print $phone_key ?>
+									</div>
+									<?php if(!$phone_status){ ?>
+										<div class="inactive col">
+											<?php print fx_lang('feedback.inactive_contact_value') ?>
+										</div>
+									<?php } ?>
+								</a>
 							</div>
 						<?php } ?>
 					</div>
@@ -75,9 +84,18 @@
 						<div class="mails-title mt-2 footer-line mb-1">
 							<?php print fx_lang('feedback.contact_emails') ?>
 						</div>
-						<?php foreach($contact['emails'] as $email){ ?>
+						<?php foreach($contact['emails'] as $email_key=>$email_status){ ?>
 							<div class="mail">
-								<a class="email" href="mailto:<?php print $email ?>"><?php print $email ?></a>
+								<a class="email row col-12" href="mailto:<?php print $email_key ?>">
+									<div class="value col">
+										<?php print $email_key ?>
+									</div>
+									<?php if(!$email_status){ ?>
+										<div class="inactive col">
+											<?php print fx_lang('feedback.inactive_contact_value') ?>
+										</div>
+									<?php } ?>
+								</a>
 							</div>
 						<?php } ?>
 					</div>

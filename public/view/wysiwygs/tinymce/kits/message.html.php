@@ -5,7 +5,7 @@
 			language: '<?php print $lang ?>',
 			branding: false,
 			body_class: 'full',
-			content_css: '/public/view/wysiwygs/tinymce/tinymce.css',
+			content_css: '/public/view/wysiwygs/tinymce/custom/tinymce.css',
 
 			statusbar: false,
 			elementpath: false,

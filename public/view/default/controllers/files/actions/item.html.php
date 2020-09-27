@@ -20,14 +20,14 @@
 					<?php print fx_get_file_icon($file['f_name'])  ?>
 				</div>
 
-				<div class="col-9 col-sm-9 col-md-9 col-lg-10 col-xl-10 description mt-4">
+				<div class="col-9 col-sm-9 col-md-9 col-lg-10 col-xl-10 description mt-2 mb-2">
 					<?php print $file['f_description'] ?>
 				</div>
 			</div>
 
 			<div class="row justify-content-center">
 				<div class="info item-link row col-12 col-sm-12 col-md-8 col-xl-6 col-lg-7">
-					<a href="<?php print fx_get_url('files','download',$file['f_id']) ?>" class="col btn btn-success">
+					<a href="<?php print fx_get_url('files','download',$file['f_id']) ?>" class="col btn btn-success" download="<?php print $file['f_name'] ?>">
 						<i class="fas fa-download"></i>
 						<?php print fx_lang('files.download_file_btn_value') ?>
 					</a>

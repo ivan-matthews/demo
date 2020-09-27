@@ -95,7 +95,7 @@
 					'date_password_restore'		=> time(),
 				),$this->fields_list['login']['attributes']['value']);
 
-				Mail::set()
+				Mail::set('admin')
 					->subject(fx_lang('auth.title_restore_password'))
 					->to($this->fields_list['login']['attributes']['value'])
 					->html('restore_password',array(

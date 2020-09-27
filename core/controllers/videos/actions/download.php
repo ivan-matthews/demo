@@ -65,7 +65,7 @@
 				if(!fx_me($this->video_data['v_user_id']) && fx_logged()){
 					$this->model->updateTotalViewsVideo($this->video_id);
 				}
-				return $this->redirect(fx_get_upload_path($this->video_data['v_path']));
+				return $this->redirect(fx_get_upload_path($this->video_data['v_path'],true, $this->video_data['v_external']));
 			}
 
 			return $this;

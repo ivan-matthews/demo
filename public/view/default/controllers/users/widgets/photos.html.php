@@ -28,7 +28,7 @@
 				<?php foreach($photos as $photo){ ?>
 					<div class="mx-auto photos-block-body-item">
 						<a class="" href="<?php print fx_get_url('photos','item',$photo['p_id']) ?>">
-							<img src="<?php print fx_get_image_src($photo['p_small'],$photo['p_date_updated'],'small') ?>">
+							<img src="<?php print fx_get_image_src($photo['p_small'],$photo['p_date_updated'],'small',$photo['p_external']) ?>">
 						</a>
 					</div>
 				<?php } ?>

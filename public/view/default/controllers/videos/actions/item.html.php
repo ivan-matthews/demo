@@ -23,10 +23,10 @@
 				<div class="item-content col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 mt-4">
 
 					<video controls loop preload="auto" class="col-12">
-						<source src="<?php print fx_get_upload_path($video['v_path']) ?>" type="<?php print $video['v_mime'] ?>">
+						<source src="<?php print fx_get_upload_path($video['v_path'],true,$video['v_external']) ?>" type="<?php print $video['v_mime'] ?>">
 					</video>
 
-					<div class="col-12 description mt-4">
+					<div class="col-12 description mt-2 mb-2">
 						<?php print $video['v_description'] ?>
 					</div>
 
@@ -35,7 +35,7 @@
 
 			<div class="row justify-content-center">
 				<div class="info item-link row col-12 col-sm-12 col-md-8 col-xl-6 col-lg-7">
-					<a href="<?php print fx_get_url('videos','download',$video['v_id']) ?>" class="col btn btn-success">
+					<a href="<?php print fx_get_url('videos','download',$video['v_id']) ?>" class="col btn btn-success" download="<?php print $video['v_name'] ?>">
 						<i class="fas fa-download"></i>
 						<?php print fx_lang('videos.download_video_btn_value') ?>
 					</a>

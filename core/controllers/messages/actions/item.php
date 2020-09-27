@@ -156,7 +156,7 @@
 				return $this;
 			}
 
-			return false;
+			return $this->renderEmptyPage();
 		}
 
 

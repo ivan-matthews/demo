@@ -105,13 +105,18 @@
 		}
 
 		public function getContactById($user_id,$contact_id){
+			$where_query = '';
+			$where_query .= "`mc_id`=%contact_id%";
+			$where_query .= " and (`mc_sender_id`=%receiver_id% or `mc_receiver_id`=%receiver_id%)\n\t\t";
+			$where_query .= " and if(`mc_sender_id`=%receiver_id%, isnull(mc_hide_in_sender), isnull(mc_hide_in_user))";
 			$result = $this->select()
 				->from('messages_contacts')
 				->join('users FORCE INDEX (PRIMARY)',$this->users_table_join_query)
 				->join('photos FORCE INDEX (PRIMARY)',"p_id=u_avatar_id")
-				->where("`mc_id`=%contact_id% and if(`mc_sender_id`=%receiver_id%,isnull(mc_hide_in_sender),isnull(mc_hide_in_user))")
+				->where($where_query)
 				->data('%contact_id%',$contact_id)
 				->data('%receiver_id%',$user_id)
+				->limit(1)
 				->get()
 				->itemAsArray();
 

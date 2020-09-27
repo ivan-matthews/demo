@@ -18,7 +18,7 @@
 			<div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5 photos-image">
 
 				<div class="image-block">
-					<img src="<?php print fx_get_image_src($photo['p_big'],$photo['p_date_updated'],'big') ?>">
+					<img src="<?php print fx_get_image_src($photo['p_big'],$photo['p_date_updated'],'big',$photo['p_external']) ?>">
 				</div>
 
 				<?php if($photo['p_date_updated'] > $photo['p_date_created']){ ?>
@@ -31,15 +31,15 @@
 					</div>
 				<?php } ?>
 
-				<div class="links-block mt-2 col-12 row justify-content-center p-0 ml-0 mr-0">
+				<div class="links-block m-0 p-0 row mt-2 mb-2 col-12 col-sm-9 col-md-6 col-lg-12 col-xl-12">
 
 					<?php if(fx_me($photo['u_id'])){ ?>
 
-						<a class="col-6 mx-auto size-original-link" href="<?php print $this->getUploadSiteRoot($photo['p_original']) ?>">
+						<a class="col-6 mx-auto size-original-link" href="<?php print fx_get_upload_path($photo['p_original'],true, $photo['p_external']) ?>">
 							<i class="fas fa-search-plus"></i>
 							<?php print fx_lang('photos.show_original_image') ?>
 						</a>
-						<a class="col-5 mx-auto get-original-link" href="javascript:void(0)" onclick="indexObj.downloadFile(this,'<?php print $this->getUploadSiteRoot($photo['p_original']) ?>','<?php print $photo['p_mime'] ?>',<?php print $photo['p_size'] ?>,'<?php print $photo['p_name'] ?>','<?php print fx_lang('photos.download_image_description',array('%image%'=> $photo['p_name'])) ?>')">
+						<a download="<?php print $photo['p_name'] ?>" class="col-5 mx-auto get-original-link" href="<?php print fx_get_url('photos','download',$photo['p_id']) ?>">
 							<i class="fas fa-download"></i>
 							<?php print fx_lang('photos.download_original_image') ?>
 						</a>
@@ -66,11 +66,11 @@
 
 					<?php }else{ ?>
 
-						<a class="col-6 mx-auto size-original-link" href="<?php print $this->getUploadSiteRoot($photo['p_original']) ?>">
+						<a class="col-6 mx-auto size-original-link" href="<?php print fx_get_upload_path($photo['p_original'],true, $photo['p_external']) ?>">
 							<i class="fas fa-search-plus"></i>
 							<?php print fx_lang('photos.show_original_image') ?>
 						</a>
-						<a class="col-6 mx-auto get-original-link" href="javascript:void(0)" onclick="indexObj.downloadFile(this,'<?php print $this->getUploadSiteRoot($photo['p_original']) ?>','<?php print $photo['p_mime'] ?>',<?php print $photo['p_size'] ?>,'<?php print $photo['p_name'] ?>','<?php print fx_lang('photos.download_image_description',array('%image%'=> $photo['p_name'])) ?>')">
+						<a download="<?php print $photo['p_name'] ?>" class="col-5 mx-auto get-original-link" href="<?php print fx_get_url('photos','download',$photo['p_id']) ?>">
 							<i class="fas fa-download"></i>
 							<?php print fx_lang('photos.download_original_image') ?>
 						</a>
@@ -84,26 +84,36 @@
 
 				<a class="m-0 p-0 user-info-link" href="<?php print fx_get_url('users','item',$photo['u_id']) ?>">
 
-					<div class="m-0 p-0 user-info row col-12 pl-0 pr-0 mr-0 ml-0<?php if(!$photo['p_description']){ ?> mb-4<?php } ?>">
+					<div class="user-info row col-12">
 
-						<div class="user-photo">
+						<div class="col-1 m-0 p-0">
+							<div class="user-photo">
+								<?php fx_print_avatar($photo['micro'],'micro',$photo['updated'],$photo['u_gender']) ?>
 
-							<?php fx_print_avatar($photo['micro'],'micro',$photo['updated'],$photo['u_gender']) ?>
-
+							</div>
 						</div>
 
-						<div class="user-name ml-3">
+						<div class="col-11">
+							<div class="row col-12">
+								<div class="user-name pr-2">
+									<?php print fx_get_full_name($photo['u_full_name'],$photo['u_gender']) ?>
+								</div>
 
-							<?php print fx_get_full_name($photo['u_full_name'],$photo['u_gender']) ?>
-
-						</div>
-
-						<div class="add-date ml-2">
-
-							<?php print fx_lang('photos.photo_added_in') ?>
-
-							<?php print fx_get_date($photo['created']) ?>
-
+								<div class="add-date">
+									<?php print fx_lang('photos.photo_added_in') ?>
+									<?php print fx_get_date($photo['created']) ?>
+								</div>
+							</div>
+							<div class="photo-views col-12 row">
+								<div class="icon pr-1">
+									<i class="fas fa-eye"></i>
+								</div>
+								<div class="text">
+									<?php print fx_lang('photos.total_views_value',array(
+										'%total%'	=> $photo['p_total_views']
+									)) ?>
+								</div>
+							</div>
 						</div>
 
 					</div>
@@ -116,10 +126,10 @@
 					</div>
 				<?php } ?>
 
-				<div class="photos-comments">
-					<?php print $this->widget('photo_info') ?>
+<!--				<div class="photos-comments">
+					<?php /*print $this->widget('photo_info') */?>
 				</div>
-
+-->
 			</div>
 
 		</div>

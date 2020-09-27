@@ -21,6 +21,9 @@
 				$table->varchar('v_user_id')->nullable()->index();
 				$table->varchar('v_videolist_id')->notNull()->defaults(1)->index();
 				$table->longtext('v_description')->nullable()->fullText();
+
+				$table->tinyint('v_external')->nullable()->index();
+
 				$table->bigint('v_total_comments')->notNull()->defaults(0)->index();
 				$table->bigint('v_total_views')->unsigned()->notNull()->defaults(0);
 				$table->varchar('v_name')->nullable()->index();

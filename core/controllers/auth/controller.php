@@ -71,7 +71,7 @@
 		}
 
 		public function sendRegisterEmail(array $input_data){
-			Mail::set()
+			Mail::set('admin')
 				->subject(fx_lang('auth.registration_mail_subject',array(
 					'%site_name%'	=> $this->config->core['site_name']
 				)))

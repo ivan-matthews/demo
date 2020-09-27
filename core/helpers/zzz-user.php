@@ -121,7 +121,10 @@
 		}
 	}
 	if(!function_exists('fx_get_image_src')){
-		function fx_get_image_src($image_path,$image_file_version=null,$image_nof_found_key="micro"){
+		function fx_get_image_src($image_path,$image_file_version=null,$image_nof_found_key="micro",$external=false){
+			if($external){
+				return "{$image_path}\"onerror=\"indexObj.brokenImage(this, '{$image_nof_found_key}') ";
+			}
 			$view = View::getInstance();
 			$image = $view->getUploadSiteRoot($image_path);
 			$result_picture_attributes = $image;

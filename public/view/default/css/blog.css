@@ -63,6 +63,9 @@
   font-size: 18px;
   font-weight: bold;
 }
+.blog-item .blog-post .right-bar .blog-content img {
+  max-width: 100%;
+}
 .blog-item .post-info {
   border-top: solid 1px rgba(0, 0, 0, 0.125);
   border-bottom: solid 1px rgba(0, 0, 0, 0.125);

@@ -40,7 +40,10 @@
 			$this->session_message_default_config['unlink_link'] = fx_get_url('home','unlink_session_message',$this->key);
 		}
 
-		/** @return SessionMessage */
+		/**
+		 * @param $key
+		 * @return SessionMessage
+		 */
 		public static function set($key){
 			return new self($key);
 		}
