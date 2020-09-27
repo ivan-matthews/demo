@@ -8,56 +8,6 @@
 		'resend_email'		=> null,
 		'contacts_title'	=> 'feedback.contacts_title_value',
 		'contacts_footer'	=> 'feedback.contacts_footer_value',
-		'contact_info'		=> array(
-			array(
-				'country'	=> 'Украина',
-				'region'	=> 'Запорожская обл',
-				'city'		=> 'Запорожье',
-				'street'	=> 'Соборный',
-				'house'		=> '21',
-				'apartment'	=> '120',
-				'phones'	=> array(
-					380991234567	=> false,
-					380951234567	=> false,
-					380661234567	=> false,
-					380971234567	=> false
-				),
-				'emails'	=> array(
-					'admin@m.c'			=> false,
-					'support@m.c'		=> false,
-					'system@m.c'		=> false,
-					'info@m.c'			=> false,
-					'help@m.c'			=> false,
-					'feed@m.c'			=> false,
-					'feedback@m.c'		=> false,
-					'feedback-info@m.c'	=> false,
-				),
-			),
-			array(
-				'country'	=> 'Украина',
-				'region'	=> 'Днепропетровская обл',
-				'city'		=> 'Днепр',
-				'street'	=> 'Соборный',
-				'house'		=> '21',
-				'apartment'	=> '120',
-				'phones'	=> array(
-					380991234567	=> false,
-					380951234567	=> false,
-					380661234567	=> false,
-					380971234567	=> false
-				),
-				'emails'	=> array(
-					'admin@m.c'			=> false,
-					'support@m.c'		=> false,
-					'system@m.c'		=> false,
-					'info@m.c'			=> false,
-					'help@m.c'			=> false,
-					'feed@m.c'			=> false,
-					'feedback@m.c'		=> false,
-					'feedback-info@m.c'	=> false,
-				),
-			),
-		),
 		'controller'	=> array(
 			'groups_enabled'	=> array(),
 			'groups_disabled'	=> array(),

@@ -5,6 +5,7 @@
 .feedback-contacts .feedback .feedback-item .region-head {
   font-size: 30px;
   font-weight: bold;
+  word-wrap: break-word;
 }
 .feedback-contacts .feedback .feedback-item .location {
   font-weight: bold;
@@ -15,17 +16,37 @@
 .feedback-contacts .feedback .feedback-item .location .city .apartment {
   margin-left: 4px;
 }
-.feedback-contacts .feedback .feedback-item .location .phones .phone a .value {
-  padding: 5px 0;
+.feedback-contacts .feedback .feedback-item .location .contacts {
+  font-size: 20px;
 }
-.feedback-contacts .feedback .feedback-item .location .phones .phone a .inactive {
-  padding: 5px 0;
+.feedback-contacts .feedback .feedback-item .location .feedback-contacts-block a div:hover {
+  background-color: #d9e2ec;
 }
-.feedback-contacts .feedback .feedback-item .location .mails .mail a .value {
-  padding: 5px 0;
+.feedback-contacts .feedback .feedback-item .location .feedback-contacts-block a div i,
+.feedback-contacts .feedback .feedback-item .location .feedback-contacts-block a div svg {
+  font-size: 20px;
+  padding-right: 10px;
 }
-.feedback-contacts .feedback .feedback-item .location .mails .mail a .inactive {
-  padding: 5px 0;
+.feedback-contacts .feedback .feedback-item .location .feedback-contacts-block a div i.fas.fa-phone-alt,
+.feedback-contacts .feedback .feedback-item .location .feedback-contacts-block a div svg.fas.fa-phone-alt {
+  color: #9fcdff;
+}
+.feedback-contacts .feedback .feedback-item .location .feedback-contacts-block a div i.fas.fa-at,
+.feedback-contacts .feedback .feedback-item .location .feedback-contacts-block a div svg.fas.fa-at {
+  color: #999999;
+}
+.feedback-contacts .feedback .feedback-item .location .feedback-contacts-block a div i.fab.fa-whatsapp,
+.feedback-contacts .feedback .feedback-item .location .feedback-contacts-block a div svg.fab.fa-whatsapp {
+  color: #28a745;
+}
+.feedback-contacts .feedback .feedback-item .location .feedback-contacts-block a div i.fab.fa-viber,
+.feedback-contacts .feedback .feedback-item .location .feedback-contacts-block a div svg.fab.fa-viber {
+  color: rebeccapurple;
+}
+.feedback-contacts .feedback .feedback-item .location .feedback-contacts-block a div i.fab.fa-telegram,
+.feedback-contacts .feedback .feedback-item .location .feedback-contacts-block a div svg.fab.fa-telegram {
+  color: #4a76a8;
+  font-weight: normal;
 }
 .feedback-list .feedback-items .bids-item:first-child {
   border-top: none;

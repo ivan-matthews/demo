@@ -110,7 +110,58 @@
 			return $result;
 		}
 
+		public function getFeedbackContacts(){
+			$result = $this->select(
+				'gc_title_ru',
+				'gc_title_en',
+				'gr_title_ru',
+				'gr_title_en',
+				'g_title_ru',
+				'g_title_en',
+				'fc_street',
+				'fc_house',
+				'fc_apartments',
+				'fc_title',
+				'u_first_name',
+				'p_micro',
+				'u_gender',
+				'u_full_name',
+				'u_phone',
+				'u_cophone',
+				'u_email',
+				'u_whatsapp',
+				'u_viber',
+				'u_telegram',
+				'u_skype',
+				'u_icq',
+				'fc_description',
+				'u_country_id',
+				'u_region_id',
+				'u_city_id'
+			)
+				->from('feedback_contacts')
+				->join('users FORCE INDEX(PRIMARY)',"fc_operator_id = u_id")
+				->join('photos FORCE INDEX(PRIMARY)',"u_avatar_id = p_id")
+				->join('geo_cities FORCE INDEX(PRIMARY)',"u_city_id = gc_city_id")
+				->join('geo_regions FORCE INDEX(PRIMARY)',"u_region_id = gr_region_id")
+				->join('geo_countries FORCE INDEX(PRIMARY)',"u_country_id = g_country_id")
+				->where('fc_status = ' . Kernel::STATUS_ACTIVE)
+				->get()
+				->allAsArray();
 
+			if($result){
+				$new_result_array = array();
+				foreach($result as $value){
+					$key = $value['u_country_id'] . $value['u_region_id'] .
+						$value['u_city_id'] . $value['fc_street'] .
+						$value['fc_house'] . $value['fc_apartments'];
+					$new_result_array[md5($key)][] = $value;
+				}
+				return $new_result_array;
+			}
+
+			return $result;
+		}
 
 
 

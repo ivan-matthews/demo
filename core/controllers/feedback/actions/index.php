@@ -56,9 +56,11 @@
 
 		public function methodGet(){
 
+			$this->index = $this->model->getFeedbackContacts();
+
 			$this->response->controller('feedback')
 				->setArray(array(
-					'contacts'	=> $this->params->contact_info,
+					'contacts'	=> $this->index,
 					'title'		=> $this->params->contacts_title,
 					'footer'	=> $this->params->contacts_footer,
 				));

@@ -10,6 +10,7 @@
 			.region-head{
 				font-size: 30px;
 				font-weight: bold;
+				word-wrap: break-word;
 			}
 			.location{
 				font-weight: bold;
@@ -26,32 +27,34 @@
 						margin-left: 4px;
 					}
 				}
-				.phones{
-					.phones-title{}
-					.phone{
-						//margin: 5px 0;
-						a{
-							//padding: 5px 0;
-							.value{
-								padding: 5px 0;
-							}
-							.inactive{
-								padding: 5px 0;
-							}
-						}
-					}
+				.contacts{
+					font-size: 20px;
 				}
-				.mails{
-					.mails-title{}
-					.mail{
-						//margin: 5px 0;
-						a{
-							//padding: 5px 0;
-							.value{
-								padding: 5px 0;
+				.feedback-contacts-block{
+					a{
+						div{
+							&:hover{
+								background-color: @light-general-color;
 							}
-							.inactive{
-								padding: 5px 0;
+							i,svg{
+								font-size: 20px;
+								padding-right: 10px;
+								&.fas.fa-phone-alt{
+									color: #9fcdff;
+								}
+								&.fas.fa-at{
+									color: #999999;
+								}
+								&.fab.fa-whatsapp{
+									color: @success;
+								}
+								&.fab.fa-viber{
+									color: rebeccapurple;
+								}
+								&.fab.fa-telegram{
+									color: @general-color;
+									font-weight: normal;
+								}
 							}
 						}
 					}

@@ -42,4 +42,12 @@
 		'title_feedback_phone'	=> 'Контактный тлф',
 		'answer_title'			=> 'Ответ на это сообщение:',
 		'inactive_contact_value'=> '<span class="bg-danger text-white p-1 font-weight-bold">(не активный)</span>',
+		'contacts_index_title'	=> 'Контакты',
+		'phone_title'			=> 'Связаться по телефону',
+		'email_title'			=> 'Связаться по E-Mail',
+		'whatsapp_title'		=> 'Связаться по WhatsApp',
+		'viber_title'			=> 'Связаться по Viber',
+		'telegram_title'		=> 'Связаться по Telegram',
+		'icq_title'				=> 'Связаться по ICQ',
+		'skype_title'			=> 'Связаться по Skype',
 	);
