@@ -20,6 +20,7 @@
 			'user'			=> 'root',
 			'pass'			=> '123',
 			'base'			=> 'new_database',
+			'default_db_con'=> 'postgres',
 			'socket'		=> '',
 			'engine'		=> 'MyISAM',
 			'clear_sql_mode'=> false,

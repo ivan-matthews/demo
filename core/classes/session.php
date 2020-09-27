@@ -100,6 +100,7 @@
 			if($this->cookies->isCookie($this->config->session['session_name'])){
 				$this->session_id = $this->cookies->getCookie($this->config->session['session_name']);
 			}else{
+				Hooks::_run('new_user');
 				$this->session_id = fx_gen(rand($this->config->session['session_sid_min'],$this->config->session['session_sid_max']));
 			}
 			return $this;

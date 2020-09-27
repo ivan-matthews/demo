@@ -4,7 +4,7 @@
 
 	return array(
 		array(
-			'url'			=> '@[ID пользователя]',
+			'url'			=> '№[ID пользователя]',
 			'controller'	=> 'users',
 			'action'		=> 'item',
 			'params'		=> array(),

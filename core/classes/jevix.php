@@ -71,7 +71,7 @@
 			// Устанавливаем разрешённые параметры тегов. Также можно устанавливать допустимые значения этих параметров.
 			$this->cfgAllowTagParams('a', array('href' => '#link', 'name' => '#text', 'target' => '#text', 'class' => '#text'));
 			$this->cfgAllowTagParams('img', array('src', 'style' => '#text', 'alt' => '#text', 'title' => '#text', 'align' => array('right', 'left', 'center'), 'width' => '#int', 'height' => '#int', 'hspace' => '#int', 'vspace' => '#int', 'class' => '#text'));
-//			$this->cfgAllowTagParams('span', array('style' => '#text'));
+			$this->cfgAllowTagParams('span', array('style' => '#text'));
 			$this->cfgAllowTagParams('input', array('tabindex' => '#text', 'type' => '#text', 'id' => '#text'));
 			$this->cfgAllowTagParams('label', array('class' => '#text', 'for' => '#text'));
 			$this->cfgAllowTagParams('object', array('width' => '#int', 'height' => '#int', 'data' => array('#domain'=>array('youtube.com','rutube.ru','vimeo.com','vk.com')), 'type' => '#text'));

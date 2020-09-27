@@ -43,7 +43,7 @@
 			$session = Session::getInstance();
 			$session_id = (int)$session->get($session_key_id,Session::PREFIX_AUTH);
 			$my_id = (int)$my_id;
-			if(($session_id && fx_equal($session_id,$my_id)) /* admin account (debug)*/){
+			if(($session_id && fx_equal($session_id,$my_id))){
 				return true;
 			}
 			return false;

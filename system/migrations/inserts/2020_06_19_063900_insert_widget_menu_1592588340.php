@@ -320,6 +320,7 @@
 					'value'			=> 'home.rules_link_value',
 					'icon'			=> 'fa fa-gavel',
 					'css_class_icon'=> 'chocolate-icon',
+					'status'		=> Kernel::STATUS_ACTIVE
 				),
 				array(
 					'link_array'	=> array('link'=>array('faq'),'query'=>array()),
@@ -328,6 +329,7 @@
 					'value'			=> 'home.faq_link_value',
 					'icon'			=> 'fa fa-question',
 					'css_class_icon'=> 'chocolate-icon',
+					'status'		=> Kernel::STATUS_ACTIVE
 				),
 				array(
 					'link_array'	=> array(
@@ -338,6 +340,7 @@
 					'value'			=> 'home.help_link_value',
 					'icon'			=> 'fa fa-medkit',
 					'css_class_icon'=> 'chocolate-icon',
+					'status'		=> Kernel::STATUS_ACTIVE
 				),
 				array(
 					'link_array'	=> array('link'=>array('support'),'query'=>array()),
@@ -346,6 +349,7 @@
 					'value'			=> 'home.support_link_value',
 					'icon'			=> 'fa fa-life-ring',
 					'css_class_icon'=> 'chocolate-icon',
+					'status'		=> Kernel::STATUS_INACTIVE
 				),
 				array(
 					'link_array'	=> array('link'=>array('feedback'),'query'=>array()),
@@ -354,6 +358,7 @@
 					'value'			=> 'home.feedback_link_title',
 					'icon'			=> 'fa fa-comments',
 					'css_class_icon'=> 'chocolate-icon',
+					'status'		=> Kernel::STATUS_ACTIVE
 				),
 				array(
 					'link_array'	=> array('link'=>array('site-news'),'query'=>array()),
@@ -362,6 +367,7 @@
 					'value'			=> 'home.blog_link_title',
 					'icon'			=> 'fa fa-newspaper',
 					'css_class_icon'=> 'chocolate-icon',
+					'status'		=> Kernel::STATUS_ACTIVE
 				),
 				array(
 					'link_array'	=> array('link'=>array('public','sitemaps','sitemap.xml'),'query'=>array()),
@@ -370,6 +376,7 @@
 					'value'			=> 'home.sitemap_link_title',
 					'icon'			=> 'fa fa-sitemap',
 					'css_class_icon'=> 'chocolate-icon',
+					'status'		=> Kernel::STATUS_INACTIVE
 				),
 			);
 			$insert_request = Database::insert('links');
