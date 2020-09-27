@@ -31,3 +31,6 @@
   font-size: 10px;
   color: chocolate;
 }
+.search-custom-sorting-panel li a.disabled {
+  background: #f8f8f8;
+}

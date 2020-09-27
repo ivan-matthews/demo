@@ -18,7 +18,7 @@
 			<div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5 photos-image">
 
 				<div class="image-block">
-					<img src="<?php print fx_get_image_src($photo['p_big'],$photo['p_date_updated'],'big',$photo['p_external']) ?>">
+					<img src="<?php print fx_get_image_src($photo['p_big'],$photo['p_date_updated'],'big') ?>">
 				</div>
 
 				<?php if($photo['p_date_updated'] > $photo['p_date_created']){ ?>
@@ -35,7 +35,7 @@
 
 					<?php if(fx_me($photo['u_id'])){ ?>
 
-						<a class="col-6 mx-auto size-original-link" href="<?php print fx_get_upload_path($photo['p_original'],true, $photo['p_external']) ?>">
+						<a class="col-6 mx-auto size-original-link" href="<?php print fx_get_upload_path($photo['p_original']) ?>">
 							<i class="fas fa-search-plus"></i>
 							<?php print fx_lang('photos.show_original_image') ?>
 						</a>
@@ -66,7 +66,7 @@
 
 					<?php }else{ ?>
 
-						<a class="col-6 mx-auto size-original-link" href="<?php print fx_get_upload_path($photo['p_original'],true, $photo['p_external']) ?>">
+						<a class="col-6 mx-auto size-original-link" href="<?php print fx_get_upload_path($photo['p_original']) ?>">
 							<i class="fas fa-search-plus"></i>
 							<?php print fx_lang('photos.show_original_image') ?>
 						</a>

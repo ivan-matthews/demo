@@ -13,8 +13,8 @@
 
 	class Test extends Console{
 
-		private $someone;
-		private $default_variables=array(
+		public $someone;
+		public $default_variables=array(
 			'and',
 			'now',
 			'other',
@@ -24,7 +24,7 @@
 			'enter',
 			'please'
 		);
-		private $default='test';
+		public $default='test';
 		protected $result = array();
 
 		public function execute(...$someone){
@@ -35,13 +35,13 @@
 			return $this->result;
 		}
 
-		private function getConsoleArguments($arguments){
+		public function getConsoleArguments($arguments){
 			$this->someone = $arguments ? implode(' ',$arguments) : $this->default;
 			array_unshift($this->default_variables,$this->someone);
 			return $this;
 		}
 
-		private function createConsoleDialog(){
+		public function createConsoleDialog(){
 			Interactive::exec(function(Interactive $interface){
 				$interface->printWelcome();
 				foreach($this->default_variables as $key=>$item){
@@ -51,7 +51,7 @@
 			return $this;
 		}
 
-		private function runConsoleDialog(Interactive $interface,$item){
+		public function runConsoleDialog(Interactive $interface,$item){
 			$desired_value = Paint::exec(function(Types $print)use($item){
 				return $print->string($item)->fon('blue')->get();
 			});
@@ -64,7 +64,7 @@
 			return $this;
 		}
 
-		private function getResult(){
+		public function getResult(){
 			return Paint::exec(function(Types $print){
 
 				$keys = array_keys($this->result);
@@ -80,7 +80,7 @@
 			});
 		}
 
-		private function getInteractiveCallBackFunction($desired_value){
+		public function getInteractiveCallBackFunction($desired_value){
 			return function(Interactive $interface)use($desired_value){
 				if(fx_equal($interface->getDialogString(),$desired_value)){
 					return true;

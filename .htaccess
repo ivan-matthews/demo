@@ -14,7 +14,9 @@ RewriteRule ^(.*)$ public/$1 [L,QSA]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ ./index.php [L]
+# DirectoryIndex main.php				# то, что невозможно изменить: кастомная index.php
+# RewriteRule ^(.*)$ ./main.php [L]		# с переадресацией на нее же
+RewriteRule ^(.*)$ ./index.php [L]		# а эту - закомментировать
 
 RewriteRule .git - [F]
 RewriteRule .idea - [F]

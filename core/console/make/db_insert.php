@@ -12,24 +12,24 @@
 
 	class DB_Insert extends Console{
 
-		private $class_prefix;
-		private $file_prefix;
+		public $class_prefix;
+		public $file_prefix;
 
-		private $inserts_folder;
-		private $insert_file;
+		public $inserts_folder;
+		public $insert_file;
 
-		private $insert_name;
+		public $insert_name;
 
-		private $time;
-		private $date;
+		public $time;
+		public $date;
 
-		private $class_name;
-		private $insert_data_to_replace;
-		private $replace_classes = '';
-		private $file_name;
+		public $class_name;
+		public $insert_data_to_replace;
+		public $replace_classes = '';
+		public $file_name;
 
-		private $file_data;
-		private $replaced_file_data;
+		public $file_data;
+		public $replaced_file_data;
 
 		public function execute($insert_name){
 			$this->inserts_folder = fx_path("system/migrations/inserts");
@@ -52,7 +52,7 @@
 			return $this->result;
 		}
 
-		private function getClassName(){
+		public function getClassName(){
 			$class_name = "{$this->class_prefix}_{$this->insert_name}_{$this->date}_{$this->time}";
 			$class_name = fx_array_callback(explode("_",$class_name), function(&$key,&$value){
 				$value = ucfirst($value);
@@ -61,18 +61,18 @@
 			return $this;
 		}
 
-		private function getFileName(){
+		public function getFileName(){
 			$insert_name = mb_strtolower($this->insert_name);
 			$this->file_name = "{$this->date}_{$this->file_prefix}_{$insert_name}_{$this->time}";
 			return $this;
 		}
 
-		private function getClassData(){
+		public function getClassData(){
 			$this->file_data = file_get_contents(fx_php_path("system/console/insertToDbClass.tmp"));
 			return $this;
 		}
 
-		private function getReplacedData(){
+		public function getReplacedData(){
 			$this->replaced_file_data = str_replace(array(
 				'__class_name__','/*insert data to replace*/','/*uses classes to replace*/'
 			),array(
@@ -91,12 +91,12 @@
 			return $this;
 		}
 
-		private function getFilePath(){
+		public function getFilePath(){
 			$this->insert_file = "{$this->inserts_folder}/{$this->file_name}.php";
 			return $this;
 		}
 
-		private function saveNewClass(){
+		public function saveNewClass(){
 			fx_make_dir($this->inserts_folder);
 
 			if(!file_exists($this->insert_file)){
@@ -114,7 +114,7 @@
 		}
 
 
-		private function errorMaking(){
+		public function errorMaking(){
 			Paint::exec(function(Types $print){
 				$print->string(fx_lang('cli.error_header'))->color('red')->print()->space();
 				$print->string(fx_lang('cli.class_not_created',array(
@@ -125,7 +125,7 @@
 			return $this;
 		}
 
-		private function alreadyMaking(){
+		public function alreadyMaking(){
 			Paint::exec(function(Types $print){
 				$print->string(fx_lang('cli.warning_header'))->color('yellow')->print()->space();
 				$print->string(fx_lang('cli.class_already_created',array(
@@ -136,7 +136,7 @@
 			return $this;
 		}
 
-		private function successfulMaking(){
+		public function successfulMaking(){
 			Paint::exec(function(Types $print){
 				$print->string(fx_lang('cli.success_header'))->color('green')->print()->space();
 				$print->string(fx_lang('cli.class_success_created',array(

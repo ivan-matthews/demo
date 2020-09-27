@@ -43,9 +43,17 @@
 			$this->config = Config::getInstance();
 			$this->debug = $this->config->core['debug_enabled'];
 
+			$this->checkGeoClass();
 			$this->geo = new Geo();
-
 			$this->getOffset();
+		}
+		
+		private function checkGeoClass(){
+			if(!class_exists("\\IvanMatthews\\GeoPack\\Geo")){
+				$class_file = fx_path("vendor/ivan-matthews/geo-package/src/Geo.php");
+				include $class_file;
+			}
+			return $this;
 		}
 
 		public function firstStep(){

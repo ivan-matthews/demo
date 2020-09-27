@@ -12,17 +12,17 @@
 
 	class Cmd extends Console{
 
-		private $console_folder;
-		private $console_command;
+		public $console_folder;
+		public $console_command;
 
-		private $command_directory;
-		private $command_namespace;
-		private $command_file;
-		private $command_class;
-		private $command_arguments;
-		private $command_file_template;
-		private $command_file_template_data;
-		private $command_file_template_prepared_data;
+		public $command_directory;
+		public $command_namespace;
+		public $command_file;
+		public $command_class;
+		public $command_arguments;
+		public $command_file_template;
+		public $command_file_template_data;
+		public $command_file_template_prepared_data;
 
 		public function execute($command_directory,$command_file='index',...$command_arguments){
 			$this->console_folder = fx_path("core/console");
@@ -42,12 +42,12 @@
 			return $this->result;
 		}
 
-		private function getTmpFileData(){
+		public function getTmpFileData(){
 			$this->command_file_template_data = file_get_contents($this->command_file_template);
 			return $this;
 		}
 
-		private function saveDataToFile(){
+		public function saveDataToFile(){
 			$file_new_dir = "{$this->console_folder}/{$this->command_directory}";
 			$file_new_path = "{$file_new_dir}/{$this->command_file}.php";
 			fx_make_dir($file_new_dir);
@@ -61,7 +61,7 @@
 			return true;
 		}
 
-		private function getConsoleCommandString(){
+		public function getConsoleCommandString(){
 			$this->console_command = $this->command_directory;
 			$this->console_command .= (fx_equal($this->command_file,'index')?null:" {$this->command_file} ");
 			$this->console_command .= implode(' ',$this->command_arguments);
@@ -69,14 +69,14 @@
 			return $this;
 		}
 
-		private function prepareFileData(){
+		public function prepareFileData(){
 			$class_properties =
 			$class_input_params =
 			$declared_class_properties =
 				$this->command_arguments;
 
 			$class_properties = fx_array_callback($class_properties,function(&$key,&$value){
-				$value = "\t\t" . 'private $' . $value . ';' . PHP_EOL;
+				$value = "\t\t" . 'public $' . $value . ';' . PHP_EOL;
 			});
 			$class_input_params = fx_array_callback($class_input_params,function(&$key,&$value){
 				$value = '$' . $value;
@@ -112,7 +112,7 @@
 			return $this;
 		}
 
-		private function success($command_file,$console_command){
+		public function success($command_file,$console_command){
 			return Paint::exec(function(Types $print)use($command_file,$console_command){
 				$print->string(fx_lang('cli.success_header'))->color('green')->print()->space();
 				$print->string(fx_lang('cli.command_success_save',array(
@@ -122,7 +122,7 @@
 			});
 		}
 
-		private function skipped($command_file,$console_command){
+		public function skipped($command_file,$console_command){
 			return Paint::exec(function(Types $print)use($command_file,$console_command){
 				$print->string(fx_lang('cli.error_header'))->color('red')->print()->space();
 				$print->string(fx_lang('cli.command_not_save',array(

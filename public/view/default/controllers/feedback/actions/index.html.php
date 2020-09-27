@@ -37,6 +37,9 @@
 		</div>
 
 		<?php foreach($contacts as $items){ ?>
+		
+			<?php if(!$items[0]['u_first_name']){ continue; } ?>
+		
 			<div class="feedback-item footer-line pb-4 pt-2 col-<?php print $div_size ?>">
 
 				<div class="region-head">

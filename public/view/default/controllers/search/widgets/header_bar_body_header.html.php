@@ -24,7 +24,7 @@
 			</li>
 		<?php }else{ ?>
 			<li class="nav-item">
-				<a class="nav-link" title="" href="<?php print fx_make_url($action['link'],array(),1) ?>">
+				<a class="nav-link<?php if(!$action['total']){ ?> disabled" disabled="disabled" <?php } ?>" title="" href="<?php print fx_make_url($action['link'],array(),1) ?>">
 					<?php print fx_lang($action['title']) ?>
 					<sup>
 						<?php print $action['total'] ?>

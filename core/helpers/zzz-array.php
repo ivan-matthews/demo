@@ -110,8 +110,7 @@
 
 			fx_die($_SESSION);
 		 */
-		function fx_set_multilevel_array($data_to_set,...$keys){
-			$output_array = array();
+		function fx_set_multilevel_array(&$output_array = array(),$data_to_set,...$keys){
 			$search_keys_string = '';
 			if($keys){
 				foreach($keys as $key){

@@ -387,6 +387,7 @@
 				$insert_request->value('l_title',$link['title']);
 				$insert_request->value('l_icon',$link['icon']);
 				$insert_request->value('l_css_class_icon',$link['css_class_icon']);
+				$insert_request->value('l_status',$link['status']);
 				$insert_request = $insert_request->value('l_value',$link['value']);
 			}
 			$insert_request->get()->id();

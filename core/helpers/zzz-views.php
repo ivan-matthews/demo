@@ -197,10 +197,7 @@
 		}
 	}
 	if(!function_exists('fx_get_upload_path')){
-		function fx_get_upload_path($file_path, $with_trailing_slash = true, $external = false){
-			if($external){
-				return $file_path;
-			}
+		function fx_get_upload_path($file_path, $with_trailing_slash = true){
 			$file_path = trim($file_path,'/');
 			$public_dir = fx_get_web_dir_name();
 			$upload_dir = Config::getInstance()->view['uploads_dir'];

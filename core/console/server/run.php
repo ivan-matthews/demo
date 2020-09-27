@@ -13,8 +13,8 @@
 
 	class Run extends Console{
 
-		private $host;
-		private $port;
+		public $host;
+		public $port;
 
 		public function execute($host='127.0.0.1', $port = '8080'){
 			$this->prepare($host,$port);
@@ -22,13 +22,13 @@
 			return $this->result;
 		}
 
-		private function prepare($host,$port){
+		public function prepare($host,$port){
 			$this->host = $host;
 			$this->port = $port;
 			return $this;
 		}
 
-		private function start(){
+		public function start(){
 			if(!function_exists('passthru')){
 				die('function "passthru" not exists!' . PHP_EOL);
 			}
@@ -38,7 +38,7 @@
 			return $this->error();
 		}
 
-		private function success($address){
+		public function success($address){
 			return Paint::exec(function(Types $print)use($address){
 				$repeating_string = str_repeat('-',50);
 				$print->string($repeating_string)->print()->eol();
@@ -59,7 +59,7 @@
 			});
 		}
 
-		private function error(){
+		public function error(){
 			return Paint::exec(function(Types $print){
 				$print->eol();
 				$print->string(fx_lang('cli.develop_server_date',array(

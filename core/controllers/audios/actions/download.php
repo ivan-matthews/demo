@@ -65,7 +65,7 @@
 				if(!fx_me($this->audio_data['au_user_id']) && fx_logged()){
 					$this->model->updateTotalViewsAudio($this->audio_id);
 				}
-				return $this->redirect(fx_get_upload_path($this->audio_data['au_path'],true, $this->audio_data['au_external']));
+				return $this->redirect(fx_get_upload_path($this->audio_data['au_path']));
 			}
 
 			return $this;

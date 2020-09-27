@@ -129,3 +129,21 @@ p {
 .footer-line {
   border-bottom: solid 1px rgba(0, 0, 0, 0.125);
 }
+[data-external="micro"] {
+  max-width: 32px;
+}
+[data-external="small"] {
+  max-width: 64px;
+}
+[data-external="medium"] {
+  max-width: 128px;
+}
+[data-external="normal"] {
+  max-width: 240px;
+}
+[data-external="big"] {
+  max-width: 360px;
+}
+[data-external="original"] {
+  max-width: 100%;
+}

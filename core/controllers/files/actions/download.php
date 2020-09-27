@@ -65,7 +65,7 @@
 				if(!fx_me($this->file_data['f_user_id']) && fx_logged()){
 					$this->model->updateTotalViewsFile($this->file_id);
 				}
-				return $this->redirect(fx_get_upload_path($this->file_data['f_path'],true, $this->file_data['f_external']));
+				return $this->redirect(fx_get_upload_path($this->file_data['f_path']));
 			}
 
 			return $this;

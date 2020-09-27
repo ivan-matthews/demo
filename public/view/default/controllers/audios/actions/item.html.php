@@ -23,7 +23,7 @@
 				<div class="item-content col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 mt-4">
 
 					<audio controls loop preload="none" class="col-12">
-						<source src="<?php print fx_get_upload_path($audio['au_path'],true, $audio['au_external']) ?>" type="<?php print $audio['au_mime'] ?>">
+						<source src="<?php print fx_get_upload_path($audio['au_path']) ?>" type="<?php print $audio['au_mime'] ?>">
 					</audio>
 
 					<div class="col-12 description mt-2 mb-2">

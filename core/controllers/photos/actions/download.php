@@ -66,7 +66,7 @@
 				if(!fx_me($this->photo_data['p_user_id']) && fx_logged()){
 					$this->model->updateTotalViewsPhoto($this->photo_id);
 				}
-				return $this->redirect(fx_get_upload_path($this->photo_data['p_original'],true, $this->photo_data['p_external']));
+				return $this->redirect(fx_get_upload_path($this->photo_data['p_original']));
 			}
 
 			return $this;

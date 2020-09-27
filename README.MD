@@ -3,7 +3,22 @@
 * **MySQL 5.7**.30-0ubuntu0.18.04.1
 * **Apache/2.4**.29 (Ubuntu)
 
+	для быстрой установки
+	---
+	
+	в директории, где расположен файл ``cli``, выполнить в консоле
+	
+		php cli engine install
+		
+	или: с вставкой демо-данных:
+		
+		php cli engine install true 4096MB
+	или вручную:	
+	---
+
+    
 1.		composer update
+
 
 2. ***Конфиги в [52 коммите](https://github.com/ivan-matthews/demo/commit/0716284f4e99368fa18d2e9f8760b054114aaae6 "0716284f4e99368fa18d2e9f8760b054114aaae6")***
 

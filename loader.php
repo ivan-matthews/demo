@@ -6,7 +6,9 @@
 	define('ROOT',__DIR__);
 
 	require ROOT . "/core/helpers/autoload/autoloader.php";
-	require ROOT . "/vendor/autoload.php";
+	if(file_exists(ROOT . "/vendor/autoload.php")){
+		require ROOT . "/vendor/autoload.php";
+	}
 
 	error_reporting(0);
 //	set_time_limit(5);

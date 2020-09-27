@@ -16,16 +16,16 @@
 
 	class Run extends Console{
 
-		private $config;
+		public $config;
 
-		private $cron_tasks_array;
-		private $locked_file;
-		private $lock_to_write;
-		private $cron_tasks_locked_files;
+		public $cron_tasks_array;
+		public $locked_file;
+		public $lock_to_write;
+		public $cron_tasks_locked_files;
 
-		private $task_ids=array();
+		public $task_ids=array();
 
-		private $update_data = array(
+		public $update_data = array(
 			'ct_options'	=> null,
 			'ct_errors'	=> null,
 			'ct_result'	=> null,
@@ -59,7 +59,7 @@
 			return $this->result;
 		}
 
-		private function getCronTasksArray(){
+		public function getCronTasksArray(){
 			$this->cron_tasks_array = Database::select('*')
 				->from('cron_tasks')
 				->where("`ct_status`=" . Kernel::STATUS_ACTIVE)
@@ -69,7 +69,7 @@
 			return $this;
 		}
 
-		private function startCron(){
+		public function startCron(){
 			if($this->cron_tasks_array){
 				foreach($this->cron_tasks_array as $key=>$item){
 					$this->cronTaskStarted($item);
@@ -101,7 +101,7 @@
 			return $this->nothingToExists();
 		}
 
-		private function checkIDInIDsList($item){
+		public function checkIDInIDsList($item){
 			if($this->task_ids){
 				if(!in_array($item['ct_id'],$this->task_ids)){
 					return false;
@@ -110,7 +110,7 @@
 			return true;
 		}
 
-		private function tryRunCronTask($cron_task){
+		public function tryRunCronTask($cron_task){
 			try{
 				$cron_task_object = new $cron_task['ct_class']();
 				$task_result = call_user_func_array(array($cron_task_object,$cron_task['ct_method']),array($cron_task));
@@ -125,7 +125,7 @@
 			return $this;
 		}
 
-		private function prepareSuccessfulResult($task_result){
+		public function prepareSuccessfulResult($task_result){
 			if($task_result){
 				if(is_string($task_result)){
 					return $this->executeSuccessfulWithMsg($task_result);
@@ -135,7 +135,7 @@
 			return $this->executeSuccessfulEmpty($task_result);
 		}
 
-		private function updateCronTaskLastRun($item){
+		public function updateCronTaskLastRun($item){
 			$this->update_data['ct_date_updated'] = time();
 			$update = Database::update('cron_tasks');
 			foreach($this->update_data as $field => $value){
@@ -146,24 +146,24 @@
 			return $update->get();
 		}
 
-		private function checkLastRun($last_run_time){
+		public function checkLastRun($last_run_time){
 			if($last_run_time > time()){
 				return false;
 			}
 			return true;
 		}
 
-		private function lockFile($file_lock){
+		public function lockFile($file_lock){
 			$this->locked_file = "{$this->cron_tasks_locked_files}/{$file_lock}";
 			return $this;
 		}
 
-		private function makeLockToWrite(){
+		public function makeLockToWrite(){
 			$this->lock_to_write = @fopen($this->locked_file, 'w');
 			return $this;
 		}
 
-		private function checkLocked(){
+		public function checkLocked(){
 			if($this->lock_to_write && @flock($this->lock_to_write, LOCK_EX | LOCK_NB)){
 				return true;
 			}
@@ -178,14 +178,14 @@
 			return $this;
 		}
 
-		private function shutDownFunction(){
+		public function shutDownFunction(){
 			register_shutdown_function(array($this,'unlockFile'));
 			return $this;
 		}
 
 
 
-		private function cronTaskStarted($item){
+		public function cronTaskStarted($item){
 			return Paint::exec(function(PaintInterface $print)use($item){
 				$print->string( date('d-m-Y H:i:s') .': ')->color('cyan')->print();
 				$print->string(fx_lang('cli.cron_task'))->print();
@@ -194,41 +194,41 @@
 				$print->string(' > ')->print();
 			});
 		}
-		private function skipByFile(){
+		public function skipByFile(){
 			return Paint::exec(function(PaintInterface $print){
 				$print->string(fx_lang('cli.skipped'))->fon('magenta')->print();
 				$print->string(' ')->print();
 				$print->string(fx_lang('cli.by_file'))->color('brown')->print()->eol();
 			});
 		}
-		private function skipByID(){
+		public function skipByID(){
 			return Paint::exec(function(PaintInterface $print){
 				$print->string(fx_lang('cli.skipped'))->fon('cyan')->print();
 				$print->string(' ')->print();
 				$print->string(fx_lang('cli.by_id'))->color('cyan')->print()->eol();
 			});
 		}
-		private function skipByTime(){
+		public function skipByTime(){
 			return Paint::exec(function(PaintInterface $print){
 				$print->string(fx_lang('cli.skipped'))->fon('yellow')->print();
 				$print->string(' ')->print();
 				$print->string(fx_lang('cli.by_time'))->color('yellow')->print()->eol();
 			});
 		}
-		private function executeError(){
+		public function executeError(){
 			return Paint::exec(function(PaintInterface $print){
 				$print->string(fx_lang('cli.skipped'))->fon('red')->print();
 				$print->string(' ')->print();
 				$print->string(fx_lang('cli.by_error'))->color('light_red')->print()->eol();
 			});
 		}
-		private function nothingToExists(){
+		public function nothingToExists(){
 			return Paint::exec(function(PaintInterface $print){
 				$print->string(fx_lang('cli.no_tasks_to_exec'))->fon('cyan')->print()->eol();
 			});
 		}
 
-		private function executeSuccessfulWithMsg($msg){
+		public function executeSuccessfulWithMsg($msg){
 			$this->update_data['ct_result'] = $msg;
 			return Paint::exec(function(PaintInterface $print)use($msg){
 				$print->string(fx_lang('cli.successful_ended'))->fon('green')->print();
@@ -236,13 +236,13 @@
 				$print->string($msg)/*->fon('red')*/->print()->eol();
 			});
 		}
-		private function executeSuccessful($msg){
+		public function executeSuccessful($msg){
 			$this->update_data['ct_result'] = $msg;
 			return Paint::exec(function(PaintInterface $print){
 				$print->string(fx_lang('cli.successful_ended'))->fon('green')->print()->eol();
 			});
 		}
-		private function executeSuccessfulEmpty($msg){
+		public function executeSuccessfulEmpty($msg){
 			$this->update_data['ct_result'] = $msg;
 			return Paint::exec(function(PaintInterface $print){
 				$print->string(fx_lang('cli.successful_ended'))->fon('green')->print();

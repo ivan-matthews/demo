@@ -23,7 +23,7 @@
 				<div class="item-content col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 mt-4">
 
 					<video controls loop preload="auto" class="col-12">
-						<source src="<?php print fx_get_upload_path($video['v_path'],true,$video['v_external']) ?>" type="<?php print $video['v_mime'] ?>">
+						<source src="<?php print fx_get_upload_path($video['v_path']) ?>" type="<?php print $video['v_mime'] ?>">
 					</video>
 
 					<div class="col-12 description mt-2 mb-2">

@@ -12,16 +12,16 @@
 
 	class Controller extends Console{
 
-		private $controller_name;
-		private $controller_tmp_dir;
-		private $controller_dir;
-		private $actions;
-		private $actions_tmp_file;
-		private $actions_dir;
+		public $controller_name;
+		public $controller_tmp_dir;
+		public $controller_dir;
+		public $actions;
+		public $actions_tmp_file;
+		public $actions_dir;
 
-		private $__controller_namespace__;
-		private $__controller_property__;
-		private $__controller_dir__;
+		public $__controller_namespace__;
+		public $__controller_property__;
+		public $__controller_dir__;
 
 		public function execute($controller_name, ...$actions){
 			$this->controller_name	= mb_strtolower($controller_name);
@@ -44,7 +44,7 @@
 			return $this->result;
 		}
 
-		private function saveActions(){
+		public function saveActions(){
 			$action_data = file_get_contents($this->actions_tmp_file);
 			foreach($this->actions as $action){
 				$action = strtolower($action);
@@ -65,7 +65,7 @@
 			return $this;
 		}
 
-		private function getControllerTmpFiles($scanned_path=null,$copied_path=null){
+		public function getControllerTmpFiles($scanned_path=null,$copied_path=null){
 			if(!$scanned_path){
 				$scanned_path = $this->controller_tmp_dir;
 			}
@@ -92,7 +92,7 @@
 			return $this;
 		}
 
-		private function replaceData($file_name,$file_data){
+		public function replaceData($file_name,$file_data){
 			$file_name = pathinfo($file_name,PATHINFO_FILENAME);
 			return str_replace(array(
 				'__controller_namespace__',
@@ -109,7 +109,7 @@
 			),$file_data);
 		}
 
-		private function saveData($new_copied_path,$file_replaced_data){
+		public function saveData($new_copied_path,$file_replaced_data){
 			$file_name = ucfirst(basename($new_copied_path));
 			if(!file_exists($new_copied_path)){
 				if(file_put_contents($new_copied_path,$file_replaced_data)){
@@ -121,7 +121,7 @@
 			return $this;
 		}
 
-		private function makeControllerDir($copied_path){
+		public function makeControllerDir($copied_path){
 			$dir_name = ucfirst(basename($copied_path));
 			if(fx_make_dir($copied_path)){
 				$this->success(fx_lang('cli.folder'),$dir_name,$copied_path);
@@ -131,7 +131,7 @@
 			return $this;
 		}
 
-		private function success($file_or_directory,$file_or_directory_name,$file_or_directory_path){
+		public function success($file_or_directory,$file_or_directory_name,$file_or_directory_path){
 			return Paint::exec(function(Types $print)use($file_or_directory,$file_or_directory_name,$file_or_directory_path){
 				$print->string(fx_lang('cli.controller_success_created',array(
 					'%TYPE%'	=> $file_or_directory,
@@ -141,7 +141,7 @@
 			});
 		}
 
-		private function skipped($file_or_directory,$file_or_directory_name,$file_or_directory_path){
+		public function skipped($file_or_directory,$file_or_directory_name,$file_or_directory_path){
 			return Paint::exec(function(Types $print)use($file_or_directory,$file_or_directory_name,$file_or_directory_path){
 				$print->string(fx_lang('cli.controller_not_created',array(
 					'%TYPE%'	=> $file_or_directory,

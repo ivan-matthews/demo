@@ -11,6 +11,7 @@
 		/** @var Geo */
 		protected $geo;
 		public function firstStep(){
+			$this->checkGeoClass();
 			$this->geo = new Geo();
 
 			$this->geo->call($this->geo->getCountriesFiles(),function($file){
@@ -25,6 +26,14 @@
 				}
 				$insert->get()->id();
 			});
+			return $this;
+		}
+
+		private function checkGeoClass(){
+			if(!class_exists("\\IvanMatthews\\GeoPack\\Geo")){
+				$class_file = fx_path("vendor/ivan-matthews/geo-package/src/Geo.php");
+				include $class_file;
+			}
 			return $this;
 		}
 

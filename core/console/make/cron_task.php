@@ -13,18 +13,18 @@
 
 	class Cron_Task extends Console{
 
-		private $cron_tasks_path = 'core/controllers';
-		private $cron_task_dir;
-		private $cron_task_file;
+		public $cron_tasks_path = 'core/controllers';
+		public $cron_task_dir;
+		public $cron_task_file;
 
-		private $controller;
-		private $file;
-		private $params=array();
-		private $name_space;
-		private $class_name;
+		public $controller;
+		public $file;
+		public $params=array();
+		public $name_space;
+		public $class_name;
 
-		private $tmp_file;
-		private $tmp_data;
+		public $tmp_file;
+		public $tmp_data;
 
 		public function execute(...$cron_task_params){
 			if(!isset($cron_task_params[0]) || !isset($cron_task_params[1])){ return false; }
@@ -55,7 +55,7 @@
 			return $this->result;
 		}
 
-		private function getTmpData(){
+		public function getTmpData(){
 			$this->tmp_data = file_get_contents($this->tmp_file);
 			$this->tmp_data = str_replace(array(
 				'__controller_namespace__',
@@ -67,7 +67,7 @@
 			return $this;
 		}
 
-		private function makeTaskFolder(){
+		public function makeTaskFolder(){
 			$cron_task_folder = "{$this->cron_tasks_path}/{$this->controller}";
 			if(fx_make_dir($cron_task_folder)){
 				Paint::exec(function(Types $print)use($cron_task_folder){
@@ -79,12 +79,12 @@
 			return $this;
 		}
 
-		private function saveTmpData(){
+		public function saveTmpData(){
 			file_put_contents($this->cron_task_file,$this->tmp_data);
 			return $this;
 		}
 
-		private function save(){
+		public function save(){
 			if(!file_exists($this->cron_task_file)){
 				Paint::exec(function(Types $print){
 					$print->string(fx_lang('cli.cron_task_making',array(
@@ -105,7 +105,7 @@
 			return $this;
 		}
 
-		private function createDbInsertNewCronTask(){
+		public function createDbInsertNewCronTask(){
 			$insert = new DB_Insert();
 
 			$insert_data = "Database::insert('cron_tasks')\r\n";

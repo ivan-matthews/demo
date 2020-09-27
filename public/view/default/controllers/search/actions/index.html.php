@@ -59,13 +59,17 @@
 
 						<div class="col-md-7 col-sm-8 col-12 col-lg-10 col-xl-10 search-item-info">
 							<div class="list-group-item-heading info item-title mt-1 mb-1">
-								<?php print str_ireplace(array($query),array("<span style=\"background:yellow\">{$query}</span>"),fx_crop_string($item['title'])) ?>
+								<?php print preg_replace_callback("#{$query}#usi",function($title){
+									return "<span style=\"background:yellow\">{$title[0]}</span>";
+								},fx_crop_string($item['title'])) ?>
 							</div>
 							<div class="list-group-item-heading info item-content mt-1 mb-1">
-								<?php print str_ireplace(array("<br>","</br>","<br/>","\n",$query),array(' ',' ',' ',' ',"<span style=\"background:yellow\">{$query}</span>"),fx_crop_string($item['description'])) ?>
+								<?php print preg_replace_callback("#{$query}#usi",function($description){
+									return "<span style=\"background:yellow\">{$description[0]}</span>";
+								},fx_crop_string($item['description'])) ?>
 							</div>
 							<div class="list-group-item-heading info item-link mt-1 mb-1">
-								<?php print $this->getUrl($item['link']) ?>
+								<?php print fx_make_external_url(array(trim($item['link'],'/')),array(),false) ?>
 							</div>
 						</div>
 
