@@ -3,6 +3,8 @@
 * **MySQL 5.7**.30-0ubuntu0.18.04.1
 * **Apache/2.4**.29 (Ubuntu)
 
+		git clone -b minimal_core https://github.com/ivan-matthews/demo.git ./
+
 	для быстрой установки:
 	---
 	
