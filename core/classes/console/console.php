@@ -5,10 +5,13 @@
 	use Core\Classes\Console\Interfaces\Types;
 	use ReflectionMethod as Reflect;
 	use Core\Classes\Kernel;
+	use Core\Classes\Hooks;
 
 	class Console{
 
 		private static $instance;
+
+		protected $hooks;
 
 		protected $console;
 		protected $file_script_name;
@@ -62,7 +65,7 @@
 		}
 
 		public function __construct(){
-
+			$this->hooks = Hooks::getInstance();
 		}
 
 		public function getArguments(...$arguments){
@@ -156,8 +159,18 @@
 			if(class_exists($this->cli_command_class)){
 				$class_object = new $this->cli_command_class();
 				if($this->countActionArguments($class_object,$this->cli_command_method,$this->arguments)){
-					$result = call_user_func_array(array($class_object,$this->cli_command_method),$this->arguments);
-					$this->removeProperties();
+
+					$hook_controller = isset($this->arguments_original_array[1]) ? $this->arguments_original_array[1] : null;
+					$hook_action = isset($this->arguments_original_array[2]) ? $this->arguments_original_array[2] : 'index';
+					$hook_name = "cli_{$hook_controller}_{$hook_action}";
+
+					$this->hooks->before($hook_name,$class_object,...$this->arguments_original_array);
+					$result = false;
+					if(!$this->hooks->instead($hook_name,$class_object,...$this->arguments_original_array)){
+						$result = call_user_func_array(array($class_object,$this->cli_command_method),$this->arguments);
+						$this->removeProperties();
+					}
+					$this->hooks->after($hook_name,$class_object,...$this->arguments_original_array);
 					return $result;
 				}
 			}
