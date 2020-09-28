@@ -3,6 +3,8 @@
 * **MySQL 5.7**.30-0ubuntu0.18.04.1
 * **Apache/2.4**.29 (Ubuntu)
 
+		git clone https://github.com/ivan-matthews/demo.git ./
+
 	для быстрой установки
 	---
 	
@@ -74,3 +76,8 @@
 	* рабочий пример: [ссылка на рабочий пример](https://i-matthews.000webhostapp.com)
 	
 6. ```ALTER TABLE``` не применялась; миграцию делаем с чистой установки
+
+7.	
+		php cli server run
+		
+	для запуска локального сервера

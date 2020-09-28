@@ -114,6 +114,7 @@
 			$result = $this->select(
 				'gc_title_ru',
 				'gc_title_en',
+				'gc_area',
 				'gr_title_ru',
 				'gr_title_en',
 				'g_title_ru',

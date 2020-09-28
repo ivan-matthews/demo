@@ -53,6 +53,9 @@
 					<div class="region">
 						<?php print $items[0]["gr_title_{$lang}"] ?>
 					</div>
+					<div class="area">
+						<?php print $items[0]["gc_area"] ?>
+					</div>
 					<div class="city">
 						<?php print $items[0]["g_title_{$lang}"] ?>
 						<div class="street d-flex">
