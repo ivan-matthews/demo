@@ -31,4 +31,11 @@
 			'controller'	=> 'users',
 			'action'		=> 'index',
 		),
+		'cli_engine_install_after_hook'	=> array(
+			'class'			=> \Core\Controllers\Users\Hooks\Cli_Engine_Install_After_Hook::class,
+			'method'		=> 'run',
+			'status'		=> Kernel::STATUS_ACTIVE,
+			'controller'	=> 'users',
+			'action'		=> 'edit',
+		),
 	);

@@ -38,4 +38,11 @@
 			'controller'	=> 'auth',
 			'action'		=> 'verify_account',
 		),
+		'cli_engine_install_after_hook'	=> array(
+			'class'			=> \Core\Controllers\Auth\Hooks\Cli_Engine_Install_After_Hook::class,
+			'method'		=> 'run',
+			'status'		=> Kernel::STATUS_ACTIVE,
+			'controller'	=> 'auth',
+			'action'		=> 'registration',
+		),
 	);

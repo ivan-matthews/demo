@@ -4,7 +4,7 @@
 		'cryption'	=> array(
 			'openssl_cipher'	=> 'AES-128-CBC',
 			'cryption_method'	=> 'SHA256',
-			'cryption_key'	=> 'jQtvxUcM0ogtnJYqimsvRZN4LKvAzWLGqIIqWThZc2e3bhEKboXBnEFvctnRLHftThLSmZYR7aLKIdN1m886qgJvnzXzdhnYnxf1jTk7nizBZFiwkkkGYEVRRIUsNdBQ',
+			'cryption_key'	=> 'l8NcCHuOaQ0ipFlLn4XeJezdToYgPsG0da6dVpozKwFh9B1wQlmyEw749soMkdEc1vG1zGMeF3kzSwr6Ut3EJ6X9HVEpFiNHgqCHhEaeuOc6tSbCkXmbdsmjYN8Rnd78',
 		),
-		'secret_word'	=> 'soFL0mMFH6CWSKIpvXRkKVpTvOyaZb3MR1V3LFenLmADuMD6FrvaqoGTZtLHf3Cx0zEoWpxizlKqf9ONYejv2CH1833e5r0d985HddJzOQTZm3yizvTPqNWmGkKykGad',
+		'secret_word'	=> 'RVUvbOlvgI5JWs9ZGRbYa19YzpfPZiVD9golyrvRQy5AyjSjq66Hy0qslqD3kjA2EEGdF2gj9GmdTtXCo8J4NkWAakZtr6ucamtTTsF1lTW7t1ms2Ty475wHKDk61EY1',
 	);

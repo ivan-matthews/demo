@@ -163,14 +163,12 @@
 						});
 					}
 				}
-				$success_configs = Paint::exec(function(PaintInterface $types){
-					$success = '';
-					$success .= $types->string(fx_lang("cli.new_config_agree"))->fon('green')->get();
-					return $success;
-				});
-				$interactive->create($success_configs);
-				$result = trim($interactive->getDialogString());
-				if(fx_equal(mb_strtolower($result),'y')){
+
+				$interactive->create(Paint::exec(function(PaintInterface $types){
+					return $types->string(fx_lang("cli.new_config_agree"))->fon('green')->get();
+				}));
+
+				if(fx_equal(mb_strtolower($interactive->getDialogString()),'y')){
 					$this->updateConfigFromArray();
 				}else{
 					$this->setConfigs();
