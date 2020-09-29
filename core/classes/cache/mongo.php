@@ -4,6 +4,7 @@
 
 	use Core\Classes\Config;
 	use Core\Classes\Response\Response;
+	use MongoDB\Client;
 
 	class Mongo{
 
@@ -57,7 +58,7 @@
 			$link .= "{$this->params['mongo']['host']}:";
 			$link .= $this->params['mongo']['port'];
 			try{
-				$this->mongo = new \MongoDB\Client($link);
+				$this->mongo = new Client($link);
 				return $this;
 			}catch(\Exception $e){
 				return false;

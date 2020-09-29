@@ -168,8 +168,8 @@
 					$result = false;
 					if(!$this->hooks->instead($hook_name,$class_object,...$this->arguments_original_array)){
 						$result = call_user_func_array(array($class_object,$this->cli_command_method),$this->arguments);
-						$this->removeProperties();
 					}
+					$this->removeProperties();
 					$this->hooks->after($hook_name,$class_object,...$this->arguments_original_array);
 					return $result;
 				}

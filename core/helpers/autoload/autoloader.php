@@ -3,10 +3,12 @@
 	class autoLoader{
 
 		/** @var array */
-		private static $aliases_list;
+		private static $aliases_list = array();
+		private static $ready;
 
 		public static function getAliasesLis(){
-			if(self::$aliases_list === null){
+			if(self::$ready === null){
+				self::$ready = true;
 				self::$aliases_list = fx_load_helper('system/assets/classes_aliases');
 				return self::getCustomClassesAliases();
 			}

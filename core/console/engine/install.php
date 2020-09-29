@@ -1,6 +1,6 @@
 <?php
 
-	#CMD: engine install [with_demo_data = false, memory_limit = 2048MB]
+	#CMD: engine install [with_demo_data = false, memory_limit = 1536MB]
 	#DSC: cli.install_value_description
 	#EXM: engine install true 4096MB
 
@@ -12,11 +12,13 @@
 	use Core\Classes\Console\Interfaces\Types as PaintInterface;
 	use Core\Classes\Console\Interactive;
 	use Core\Console\Config\Set;
+	use Core\Console\Migration\Drop_DB;
 	use Core\Console\Migration\Insert;
 	use Core\Console\Migration\Run;
 
 	class Install extends Console{
 
+		public $with_demo_data;
 		public $memory_limit;
 		public $db_driver = 'mysql';
 		public $config;
@@ -37,26 +39,53 @@
 		);
 
 		public function __construct(){
+			parent::__construct();
 			$this->config = Config::getInstance();
 		}
 
 		public function execute($with_demo_data='false',$memory_limit='1536MB'){
+			$this->with_demo_data	= $with_demo_data;
 			$this->memory_limit = $memory_limit;
+
+			$this->printWarningMessage();
 
 			$this->setMemoryLimit();
 			$this->renameHtaccessFile();
 			$this->renameComposerJsonFile();
+
+			$this->hooks->run('cli_composer_update_before');
 			$this->runComposer();
+			$this->hooks->run('cli_composer_update_after');
+
 			$this->setConfigs();
 
 			$this->setSecureWord();
 			$this->setCryptionKey();
+
+			$this->dropDataBaseIfExists();
 
 			$this->runMigrations();
 			if(!fx_equal($with_demo_data,'false')){
 				$this->insertMigrations();
 			}
 			return $this->result;
+		}
+
+		public function printWarningMessage(){
+			Interactive::exec(function(Interactive $interactive){
+				Paint::exec(function(PaintInterface $types){
+					$types->string(fx_lang('cli.engine_install_warning_msg'))->fon('yellow')->print()->eol(2);
+					$types->string(fx_lang('cli.engine_install_warning_descr'))->fon('cyan')->print()->eol();
+					$types->string(fx_lang('cli.engine_install_warning_descr_msg'))->color('light_green')->print()->space();
+					$types->string(fx_lang('cli.engine_install_warning_close'))->fon('red')->print()->eol();
+					$types->string(fx_lang('cli.engine_install_warning_descr_msg_list'))->color('light_cyan')->print()->eol();
+				});
+				$interactive->create(Paint::exec(function(PaintInterface $types){
+					$types->string(fx_lang('cli.engine_install_continue'))->fon('green')->print()->eol();
+					$types->string(fx_lang('cli.engine_install_warning_close'))->fon('red')->print()->eol();
+				}));
+			});
+			return $this;
 		}
 
 		public function setMemoryLimit(){
@@ -98,6 +127,17 @@
 			if(file_exists($composer_json_file) && !file_exists($new_composer_json_file)){
 				copy($composer_json_file,$new_composer_json_file);
 			}
+			Paint::exec(function(PaintInterface $types)use($composer_json_file,$new_composer_json_file){
+				$types->string(fx_lang('cli.file_renamed_to_file',array(
+					'%file%'	=> Paint::exec(function(PaintInterface $types)use($composer_json_file){
+						return $types->string($composer_json_file)->fon('green')->color('white')->get();
+					}),
+					'%new_file%'	=> Paint::exec(function(PaintInterface $types)use($new_composer_json_file){
+						return $types->string($new_composer_json_file)->fon('green')->color('white')->get();
+					}),
+				)))->color('light_red')->print();
+				$types->eol();
+			});
 			return $this;
 		}
 
@@ -107,6 +147,17 @@
 			if(file_exists($htaccess_file) && !file_exists($new_htaccess_file)){
 				copy($htaccess_file,$new_htaccess_file);
 			}
+			Paint::exec(function(PaintInterface $types)use($htaccess_file,$new_htaccess_file){
+				$types->string(fx_lang('cli.file_renamed_to_file',array(
+					'%file%'	=> Paint::exec(function(PaintInterface $types)use($htaccess_file){
+						return $types->string($htaccess_file)->fon('green')->color('white')->get();
+					}),
+					'%new_file%'	=> Paint::exec(function(PaintInterface $types)use($new_htaccess_file){
+						return $types->string($new_htaccess_file)->fon('green')->color('white')->get();
+					}),
+				)))->color('light_red')->print();
+				$types->eol();
+			});
 			return $this;
 		}
 
@@ -126,6 +177,7 @@
 
 		public function setConfigs(){
 			$this->setDataBaseDriver();
+
 			$this->setDataBaseHost();
 			$this->setDataBasePort();
 			$this->setDataBaseUser();
@@ -162,19 +214,23 @@
 						});
 					}
 				}
-				$success_configs = Paint::exec(function(PaintInterface $types){
-					$success = '';
-					$success .= $types->string(fx_lang("cli.new_config_agree"))->fon('green')->get();
-					return $success;
-				});
-				$interactive->create($success_configs);
-				$result = trim($interactive->getDialogString());
-				if(fx_equal(mb_strtolower($result),'y')){
+
+				$interactive->create(Paint::exec(function(PaintInterface $types){
+					return $types->string(fx_lang("cli.new_config_agree"))->fon('green')->get();
+				}));
+
+				if(fx_equal(mb_strtolower($interactive->getDialogString()),'y')){
 					$this->updateConfigFromArray();
 				}else{
 					$this->setConfigs();
 				}
 			});
+			return $this;
+		}
+
+		public function dropDataBaseIfExists(){
+			$drop_object = new Drop_DB();
+			$drop_object->execute($this->config_to_update['database']['base']);
 			return $this;
 		}
 

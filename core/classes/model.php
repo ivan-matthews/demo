@@ -58,7 +58,7 @@
 
 		public function __construct(){
 			$this->database = Database::getInstance();
-			$this->cache = Cache::getInstance();
+			$this->cache = new Cache();
 		}
 
 		public function __call($function_name,array $argument_list){

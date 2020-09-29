@@ -22,6 +22,7 @@
 		public $database_name;
 
 		public function __construct(){
+			parent::__construct();
 			$this->config = Config::getInstance();
 			$this->database = Database::getInstance();
 			$this->db_driver = $this->database->getDbDriver();

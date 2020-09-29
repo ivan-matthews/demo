@@ -79,7 +79,7 @@
 		'set_config_value_description'=> 'установить в конфиг новое значение или обновить старое',
 		'install_value_description'=> 'начать процесс установки системы',
 		'wait_composer_install'		=> 'Ожидаем... Обновляется композер...',
-		'wait_composer_ready'		=> 'Готово!',
+		'wait_composer_ready'		=> 'Готово! Композер обновлен!',
 
 		'use_mysql'					=> 'Используем MySQL? Y/CTRL+C',
 		'use_mysql_simple'			=> '',
@@ -109,10 +109,24 @@
 		'new_config_site_host'		=> 'Хост сайта:',
 		'new_config_site_name'		=> 'Имя сайта:',
 
-		'new_config_host'	=> 'Хост Базы Данных:',
-		'new_config_port'	=> 'Порт Базы Данных:',
-		'new_config_user'	=> 'Пользователь БД:',
-		'new_config_pass'	=> 'Пароль Базы Данных:',
-		'new_config_base'	=> 'Имя Базы Данных:',
-		'new_config_agree'	=> 'Применить эти установки? (Y/N)',
+		'new_config_host'			=> 'Хост Базы Данных:',
+		'new_config_port'			=> 'Порт Базы Данных:',
+		'new_config_user'			=> 'Пользователь БД:',
+		'new_config_pass'			=> 'Пароль Базы Данных:',
+		'new_config_base'			=> 'Имя Базы Данных:',
+		'new_config_agree'			=> 'Применить эти установки? (Y/N)',
+		'engine_install_warning_msg'=> '
+  **   ***   **  ***      ******    ***  **  **  ***  ** *******  
+   **  ****  **  ****     **   **   **** **  **  **** ** **       
+    ** ** ** **  ** **    ******    ** ****  **  ** **** **   **  
+     ****  ****  ******   **   **   **  ***  **  **  *** **    *  
+      ***   ***  **   **  **    **  **   **  **  **   ** *******  
+		',
+		'engine_install_warning_descr'		=> "СЕЙЧАС БУДЕТ ПРОИЗВЕДЕНА ПОЛНАЯ УСТАНОВКА СИСТЕМЫ!",
+		'engine_install_warning_descr_msg'	=> "Если Вы выполнили это действие ошибочно,",
+		'engine_install_warning_close'		=> "нажмите CTRL+C для выхода",
+		'engine_install_warning_descr_msg_list'	=>"	-	будет полностью удалена База Данных со всей информацией (если такова была ранее)\n	-	заменены некоторые файлы\n	-	переписаны ключи шифрования",
+		'engine_install_continue'	=> 'Продолжить? (Нажмите Enter)',
+		'engine_update_description'	=> 'обновить систему',
+		'file_renamed_to_file'		=> 'Файл "%file%" переименован в "%new_file%"',
 	);

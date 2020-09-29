@@ -2,6 +2,8 @@
 
 	namespace Core\Classes;
 
+	use Core\Classes\Cache\Cache;
+
 	class Router{
 
 		private static $instance;
@@ -24,6 +26,7 @@
 
 		private $find_route;
 		private $config;
+		private $cache;
 
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -46,6 +49,8 @@
 
 		public function __construct(){
 			$this->config = Config::getInstance();
+			$this->cache = new Cache();
+			$this->cache->key('files.included')->mark('routes')->ttl(86400 * 100);
 		}
 
 		protected function cleanURL($url){
@@ -73,8 +78,16 @@
 		}
 
 		protected function getRoutesList(){
+			$this->cache->get();
+			if(($this->routes_list = $this->cache->array())){
+				return $this;
+			}
+
 			$this->routes_list = fx_load_helper("system/assets/routes",Kernel::IMPORT_INCLUDE);
-			return $this->loadCustomRoutes();
+			$this->loadCustomRoutes();
+
+			$this->cache->set($this->routes_list);
+			return $this;
 		}
 
 		protected function loadCustomRoutes(){

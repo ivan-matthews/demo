@@ -2,6 +2,7 @@
 
 	namespace Core\Classes;
 
+	use Core\Classes\Cache\Cache;
 	use ReflectionMethod as Reflect;
 	use Core\Classes\Response\Response;
 
@@ -24,6 +25,7 @@
 
 		private $user;
 		private $hooks;
+		private $cache;
 
 		protected $config;
 		protected $request;
@@ -78,11 +80,21 @@
 			$this->response = Response::getInstance();
 			$this->user = User::getInstance();
 			$this->hooks = Hooks::getInstance();
+			$this->cache = new Cache();
+			$this->cache->key('files.included')->mark('replace_links')->ttl(86400 * 100);
 		}
 
 		public function loadLinkReplaceList(){
+			$this->cache->get();
+			if(($this->link_replacer_list = $this->cache->array())){
+				return $this;
+			}
+
 			$this->link_replacer_list = fx_import_file(fx_path('system/assets/links_replace.php'));
-			return $this->loadCustomLinkReplaceList();
+			$this->loadCustomLinkReplaceList();
+
+			$this->cache->set($this->link_replacer_list);
+			return $this;
 		}
 
 		protected function loadCustomLinkReplaceList(){
