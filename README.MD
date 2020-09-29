@@ -10,11 +10,15 @@
 	
 	в директории, где расположен файл ``cli``, выполнить в консоле
 	
-		php cli engine install false true
+		php cli engine install
 		
 	или: с вставкой демо-данных:
 		
-		php cli engine install true true 4096MB
+		php cli engine install true 4096MB
+		
+	для запуска локального сервера
+	
+		php cli server run
 	или вручную:	
 	---
 
