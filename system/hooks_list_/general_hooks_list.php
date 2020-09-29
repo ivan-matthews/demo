@@ -31,4 +31,11 @@
 			'controller'	=> 'home',
 			'action'		=> 'index',
 		),
+		'cli_composer_update_before_hook'	=> array(
+			'class'			=> \Core\Hooks\Cli_Composer_Update_Before_Hook::class,
+			'method'		=> 'run',
+			'status'		=> Kernel::STATUS_ACTIVE,
+			'controller'	=> 'users',
+			'action'		=> 'edit',
+		),
 	);

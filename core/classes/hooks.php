@@ -41,11 +41,11 @@
 		}
 
 		public function __construct(){
-			$this->cache = Cache::getInstance();
 			$this->config = Config::getInstance();
 			$this->hooks_dir = fx_path('system/hooks_list');
+			$this->cache = new Cache();
+			$this->cache->key('files.included')->mark('hooks')->ttl(86400 * 100);
 			$this->getHooksList();
-			$this->cache->key('files.included');
 		}
 
 		private function getHooksList(){
@@ -69,11 +69,13 @@
 		}
 
 		private function scanHooksDir(){
-			$hooks_files_list = scandir($this->hooks_dir);
-			foreach($hooks_files_list as $file){
-				if($file == '.' || $file == '..'){ continue; }
-				$hooks_file = fx_import_file("{$this->hooks_dir}/{$file}",Kernel::IMPORT_INCLUDE);
-				$this->includeHooksFile($file,$hooks_file);
+			if(is_dir($this->hooks_dir)){
+				$hooks_files_list = scandir($this->hooks_dir);
+				foreach($hooks_files_list as $file){
+					if($file == '.' || $file == '..'){ continue; }
+					$hooks_file = fx_import_file("{$this->hooks_dir}/{$file}",Kernel::IMPORT_INCLUDE);
+					$this->includeHooksFile($file,$hooks_file);
+				}
 			}
 			return $this->setCustomHooksFiles();
 		}

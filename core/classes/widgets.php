@@ -24,14 +24,27 @@
 		}
 
 		public function __construct(){
-			$this->cache = Cache::getInstance();
 			$this->response = Response::getInstance();
 			$this->config = Config::getInstance();
 			$this->widgets_dir = fx_path('system/widgets_list');
+			$this->cache = new Cache();
+			$this->cache->key('files.included')->mark('widgets')->ttl(86400 * 100);
 			$this->getWidgetsList();
 		}
 
 		private function getWidgetsList(){
+			$this->cache->get();
+			if(($this->widgets_list = $this->cache->array())){
+				return $this;
+			}
+
+			$this->loadCustomWidgetsList();
+
+			$this->cache->set($this->widgets_list);
+			return $this;
+		}
+
+		private function loadCustomWidgetsList(){
 			$controller_folder = fx_path('core/controllers');
 			foreach(scandir($controller_folder) as $controller){
 				if($controller == '.' || $controller == '..'){ continue; }

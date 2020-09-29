@@ -129,8 +129,8 @@
 
 		'cli_enter_first_name'		=> 'Введите имя',
 		'cli_enter_last_name'		=> 'Введите фамилию',
-		'check_entered_first_name'	=> 'Ваше имя',
-		'check_entered_last_name'	=> 'Ваша фамилия',
-		'check_entered_full_name'	=> 'Ваши имя и фамилия',
+		'check_entered_first_name'	=> 'Новое имя администратора',
+		'check_entered_last_name'	=> 'Новая фамилия администратора',
+		'check_entered_full_name'	=> 'Новые имя и фамилия администратора',
 		'agree_admin_data_change'	=> 'Принять изменения? (Y/N)',
 	);

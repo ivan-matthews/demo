@@ -28,6 +28,7 @@
 		protected $result = true;
 
 		public function __construct(){
+			parent::__construct();
 			$this->migrations_folder = fx_path("system/migrations/inserts");
 			$this->namespace_classes = "\\System\\Migrations\\Inserts";
 

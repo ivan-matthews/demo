@@ -2,6 +2,8 @@
 
 	namespace Core\Classes;
 
+	use Core\Classes\Cache\Cache;
+
 	class Language{
 
 		private static $instance;
@@ -16,6 +18,7 @@
 
 		private $session;
 		private $config;
+		private $cache;
 
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -40,6 +43,8 @@
 			$this->session = Session::getInstance();
 			$this->config = Config::getInstance();
 			$this->language_folder = fx_path($this->language_folder);
+			$this->cache = new Cache();
+			$this->cache->key('files.included')->ttl(86400 * 100);
 		}
 
 		public function __destruct(){
@@ -58,10 +63,20 @@
 		}
 
 		private function setLanguageArray(){
+			$this->cache->mark("language" . $this->lang_key);
+			$this->cache->get();
+			if(($this->language = $this->cache->array())){
+				return $this;
+			}
+
 			$this->language_keys[$this->lang_key] = true;
 			$language_folder_path = "{$this->language_folder}/{$this->lang_key}";
 			$this->language = fx_load_array($language_folder_path);
-			return $this->setCustomLangFiles();
+			$this->setCustomLangFiles();
+
+			$this->cache->set($this->language);
+
+			return $this;
 		}
 
 		private function setCustomLangFiles(){
