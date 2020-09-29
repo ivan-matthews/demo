@@ -1,6 +1,6 @@
 <?php
 
-	#CMD: engine install [with_demo_data = false, memory_limit = 1536MB]
+	#CMD: engine install [with_demo_data = false, with_demo_server = true, memory_limit = 1536MB]
 	#DSC: cli.install_value_description
 	#EXM: engine install true 4096MB
 
@@ -15,10 +15,12 @@
 	use Core\Console\Migration\Drop_DB;
 	use Core\Console\Migration\Insert;
 	use Core\Console\Migration\Run;
+	use Core\Console\Server\Run as Server;
 
 	class Install extends Console{
 
 		public $with_demo_data;
+		public $with_demo_server;
 		public $memory_limit;
 		public $db_driver = 'mysql';
 		public $config;
@@ -43,8 +45,9 @@
 			$this->config = Config::getInstance();
 		}
 
-		public function execute($with_demo_data='false',$memory_limit='1536MB'){
+		public function execute($with_demo_data='false',$with_demo_server='true',$memory_limit='1536MB'){
 			$this->with_demo_data	= $with_demo_data;
+			$this->with_demo_server = $with_demo_server;
 			$this->memory_limit = $memory_limit;
 
 			$this->printWarningMessage();
@@ -65,10 +68,31 @@
 			$this->dropDataBaseIfExists();
 
 			$this->runMigrations();
-			if(!fx_equal($with_demo_data,'false')){
+			if(!fx_equal($this->with_demo_data,'false')){
 				$this->insertMigrations();
 			}
+
+			$this->installationSuccessFul();
+
+			if(fx_equal($this->with_demo_server,'true')){
+				$this->runDemoServer();
+			}
+
 			return $this->result;
+		}
+
+		public function installationSuccessFul(){
+			Paint::exec(function(PaintInterface $types){
+				$types->string(fx_lang('cli.installation_finish'))->fon('green')->print();
+				$types->eol();
+			});
+			return $this;
+		}
+
+		public function runDemoServer(){
+			$server = new Server();
+			$server->execute();
+			return $this;
 		}
 
 		public function printWarningMessage(){

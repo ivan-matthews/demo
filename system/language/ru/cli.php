@@ -129,4 +129,5 @@
 		'engine_install_continue'	=> 'Продолжить? (Нажмите Enter)',
 		'engine_update_description'	=> 'обновить систему',
 		'file_renamed_to_file'		=> 'Файл "%file%" переименован в "%new_file%"',
+		'installation_finish'		=> 'Установка успешно завершена.',
 	);

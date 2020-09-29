@@ -5,16 +5,16 @@
 
 		git clone -b minimal_core https://github.com/ivan-matthews/demo.git ./
 
-	для быстрой установки:
+	для быстрой установки
 	---
 	
 	в директории, где расположен файл ``cli``, выполнить в консоле
 	
-		php cli engine install
+		php cli engine install false true
 		
-	или: со вставкой демо-данных:
+	или: с вставкой демо-данных:
 		
-		php cli engine install true 4096MB
+		php cli engine install true true 4096MB
 	или вручную:	
 	---
 
