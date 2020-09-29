@@ -103,6 +103,7 @@
 					->rows();
 			}else{
 				Database::insert('users')
+					->value('u_auth_id',1)
 					->value('u_first_name',$this->user_fields['u_first_name'])
 					->value('u_last_name',$this->user_fields['u_last_name'])
 					->value('u_full_name',$this->user_fields['u_full_name'])
