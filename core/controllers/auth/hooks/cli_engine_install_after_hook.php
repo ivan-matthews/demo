@@ -104,10 +104,22 @@
 					->get()
 					->rows();
 			}else{
+				$users_groups = Database::select('ug_id')
+					->from('user_groups')
+					->where("ug_default=0")
+					->get()
+					->allAsArray();
+				$users_groups_values = array();
+				if($users_groups){
+					foreach($users_groups as $group){
+						$users_groups_values[] = $group['ug_id'];
+					}
+				}
 				Database::insert('auth')
 					->value('a_login',$this->auth_fields['a_login'])
 					->value('a_password',$this->auth_fields['a_password'])
 					->value('a_enc_password',$this->auth_fields['a_enc_password'])
+					->value('a_groups',$users_groups_values)
 					->value('a_bookmark',fx_encode($this->auth_raw_fields['login'].$this->auth_raw_fields['password']))
 					->get()
 					->id();
