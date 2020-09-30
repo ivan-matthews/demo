@@ -1,6 +1,8 @@
 composer.lock
 composer.json
 .htaccess
+/public/robots.txt
+/public/favicon.ico
 /public/sitemaps
 /system/sessions
 /system/cache/dynamic
