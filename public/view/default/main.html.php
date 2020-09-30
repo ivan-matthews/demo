@@ -4,9 +4,6 @@
 	/** @var View $this */
 
 	use Core\Classes\View;
-	use Core\Classes\Kernel;
-
-	$kernel = Kernel::getInstance();
 
 	define('THEME_POSITIONS',array(
 		'header'			=> true,

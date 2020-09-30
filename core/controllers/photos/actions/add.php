@@ -8,6 +8,7 @@
 	use Core\Classes\Response\Response;
 	use Core\Controllers\Photos\Config;
 	use Core\Controllers\Photos\Controller;
+	use Core\Controllers\Photos\Helpers\Image;
 	use Core\Controllers\Photos\Model;
 	use Core\Controllers\Photos\Forms\Add_Photos;
 
@@ -97,10 +98,17 @@
 
 			if($this->add_form->can()){
 				foreach($this->fields_list['images']['attributes']['files'] as $index=>$file){
-					$this->insert_data[$index] = $this->setOptions($this->params->image_params)
-						->cropAndResizeImage(
-							$file,$this->user_id,'photos',null,null,false
-						);
+					$image_object = new Image();
+
+					$image_object->setImageInfo($file)
+						->setUserId($this->user_id)
+						->setImageOptions($this->params->image_params)
+						->ready()
+						->setOriginalImage()
+//						->cropOriginalImage()
+						->cropAnotherImages();
+
+					$this->insert_data[$index] = $image_object->getInsertData();
 				}
 
 				$this->photo_id = $this->model->addPhotos($this->insert_data);
@@ -131,7 +139,6 @@
 				->setLink('photos','add');
 			return $this;
 		}
-
 
 
 

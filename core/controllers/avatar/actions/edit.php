@@ -10,6 +10,7 @@
 	use Core\Controllers\Avatar\Controller;
 	use Core\Controllers\Avatar\Model;
 	use Core\Controllers\Avatar\Forms\Add as AddForm;
+	use Core\Controllers\Photos\Helpers\Image;
 	use Core\Controllers\Users\Model as UserModel;
 	use Core\Controllers\Photos\Controller as ImagesController;
 
@@ -148,16 +149,18 @@
 				$x = isset($image_params['x'][0]) ? (int)$image_params['x'][0] : 0;
 				$y = isset($image_params['y'][0]) ? (int)$image_params['y'][0] : 0;
 
-				$this->insert_data = $this->images_controller->setOptions($this->params->image_params)
-					->cropAndResizeImage(
-						$image,
-						$this->user_id,
-						'photos',
-						$x,
-						$y,
-						true,
-						dirname($this->avatar_data['p_original'])
-					);
+				$image_object = new Image();
+
+				$image_object->setImageInfo($image)
+					->setUserId($this->user_id)
+					->setImageOptions($this->params->image_params)
+					->ready()
+					->setOriginalImage()
+					->cropOriginalImage($x,$y)
+					->cropAnotherImages();
+
+				$this->insert_data = $image_object->getInsertData();
+
 
 				$this->avatar_id = $this->model->addAvatar($this->insert_data);
 
