@@ -22,4 +22,5 @@
 		'label_description'			=> 'Описание файла',
 		'add_new'					=> 'добавить файлов',
 		'find_by_files_table_head'	=> 'Файлы',
+		'files_before_content_widget_title'	=> 'Новые файлы',
 	);

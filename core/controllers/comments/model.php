@@ -98,6 +98,43 @@
 			return $result;
 		}
 
+		public function getLastComments($limit,$offset){
+			$where_query = 'comments.`c_status` = ' . Kernel::STATUS_ACTIVE;
+
+			$result = $this->select(
+				'comments.*',
+				'a.u_full_name as author_name',
+				'a.u_gender as author_gender',
+				'a.u_log_type as author_log_type',
+				'a.u_date_log as author_log_date',
+				'ap.p_small as author_photo',
+				'ap.p_date_updated as a_avatar_updated_date',
+				'u.u_full_name as user_name',
+				'u.u_gender as user_gender',
+				'u.u_log_type as user_log_type',
+				'u.u_date_log as user_log_date',
+				'up.p_small as user_photo',
+				'up.p_date_updated as u_avatar_updated_date',
+				'parent.c_content as parent_content',
+				'parent.c_date_created as parent_date'
+			)
+				->from('comments')
+				->join('users as a FORCE INDEX(PRIMARY)',"a.u_id=c_author_id")
+				->join('users as u FORCE INDEX(PRIMARY)',"u.u_id=c_receiver_id")
+				->join('photos as ap FORCE INDEX(PRIMARY)',"a.u_avatar_id=ap.p_id")
+				->join('photos as up FORCE INDEX(PRIMARY)',"u.u_avatar_id=up.p_id")
+				->join('comments as parent FORCE INDEX(PRIMARY)',"comments.c_parent_id=parent.c_id")
+				->where($where_query)
+				->limit($limit)
+				->offset($offset)
+				->order('c_id')
+				->sort('DESC')
+				->get()
+				->allAsArray();
+
+			return $result;
+		}
+
 		public function addComment($controller,$action,$item_id,$author_id,$content,$attachments){
 			$result = $this->insert('comments')
 				->value('c_controller',$controller)

@@ -4,6 +4,9 @@
 	/** @var View $this */
 
 	use Core\Classes\View;
+	use Core\Classes\Kernel;
+
+	$kernel = Kernel::getInstance();
 
 	define('THEME_POSITIONS',array(
 		'header'			=> true,
@@ -76,7 +79,7 @@
 
 				</div>
 
-				<div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 content general-content">
+				<div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 content general-content controller-<?php print $this->data['current_controller'] ?>-<?php print $this->data['current_action'] ?>">
 
 					<?php print $this->widget('body_header') ?>
 

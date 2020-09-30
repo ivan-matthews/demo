@@ -54,3 +54,30 @@
   position: absolute;
   font-weight: 600;
 }
+.widget-header .before-content-title {
+  color: #FFFFFF;
+  background: #4a76a8;
+  padding: 10px 20px;
+  font-size: 15px;
+  font-weight: bold;
+}
+.general-content.controller-home-index {
+  background: #edeef0 !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+.general-content.controller-home-index .main-content {
+  margin-bottom: 0 !important;
+}
+.general-content.controller-home-index .before-content-widget-header {
+  display: block;
+  margin-top: 1em;
+}
+.general-content.controller-home-index .before-content-widget-header:first-child {
+  margin-top: 0;
+}
+.general-content.controller-home-index .before-content-widget-body {
+  background: #FFFFFF;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}

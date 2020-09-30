@@ -22,4 +22,5 @@
 		'label_description'			=> 'Описание файла',
 		'add_new'					=> 'добавить видео',
 		'find_by_videos_table_head'	=> 'Видео',
+		'videos_before_content_widget_title'	=> 'Новое видео',
 	);

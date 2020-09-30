@@ -66,3 +66,34 @@
 		}
 	}
 }
+.widget-header{
+	.before-content-title{
+		color: #FFFFFF;
+		background: #4a76a8;
+		padding: 10px 20px;
+		font-size: 15px;
+		font-weight: bold;
+	}
+}
+.general-content{
+	&.controller-home-index{
+		background: @main-background-color !important;
+		-webkit-box-shadow: none !important;
+		box-shadow: none !important;
+		.main-content{
+			margin-bottom: 0 !important;
+		}
+		.before-content-widget-header{
+			display: block;
+			&:first-child{
+				margin-top: 0;
+			}
+			margin-top: 1em;
+		}
+		.before-content-widget-body{
+			background: #FFFFFF;
+			padding-top: 1em;
+			padding-bottom: 1em;
+		}
+	}
+}

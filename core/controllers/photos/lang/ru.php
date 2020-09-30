@@ -43,4 +43,5 @@
 		'delete_preview_image'		=> 'удалить',
 		'find_by_photos_table_head'	=> 'Фото',
 		'total_views_value'			=> '%total% просмотров',
+		'photos_before_content_widget_title' => 'Новые картинки',
 	);

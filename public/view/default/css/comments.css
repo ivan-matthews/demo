@@ -175,3 +175,54 @@
 .photos-description .comments-list .comments .comments-item .comments-info .comments-item-avatar .avatar img {
   width: 40px;
 }
+.comments-body-before-content-widget .comments a.list-group-item {
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+.comments-body-before-content-widget .comments a.list-group-item:first-child {
+  border: none;
+}
+.comments-body-before-content-widget .comments .comment-info .comment-icon .avatar {
+  position: relative;
+  width: 64px;
+}
+.comments-body-before-content-widget .comments .comment-info .comment-icon .avatar img {
+  border-radius: 50%;
+}
+.comments-body-before-content-widget .comments .comment-info .comment-icon .avatar .status {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-radius: 50%;
+  padding: 0 3px;
+}
+.comments-body-before-content-widget .comments .comment-info .comment-icon .avatar .status-online i,
+.comments-body-before-content-widget .comments .comment-info .comment-icon .avatar .status-online svg {
+  color: #28a745;
+}
+.comments-body-before-content-widget .comments .comment-info .comment-icon .avatar .status-online i.circle,
+.comments-body-before-content-widget .comments .comment-info .comment-icon .avatar .status-online svg.circle {
+  background: #28a745;
+  border: solid 2px #FFFFFF;
+}
+.comments-body-before-content-widget .comments .comment-info .comment-icon .avatar .status-offline i,
+.comments-body-before-content-widget .comments .comment-info .comment-icon .avatar .status-offline svg {
+  color: #dc3545;
+}
+.comments-body-before-content-widget .comments .comment-info .comment-icon .avatar .status-offline i.circle,
+.comments-body-before-content-widget .comments .comment-info .comment-icon .avatar .status-offline svg.circle {
+  background: #dc3545;
+  border: solid 2px #FFFFFF;
+}
+.comments-body-before-content-widget .comments .comment-info .comment-info .user-name {
+  font-weight: bold;
+  color: #4a76a8;
+}
+.comments-body-before-content-widget .comments .comment-info .comment-info .info .date {
+  font-style: italic;
+  color: #999999;
+}
+.comments-body-before-content-widget .comments .comment-info .comment-info .info .link {
+  font-weight: bold;
+  color: #4a76a8;
+}

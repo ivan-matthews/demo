@@ -16,7 +16,7 @@
 			),
 		),
 
-		'just_widgets'	=> false,
+		'just_widgets'	=> true,
 		'another_controller'	=> array(
 			'run'		=> false,
 			'class'		=> \Core\Controllers\Users\Actions\Index::class,

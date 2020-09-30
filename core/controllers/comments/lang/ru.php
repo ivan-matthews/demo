@@ -16,4 +16,6 @@
 		'write_someone_placeholder'	=> 'Напишите что-нибудь...',
 		'send_comment_form_submit_value' => 'Отправить',
 		'find_by_comments_table_head'	=> 'Комментарии',
+		'show_commented_post'		=> 'Перейти к записи...',
+		'comments_before_content_widget_title'		=> 'Новые комментарии',
 	);

@@ -22,4 +22,5 @@
 		'label_description'			=> 'Описание файла',
 		'add_new'					=> 'добавить музыки',
 		'find_by_audios_table_head'	=> 'Аудио',
+		'audios_before_content_widget_title'	=> 'Новые аудиотреки',
 	);
