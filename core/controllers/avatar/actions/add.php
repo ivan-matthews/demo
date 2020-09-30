@@ -138,6 +138,7 @@
 					->setImageOptions($this->params->image_params)
 					->ready()
 					->setOriginalImage()
+					->setQuality($this->params->image_quality)
 					->cropOriginalImage($x,$y)
 					->cropAnotherImages();
 

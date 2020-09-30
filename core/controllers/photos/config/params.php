@@ -36,7 +36,8 @@
 			),
 		),
 		'file_types'	=> array('jpg','jpeg','png','bmp'),
-		'file_size'		=> 2*1024*1024,
+		'file_size'		=> 3*1024*1024,
+		'image_quality'	=> -1,
 		'image_params'	=> array(
 			'micro'	=> array(
 				'width'		=> 32,

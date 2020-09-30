@@ -538,3 +538,45 @@
 	.user-journal{}
 	.user-mail{}
 }
+.before-content-widget-body{
+	.users-item{
+		.users-item-link{
+			.avatar{
+				position: relative;
+				width: 80px;
+				img{
+					border-radius: 50%;
+					max-width: 100%;
+				}
+				.status{
+					position: absolute;
+					bottom: 0;
+					right: 0;
+					border-radius: 50%;
+					padding: 0 3px;
+				}
+				.status-online{
+					i,svg{
+						color: @success;
+						&.circle{
+							background:@success;
+							border: solid 2px #FFFFFF;
+						}
+					}
+				}
+				.status-offline{
+					i,svg{
+						color: @danger;
+						&.circle{
+							background:@danger;
+							border: solid 2px #FFFFFF;
+						}
+					}
+				}
+			}
+			.users-item-title{
+				font-weight: bold;
+			}
+		}
+	}
+}

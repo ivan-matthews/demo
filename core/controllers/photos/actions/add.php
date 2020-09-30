@@ -105,7 +105,7 @@
 						->setImageOptions($this->params->image_params)
 						->ready()
 						->setOriginalImage()
-//						->cropOriginalImage()
+						->setQuality($this->params->image_quality)
 						->cropAnotherImages();
 
 					$this->insert_data[$index] = $image_object->getInsertData();

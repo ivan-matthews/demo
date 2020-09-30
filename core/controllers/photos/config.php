@@ -15,6 +15,7 @@
 	 * @property array $image_params
 	 * @property array $file_types
 	 * @property integer $file_size
+	 * @property integer $image_quality
 	 */
 	class Config extends Params{
 

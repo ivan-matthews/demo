@@ -133,4 +133,6 @@
 		'check_entered_last_name'	=> 'Новая фамилия администратора',
 		'check_entered_full_name'	=> 'Новые имя и фамилия администратора',
 		'agree_admin_data_change'	=> 'Принять изменения? (Y/N)',
+		'new_users_before_content_widget_title'		=> 'Новые пользователи',
+		'online_users_before_content_widget_title'	=> 'Пользователи Онлайн',
 	);

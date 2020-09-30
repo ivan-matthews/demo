@@ -12,7 +12,7 @@
 		public $photos_items;
 
 		public $query = '';
-		public $limit = 10;
+		public $limit = 18;
 		public $offset = 0;
 		public $order = 'p_id';
 		public $sort = 'DESC';

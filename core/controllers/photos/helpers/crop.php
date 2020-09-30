@@ -8,7 +8,7 @@
 
 		private $crop=array();
 
-		public $image_quality = 100;
+		public $image_quality = 50;
 		public $image_file;
 		public $output_file;
 		public $image_resource;
@@ -57,6 +57,11 @@
 
 		public function __destruct(){
 
+		}
+
+		public function setQuality($image_quality){
+			$this->image_quality = $image_quality;
+			return $this;
 		}
 
 		public function setImageInfo(array $image_info){
@@ -118,22 +123,22 @@
 
 			$image_resource = imagecreatetruecolor($this->image_options['width'],$this->image_options['height']);
 
-			if($width_image_src>$height_image_src){
+			if($width_image_src > $height_image_src){
 				imagecopyresized($image_resource, $image_src, 0, 0,
 					round((max($width_image_src,$height_image_src)-min($width_image_src,$height_image_src))/2),
 					0, $this->image_options['width'], $this->image_options['width'], min($width_image_src,$height_image_src), min($width_image_src,$height_image_src));
 			}
 
-			if($width_image_src<$height_image_src){
+			if($width_image_src < $height_image_src){
 				imagecopyresized($image_resource, $image_src, 0, 0, 0, 0, $this->image_options['width'], $this->image_options['width'],
 					min($width_image_src,$height_image_src), min($width_image_src,$height_image_src));
 			}
 
-			if($width_image_src==$height_image_src){
+			if(fx_equal($width_image_src,$height_image_src)){
 				imagecopyresized($image_resource, $image_src, 0, 0, 0, 0, $this->image_options['width'], $this->image_options['width'], $width_image_src, $width_image_src);
 			}
 
-			call_user_func($this->exit_function,$image_resource,$this->output_file);
+			call_user_func($this->exit_function,$image_resource,$this->output_file,$this->image_quality);
 			imagedestroy($image_resource);
 			imagedestroy($image_src);
 			return $this;
@@ -150,16 +155,20 @@
 
 			if($image_resource_height < $this->image_options['height']){
 				$difference = $this->image_options['height'] - $image_resource_height;
+				$coordinate_x = round($width_image_src/$height_image_src)*100;
 
 				$image_resource = imagecreatetruecolor($image_resource_width,$image_resource_height+$difference);
-				imagecopyresampled($image_resource, $image_src, 0, 0, 0, 0,
+				imagecopyresampled($image_resource, $image_src, 0, 0, $coordinate_x, 0,
 					$image_resource_width+$difference, $image_resource_height+$difference, $width_image_src, $height_image_src);
 			}else{
 				$image_resource = imagecreatetruecolor($image_resource_width,$image_resource_height);
-				imagecopyresampled($image_resource, $image_src, 0, 0, 0, 0, $image_resource_width, $image_resource_height, $width_image_src, $height_image_src);
+				imagecopyresampled($image_resource, $image_src, 0, 0, 0, 0,
+					$image_resource_width, $image_resource_height, $width_image_src, $height_image_src);
 			}
 
-			call_user_func($this->exit_function,$image_resource,$this->output_file);
+//			header('content-type:image/jpeg');
+			call_user_func($this->exit_function,$image_resource,$this->output_file,$this->image_quality);
+//			die;
 			imagedestroy($image_resource);
 			imagedestroy($image_src);
 			return $this;
@@ -195,7 +204,7 @@
 				'x' => $coordinate_x, 'y' => $coordinate_y, 'width' => $this->image_options['width'], 'height' => $this->image_options['height']
 			));
 
-			$result_image = call_user_func($this->exit_function,$image_resource,$this->output_file);
+			$result_image = call_user_func($this->exit_function,$image_resource,$this->output_file,$this->image_quality);
 			imagedestroy($image_resource);
 			return $result_image;
 		}

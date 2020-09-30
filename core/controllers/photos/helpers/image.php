@@ -10,6 +10,32 @@
 
 		protected $image=array();
 
+		public $image_quality = 50;
+		public $user_id;
+		public $image_info = array(
+			'name'	=> null,
+			'type'	=> null,
+			'size'	=> null,
+			'tmp_name'	=> null,
+			'error'	=> null,
+		);
+		public $image_options = array();
+		public $folder = 'photos';
+		public $sub_folder;
+		public $tmp_file;
+		public $images_path;
+		public $image_hash;
+		public $image_extension;
+		public $insert_data = array();
+
+		public $name;
+		public $type;
+		public $size;
+		public $tmp_name;
+		public $error;
+
+		public $images_root_path;
+
 		public static function getInstance(){
 			if(self::$instance === null){
 				self::$instance = new self();
@@ -37,30 +63,10 @@
 
 		}
 
-		public $user_id;
-		public $image_info = array(
-			'name'	=> null,
-			'type'	=> null,
-			'size'	=> null,
-			'tmp_name'	=> null,
-			'error'	=> null,
-		);
-		public $image_options = array();
-		public $folder = 'photos';
-		public $sub_folder;
-		public $tmp_file;
-		public $images_path;
-		public $image_hash;
-		public $image_extension;
-		public $insert_data = array();
-
-		public $name;
-		public $type;
-		public $size;
-		public $tmp_name;
-		public $error;
-
-		public $images_root_path;
+		public function setQuality($image_quality){
+			$this->image_quality = $image_quality;
+			return $this;
+		}
 
 		public function setUserId($user_id){
 			$this->user_id = $user_id;
@@ -141,7 +147,7 @@
 
 		protected function copyOriginalToTmp(){
 			copy($this->tmp_name, "{$this->images_root_path}/original-{$this->image_hash}.{$this->image_extension}");
-			$this->tmp_file = "{$this->images_root_path}/{$this->name}-tmp";
+			$this->tmp_file = "{$this->images_root_path}/{$this->image_hash}-tmp";
 			copy($this->tmp_name, $this->tmp_file);
 			return $this;
 		}
@@ -152,6 +158,7 @@
 			$crop->setImageOptions($this->image_options['normal']);
 			$crop->setImageFile($this->tmp_file);
 			$crop->setImageExtension($this->image_extension);
+			$crop->setQuality($this->image_quality);
 
 			if(is_callable($callback_function)){
 				call_user_func($callback_function,$crop);
@@ -171,6 +178,7 @@
 				$crop->setImageFile($this->tmp_file);
 				$crop->setOutputFile($path_to_save);
 				$crop->setImageExtension($this->image_extension);
+				$crop->setQuality($this->image_quality);
 
 				if(is_callable($callback_function)){
 					call_user_func($callback_function,$crop);

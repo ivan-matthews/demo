@@ -10,6 +10,8 @@
 	use Core\Controllers\Photos\Widgets\Photos as PhotosWidget;
 	use Core\Controllers\Files\Widgets\Files as FilesWidget;
 	use Core\Controllers\Comments\Widgets\Comments_Widget as CommentsWidget;
+	use Core\Controllers\Users\Widgets\New_Users as NewUsersWidget;
+	use Core\Controllers\Users\Widgets\Online_Users as OnlineUsersWidget;
 
 	class InsertWidgetsToMain202009300551041601441464{
 
@@ -19,6 +21,8 @@
 		private $photos_widget_id;
 		private $files_widget_id;
 		private $comments_widget_id;
+		private $new_users_widget_id;
+		private $online_users_widget_id;
 
 		public function addBlogWidget(){
 			$this->blog_widget_id = Database::insert('widgets')
@@ -86,6 +90,28 @@
 			return $this;
 		}
 
+		public function addNewUsersWidget(){
+			$this->new_users_widget_id = Database::insert('widgets')
+				->value('w_class',NewUsersWidget::class)
+				->value('w_method','run')
+				->value('w_status',Kernel::STATUS_ACTIVE)
+				->value('w_template','controllers/users/widgets/new_users')
+				->get()
+				->id();
+			return $this;
+		}
+
+		public function addOnlineUsersWidget(){
+			$this->online_users_widget_id = Database::insert('widgets')
+				->value('w_class',OnlineUsersWidget::class)
+				->value('w_method','run')
+				->value('w_status',Kernel::STATUS_ACTIVE)
+				->value('w_template','controllers/users/widgets/online_users')
+				->get()
+				->id();
+			return $this;
+		}
+
 		public function addActiveBlogWidget(){
 			Database::insert('widgets_active')
 				->value('wa_widget_id',$this->blog_widget_id)
@@ -98,7 +124,7 @@
 				->value('wa_unite_prev',0)
 				->value('wa_status',Kernel::STATUS_ACTIVE)
 				->value('wa_position','before_content')
-				->value('wa_ordering',1)
+				->value('wa_ordering',3)
 				->value('wa_pages_enabled',array('home'=>array('index')))
 				->value('wa_template','controllers/blog/widgets/blog_posts')
 				->get()
@@ -118,7 +144,7 @@
 				->value('wa_unite_prev',0)
 				->value('wa_status',Kernel::STATUS_ACTIVE)
 				->value('wa_position','before_content')
-				->value('wa_ordering',2)
+				->value('wa_ordering',6)
 				->value('wa_pages_enabled',array('home'=>array('index')))
 				->value('wa_template','controllers/audios/widgets/audios')
 				->get()
@@ -138,7 +164,7 @@
 				->value('wa_unite_prev',0)
 				->value('wa_status',Kernel::STATUS_ACTIVE)
 				->value('wa_position','before_content')
-				->value('wa_ordering',3)
+				->value('wa_ordering',5)
 				->value('wa_pages_enabled',array('home'=>array('index')))
 				->value('wa_template','controllers/videos/widgets/videos')
 				->get()
@@ -178,7 +204,7 @@
 				->value('wa_unite_prev',0)
 				->value('wa_status',Kernel::STATUS_ACTIVE)
 				->value('wa_position','before_content')
-				->value('wa_ordering',5)
+				->value('wa_ordering',7)
 				->value('wa_pages_enabled',array('home'=>array('index')))
 				->value('wa_template','controllers/files/widgets/files')
 				->get()
@@ -198,9 +224,49 @@
 				->value('wa_unite_prev',0)
 				->value('wa_status',Kernel::STATUS_ACTIVE)
 				->value('wa_position','before_content')
-				->value('wa_ordering',6)
+				->value('wa_ordering',8)
 				->value('wa_pages_enabled',array('home'=>array('index')))
 				->value('wa_template','controllers/comments/widgets/comments')
+				->get()
+				->id();
+			return $this;
+		}
+
+		public function addActiveNewUsersWidget(){
+			Database::insert('widgets_active')
+				->value('wa_widget_id',$this->new_users_widget_id)
+				->value('wa_name','new_users_before_content')
+				->value('wa_title','users.new_users_before_content_widget_title')
+				->value('wa_css_class','')
+				->value('wa_css_class_title','')
+				->value('wa_css_class_body','')
+				->value('wa_show_title',1)
+				->value('wa_unite_prev',0)
+				->value('wa_status',Kernel::STATUS_ACTIVE)
+				->value('wa_position','before_content')
+				->value('wa_ordering',2)
+				->value('wa_pages_enabled',array('home'=>array('index')))
+				->value('wa_template','controllers/users/widgets/new_users')
+				->get()
+				->id();
+			return $this;
+		}
+
+		public function addActiveOnlineUsersWidget(){
+			Database::insert('widgets_active')
+				->value('wa_widget_id',$this->online_users_widget_id)
+				->value('wa_name','online_users_before_content')
+				->value('wa_title','users.online_users_before_content_widget_title')
+				->value('wa_css_class','')
+				->value('wa_css_class_title','')
+				->value('wa_css_class_body','')
+				->value('wa_show_title',1)
+				->value('wa_unite_prev',0)
+				->value('wa_status',Kernel::STATUS_ACTIVE)
+				->value('wa_position','before_content')
+				->value('wa_ordering',1)
+				->value('wa_pages_enabled',array('home'=>array('index')))
+				->value('wa_template','controllers/users/widgets/online_users')
 				->get()
 				->id();
 			return $this;

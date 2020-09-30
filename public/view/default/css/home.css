@@ -1187,6 +1187,42 @@ body.unscrollable nav.header-bar::-webkit-scrollbar {
   border: none;
   box-shadow: unset;
 }
+.before-content-widget-body .users-item .users-item-link .avatar {
+  position: relative;
+  width: 80px;
+}
+.before-content-widget-body .users-item .users-item-link .avatar img {
+  border-radius: 50%;
+  max-width: 100%;
+}
+.before-content-widget-body .users-item .users-item-link .avatar .status {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-radius: 50%;
+  padding: 0 3px;
+}
+.before-content-widget-body .users-item .users-item-link .avatar .status-online i,
+.before-content-widget-body .users-item .users-item-link .avatar .status-online svg {
+  color: #28a745;
+}
+.before-content-widget-body .users-item .users-item-link .avatar .status-online i.circle,
+.before-content-widget-body .users-item .users-item-link .avatar .status-online svg.circle {
+  background: #28a745;
+  border: solid 2px #FFFFFF;
+}
+.before-content-widget-body .users-item .users-item-link .avatar .status-offline i,
+.before-content-widget-body .users-item .users-item-link .avatar .status-offline svg {
+  color: #dc3545;
+}
+.before-content-widget-body .users-item .users-item-link .avatar .status-offline i.circle,
+.before-content-widget-body .users-item .users-item-link .avatar .status-offline svg.circle {
+  background: #dc3545;
+  border: solid 2px #FFFFFF;
+}
+.before-content-widget-body .users-item .users-item-link .users-item-title {
+  font-weight: bold;
+}
 .form-auth div.form {
   font-size: 24px;
   font-weight: bold;
