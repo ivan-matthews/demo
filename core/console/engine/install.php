@@ -1,8 +1,8 @@
 <?php
 
-	#CMD: engine install [with_demo_data = false, memory_limit = 1536MB]
+	#CMD: engine install [with_demo_data = false, memory_limit = 1536MB, with_demo_server=true]
 	#DSC: cli.install_value_description
-	#EXM: engine install true 4096MB
+	#EXM: engine install true 4096MB false
 
 	namespace Core\Console\Engine;
 
@@ -20,6 +20,7 @@
 
 		public $with_demo_data;
 		public $memory_limit;
+		public $with_demo_server;
 		public $db_driver = 'mysql';
 		public $config;
 		public $config_to_update = array(
@@ -43,9 +44,10 @@
 			$this->config = Config::getInstance();
 		}
 
-		public function execute($with_demo_data='false',$memory_limit='1536MB'){
+		public function execute($with_demo_data='false',$memory_limit='1536MB',$with_demo_server='true'){
 			$this->with_demo_data	= $with_demo_data;
 			$this->memory_limit = $memory_limit;
+			$this->with_demo_server = $with_demo_server;
 
 			$this->printWarningMessage();
 
