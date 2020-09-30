@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: http://m.c/public/sitemaps/sitemap.xml
