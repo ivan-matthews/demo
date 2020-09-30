@@ -17,6 +17,8 @@
 	class Hooks implements HooksInterface{
 
 		private static $instance;
+		private static $index = array();
+
 		private $cache;
 		private $config;
 		protected $hooks_dir;
@@ -54,16 +56,17 @@
 				return $this;
 			}
 			$this->scanHooksDir();
+			$this->sortHooksByRelevance();
 			$this->cache->set($this->hooks_list);
 			return $this;
 		}
 
-		private function getAllHooksList(){
+		private function getAllHooksList(){	// ???
 			$this->cache->get();
 			if(($this->all_hooks = $this->cache->array())){
 				return $this;
 			}
-			$this->getHooksList();
+			$this->scanHooksDir();	// $this->getHooksList() ???
 			$this->cache->set($this->all_hooks);
 			return $this;
 		}
@@ -99,7 +102,17 @@
 			foreach($hooks_file as $key=>$item){
 				$ready = fx_equal($item['status'],Kernel::STATUS_ACTIVE) && method_exists($item['class'],$item['method']);
 				if(!$ready){ continue; }
-				$this->hooks_list[$key][] = $item;
+
+				self::$index[$key] = isset(self::$index[$key]) ? self::$index[$key] : 0;
+				$this->hooks_list[$key][self::$index[$key] + $item['relevance']] = $item;
+				self::$index[$key]++;
+			}
+			return $this;
+		}
+
+		private function sortHooksByRelevance(){
+			foreach($this->hooks_list as $key=>$value){
+				ksort($this->hooks_list[$key]);
 			}
 			return $this;
 		}
