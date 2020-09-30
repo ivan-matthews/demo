@@ -11,12 +11,6 @@
 		public $arguments_list;
 		public $server_object;
 
-		public $user_fields = array(
-			'u_first_name'	=> '',
-			'u_last_name'	=> '',
-			'u_full_name'	=> '',
-		);
-
 		public function __construct(){
 			$this->server_object = new Server();
 		}
