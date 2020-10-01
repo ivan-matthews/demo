@@ -3,7 +3,7 @@
 * **MySQL 5.7**.30-0ubuntu0.18.04.1
 * **Apache/2.4**.29 (Ubuntu)
 
-	![Скриншот мусите](https:/ivan-matthews.github.io/public/view/default/imgs/sreenshot.png)
+	![Скриншот мусите](https://ivan-matthews.github.io/public/view/default/imgs/sreenshot.png "Скриншот к проекту")
 
 		git clone https://github.com/ivan-matthews/demo.git ./
 
