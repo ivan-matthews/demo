@@ -159,16 +159,38 @@
 
 				$image_resource = imagecreatetruecolor($image_resource_width,$image_resource_height+$difference);
 				imagecopyresampled($image_resource, $image_src, 0, 0, $coordinate_x, 0,
-					$image_resource_width+$difference, $image_resource_height+$difference, $width_image_src, $height_image_src);
+					$image_resource_width+$difference, $image_resource_height+$difference, $width_image_src-$difference, $height_image_src);
+			}else{
+				$image_resource = imagecreatetruecolor($image_resource_width,$image_resource_height);
+				imagecopyresampled($image_resource, $image_src, 0, 0, 0, 0,
+					$image_resource_width, $image_resource_height, $width_image_src, $height_image_src);
+			}
+			call_user_func($this->exit_function,$image_resource,$this->output_file,$this->image_quality);
+			imagedestroy($image_resource);
+			imagedestroy($image_src);
+			return $this;
+		}
+
+		public function resizeAsPortraitOriginalHeight(){
+			$image_src = call_user_func($this->image_function,$this->image_file);
+			$width_image_src = imagesx($image_src);
+			$height_image_src = imagesy($image_src);
+
+			$ratio = $width_image_src/$this->image_options['width'];
+			$image_resource_width = round($width_image_src/$ratio);
+			$image_resource_height = round($height_image_src/$ratio);
+
+			if($image_resource_height < $this->image_options['height']){
+				$image_resource = imagecreatetruecolor($image_resource_width,$image_resource_height);
+				imagecopyresampled($image_resource, $image_src, 0, 0,0, 0,
+					$image_resource_width, $image_resource_height, $width_image_src, $height_image_src);
 			}else{
 				$image_resource = imagecreatetruecolor($image_resource_width,$image_resource_height);
 				imagecopyresampled($image_resource, $image_src, 0, 0, 0, 0,
 					$image_resource_width, $image_resource_height, $width_image_src, $height_image_src);
 			}
 
-//			header('content-type:image/jpeg');
 			call_user_func($this->exit_function,$image_resource,$this->output_file,$this->image_quality);
-//			die;
 			imagedestroy($image_resource);
 			imagedestroy($image_src);
 			return $this;
