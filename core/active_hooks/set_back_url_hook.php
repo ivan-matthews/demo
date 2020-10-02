@@ -1,10 +1,10 @@
 <?php
 
-	namespace Core\Hooks;
+	namespace Core\Active_Hooks;
 
 	use Core\Classes\User;
 
-	class Load_System_After_Hook{
+	class Set_Back_URL_Hook{
 
 		private $user;
 

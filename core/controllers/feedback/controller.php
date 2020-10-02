@@ -73,6 +73,25 @@
 				->setValue('feedback.index_action_title')
 				->setIcon(null)
 				->setLink('feedback','index');
+
+			return $this;
+		}
+
+		public function addRequestsResponse(){
+			$this->response->title('feedback.requests_title');
+			$this->response->breadcrumb('requests')
+				->setValue('feedback.requests_title')
+				->setIcon(null)
+				->setLink('feedback','requests');
+			return $this;
+		}
+
+		public function addRequestsItemResponse($email){
+			$this->response->title($email);
+			$this->response->breadcrumb('item')
+				->setValue($email)
+				->setIcon(null)
+				->setLink('feedback','requests_item',$email);
 			return $this;
 		}
 

@@ -64,8 +64,10 @@
 			$this->item_data = $this->model->getFeedbackItemByID($this->item_id);
 
 			$this->setResponse();
+			$this->addRequestsResponse();
 
 			if($this->item_data){
+				$this->addRequestsItemResponse($this->item_data['fb_email']);
 				if(!$this->item_data['fb_date_updated'] && !fx_equal((int)$this->item_data['fb_status'],Kernel::STATUS_INACTIVE)){
 					$this->model->readFeedbackItem($this->item_id);
 				}
@@ -85,7 +87,7 @@
 		public function addResponse(){
 			$cropped_title = fx_crop_string($this->item_data['fb_content'],50);
 			$this->response->title($cropped_title);
-			$this->response->breadcrumb('item')
+			$this->response->breadcrumb('message')
 				->setValue($cropped_title)
 				->setIcon(null)
 				->setLink('feedback','item',$this->item_data['fb_id']);

@@ -68,6 +68,7 @@
 				$this->user_data['a_verify_token'] = null;
 				$this->user_data['a_date_activate'] = time();
 				$this->user_data['a_status'] = Kernel::STATUS_ACTIVE;
+				$this->user_data['u_status'] = Kernel::STATUS_ACTIVE;			// add `u_` prefix to `user` bug fix
 
 				$this->model->updateUserAuthDataByVerifyToken($this->user_data);
 

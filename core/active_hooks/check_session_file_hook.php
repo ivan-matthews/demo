@@ -1,10 +1,10 @@
 <?php
 
-	namespace Core\Hooks;
+	namespace Core\Active_Hooks;
 
 	use Core\Classes\Session;
 
-	class Session_Start_Before_Hook{
+	class Check_Session_File_Hook{
 
 		private $session;
 

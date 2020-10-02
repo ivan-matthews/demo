@@ -94,14 +94,14 @@
 						</div>
 
 						<div class="col-11">
-							<div class="row col-12">
+							<div class="row col-12 m-0 p-0 mb-1">
 								<div class="user-name pr-2">
 									<?php print fx_get_full_name($photo['u_full_name'],$photo['u_gender']) ?>
 								</div>
 
 								<div class="add-date">
 									<?php print fx_lang('photos.photo_added_in') ?>
-									<?php print fx_get_date($photo['created']) ?>
+									<?php print fx_get_date($photo['p_date_created']) ?>
 								</div>
 							</div>
 							<div class="photo-views col-12 row">

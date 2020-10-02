@@ -94,6 +94,16 @@
 		}
 
 		public function addResponse(){
+			$user = fx_get_full_name($this->photo['u_full_name'],$this->photo['u_gender']);
+			$this->response->title($user);
+			$this->response->breadcrumb('user')
+				->setValue($user)
+				->setLink('users','item',$this->photo['u_id'])
+				->setIcon(null);
+			return $this->appendResponse();
+		}
+
+		public function appendResponse(){
 			$this->response->title($this->photo['p_name']);
 			$this->response->breadcrumb('item')
 				->setValue($this->photo['p_name'])
@@ -101,8 +111,6 @@
 				->setIcon(null);
 			return $this;
 		}
-
-
 
 
 

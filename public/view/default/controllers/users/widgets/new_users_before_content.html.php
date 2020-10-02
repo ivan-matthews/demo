@@ -37,9 +37,7 @@
 							</div>
 						</div>
 						<div class="users-item-title">
-
-							<?php print $user['u_full_name'] ?>
-
+							<?php print fx_get_full_name($user['u_full_name'],$user['u_gender']) ?>
 						</div>
 
 					</a>

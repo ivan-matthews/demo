@@ -67,6 +67,36 @@
 			return $result;
 		}
 
+		public function countFeedbackUniqueItems($query,array $data_to_prepare){
+			$result = $this->select('COUNT(fb_email) as total')
+				->from('feedback')
+				->where($query)
+				->prepare($data_to_prepare)
+				->group('fb_email')
+				->get()
+				->allAsArray();
+
+			$result = count($result);
+
+			return $result;
+		}
+
+		public function getFeedbackUniqueItems($query,array $data_to_prepare,$limit,$offset){
+			$result = $this->select('*','COUNT(fb_email) as total')
+				->from('feedback')
+				->where($query)
+				->prepare($data_to_prepare)
+				->limit($limit)
+				->offset($offset)
+				->order('fb_status DESC, fb_id DESC')
+				->sort(null)
+				->group('fb_email')
+				->get()
+				->allAsArray();
+
+			return $result;
+		}
+
 		public function getFeedbackItemByID($item_id){
 			$result = $this->select()
 				->from('feedback')

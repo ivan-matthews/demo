@@ -1,10 +1,10 @@
 <?php
 
-	namespace Core\Hooks;
+	namespace Core\Active_Hooks;
 
 	use Core\Classes\User;
 
-	class Session_Start_After_Hook{
+	class Check_Authorize_Hook{
 
 		private $user;
 

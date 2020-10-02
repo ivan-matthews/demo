@@ -11,6 +11,7 @@
  что Вы сможете найти этое инфо, в тех местах, где это инфо было размещено, тогда, пожалуйста 
  воспользуйтесь формой обратной связи на ссылке <div class="feedback-link col-12 row justify-content-center mt-4"><a class="btn btn-success" href="%link%">форма обратной связи с администрацией</a></div>',
 		'send_form_title'		=> 'Задать вопрос',
+		'reply_title'			=> 'Ответить',
 		'reply_form_title'		=> 'Ответить на вопрос:',
 		'write_your_name'		=> 'Ваше имя',
 		'write_your_phone'		=> 'Ваш телефон',
@@ -50,4 +51,5 @@
 		'telegram_title'		=> 'Связаться по Telegram',
 		'icq_title'				=> 'Связаться по ICQ',
 		'skype_title'			=> 'Связаться по Skype',
+		'requests_title'		=> 'Сообщения формы',
 	);

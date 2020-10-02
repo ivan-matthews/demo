@@ -94,6 +94,16 @@
 		}
 
 		public function addResponse(){
+			$user = fx_get_full_name($this->audio_info['u_full_name'],$this->audio_info['u_gender']);
+			$this->response->title($user);
+			$this->response->breadcrumb('user')
+				->setValue($user)
+				->setLink('users','item',$this->audio_info['u_id'])
+				->setIcon(null);
+			return $this->appendResponse();
+		}
+
+		public function appendResponse(){
 			$title = fx_crop_file_name($this->audio_info['au_name'],30);
 
 			$this->response->title($title);

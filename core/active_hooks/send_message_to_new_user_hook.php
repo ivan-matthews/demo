@@ -1,11 +1,11 @@
 <?php
 
-	namespace Core\Hooks;
+	namespace Core\Active_Hooks;
 
 	use Core\Classes\Session;
 	use Core\Classes\Mail\Session_Message;
 
-	class Render_Data_Before_Hook{
+	class Send_Message_To_New_User_Hook{
 
 		private $session;
 

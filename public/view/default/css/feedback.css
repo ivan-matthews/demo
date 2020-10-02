@@ -68,6 +68,16 @@
   font-size: 14px;
   padding: 5px 10px;
 }
+.feedback-list .feedback-items .bids-item .bid-items-info .bid-items-item-info .item-email .total-per-contact {
+  position: absolute;
+  right: 1em;
+  color: #ffffff;
+  background: #28a745;
+  padding: 0 0.5em;
+}
+.feedback-list .feedback-items .bids-item .bid-items-info .bid-items-item-info .item-email .total-per-contact-new {
+  background: #dc3545;
+}
 .feedback-item .feedback-item-class .feedback-info .name .feedback-name,
 .feedback-item .feedback-item-class .feedback-info .email .feedback-name,
 .feedback-item .feedback-item-class .feedback-info .phone .feedback-name,

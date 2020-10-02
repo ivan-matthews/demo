@@ -3,15 +3,15 @@
 	namespace Core\Controllers\Feedback\Actions;
 
 	use Core\Classes\Hooks;
-	use Core\Classes\Kernel;
 	use Core\Classes\Request;
 	use Core\Classes\Session;
 	use Core\Classes\Response\Response;
 	use Core\Controllers\Feedback\Config;
 	use Core\Controllers\Feedback\Controller;
 	use Core\Controllers\Feedback\Model;
+	use Core\Classes\Kernel;
 
-	class Requests extends Controller{
+	class Requests_Item extends Controller{
 
 		/** @var $this */
 		private static $instance;
@@ -41,7 +41,8 @@
 		public $session;
 
 		/** @var array */
-		public $requests;
+		public $requests_item;
+
 
 		public $limit = 20;
 		public $offset;
@@ -50,6 +51,7 @@
 
 		public $prepared_data = array();
 		public $sorting_panel;
+		public $contacts_mail;
 		public $bids_data;
 
 		/** @return $this */
@@ -66,36 +68,41 @@
 			$this->sorting_panel = $this->params->sorting_panel;
 		}
 
-		public function methodGet($order='all'){
+		public function methodGet($contacts_mail,$order='all'){
 			$this->sorting_action	= $order;
+			$this->contacts_mail = $contacts_mail;
+			$this->query .= " AND fb_email=%fb_email%";
+			$this->prepared_data['%fb_email%'] = $this->contacts_mail;
 
-			$this->total = $this->model->countFeedbackUniqueItems($this->query,$this->prepared_data);
+			$this->total = $this->model->countFeedbackItems($this->query,$this->prepared_data);
 
 			$this->prepareHeaderBarLinks();
 
-			$this->header_bar($this->sorting_panel,array('feedback','requests'),$this->sorting_action);
+			$this->header_bar($this->sorting_panel,array('feedback','requests_item',$this->contacts_mail),$this->sorting_action);
 
-			$this->bids_data = $this->model->getFeedbackUniqueItems(
+			$this->bids_data = $this->model->getFeedbackItems(
 				$this->query,
 				$this->prepared_data,
 				$this->limit,
 				$this->offset
 			);
-
 			if($this->bids_data){
-				$this->paginate($this->total, array('feedback','requests',$this->sorting_action));
+				$this->paginate($this->total, array('feedback','requests_item',$this->contacts_mail,$this->sorting_action));
 
 				$this->setResponse();
 				$this->addRequestsResponse();
+				if(isset($this->bids_data[0]['fb_email'])){
+					$this->addRequestsItemResponse($this->bids_data[0]['fb_email']);
+				}
 
-				$this->response->controller('feedback','requests')
+				$this->response->controller('feedback','requests_item')
 					->setArray(array(
 						'bids'	=> $this->bids_data,
-						'total'	=> $this->total,
+						'total'	=> $this->total
 					));
+
 				return $this;
 			}
-
 			return $this->renderEmptyPage();
 		}
 
@@ -122,8 +129,6 @@
 			$this->query .= " AND fb_status = " . Kernel::STATUS_INACTIVE;
 			return null;
 		}
-
-
 
 
 

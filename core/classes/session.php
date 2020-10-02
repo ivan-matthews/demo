@@ -22,6 +22,7 @@
 
 		protected $cookies;
 		protected $config;
+		protected $hooks;
 
 		public $new_user;
 
@@ -54,6 +55,7 @@
 		public function __construct(){
 			$this->cookies = Cookie::getInstance();
 			$this->config = Config::getInstance();
+			$this->hooks = Hooks::getInstance();
 		}
 
 		public function is($key,$prefix=null){
@@ -102,8 +104,10 @@
 			if($this->cookies->isCookie($this->config->session['session_name'])){
 				$this->session_id = $this->cookies->getCookie($this->config->session['session_name']);
 			}else{
+				$this->hooks->before('new_user');
 				$this->new_user = true;
 				$this->session_id = fx_gen(rand($this->config->session['session_sid_min'],$this->config->session['session_sid_max']));
+				$this->hooks->after('new_user');
 			}
 			return $this;
 		}
