@@ -35,6 +35,7 @@
 		private $cookies;
 		private $session;
 		private $config;
+		private $hooks;
 
 		public static function getInstance(){
 			if(self::$instance === null){
@@ -59,6 +60,7 @@
 			$this->session = Session::getInstance();
 			$this->cookies = Cookie::getInstance();
 			$this->config = Config::getInstance();
+			$this->hooks = Hooks::getInstance();
 		}
 
 		public function __destruct(){

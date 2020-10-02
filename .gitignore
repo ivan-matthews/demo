@@ -2,6 +2,7 @@ composer.lock
 composer.json
 .htaccess
 /public/sitemaps
+/public/uploads
 /system/sessions
 /system/cache/dynamic
 /system/cache/logs

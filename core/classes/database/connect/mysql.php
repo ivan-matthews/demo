@@ -225,9 +225,7 @@
 		}
 
 		public function setSqlMode($sql_mode){
-			if($this->params['clear_sql_mode']){
-				$this->exec("SET sql_mode='{$sql_mode}';");
-			}
+			$this->exec("SET sql_mode='{$sql_mode}';");
 			return $this;
 		}
 

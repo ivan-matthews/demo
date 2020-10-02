@@ -17,7 +17,6 @@
 	class Hooks implements HooksInterface{
 
 		private static $instance;
-		private static $index = array();
 
 		private $cache;
 		private $config;
@@ -67,6 +66,7 @@
 				return $this;
 			}
 			$this->scanHooksDir();	// $this->getHooksList() ???
+			$this->sortHooksByRelevance();
 			$this->cache->set($this->all_hooks);
 			return $this;
 		}
@@ -102,12 +102,23 @@
 			foreach($hooks_file as $key=>$item){
 				$ready = fx_equal($item['status'],Kernel::STATUS_ACTIVE) && method_exists($item['class'],$item['method']);
 				if(!$ready){ continue; }
-
-				self::$index[$key] = isset(self::$index[$key]) ? self::$index[$key] : 0;
-				$this->hooks_list[$key][self::$index[$key] + $item['relevance']] = $item;
-				self::$index[$key]++;
+				$this->hooks_list[$key][$this->getNewIndex($key,$item['relevance'])] = $item;
 			}
 			return $this;
+		}
+
+		private function getNewIndex($hook_key,$hook_index){
+			if(!isset($this->hooks_list[$hook_key][$hook_index])){
+				return $hook_index;
+			}
+			return $this->makeNewIndex($hook_key,$hook_index + 1);
+		}
+
+		private function makeNewIndex($hook_key,$hook_index){
+			if(!isset($this->hooks_list[$hook_key][$hook_index])){
+				return $hook_index;
+			}
+			return $this->makeNewIndex($hook_key,$hook_index+1);
 		}
 
 		private function sortHooksByRelevance(){
