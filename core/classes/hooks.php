@@ -111,14 +111,7 @@
 			if(!isset($this->hooks_list[$hook_key][$hook_index])){
 				return $hook_index;
 			}
-			return $this->makeNewIndex($hook_key,$hook_index + 1);
-		}
-
-		private function makeNewIndex($hook_key,$hook_index){
-			if(!isset($this->hooks_list[$hook_key][$hook_index])){
-				return $hook_index;
-			}
-			return $this->makeNewIndex($hook_key,$hook_index+1);
+			return $this->getNewIndex($hook_key,$hook_index + 1);
 		}
 
 		private function sortHooksByRelevance(){
