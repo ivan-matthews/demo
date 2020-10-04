@@ -31,15 +31,15 @@
 
 				<div class="post-info row ">
 
-					<?php if($post['pages_image']){ ?>
+					<?php if($post['small_pages_image']){ ?>
 
 						<div class="post-item-image d-none d-sm-block col-md-3 col-sm-3 col-3 col-lg-2 col-xl-2 pt-2">
-							<img src="<?php print fx_get_image_src($post['pages_image'],$post['pages_image_date'],'small') ?>">
+							<img src="<?php print fx_get_image_src($post['small_pages_image'],$post['pages_image_date'],'small') ?>">
 						</div>
 
 					<?php } ?>
 
-					<div class="<?php if($post['pages_image']){ ?>col-md-9 col-sm-9 col-12 col-lg-10 col-xl-10<?php }else{ ?>col-12<?php } ?> post-item-info">
+					<div class="<?php if($post['small_pages_image']){ ?>col-md-9 col-sm-9 col-12 col-lg-10 col-xl-10<?php }else{ ?>col-12<?php } ?> post-item-info">
 
 						<?php if(fx_me($post['u_id'])){?>
 							<div class="btn-group buttons float-right">

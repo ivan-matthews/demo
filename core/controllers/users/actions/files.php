@@ -102,20 +102,23 @@
 
 				$this->total_files = $this->files_model->countFiles($this->query,$this->prepared_data);
 
-				$this->prepareSortingPanel()->sorting($this->sorting_panel);
+				if($this->total_files){
+					$this->prepareSortingPanel()->sorting($this->sorting_panel);
 
-				$this->files_data = $this->files_model->getFiles(
-					$this->limit,$this->offset,$this->query,$this->order,$this->sort,$this->prepared_data
-				);
+					$this->files_data = $this->files_model->getFiles(
+						$this->limit,$this->offset,$this->query,$this->order,$this->sort,$this->prepared_data
+					);
 
-				$this->paginate($this->total_files, array('users','files',$this->user_id));
+					$this->paginate($this->total_files, array('users','files',$this->user_id));
 
-				$this->response->controller('users','files')
-					->setArray(array(
-						'files'	=> $this->files_data
-					));
+					$this->response->controller('users','files')
+						->setArray(array(
+							'files'	=> $this->files_data
+						));
 
-				return $this;
+					return $this;
+				}
+				return $this->renderEmptyPage();
 			}
 
 			return false;

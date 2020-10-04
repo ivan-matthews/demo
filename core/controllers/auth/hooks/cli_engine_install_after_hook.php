@@ -80,9 +80,8 @@
 				}));
 				if(!fx_equal(mb_strtolower($interactive->getDialogString()),'y')){
 					$this->set();
-				}else{
-					$this->insertOrUpdateAuthInfo();
 				}
+				$this->insertOrUpdateAuthInfo();
 			});
 			return $this;
 		}

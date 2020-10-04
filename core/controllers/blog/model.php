@@ -52,7 +52,13 @@
 				'users.u_gender',
 				'ui.p_micro',
 				'ui.p_date_updated',
-				'bi.p_small as blog_image',
+				'bi.p_micro as micro_blog_image',
+				'bi.p_small as small_blog_image',
+				'bi.p_medium as medium_blog_image',
+				'bi.p_normal as normal_blog_image',
+				'bi.p_big as big_blog_image',
+				'bi.p_poster as poster_blog_image',
+				'bi.p_original as original_blog_image',
 				'bi.p_date_updated as blog_image_date',
 				'bi.p_id as blog_image_id',
 				'categories.ct_id',
@@ -76,7 +82,7 @@
 			return $result;
 		}
 
-		public function getBlogPostById($post_id,$image_size_field_key='p_normal'){
+		public function getBlogPostById($post_id){
 			$result = $this->select(
 				'blog.*',
 				'users.u_id',
@@ -85,7 +91,13 @@
 				'users.u_gender',
 				'ui.p_micro',
 				'ui.p_date_updated',
-				'bi.' . $image_size_field_key . ' as blog_image',
+				'bi.p_micro as micro_blog_image',
+				'bi.p_small as small_blog_image',
+				'bi.p_medium as medium_blog_image',
+				'bi.p_normal as normal_blog_image',
+				'bi.p_big as big_blog_image',
+				'bi.p_poster as poster_blog_image',
+				'bi.p_original as original_blog_image',
 				'bi.p_date_updated as blog_image_date',
 				'bi.p_id as blog_image_id',
 				'categories.ct_id',
@@ -115,7 +127,13 @@
 				'users.u_gender',
 				'ui.p_micro',
 				'ui.p_date_updated',
-				'bi.p_normal as blog_image',
+				'bi.p_micro as micro_blog_image',
+				'bi.p_small as small_blog_image',
+				'bi.p_medium as medium_blog_image',
+				'bi.p_normal as normal_blog_image',
+				'bi.p_big as big_blog_image',
+				'bi.p_poster as poster_blog_image',
+				'bi.p_original as original_blog_image',
 				'bi.p_date_updated as blog_image_date',
 				'bi.p_id as blog_image_id',
 				'categories.ct_id',

@@ -34,6 +34,7 @@
 				$table->longtext('p_medium')->nullable()->fullText();
 				$table->longtext('p_normal')->nullable()->fullText();
 				$table->longtext('p_big')->nullable()->fullText();
+				$table->longtext('p_poster')->nullable()->fullText();
 				$table->longtext('p_original')->nullable()->fullText();
 
 				$table->varchar('p_hash')->notNull()->unique();

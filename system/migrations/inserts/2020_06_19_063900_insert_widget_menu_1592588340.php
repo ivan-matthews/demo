@@ -207,6 +207,20 @@
 					'menu_id'		=> $this->main_menu,
 					'link_array'	=> array(
 						'link'=>array(
+							'news','index'
+						),
+						'query'=>array(
+
+						)
+					),
+					'name'			=> 'news_page',
+					'title'			=> 'news.news_link_title',
+					'value'			=> 'news.news_link_value',
+				),
+				array(
+					'menu_id'		=> $this->main_menu,
+					'link_array'	=> array(
+						'link'=>array(
 							'photos','index'
 						),
 						'query'=>array(

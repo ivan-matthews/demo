@@ -115,7 +115,7 @@
 					'data'	=> $this->attachments_data
 				),'attachments');
 
-				$this->request->set('preview_image',$this->post_info['blog_image']);
+				$this->request->set('preview_image',$this->post_info['medium_blog_image']);
 
 				$this->response->controller('blog','edit')
 					->setArray(array(

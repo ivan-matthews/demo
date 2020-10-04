@@ -40,10 +40,10 @@
 	</div>
 	<div class="col-12 blog-post row">
 		<div class="right-bar col-12">
-			<?php if($post['blog_image']){ ?>
+			<?php if($post['normal_blog_image']){ ?>
 				<a href="<?php print fx_get_url('photos','item',$post['blog_image_id']) ?>">
 					<div class="post-image float-left pb-2 pr-4">
-						<img src="<?php print fx_get_image_src($post['blog_image'],$post['blog_image_date'],'normal') ?>"/>
+						<img src="<?php print fx_get_image_src($post['normal_blog_image'],$post['blog_image_date'],'normal') ?>"/>
 					</div>
 				</a>
 			<?php } ?>

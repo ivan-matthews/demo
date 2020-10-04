@@ -8,35 +8,35 @@
 
 		private $categories = array(
 			array(
-				'ct_name'			=> 'news',
+				'ct_name'			=> 'blog_news',
 				'ct_controller'		=> 'blog',
 				'ct_title'			=> 'categories.blog_news_title',
 				'ct_icon'			=> "fa fa-list",
 				'ct_description'	=> NULL,
 			),
 			array(
-				'ct_name'			=> 'word',
+				'ct_name'			=> 'blog_world',
 				'ct_controller'		=> 'blog',
 				'ct_title'			=> 'categories.blog_word_title',
 				'ct_icon'			=> "fa fa-list",
 				'ct_description'	=> NULL,
 			),
 			array(
-				'ct_name'			=> 'cook',
+				'ct_name'			=> 'blog_cook',
 				'ct_controller'		=> 'blog',
 				'ct_title'			=> 'categories.blog_cook_title',
 				'ct_icon'			=> "fa fa-list",
 				'ct_description'	=> NULL,
 			),
 			array(
-				'ct_name'			=> 'game',
+				'ct_name'			=> 'blog_game',
 				'ct_controller'		=> 'blog',
 				'ct_title'			=> 'categories.blog_game_title',
 				'ct_icon'			=> "fa fa-list",
 				'ct_description'	=> NULL,
 			),
 			array(
-				'ct_name'			=> 'hobby',
+				'ct_name'			=> 'blog_hobby',
 				'ct_controller'		=> 'blog',
 				'ct_title'			=> 'categories.blog_hobby_title',
 				'ct_icon'			=> "fa fa-list",
@@ -50,7 +50,7 @@
 				'ct_description'	=> NULL,
 			),
 			array(
-				'ct_name'			=> 'articles_word',
+				'ct_name'			=> 'articles_world',
 				'ct_controller'		=> 'articles',
 				'ct_title'			=> 'categories.blog_word_title',
 				'ct_icon'			=> "fa fa-list",
@@ -67,13 +67,6 @@
 				'ct_name'			=> 'news_game',
 				'ct_controller'		=> 'news',
 				'ct_title'			=> 'categories.blog_game_title',
-				'ct_icon'			=> "fa fa-list",
-				'ct_description'	=> NULL,
-			),
-			array(
-				'ct_name'			=> 'blog_hobby',
-				'ct_controller'		=> 'blog',
-				'ct_title'			=> 'categories.blog_hobby_title_alt',
 				'ct_icon'			=> "fa fa-list",
 				'ct_description'	=> NULL,
 			),

@@ -115,7 +115,7 @@
 					'data'	=> $this->attachments_data
 				),'attachments');
 
-				$this->request->set('preview_image',$this->post_info['pages_image']);
+				$this->request->set('preview_image',$this->post_info['medium_pages_image']);
 
 				$this->response->controller('pages','edit')
 					->setArray(array(

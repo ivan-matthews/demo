@@ -13,7 +13,7 @@
 ?>
 <?php if($content){ ?>
 	<?php if($options['wa_show_title']){ ?>
-		<div href="<?php print fx_get_url('comments','index') ?>" class="before-content-widget-header">
+		<div class="before-content-widget-header">
 			<div class="row justify-content-center widget-header">
 				<div class="col-12 before-content-title title">
 					<?php print fx_lang($options['wa_title']) ?>

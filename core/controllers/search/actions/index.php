@@ -92,19 +92,22 @@
 
 			$this->total = isset($this->total_finds[$this->current_controller]) ? $this->total_finds[$this->current_controller] : 0;
 
-			$this->paginate($this->total,array('search','index',$this->current_controller));
+			if($this->total){
+				$this->paginate($this->total,array('search','index',$this->current_controller));
 
-			$this->setResponse();
+				$this->setResponse();
 
-			$this->response->controller('search')
-				->setArray(array(
-					'total'			=> $this->total,
-					'result'		=> $this->search_result,
-					'controller'	=> $this->current_controller,
-					'query'			=> $this->search_query
-				));
+				$this->response->controller('search')
+					->setArray(array(
+						'total'			=> $this->total,
+						'result'		=> $this->search_result,
+						'controller'	=> $this->current_controller,
+						'query'			=> $this->search_query
+					));
 
-			return $this;
+				return $this;
+			}
+			return $this->renderEmptyPage();
 		}
 
 		public function setResponse(){

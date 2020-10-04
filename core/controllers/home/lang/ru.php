@@ -117,4 +117,5 @@
 		'city_label'	=> 'Город',
 		'in'	=> ' в ',
 		'categories_select_list'=> 'Выбрать категорию',
+		'show_item_carousel'	=> 'перейти к записи...',
 	);

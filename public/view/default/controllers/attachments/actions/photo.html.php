@@ -17,7 +17,7 @@
 
 			<div class="photos-item col-4 col-sm-4 col-md-4 col-lg-3 col-xl-2 mt-2 mb-2">
 
-				<a class="photos-item-link" onclick="attachmentsObj.selectImageAndAddToPreview(<?php print $photo['p_id'] ?>,'<?php print $photo['p_medium'] ?>')">
+				<a class="photos-item-link" onclick="attachmentsObj.selectImageAndAddToPreview(this,<?php print $photo['p_id'] ?>,'<?php print $photo['p_medium'] ?>')">
 
 					<img class="photos-item-image" src="<?php print fx_get_image_src($photo['p_medium'],$photo['p_date_updated'],'medium') ?>"/>
 

@@ -198,6 +198,9 @@
 	}
 	if(!function_exists('fx_get_upload_path')){
 		function fx_get_upload_path($file_path, $with_trailing_slash = true){
+			if(parse_url($file_path,PHP_URL_SCHEME)){
+				return $file_path;
+			}
 			$file_path = trim($file_path,'/');
 			$public_dir = fx_get_web_dir_name();
 			$upload_dir = Config::getInstance()->view['uploads_dir'];
@@ -207,6 +210,9 @@
 	}
 	if(!function_exists('fx_get_upload_root_path')){
 		function fx_get_upload_root_path($file_path){
+			if(parse_url($file_path,PHP_URL_SCHEME)){
+				return $file_path;
+			}
 			return fx_path(fx_get_upload_path($file_path, null));
 		}
 	}

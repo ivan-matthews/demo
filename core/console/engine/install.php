@@ -232,11 +232,10 @@
 					return $types->string(fx_lang("cli.new_config_agree"))->fon('green')->get();
 				}));
 
-				if(fx_equal(mb_strtolower($interactive->getDialogString()),'y')){
-					$this->updateConfigFromArray();
-				}else{
+				if(!fx_equal(mb_strtolower($interactive->getDialogString()),'y')){
 					$this->setConfigs();
 				}
+				$this->updateConfigFromArray();
 			});
 			return $this;
 		}

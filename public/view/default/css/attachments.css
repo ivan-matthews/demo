@@ -8,7 +8,7 @@
   font-weight: bold;
 }
 .photos-list .photos .photos-item .photos-item-link .photos-item-image {
-  max-width: 100%;
+  max-width: 128px;
 }
 .select-photos-list .photos .photos-item .photos-item-title,
 .select-photo-list .photos .photos-item .photos-item-title {
@@ -188,6 +188,9 @@
   background: #d9e2ec;
   padding: 9.5px;
 }
+.attachments-field .attachments-data-block-previews .preview-photos .photo-item img {
+  max-width: 128px;
+}
 .attachments-field .attachments-data-block-previews .preview-photos .photo-item img:hover {
   cursor: pointer;
   opacity: 0.6;
@@ -264,6 +267,9 @@
 }
 .attachments-list .attachments-body-item {
   background: #fff;
+}
+.attachments-list .parent-photos .photos a .image img {
+  max-width: 128px;
 }
 .attachments-list .videos a .icon {
   font-size: 20px;

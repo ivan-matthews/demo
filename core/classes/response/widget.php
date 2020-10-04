@@ -29,25 +29,17 @@
 		}
 
 		public function add($index=null){
-			$index = $index ?: $this->checkIndex($this->widget_position,$this->widget['wa_ordering']);
+			$index = $index ? $index : $this->getNewIndex($this->widget_position,$this->widget['wa_ordering']);
 			$this->response->response_data['response_data']['widgets'][$this->widget_position][$index] = $this->default_params;
 			return true;
 		}
 
-		private function checkIndex($position,$index){
+		private function getNewIndex($position,$index){
 			if(!isset($this->response->response_data['response_data']['widgets'][$position][$index])){
 				return $index;
 			}
-			return $this->makeIndex($position,$index + 1);
+			return $this->getNewIndex($position,$index + 1);
 		}
-
-		private function makeIndex($position,$index){
-			if(!isset($this->response->response_data['response_data']['widgets'][$position][$index])){
-				return $index;
-			}
-			return $this->makeIndex($position,$index + 1);
-		}
-
 
 
 

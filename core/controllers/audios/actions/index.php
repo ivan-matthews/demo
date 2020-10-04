@@ -76,20 +76,23 @@
 
 			$this->setResponse();
 
-			$this->sorting($this->sorting_panel);
+			if($this->total){
+				$this->sorting($this->sorting_panel);
 
-			$this->audios = $this->model->getAudios(
-				$this->limit,$this->offset,$this->query,$this->order,$this->sort
-			);
+				$this->audios = $this->model->getAudios(
+					$this->limit,$this->offset,$this->query,$this->order,$this->sort
+				);
 
-			$this->paginate($this->total, array('audios','index'));
+				$this->paginate($this->total, array('audios','index'));
 
-			$this->response->controller('audios','index')
-				->setArray(array(
-					'audios'	=> $this->audios
-				));
+				$this->response->controller('audios','index')
+					->setArray(array(
+						'audios'	=> $this->audios
+					));
 
-			return $this;
+				return $this;
+			}
+			return $this->renderEmptyPage();
 		}
 
 		protected function setSortingPanelAll(){

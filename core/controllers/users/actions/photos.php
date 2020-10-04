@@ -102,20 +102,23 @@
 
 				$this->total_photos = $this->photos_model->countPhotos($this->query,$this->prepared_data);
 
-				$this->prepareSortingPanel()->sorting($this->sorting_panel);
+				if($this->total_photos){
+					$this->prepareSortingPanel()->sorting($this->sorting_panel);
 
-				$this->photos_data = $this->photos_model->getPhotos(
-					$this->limit,$this->offset,$this->query,$this->order,$this->sort,$this->prepared_data
-				);
+					$this->photos_data = $this->photos_model->getPhotos(
+						$this->limit,$this->offset,$this->query,$this->order,$this->sort,$this->prepared_data
+					);
 
-				$this->paginate($this->total_photos, array('users','photos',$this->user_id));
+					$this->paginate($this->total_photos, array('users','photos',$this->user_id));
 
-				$this->response->controller('users','photos')
-					->setArray(array(
-						'photos'	=> $this->photos_data
-					));
+					$this->response->controller('users','photos')
+						->setArray(array(
+							'photos'	=> $this->photos_data
+						));
 
-				return $this;
+					return $this;
+				}
+				return $this->renderEmptyPage();
 			}
 
 			return false;

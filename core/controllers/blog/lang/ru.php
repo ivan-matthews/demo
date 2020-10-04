@@ -28,4 +28,5 @@
 		'attachments_head'		=> 'Закрепленные файлы ',
 		'find_by_blog_table_head'	=> 'Блоги',
 		'blog_before_content_widget_title'	=> 'Новые блоги',
+		'show_item_carousel'	=> 'перейти к записи...',
 	);

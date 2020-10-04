@@ -15,6 +15,7 @@
 		private $login = 'admin@m.c';
 
 		private $file_name = 'demo.jpg';
+		private $file = 'edf7cae3bedf012fe83d424f5357f4a1';
 		private $file_hash = '1-edf7cae3bedf012fe83d424f5357f4a1';
 
 		public function addAuthData(){
@@ -79,12 +80,13 @@
 				->value("p_user_id",$this->user_id)
 				->value("p_name",$this->file_name)
 				->value("p_size",55796)
-				->value("p_micro","users/{$this->user_id}/photos/ed/f7/micro-{$this->file_hash}.jpeg")
-				->value("p_small","users/{$this->user_id}/photos/ed/f7/small-{$this->file_hash}.jpeg")
-				->value("p_medium","users/{$this->user_id}/photos/ed/f7/medium-{$this->file_hash}.jpeg")
-				->value("p_normal","users/{$this->user_id}/photos/ed/f7/normal-{$this->file_hash}.jpeg")
-				->value("p_big","users/{$this->user_id}/photos/ed/f7/big-{$this->file_hash}.jpeg")
-				->value("p_original","users/{$this->user_id}/photos/ed/f7/original-{$this->file_hash}.jpeg")
+				->value("p_micro","users/{$this->user_id}/photos/ed/f7/micro-{$this->file}.jpeg")
+				->value("p_small","users/{$this->user_id}/photos/ed/f7/small-{$this->file}.jpeg")
+				->value("p_medium","users/{$this->user_id}/photos/ed/f7/medium-{$this->file}.jpeg")
+				->value("p_normal","users/{$this->user_id}/photos/ed/f7/normal-{$this->file}.jpeg")
+				->value("p_big","users/{$this->user_id}/photos/ed/f7/big-{$this->file}.jpeg")
+				->value("p_original","users/{$this->user_id}/photos/ed/f7/original-{$this->file}.jpeg")
+				->value("p_poster","users/{$this->user_id}/photos/ed/f7/poster-{$this->file}.jpeg")
 				->value("p_hash",$this->file_hash)
 				->value("p_mime","image/jpeg")
 				->value('p_date_created',time())

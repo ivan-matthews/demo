@@ -76,20 +76,23 @@
 
 			$this->setResponse();
 
-			$this->sorting($this->sorting_panel);
+			if($this->total){
+				$this->sorting($this->sorting_panel);
 
-			$this->files = $this->model->getFiles(
-				$this->limit,$this->offset,$this->query,$this->order,$this->sort
-			);
+				$this->files = $this->model->getFiles(
+					$this->limit,$this->offset,$this->query,$this->order,$this->sort
+				);
 
-			$this->paginate($this->total, array('files','index'));
+				$this->paginate($this->total, array('files','index'));
 
-			$this->response->controller('files','index')
-				->setArray(array(
-					'files'	=> $this->files
-				));
+				$this->response->controller('files','index')
+					->setArray(array(
+						'files'	=> $this->files
+					));
 
-			return $this;
+				return $this;
+			}
+			return $this->renderEmptyPage();
 		}
 
 		protected function setSortingPanelAll(){

@@ -29,15 +29,15 @@
 
 					<div class="post-info row ">
 
-						<?php if($post['blog_image']){ ?>
+						<?php if($post['small_blog_image']){ ?>
 
 							<div class="post-item-image d-none d-sm-block col-md-3 col-sm-3 col-3 col-lg-2 col-xl-2 pt-2">
-								<img src="<?php print fx_get_image_src($post['blog_image'],$post['blog_image_date'],'small') ?>">
+								<img src="<?php print fx_get_image_src($post['small_blog_image'],$post['blog_image_date'],'small') ?>">
 							</div>
 
 						<?php } ?>
 
-						<div class="<?php if($post['blog_image']){ ?>col-md-9 col-sm-9 col-12 col-lg-10 col-xl-10<?php }else{ ?>col-12<?php } ?> post-item-info">
+						<div class="<?php if($post['small_blog_image']){ ?>col-md-9 col-sm-9 col-12 col-lg-10 col-xl-10<?php }else{ ?>col-12<?php } ?> post-item-info">
 							<a href="<?php print fx_get_url('blog','post',$post['b_slug']) ?>">
 								<div class="blog-title pt-2 pb-2">
 									<?php print fx_crop_string($post['b_title'],80) ?>

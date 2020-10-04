@@ -11,11 +11,19 @@
 		private $input_data;
 		private $result_string_data;
 
+		public $callback_function;
+		public $callback_exception;
+
 		private $config;
 
 		public function __construct($data){
 			$this->input_data = $data;
 			$this->config = Config::getInstance();
+		}
+
+		public function call(callable $callback_function){
+			$this->callback_function = $callback_function;
+			return $this;
 		}
 
 		public function start(){
@@ -128,7 +136,15 @@
 			$this->cfgSetTagCallbackFull('code', array($this, 'parseCode'));
 			// Ставим колбэк для спойлеров
 			$this->cfgSetTagCallbackFull('spoiler', array($this, 'parseSpoiler'));
+			$this->cfgSetTagCallbackFull('div', array($this, 'parseDiv'));
 			return $this;
+		}
+
+		public function parseDiv($tag, $params, $content){
+			if($this->callback_function){
+				return call_user_func($this->callback_function,$this,$tag,$params,$content);
+			}
+			return null;
 		}
 
 		public function parseCode($tag, $params, $content){
@@ -213,7 +229,9 @@
 		}
 
 		private function getVideoCode($src) {
-			return '<div class="video_wrap"><iframe class="video_frame" src="'.$src.'" frameborder="0" allowfullscreen></iframe></div>';
+			$onload_fnc = null;
+//			$onload_fnc = 'onload="this.style.height = this.contentWindow.document.body.scrollHeight+100 + \'px\';"';
+			return '<div class="video_wrap"><iframe height="400px" ' . $onload_fnc . ' class="video_frame" src="'.$src.'" frameborder="0" allowfullscreen></iframe></div>';
 		}
 
 		private function parseYouTubeVideoID($url) {

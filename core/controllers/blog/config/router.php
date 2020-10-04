@@ -5,7 +5,7 @@
 	return array(
 
 		array(
-			'url'			=> 'post/[post id].php',
+			'url'			=> 'blog-post/[post id].html',
 			'controller'	=> 'blog',
 			'action'		=> 'post',
 			'params'		=> array(),

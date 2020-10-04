@@ -12,6 +12,8 @@
 	use Core\Controllers\Comments\Widgets\Comments_Widget as CommentsWidget;
 	use Core\Controllers\Users\Widgets\New_Users as NewUsersWidget;
 	use Core\Controllers\Users\Widgets\Online_Users as OnlineUsersWidget;
+	use Core\Controllers\News\Widgets\News_Slider as NewsSliderWidget;
+	use Core\Controllers\Blog\Widgets\Blog_Slider as BlogSliderWidget;
 
 	class InsertWidgetsToMain202009300551041601441464{
 
@@ -23,6 +25,8 @@
 		private $comments_widget_id;
 		private $new_users_widget_id;
 		private $online_users_widget_id;
+		private $news_slider_widget_id;
+		private $blog_slider_widget_id;
 
 		public function addBlogWidget(){
 			$this->blog_widget_id = Database::insert('widgets')
@@ -124,7 +128,7 @@
 				->value('wa_unite_prev',0)
 				->value('wa_status',Kernel::STATUS_ACTIVE)
 				->value('wa_position','before_content')
-				->value('wa_ordering',3)
+				->value('wa_ordering',5)
 				->value('wa_pages_enabled',array('home'=>array('index')))
 				->value('wa_template','controllers/blog/widgets/blog_posts')
 				->get()
@@ -144,7 +148,7 @@
 				->value('wa_unite_prev',0)
 				->value('wa_status',Kernel::STATUS_ACTIVE)
 				->value('wa_position','before_content')
-				->value('wa_ordering',6)
+				->value('wa_ordering',8)
 				->value('wa_pages_enabled',array('home'=>array('index')))
 				->value('wa_template','controllers/audios/widgets/audios')
 				->get()
@@ -164,7 +168,7 @@
 				->value('wa_unite_prev',0)
 				->value('wa_status',Kernel::STATUS_ACTIVE)
 				->value('wa_position','before_content')
-				->value('wa_ordering',5)
+				->value('wa_ordering',7)
 				->value('wa_pages_enabled',array('home'=>array('index')))
 				->value('wa_template','controllers/videos/widgets/videos')
 				->get()
@@ -184,7 +188,7 @@
 				->value('wa_unite_prev',0)
 				->value('wa_status',Kernel::STATUS_ACTIVE)
 				->value('wa_position','before_content')
-				->value('wa_ordering',4)
+				->value('wa_ordering',6)
 				->value('wa_pages_enabled',array('home'=>array('index')))
 				->value('wa_template','controllers/photos/widgets/photos')
 				->get()
@@ -204,7 +208,7 @@
 				->value('wa_unite_prev',0)
 				->value('wa_status',Kernel::STATUS_ACTIVE)
 				->value('wa_position','before_content')
-				->value('wa_ordering',7)
+				->value('wa_ordering',9)
 				->value('wa_pages_enabled',array('home'=>array('index')))
 				->value('wa_template','controllers/files/widgets/files')
 				->get()
@@ -224,7 +228,7 @@
 				->value('wa_unite_prev',0)
 				->value('wa_status',Kernel::STATUS_ACTIVE)
 				->value('wa_position','before_content')
-				->value('wa_ordering',8)
+				->value('wa_ordering',10)
 				->value('wa_pages_enabled',array('home'=>array('index')))
 				->value('wa_template','controllers/comments/widgets/comments')
 				->get()
@@ -244,7 +248,7 @@
 				->value('wa_unite_prev',0)
 				->value('wa_status',Kernel::STATUS_ACTIVE)
 				->value('wa_position','before_content')
-				->value('wa_ordering',2)
+				->value('wa_ordering',4)
 				->value('wa_pages_enabled',array('home'=>array('index')))
 				->value('wa_template','controllers/users/widgets/new_users')
 				->get()
@@ -264,7 +268,7 @@
 				->value('wa_unite_prev',0)
 				->value('wa_status',Kernel::STATUS_ACTIVE)
 				->value('wa_position','before_content')
-				->value('wa_ordering',1)
+				->value('wa_ordering',3)
 				->value('wa_pages_enabled',array('home'=>array('index')))
 				->value('wa_template','controllers/users/widgets/online_users')
 				->get()
@@ -272,6 +276,67 @@
 			return $this;
 		}
 
+		public function addNewsSliderWidget(){
+			$this->news_slider_widget_id = Database::insert('widgets')
+				->value('w_class',NewsSliderWidget::class)
+				->value('w_method','run')
+				->value('w_status',Kernel::STATUS_ACTIVE)
+				->value('w_template','controllers/news/widgets/carousel')
+				->get()
+				->id();
+			return $this;
+		}
+
+		public function addActiveNewsSliderWidget(){
+			Database::insert('widgets_active')
+				->value('wa_widget_id',$this->news_slider_widget_id)
+				->value('wa_name','news_carousel_before_content')
+				->value('wa_title','news.news_before_content_widget_title')
+				->value('wa_css_class','')
+				->value('wa_css_class_title','')
+				->value('wa_css_class_body','')
+				->value('wa_show_title',1)
+				->value('wa_unite_prev',0)
+				->value('wa_status',Kernel::STATUS_ACTIVE)
+				->value('wa_position','before_content')
+				->value('wa_ordering',1)
+				->value('wa_pages_enabled',array('home'=>array('index')))
+				->value('wa_template','controllers/news/widgets/carousel')
+				->get()
+				->id();
+			return $this;
+		}
+
+		public function addBlogSliderWidget(){
+			$this->blog_slider_widget_id = Database::insert('widgets')
+				->value('w_class',BlogSliderWidget::class)
+				->value('w_method','run')
+				->value('w_status',Kernel::STATUS_INACTIVE)
+				->value('w_template','controllers/blog/widgets/carousel')
+				->get()
+				->id();
+			return $this;
+		}
+
+		public function addActiveBlogSliderWidget(){
+			Database::insert('widgets_active')
+				->value('wa_widget_id',$this->blog_slider_widget_id)
+				->value('wa_name','blog_carousel_before_content')
+				->value('wa_title','blog.blog_before_content_widget_title')
+				->value('wa_css_class','')
+				->value('wa_css_class_title','')
+				->value('wa_css_class_body','')
+				->value('wa_show_title',1)
+				->value('wa_unite_prev',0)
+				->value('wa_status',Kernel::STATUS_INACTIVE)
+				->value('wa_position','before_content')
+				->value('wa_ordering',2)
+				->value('wa_pages_enabled',array('home'=>array('index')))
+				->value('wa_template','controllers/blog/widgets/carousel')
+				->get()
+				->id();
+			return $this;
+		}
 
 
 

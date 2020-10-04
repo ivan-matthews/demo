@@ -67,6 +67,10 @@
 				'width'		=> 360,
 				'height'	=> 480,
 			),
+			'poster'	=> array(
+				'width'		=> 550,
+				'height'	=> 400,
+			),
 		),
 		'sorting_panel'	=> array(
 			'all'	=> array(

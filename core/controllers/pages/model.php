@@ -52,9 +52,14 @@
 				'users.u_gender',
 				'ui.p_micro',
 				'ui.p_date_updated',
-				'bi.p_small as pages_image',
-				'bi.p_date_updated as pages_image_date',
-				'bi.p_id as pages_image_id',
+				'pg.p_micro as micro_pages_image',
+				'pg.p_small as small_pages_image',
+				'pg.p_medium as medium_pages_image',
+				'pg.p_normal as normal_pages_image',
+				'pg.p_big as big_pages_image',
+				'pg.p_poster as poster_pages_image',
+				'pg.p_date_updated as pages_image_date',
+				'pg.p_id as pages_image_id',
 				'categories.ct_id',
 				'categories.ct_title',
 				'categories.ct_icon',
@@ -64,7 +69,7 @@
 				->join('categories FORCE INDEX(PRIMARY)',"pg_category_id=ct_id")
 				->join('users FORCE INDEX(PRIMARY)',"pg_user_id=u_id")
 				->join('photos as ui FORCE INDEX(PRIMARY)',"u_avatar_id=ui.p_id")
-				->join('photos as bi FORCE INDEX(PRIMARY)',"pg_image_preview_id=bi.p_id")
+				->join('photos as pg FORCE INDEX(PRIMARY)',"pg_image_preview_id=pg.p_id")
 				->where($query)
 				->prepare($preparing_data)
 				->limit($limit)
@@ -76,7 +81,7 @@
 			return $result;
 		}
 
-		public function getBlogPostById($post_id,$image_size_field_key='p_normal'){
+		public function getBlogPostById($post_id){
 			$result = $this->select(
 				'pages.*',
 				'users.u_id',
@@ -85,9 +90,14 @@
 				'users.u_gender',
 				'ui.p_micro',
 				'ui.p_date_updated',
-				'bi.' . $image_size_field_key . ' as pages_image',
-				'bi.p_date_updated as pages_image_date',
-				'bi.p_id as pages_image_id',
+				'pg.p_micro as micro_pages_image',
+				'pg.p_small as small_pages_image',
+				'pg.p_medium as medium_pages_image',
+				'pg.p_normal as normal_pages_image',
+				'pg.p_big as big_pages_image',
+				'pg.p_poster as poster_pages_image',
+				'pg.p_date_updated as pages_image_date',
+				'pg.p_id as pages_image_id',
 				'categories.ct_id',
 				'categories.ct_title',
 				'categories.ct_icon',
@@ -97,7 +107,7 @@
 				->join('categories FORCE INDEX(PRIMARY)',"pg_category_id=ct_id")
 				->join('users FORCE INDEX(PRIMARY)',"pg_user_id=u_id")
 				->join('photos as ui FORCE INDEX(PRIMARY)',"u_avatar_id=ui.p_id")
-				->join('photos as bi FORCE INDEX(PRIMARY)',"pg_image_preview_id=bi.p_id")
+				->join('photos as pg FORCE INDEX(PRIMARY)',"pg_image_preview_id=pg.p_id")
 				->where("`pg_status`=" . Kernel::STATUS_ACTIVE . " and `pg_id`=%post_id%")
 				->data('%post_id%',$post_id)
 				->get()
@@ -115,9 +125,14 @@
 				'users.u_gender',
 				'ui.p_micro',
 				'ui.p_date_updated',
-				'bi.p_normal as pages_image',
-				'bi.p_date_updated as pages_image_date',
-				'bi.p_id as pages_image_id',
+				'pg.p_micro as micro_pages_image',
+				'pg.p_small as small_pages_image',
+				'pg.p_medium as medium_pages_image',
+				'pg.p_normal as normal_pages_image',
+				'pg.p_big as big_pages_image',
+				'pg.p_poster as poster_pages_image',
+				'pg.p_date_updated as pages_image_date',
+				'pg.p_id as pages_image_id',
 				'categories.ct_id',
 				'categories.ct_title',
 				'categories.ct_icon',
@@ -127,7 +142,7 @@
 				->join('categories FORCE INDEX(PRIMARY)',"pg_category_id=ct_id")
 				->join('users FORCE INDEX(PRIMARY)',"pg_user_id=u_id")
 				->join('photos as ui FORCE INDEX(PRIMARY)',"u_avatar_id=ui.p_id")
-				->join('photos as bi FORCE INDEX(PRIMARY)',"pg_image_preview_id=bi.p_id")
+				->join('photos as pg FORCE INDEX(PRIMARY)',"pg_image_preview_id=pg.p_id")
 				->where("`pg_status`=" . Kernel::STATUS_ACTIVE . " and `pg_slug`=%post_slug%")
 				->data('%post_slug%',$post_url)
 				->get()

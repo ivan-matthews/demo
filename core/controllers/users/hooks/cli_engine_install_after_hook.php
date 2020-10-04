@@ -77,11 +77,10 @@
 					return $types->string(fx_lang('users.agree_admin_data_change'))->fon('green')->get();
 				}));
 
-				if(fx_equal(mb_strtolower($interactive->getDialogString()),'y')){
-					$this->insertOrUpdateUserData();
-				}else{
+				if(!fx_equal(mb_strtolower($interactive->getDialogString()),'y')){
 					$this->set();
 				}
+				$this->insertOrUpdateUserData();
 			});
 			return $this;
 		}

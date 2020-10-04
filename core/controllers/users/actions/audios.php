@@ -102,20 +102,23 @@
 
 				$this->total_audios = $this->audios_model->countAudios($this->query,$this->prepared_data);
 
-				$this->prepareSortingPanel()->sorting($this->sorting_panel);
+				if($this->total_audios){
+					$this->prepareSortingPanel()->sorting($this->sorting_panel);
 
-				$this->audios_data = $this->audios_model->getAudios(
-					$this->limit,$this->offset,$this->query,$this->order,$this->sort,$this->prepared_data
-				);
+					$this->audios_data = $this->audios_model->getAudios(
+						$this->limit,$this->offset,$this->query,$this->order,$this->sort,$this->prepared_data
+					);
 
-				$this->paginate($this->total_audios, array('users','audios',$this->user_id));
+					$this->paginate($this->total_audios, array('users','audios',$this->user_id));
 
-				$this->response->controller('users','audios')
-					->setArray(array(
-						'audios'	=> $this->audios_data
-					));
+					$this->response->controller('users','audios')
+						->setArray(array(
+							'audios'	=> $this->audios_data
+						));
 
-				return $this;
+					return $this;
+				}
+				return $this->renderEmptyPage();
 			}
 
 			return false;

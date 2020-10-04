@@ -102,20 +102,23 @@
 
 				$this->total_videos = $this->videos_model->countVideos($this->query,$this->prepared_data);
 
-				$this->prepareSortingPanel()->sorting($this->sorting_panel);
+				if($this->total_videos){
+					$this->prepareSortingPanel()->sorting($this->sorting_panel);
 
-				$this->videos_data = $this->videos_model->getVideos(
-					$this->limit,$this->offset,$this->query,$this->order,$this->sort,$this->prepared_data
-				);
+					$this->videos_data = $this->videos_model->getVideos(
+						$this->limit,$this->offset,$this->query,$this->order,$this->sort,$this->prepared_data
+					);
 
-				$this->paginate($this->total_videos, array('users','videos',$this->user_id));
+					$this->paginate($this->total_videos, array('users','videos',$this->user_id));
 
-				$this->response->controller('users','videos')
-					->setArray(array(
-						'videos'	=> $this->videos_data
-					));
+					$this->response->controller('users','videos')
+						->setArray(array(
+							'videos'	=> $this->videos_data
+						));
 
-				return $this;
+					return $this;
+				}
+				return $this->renderEmptyPage();
 			}
 
 			return false;

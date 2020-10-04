@@ -13,6 +13,6 @@
 			'class'			=> \Core\Controllers\Pages\Hooks\Search_Hook::class,
 			'method'		=> 'run',
 			'relevance'		=> 10000,
-			'status'		=> Kernel::STATUS_ACTIVE,
+			'status'		=> Kernel::STATUS_INACTIVE,
 		),
 	);

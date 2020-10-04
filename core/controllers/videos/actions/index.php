@@ -76,20 +76,23 @@
 
 			$this->setResponse();
 
-			$this->sorting($this->sorting_panel);
+			if($this->total){
+				$this->sorting($this->sorting_panel);
 
-			$this->videos = $this->model->getVideos(
-				$this->limit,$this->offset,$this->query,$this->order,$this->sort
-			);
+				$this->videos = $this->model->getVideos(
+					$this->limit,$this->offset,$this->query,$this->order,$this->sort
+				);
 
-			$this->paginate($this->total, array('videos','index'));
+				$this->paginate($this->total, array('videos','index'));
 
-			$this->response->controller('videos','index')
-				->setArray(array(
-					'videos'	=> $this->videos
-				));
+				$this->response->controller('videos','index')
+					->setArray(array(
+						'videos'	=> $this->videos
+					));
 
-			return $this;
+				return $this;
+			}
+			return $this->renderEmptyPage();
 		}
 
 		protected function setSortingPanelAll(){
