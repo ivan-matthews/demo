@@ -20,7 +20,7 @@
 					<img class="d-block w-100" data-src="<?php print fx_get_upload_path($post['big_image']) ?>" alt="<?php print fx_crop_string($post['title'],30) ?>" src="<?php print fx_get_upload_path($post['big_image']) ?>" data-holder-rendered="true">
 					<div class="carousel-caption">
 						<h5><?php print fx_crop_string($post['title'],30) ?></h5>
-						<p><?php print fx_crop_string($post['title'],200) ?></p>
+						<p><?php print fx_crop_string($post['content'],200) ?></p>
 						<div class="justify-content-center row">
 							<div class="item-link mt-2 p-2 pl-4 pr-4">
 								<?php print fx_lang('home.show_item_carousel') ?>

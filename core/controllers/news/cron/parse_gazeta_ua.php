@@ -12,9 +12,10 @@
 
 		public $params;
 		public $limit = 10;
+		public $news_controller;
 
 		public function __construct(){
-
+			$this->news_controller = new Controller();
 		}
 
 		/**
@@ -28,7 +29,7 @@
 
 			$this->runParser();
 
-			return $this->result;
+			return true;
 		}
 
 		public function runParser(){
@@ -39,11 +40,8 @@
 			$index = 0;
 
 			$copy['image'] = trim($xml->channel->image->url);
-			$copy['link'] = trim($xml->channel->image->link);
 			$copy['title'] = trim($xml->channel->image->title);
-
-			$copyright = "<p style=\"float:right\"><a target=\"_blank\" href=\"{$copy['link']}\" alt=\"{$copy['title']}\" title=\"{$copy['title']}\"><img  style=\"width:75px\" src=\"{$copy['image']}\"/></a></p>";
-	
+			
 			foreach($xml->channel->item as $item){
 				if($this->limit <= $index){ break; }
 				if(!$item->enclosure){ continue; }
@@ -51,29 +49,45 @@
 
 				$content['nw_content'] 		= $this->getContent(trim($item->link));
 				if(!$content['nw_content']){ continue; }
-				
-				$post_hash = md5(trim($item->link));
+
+				$link = $item->enclosure->attributes();
+
+				if(!$link->url){ continue; }
+
+				$post_hash = md5(trim($link->url));
 
 				if($this->checkExistsPost($post_hash)){ continue; }
 
 				$user = $this->getUserID();
 
-				$link = $item->enclosure->attributes();
+				$copy['link'] = trim($item->link);
+				$copyright = "<p style=\"float:right\"><a target=\"_blank\" href=\"{$copy['link']}\" title=\"{$copy['title']}\"><img  alt=\"{$copy['title']}\" style=\"width:75px\" src=\"{$copy['image']}\"/></a></p>";
+
+				$content_string = $this->getContent(trim($item->link));
+				$photo_id = $link->url ? $this->getOrAddPhotoID($user,trim($link->url),$item->title,trim($link->type)) : null;
 
 				$content['nw_user_id'] 		= $user;
 				$content['nw_title'] 		= trim($item->title);
 				$content['nw_hash'] 		= $post_hash;
-				$content['nw_date_created']	= strtotime($item->pubDate);
-				$content['nw_date_updated']	= time();
-				$content['nw_content'] 		= $this->getContent(trim($item->link)) . $copyright;
+				$content['nw_date_created']	= time();
+				$content['nw_content'] 		= $content_string . $copyright;
 				$content['nw_category_id'] 	= $item->category ? $this->getOrAddCategoryID(trim($item->category)) : null;
-				$content['nw_image_preview_id'] = $link->url ? $this->getOrAddPhotoID($user,trim($link->url)) : null;
+				$content['nw_image_preview_id'] = $photo_id;
 				$content['nw_status'] 			= true;
 				$content['nw_comments_enabled'] = true;
 				$content['nw_public'] 			= true;
 
 				$post_id = $this->addPost($content);
-				$this->updatePost($post_id,trim($item->title));
+
+				$post_slug = $this->news_controller->makeSlugFromString($post_id,trim($item->title));
+
+				$this->updatePost($post_id,$post_slug);
+
+				$photo_description = fx_crop_string($content_string,512);
+				$photo_description .= " <a href=\"" . fx_get_url('news','post',$post_slug) . "\" class=\"photo-description-link\">читать далее...</a>";
+
+				$this->updatePhotoInfo($photo_id,$photo_description);
+
 				$index++;
 			}
 			return $this;
@@ -116,7 +130,7 @@
 				->get()->id();
 		}
 
-		public function getOrAddPhotoID($user_id,$photo){
+		public function getOrAddPhotoID($user_id,$photo,$title,$image_type){
 			$image_hash = md5($photo);
 			$image = Database::select('p_id')
 				->from('photos')
@@ -126,9 +140,17 @@
 			if($image){
 				return $image['p_id'];
 			}
-			
-			$photo_name = basename(parse_url($photo,PHP_URL_PATH));
-			
+
+			$extension = 'jpg';
+			$type = 'image/jpeg';
+			if($image_type){
+				$type = $image_type;
+				$extension = explode('/',$image_type)[1];
+			}
+
+			$title = fx_crop_string($title,64);
+			$photo_name = "{$title}.{$extension}";
+
 			return Database::insert('photos')
 				->value('p_user_id',$user_id)
 				->value('p_external',true)
@@ -142,12 +164,21 @@
 				->value('p_poster',$photo)
 				->value('p_original',$photo)
 				->value('p_hash',"{$user_id}-{$image_hash}")
-				->value('p_mime','image/jpeg')
+				->value('p_mime',$type)
 				->value('p_status',Kernel::STATUS_ACTIVE)
 				->value('p_date_created',time())
 				->update('p_name',$photo_name)
+				->update('p_date_updated',time())
 				->get()
 				->id();
+		}
+		public function updatePhotoInfo($photo_id,$photo_description){
+			return Database::update('photos')
+				->field('p_description',$photo_description)
+				->field('p_date_updated',time())
+				->where("p_id = '{$photo_id}'")
+				->get()
+				->rows();
 		}
 		public function addPost($post_content){
 			$post_id = Database::insert('news');
@@ -158,10 +189,8 @@
 			return $post_id;
 		}
 		public function updatePost($post_id,$post_slug){
-			$news_controller = new Controller();
-
 			return Database::update('news')
-				->field('nw_slug',$news_controller->makeSlugFromString($post_id,$post_slug))
+				->field('nw_slug',$post_slug)
 				->where("nw_id = '{$post_id}'")
 				->get()
 				->rows();

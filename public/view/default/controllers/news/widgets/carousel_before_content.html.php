@@ -24,7 +24,7 @@
 					<img class="d-block w-100" data-src="<?php print fx_get_image_src($image,$post['news_image_date'],'poster') ?>" alt="<?php print fx_crop_string($post['nw_title'],30) ?>" src="<?php print fx_get_image_src($image,$post['news_image_date'],'poster') ?>" data-holder-rendered="true">
 					<div class="carousel-caption">
 						<h5><?php print fx_crop_string($post['nw_title'],30) ?></h5>
-						<p><?php print fx_crop_string($post['nw_title'],200) ?></p>
+						<p><?php print fx_crop_string($post['nw_content'],200) ?></p>
 						<div class="justify-content-center row">
 							<div class="item-link mt-2 p-2 pl-4 pr-4">
 								<?php print fx_lang('news.show_item_carousel') ?>

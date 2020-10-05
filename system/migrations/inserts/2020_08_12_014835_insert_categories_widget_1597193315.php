@@ -38,6 +38,8 @@
 				->value('wa_pages_enabled',array(
 					'blog'	=> array(),
 					'faq'	=> array(),
+					'news'	=> array(),
+					'pages'	=> array(),
 				))
 				->get()
 				->id()

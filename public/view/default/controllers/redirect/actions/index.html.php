@@ -64,7 +64,7 @@
 		<div class="card-body text-center micro link">
 
 			<?php print fx_lang('redirect.redirect_dialog_title_link',array(
-				'%link%'	=> "<a href=\"{$decoded_url}\" target=\"_blank\" class=\"redirect-link\">{$decoded_url}</a>",
+				'%link%'	=> "<a href=\"{$decoded_url}\" class=\"redirect-link\">{$decoded_url}</a>",
 			)) ?>
 
 		</div>
