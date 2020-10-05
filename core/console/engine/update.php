@@ -10,14 +10,16 @@
 
 		public $with_demo_data;
 		public $memory_limit;
+		public $with_demo_server;
 
 		public function __construct(){
 			parent::__construct();
 		}
 
-		public function execute($with_demo_data = 'false', $memory_limit = '1536MB'){
+		public function execute($with_demo_data = 'false', $memory_limit = '1536MB',$with_demo_server='false'){
 			$this->with_demo_data	= $with_demo_data;
 			$this->memory_limit		= $memory_limit;
+			$this->with_demo_server = $with_demo_server;
 
 			$this->setMemoryLimit();
 			$this->renameHtaccessFile();
